@@ -13,14 +13,6 @@ This is the list of AWS services currently supported by the SDK. More will be ad
 
 Please use the [GitHub Issues][sdk-issues] page to report problems or request features.
 
-## Supported Delphi versions
-
-AWS SDK for Delphi supports Delphi versions from Delphi XE2 and up.
-
-## Supported platforms
-
-AWS SDK for Delphi supports all current platforms supported by Delphi: Windows x86 and x64, macOS, iOS, Android and Linux.
-
 ## Required libraries
 
 AWS SDK for Delphi requires [TMS Business][tms-business], more specifically [TMS BCL][tms-bcl] and [TMS Sparkle][tms-sparkle]. Because life is short.
@@ -107,19 +99,6 @@ end;
 In all request objects, lists and dictionaries are already instantiated, while other associated objects are not. You don't need to destroy any interface or object passed to or received from the operations, or added to requests. Some operations have overloaded methods that receive fewer raw parameters instead of the full request object, for simpler usage.
 
 For more information about the available operations, please refer to the API documentation of the Amazon service you are trying to use. Or, of course, use Delphi code completion to find all the methods available in each service client.
-
-## Tests
-
-**Important:** Do not run the integration tests on a production account.
-
-Integration tests can be found in the **AWSIntegrationTests** project. These test assume that a default profile has been
-configured for credentials. You can set up credentials using [Configuration files][configuration-files], [Named profiles][named-profiles] or [Environment variables][environment-variables].
-
-The tests are designed to create and delete the resources needed for testing but it is important to keep your data safe. Do not run
-these tests on accounts that contain production data or resources. Since AWS resources are created and deleted during the running
-of these tests, charges can occur. To reduce charges occurred by running the tests the test focus on AWS resources that have minimal cost.
-
-Unit tests can be found in the **AWSUnitTests** project.
 
 ## License
 
