@@ -106,8 +106,8 @@ AWS SDK for Delphi is [fair-code](http://faircode.io) distributed under [**Apach
 
 [aws]: http://aws.amazon.com/
 [sdk-source]: https://github.com/landgraf-dev/aws-sdk-delphi
-[sdk-issues]: https://github.com/ladgraf-dev/aws-sdk-delphi/issues
-[sdk-license]: https://github.com/landgraf-dev/aws-sdk-delphi/blob/main/LICENSE
+[sdk-issues]: https://github.com/landgraf-dev/aws-sdk-delphi/issues
+[sdk-license]: https://github.com/landgraf-dev/aws-sdk-delphi/blob/master/LICENSE
 [aws-sdk-net]: https://github.com/aws/aws-sdk-net
 [configuration-files]: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
 [named-profiles]: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
