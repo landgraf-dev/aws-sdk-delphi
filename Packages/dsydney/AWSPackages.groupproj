@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{3738839D-9D14-462D-87B6-72C4FB6F1A29}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="awscore.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awssqs.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awsses.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="awscore">
+        <MSBuild Projects="awscore.dproj"/>
+    </Target>
+    <Target Name="awscore:Clean">
+        <MSBuild Projects="awscore.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awscore:Make">
+        <MSBuild Projects="awscore.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awssqs">
+        <MSBuild Projects="awssqs.dproj"/>
+    </Target>
+    <Target Name="awssqs:Clean">
+        <MSBuild Projects="awssqs.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awssqs:Make">
+        <MSBuild Projects="awssqs.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awsses">
+        <MSBuild Projects="awsses.dproj"/>
+    </Target>
+    <Target Name="awsses:Clean">
+        <MSBuild Projects="awsses.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awsses:Make">
+        <MSBuild Projects="awsses.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="awscore;awssqs;awsses"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="awscore:Clean;awssqs:Clean;awsses:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="awscore:Make;awssqs:Make;awsses:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

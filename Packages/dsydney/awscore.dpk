@@ -1,0 +1,85 @@
+package awscore;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  dbrtl,
+  tmsbcl,
+  sparkle;
+
+contains
+  AWS.Auth.NullSigner in '..\..\Source\Core\AWS.Auth.NullSigner.pas',
+  AWS.Auth.Signer in '..\..\Source\Core\AWS.Auth.Signer.pas',
+  AWS.Configs in '..\..\Source\Core\AWS.Configs.pas',
+  AWS.Internal.DefaultRequest in '..\..\Source\Core\AWS.Internal.DefaultRequest.pas',
+  AWS.Internal.ErrorResponse in '..\..\Source\Core\AWS.Internal.ErrorResponse.pas',
+  AWS.Internal.HttpErrorResponseExceptionHandler in '..\..\Source\Core\AWS.Internal.HttpErrorResponseExceptionHandler.pas',
+  AWS.Internal.InvokeOptions in '..\..\Source\Core\AWS.Internal.InvokeOptions.pas',
+  AWS.Internal.IRegionEndpoint in '..\..\Source\Core\AWS.Internal.IRegionEndpoint.pas',
+  AWS.Internal.ParameterCollection in '..\..\Source\Core\AWS.Internal.ParameterCollection.pas',
+  AWS.Internal.ParameterDictionary in '..\..\Source\Core\AWS.Internal.ParameterDictionary.pas',
+  AWS.Internal.PipelineHandler in '..\..\Source\Core\AWS.Internal.PipelineHandler.pas',
+  AWS.Internal.RegionEndpointV3 in '..\..\Source\Core\AWS.Internal.RegionEndpointV3.pas',
+  AWS.Internal.RegionFinder in '..\..\Source\Core\AWS.Internal.RegionFinder.pas',
+  AWS.Internal.Request in '..\..\Source\Core\AWS.Internal.Request.pas',
+  AWS.Internal.RuntimePipeline in '..\..\Source\Core\AWS.Internal.RuntimePipeline.pas',
+  AWS.Internal.SDKUtils in '..\..\Source\Core\AWS.Internal.SDKUtils.pas',
+  AWS.Internal.ServiceMetadata in '..\..\Source\Core\AWS.Internal.ServiceMetadata.pas',
+  AWS.Internal.StringUtils in '..\..\Source\Core\AWS.Internal.StringUtils.pas',
+  AWS.Internal.WebResponseData in '..\..\Source\Core\AWS.Internal.WebResponseData.pas',
+  AWS.Pipeline.CredentialsRetriever in '..\..\Source\Core\AWS.Pipeline.CredentialsRetriever.pas',
+  AWS.Pipeline.EndpointResolver in '..\..\Source\Core\AWS.Pipeline.EndpointResolver.pas',
+  AWS.Pipeline.ErrorHandler in '..\..\Source\Core\AWS.Pipeline.ErrorHandler.pas',
+  AWS.Pipeline.HttpHandler in '..\..\Source\Core\AWS.Pipeline.HttpHandler.pas',
+  AWS.Pipeline.Marshaller in '..\..\Source\Core\AWS.Pipeline.Marshaller.pas',
+  AWS.Pipeline.Signer in '..\..\Source\Core\AWS.Pipeline.Signer.pas',
+  AWS.Pipeline.Unmarshaller in '..\..\Source\Core\AWS.Pipeline.Unmarshaller.pas',
+  AWS.RegionEndpoint in '..\..\Source\Core\AWS.RegionEndpoint.pas',
+  AWS.Runtime.AWSRegion in '..\..\Source\Core\AWS.Runtime.AWSRegion.pas',
+  AWS.Runtime.Client in '..\..\Source\Core\AWS.Runtime.Client.pas',
+  AWS.Runtime.ClientConfig in '..\..\Source\Core\AWS.Runtime.ClientConfig.pas',
+  AWS.Runtime.Contexts in '..\..\Source\Core\AWS.Runtime.Contexts.pas',
+  AWS.Runtime.Credentials in '..\..\Source\Core\AWS.Runtime.Credentials.pas',
+  AWS.Runtime.ExceptionHandler in '..\..\Source\Core\AWS.Runtime.ExceptionHandler.pas',
+  AWS.Runtime.Exceptions in '..\..\Source\Core\AWS.Runtime.Exceptions.pas',
+  AWS.Runtime.HttpRequestMessageFactory in '..\..\Source\Core\AWS.Runtime.HttpRequestMessageFactory.pas',
+  AWS.Runtime.IHttpRequestFactory in '..\..\Source\Core\AWS.Runtime.IHttpRequestFactory.pas',
+  AWS.Runtime.Model in '..\..\Source\Core\AWS.Runtime.Model.pas',
+  AWS.SDKUtils in '..\..\Source\Core\AWS.SDKUtils.pas',
+  AWS.Transform.ErrorResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.ErrorResponseUnmarshaller.pas',
+  AWS.Transform.IErrorResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.IErrorResponseUnmarshaller.pas',
+  AWS.Transform.RequestMarshaller in '..\..\Source\Core\AWS.Transform.RequestMarshaller.pas',
+  AWS.Transform.ResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.ResponseUnmarshaller.pas',
+  AWS.Transform.SimpleTypeUnmarshaller in '..\..\Source\Core\AWS.Transform.SimpleTypeUnmarshaller.pas',
+  AWS.Transform.UnmarshallerContext in '..\..\Source\Core\AWS.Transform.UnmarshallerContext.pas',
+  AWS.Util.Crypto in '..\..\Source\Core\AWS.Util.Crypto.pas',
+  AWS.Util.Streams in '..\..\Source\Core\AWS.Util.Streams.pas';
+
+end.
