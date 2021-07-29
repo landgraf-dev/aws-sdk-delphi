@@ -15,7 +15,7 @@ Please use the [GitHub Issues][sdk-issues] page to report problems or request fe
 
 ## Required libraries
 
-AWS SDK for Delphi requires [TMS Business][tms-business], more specifically [TMS BCL][tms-bcl] and [TMS Sparkle][tms-sparkle]. Because life is short.
+AWS SDK for Delphi requires [TMS Business][tms-business], more specifically [TMS BCL][tms-bcl] (version 1.27 and up) and [TMS Sparkle][tms-sparkle] (version 3.17 and up). Because life is short.
 
 ## Using the SDK
 
