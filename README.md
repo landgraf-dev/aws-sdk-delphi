@@ -104,9 +104,9 @@ For more information about the available operations, please refer to the API doc
 
 The AWS SDK for Delphi searches for credentials in a certain order and uses the first available set for the current application.
 
-**Credential search order**
+### Credential search order
 
-1. Credentials that are explicitly set on the AWS service client, as described in [Passing access and secret keys directy to client](#passing-access-and-secret-keys-directy-to-client).
+1. Credentials that are explicitly set on the AWS service client, as described in [Passing access and secret keys directly to client](#passing-access-and-secret-keys-directy-to-client).
 2. A credentials profile with the name specified by a value in `TAWSConfigs.AWSProfileName`.
 3. A credentials profile with the name specified by the `AWS_PROFILE` environment variable.
 4. The [default] credentials profile.
