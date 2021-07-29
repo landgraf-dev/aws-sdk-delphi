@@ -100,6 +100,33 @@ In all request objects, lists and dictionaries are already instantiated, while o
 
 For more information about the available operations, please refer to the API documentation of the Amazon service you are trying to use. Or, of course, use Delphi code completion to find all the methods available in each service client.
 
+## Credentials
+
+The AWS SDK for Delphi searches for credentials in a certain order and uses the first available set for the current application.
+
+**Credential search order**
+
+1. Credentials that are explicitly set on the AWS service client, as described in [Passing access and secret keys directy to client](#passing-access-and-secret-keys-directy-to-client).
+2. A credentials profile with the name specified by a value in `TAWSConfigs.AWSProfileName`.
+3. A credentials profile with the name specified by the `AWS_PROFILE` environment variable.
+4. The [default] credentials profile.
+
+### Profile resolution
+
+The `TAWSConfigs.AWSProfilesLocation` property controls how the AWS SDK for Delphi finds [credential profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html). If it's empty, it searches the shared AWS credentials file in the default location. If the profile isn't there, search `~/.aws/config` (Linux or macOS) or `%USERPROFILE%\.aws\config` (Windows). If `TAWSConfigs.AWSProfilesLocation` contains the path to a file in the AWS credentials file format, then the SDK searchs for credentials *only* in the specified file for a profile with the specified name.
+
+Please refer to AWS documentation for more information about [credentials file settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) and [named profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html).
+
+### Passing access and secret keys directly to client
+
+You can simply pass the Access key ID and Secret key directly in the client constructor:
+
+```delphi
+  Client := TAmazonSQSClient.Create(myAccessKey, mySecretKey);
+```
+
+Although using credentials profile is recommended as it's easier to manage and also compatible with [AWS Command Line Interface](https://aws.amazon.com/cli/).
+
 ## License
 
 AWS SDK for Delphi is [fair-code](http://faircode.io) distributed under [**Apache 2.0 with Commons Clause**](LICENSE) license.
