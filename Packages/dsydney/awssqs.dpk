@@ -170,6 +170,7 @@ contains
   AWS.SQS.Transform.UntagQueueRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.UntagQueueRequestMarshaller.pas',
   AWS.SQS.Transform.UntagQueueResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.UntagQueueResponseUnmarshaller.pas',
   AWS.SQS in '..\..\Source\Services\SQS\Base\AWS.SQS.pas',
+  AWS.SQS.Consts in '..\..\Source\Services\SQS\Custom\AWS.SQS.Consts.pas',
   AWS.SQS.Pipeline.ProcessRequestHandler in '..\..\Source\Services\SQS\Custom\AWS.SQS.Pipeline.ProcessRequestHandler.pas',
   AWS.SQS.Pipeline.ValidationResponseHandler in '..\..\Source\Services\SQS\Custom\AWS.SQS.Pipeline.ValidationResponseHandler.pas';
 

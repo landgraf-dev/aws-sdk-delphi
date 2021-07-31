@@ -284,6 +284,7 @@
 		<DCCReference Include="..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.UntagQueueRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.UntagQueueResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\SQS\Base\AWS.SQS.pas"/>
+		<DCCReference Include="..\..\Source\Services\SQS\Custom\AWS.SQS.Consts.pas"/>
 		<DCCReference Include="..\..\Source\Services\SQS\Custom\AWS.SQS.Pipeline.ProcessRequestHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\SQS\Custom\AWS.SQS.Pipeline.ValidationResponseHandler.pas"/>
 		<BuildConfiguration Include="Release">
