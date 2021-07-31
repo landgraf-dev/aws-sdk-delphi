@@ -11,7 +11,7 @@ uses
 type
   TListConfigurationSetsResponse = class;
   
-  IListConfigurationSetsResponse = interface
+  IListConfigurationSetsResponse = interface(IAmazonWebServiceResponse)
     function GetConfigurationSets: TObjectList<TConfigurationSet>;
     procedure SetConfigurationSets(const Value: TObjectList<TConfigurationSet>);
     function GetNextToken: string;

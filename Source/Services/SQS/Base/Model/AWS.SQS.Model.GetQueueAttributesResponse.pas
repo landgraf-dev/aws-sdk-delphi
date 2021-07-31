@@ -9,7 +9,7 @@ uses
 type
   TGetQueueAttributesResponse = class;
   
-  IGetQueueAttributesResponse = interface
+  IGetQueueAttributesResponse = interface(IAmazonWebServiceResponse)
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
     function Obj: TGetQueueAttributesResponse;

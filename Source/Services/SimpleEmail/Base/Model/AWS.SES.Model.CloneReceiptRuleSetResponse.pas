@@ -8,7 +8,7 @@ uses
 type
   TCloneReceiptRuleSetResponse = class;
   
-  ICloneReceiptRuleSetResponse = interface
+  ICloneReceiptRuleSetResponse = interface(IAmazonWebServiceResponse)
     function Obj: TCloneReceiptRuleSetResponse;
   end;
   

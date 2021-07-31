@@ -8,7 +8,7 @@ uses
 type
   TUpdateCustomVerificationEmailTemplateResponse = class;
   
-  IUpdateCustomVerificationEmailTemplateResponse = interface
+  IUpdateCustomVerificationEmailTemplateResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUpdateCustomVerificationEmailTemplateResponse;
   end;
   

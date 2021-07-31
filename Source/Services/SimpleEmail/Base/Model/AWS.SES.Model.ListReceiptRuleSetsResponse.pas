@@ -11,7 +11,7 @@ uses
 type
   TListReceiptRuleSetsResponse = class;
   
-  IListReceiptRuleSetsResponse = interface
+  IListReceiptRuleSetsResponse = interface(IAmazonWebServiceResponse)
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetRuleSets: TObjectList<TReceiptRuleSetMetadata>;

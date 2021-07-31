@@ -8,7 +8,7 @@ uses
 type
   TDeleteVerifiedEmailAddressResponse = class;
   
-  IDeleteVerifiedEmailAddressResponse = interface
+  IDeleteVerifiedEmailAddressResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteVerifiedEmailAddressResponse;
   end;
   

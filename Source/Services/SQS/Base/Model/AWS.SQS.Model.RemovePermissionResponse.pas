@@ -8,7 +8,7 @@ uses
 type
   TRemovePermissionResponse = class;
   
-  IRemovePermissionResponse = interface
+  IRemovePermissionResponse = interface(IAmazonWebServiceResponse)
     function Obj: TRemovePermissionResponse;
   end;
   

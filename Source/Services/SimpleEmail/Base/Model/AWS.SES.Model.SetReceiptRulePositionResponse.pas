@@ -8,7 +8,7 @@ uses
 type
   TSetReceiptRulePositionResponse = class;
   
-  ISetReceiptRulePositionResponse = interface
+  ISetReceiptRulePositionResponse = interface(IAmazonWebServiceResponse)
     function Obj: TSetReceiptRulePositionResponse;
   end;
   

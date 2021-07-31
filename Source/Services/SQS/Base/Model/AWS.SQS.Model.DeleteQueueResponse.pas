@@ -8,7 +8,7 @@ uses
 type
   TDeleteQueueResponse = class;
   
-  IDeleteQueueResponse = interface
+  IDeleteQueueResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteQueueResponse;
   end;
   

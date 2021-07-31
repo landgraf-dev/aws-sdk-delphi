@@ -8,7 +8,7 @@ uses
 type
   TSetQueueAttributesResponse = class;
   
-  ISetQueueAttributesResponse = interface
+  ISetQueueAttributesResponse = interface(IAmazonWebServiceResponse)
     function Obj: TSetQueueAttributesResponse;
   end;
   

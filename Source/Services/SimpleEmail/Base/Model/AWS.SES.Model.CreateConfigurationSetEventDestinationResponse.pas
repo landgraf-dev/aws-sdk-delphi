@@ -8,7 +8,7 @@ uses
 type
   TCreateConfigurationSetEventDestinationResponse = class;
   
-  ICreateConfigurationSetEventDestinationResponse = interface
+  ICreateConfigurationSetEventDestinationResponse = interface(IAmazonWebServiceResponse)
     function Obj: TCreateConfigurationSetEventDestinationResponse;
   end;
   

@@ -9,7 +9,7 @@ uses
 type
   TListIdentityPoliciesResponse = class;
   
-  IListIdentityPoliciesResponse = interface
+  IListIdentityPoliciesResponse = interface(IAmazonWebServiceResponse)
     function GetPolicyNames: TList<string>;
     procedure SetPolicyNames(const Value: TList<string>);
     function Obj: TListIdentityPoliciesResponse;

@@ -10,7 +10,7 @@ uses
 type
   TGetIdentityVerificationAttributesResponse = class;
   
-  IGetIdentityVerificationAttributesResponse = interface
+  IGetIdentityVerificationAttributesResponse = interface(IAmazonWebServiceResponse)
     function GetVerificationAttributes: TObjectDictionary<string, TIdentityVerificationAttributes>;
     procedure SetVerificationAttributes(const Value: TObjectDictionary<string, TIdentityVerificationAttributes>);
     function Obj: TGetIdentityVerificationAttributesResponse;

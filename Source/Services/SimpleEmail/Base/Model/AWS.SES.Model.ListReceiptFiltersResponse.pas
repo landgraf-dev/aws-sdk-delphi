@@ -10,7 +10,7 @@ uses
 type
   TListReceiptFiltersResponse = class;
   
-  IListReceiptFiltersResponse = interface
+  IListReceiptFiltersResponse = interface(IAmazonWebServiceResponse)
     function GetFilters: TObjectList<TReceiptFilter>;
     procedure SetFilters(const Value: TObjectList<TReceiptFilter>);
     function Obj: TListReceiptFiltersResponse;

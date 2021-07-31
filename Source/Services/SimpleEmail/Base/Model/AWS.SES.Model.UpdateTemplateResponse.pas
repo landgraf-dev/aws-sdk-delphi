@@ -8,7 +8,7 @@ uses
 type
   TUpdateTemplateResponse = class;
   
-  IUpdateTemplateResponse = interface
+  IUpdateTemplateResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUpdateTemplateResponse;
   end;
   

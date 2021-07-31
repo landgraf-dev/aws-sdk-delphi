@@ -8,7 +8,7 @@ uses
 type
   TPutIdentityPolicyResponse = class;
   
-  IPutIdentityPolicyResponse = interface
+  IPutIdentityPolicyResponse = interface(IAmazonWebServiceResponse)
     function Obj: TPutIdentityPolicyResponse;
   end;
   

@@ -8,7 +8,7 @@ uses
 type
   TVerifyEmailIdentityResponse = class;
   
-  IVerifyEmailIdentityResponse = interface
+  IVerifyEmailIdentityResponse = interface(IAmazonWebServiceResponse)
     function Obj: TVerifyEmailIdentityResponse;
   end;
   

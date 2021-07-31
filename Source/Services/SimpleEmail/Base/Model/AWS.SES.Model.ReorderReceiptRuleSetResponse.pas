@@ -8,7 +8,7 @@ uses
 type
   TReorderReceiptRuleSetResponse = class;
   
-  IReorderReceiptRuleSetResponse = interface
+  IReorderReceiptRuleSetResponse = interface(IAmazonWebServiceResponse)
     function Obj: TReorderReceiptRuleSetResponse;
   end;
   

@@ -11,7 +11,7 @@ uses
 type
   TListTemplatesResponse = class;
   
-  IListTemplatesResponse = interface
+  IListTemplatesResponse = interface(IAmazonWebServiceResponse)
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetTemplatesMetadata: TObjectList<TTemplateMetadata>;

@@ -8,7 +8,7 @@ uses
 type
   TPutConfigurationSetDeliveryOptionsResponse = class;
   
-  IPutConfigurationSetDeliveryOptionsResponse = interface
+  IPutConfigurationSetDeliveryOptionsResponse = interface(IAmazonWebServiceResponse)
     function Obj: TPutConfigurationSetDeliveryOptionsResponse;
   end;
   

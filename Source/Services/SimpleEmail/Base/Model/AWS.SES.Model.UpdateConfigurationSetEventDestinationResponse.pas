@@ -8,7 +8,7 @@ uses
 type
   TUpdateConfigurationSetEventDestinationResponse = class;
   
-  IUpdateConfigurationSetEventDestinationResponse = interface
+  IUpdateConfigurationSetEventDestinationResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUpdateConfigurationSetEventDestinationResponse;
   end;
   

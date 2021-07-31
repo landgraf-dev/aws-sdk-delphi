@@ -8,7 +8,7 @@ uses
 type
   TDeleteTemplateResponse = class;
   
-  IDeleteTemplateResponse = interface
+  IDeleteTemplateResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteTemplateResponse;
   end;
   

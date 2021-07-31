@@ -8,7 +8,7 @@ uses
 type
   TCreateReceiptFilterResponse = class;
   
-  ICreateReceiptFilterResponse = interface
+  ICreateReceiptFilterResponse = interface(IAmazonWebServiceResponse)
     function Obj: TCreateReceiptFilterResponse;
   end;
   

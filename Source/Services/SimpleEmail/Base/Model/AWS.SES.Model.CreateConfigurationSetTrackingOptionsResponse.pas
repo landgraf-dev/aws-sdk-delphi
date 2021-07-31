@@ -8,7 +8,7 @@ uses
 type
   TCreateConfigurationSetTrackingOptionsResponse = class;
   
-  ICreateConfigurationSetTrackingOptionsResponse = interface
+  ICreateConfigurationSetTrackingOptionsResponse = interface(IAmazonWebServiceResponse)
     function Obj: TCreateConfigurationSetTrackingOptionsResponse;
   end;
   

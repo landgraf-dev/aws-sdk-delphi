@@ -8,7 +8,7 @@ uses
 type
   TDeleteCustomVerificationEmailTemplateResponse = class;
   
-  IDeleteCustomVerificationEmailTemplateResponse = interface
+  IDeleteCustomVerificationEmailTemplateResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteCustomVerificationEmailTemplateResponse;
   end;
   

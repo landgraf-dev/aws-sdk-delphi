@@ -8,7 +8,7 @@ uses
 type
   TUntagQueueResponse = class;
   
-  IUntagQueueResponse = interface
+  IUntagQueueResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUntagQueueResponse;
   end;
   

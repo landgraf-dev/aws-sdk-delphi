@@ -10,7 +10,7 @@ uses
 type
   TGetIdentityNotificationAttributesResponse = class;
   
-  IGetIdentityNotificationAttributesResponse = interface
+  IGetIdentityNotificationAttributesResponse = interface(IAmazonWebServiceResponse)
     function GetNotificationAttributes: TObjectDictionary<string, TIdentityNotificationAttributes>;
     procedure SetNotificationAttributes(const Value: TObjectDictionary<string, TIdentityNotificationAttributes>);
     function Obj: TGetIdentityNotificationAttributesResponse;

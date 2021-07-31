@@ -8,7 +8,7 @@ uses
 type
   TCreateTemplateResponse = class;
   
-  ICreateTemplateResponse = interface
+  ICreateTemplateResponse = interface(IAmazonWebServiceResponse)
     function Obj: TCreateTemplateResponse;
   end;
   

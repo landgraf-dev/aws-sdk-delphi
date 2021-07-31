@@ -8,7 +8,7 @@ uses
 type
   TUpdateAccountSendingEnabledResponse = class;
   
-  IUpdateAccountSendingEnabledResponse = interface
+  IUpdateAccountSendingEnabledResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUpdateAccountSendingEnabledResponse;
   end;
   

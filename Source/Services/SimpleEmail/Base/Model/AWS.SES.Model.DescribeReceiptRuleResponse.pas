@@ -9,7 +9,7 @@ uses
 type
   TDescribeReceiptRuleResponse = class;
   
-  IDescribeReceiptRuleResponse = interface
+  IDescribeReceiptRuleResponse = interface(IAmazonWebServiceResponse)
     function GetRule: TReceiptRule;
     procedure SetRule(const Value: TReceiptRule);
     function Obj: TDescribeReceiptRuleResponse;

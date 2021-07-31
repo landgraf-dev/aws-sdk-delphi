@@ -10,7 +10,7 @@ uses
 type
   TGetSendStatisticsResponse = class;
   
-  IGetSendStatisticsResponse = interface
+  IGetSendStatisticsResponse = interface(IAmazonWebServiceResponse)
     function GetSendDataPoints: TObjectList<TSendDataPoint>;
     procedure SetSendDataPoints(const Value: TObjectList<TSendDataPoint>);
     function Obj: TGetSendStatisticsResponse;

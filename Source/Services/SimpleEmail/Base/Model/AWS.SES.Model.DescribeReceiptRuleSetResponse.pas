@@ -11,7 +11,7 @@ uses
 type
   TDescribeReceiptRuleSetResponse = class;
   
-  IDescribeReceiptRuleSetResponse = interface
+  IDescribeReceiptRuleSetResponse = interface(IAmazonWebServiceResponse)
     function GetMetadata: TReceiptRuleSetMetadata;
     procedure SetMetadata(const Value: TReceiptRuleSetMetadata);
     function GetRules: TObjectList<TReceiptRule>;

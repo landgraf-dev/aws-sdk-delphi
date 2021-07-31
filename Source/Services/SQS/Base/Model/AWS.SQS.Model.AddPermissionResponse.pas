@@ -8,7 +8,7 @@ uses
 type
   TAddPermissionResponse = class;
   
-  IAddPermissionResponse = interface
+  IAddPermissionResponse = interface(IAmazonWebServiceResponse)
     function Obj: TAddPermissionResponse;
   end;
   

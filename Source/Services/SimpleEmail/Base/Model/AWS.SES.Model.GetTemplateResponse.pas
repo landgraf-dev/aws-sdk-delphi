@@ -9,7 +9,7 @@ uses
 type
   TGetTemplateResponse = class;
   
-  IGetTemplateResponse = interface
+  IGetTemplateResponse = interface(IAmazonWebServiceResponse)
     function GetTemplate: TTemplate;
     procedure SetTemplate(const Value: TTemplate);
     function Obj: TGetTemplateResponse;

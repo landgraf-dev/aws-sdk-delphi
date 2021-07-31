@@ -11,7 +11,7 @@ uses
 type
   TDeleteMessageBatchResponse = class;
   
-  IDeleteMessageBatchResponse = interface
+  IDeleteMessageBatchResponse = interface(IAmazonWebServiceResponse)
     function GetFailed: TObjectList<TBatchResultErrorEntry>;
     procedure SetFailed(const Value: TObjectList<TBatchResultErrorEntry>);
     function GetSuccessful: TObjectList<TDeleteMessageBatchResultEntry>;

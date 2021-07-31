@@ -8,7 +8,7 @@ uses
 type
   TDeleteIdentityPolicyResponse = class;
   
-  IDeleteIdentityPolicyResponse = interface
+  IDeleteIdentityPolicyResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteIdentityPolicyResponse;
   end;
   

@@ -10,7 +10,7 @@ uses
 type
   TGetIdentityDkimAttributesResponse = class;
   
-  IGetIdentityDkimAttributesResponse = interface
+  IGetIdentityDkimAttributesResponse = interface(IAmazonWebServiceResponse)
     function GetDkimAttributes: TObjectDictionary<string, TIdentityDkimAttributes>;
     procedure SetDkimAttributes(const Value: TObjectDictionary<string, TIdentityDkimAttributes>);
     function Obj: TGetIdentityDkimAttributesResponse;

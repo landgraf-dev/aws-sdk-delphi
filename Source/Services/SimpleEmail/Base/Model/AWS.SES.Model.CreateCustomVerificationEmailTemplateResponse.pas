@@ -8,7 +8,7 @@ uses
 type
   TCreateCustomVerificationEmailTemplateResponse = class;
   
-  ICreateCustomVerificationEmailTemplateResponse = interface
+  ICreateCustomVerificationEmailTemplateResponse = interface(IAmazonWebServiceResponse)
     function Obj: TCreateCustomVerificationEmailTemplateResponse;
   end;
   

@@ -8,7 +8,7 @@ uses
 type
   TUpdateConfigurationSetSendingEnabledResponse = class;
   
-  IUpdateConfigurationSetSendingEnabledResponse = interface
+  IUpdateConfigurationSetSendingEnabledResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUpdateConfigurationSetSendingEnabledResponse;
   end;
   

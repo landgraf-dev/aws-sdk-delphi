@@ -8,7 +8,7 @@ uses
 type
   TTagQueueResponse = class;
   
-  ITagQueueResponse = interface
+  ITagQueueResponse = interface(IAmazonWebServiceResponse)
     function Obj: TTagQueueResponse;
   end;
   

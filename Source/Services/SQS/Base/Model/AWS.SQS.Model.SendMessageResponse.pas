@@ -9,7 +9,7 @@ uses
 type
   TSendMessageResponse = class;
   
-  ISendMessageResponse = interface
+  ISendMessageResponse = interface(IAmazonWebServiceResponse)
     function GetMD5OfMessageAttributes: string;
     procedure SetMD5OfMessageAttributes(const Value: string);
     function GetMD5OfMessageBody: string;

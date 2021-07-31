@@ -8,7 +8,7 @@ uses
 type
   TSetIdentityFeedbackForwardingEnabledResponse = class;
   
-  ISetIdentityFeedbackForwardingEnabledResponse = interface
+  ISetIdentityFeedbackForwardingEnabledResponse = interface(IAmazonWebServiceResponse)
     function Obj: TSetIdentityFeedbackForwardingEnabledResponse;
   end;
   

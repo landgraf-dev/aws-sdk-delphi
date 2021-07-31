@@ -8,7 +8,7 @@ uses
 type
   TDeleteConfigurationSetEventDestinationResponse = class;
   
-  IDeleteConfigurationSetEventDestinationResponse = interface
+  IDeleteConfigurationSetEventDestinationResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteConfigurationSetEventDestinationResponse;
   end;
   

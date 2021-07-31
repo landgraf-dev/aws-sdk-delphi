@@ -9,7 +9,7 @@ uses
 type
   TSendCustomVerificationEmailResponse = class;
   
-  ISendCustomVerificationEmailResponse = interface
+  ISendCustomVerificationEmailResponse = interface(IAmazonWebServiceResponse)
     function GetMessageId: string;
     procedure SetMessageId(const Value: string);
     function Obj: TSendCustomVerificationEmailResponse;

@@ -8,7 +8,7 @@ uses
 type
   TUpdateConfigurationSetReputationMetricsEnabledResponse = class;
   
-  IUpdateConfigurationSetReputationMetricsEnabledResponse = interface
+  IUpdateConfigurationSetReputationMetricsEnabledResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUpdateConfigurationSetReputationMetricsEnabledResponse;
   end;
   

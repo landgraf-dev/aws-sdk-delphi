@@ -8,7 +8,7 @@ uses
 type
   TSetIdentityMailFromDomainResponse = class;
   
-  ISetIdentityMailFromDomainResponse = interface
+  ISetIdentityMailFromDomainResponse = interface(IAmazonWebServiceResponse)
     function Obj: TSetIdentityMailFromDomainResponse;
   end;
   

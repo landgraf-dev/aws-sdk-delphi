@@ -8,7 +8,7 @@ uses
 type
   TSetIdentityNotificationTopicResponse = class;
   
-  ISetIdentityNotificationTopicResponse = interface
+  ISetIdentityNotificationTopicResponse = interface(IAmazonWebServiceResponse)
     function Obj: TSetIdentityNotificationTopicResponse;
   end;
   

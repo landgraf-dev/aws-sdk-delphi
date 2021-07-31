@@ -9,7 +9,7 @@ uses
 type
   TSendBounceResponse = class;
   
-  ISendBounceResponse = interface
+  ISendBounceResponse = interface(IAmazonWebServiceResponse)
     function GetMessageId: string;
     procedure SetMessageId(const Value: string);
     function Obj: TSendBounceResponse;

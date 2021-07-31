@@ -8,7 +8,7 @@ uses
 type
   TChangeMessageVisibilityResponse = class;
   
-  IChangeMessageVisibilityResponse = interface
+  IChangeMessageVisibilityResponse = interface(IAmazonWebServiceResponse)
     function Obj: TChangeMessageVisibilityResponse;
   end;
   

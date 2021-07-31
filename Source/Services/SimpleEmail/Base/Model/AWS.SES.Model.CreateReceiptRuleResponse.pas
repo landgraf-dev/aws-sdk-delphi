@@ -8,7 +8,7 @@ uses
 type
   TCreateReceiptRuleResponse = class;
   
-  ICreateReceiptRuleResponse = interface
+  ICreateReceiptRuleResponse = interface(IAmazonWebServiceResponse)
     function Obj: TCreateReceiptRuleResponse;
   end;
   

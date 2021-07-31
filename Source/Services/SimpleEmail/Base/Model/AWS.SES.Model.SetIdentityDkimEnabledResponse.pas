@@ -8,7 +8,7 @@ uses
 type
   TSetIdentityDkimEnabledResponse = class;
   
-  ISetIdentityDkimEnabledResponse = interface
+  ISetIdentityDkimEnabledResponse = interface(IAmazonWebServiceResponse)
     function Obj: TSetIdentityDkimEnabledResponse;
   end;
   

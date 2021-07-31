@@ -9,7 +9,7 @@ uses
 type
   TGetSendQuotaResponse = class;
   
-  IGetSendQuotaResponse = interface
+  IGetSendQuotaResponse = interface(IAmazonWebServiceResponse)
     function GetMax24HourSend: Double;
     procedure SetMax24HourSend(const Value: Double);
     function GetMaxSendRate: Double;

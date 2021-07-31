@@ -9,7 +9,7 @@ uses
 type
   TGetAccountSendingEnabledResponse = class;
   
-  IGetAccountSendingEnabledResponse = interface
+  IGetAccountSendingEnabledResponse = interface(IAmazonWebServiceResponse)
     function GetEnabled: Boolean;
     procedure SetEnabled(const Value: Boolean);
     function Obj: TGetAccountSendingEnabledResponse;

@@ -10,7 +10,7 @@ uses
 type
   TGetIdentityMailFromDomainAttributesResponse = class;
   
-  IGetIdentityMailFromDomainAttributesResponse = interface
+  IGetIdentityMailFromDomainAttributesResponse = interface(IAmazonWebServiceResponse)
     function GetMailFromDomainAttributes: TObjectDictionary<string, TIdentityMailFromDomainAttributes>;
     procedure SetMailFromDomainAttributes(const Value: TObjectDictionary<string, TIdentityMailFromDomainAttributes>);
     function Obj: TGetIdentityMailFromDomainAttributesResponse;

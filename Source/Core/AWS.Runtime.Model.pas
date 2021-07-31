@@ -18,17 +18,28 @@ type
     property Metadata: TDictionary<string, string> read GetMetadata;
   end;
 
-  TAmazonWebServiceResponse = class(TInterfacedObject)
+  IAmazonWebServiceResponse = interface
+    function GetResponseMetadata: TResponseMetadata;
+    function GetContentLength: Int64;
+    function GetHttpStatusCode: Integer;
+    property ResponseMetadata: TResponseMetadata read GetResponseMetadata;
+    property ContentLength: Int64 read GetContentLength;
+    property HttpStatusCode: Integer read GetHttpStatusCode;
+  end;
+
+  TAmazonWebServiceResponse = class(TInterfacedObject, IAmazonWebServiceResponse)
   strict private
     FContentLength: Int64;
     FHttpStatusCode: Integer;
     FResponseMetadata: TResponseMetadata;
     function GetResponseMetadata: TResponseMetadata;
     procedure SetResponseMetadata(const Value: TResponseMetadata);
+    function GetContentLength: Int64;
+    function GetHttpStatusCode: Integer;
   public
     destructor Destroy; override;
-    property ContentLength: Int64 read FContentLength write FContentLength;
-    property HttpStatusCode: Integer read FHttpStatusCode write FHttpStatusCode;
+    property ContentLength: Int64 read GetContentLength write FContentLength;
+    property HttpStatusCode: Integer read GetHttpStatusCode write FHttpStatusCode;
     property ResponseMetadata: TResponseMetadata read GetResponseMetadata write SetResponseMetadata;
   end;
 
@@ -78,6 +89,16 @@ destructor TAmazonWebServiceResponse.Destroy;
 begin
   FResponseMetadata.Free;
   inherited;
+end;
+
+function TAmazonWebServiceResponse.GetContentLength: Int64;
+begin
+  Result := FContentLength;
+end;
+
+function TAmazonWebServiceResponse.GetHttpStatusCode: Integer;
+begin
+  Result := FHttpStatusCode;
 end;
 
 function TAmazonWebServiceResponse.GetResponseMetadata: TResponseMetadata;

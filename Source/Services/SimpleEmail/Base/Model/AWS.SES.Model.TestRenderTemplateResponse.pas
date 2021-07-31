@@ -9,7 +9,7 @@ uses
 type
   TTestRenderTemplateResponse = class;
   
-  ITestRenderTemplateResponse = interface
+  ITestRenderTemplateResponse = interface(IAmazonWebServiceResponse)
     function GetRenderedTemplate: string;
     procedure SetRenderedTemplate(const Value: string);
     function Obj: TTestRenderTemplateResponse;

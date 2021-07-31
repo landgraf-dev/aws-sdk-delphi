@@ -9,7 +9,7 @@ uses
 type
   TListVerifiedEmailAddressesResponse = class;
   
-  IListVerifiedEmailAddressesResponse = interface
+  IListVerifiedEmailAddressesResponse = interface(IAmazonWebServiceResponse)
     function GetVerifiedEmailAddresses: TList<string>;
     procedure SetVerifiedEmailAddresses(const Value: TList<string>);
     function Obj: TListVerifiedEmailAddressesResponse;

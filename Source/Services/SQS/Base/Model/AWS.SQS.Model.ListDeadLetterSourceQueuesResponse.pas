@@ -10,7 +10,7 @@ uses
 type
   TListDeadLetterSourceQueuesResponse = class;
   
-  IListDeadLetterSourceQueuesResponse = interface
+  IListDeadLetterSourceQueuesResponse = interface(IAmazonWebServiceResponse)
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetQueueUrls: TList<string>;

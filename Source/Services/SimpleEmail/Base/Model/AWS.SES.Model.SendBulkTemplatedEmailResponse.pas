@@ -10,7 +10,7 @@ uses
 type
   TSendBulkTemplatedEmailResponse = class;
   
-  ISendBulkTemplatedEmailResponse = interface
+  ISendBulkTemplatedEmailResponse = interface(IAmazonWebServiceResponse)
     function GetStatus: TObjectList<TBulkEmailDestinationStatus>;
     procedure SetStatus(const Value: TObjectList<TBulkEmailDestinationStatus>);
     function Obj: TSendBulkTemplatedEmailResponse;

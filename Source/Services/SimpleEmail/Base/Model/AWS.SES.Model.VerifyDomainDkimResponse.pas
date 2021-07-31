@@ -9,7 +9,7 @@ uses
 type
   TVerifyDomainDkimResponse = class;
   
-  IVerifyDomainDkimResponse = interface
+  IVerifyDomainDkimResponse = interface(IAmazonWebServiceResponse)
     function GetDkimTokens: TList<string>;
     procedure SetDkimTokens(const Value: TList<string>);
     function Obj: TVerifyDomainDkimResponse;

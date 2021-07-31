@@ -10,7 +10,7 @@ uses
 type
   TReceiveMessageResponse = class;
   
-  IReceiveMessageResponse = interface
+  IReceiveMessageResponse = interface(IAmazonWebServiceResponse)
     function GetMessages: TObjectList<TMessage>;
     procedure SetMessages(const Value: TObjectList<TMessage>);
     function Obj: TReceiveMessageResponse;

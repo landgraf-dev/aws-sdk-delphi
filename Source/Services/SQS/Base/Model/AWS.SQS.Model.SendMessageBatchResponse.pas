@@ -11,7 +11,7 @@ uses
 type
   TSendMessageBatchResponse = class;
   
-  ISendMessageBatchResponse = interface
+  ISendMessageBatchResponse = interface(IAmazonWebServiceResponse)
     function GetFailed: TObjectList<TBatchResultErrorEntry>;
     procedure SetFailed(const Value: TObjectList<TBatchResultErrorEntry>);
     function GetSuccessful: TObjectList<TSendMessageBatchResultEntry>;

@@ -8,7 +8,7 @@ uses
 type
   TSetIdentityHeadersInNotificationsEnabledResponse = class;
   
-  ISetIdentityHeadersInNotificationsEnabledResponse = interface
+  ISetIdentityHeadersInNotificationsEnabledResponse = interface(IAmazonWebServiceResponse)
     function Obj: TSetIdentityHeadersInNotificationsEnabledResponse;
   end;
   

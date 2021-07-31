@@ -9,7 +9,7 @@ uses
 type
   TGetIdentityPoliciesResponse = class;
   
-  IGetIdentityPoliciesResponse = interface
+  IGetIdentityPoliciesResponse = interface(IAmazonWebServiceResponse)
     function GetPolicies: TDictionary<string, string>;
     procedure SetPolicies(const Value: TDictionary<string, string>);
     function Obj: TGetIdentityPoliciesResponse;

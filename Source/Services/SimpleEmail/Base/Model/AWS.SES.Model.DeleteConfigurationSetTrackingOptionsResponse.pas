@@ -8,7 +8,7 @@ uses
 type
   TDeleteConfigurationSetTrackingOptionsResponse = class;
   
-  IDeleteConfigurationSetTrackingOptionsResponse = interface
+  IDeleteConfigurationSetTrackingOptionsResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteConfigurationSetTrackingOptionsResponse;
   end;
   

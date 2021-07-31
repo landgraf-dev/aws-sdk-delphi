@@ -8,7 +8,7 @@ uses
 type
   TUpdateReceiptRuleResponse = class;
   
-  IUpdateReceiptRuleResponse = interface
+  IUpdateReceiptRuleResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUpdateReceiptRuleResponse;
   end;
   

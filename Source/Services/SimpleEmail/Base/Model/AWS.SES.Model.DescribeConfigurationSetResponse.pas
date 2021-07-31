@@ -14,7 +14,7 @@ uses
 type
   TDescribeConfigurationSetResponse = class;
   
-  IDescribeConfigurationSetResponse = interface
+  IDescribeConfigurationSetResponse = interface(IAmazonWebServiceResponse)
     function GetConfigurationSet: TConfigurationSet;
     procedure SetConfigurationSet(const Value: TConfigurationSet);
     function GetDeliveryOptions: TDeliveryOptions;

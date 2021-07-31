@@ -9,7 +9,7 @@ uses
 type
   TListQueueTagsResponse = class;
   
-  IListQueueTagsResponse = interface
+  IListQueueTagsResponse = interface(IAmazonWebServiceResponse)
     function GetTags: TDictionary<string, string>;
     procedure SetTags(const Value: TDictionary<string, string>);
     function Obj: TListQueueTagsResponse;

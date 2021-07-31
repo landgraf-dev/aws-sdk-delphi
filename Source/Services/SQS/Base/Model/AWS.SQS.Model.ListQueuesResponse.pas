@@ -10,7 +10,7 @@ uses
 type
   TListQueuesResponse = class;
   
-  IListQueuesResponse = interface
+  IListQueuesResponse = interface(IAmazonWebServiceResponse)
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetQueueUrls: TList<string>;

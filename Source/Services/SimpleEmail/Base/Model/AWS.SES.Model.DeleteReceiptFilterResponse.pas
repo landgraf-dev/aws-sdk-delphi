@@ -8,7 +8,7 @@ uses
 type
   TDeleteReceiptFilterResponse = class;
   
-  IDeleteReceiptFilterResponse = interface
+  IDeleteReceiptFilterResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteReceiptFilterResponse;
   end;
   

@@ -9,7 +9,7 @@ uses
 type
   TSendEmailResponse = class;
   
-  ISendEmailResponse = interface
+  ISendEmailResponse = interface(IAmazonWebServiceResponse)
     function GetMessageId: string;
     procedure SetMessageId(const Value: string);
     function Obj: TSendEmailResponse;

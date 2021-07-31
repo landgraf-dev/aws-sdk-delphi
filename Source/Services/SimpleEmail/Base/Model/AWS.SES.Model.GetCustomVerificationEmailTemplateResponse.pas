@@ -9,7 +9,7 @@ uses
 type
   TGetCustomVerificationEmailTemplateResponse = class;
   
-  IGetCustomVerificationEmailTemplateResponse = interface
+  IGetCustomVerificationEmailTemplateResponse = interface(IAmazonWebServiceResponse)
     function GetFailureRedirectionURL: string;
     procedure SetFailureRedirectionURL(const Value: string);
     function GetFromEmailAddress: string;

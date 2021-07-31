@@ -9,7 +9,7 @@ uses
 type
   TGetQueueUrlResponse = class;
   
-  IGetQueueUrlResponse = interface
+  IGetQueueUrlResponse = interface(IAmazonWebServiceResponse)
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function Obj: TGetQueueUrlResponse;

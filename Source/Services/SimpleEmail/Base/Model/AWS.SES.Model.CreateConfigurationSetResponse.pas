@@ -8,7 +8,7 @@ uses
 type
   TCreateConfigurationSetResponse = class;
   
-  ICreateConfigurationSetResponse = interface
+  ICreateConfigurationSetResponse = interface(IAmazonWebServiceResponse)
     function Obj: TCreateConfigurationSetResponse;
   end;
   

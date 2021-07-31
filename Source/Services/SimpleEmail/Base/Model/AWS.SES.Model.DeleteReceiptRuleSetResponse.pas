@@ -8,7 +8,7 @@ uses
 type
   TDeleteReceiptRuleSetResponse = class;
   
-  IDeleteReceiptRuleSetResponse = interface
+  IDeleteReceiptRuleSetResponse = interface(IAmazonWebServiceResponse)
     function Obj: TDeleteReceiptRuleSetResponse;
   end;
   

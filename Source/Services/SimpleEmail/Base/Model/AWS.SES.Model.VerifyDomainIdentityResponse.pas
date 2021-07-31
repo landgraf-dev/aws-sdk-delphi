@@ -9,7 +9,7 @@ uses
 type
   TVerifyDomainIdentityResponse = class;
   
-  IVerifyDomainIdentityResponse = interface
+  IVerifyDomainIdentityResponse = interface(IAmazonWebServiceResponse)
     function GetVerificationToken: string;
     procedure SetVerificationToken(const Value: string);
     function Obj: TVerifyDomainIdentityResponse;

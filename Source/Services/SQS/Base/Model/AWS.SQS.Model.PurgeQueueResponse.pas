@@ -8,7 +8,7 @@ uses
 type
   TPurgeQueueResponse = class;
   
-  IPurgeQueueResponse = interface
+  IPurgeQueueResponse = interface(IAmazonWebServiceResponse)
     function Obj: TPurgeQueueResponse;
   end;
   

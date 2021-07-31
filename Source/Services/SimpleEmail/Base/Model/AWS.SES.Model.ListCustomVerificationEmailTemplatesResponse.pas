@@ -11,7 +11,7 @@ uses
 type
   TListCustomVerificationEmailTemplatesResponse = class;
   
-  IListCustomVerificationEmailTemplatesResponse = interface
+  IListCustomVerificationEmailTemplatesResponse = interface(IAmazonWebServiceResponse)
     function GetCustomVerificationEmailTemplates: TObjectList<TCustomVerificationEmailTemplate>;
     procedure SetCustomVerificationEmailTemplates(const Value: TObjectList<TCustomVerificationEmailTemplate>);
     function GetNextToken: string;

@@ -10,7 +10,7 @@ uses
 type
   TListIdentitiesResponse = class;
   
-  IListIdentitiesResponse = interface
+  IListIdentitiesResponse = interface(IAmazonWebServiceResponse)
     function GetIdentities: TList<string>;
     procedure SetIdentities(const Value: TList<string>);
     function GetNextToken: string;

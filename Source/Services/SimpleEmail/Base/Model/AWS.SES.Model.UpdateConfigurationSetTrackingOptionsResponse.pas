@@ -8,7 +8,7 @@ uses
 type
   TUpdateConfigurationSetTrackingOptionsResponse = class;
   
-  IUpdateConfigurationSetTrackingOptionsResponse = interface
+  IUpdateConfigurationSetTrackingOptionsResponse = interface(IAmazonWebServiceResponse)
     function Obj: TUpdateConfigurationSetTrackingOptionsResponse;
   end;
   

@@ -8,7 +8,7 @@ uses
 type
   TSetActiveReceiptRuleSetResponse = class;
   
-  ISetActiveReceiptRuleSetResponse = interface
+  ISetActiveReceiptRuleSetResponse = interface(IAmazonWebServiceResponse)
     function Obj: TSetActiveReceiptRuleSetResponse;
   end;
   
