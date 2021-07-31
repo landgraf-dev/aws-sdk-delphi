@@ -126,6 +126,8 @@
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <Manifest_File>(None)</Manifest_File>
+        <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+        <DCC_RangeChecking>true</DCC_RangeChecking>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -139,6 +141,8 @@
         </DelphiCompile>
         <DCCReference Include="Source\Common\AWSTests.Cases.Common.pas"/>
         <DCCReference Include="Source\Common\AWSTests.Cases.Utils.pas"/>
+        <DCCReference Include="Source\AWSTests.SQS.pas"/>
+        <DCCReference Include="Source\AWSTests.TestBase.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

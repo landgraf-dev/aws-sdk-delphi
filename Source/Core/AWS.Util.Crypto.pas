@@ -10,7 +10,9 @@ type
   ICryptoUtil = interface
     function ComputeSHA256Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function ComputeSHA256Hash(AStream: TStream): TArray<Byte>; overload;
+    function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>;
     function HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;
+    function HashAsString(const AData: TArray<Byte>): string;
   end;
 
   TCryptoUtilFactory = class
@@ -23,8 +25,10 @@ type
 
   TCryptoUtil = class(TInterfacedObject, ICryptoUtil)
   public
+    function HashAsString(const AData: TArray<Byte>): string;
     function ComputeSHA256Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function ComputeSHA256Hash(AStream: TStream): TArray<Byte>; overload;
+    function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;
   end;
 
@@ -57,9 +61,23 @@ begin
   Result := Hash.HashAsBytes;
 end;
 
+function TCryptoUtil.ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>;
+var
+  Hash: THashMD5;
+begin
+  Hash := THashMD5.Create;
+  Hash.Update(AData);
+  Result := Hash.HashAsBytes;
+end;
+
 function TCryptoUtil.ComputeSHA256Hash(AStream: TStream): TArray<Byte>;
 begin
   Result := THashSHA2.GetHashBytes(AStream, SHA256);
+end;
+
+function TCryptoUtil.HashAsString(const AData: TArray<Byte>): string;
+begin
+  Result := THash.DigestAsString(AData);
 end;
 
 function TCryptoUtil.HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;

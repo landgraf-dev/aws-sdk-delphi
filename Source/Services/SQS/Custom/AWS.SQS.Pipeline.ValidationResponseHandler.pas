@@ -3,6 +3,7 @@ unit AWS.SQS.Pipeline.ValidationResponseHandler;
 interface
 
 uses
+  System.SysUtils,
   AWS.Internal.PipelineHandler,
   AWS.Runtime.Contexts,
   AWS.Internal.Request,
@@ -11,7 +12,9 @@ uses
   AWS.SQS.Model.ReceiveMessageResponse,
   AWS.SQS.Model.SendMessageResponse,
   AWS.SQS.Model.SendMessageBatchRequest,
-  AWS.SQS.Model.SendMessageBatchResponse;
+  AWS.SQS.Model.SendMessageBatchResponse,
+  AWS.SQS.Exception,
+  AWS.Util.Crypto;
 
 type
   TValidationResponseHandler = class(TPipelineHandler)
@@ -20,7 +23,11 @@ type
     class procedure ValidateSendMessage(ARequest: TSendMessageRequest; AResponse: TSendMessageResponse);
     class procedure ValidateSendMessageBatch(ARequest: TSendMessageBatchRequest;
       AResponse: TSendMessageBatchResponse);
-  strict protected
+    class procedure ValidateMD5(const Msg, MD5FromService: string); static;
+    class function CompareMD5(const Msg, MD5FromService: string): Boolean; static;
+    class function CalculateMD5(const Msg: string): string; overload; static;
+    class function CalculateMD5(const Bytes: TArray<Byte>): string; overload; static;
+  private
     procedure PostInvoke(AExecutionContext: TExecutionContext);
   public
     procedure InvokeSync(AExecutionContext: TExecutionContext); override;
@@ -30,6 +37,22 @@ type
 implementation
 
 { TValidationResponseHandler }
+
+class function TValidationResponseHandler.CalculateMD5(const Msg: string): string;
+begin
+  Result := CalculateMD5(TEncoding.UTF8.GetBytes(Msg));
+end;
+
+class function TValidationResponseHandler.CalculateMD5(const Bytes: TArray<Byte>): string;
+begin
+  Result := TCryptoUtilFactory.CryptoInstance.HashAsString(
+    TCryptoUtilFactory.CryptoInstance.ComputeMD5Hash(Bytes));
+end;
+
+class function TValidationResponseHandler.CompareMD5(const Msg, MD5FromService: string): Boolean;
+begin
+  Result := CalculateMD5(Msg) = MD5FromService;
+end;
 
 procedure TValidationResponseHandler.InvokeSync(AExecutionContext: TExecutionContext);
 begin
@@ -59,6 +82,12 @@ begin
   if (Request.OriginalRequest is TSendMessageBatchRequest)
     and (Response is TSendMessageBatchResponse) then
     ValidateSendMessageBatch(TSendMessageBatchRequest(Request.OriginalRequest), TSendMessageBatchResponse(Response));
+end;
+
+class procedure TValidationResponseHandler.ValidateMD5(const Msg, MD5FromService: string);
+begin
+  if not CompareMD5(Msg, MD5FromService) then
+    raise EAmazonSQSException.Create('MD5 hash mismatch');
 end;
 
 class procedure TValidationResponseHandler.ValidateReceiveMessage(AResponse: TReceiveMessageResponse);
