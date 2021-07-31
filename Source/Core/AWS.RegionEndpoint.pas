@@ -28,11 +28,11 @@ type
     class constructor Create;
     class destructor Destroy;
     class function GetRegionEndpointProvider: IRegionEndpointProvider; static;
-    class function GetEndpoint(const ASystemName: string; ADisplayName: string): IRegionEndpointEx;
     class function InternalTryGetEndpoint(const ASystemName: string; var AEndpoint: IRegionEndpointEx): Boolean;
     class property RegionEndpointProvider: IRegionEndpointProvider read GetRegionEndpointProvider;
   public
     class function GetBySystemName(const ASystemName: string): IRegionEndpointEx;
+    class function GetEndpoint(const ASystemName: string; ADisplayName: string): IRegionEndpointEx;
   strict private
     FSystemName: string;
     FDisplayName: string;
