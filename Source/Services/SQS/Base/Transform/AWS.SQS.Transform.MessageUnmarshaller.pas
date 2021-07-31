@@ -44,7 +44,7 @@ begin
       begin
         if AContext.TestExpression('Attribute', TargetDepth) then
         begin
-          var Unmarshaller := TKeyValueUnmarshaller<string, string, IStringUnmarshaller, IStringUnmarshaller>.Create(TStringUnmarshaller.Instance, TStringUnmarshaller.Instance);
+          var Unmarshaller := TKeyValueUnmarshaller<string, string, IStringUnmarshaller, IStringUnmarshaller>.New(TStringUnmarshaller.Instance, TStringUnmarshaller.Instance);
           var item := Unmarshaller.Unmarshall(AContext);
           UnmarshalledObject.Attributes.Add(item.Key, item.Value);
           Continue;
@@ -69,7 +69,7 @@ begin
         end;
         if AContext.TestExpression('MessageAttribute', TargetDepth) then
         begin
-          var Unmarshaller := TKeyValueUnmarshaller<string, TMessageAttributeValue, IStringUnmarshaller, IMessageAttributeValueUnmarshaller>.Create(TStringUnmarshaller.Instance, TMessageAttributeValueUnmarshaller.Instance);
+          var Unmarshaller := TKeyValueUnmarshaller<string, TMessageAttributeValue, IStringUnmarshaller, IMessageAttributeValueUnmarshaller>.New(TStringUnmarshaller.Instance, TMessageAttributeValueUnmarshaller.Instance);
           var item := Unmarshaller.Unmarshall(AContext);
           UnmarshalledObject.MessageAttributes.Add(item.Key, item.Value);
           Continue;

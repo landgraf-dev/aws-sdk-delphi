@@ -75,7 +75,7 @@ begin
     if AContext.IsStartElement or AContext.IsAttribute then
       if AContext.TestExpression('DkimAttributes/entry', TargetDepth) then
       begin
-        var Unmarshaller := TKeyValueUnmarshaller<string, TIdentityDkimAttributes, IStringUnmarshaller, IIdentityDkimAttributesUnmarshaller>.Create(TStringUnmarshaller.Instance, TIdentityDkimAttributesUnmarshaller.Instance);
+        var Unmarshaller := TKeyValueUnmarshaller<string, TIdentityDkimAttributes, IStringUnmarshaller, IIdentityDkimAttributesUnmarshaller>.New(TStringUnmarshaller.Instance, TIdentityDkimAttributesUnmarshaller.Instance);
         var item := Unmarshaller.Unmarshall(AContext);
         AResponse.DkimAttributes.Add(item.Key, item.Value);
         Continue;

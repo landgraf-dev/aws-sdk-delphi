@@ -75,7 +75,7 @@ begin
     if AContext.IsStartElement or AContext.IsAttribute then
       if AContext.TestExpression('NotificationAttributes/entry', TargetDepth) then
       begin
-        var Unmarshaller := TKeyValueUnmarshaller<string, TIdentityNotificationAttributes, IStringUnmarshaller, IIdentityNotificationAttributesUnmarshaller>.Create(TStringUnmarshaller.Instance, TIdentityNotificationAttributesUnmarshaller.Instance);
+        var Unmarshaller := TKeyValueUnmarshaller<string, TIdentityNotificationAttributes, IStringUnmarshaller, IIdentityNotificationAttributesUnmarshaller>.New(TStringUnmarshaller.Instance, TIdentityNotificationAttributesUnmarshaller.Instance);
         var item := Unmarshaller.Unmarshall(AContext);
         AResponse.NotificationAttributes.Add(item.Key, item.Value);
         Continue;

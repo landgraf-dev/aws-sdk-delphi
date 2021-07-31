@@ -121,10 +121,10 @@ type
   IGetQueueUrlResponse = AWS.SQS.Model.GetQueueUrlResponse.IGetQueueUrlResponse;
   IListDeadLetterSourceQueuesRequest = AWS.SQS.Model.ListDeadLetterSourceQueuesRequest.IListDeadLetterSourceQueuesRequest;
   IListDeadLetterSourceQueuesResponse = AWS.SQS.Model.ListDeadLetterSourceQueuesResponse.IListDeadLetterSourceQueuesResponse;
-  IListQueueTagsRequest = AWS.SQS.Model.ListQueueTagsRequest.IListQueueTagsRequest;
-  IListQueueTagsResponse = AWS.SQS.Model.ListQueueTagsResponse.IListQueueTagsResponse;
   IListQueuesRequest = AWS.SQS.Model.ListQueuesRequest.IListQueuesRequest;
   IListQueuesResponse = AWS.SQS.Model.ListQueuesResponse.IListQueuesResponse;
+  IListQueueTagsRequest = AWS.SQS.Model.ListQueueTagsRequest.IListQueueTagsRequest;
+  IListQueueTagsResponse = AWS.SQS.Model.ListQueueTagsResponse.IListQueueTagsResponse;
   IMessage = AWS.SQS.Model.Message.IMessage;
   IMessageAttributeValue = AWS.SQS.Model.MessageAttributeValue.IMessageAttributeValue;
   IMessageSystemAttributeValue = AWS.SQS.Model.MessageSystemAttributeValue.IMessageSystemAttributeValue;
@@ -175,10 +175,10 @@ type
   TGetQueueUrlResponse = AWS.SQS.Model.GetQueueUrlResponse.TGetQueueUrlResponse;
   TListDeadLetterSourceQueuesRequest = AWS.SQS.Model.ListDeadLetterSourceQueuesRequest.TListDeadLetterSourceQueuesRequest;
   TListDeadLetterSourceQueuesResponse = AWS.SQS.Model.ListDeadLetterSourceQueuesResponse.TListDeadLetterSourceQueuesResponse;
-  TListQueueTagsRequest = AWS.SQS.Model.ListQueueTagsRequest.TListQueueTagsRequest;
-  TListQueueTagsResponse = AWS.SQS.Model.ListQueueTagsResponse.TListQueueTagsResponse;
   TListQueuesRequest = AWS.SQS.Model.ListQueuesRequest.TListQueuesRequest;
   TListQueuesResponse = AWS.SQS.Model.ListQueuesResponse.TListQueuesResponse;
+  TListQueueTagsRequest = AWS.SQS.Model.ListQueueTagsRequest.TListQueueTagsRequest;
+  TListQueueTagsResponse = AWS.SQS.Model.ListQueueTagsResponse.TListQueueTagsResponse;
   TMessage = AWS.SQS.Model.Message.TMessage;
   TMessageAttributeValue = AWS.SQS.Model.MessageAttributeValue.TMessageAttributeValue;
   TMessageSystemAttributeName = AWS.SQS.Enums.TMessageSystemAttributeName;

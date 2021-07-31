@@ -74,7 +74,7 @@ begin
     if AContext.IsStartElement or AContext.IsAttribute then
       if AContext.TestExpression('Attribute', TargetDepth) then
       begin
-        var Unmarshaller := TKeyValueUnmarshaller<string, string, IStringUnmarshaller, IStringUnmarshaller>.Create(TStringUnmarshaller.Instance, TStringUnmarshaller.Instance);
+        var Unmarshaller := TKeyValueUnmarshaller<string, string, IStringUnmarshaller, IStringUnmarshaller>.New(TStringUnmarshaller.Instance, TStringUnmarshaller.Instance);
         var item := Unmarshaller.Unmarshall(AContext);
         AResponse.Attributes.Add(item.Key, item.Value);
         Continue;

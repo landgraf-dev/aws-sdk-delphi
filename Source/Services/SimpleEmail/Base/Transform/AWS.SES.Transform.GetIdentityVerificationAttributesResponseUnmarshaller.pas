@@ -75,7 +75,7 @@ begin
     if AContext.IsStartElement or AContext.IsAttribute then
       if AContext.TestExpression('VerificationAttributes/entry', TargetDepth) then
       begin
-        var Unmarshaller := TKeyValueUnmarshaller<string, TIdentityVerificationAttributes, IStringUnmarshaller, IIdentityVerificationAttributesUnmarshaller>.Create(TStringUnmarshaller.Instance, TIdentityVerificationAttributesUnmarshaller.Instance);
+        var Unmarshaller := TKeyValueUnmarshaller<string, TIdentityVerificationAttributes, IStringUnmarshaller, IIdentityVerificationAttributesUnmarshaller>.New(TStringUnmarshaller.Instance, TIdentityVerificationAttributesUnmarshaller.Instance);
         var item := Unmarshaller.Unmarshall(AContext);
         AResponse.VerificationAttributes.Add(item.Key, item.Value);
         Continue;

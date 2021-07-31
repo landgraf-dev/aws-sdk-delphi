@@ -88,6 +88,9 @@ type
     FKeyUnmarshaller: KUnmarshaller;
     FValueUnmarshaller: VUnmarshaller;
   public
+    class function New(AKeyUnmarshaller: KUnmarshaller;
+      AValueUnmarshaller: VUnmarshaller): IUnmarshaller<TPair<K, V>, TXmlUnmarshallerContext>;
+  public
     constructor Create(AKeyUnmarshaller: KUnmarshaller;
       AValueUnmarshaller: VUnmarshaller);
     function Unmarshall(AContext: TXmlUnmarshallerContext): TPair<K, V>;
@@ -203,6 +206,12 @@ begin
   inherited Create;
   FKeyUnmarshaller := AKeyUnmarshaller;
   FValueUnmarshaller := AValueUnmarshaller;
+end;
+
+class function TKeyValueUnmarshaller<K, V, KUnmarshaller, VUnmarshaller>.New(AKeyUnmarshaller: KUnmarshaller;
+  AValueUnmarshaller: VUnmarshaller): IUnmarshaller<TPair<K, V>, TXmlUnmarshallerContext>;
+begin
+  Result := TKeyValueUnmarshaller<K, V, KUnmarshaller, VUnmarshaller>.Create(AKeyUnmarshaller, AValueUnmarshaller);
 end;
 
 function TKeyValueUnmarshaller<K, V, KUnmarshaller, VUnmarshaller>.Unmarshall(

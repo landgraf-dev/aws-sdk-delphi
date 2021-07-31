@@ -79,8 +79,8 @@ uses
   AWS.SES.Model.GetIdentityVerificationAttributesRequest, 
   AWS.SES.Model.SendBounceResponse, 
   AWS.SES.Model.SetIdentityMailFromDomainResponse, 
-  AWS.SES.Model.EventDestination, 
   AWS.SES.Model.DeleteTemplateRequest, 
+  AWS.SES.Model.EventDestination, 
   AWS.SES.Model.CreateConfigurationSetEventDestinationResponse, 
   AWS.SES.Model.DeleteIdentityPolicyResponse, 
   AWS.SES.Model.GetIdentityMailFromDomainAttributesResponse, 
@@ -388,8 +388,6 @@ type
   IReorderReceiptRuleSetResponse = AWS.SES.Model.ReorderReceiptRuleSetResponse.IReorderReceiptRuleSetResponse;
   IReputationOptions = AWS.SES.Model.ReputationOptions.IReputationOptions;
   IS3Action = AWS.SES.Model.S3Action.IS3Action;
-  ISNSAction = AWS.SES.Model.SNSAction.ISNSAction;
-  ISNSDestination = AWS.SES.Model.SNSDestination.ISNSDestination;
   ISendBounceRequest = AWS.SES.Model.SendBounceRequest.ISendBounceRequest;
   ISendBounceResponse = AWS.SES.Model.SendBounceResponse.ISendBounceResponse;
   ISendBulkTemplatedEmailRequest = AWS.SES.Model.SendBulkTemplatedEmailRequest.ISendBulkTemplatedEmailRequest;
@@ -417,6 +415,8 @@ type
   ISetIdentityNotificationTopicResponse = AWS.SES.Model.SetIdentityNotificationTopicResponse.ISetIdentityNotificationTopicResponse;
   ISetReceiptRulePositionRequest = AWS.SES.Model.SetReceiptRulePositionRequest.ISetReceiptRulePositionRequest;
   ISetReceiptRulePositionResponse = AWS.SES.Model.SetReceiptRulePositionResponse.ISetReceiptRulePositionResponse;
+  ISNSAction = AWS.SES.Model.SNSAction.ISNSAction;
+  ISNSDestination = AWS.SES.Model.SNSDestination.ISNSDestination;
   IStopAction = AWS.SES.Model.StopAction.IStopAction;
   ITemplate = AWS.SES.Model.Template.ITemplate;
   ITemplateMetadata = AWS.SES.Model.TemplateMetadata.ITemplateMetadata;
@@ -456,8 +456,8 @@ type
   TBehaviorOnMXFailure = AWS.SES.Enums.TBehaviorOnMXFailure;
   TBody = AWS.SES.Model.Body.TBody;
   TBounceAction = AWS.SES.Model.BounceAction.TBounceAction;
-  TBounceType = AWS.SES.Enums.TBounceType;
   TBouncedRecipientInfo = AWS.SES.Model.BouncedRecipientInfo.TBouncedRecipientInfo;
+  TBounceType = AWS.SES.Enums.TBounceType;
   TBulkEmailDestination = AWS.SES.Model.BulkEmailDestination.TBulkEmailDestination;
   TBulkEmailDestinationStatus = AWS.SES.Model.BulkEmailDestinationStatus.TBulkEmailDestinationStatus;
   TBulkEmailStatus = AWS.SES.Enums.TBulkEmailStatus;
@@ -587,9 +587,6 @@ type
   TReorderReceiptRuleSetResponse = AWS.SES.Model.ReorderReceiptRuleSetResponse.TReorderReceiptRuleSetResponse;
   TReputationOptions = AWS.SES.Model.ReputationOptions.TReputationOptions;
   TS3Action = AWS.SES.Model.S3Action.TS3Action;
-  TSNSAction = AWS.SES.Model.SNSAction.TSNSAction;
-  TSNSActionEncoding = AWS.SES.Enums.TSNSActionEncoding;
-  TSNSDestination = AWS.SES.Model.SNSDestination.TSNSDestination;
   TSendBounceRequest = AWS.SES.Model.SendBounceRequest.TSendBounceRequest;
   TSendBounceResponse = AWS.SES.Model.SendBounceResponse.TSendBounceResponse;
   TSendBulkTemplatedEmailRequest = AWS.SES.Model.SendBulkTemplatedEmailRequest.TSendBulkTemplatedEmailRequest;
@@ -617,6 +614,9 @@ type
   TSetIdentityNotificationTopicResponse = AWS.SES.Model.SetIdentityNotificationTopicResponse.TSetIdentityNotificationTopicResponse;
   TSetReceiptRulePositionRequest = AWS.SES.Model.SetReceiptRulePositionRequest.TSetReceiptRulePositionRequest;
   TSetReceiptRulePositionResponse = AWS.SES.Model.SetReceiptRulePositionResponse.TSetReceiptRulePositionResponse;
+  TSNSAction = AWS.SES.Model.SNSAction.TSNSAction;
+  TSNSActionEncoding = AWS.SES.Enums.TSNSActionEncoding;
+  TSNSDestination = AWS.SES.Model.SNSDestination.TSNSDestination;
   TStopAction = AWS.SES.Model.StopAction.TStopAction;
   TStopScope = AWS.SES.Enums.TStopScope;
   TTemplate = AWS.SES.Model.Template.TTemplate;
