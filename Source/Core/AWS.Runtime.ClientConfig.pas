@@ -36,6 +36,7 @@ type
     function GetServiceURL: string;
     function GetSignatureMethod: TSigningAlgorithm;
     function GetSignatureVersion: string;
+    function GetUseAlternateUserAgentHeader: Boolean;
     function GetUseDualstackEndpoint: Boolean;
     function GetUseHttp: Boolean;
     function GetUserAgent: string;
@@ -58,6 +59,7 @@ type
     property ServiceURL: string read GetServiceURL;
     property SignatureMethod: TSigningAlgorithm read GetSignatureMethod;
     property SignatureVersion: string read GetSignatureVersion;
+    property UseAlternateUserAgentHeader: Boolean read GetUseAlternateUserAgentHeader;
     property UseDualstackEndpoint: Boolean read GetUseDualstackEndpoint;
     property UseHttp: Boolean read GetUseHttp;
     property UserAgent: string read GetUserAgent;
@@ -81,6 +83,7 @@ type
     FBufferSize: Integer;
     FSignatureVersion: string;
     FSignatureMethod: TSigningAlgorithm;
+    FUseAlternateUserAgentHeader: Boolean;
     function GetLogMetrics: Boolean;
     function GetLogResponse: Boolean;
     function GetUseDualstackEndpoint: Boolean;
@@ -101,6 +104,7 @@ type
     function GetBufferSize: Integer;
     function GetSignatureVersion: string;
     function GetSignatureMethod: TSigningAlgorithm;
+    function GetUseAlternateUserAgentHeader: Boolean;
   strict protected
     function GetRegionEndpointServiceName: string; virtual; abstract;
     function GetServiceVersion: string; virtual; abstract;
@@ -133,6 +137,7 @@ type
     property BufferSize: Integer read GetBufferSize write FBufferSize;
     property SignatureVersion: string read GetSignatureVersion write FSignatureVersion;
     property SignatureMethod: TSigningAlgorithm read GetSignatureMethod write FSignatureMethod;
+    property UseAlternateUserAgentHeader: Boolean read GetUseAlternateUserAgentHeader write FUseAlternateUserAgentHeader;
     property UserAgent: string read GetUserAgent;
   end;
 
@@ -264,6 +269,11 @@ begin
     Result := 'http://' + Endpoint.HostName
   else
     Result := 'https://' + Endpoint.HostName;
+end;
+
+function TClientConfig.GetUseAlternateUserAgentHeader: Boolean;
+begin
+  Result := FUseAlternateUserAgentHeader;
 end;
 
 function TClientConfig.GetUseDualstackEndpoint: Boolean;

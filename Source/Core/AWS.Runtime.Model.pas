@@ -47,6 +47,7 @@ type
   strict private
     FSigner: TAbstractAWSSigner;
     FUseSigV4: Boolean;
+    FUserAgentAddition: string;
     function GetUseSigV4: Boolean;
     procedure SetUseSigV4(const Value: Boolean);
   strict protected
@@ -54,6 +55,7 @@ type
   public
     function GetSigner: TAbstractAWSSigner;
     property UseSigV4: Boolean read GetUseSigV4 write SetUseSigV4;
+    property UserAgentAddition: string read FUserAgentAddition write FUserAgentAddition;
   end;
 
 

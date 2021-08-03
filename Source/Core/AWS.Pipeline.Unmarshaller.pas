@@ -28,7 +28,8 @@ implementation
 uses
   AWS.SDKUtils,
   AWS.Transform.ResponseUnmarshaller,
-  AWS.Runtime.Exceptions;
+  AWS.Runtime.Exceptions,
+  AWS.Configs;
 
 { TUnmarshaller }
 
@@ -48,11 +49,8 @@ end;
 class function TUnmarshaller.ShouldLogResponseBody(ASupportsResponseLogging: Boolean;
   ARequestContext: TRequestContext): Boolean;
 begin
-  {TODO: Take config into consideration to decide for response logging}
-//  Result := ASupportsResponseLogging and (ARequestContext.ClientConfig.LogResponse
-//    or (AWSConfigs.LoggingConfig.LogResponses = TResponseLoggingOption.Always);
-
-  Result := ASupportsResponseLogging;
+  Result := ASupportsResponseLogging and (ARequestContext.ClientConfig.LogResponse
+    or (TAWSConfigs.LoggingConfig.LogResponses = TResponseLoggingOption.Always));
 end;
 
 procedure TUnmarshaller.Unmarshall(AExecutionContext: TExecutionContext);
@@ -115,10 +113,9 @@ begin
     end;
   finally
     LogResponseBody := ShouldLogResponseBody(FSupportsResponseLogging, ARequestContext);
-    {TODO: Set the truncated size to LogResponsesSizeLimit}
     if LogResponseBody then
       Logger.Debug(Format('Received response (truncated to %d bytes): [%s]',
-        [1024 {AWSConfigs.LoggingConfig.LogResponsesSizeLimit}, AContext.ResponseBody]));
+        [TAWSConfigs.LoggingConfig.LogResponsesSizeLimit, AContext.ResponseBody]));
   end;
 end;
 

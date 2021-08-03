@@ -18,7 +18,8 @@ type
 implementation
 
 uses
-  AWS.SDKUtils;
+  AWS.SDKUtils,
+  AWS.Runtime.Model;
 
 { TMarshaller }
 
@@ -31,19 +32,20 @@ end;
 procedure TMarshaller.PreInvoke(AExecutionContext: TExecutionContext);
 var
   RequestContext: TRequestContext;
-//  UserAgent: string;
+  UserAgent: string;
   Method: string;
 begin
   RequestContext := AExecutionContext.RequestContext;
   RequestContext.Request := RequestContext.Marshaller.Marshall(RequestContext.OriginalRequest);
   RequestContext.Request.AuthenticationRegion := RequestContext.ClientConfig.AuthenticationRegion;
 
-  {TODO: UserAgent logic}
-//  UserAgent := RequestContext.ClientConfig.UserAgent + ' ClientSync' + RequestContext.OriginalRequest.UserAgentAddition;
-//  if RequestContext.ClientConfig.UseAlternateUserAgentHeader then
-//    RequestContext.Request.Headers[THeaderKeys.XAmzUserAgentHeader] := UserAgent
-//  else
-//    RequestContext.Request.Headers[THeaderKeys.UserAgentHeader] := UserAgent;
+  UserAgent := RequestContext.ClientConfig.UserAgent + ' ClientSync';
+  if RequestContext.OriginalRequest is TAmazonWebServiceRequest then
+     UserAgent := UserAgent + TAmazonWebServiceRequest(RequestContext.OriginalRequest).UserAgentAddition;
+  if RequestContext.ClientConfig.UseAlternateUserAgentHeader then
+    RequestContext.Request.Headers[THeaderKeys.XAmzUserAgentHeader] := UserAgent
+  else
+    RequestContext.Request.Headers[THeaderKeys.UserAgentHeader] := UserAgent;
 
   Method := UpperCase(RequestContext.Request.HttpMethod);
   if (Method <> 'GET') and (Method <> 'DELETE') and (Method <> 'HEAD') then

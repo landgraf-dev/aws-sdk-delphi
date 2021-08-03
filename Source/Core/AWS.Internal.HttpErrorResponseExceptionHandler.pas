@@ -72,11 +72,13 @@ begin
             ErrorContext.ResponseBody, E, AHttpErrorResponse.StatusCode);
         end;
       end;
+
+      if ARequestContext.ClientConfig.LogResponse or
+        (TAWSConfigs.LoggingConfig.LogResponses <> TResponseLoggingOption.Never) then
+        Logger.Error('Received error message response: ' + ErrorContext.ResponseBody);
     finally
       ErrorContext.Free;
     end;
-
-    {TODO: LogResponseBody}
   except
     on E: Exception do
     begin

@@ -88,6 +88,9 @@ type
 
 implementation
 
+uses
+  AWS.Configs;
+
 { TUnmarshallerContext }
 
 destructor TUnmarshallerContext.Destroy;
@@ -179,14 +182,16 @@ end;
 
 constructor TXmlUnmarshallerContext.Create(AResponseStream: TStream; AMaintainResponseBody: Boolean;
   AResponseData: IWebResponseData; AIsException: Boolean);
+var
+  SizeLimit: Integer;
 begin
   inherited Create;
-  {TODO: 1024 is hardcoded, this must come from AWSConfigs.LoggingConfig.LogResponsesSizeLimit}
+  SizeLimit := TAWSConfigs.LoggingConfig.LogResponsesSizeLimit;
   if IsException then
-    SetWrappingStream(TCachingWrapperStream.Create(AResponseStream, False, 1024, MaxInt))
+    SetWrappingStream(TCachingWrapperStream.Create(AResponseStream, False, SizeLimit, MaxInt))
   else
   if AMaintainResponseBody then
-    SetWrappingStream(TCachingWrapperStream.Create(AResponseStream, False, 1024, 1024));
+    SetWrappingStream(TCachingWrapperStream.Create(AResponseStream, False, SizeLimit, SizeLimit));
 
   if IsException or AMaintainResponseBody then
     AResponseStream := WrappingStream;

@@ -3,6 +3,7 @@ unit AWS.Internal.ParameterDictionary;
 interface
 
 uses
+  System.Generics.Collections,
   AWS.Internal.ParameterCollection;
 
 type
@@ -36,7 +37,8 @@ type
 implementation
 
 uses
-  AWS.Runtime.Exceptions;
+  AWS.Runtime.Exceptions,
+  Bcl.Json;
 
 { TParameterDictionaryFacade }
 
@@ -68,9 +70,11 @@ end;
 
 class function TParameterDictionaryFacade.ParameterValueToString(PV: TParameterValue): string;
 begin
-  {TODO: Implement TStringListParameterValue handling}
   if PV is TStringParameterValue then
     Result := TStringParameterValue(PV).Value
+  else
+  if PV is TStringListParameterValue then
+    Result := TJson.Serialize(TStringListParameterValue(PV).Value)
   else
     raise EAmazonClientException.Create('Unexpected parameter value type ' + PV.ClassName);
 end;
@@ -92,9 +96,11 @@ end;
 
 class procedure TParameterDictionaryFacade.UpdateParameterValue(PV: TParameterValue; const ANewValue: string);
 begin
-  {TODO: Implement TStringListParameterValue handling}
   if PV is TStringParameterValue then
     TStringParameterValue(PV).Value := ANewValue
+  else
+  if PV is TStringListParameterValue then
+    TStringListParameterValue(PV).Value := TJson.Deserialize<TList<string>>(ANewValue)
   else
     raise EAmazonClientException.Create('Unexpected parameter value type ' + PV.ClassName);
 end;

@@ -27,6 +27,17 @@ type
     property Value: string read FValue write FValue;
   end;
 
+  TStringListParameterValue = class(TParameterValue)
+  strict private
+    FValue: TList<string>;
+  private
+    procedure SetValue(const Value: TList<string>);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property Value: TList<string> read FValue write SetValue;
+  end;
+
 implementation
 
 uses
@@ -66,6 +77,29 @@ constructor TStringParameterValue.Create(const AValue: string);
 begin
   inherited Create;
   FValue := AValue;
+end;
+
+{ TStringListParameterValue }
+
+constructor TStringListParameterValue.Create;
+begin
+  inherited Create;
+  FValue := TList<string>.Create;
+end;
+
+destructor TStringListParameterValue.Destroy;
+begin
+  FValue.Free;
+  inherited;
+end;
+
+procedure TStringListParameterValue.SetValue(const Value: TList<string>);
+begin
+  if FValue <> Value then
+  begin
+    FValue.Free;
+    FValue := Value;
+  end;
 end;
 
 end.
