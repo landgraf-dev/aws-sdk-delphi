@@ -41,7 +41,7 @@ end;
 
 class constructor TAmazonSQSConfig.Create;
 begin
-  FUserAgent := TInternalSDKUtils.BuildUserAgentString('3.7.0.44');
+  FUserAgent := TInternalSDKUtils.BuildUserAgentString('0.2.0.0');
 end;
 
 function TAmazonSQSConfig.GetUserAgent: string;

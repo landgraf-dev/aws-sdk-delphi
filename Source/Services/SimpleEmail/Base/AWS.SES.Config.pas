@@ -41,7 +41,7 @@ end;
 
 class constructor TAmazonSimpleEmailServiceConfig.Create;
 begin
-  FUserAgent := TInternalSDKUtils.BuildUserAgentString('3.7.0.43');
+  FUserAgent := TInternalSDKUtils.BuildUserAgentString('0.2.0.0');
 end;
 
 function TAmazonSimpleEmailServiceConfig.GetUserAgent: string;
