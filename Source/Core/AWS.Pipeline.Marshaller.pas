@@ -43,9 +43,9 @@ begin
   if RequestContext.OriginalRequest is TAmazonWebServiceRequest then
      UserAgent := UserAgent + TAmazonWebServiceRequest(RequestContext.OriginalRequest).UserAgentAddition;
   if RequestContext.ClientConfig.UseAlternateUserAgentHeader then
-    RequestContext.Request.Headers[THeaderKeys.XAmzUserAgentHeader] := UserAgent
+    RequestContext.Request.Headers.AddOrSetValue(THeaderKeys.XAmzUserAgentHeader, UserAgent)
   else
-    RequestContext.Request.Headers[THeaderKeys.UserAgentHeader] := UserAgent;
+    RequestContext.Request.Headers.AddOrSetValue(THeaderKeys.UserAgentHeader, UserAgent);
 
   Method := UpperCase(RequestContext.Request.HttpMethod);
   if (Method <> 'GET') and (Method <> 'DELETE') and (Method <> 'HEAD') then

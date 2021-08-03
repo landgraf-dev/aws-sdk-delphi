@@ -190,6 +190,25 @@ type
     function GetCredentials: IImmutableCredentials; override;
   end;
 
+  TEnvironmentVariablesAWSCredentials = class(TAWSCredentials)
+  strict private
+    FLogger: ILogger;
+  public const
+    // these variable names are standard across all AWS SDKs that support reading keys from
+    // environment variables
+    ENVIRONMENT_VARIABLE_ACCESSKEY = 'AWS_ACCESS_KEY_ID';
+    ENVIRONMENT_VARIABLE_SECRETKEY = 'AWS_SECRET_ACCESS_KEY';
+    ENVIRONMENT_VARIABLE_SESSION_TOKEN = 'AWS_SESSION_TOKEN';
+
+    // this legacy key was used by previous versions of the AWS SDK for .NET and is
+    // used if no value exists for the standard key for backwards compatibility.
+    LEGACY_ENVIRONMENT_VARIABLE_SECRETKEY = 'AWS_SECRET_KEY';
+  public
+    constructor Create;
+    function GetCredentials: IImmutableCredentials; override;
+    function FetchCredentials: IImmutableCredentials;
+  end;
+
   TCredentialsGenerator = TFunc<IAWSCredentials>;
 
   ICredentialProfileSource = interface
@@ -444,7 +463,11 @@ begin
     begin
       Result := GetAWSCredentials(FCredentialProfileChain);
     end);
-//  FCredentialsGenerator.Add(TEnvironmentVariablesAWSCredentials.Create);)
+  FCredentialsGenerator.Add(
+    function: IAWSCredentials
+    begin
+      Result := TEnvironmentVariablesAWSCredentials.Create;
+    end);
 end;
 
 { TCredentialProfileStoreChain }
@@ -866,6 +889,47 @@ end;
 function TAnonymousAWSCredentials.GetCredentials: IImmutableCredentials;
 begin
   raise ENotSupportedException.Create('TAnonymousAWSCredentials does not support this operation');
+end;
+
+{ TEnvironmentVariablesAWSCredentials }
+
+constructor TEnvironmentVariablesAWSCredentials.Create;
+begin
+  inherited Create;
+  FLogger := LogManager.GetLogger(TEnvironmentVariablesAWSCredentials);
+  FetchCredentials;
+end;
+
+function TEnvironmentVariablesAWSCredentials.FetchCredentials: IImmutableCredentials;
+var
+  AccessKeyId: string;
+  SecretKey: string;
+  SessionToken: string;
+begin
+  AccessKeyId := GetEnvironmentVariable(ENVIRONMENT_VARIABLE_ACCESSKEY);
+  SecretKey := GetEnvironmentVariable(ENVIRONMENT_VARIABLE_SECRETKEY);
+  if SecretKey = '' then
+  begin
+    SecretKey := GetEnvironmentVariable(LEGACY_ENVIRONMENT_VARIABLE_SECRETKEY);
+    if SecretKey <> '' then
+      FLogger.Info(Format('AWS secret key found using legacy and non-standard ' +
+        'environment variable "%s", consider updating to the cross-SDK standard variable "%s".',
+        [LEGACY_ENVIRONMENT_VARIABLE_SECRETKEY, ENVIRONMENT_VARIABLE_SECRETKEY]));
+  end;
+
+  if (AccessKeyId = '') or (SecretKey = '') then
+    raise EInvalidOpException.CreateFmt(
+      'The environment variables %s/%s/%s were not set with AWS credentials.',
+      [ENVIRONMENT_VARIABLE_ACCESSKEY, ENVIRONMENT_VARIABLE_SECRETKEY, ENVIRONMENT_VARIABLE_SESSION_TOKEN]);
+
+  SessionToken := GetEnvironmentVariable(ENVIRONMENT_VARIABLE_SESSION_TOKEN);
+  FLogger.Info('Credentials found using environment variables.');
+  Result := TImmutableCredentials.Create(AccessKeyId, SecretKey, SessionToken);
+end;
+
+function TEnvironmentVariablesAWSCredentials.GetCredentials: IImmutableCredentials;
+begin
+  Result := FetchCredentials;
 end;
 
 end.

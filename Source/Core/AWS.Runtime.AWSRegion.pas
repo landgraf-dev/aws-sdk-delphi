@@ -31,6 +31,13 @@ type
     constructor Create(ASource: ICredentialProfileSource);
   end;
 
+  TEnvironmentVariableAWSRegion = class(TAWSRegion)
+  public const
+    ENVIRONMENT_VARIABLE_REGION = 'AWS_REGION';
+  public
+    constructor Create;
+  end;
+
   TRegionGenerator = TFunc<IAWSRegion>;
 
   TFallbackRegionFactory = class
@@ -111,10 +118,15 @@ end;
 
 class procedure TFallbackRegionFactory.Reset;
 begin
-  {TODO: Add other region generators}
+  {TODO: Add Config and EC2 instance generators}
   FCachedRegion := nil;
   FAllGenerators.Free;
   FAllGenerators := TList<TRegionGenerator>.Create;
+  FAllGenerators.Add(
+    function: IAWSRegion
+    begin
+      Result := TEnvironmentVariableAWSRegion.Create;
+    end);
   FAllGenerators.Add(
     function: IAWSRegion
     begin
@@ -123,6 +135,11 @@ begin
 
   FNonMetadataGenerators.Free;
   FNonMetadataGenerators := TList<TRegionGenerator>.Create;
+  FNonMetadataGenerators.Add(
+    function: IAWSRegion
+    begin
+      Result := TEnvironmentVariableAWSRegion.Create;
+    end);
   FNonMetadataGenerators.Add(
     function: IAWSRegion
     begin
@@ -184,6 +201,25 @@ begin
     Logger := LogManager.GetLogger(TProfileAWSRegion);
     Logger.Info('Region found in profile "' + AProfileName + '" in store ' + (ASource as TObject).ClassName);
   end;
+end;
+
+{ TEnvironmentVariableAWSRegion }
+
+constructor TEnvironmentVariableAWSRegion.Create;
+var
+  RegionName: string;
+  Logger: ILogger;
+begin
+  inherited Create;
+  RegionName := GetEnvironmentVariable(ENVIRONMENT_VARIABLE_REGION);
+  if RegionName = '' then
+    raise EInvalidOpException.CreateFmt('The environment variable %s was not set with AWS region data',
+      [ENVIRONMENT_VARIABLE_REGION]);
+
+  SetRegionFromName(RegionName);
+
+  Logger := LogManager.GetLogger(TEnvironmentVariableAWSRegion);
+  Logger.Info('Region found using environment variable.');
 end;
 
 end.
