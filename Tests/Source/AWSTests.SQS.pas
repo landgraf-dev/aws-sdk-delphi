@@ -39,6 +39,7 @@ type
     procedure SimpleSend;
     procedure TestGetQueueUrl;
     procedure FifoTest;
+    procedure MD5OfAttributes;
   end;
 
 implementation
@@ -74,11 +75,11 @@ class constructor TSQSTests.Create;
 
 begin
   FAttributes := TObjectDictionary<string, TMessageAttributeValue>.Create([doOwnsValues]);
-  FAttributes.Add('StringAttribute', StrAttr('String', 'StringAttributeValue')   );
+  FAttributes.Add('StringAttribute', StrAttr('String', 'StringAttributeValue'));
   FAttributes.Add('NumberAttribute', StrAttr('Number', '1234'));
+  FAttributes.Add('lowercasestringattribute', StrAttr('String', 'lowercasestringattribute'));
   FAttributes.Add('BinaryAttribute', BinaryAttr(TBytesStream.Create(TEncoding.UTF8.GetBytes('BinaryAttributeValue'))));
   FAttributes.Add('UPPERCASESTRINGATTRIBUTE', StrAttr('String', 'UPPERCASESTRINGATTRIBUTE'));
-  FAttributes.Add('Lowercasestringattribute', StrAttr('String', 'lowercasestringattribute'));
 end;
 
 function TSQSTests.CreateQueueTest(const Name: string): string;
@@ -211,6 +212,11 @@ begin
   Request.QueueUrl := QueueUrl;
   Request.AttributeNames.Add(TSQSConsts.ATTRIBUTE_ALL);
   Result := Client.GetQueueAttributes(Request).Attributes[TSQSConsts.ATTRIBUTE_QUEUE_ARN];
+end;
+
+procedure TSQSTests.MD5OfAttributes;
+begin
+  CheckEquals('1f3bb098e34eefc22bab1113af7ad09c', TValidationResponseHandler.CalculateMD5(FAttributes));
 end;
 
 procedure TSQSTests.SetUp;
