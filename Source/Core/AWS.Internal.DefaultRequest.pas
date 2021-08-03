@@ -25,7 +25,6 @@ type
     FOriginalRequest: TAmazonWebServiceRequest;
     FContent: TArray<Byte>;
     FContentStream: TStream;
-//    FContentStreamHash: string;
     FHttpMethod: string;
     FUseQueryString: Boolean;
     FRequestName: string;
@@ -42,6 +41,8 @@ type
     FAuthenticationRegion: string;
     FUseChunkEncoding: Boolean;
     FContentStreamHash: string;
+    FSuppress404Exceptions: Boolean;
+    FOriginalStreamPosition: Int64;
   strict private
     function GetRequestName: string;
     function GetServiceName: string;
@@ -83,6 +84,11 @@ type
     procedure SetAuthenticationRegion(const Value: string);
     function GetUseChunkEncoding: Boolean;
     procedure SetUseChunkEncoding(const Value: Boolean);
+    function GetOriginalStreamPosition: Int64;
+    procedure SetOriginalStreamPosition(const Value: Int64);
+  private
+    function GetSuppress404Exceptions: Boolean;
+    procedure SetSuppress404Exceptions(const Value: Boolean);
   public
     constructor Create(ARequest: TAmazonWebServiceRequest; AServiceName: string);
     destructor Destroy; override;
@@ -115,6 +121,8 @@ type
     property DeterminedSigningRegion: string read GetDeterminedSigningRegion write SetDeterminedSigningRegion;
     property AuthenticationRegion: string read GetAuthenticationRegion write SetAuthenticationRegion;
     property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
+    property Suppress404Exceptions: Boolean read GetSuppress404Exceptions write SetSuppress404Exceptions;
+    property OriginalStreamPosition: Int64 read GetOriginalStreamPosition write SetOriginalStreamPosition;
   end;
 
 implementation
@@ -191,6 +199,7 @@ begin
   FSubResources.Free;
   FPathResources.Free;
   FParametersCollection.Free;
+  ContentStream := nil;
   inherited;
 end;
 
@@ -260,6 +269,11 @@ begin
   Result := FOriginalRequest;
 end;
 
+function TDefaultRequest.GetOriginalStreamPosition: Int64;
+begin
+  Result := FOriginalStreamPosition;
+end;
+
 function TDefaultRequest.GetOverrideSigningServiceName: string;
 begin
   Result := FOverrideSigningServiceName;
@@ -303,6 +317,11 @@ end;
 function TDefaultRequest.GetSubResources: TDictionary<string, string>;
 begin
   Result := FSubResources;
+end;
+
+function TDefaultRequest.GetSuppress404Exceptions: Boolean;
+begin
+  Result := FSuppress404Exceptions;
 end;
 
 function TDefaultRequest.GetUseChunkEncoding: Boolean;
@@ -362,8 +381,21 @@ begin
 end;
 
 procedure TDefaultRequest.SetContentStream(const Value: TStream);
+var
+  BaseStream: TStream;
 begin
-  {$MESSAGE WARN 'Review'}
+  if FContentStream <> Value then
+  begin
+    FContentStream.Free;
+    FContentStream := Value;
+    OriginalStreamPosition := -1;
+    if FContentStream <> nil then
+    begin
+      BaseStream := TWrapperStream.GetNonWrapperBaseStream(FContentStream);
+      if (BaseStream <> nil) and CanSeek(BaseStream) then
+        OriginalStreamPosition := BaseStream.Position;
+    end;
+  end;
 end;
 
 procedure TDefaultRequest.SetDeterminedSigningRegion(const Value: string);
@@ -391,6 +423,11 @@ begin
   FMarshallerVersion := Value;
 end;
 
+procedure TDefaultRequest.SetOriginalStreamPosition(const Value: Int64);
+begin
+  FOriginalStreamPosition := Value;
+end;
+
 procedure TDefaultRequest.SetOverrideSigningServiceName(const Value: string);
 begin
   FOverrideSigningServiceName := Value;
@@ -404,6 +441,11 @@ end;
 procedure TDefaultRequest.SetSetContentFromParameters(const Value: Boolean);
 begin
   FSetContentFromParameters := Value;
+end;
+
+procedure TDefaultRequest.SetSuppress404Exceptions(const Value: Boolean);
+begin
+  FSuppress404Exceptions := Value;
 end;
 
 procedure TDefaultRequest.SetUseChunkEncoding(const Value: Boolean);

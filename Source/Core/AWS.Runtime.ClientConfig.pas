@@ -1,5 +1,7 @@
 unit AWS.Runtime.ClientConfig;
 
+{$I AWS.inc}
+
 interface
 
 uses
@@ -9,50 +11,55 @@ uses
 
 type
   /// <summary>
+  /// RetryMode determines which request retry mode is used for requests that do
+  /// not complete successfully.
+  /// </summary>
+  TRequestRetryMode = (Legacy, Standard, Adaptive);
+
+  /// <summary>
   /// This interface is the read only access to the ClientConfig object used when setting up service clients. Once service clients
   /// are initiated the config object should not be changed to avoid issues with using a service client in a multi threaded environment.
   /// </summary>
   IClientConfig = interface
+    function GetAuthenticationRegion: string;
+    function GetAuthenticationServiceName: string;
+    function GetBufferSize: Integer;
+    function GetDisableLogging: Boolean;
+    function GetIsMaxErrorRetrySet: Boolean;
     function GetLogMetrics: Boolean;
     function GetLogResponse: Boolean;
-    function GetReadEntireResponse: Boolean;
     function GetMaxErrorRetry: Integer;
-    function GetIsMaxErrorRetrySet: Boolean;
+    function GetReadEntireResponse: Boolean;
+    function GetRegionEndpoint: IRegionEndpointEx;
     function GetRegionEndpointServiceName: string;
+    function GetResignRetries: Boolean;
+    function GetServiceURL: string;
+    function GetSignatureMethod: TSigningAlgorithm;
+    function GetSignatureVersion: string;
     function GetUseDualstackEndpoint: Boolean;
     function GetUseHttp: Boolean;
-    function GetServiceURL: string;
-    function GetRegionEndpoint: IRegionEndpointEx;
-    function GetResignRetries: Boolean;
-    function GetBufferSize: Integer;
-    function GetAuthenticationServiceName: string;
-    function GetAuthenticationRegion: string;
-    function GetDisableLogging: Boolean;
-    function GetSignatureVersion: string;
-    function GetSignatureMethod: TSigningAlgorithm;
     function GetUserAgent: string;
 
     function DetermineServiceUrl: string;
     procedure Validate;
 
+    property AuthenticationRegion: string read GetAuthenticationRegion;
+    property AuthenticationServiceName: string read GetAuthenticationServiceName;
+    property BufferSize: Integer read GetBufferSize;
+    property DisableLogging: Boolean read GetDisableLogging;
+    property IsMaxErrorRetrySet: Boolean read GetIsMaxErrorRetrySet;
     property LogMetrics: Boolean read GetLogMetrics;
     property LogResponse: Boolean read GetLogResponse;
-    property ReadEntireResponse: Boolean read GetReadEntireResponse;
     property MaxErrorRetry: Integer read GetMaxErrorRetry;
-    property IsMaxErrorRetrySet: Boolean read GetIsMaxErrorRetrySet;
-    property ResignRetries: Boolean read GetResignRetries;
-    property BufferSize: Integer read GetBufferSize;
+    property ReadEntireResponse: Boolean read GetReadEntireResponse;
+    property RegionEndpoint: IRegionEndpointEx read GetRegionEndpoint;
     property RegionEndpointServiceName: string read GetRegionEndpointServiceName;
+    property ResignRetries: Boolean read GetResignRetries;
+    property ServiceURL: string read GetServiceURL;
+    property SignatureMethod: TSigningAlgorithm read GetSignatureMethod;
+    property SignatureVersion: string read GetSignatureVersion;
     property UseDualstackEndpoint: Boolean read GetUseDualstackEndpoint;
     property UseHttp: Boolean read GetUseHttp;
-    property ServiceURL: string read GetServiceURL;
-    property RegionEndpoint: IRegionEndpointEx read GetRegionEndpoint;
-    property ResignRetries: Boolean read GetResignRetries;
-    property AuthenticationServiceName: string read GetAuthenticationServiceName;
-    property AuthenticationRegion: string read GetAuthenticationRegion;
-    property DisableLogging: Boolean read GetDisableLogging;
-    property SignatureVersion: string read GetSignatureVersion;
-    property SignatureMethod: TSigningAlgorithm read GetSignatureMethod;
     property UserAgent: string read GetUserAgent;
   end;
 
@@ -272,7 +279,9 @@ end;
 procedure TClientConfig.Init;
 begin
   FProbeForRegionEndpoint := True;
-  {$MESSAGE WARN 'Implement this, including initialization of fields'}
+  FSignatureVersion := '4';
+  FSignatureMethod := TSigningAlgorithm.HmacSHA256;
+  FBufferSize := TAWSSDKUtils.DefaultBufferSize;
 end;
 
 procedure TClientConfig.SetMaxErrorRetry(const Value: Integer);

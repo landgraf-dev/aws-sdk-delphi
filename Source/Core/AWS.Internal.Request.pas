@@ -51,6 +51,10 @@ type
     procedure SetAuthenticationRegion(const Value: string);
     function GetUseChunkEncoding: Boolean;
     procedure SetUseChunkEncoding(const Value: Boolean);
+    function GetSuppress404Exceptions: Boolean;
+    procedure SetSuppress404Exceptions(const Value: Boolean);
+    function GetOriginalStreamPosition: Int64;
+    procedure SetOriginalStreamPosition(const Value: Int64);
 
     function MayContainRequestBody: Boolean;
     function HasRequestBody: Boolean;
@@ -84,6 +88,8 @@ type
     property DeterminedSigningRegion: string read GetDeterminedSigningRegion write SetDeterminedSigningRegion;
     property AuthenticationRegion: string read GetAuthenticationRegion write SetAuthenticationRegion;
     property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
+    property Suppress404Exceptions: Boolean read GetSuppress404Exceptions write SetSuppress404Exceptions;
+    property OriginalStreamPosition: Int64 read GetOriginalStreamPosition write SetOriginalStreamPosition;
   end;
 
 implementation

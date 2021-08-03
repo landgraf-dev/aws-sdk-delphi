@@ -26,6 +26,9 @@ type
 
 implementation
 
+uses
+  AWS.Configs;
+
 { THttpErrorResponseExceptionHandler }
 
 function THttpErrorResponseExceptionHandler.HandleException(AExecutionContext: TExecutionContext;
@@ -88,24 +91,39 @@ end;
 
 function THttpErrorResponseExceptionHandler.HandleSuppressed404(AExecutionContext: TExecutionContext;
   AHttpErrorResponse: IWebResponseData): Boolean;
-//var
-//  RequestContext: TRequestContext;
-//  ResponseContext: TResponseContext;
-//  Unmarshaller: TResponseUnmarshaller;
-//  ReadEntireResponse: Boolean;
+var
+  RequestContext: TRequestContext;
+  ResponseContext: TResponseContext;
+  Unmarshaller: IResponseUnmarshaller;
+  ReadEntireResponse: Boolean;
+  ErrorContext: TUnmarshallerContext;
 begin
-//  RequestContext := AExecutionContext.RequestContext;
-//  ResponseContext := AExecutionContext.ResponseContext;
+  RequestContext := AExecutionContext.RequestContext;
+  ResponseContext := AExecutionContext.ResponseContext;
 
-  {$MESSAGE WARN 'Finish implementation for Suppress404Exceptions'}
-//  if (AHttpErrorResponse <> nil) and (AHttpErrorResponse.StatusCode = 404) and
-//    RequestContext.Request.Suppress404Exceptions then
-//  begin
-//    Unmarshaller := RequestContext.Unmarshaller;
-//    ReadEntireResponse := RequestContext.ClientConfig.LogResponse or
-//      TAWSConfigs.LoggingConfig.LogResponses <> TResponseLoggingOption.Never;
-//  end;
+  if (AHttpErrorResponse <> nil) and (AHttpErrorResponse.StatusCode = 404) and
+    RequestContext.Request.Suppress404Exceptions then
+  begin
+    Unmarshaller := RequestContext.Unmarshaller;
+    ReadEntireResponse := RequestContext.ClientConfig.LogResponse or
+      (TAWSConfigs.LoggingConfig.LogResponses <> TResponseLoggingOption.Never);
 
+    ErrorContext := Unmarshaller.CreateContext(AHttpErrorResponse, ReadEntireResponse,
+      AHttpErrorResponse.ResponseBody.OpenResponse, True);
+    try
+      try
+        ResponseContext.Response := Unmarshaller.Unmarshall(ErrorContext);
+        ResponseContext.Response.ContentLength := AHttpErrorResponse.ContentLength;
+        ResponseContext.Response.HttpStatusCode := AHttpErrorResponse.StatusCode;
+        Exit(True);
+      except
+        on E: Exception do
+          Logger.Debug('Failed to unmarshall 404 response when it was supressed: ' + E.Message);
+      end;
+    finally
+      ErrorContext.Free;
+    end;
+  end;
   Result := False;
 end;
 

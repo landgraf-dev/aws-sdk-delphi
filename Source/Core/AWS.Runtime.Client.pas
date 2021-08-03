@@ -219,7 +219,6 @@ end;
 
 procedure TAmazonServiceClient.Initialize;
 begin
-  {$MESSAGE WARN 'Implement'}
 end;
 
 function TAmazonServiceClient.Invoke<TResponse>(ARequest: TAmazonWebServiceRequest;

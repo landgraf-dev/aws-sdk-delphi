@@ -31,7 +31,9 @@ type
     destructor Destroy; override;
     function CanSeek: Boolean; virtual;
     function SearchWrappedStream(ACondition: TFunc<TStream, Boolean>): TStream; overload;
+    function GetNonWrapperBaseStream: TStream; overload;
     class function SearchWrappedStream(AStream: TStream; ACondition: TFunc<TStream, Boolean>): TStream; overload; static;
+    class function GetNonWrapperBaseStream(AStream: TStream): TStream; overload; static;
   end;
 
   /// <summary>
@@ -103,6 +105,30 @@ begin
   if OwnsStream then
     FBaseStream.Free;
   inherited;
+end;
+
+class function TWrapperStream.GetNonWrapperBaseStream(AStream: TStream): TStream;
+begin
+  if AStream is TWrapperStream then
+    Result := TWrapperStream(AStream).GetNonWrapperBaseStream
+  else
+    Result := AStream;
+end;
+
+function TWrapperStream.GetNonWrapperBaseStream: TStream;
+var
+  BaseStream: TStream;
+//  PartialStream: TPartialWrapperStream;
+begin
+  BaseStream := Self;
+  repeat
+    {TODO: Uncomment this when TPartialWrapperStream is implemented}
+//    if BaseStream is TPartialWrapperStream then
+//      Exit(BaseStream);
+
+    BaseStream := TWrapperStream(BaseStream).BaseStream;
+  until not (BaseStream is TWrapperStream);
+  Result := BaseStream;
 end;
 
 function TWrapperStream.GetSize: Int64;

@@ -22,7 +22,7 @@ type
 
   IResponseUnmarshaller<T, R> = interface(IUnmarshaller<T, R>)
     /// <summary>
-    /// Extracts an exeption with data from an ErrorResponse.
+    /// Extracts an exception with data from an ErrorResponse.
     /// </summary>
     /// <param name="AInput">The XML parsing context.</param>
     /// <param name="AInnerException">An inner exception to be included with the returned exception</param>
@@ -31,6 +31,8 @@ type
     /// general service exception for the service in question.</returns>
     function UnmarshallException(AInput: R; AInnerException: Exception; AStatusCode: Integer): EAmazonServiceException;
     function UnmarshallResponse(AContext: TUnmarshallerContext): TAmazonWebServiceResponse;
+    function CreateContext(AResponse: IWebResponseData; AReadEntireResponse: Boolean;
+      AStream: TStream; AIsException: Boolean): TUnmarshallerContext;
   end;
 
   IResponseUnmarshaller = IResponseUnmarshaller<TAmazonWebServiceResponse, TUnmarshallerContext>;

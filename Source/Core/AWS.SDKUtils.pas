@@ -42,6 +42,7 @@ type
     const ISO8601BasicDateFormat = 'yyyymmdd';
     const ISO8601BasicDateTimeFormat = 'yyyymmdd"T"hhnnss"Z"';
     const ISO8601DateFormat = 'yyyy-mm-dd"T"hh:nn:ss.zzz"Z"';
+    const DefaultBufferSize = 8192;
   public
     // Functions for internal use
     class function GetParametersAsString(AParameterCollection: TParameterCollection): string;
