@@ -127,6 +127,17 @@ You can simply pass the Access key ID and Secret key directly in the client cons
 
 Although using credentials profile is recommended as it's easier to manage and also compatible with [AWS Command Line Interface](https://aws.amazon.com/cli/).
 
+## Tests
+
+**Important:** Do not run the integration tests on a production account.
+
+Integration tests can be found in the **AWSTests** project. These tests assume that a default profile has been
+configured for credentials. You can set up credentials using [Configuration files][configuration-files], [Named profiles][named-profiles] or [Environment variables][environment-variables].
+
+The tests are designed to create and delete the resources needed for testing but it is important to keep your data safe. Do not run
+these tests on accounts that contain production data or resources. Since AWS resources are created and deleted during the running
+of these tests, charges can occur. To reduce charges occurred by running the tests focus on AWS resources that have minimal cost.
+
 ## License
 
 AWS SDK for Delphi is [fair-code](http://faircode.io) distributed under [**Apache 2.0 with Commons Clause**](LICENSE) license.
