@@ -83,7 +83,7 @@ end;
 
 class function TStringUtils.FromTBytesStream(const Value: TBytesStream): string;
 begin
-  Result := TEncoding.UTF8.GetString(Value.Bytes, 0, Value.Size);
+  Result := TBclUtils.EncodeBase64(Copy(Value.Bytes, 0, Value.Size));
 end;
 
 //class function TStringUtils.FromTMemoryStream(const Value: TMemoryStream): string;
