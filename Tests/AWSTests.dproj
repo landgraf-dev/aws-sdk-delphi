@@ -143,6 +143,7 @@
         <DCCReference Include="Source\Common\AWSTests.Cases.Utils.pas"/>
         <DCCReference Include="Source\AWSTests.SQS.pas"/>
         <DCCReference Include="Source\AWSTests.TestBase.pas"/>
+        <DCCReference Include="Source\AWSTests.SES.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

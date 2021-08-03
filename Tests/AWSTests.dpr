@@ -20,7 +20,8 @@ uses
   AWSTests.Cases.Common in 'Source\Common\AWSTests.Cases.Common.pas',
   AWSTests.Cases.Utils in 'Source\Common\AWSTests.Cases.Utils.pas',
   AWSTests.SQS in 'Source\AWSTests.SQS.pas',
-  AWSTests.TestBase in 'Source\AWSTests.TestBase.pas';
+  AWSTests.TestBase in 'Source\AWSTests.TestBase.pas',
+  AWSTests.SES in 'Source\AWSTests.SES.pas';
 
 {$R *.RES}
 
