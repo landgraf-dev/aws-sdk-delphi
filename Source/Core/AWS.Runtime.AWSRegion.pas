@@ -38,6 +38,11 @@ type
     constructor Create;
   end;
 
+  TInstanceProfileAWSRegion = class(TAWSRegion)
+  public
+    constructor Create;
+  end;
+
   TRegionGenerator = TFunc<IAWSRegion>;
 
   TFallbackRegionFactory = class
@@ -57,7 +62,8 @@ type
 implementation
 
 uses
-  AWS.Configs;
+  AWS.Configs,
+  AWS.Util.EC2InstanceMetadata;
 
 { TFallbackRegionFactory }
 
@@ -118,7 +124,7 @@ end;
 
 class procedure TFallbackRegionFactory.Reset;
 begin
-  {TODO: Add Config and EC2 instance generators}
+  {TODO: Add Config generator}
   FCachedRegion := nil;
   FAllGenerators.Free;
   FAllGenerators := TList<TRegionGenerator>.Create;
@@ -131,6 +137,11 @@ begin
     function: IAWSRegion
     begin
       Result := TProfileAWSRegion.Create(FCredentialProfileChain);
+    end);
+  FAllGenerators.Add(
+    function: IAWSRegion
+    begin
+      Result := TInstanceProfileAWSRegion.Create;
     end);
 
   FNonMetadataGenerators.Free;
@@ -220,6 +231,19 @@ begin
 
   Logger := LogManager.GetLogger(TEnvironmentVariableAWSRegion);
   Logger.Info('Region found using environment variable.');
+end;
+
+{ TInstanceProfileAWSRegion }
+
+constructor TInstanceProfileAWSRegion.Create;
+var
+  Logger: ILogger;
+begin
+  Region := TEC2InstanceMetadata.Region;
+  if Region = nil then
+    raise EInvalidOpException.Create('EC2 instance metadata was not available or did not contain region information.');
+  Logger := LogManager.GetLogger(TInstanceProfileAWSRegion);
+  Logger.Info('Region found using EC2 instance metadata.');
 end;
 
 end.

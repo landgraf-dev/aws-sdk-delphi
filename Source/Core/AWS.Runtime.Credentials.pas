@@ -8,7 +8,8 @@ uses
   System.Generics.Collections, System.SysUtils, System.Classes,
   Bcl.Logging,
   AWS.SDKUtils,
-  AWS.RegionEndpoint;
+  AWS.RegionEndpoint,
+  Sparkle.Sys.Timer;
 
 type
   TCredentialProfile = class;
@@ -209,6 +210,32 @@ type
     function FetchCredentials: IImmutableCredentials;
   end;
 
+  TDefaultInstanceProfileAWSCredentials = class(TAWSCredentials)
+  strict private const
+    FailedToGetCredentialsMessage = 'Failed to retrieve credentials from EC2 Instance Metadata Service.';
+    RefreshRate = 2 * 60 * 1000; // 2 minutes
+    CredentialsLockTimeout = 5000; // 5 seconds
+  strict private
+    class var FInstance: TDefaultInstanceProfileAWSCredentials;
+    class var FInstanceLock: TObject;
+    class constructor Create;
+    class destructor Destroy;
+    class procedure CheckIsIMDSEnabled; static;
+    class function FetchCredentials: IImmutableCredentials; static;
+  strict private
+    FLogger: ILogger;
+    FCredentialsRetrieverTimer: TSparkleTimer;
+    FLastRetrievedCredentials: IImmutableCredentials;
+    FCredentialsLock: TObject;
+    procedure RenewCredentials(Unused: TObject);
+  public
+    class function Instance: TDefaultInstanceProfileAWSCredentials; static;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    function GetCredentials: IImmutableCredentials; override;
+  end;
+
   TCredentialsGenerator = TFunc<IAWSCredentials>;
 
   ICredentialProfileSource = interface
@@ -282,7 +309,8 @@ type
     class var FCredentialsGenerator: TList<TCredentialsGenerator>;
     class var FCredentialProfileChain: ICredentialProfileSource;
   strict private
-    class function GetAWSCredentials(ASource: ICredentialProfileSource): IAWSCredentials;
+    class function GetAWSCredentials(ASource: ICredentialProfileSource): IAWSCredentials; static;
+    class function ECSEC2CredentialsWrapper: IAWSCredentials; static;
   public
     const AWS_PROFILE_ENVIRONMENT_VARIABLE = 'AWS_PROFILE';
     const DefaultProfileName = 'default';
@@ -376,7 +404,8 @@ implementation
 uses
   System.IOUtils,
   AWS.Configs,
-  AWS.Runtime.Exceptions;
+  AWS.Runtime.Exceptions,
+  AWS.Util.EC2InstanceMetadata;
 
 { TFallbackCredentialsFactory }
 
@@ -389,6 +418,37 @@ end;
 class destructor TFallbackCredentialsFactory.Destroy;
 begin
   FCredentialsGenerator.Free;
+end;
+
+class function TFallbackCredentialsFactory.ECSEC2CredentialsWrapper: IAWSCredentials;
+//var
+//  RelativeUri: string;
+//  FullUri: string;
+begin
+  {TODO: Implement ECS endpoint for credentials retrieval}
+(*
+  /// If either AWS_CONTAINER_CREDENTIALS_RELATIVE_URI or AWS_CONTAINER_CREDENTIALS_FULL_URI environment variables are set, we want to attempt to retrieve credentials
+  /// using ECS endpoint instead of referring to instance profile credentials.
+  try
+    RelativeUri := GetEnvironmentVariable(TECSTaskCredentials.ContainerCredentialsURIEnvVariable);
+    if RelativeUri <> '' then
+      Exit(TECSTaskCredential.Create);
+
+
+    FullUri := GetEnvironmentVariable(TECSTaskCredentials.ContainerCredentialsFullURIEnvVariable);
+    if FullUri <> '' then
+      Exit(TECSTaskCredentials.Create);
+  except
+    on E: ESecurityException do
+    begin
+      LogManager.GetLogger(TECSTaskCredentials).Error(Format(
+        'Failed to access environment variables %0:s and %1:s.' +
+          ' Either %0:s or %1:s environment variables must be set.');
+        [TECSTaskCredentials.ContainerCredentialsURIEnvVariable,
+         TECSTaskCredentials.ContainerCredentialsFullURIEnvVariable]));
+    end;
+  end; *)
+  Result := TDefaultInstanceProfileAWSCredentials.Instance;
 end;
 
 class function TFallbackCredentialsFactory.GetAWSCredentials(ASource: ICredentialProfileSource): IAWSCredentials;
@@ -467,6 +527,11 @@ begin
     function: IAWSCredentials
     begin
       Result := TEnvironmentVariablesAWSCredentials.Create;
+    end);
+  FCredentialsGenerator.Add(
+    function: IAWSCredentials
+    begin
+      Result := ECSEC2CredentialsWrapper;
     end);
 end;
 
@@ -930,6 +995,148 @@ end;
 function TEnvironmentVariablesAWSCredentials.GetCredentials: IImmutableCredentials;
 begin
   Result := FetchCredentials;
+end;
+
+{ TDefaultInstanceProfileAWSCredentials }
+
+class procedure TDefaultInstanceProfileAWSCredentials.CheckIsIMDSEnabled;
+begin
+  if not TEC2InstanceMetadata.IsIMDSEnabled then
+    raise EAmazonServiceException.Create('Unable to retrieve credentials.');
+end;
+
+constructor TDefaultInstanceProfileAWSCredentials.Create;
+begin
+  inherited Create;
+
+  // if IMDS is turned off, no need to spin up the timer task
+  if not TEC2InstanceMetadata.IsIMDSEnabled then Exit;
+
+  {TODO: Replace this by a ReadWriterLock later}
+  FCredentialsLock := TObject.Create;
+  FLogger := LogManager.GetLogger(TDefaultInstanceProfileAWSCredentials);
+  FCredentialsRetrieverTimer := TSparkleTimer.Create(RenewCredentials, nil, 0, TTimerType.Periodic);
+end;
+
+destructor TDefaultInstanceProfileAWSCredentials.Destroy;
+begin
+  FCredentialsLock.Free;
+  inherited;
+end;
+
+class function TDefaultInstanceProfileAWSCredentials.FetchCredentials: IImmutableCredentials;
+var
+  SecurityCredentials: TDictionary<string, TIAMSecurityCredentialMetadata>;
+  Metadata: TIAMSecurityCredentialMetadata;
+  FirstRole: string;
+  Role: string;
+begin
+  SecurityCredentials := TEC2InstanceMetadata.IAMSecurityCredentials;
+  try
+    if SecurityCredentials = nil then
+      raise EAmazonServiceException.Create('Unable to get IAM security credentials from EC2 Instance Metadata Service.');
+
+    FirstRole := '';
+    for role in SecurityCredentials.Keys do
+    begin
+      FirstRole := Role;
+      Break;
+    end;
+
+    if FirstRole = '' then
+      raise EAmazonServiceException.Create('Unable to get EC2 instance role from EC2 Instance Metadata Service.');
+
+    Metadata := SecurityCredentials[FirstRole];
+    if Metadata = nil then
+      raise EAmazonServiceException.Create(
+        'Unable to get credentials for role "' + FirstRole + '" from EC2 Instance Metadata Service.');
+
+    Result := TImmutableCredentials.Create(Metadata.AccessKeyId, Metadata.SecretAccessKey, Metadata.Token);
+  finally
+    SecurityCredentials.Free;
+  end;
+end;
+
+class constructor TDefaultInstanceProfileAWSCredentials.Create;
+begin
+  FInstanceLock := TObject.Create;
+end;
+
+class destructor TDefaultInstanceProfileAWSCredentials.Destroy;
+begin
+  FInstanceLock.Free;
+end;
+
+function TDefaultInstanceProfileAWSCredentials.GetCredentials: IImmutableCredentials;
+var
+  Credentials: IImmutableCredentials;
+begin
+  CheckIsIMDSEnabled();
+  Credentials := nil;
+
+  TMonitor.Enter(FCredentialsLock, CredentialsLockTimeout);
+  try
+    if FLastRetrievedCredentials <> nil then
+      Credentials := FLastRetrievedCredentials.Copy;
+    if Credentials <> nil then
+      Exit(Credentials);
+  finally
+    TMonitor.Exit(FCredentialsLock);
+  end;
+
+  // If there's no credentials cached, hit IMDS directly. Try to acquire write lock.
+  TMonitor.Enter(FCredentialsLock, CredentialsLockTimeout);
+  try
+    // Check for last retrieved credentials again in case other thread might have already fetched it.
+    if FLastRetrievedCredentials <> nil then
+      Credentials := FLastRetrievedCredentials.Copy;
+    if Credentials = nil then
+    begin
+      Credentials := FetchCredentials;
+      FLastRetrievedCredentials := Credentials;
+    end;
+  finally
+    TMonitor.Exit(FCredentialsLock);
+  end;
+  if Credentials = nil then
+    raise EAmazonServiceException.Create(FailedToGetCredentialsMessage);
+  Result := Credentials;
+end;
+
+class function TDefaultInstanceProfileAWSCredentials.Instance: TDefaultInstanceProfileAWSCredentials;
+begin
+  CheckIsIMDSEnabled;
+  if FInstance = nil then
+  begin
+    TMonitor.Enter(FInstanceLock);
+    try
+      if FInstance = nil then
+        FInstance := TDefaultInstanceProfileAWSCredentials.Create;
+    finally
+      TMonitor.Exit(FInstanceLock);
+    end;
+  end;
+  Result := FInstance;
+end;
+
+procedure TDefaultInstanceProfileAWSCredentials.RenewCredentials(Unused: TObject);
+begin
+  try
+    try
+      FLastRetrievedCredentials := FetchCredentials;
+    except
+      on E: Exception do
+      begin
+        FLastRetrievedCredentials := nil;
+
+        // we want to suppress any exceptions from this timer task.
+        FLogger.Error(FailedToGetCredentialsMessage + ' ' + E.Message);
+      end;
+    end;
+  finally
+    // re-invoke this task once after time specified by refreshRate
+    FCredentialsRetrieverTimer.Update(RefreshRate, TTimerType.SingleShot);
+  end;
 end;
 
 end.

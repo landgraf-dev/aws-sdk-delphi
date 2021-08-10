@@ -180,14 +180,11 @@ end;
 constructor TAmazonServiceClient.Create(ACredentials: IAWSCredentials; AConfig: IClientConfig);
 begin
   inherited Create;
-  FLogger := TNullLogger.Create;
   FServiceMetadata := TServiceMetadata.Create;
-
   if AConfig.DisableLogging then
     FLogger := TNullLogger.Create
   else
     FLogger := LogManager.GetLogger(Self.ClassType);
-
   AConfig.Validate;
   FConfig := AConfig;
   FCredentials := ACredentials;

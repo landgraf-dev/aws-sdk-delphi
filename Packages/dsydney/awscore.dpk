@@ -81,6 +81,7 @@ contains
   AWS.Transform.UnmarshallerContext in '..\..\Source\Core\AWS.Transform.UnmarshallerContext.pas',
   AWS.Util.Crypto in '..\..\Source\Core\AWS.Util.Crypto.pas',
   AWS.Util.Streams in '..\..\Source\Core\AWS.Util.Streams.pas',
-  AWS.RegionEndpoints in '..\..\Source\Core\AWS.RegionEndpoints.pas';
+  AWS.RegionEndpoints in '..\..\Source\Core\AWS.RegionEndpoints.pas',
+  AWS.Util.EC2InstanceMetadata in '..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas';
 
 end.

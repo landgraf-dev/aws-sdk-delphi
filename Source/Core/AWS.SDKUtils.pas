@@ -8,7 +8,8 @@ uses
   System.Generics.Collections, System.Classes, System.IniFiles, System.SysUtils, System.StrUtils,
   Sparkle.Uri,
   AWS.Internal.ParameterCollection,
-  AWS.Internal.IRegionEndpoint;
+  AWS.Internal.IRegionEndpoint,
+  Sparkle.Http.Headers;
 
 type
   IUri = Sparkle.Uri.IUri;
@@ -43,11 +44,13 @@ type
     const ISO8601BasicDateTimeFormat = 'yyyymmdd"T"hhnnss"Z"';
     const ISO8601DateFormat = 'yyyy-mm-dd"T"hh:nn:ss.zzz"Z"';
     const DefaultBufferSize = 8192;
+    const UrlEncodedContent = 'application/x-www-form-urlencoded; charset=utf-8';
+  strict private
+    class var FUserAgent: string;
   public
     // Functions for internal use
+    class constructor Create;
     class function GetParametersAsString(AParameterCollection: TParameterCollection): string;
-  public
-    const UrlEncodedContent = 'application/x-www-form-urlencoded; charset=utf-8';
   public
     class function ResolveResourcePath(const AResourcePath: string;
       APathResources: TDictionary<string, string>): string;
@@ -137,6 +140,18 @@ type
     class function CompressSpaces(const AData: string): string; static;
 
     class function UrlEncodeSlash(const Value: string): string; static;
+
+    /// <summary>
+    /// Executes an HTTP request and returns the response as a string.
+    /// </summary>
+    /// <param name="AUri">The URI to make the request to</param>
+    /// <param name="ARequestType">The request type: GET, PUT, POST</param>
+    /// <param name="AContent">null or the content to send with the request</param>
+    /// <param name="ATimeout">Timeout for the request in milliseconds</param>
+    /// <param name="AHeaders">null or any headers to send with the request</param>
+    /// <returns>The response as a string.</returns>
+    class function ExecuteHttpRequest(const AUri, ARequestType, AContent: string;
+      ATimeoutMS: Integer; AHeaders: THttpHeaders): string; static;
   end;
 
   THeaderKeys = class
@@ -219,11 +234,23 @@ type
     public const AmzSdkRequest = 'amz-sdk-request';
   end;
 
+  EWebException = class(Exception)
+  strict private
+    FStatusCode: Integer;
+    FUrl: string;
+  public
+    constructor Create(const AUrl: string; AStatusCode: Integer);
+    property Url: string read FUrl;
+    property StatusCode: Integer read FStatusCode;
+  end;
+
 implementation
 
 uses
   Sparkle.Utils,
-  AWS.Internal.RegionFinder;
+  AWS.Internal.RegionFinder,
+  Sparkle.Http.Client,
+  AWS.Internal.SDKUtils;
 
 { TProfileIniFile }
 
@@ -381,6 +408,11 @@ begin
   Result := Result + Copy(AData, Start, Index - Start + 1);
 end;
 
+class constructor TAWSSDKUtils.Create;
+begin
+  FUserAgent := TInternalSDKUtils.BuildUserAgentString('');
+end;
+
 class function TAWSSDKUtils.DetermineRegion(AUrl: string): string;
 var
   RegionEndpoint: IRegionEndpoint;
@@ -420,6 +452,48 @@ begin
     Result := 'sqs'
   else
     Result := 'service';
+end;
+
+class function TAWSSDKUtils.ExecuteHttpRequest(const AUri, ARequestType, AContent: string; ATimeoutMS: Integer;
+  AHeaders: THttpHeaders): string;
+var
+  Client: THttpClient;
+  Request: THttpRequest;
+  Response: THttpResponse;
+  HeaderInfo: THttpHeaderInfo;
+begin
+  Client := THttpClient.Create;
+  try
+    // Create the request
+    Request := Client.CreateRequest;
+    try
+      Request.Uri := AUri;
+      if ATimeoutMS > 0 then
+        Request.Timeout := ATimeoutMS;
+      Request.Headers.AddValue(THeaderKeys.UserAgentHeader, FUserAgent);
+      for HeaderInfo in AHeaders.AllHeaders do
+        Request.Headers.AddValue(HeaderInfo.Name, HeaderInfo.Value);
+
+      // Build the request
+      Request.Method := ARequestType;
+      if AContent <> '' then
+        Request.SetContent(TEncoding.UTF8.GetBytes(AContent));
+
+      // Get response
+      Response := Client.Send(Request);
+      try
+        if Response.StatusCode >= 400 then
+          raise EWebException.Create(Request.Uri, Response.StatusCode);
+        Result := TEncoding.UTF8.GetString(Response.ContentAsBytes);
+      finally
+        Response.Free;
+      end;
+    finally
+      Request.Free;
+    end;
+  finally
+    Client.Free;
+  end;
 end;
 
 class function TAWSSDKUtils.GetParametersAsString(AParameterCollection: TParameterCollection): string;
@@ -535,6 +609,15 @@ begin
     Result := ''
   else
     Result := StringReplace(Value, Slash, EncodedSlash, [rfReplaceAll]);
+end;
+
+{ EWebException }
+
+constructor EWebException.Create(const AUrl: string; AStatusCode: Integer);
+begin
+  FUrl := AUrl;
+  FStatusCode := AStatusCode;
+  inherited CreateFmt('Request error for "%s", status code: %d', [AUrl, AStatusCode]);
 end;
 
 end.
