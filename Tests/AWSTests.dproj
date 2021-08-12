@@ -73,7 +73,7 @@
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-        <DCC_UnitSearchPath>$(BDS)\Source\DUnit\src;..\Source;..\Source\Core;..\Source\Services\SQS\Base;..\Source\Services\SQS\Base\Model;..\Source\Services\SQS\Base\Transform;..\Source\Services\SQS\Custom;..\Source\Services\SimpleEmail\Base;..\Source\Services\SimpleEmail\Base\Model;..\Source\Services\SimpleEmail\Base\Transform;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>$(BDS)\Source\DUnit\src;..\Source;..\Source\Core;..\Source\Services\SQS\Base;..\Source\Services\SQS\Base\Model;..\Source\Services\SQS\Base\Transform;..\Source\Services\SQS\Custom;..\Source\Services\SimpleEmail\Base;..\Source\Services\SimpleEmail\Base\Model;..\Source\Services\SimpleEmail\Base\Transform;..\Source\Services\SimpleNotificationService\Base;..\Source\Services\SimpleNotificationService\Base\Model;..\Source\Services\SimpleNotificationService\Base\Transform;..\Source\Services\SimpleNotificationService\Custom;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_Define>_CONSOLE_TESTRUNNER;$(DCC_Define)</DCC_Define>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
@@ -144,6 +144,7 @@
         <DCCReference Include="Source\AWSTests.SQS.pas"/>
         <DCCReference Include="Source\AWSTests.TestBase.pas"/>
         <DCCReference Include="Source\AWSTests.SES.pas"/>
+        <DCCReference Include="Source\AWSTests.SNS.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
