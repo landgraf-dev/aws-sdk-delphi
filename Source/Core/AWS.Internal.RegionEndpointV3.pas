@@ -130,11 +130,14 @@ begin
   inherited Create;
   FRegionName := ARegionName;
   FDisplayName := ADisplayName;
-  FPartitionJsonData := APartition.Clone.AsObject;
-  if AServices = nil then
-    FServicesJsonData := TJObject.Create
-  else
-    FServicesJsonData := AServices.Clone.AsObject;
+//  FPartitionJsonData := APartition.Clone.AsObject;
+//  if AServices = nil then
+//    FServicesJsonData := TJObject.Create
+//  else
+//    FServicesJsonData := AServices.Clone.AsObject;
+
+  FPartitionJsonData := APartition;
+  FServicesJsonData := AServices;
   FServiceMap := TRegionServiceMap.Create;
 end;
 
@@ -242,8 +245,8 @@ end;
 destructor TRegionEndpointV3.Destroy;
 begin
   FServiceMap.Free;
-  FPartitionJsonData.Free;
-  FServicesJsonData.Free;
+//  FPartitionJsonData.Free;
+//  FServicesJsonData.Free;
   inherited;
 end;
 
