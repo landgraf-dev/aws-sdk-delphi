@@ -63,7 +63,7 @@ begin
       TClientProtocol.QueryStringProtocol:
         ARequestContext.Request.Parameters.Add('SecurityToken', ImmutableCredentials.Token);
       TClientProtocol.RestProtocol:
-        ARequestContext.Request.Parameters.Add(THeaderKeys.XAmzSecurityTokenHeader, ImmutableCredentials.Token);
+        ARequestContext.Request.Headers.AddOrSetValue(THeaderKeys.XAmzSecurityTokenHeader, ImmutableCredentials.Token);
     else
       raise EInvalidDataException.Create('Cannot determine protocol');
     end;
