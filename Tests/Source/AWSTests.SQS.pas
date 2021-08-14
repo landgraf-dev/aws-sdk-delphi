@@ -18,12 +18,9 @@ type
     Prefix = 'TestQueue';
     DefaultTimeout = '30';
   private
-    class var FAttributes: TDictionary<string, TMessageAttributeValue>;
-    class constructor Create;
-    class destructor Destroy;
-  private
     FClient: IAmazonSQS;
     function Client: IAmazonSQS;
+    function CreateTestAttributes: TObjectDictionary<string, TMessageAttributeValue>;
   protected
     procedure ValidateMD5(const Msg, MD5: string);
     function CreateQueueTest(const Name: string): string;
@@ -55,31 +52,6 @@ begin
   if FClient = nil then
     FClient := TAmazonSQSClient.Create;
   Result := FClient;
-end;
-
-class constructor TSQSTests.Create;
-
-  function StrAttr(const DataType, Value: string): TMessageAttributeValue;
-  begin
-    Result := TMessageAttributeValue.Create;
-    Result.DataType := DataType;
-    Result.StringValue := Value;
-  end;
-
-  function BinaryAttr(const Value: TBytesStream): TMessageAttributeValue;
-  begin
-    Result := TMessageAttributeValue.Create;
-    Result.DataType := 'Binary';
-    Result.BinaryValue := Value;
-  end;
-
-begin
-  FAttributes := TObjectDictionary<string, TMessageAttributeValue>.Create([doOwnsValues]);
-  FAttributes.Add('StringAttribute', StrAttr('String', 'StringAttributeValue'));
-  FAttributes.Add('NumberAttribute', StrAttr('Number', '1234'));
-  FAttributes.Add('lowercasestringattribute', StrAttr('String', 'lowercasestringattribute'));
-  FAttributes.Add('BinaryAttribute', BinaryAttr(TBytesStream.Create(TEncoding.UTF8.GetBytes('BinaryAttributeValue'))));
-  FAttributes.Add('UPPERCASESTRINGATTRIBUTE', StrAttr('String', 'UPPERCASESTRINGATTRIBUTE'));
 end;
 
 function TSQSTests.CreateQueueTest(const Name: string): string;
@@ -125,6 +97,36 @@ begin
   Result := 'fail';
 end;
 
+function TSQSTests.CreateTestAttributes: TObjectDictionary<string, TMessageAttributeValue>;
+
+  function StrAttr(const DataType, Value: string): TMessageAttributeValue;
+  begin
+    Result := TMessageAttributeValue.Create;
+    Result.DataType := DataType;
+    Result.StringValue := Value;
+  end;
+
+  function BinaryAttr(const Value: TBytesStream): TMessageAttributeValue;
+  begin
+    Result := TMessageAttributeValue.Create;
+    Result.DataType := 'Binary';
+    Result.BinaryValue := Value;
+  end;
+
+begin
+  Result := TObjectDictionary<string, TMessageAttributeValue>.Create([doOwnsValues]);
+  try
+    Result.Add('StringAttribute', StrAttr('String', 'StringAttributeValue'));
+    Result.Add('NumberAttribute', StrAttr('Number', '1234'));
+    Result.Add('lowercasestringattribute', StrAttr('String', 'lowercasestringattribute'));
+    Result.Add('BinaryAttribute', BinaryAttr(TBytesStream.Create(TEncoding.UTF8.GetBytes('BinaryAttributeValue'))));
+    Result.Add('UPPERCASESTRINGATTRIBUTE', StrAttr('String', 'UPPERCASESTRINGATTRIBUTE'));
+  except
+    Result.Free;
+    raise;
+  end;
+end;
+
 procedure TSQSTests.DeadLetterQueueTest;
 var
   MainQueueName: string;
@@ -164,11 +166,6 @@ begin
   Metadata := DeadListResponse.ResponseMetadata;
   Check(Metadata <> nil);
   Check(Metadata.RequestId <> '');
-end;
-
-class destructor TSQSTests.Destroy;
-begin
-  FAttributes.Free;
 end;
 
 procedure TSQSTests.FifoTest;
@@ -215,8 +212,15 @@ begin
 end;
 
 procedure TSQSTests.MD5OfAttributes;
+var
+  Attributes: TDictionary<string, AWS.SQS.TMessageAttributeValue>;
 begin
-  CheckEquals('1f3bb098e34eefc22bab1113af7ad09c', TValidationResponseHandler.CalculateMD5(FAttributes));
+  Attributes := CreateTestAttributes;
+  try
+    CheckEquals('1f3bb098e34eefc22bab1113af7ad09c', TValidationResponseHandler.CalculateMD5(Attributes));
+  finally
+    Attributes.Free;
+  end;
 end;
 
 procedure TSQSTests.SetUp;
@@ -292,13 +296,11 @@ procedure TSQSTests.TestSendMessage(Client: IAmazonSQS; const QueueUrl, MessageB
 var
   Request: ISendMessageRequest;
   Response: ISendMessageResponse;
-  Attr: TPair<string, TMessageAttributeValue>;
 begin
   Request := TSendMessageRequest.Create;
   Request.MessageBody := MessageBody;
   Request.QueueUrl := QueueUrl;
-  for Attr in FAttributes do
-    Request.MessageAttributes.Add(Attr.Key, Attr.Value);
+  Request.MessageAttributes := CreateTestAttributes;
   Response := Client.SendMessage(Request);
   ValidateMD5(Request.MessageBody, Response.MD5OfMessageBody);
 end;

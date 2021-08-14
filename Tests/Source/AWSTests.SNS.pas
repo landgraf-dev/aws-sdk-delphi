@@ -36,15 +36,16 @@ type
   public
     procedure SetUp; override;
   public
-    // to run this test, a valid email address must be supplied and
-    // the subscription confirmed within two minutes by default
-    procedure SubscribeTopic;
   published
     procedure CRUDTopics;
     procedure TestPublishAsJson;
     procedure TestQueueSubscription;
     procedure TestMultipleQueueSubscription;
     procedure FindTopic;
+
+    // to run this test, a valid email address must be supplied and
+    // the subscription confirmed within two minutes by default
+    procedure SubscribeTopic;
   end;
 
 implementation
@@ -240,6 +241,8 @@ end;
 
 procedure TSNSTests.SubscribeTopic;
 const
+  // to run this test, a valid email address must be supplied and
+  // the subscription confirmed within two minutes by default
   EmailAddress = 'replaceme@example.com';
 var
   Name: string;
@@ -248,6 +251,12 @@ var
   Latest: TDateTime;
   Response: IListSubscriptionsByTopicResponse;
 begin
+  if EmailAddress = 'replaceme@example.com' then
+  begin
+    Status('Please provide a valid e-mail address for this test to run.');
+    Exit;
+  end;
+
   // create new topic
   Name := 'delphisdk' + IntToStr(Random(MaxInt));
   TopicArn := Client.CreateTopic(Name).TopicArn;
@@ -392,23 +401,27 @@ begin
     Msg := Messages[0];
 
     Json := TJson.Deserialize<TJObject>(GetBodyJson(Msg));
-    CheckEquals(PublishRequest.Message, Json['Message'].AsString);
-    CheckEquals(PublishRequest.Subject, Json['Subject'].AsString);
-    MessageAttributes := Json['MessageAttributes'].AsObject;
-    CheckEquals(PublishRequest.MessageAttributes.Count, Length(TJObject.keys(MessageAttributes)));
-    for Ma in PublishRequest.MessageAttributes do
-    begin
-      Check(MessageAttributes.Contains(Ma.Key));
-      JsonAttribute := MessageAttributes[Ma.Key].AsObject;
-      JsonType := JsonAttribute['Type'].AsString;
-      JsonValue := jsonAttribute['Value'].AsString;
-      CheckNotEquals('', JsonType);
-      CheckNotEquals('', JsonValue);
-      CheckEquals(Ma.Value.DataType, JsonType);
-      if Ma.Value.DataType <> 'Binary' then
-        CheckEquals(Ma.Value.StringValue, JsonValue)
-      else
-        CheckEquals(TBclUtils.EncodeBase64(Ma.Value.BinaryValue.Bytes), JsonValue);
+    try
+      CheckEquals(PublishRequest.Message, Json['Message'].AsString);
+      CheckEquals(PublishRequest.Subject, Json['Subject'].AsString);
+      MessageAttributes := Json['MessageAttributes'].AsObject;
+      CheckEquals(PublishRequest.MessageAttributes.Count, Length(TJObject.keys(MessageAttributes)));
+      for Ma in PublishRequest.MessageAttributes do
+      begin
+        Check(MessageAttributes.Contains(Ma.Key));
+        JsonAttribute := MessageAttributes[Ma.Key].AsObject;
+        JsonType := JsonAttribute['Type'].AsString;
+        JsonValue := jsonAttribute['Value'].AsString;
+        CheckNotEquals('', JsonType);
+        CheckNotEquals('', JsonValue);
+        CheckEquals(Ma.Value.DataType, JsonType);
+        if Ma.Value.DataType <> 'Binary' then
+          CheckEquals(Ma.Value.StringValue, JsonValue)
+        else
+          CheckEquals(TBclUtils.EncodeBase64(Ma.Value.BinaryValue.Bytes), JsonValue);
+      end;
+    finally
+      Json.Free;
     end;
 
     FSQSClient.DeleteMessage(TDeleteMessageRequest.Create(QueueUrl, Msg.ReceiptHandle));

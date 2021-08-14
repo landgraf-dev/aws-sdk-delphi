@@ -16,6 +16,8 @@ type
   public
     procedure VerifyEmails(const Emails: TArray<string>);
   published
+    // For this test to run you must replace the predefined email addresses
+    // with valid emails for sending and receiving
     procedure TestSendEmail;
   end;
 
@@ -31,15 +33,20 @@ begin
 end;
 
 procedure TSESTests.TestSendEmail;
+const
+  // For this test to run you must replace the predefined email addresses
+  // with valid emails for sending and receiving
+  SourceAddress = 'bruce@example.com';
+  DestinationAddress = 'alice@example.com';
 var
-  SourceAddress: string;
-  DestinationAddress: string;
   SendEmailRequest: ISendEmailRequest;
 begin
   // Replace these email with valid emails.
-  Check(False, 'Provide valid emails for testing.');
-  SourceAddress := 'bruce@example.com';
-  DestinationAddress := 'alice@example.com';
+  if (SourceAddress = 'bruce@example.com') or (DestinationAddress = 'alice@example.com') then
+  begin
+    Status('Please provide valid e-mail addresses for this test to run.');
+    Exit;
+  end;
 
   // verify email addresses, both source and destination
   VerifyEmails([SourceAddress, DestinationAddress]);

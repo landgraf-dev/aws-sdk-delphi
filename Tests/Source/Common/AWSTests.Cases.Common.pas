@@ -52,6 +52,7 @@ end;
 
 procedure TRegionProviderTests.TearDown;
 begin
+  FProvider := nil;
   inherited;
 end;
 
