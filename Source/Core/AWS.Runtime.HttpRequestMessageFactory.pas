@@ -8,6 +8,9 @@ uses
   AWS.Runtime.ClientConfig,
   AWS.Runtime.IHttpRequestFactory,
   Sparkle.Http.Client,
+  {$IFDEF MSWINDOWS}
+  Sparkle.WinHttp.Engine,
+  {$ENDIF}
   AWS.SDKUtils,
   AWS.Internal.WebResponseData;
 
@@ -108,6 +111,9 @@ class function THttpRequestMessageFactory.CreateManagedHttpClient(AClientConfig:
 begin
   {TODO: Several options not implemented, including timeout}
   Result := THttpClient.Create;
+  {$IFDEF MSWINDOWS}
+  TWinHttpEngine(Result.Engine).ProxyMode := THttpProxyMode.Auto;
+  {$ENDIF}
 end;
 
 { THttpWebRequestMessage }
