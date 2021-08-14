@@ -35,6 +35,7 @@ type
     function GetBodyJson(Msg: TMessage): string;
   public
     procedure SetUp; override;
+    procedure TearDown; override;
   public
   published
     procedure CRUDTopics;
@@ -297,6 +298,12 @@ begin
     // delete the topic
     Client.DeleteTopic(TopicArn);
   end;
+end;
+
+procedure TSNSTests.TearDown;
+begin
+  FClient := nil;
+  inherited;
 end;
 
 procedure TSNSTests.TestMultipleQueueSubscription;

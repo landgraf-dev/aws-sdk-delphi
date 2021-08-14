@@ -15,6 +15,7 @@ type
     function Client: IAmazonSimpleEmailService;
   public
     procedure VerifyEmails(const Emails: TArray<string>);
+    procedure TearDown; override;
   published
     // For this test to run you must replace the predefined email addresses
     // with valid emails for sending and receiving
@@ -30,6 +31,12 @@ begin
   if FClient = nil then
     FClient := TAmazonSimpleEmailServiceClient.Create;
   Result := FClient;
+end;
+
+procedure TSESTests.TearDown;
+begin
+  FClient := nil;
+  inherited;
 end;
 
 procedure TSESTests.TestSendEmail;

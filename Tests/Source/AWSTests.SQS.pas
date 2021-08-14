@@ -260,6 +260,8 @@ begin
     except
     end;
   end;
+  FClient := nil;
+  inherited;
 end;
 
 procedure TSQSTests.TestGetQueueUrl;
