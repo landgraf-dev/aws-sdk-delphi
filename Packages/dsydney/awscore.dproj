@@ -166,6 +166,12 @@
         <DCCReference Include="..\..\Source\Core\AWS.Util.Streams.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.RegionEndpoints.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Auth.Policy.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Auth.Statement.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Auth.Resource.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Auth.Condition.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Auth.Principal.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Auth.ActionIdentifier.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -82,6 +82,12 @@ contains
   AWS.Util.Crypto in '..\..\Source\Core\AWS.Util.Crypto.pas',
   AWS.Util.Streams in '..\..\Source\Core\AWS.Util.Streams.pas',
   AWS.RegionEndpoints in '..\..\Source\Core\AWS.RegionEndpoints.pas',
-  AWS.Util.EC2InstanceMetadata in '..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas';
+  AWS.Util.EC2InstanceMetadata in '..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas',
+  AWS.Auth.Policy in '..\..\Source\Core\AWS.Auth.Policy.pas',
+  AWS.Auth.Statement in '..\..\Source\Core\AWS.Auth.Statement.pas',
+  AWS.Auth.Resource in '..\..\Source\Core\AWS.Auth.Resource.pas',
+  AWS.Auth.Condition in '..\..\Source\Core\AWS.Auth.Condition.pas',
+  AWS.Auth.Principal in '..\..\Source\Core\AWS.Auth.Principal.pas',
+  AWS.Auth.ActionIdentifier in '..\..\Source\Core\AWS.Auth.ActionIdentifier.pas';
 
 end.
