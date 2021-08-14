@@ -94,7 +94,7 @@ constructor TMessage.Create;
 begin
   inherited;
   FAttributes := TDictionary<string, string>.Create;
-  FMessageAttributes := TObjectDictionary<string, TMessageAttributeValue>.Create;
+  FMessageAttributes := TObjectDictionary<string, TMessageAttributeValue>.Create([doOwnsValues]);
 end;
 
 destructor TMessage.Destroy;

@@ -39,7 +39,7 @@ implementation
 constructor TGetIdentityMailFromDomainAttributesResponse.Create;
 begin
   inherited;
-  FMailFromDomainAttributes := TObjectDictionary<string, TIdentityMailFromDomainAttributes>.Create;
+  FMailFromDomainAttributes := TObjectDictionary<string, TIdentityMailFromDomainAttributes>.Create([doOwnsValues]);
 end;
 
 destructor TGetIdentityMailFromDomainAttributesResponse.Destroy;

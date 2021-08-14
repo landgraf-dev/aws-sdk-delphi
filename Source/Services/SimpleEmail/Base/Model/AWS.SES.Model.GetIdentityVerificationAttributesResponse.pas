@@ -39,7 +39,7 @@ implementation
 constructor TGetIdentityVerificationAttributesResponse.Create;
 begin
   inherited;
-  FVerificationAttributes := TObjectDictionary<string, TIdentityVerificationAttributes>.Create;
+  FVerificationAttributes := TObjectDictionary<string, TIdentityVerificationAttributes>.Create([doOwnsValues]);
 end;
 
 destructor TGetIdentityVerificationAttributesResponse.Destroy;

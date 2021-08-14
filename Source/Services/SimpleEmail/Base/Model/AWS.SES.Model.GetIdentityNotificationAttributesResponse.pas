@@ -39,7 +39,7 @@ implementation
 constructor TGetIdentityNotificationAttributesResponse.Create;
 begin
   inherited;
-  FNotificationAttributes := TObjectDictionary<string, TIdentityNotificationAttributes>.Create;
+  FNotificationAttributes := TObjectDictionary<string, TIdentityNotificationAttributes>.Create([doOwnsValues]);
 end;
 
 destructor TGetIdentityNotificationAttributesResponse.Destroy;

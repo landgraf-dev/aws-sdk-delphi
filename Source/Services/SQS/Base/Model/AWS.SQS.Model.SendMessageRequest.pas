@@ -96,8 +96,8 @@ implementation
 constructor TSendMessageRequest.Create;
 begin
   inherited;
-  FMessageAttributes := TObjectDictionary<string, TMessageAttributeValue>.Create;
-  FMessageSystemAttributes := TObjectDictionary<string, TMessageSystemAttributeValue>.Create;
+  FMessageAttributes := TObjectDictionary<string, TMessageAttributeValue>.Create([doOwnsValues]);
+  FMessageSystemAttributes := TObjectDictionary<string, TMessageSystemAttributeValue>.Create([doOwnsValues]);
 end;
 
 destructor TSendMessageRequest.Destroy;

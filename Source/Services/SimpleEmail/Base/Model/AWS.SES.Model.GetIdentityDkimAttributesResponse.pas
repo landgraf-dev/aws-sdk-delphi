@@ -39,7 +39,7 @@ implementation
 constructor TGetIdentityDkimAttributesResponse.Create;
 begin
   inherited;
-  FDkimAttributes := TObjectDictionary<string, TIdentityDkimAttributes>.Create;
+  FDkimAttributes := TObjectDictionary<string, TIdentityDkimAttributes>.Create([doOwnsValues]);
 end;
 
 destructor TGetIdentityDkimAttributesResponse.Destroy;

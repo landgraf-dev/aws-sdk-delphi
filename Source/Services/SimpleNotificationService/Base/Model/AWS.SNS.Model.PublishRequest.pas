@@ -114,7 +114,7 @@ implementation
 constructor TPublishRequest.Create;
 begin
   inherited;
-  FMessageAttributes := TObjectDictionary<string, TMessageAttributeValue>.Create;
+  FMessageAttributes := TObjectDictionary<string, TMessageAttributeValue>.Create([doOwnsValues]);
 end;
 
 destructor TPublishRequest.Destroy;
