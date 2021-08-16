@@ -7,6 +7,7 @@ interface
 uses
   System.SysUtils, System.DateUtils, System.Generics.Collections, System.Classes,
   AWSTests.TestBase,
+  AWS.SNS.Message,
   AWS.SNS,
   AWS.SQS,
   TestFramework,
@@ -43,6 +44,7 @@ type
     procedure TestQueueSubscription;
     procedure TestMultipleQueueSubscription;
     procedure FindTopic;
+    procedure IsMessageSignatureValid;
 
     // to run this test, a valid email address must be supplied and
     // the subscription confirmed within two minutes by default
@@ -206,6 +208,49 @@ begin
   Value.StringValue := '31';
   Value.DataType := 'Number';
   Result.MessageAttributes.Add('Prime', Value);
+end;
+
+procedure TSNSTests.IsMessageSignatureValid;
+var
+  TopicArn: string;
+  QueueUrl: string;
+  Response: IReceiveMessageResponse;
+  Messages: TList<TMessage>;
+  ValidMessage: AWS.SNS.Message.TMessage;
+  InvalidMessage: AWS.SNS.Message.TMessage;
+  BodyJson: string;
+begin
+  try
+    TopicArn := CreateTopic;
+    QueueUrl := CreateQueue;
+
+    SubscribeQueue(TopicArn, QueueUrl);
+    Response := PublishToSNSAndReceiveMessages(GetPublishRequest(TopicArn), TopicArn, QueueUrl);
+    Messages := Response.Messages;
+
+    CheckEquals(1, Messages.Count);
+    BodyJson := GetBodyJson(Messages[0]);
+
+    ValidMessage := AWS.SNS.Message.TMessage.ParseMessage(BodyJson);
+    try
+      Check(ValidMessage.IsMessageSignatureValid);
+    finally
+      ValidMessage.Free;
+    end;
+
+    InvalidMessage := AWS.SNS.Message.TMessage.ParseMessage(
+      StringReplace(BodyJson, 'Test Message', 'Hacked Message', [rfReplaceAll]));
+    try
+      Check(not InvalidMessage.IsMessageSignatureValid);
+    finally
+      InvalidMessage.Free;
+    end;
+  finally
+    if TopicArn <> '' then
+      Client.DeleteTopic(TopicArn);
+    if QueueUrl <> '' then
+      FSQSClient.DeleteQueue(QueueUrl);
+  end;
 end;
 
 function TSNSTests.PublishToSNSAndReceiveMessages(PublishRequest: IPublishRequest; const TopicArn,

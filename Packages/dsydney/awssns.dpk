@@ -267,6 +267,8 @@ contains
   AWS.SNS.Transform.VerifySMSSandboxPhoneNumberRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.VerifySMSSandboxPhoneNumberRequestMarshaller.pas',
   AWS.SNS.Transform.VerifySMSSandboxPhoneNumberResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.VerifySMSSandboxPhoneNumberResponseUnmarshaller.pas',
   AWS.SNS in '..\..\Source\Services\SimpleNotificationService\Base\AWS.SNS.pas',
-  AWS.SNS.Extensions in '..\..\Source\Services\SimpleNotificationService\Custom\AWS.SNS.Extensions.pas';
+  AWS.SNS.Extensions in '..\..\Source\Services\SimpleNotificationService\Custom\AWS.SNS.Extensions.pas',
+  AWS.SNS.Message in '..\..\Source\Services\SimpleNotificationService\Custom\AWS.SNS.Message.pas',
+  AWS.OpenSSL in '..\..\Source\Services\SQS\Custom\AWS.OpenSSL.pas';
 
 end.
