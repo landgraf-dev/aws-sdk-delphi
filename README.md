@@ -8,6 +8,7 @@ This is the list of AWS services currently supported by the SDK. More will be ad
 
 * [Amazon SES: Simple Email Service](https://aws.amazon.com/ses/)
 * [Amazon SQS: Simple Queue Service](https://aws.amazon.com/sqs/)
+* [Amazon SNS: Simple Notification Service](#amazon-sns)
 
 ## Bug report and feature requests
 
@@ -100,6 +101,177 @@ In all request objects, lists and dictionaries are already instantiated, while o
 
 For more information about the available operations, please refer to the API documentation of the Amazon service you are trying to use. Or, of course, use Delphi code completion to find all the methods available in each service client.
 
+## Examples for specific services
+
+### Amazon SNS
+
+You can fully use [Amazon SNS: Simple Notification Service](https://aws.amazon.com/sns/) from AWS SDK for Delphi. Main unit is `AWS.SNS`. You find find more detailed information in this article about [using Amazon SNS with AWS SDK for Delphi](https://landgraf.dev/en/amazon-sns-with-delphi-push-notifications-sms-and-publish-subscribe-pattern/), and of course you can refer to [Amazon SNS API reference](https://docs.aws.amazon.com/sns/latest/api/) itself.
+
+Creating the client:
+
+```delphi
+var
+  Client: IAmazonSimpleNotificationService;
+begin
+  Client := TAmazonSimpleNotificationServiceClient.Create;
+end;
+```
+
+Get ARN for all existing topics:
+
+```delphi
+function GetAllTopics(AllTopics: TList<string>);
+var
+  ListRequest: IListTopicsRequest;
+  ListResponse: IListTopicsResponse;
+  Topic: TTopic;
+begin
+  ListRequest := TListTopicsRequest.Create;
+  repeat
+    ListResponse := Client.ListTopics(ListRequest);
+    for Topic in ListResponse.Topics do
+      AllTopics.Add(Topic.TopicArn);
+    ListRequest.NextToken := ListResponse.NextToken;
+  until ListRequest.NextToken = '';
+end;
+```
+
+Create a topic, get its ARN, set/get its attributes, and delete topic:
+
+```delphi
+var
+  Response: ICreateTopicResponse;
+  TopicArn: string;
+  SetAttrRequest: ISetTopicAttributesRequest;
+  GetAttrResponse: IGetTopicAttributesResponse;
+begin
+  // create new topic and get ARN
+  Response := Client.CreateTopic('test-name');
+  TopicArn := Response.TopicArn;
+
+  // set topic attribute
+  SetAttrRequest := TSetTopicAttributesRequest.Create(TopicArn, 'DisplayName', 'My topic');
+  Client.SetTopicAttributes(SetAttrRequest);
+
+  // verify topic attributes
+  GetAttrResponse := Client.GetTopicAttributes(TopicArn);
+  DisplayName := GetAttrResponse.Attributes['DisplayName']);
+
+  // delete new topic
+  Client.DeleteTopic(TopicArn);
+end;
+```
+
+Subscribe a topic to an SQS queue via queue URL, adding the proper permissions:
+
+```delphi
+function SubscribeQueue(Client: IAmazonSimpleNotificationService;
+  const TopicArn: string; SQSClient: IAmazonSQS; const SQSQueueUrl: string): string; 
+var
+  GetAttrResponse: IGetQueueAttributesResponse;
+  GetAttrRequest: IGetQueueAttributesRequest;
+  SQSQueueArn: string;
+  Policy: TPolicy;
+  PolicyStr: string;
+  TopicArn: string;
+  SetAttrRequest: ISetQueueAttributesRequest;
+begin
+  // Get the queue's existing policy and ARN
+  GetAttrRequest := TGetQueueAttributesRequest.Create;
+  GetAttrRequest.QueueUrl := SQSQueueUrl;
+  GetAttrRequest.AttributeNames.Add(TSQSConsts.ATTRIBUTE_ALL);
+  GetAttrResponse := SQSClient.GetQueueAttributes(GetAttrRequest);
+  SQSQueueArn :=  GetAttrResponse.Attributes['QueueArn'];
+
+  if  GetAttrResponse.Attributes.TryGetValue('Policy', PolicyStr) then
+    Policy := TPolicy.FromJson(PolicyStr)
+  else
+    Policy := TPolicy.Create;
+  try
+    SetLength(Result, 0);
+    if not HasSQSPermission(Policy, TopicArn, SQSQueueArn) then
+      AddSQSPermission(Policy, TopicArn, SQSQueueArn);
+
+    Result := Client.Subscribe(TopicArn, 'sqs', SQSQueueArn).SubscriptionArn;
+
+    SetAttrRequest := TSetQueueAttributesRequest.Create;
+    SetAttrRequest.QueueUrl := SQSQueueUrl;
+    SetAttrRequest.Attributes.Add('Policy', Policy.ToJson);
+    SQSClient.SetQueueAttributes(SetAttrRequest);
+  finally
+    Policy.Free;
+  end;
+end;
+```
+
+Subscribe a topic to e-mail and return the subscription ARN:
+
+```delphi
+function SubscribeTopic(const TopicArn, EmailAddress: string): string;
+var
+  Latest: TDateTime;
+  Response: IListSubscriptionsByTopicResponse;
+begin
+  // subscribe an email address to the topic
+  Client.Subscribe(TSubscribeRequest.Create(TopicArn, 'email', EmailAddress));
+
+  // wait until subscription has been confirmed, wait time for two minutes
+  Latest := IncMinute(Now, 2);
+  while Now < Latest do
+  begin
+    // get subscriptions for topic
+    Response := Client.ListSubscriptionsByTopic(TopicArn);
+
+    // test whether the subscription has been confirmed
+    if Response.Subscriptions[0].SubscriptionArn <> 'PendingConfirmation' then
+      Exit(Response.Subscriptions[0].SubscriptionArn);
+
+    // wait
+    Sleep(15 * 1000);
+  end;
+end;
+```
+
+Publish a message to a topic:
+
+```delphi
+  // publish a message to the topic
+  Client.Publish(TPublishRequest.Create(TopicArn, 'Test message', 'Subject'));
+```
+
+Delete a subscription:
+
+```delphi
+  // delete the subscription
+  Client.Unsubscribe(SubArn);
+```
+
+Parse an SNS message from JSON and validate signature:
+
+```delphi
+function GetMessage(const Json: string): AWS.SNS.Message.TMessage;
+begin
+  Result := AWS.SNS.Message.TMessage.ParseMessage(Json);
+  if not Result.IsMessageSignatureValid then
+    raise Exception.Create('Invalid message: bad signature');
+end;
+```
+
+Send an SMS message to a phone number:
+
+```delphi
+var
+  Client: IAmazonSimpleNotificationService;
+  Request: IPublishRequest;
+begin
+  Client := TAmazonSimpleNotificationServiceClient.Create;
+  Request := TPublishRequest.Create;
+  Request.PhoneNumber := '+184298765321';
+  Request.Message := 'Hello from AWS SDK for Delphi!';
+  Client.Publish(Request);
+end;
+```
+
 ## Credentials
 
 The AWS SDK for Delphi searches for credentials in a certain order and uses the first available set for the current application.
@@ -113,7 +285,7 @@ The AWS SDK for Delphi searches for credentials in a certain order and uses the 
 
 ### Profile resolution
 
-The `TAWSConfigs.AWSProfilesLocation` property controls how the AWS SDK for Delphi finds [credential profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html). If it's empty, it searches the shared AWS credentials file in the default location. If the profile isn't there, search `~/.aws/config` (Linux or macOS) or `%USERPROFILE%\.aws\config` (Windows). If `TAWSConfigs.AWSProfilesLocation` contains the path to a file in the AWS credentials file format, then the SDK searchs for credentials *only* in the specified file for a profile with the specified name.
+The `TAWSConfigs.AWSProfilesLocation` property controls how the AWS SDK for Delphi finds [credential profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html). If it's empty, it searches the shared AWS credentials file in the default location. If the profile isn't there, search `~/.aws/config` (Linux or macOS) or `%USERPROFILE%\.aws\config` (Windows). If `TAWSConfigs.AWSProfilesLocation` contains the path to a file in the AWS credentials file format, then the SDK searches for credentials *only* in the specified file for a profile with the specified name.
 
 Please refer to AWS documentation for more information about [credentials file settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) and [named profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html).
 
@@ -137,6 +309,10 @@ configured for credentials. You can set up credentials using [Configuration file
 The tests are designed to create and delete the resources needed for testing but it is important to keep your data safe. Do not run
 these tests on accounts that contain production data or resources. Since AWS resources are created and deleted during the running
 of these tests, charges can occur. To reduce charges occurred by running the tests focus on AWS resources that have minimal cost.
+
+## Credits
+
+Some OpenSSL internal classes were inspired from the Delphi-OpenSSL repository: <https://github.com/lminuti/Delphi-OpenSSL>.
 
 ## License
 
