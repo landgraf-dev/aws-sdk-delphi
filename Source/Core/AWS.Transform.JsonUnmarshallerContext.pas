@@ -12,6 +12,8 @@ uses
   AWS.Internal.WebResponseData;
 
 type
+  TJsonToken = Bcl.Json.Reader.TJsonToken;
+
   TPathSegmentType = (Value, Delimiter);
 
   TPathSegment = record
@@ -56,6 +58,7 @@ type
     destructor Destroy; override;
     function CurrentPath: string; override;
     function CurrentDepth: Integer; override;
+    function CurrentTokenType: TJsonToken;
     function Read: Boolean; override;
     function ReadText: string; override;
     function IsStartElement: Boolean; override;
@@ -167,6 +170,11 @@ end;
 function TJsonUnmarshallerContext.CurrentPath: string;
 begin
   Result := FStack.CurrentPath;
+end;
+
+function TJsonUnmarshallerContext.CurrentTokenType: TJsonToken;
+begin
+  Result := FCurrentToken.Value;
 end;
 
 destructor TJsonUnmarshallerContext.Destroy;

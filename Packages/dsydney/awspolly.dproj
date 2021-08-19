@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<ProjectGuid>{A13E9482-E910-495C-A56E-C7A0283B67C3}</ProjectGuid>
+		<ProjectGuid>{94126930-CDED-4B29-8341-EFF0E8380D0B}</ProjectGuid>
 		<MainSource>awspolly.dpk</MainSource>
 		<ProjectVersion>19.2</ProjectVersion>
 		<FrameworkType>None</FrameworkType>

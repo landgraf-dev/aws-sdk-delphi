@@ -163,7 +163,6 @@
         <DCCReference Include="..\..\Source\Core\AWS.Transform.SimpleTypeUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Transform.UnmarshallerContext.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Util.Crypto.pas"/>
-        <DCCReference Include="..\..\Source\Core\AWS.Util.Streams.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.RegionEndpoints.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Auth.Policy.pas"/>
@@ -173,6 +172,8 @@
         <DCCReference Include="..\..\Source\Core\AWS.Auth.Principal.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Auth.ActionIdentifier.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Transform.JsonUnmarshallerContext.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Util.Streams.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Util.Collections.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
