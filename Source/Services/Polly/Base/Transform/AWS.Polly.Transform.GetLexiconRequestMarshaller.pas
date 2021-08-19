@@ -3,20 +3,23 @@ unit AWS.Polly.Transform.GetLexiconRequestMarshaller;
 interface
 
 uses
-  AWS.Polly.Model.GetLexiconRequest, 
   AWS.Internal.Request, 
-  AWS.Runtime.Model, 
   AWS.Transform.RequestMarshaller, 
+  AWS.Runtime.Model, 
+  AWS.Polly.Model.GetLexiconRequest, 
   AWS.Internal.DefaultRequest;
 
 type
-  IGetLexiconRequestMarshaller = interface(, IMarshaller<IRequest, TGetLexiconRequest>, IMarshaller<IRequest, TAmazonWebServiceRequest>)
-  end;
+  IGetLexiconRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
   
-  TGetLexiconRequestMarshaller = class(TInterfacedObject, IGetLexiconRequestMarshaller, IMarshaller<IRequest, TGetLexiconRequest>, IMarshaller<IRequest, TAmazonWebServiceRequest>)
+  TGetLexiconRequestMarshaller = class(TInterfacedObject, IMarshaller<IRequest, TGetLexiconRequest>, IGetLexiconRequestMarshaller)
+  strict private
+    class var FInstance: IGetLexiconRequestMarshaller;
+    class constructor Create;
   public
     function Marshall(AInput: TAmazonWebServiceRequest): IRequest; overload;
     function Marshall(PublicRequest: TGetLexiconRequest): IRequest; overload;
+    class function Instance: IGetLexiconRequestMarshaller; static;
   end;
   
 implementation
@@ -33,6 +36,16 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
+end;
+
+class constructor TGetLexiconRequestMarshaller.Create;
+begin
+  FInstance := TGetLexiconRequestMarshaller.Create;
+end;
+
+class function TGetLexiconRequestMarshaller.Instance: IGetLexiconRequestMarshaller;
+begin
+  Result := FInstance;
 end;
 
 end.

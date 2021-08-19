@@ -3,20 +3,23 @@ unit AWS.Polly.Transform.SynthesizeSpeechRequestMarshaller;
 interface
 
 uses
-  AWS.Polly.Model.SynthesizeSpeechRequest, 
   AWS.Internal.Request, 
-  AWS.Runtime.Model, 
   AWS.Transform.RequestMarshaller, 
+  AWS.Runtime.Model, 
+  AWS.Polly.Model.SynthesizeSpeechRequest, 
   AWS.Internal.DefaultRequest;
 
 type
-  ISynthesizeSpeechRequestMarshaller = interface(, IMarshaller<IRequest, TSynthesizeSpeechRequest>, IMarshaller<IRequest, TAmazonWebServiceRequest>)
-  end;
+  ISynthesizeSpeechRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
   
-  TSynthesizeSpeechRequestMarshaller = class(TInterfacedObject, ISynthesizeSpeechRequestMarshaller, IMarshaller<IRequest, TSynthesizeSpeechRequest>, IMarshaller<IRequest, TAmazonWebServiceRequest>)
+  TSynthesizeSpeechRequestMarshaller = class(TInterfacedObject, IMarshaller<IRequest, TSynthesizeSpeechRequest>, ISynthesizeSpeechRequestMarshaller)
+  strict private
+    class var FInstance: ISynthesizeSpeechRequestMarshaller;
+    class constructor Create;
   public
     function Marshall(AInput: TAmazonWebServiceRequest): IRequest; overload;
     function Marshall(PublicRequest: TSynthesizeSpeechRequest): IRequest; overload;
+    class function Instance: ISynthesizeSpeechRequestMarshaller; static;
   end;
   
 implementation
@@ -33,6 +36,16 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
+end;
+
+class constructor TSynthesizeSpeechRequestMarshaller.Create;
+begin
+  FInstance := TSynthesizeSpeechRequestMarshaller.Create;
+end;
+
+class function TSynthesizeSpeechRequestMarshaller.Instance: ISynthesizeSpeechRequestMarshaller;
+begin
+  Result := FInstance;
 end;
 
 end.

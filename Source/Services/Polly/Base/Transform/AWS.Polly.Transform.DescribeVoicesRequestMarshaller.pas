@@ -3,20 +3,23 @@ unit AWS.Polly.Transform.DescribeVoicesRequestMarshaller;
 interface
 
 uses
-  AWS.Polly.Model.DescribeVoicesRequest, 
   AWS.Internal.Request, 
-  AWS.Runtime.Model, 
   AWS.Transform.RequestMarshaller, 
+  AWS.Runtime.Model, 
+  AWS.Polly.Model.DescribeVoicesRequest, 
   AWS.Internal.DefaultRequest;
 
 type
-  IDescribeVoicesRequestMarshaller = interface(, IMarshaller<IRequest, TDescribeVoicesRequest>, IMarshaller<IRequest, TAmazonWebServiceRequest>)
-  end;
+  IDescribeVoicesRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
   
-  TDescribeVoicesRequestMarshaller = class(TInterfacedObject, IDescribeVoicesRequestMarshaller, IMarshaller<IRequest, TDescribeVoicesRequest>, IMarshaller<IRequest, TAmazonWebServiceRequest>)
+  TDescribeVoicesRequestMarshaller = class(TInterfacedObject, IMarshaller<IRequest, TDescribeVoicesRequest>, IDescribeVoicesRequestMarshaller)
+  strict private
+    class var FInstance: IDescribeVoicesRequestMarshaller;
+    class constructor Create;
   public
     function Marshall(AInput: TAmazonWebServiceRequest): IRequest; overload;
     function Marshall(PublicRequest: TDescribeVoicesRequest): IRequest; overload;
+    class function Instance: IDescribeVoicesRequestMarshaller; static;
   end;
   
 implementation
@@ -33,6 +36,16 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
+end;
+
+class constructor TDescribeVoicesRequestMarshaller.Create;
+begin
+  FInstance := TDescribeVoicesRequestMarshaller.Create;
+end;
+
+class function TDescribeVoicesRequestMarshaller.Instance: IDescribeVoicesRequestMarshaller;
+begin
+  Result := FInstance;
 end;
 
 end.
