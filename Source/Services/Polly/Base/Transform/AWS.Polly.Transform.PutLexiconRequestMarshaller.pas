@@ -7,7 +7,8 @@ uses
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.Polly.Model.PutLexiconRequest, 
-  AWS.Internal.DefaultRequest;
+  AWS.Internal.DefaultRequest, 
+  AWS.SDKUtils;
 
 type
   IPutLexiconRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -37,8 +38,9 @@ var
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
   Request.Headers['Content-Type'] := 'application/json';
-  Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion], '2016-06-10';
+  Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'PUT';
+  Result := Request;
 end;
 
 class constructor TPutLexiconRequestMarshaller.Create;

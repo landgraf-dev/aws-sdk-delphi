@@ -7,7 +7,8 @@ uses
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.Polly.Model.DescribeVoicesRequest, 
-  AWS.Internal.DefaultRequest;
+  AWS.Internal.DefaultRequest, 
+  AWS.SDKUtils;
 
 type
   IDescribeVoicesRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -36,8 +37,9 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
-  Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion], '2016-06-10';
+  Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'GET';
+  Result := Request;
 end;
 
 class constructor TDescribeVoicesRequestMarshaller.Create;
