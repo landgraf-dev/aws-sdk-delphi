@@ -36,6 +36,8 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
+  Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion], '2016-06-10';
+  Request.HttpMethod := 'GET';
 end;
 
 class constructor TListLexiconsRequestMarshaller.Create;

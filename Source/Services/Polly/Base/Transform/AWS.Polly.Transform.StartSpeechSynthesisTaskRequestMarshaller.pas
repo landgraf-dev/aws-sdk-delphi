@@ -36,6 +36,9 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
+  Request.Headers['Content-Type'] := 'application/json';
+  Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion], '2016-06-10';
+  Request.HttpMethod := 'POST';
 end;
 
 class constructor TStartSpeechSynthesisTaskRequestMarshaller.Create;
