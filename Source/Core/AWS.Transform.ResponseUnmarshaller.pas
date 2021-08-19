@@ -8,7 +8,8 @@ uses
   AWS.Runtime.Model,
   AWS.Runtime.Exceptions,
   AWS.Transform.UnmarshallerContext,
-  AWS.Internal.WebResponseData;
+  AWS.Internal.WebResponseData,
+  AWS.Transform.JsonUnmarshallerContext;
 
 type
   IUnmarshaller<T, R> = interface
@@ -62,6 +63,20 @@ type
     function UnmarshallException(AInput: TUnmarshallerContext; AInnerException: Exception;
       AStatusCode: Integer): EAmazonServiceException; overload; override;
     function UnmarshallException(AInput: TXmlUnmarshallerContext; AInnerException: Exception;
+      AStatusCode: Integer): EAmazonServiceException; overload; virtual; abstract;
+  end;
+
+  TJsonResponseUnmarshaller = class(TResponseUnmarshaller)
+  strict protected
+    function ConstructUnmarshallerContext(AResponseStream: TStream; AMaintainResponseBody: Boolean;
+      AResponse: IWebResponseData; AIsException: Boolean): TUnmarshallerContext; override;
+    function ShouldReadEntireResponse(AResponse: IWebResponseData; AReadEntireResponse: Boolean): Boolean; override;
+  public
+    function Unmarshall(AInput: TUnmarshallerContext): TAmazonWebServiceResponse; overload; override;
+    function Unmarshall(AInput: TJsonUnmarshallerContext): TAmazonWebServiceResponse; overload; virtual; abstract;
+    function UnmarshallException(AInput: TUnmarshallerContext; AInnerException: Exception;
+      AStatusCode: Integer): EAmazonServiceException; overload; override;
+    function UnmarshallException(AInput: TJsonUnmarshallerContext; AInnerException: Exception;
       AStatusCode: Integer): EAmazonServiceException; overload; virtual; abstract;
   end;
 
@@ -162,6 +177,60 @@ begin
     raise EInvalidOpException.Create('Unsupported UnmarshallerContext');
 
   Result := UnmarshallException(TXmlUnmarshallerContext(AInput), AInnerException, AStatusCode);
+end;
+
+{ TJsonResponseUnmarshaller }
+
+function TJsonResponseUnmarshaller.Unmarshall(AInput: TUnmarshallerContext): TAmazonWebServiceResponse;
+var
+  Response: TAmazonWebServiceResponse;
+  Context: TJsonUnmarshallerContext;
+  RequestId: string;
+begin
+  if not (AInput is TJsonUnmarshallerContext) then
+    raise EInvalidOpException.Create('Unsupported UnmarshallerContext');
+  Context := TJsonUnmarshallerContext(AInput);
+
+  RequestId := Context.ResponseData.GetHeaderValue(THeaderKeys.RequestIdHeader);
+  try
+    Response := Unmarshall(Context);
+    try
+      Response.ResponseMetadata := TResponseMetadata.Create;
+      Response.ResponseMetadata.RequestId := RequestId;
+      Result := Response;
+      Response := nil;
+    finally
+      Response.Free;
+    end;
+  except
+    on E: Exception do
+      raise EAmazonUnmarshallingException.Create(RequestId, Context.CurrentPath, E, context.ResponseData.StatusCode);
+  end;
+end;
+
+function TJsonResponseUnmarshaller.UnmarshallException(AInput: TUnmarshallerContext; AInnerException: Exception;
+  AStatusCode: Integer): EAmazonServiceException;
+var
+  RequestId: string;
+begin
+  if not (AInput is TJsonUnmarshallerContext) then
+    raise EInvalidOpException.Create('Unsupported UnmarshallerContext');
+
+  RequestId := AInput.ResponseData.GetHeaderValue(THeaderKeys.RequestIdHeader);
+  Result := UnmarshallException(TJsonUnmarshallerContext(AInput), AInnerException, AStatusCode);
+  Result.RequestId := RequestId;
+end;
+
+function TJsonResponseUnmarshaller.ConstructUnmarshallerContext(AResponseStream: TStream;
+  AMaintainResponseBody: Boolean; AResponse: IWebResponseData; AIsException: Boolean): TUnmarshallerContext;
+begin
+  Result := TJsonUnmarshallerContext.Create(AResponseStream, AMaintainResponseBody, AResponse, AIsException);
+end;
+
+function TJsonResponseUnmarshaller.ShouldReadEntireResponse(AResponse: IWebResponseData;
+  AReadEntireResponse: Boolean): Boolean;
+begin
+  Result := AReadEntireResponse and not SameText(AResponse.ContentType, 'application/octet-stream');
 end;
 
 end.

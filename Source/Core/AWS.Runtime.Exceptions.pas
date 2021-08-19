@@ -55,8 +55,10 @@ type
     FLastKnownLocation: string;
     FResponseBody: string;
   public
+    constructor Create(const ARequestId, ALastKnownLocation: string;
+      AInnerException: Exception; AStatusCode: Integer); overload;
     constructor Create(const ARequestId, ALastKnownLocation, AResponseBody: string;
-      AInnerException: Exception; AStatusCode: Integer);
+      AInnerException: Exception; AStatusCode: Integer); overload;
     property LastKnownLocation: string read FLastKnownLocation;
     property ResponseBody: string read FResponseBody;
   end;
@@ -75,6 +77,14 @@ begin
   RequestId := ARequestId;
   FLastKnownLocation := ALastKnownLocation;
   FResponseBody := AResponseBody;
+end;
+
+constructor EAmazonUnmarshallingException.Create(const ARequestId, ALastKnownLocation: string; AInnerException: Exception;
+  AStatusCode: Integer);
+begin
+  inherited Create('Error unmarshalling response back from AWS', AInnerException, AStatusCode);
+  RequestId := ARequestId;
+  FLastKnownLocation := ALastKnownLocation;
 end;
 
 { EAmazonServiceException }

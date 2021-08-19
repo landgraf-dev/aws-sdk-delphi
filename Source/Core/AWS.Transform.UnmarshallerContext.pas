@@ -19,8 +19,8 @@ type
     FWebResponseData: IWebResponseData;
     FWrappingStream: TCachingWrapperStream;
     function GetResponseBody: string;
-    procedure SetWrappingStream(const Value: TCachingWrapperStream);
   strict protected
+    procedure SetWrappingStream(const Value: TCachingWrapperStream);
     property IsException: Boolean read FIsException write FIsException;
     property WebResponseData: IWebResponseData read FWebResponseData write FWebResponseData;
     property MaintainResponseBody: Boolean read FMaintainResponseBody write FMaintainResponseBody;
