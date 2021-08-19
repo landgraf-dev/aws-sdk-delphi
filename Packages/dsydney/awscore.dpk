@@ -88,6 +88,7 @@ contains
   AWS.Auth.Resource in '..\..\Source\Core\AWS.Auth.Resource.pas',
   AWS.Auth.Condition in '..\..\Source\Core\AWS.Auth.Condition.pas',
   AWS.Auth.Principal in '..\..\Source\Core\AWS.Auth.Principal.pas',
-  AWS.Auth.ActionIdentifier in '..\..\Source\Core\AWS.Auth.ActionIdentifier.pas';
+  AWS.Auth.ActionIdentifier in '..\..\Source\Core\AWS.Auth.ActionIdentifier.pas',
+  AWS.Transform.JsonUnmarshallerContext in '..\..\Source\Core\AWS.Transform.JsonUnmarshallerContext.pas';
 
 end.
