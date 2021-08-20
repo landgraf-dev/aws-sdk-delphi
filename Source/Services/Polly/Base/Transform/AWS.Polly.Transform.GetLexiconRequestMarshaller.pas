@@ -8,7 +8,9 @@ uses
   AWS.Runtime.Model, 
   AWS.Polly.Model.GetLexiconRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Polly.Exception, 
+  AWS.Internal.StringUtils;
 
 type
   IGetLexiconRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -39,6 +41,9 @@ begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'GET';
+  if not PublicRequest.IsSetName then
+    raise EAmazonPollyException.Create('Request object does not have required field Name set');
+  Request.AddPathResource('{LexiconName}', TStringUtils.Fromstring(PublicRequest.Name));
   Result := Request;
 end;
 

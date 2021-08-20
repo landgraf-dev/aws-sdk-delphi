@@ -8,7 +8,9 @@ uses
   AWS.Runtime.Model, 
   AWS.Polly.Model.PutLexiconRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Polly.Exception, 
+  AWS.Internal.StringUtils;
 
 type
   IPutLexiconRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -40,6 +42,9 @@ begin
   Request.Headers['Content-Type'] := 'application/json';
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'PUT';
+  if not PublicRequest.IsSetName then
+    raise EAmazonPollyException.Create('Request object does not have required field Name set');
+  Request.AddPathResource('{LexiconName}', TStringUtils.Fromstring(PublicRequest.Name));
   Result := Request;
 end;
 

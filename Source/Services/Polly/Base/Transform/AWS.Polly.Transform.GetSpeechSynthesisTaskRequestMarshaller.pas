@@ -8,7 +8,9 @@ uses
   AWS.Runtime.Model, 
   AWS.Polly.Model.GetSpeechSynthesisTaskRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Polly.Exception, 
+  AWS.Internal.StringUtils;
 
 type
   IGetSpeechSynthesisTaskRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -39,6 +41,9 @@ begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'GET';
+  if not PublicRequest.IsSetTaskId then
+    raise EAmazonPollyException.Create('Request object does not have required field TaskId set');
+  Request.AddPathResource('{TaskId}', TStringUtils.Fromstring(PublicRequest.TaskId));
   Result := Request;
 end;
 
