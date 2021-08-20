@@ -8,7 +8,8 @@ uses
   AWS.Runtime.Model, 
   AWS.Polly.Model.ListLexiconsRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Internal.StringUtils;
 
 type
   IListLexiconsRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -39,6 +40,8 @@ begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'GET';
+  if PublicRequest.IsSetNextToken then
+    Request.Parameters.Add('NextToken', TStringUtils.Fromstring(PublicRequest.NextToken));
   Result := Request;
 end;
 

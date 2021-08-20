@@ -8,7 +8,8 @@ uses
   AWS.Runtime.Model, 
   AWS.Polly.Model.ListSpeechSynthesisTasksRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Internal.StringUtils;
 
 type
   IListSpeechSynthesisTasksRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -39,6 +40,12 @@ begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'GET';
+  if PublicRequest.IsSetMaxResults then
+    Request.Parameters.Add('MaxResults', TStringUtils.FromInteger(PublicRequest.MaxResults));
+  if PublicRequest.IsSetNextToken then
+    Request.Parameters.Add('NextToken', TStringUtils.Fromstring(PublicRequest.NextToken));
+  if PublicRequest.IsSetStatus then
+    Request.Parameters.Add('Status', TStringUtils.Fromstring(PublicRequest.Status));
   Result := Request;
 end;
 
