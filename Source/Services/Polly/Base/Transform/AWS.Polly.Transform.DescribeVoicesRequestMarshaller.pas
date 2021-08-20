@@ -48,6 +48,7 @@ begin
     Request.Parameters.Add('LanguageCode', TStringUtils.Fromstring(PublicRequest.LanguageCode));
   if PublicRequest.IsSetNextToken then
     Request.Parameters.Add('NextToken', TStringUtils.Fromstring(PublicRequest.NextToken));
+  Request.ResourcePath := '/v1/voices';
   Result := Request;
 end;
 

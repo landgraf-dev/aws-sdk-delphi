@@ -42,6 +42,7 @@ begin
   Request.HttpMethod := 'GET';
   if PublicRequest.IsSetNextToken then
     Request.Parameters.Add('NextToken', TStringUtils.Fromstring(PublicRequest.NextToken));
+  Request.ResourcePath := '/v1/lexicons';
   Result := Request;
 end;
 

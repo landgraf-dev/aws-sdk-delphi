@@ -45,6 +45,7 @@ begin
   if not PublicRequest.IsSetName then
     raise EAmazonPollyException.Create('Request object does not have required field Name set');
   Request.AddPathResource('{LexiconName}', TStringUtils.Fromstring(PublicRequest.Name));
+  Request.ResourcePath := '/v1/lexicons/{LexiconName}';
   Result := Request;
 end;
 

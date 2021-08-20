@@ -40,6 +40,7 @@ begin
   Request.Headers['Content-Type'] := 'application/json';
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'POST';
+  Request.ResourcePath := '/v1/synthesisTasks';
   Result := Request;
 end;
 
