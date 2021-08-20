@@ -7,7 +7,16 @@ uses
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.JsonUnmarshallerContext, 
-  AWS.Polly.Transform.SynthesisTaskUnmarshaller;
+  AWS.Polly.Transform.SynthesisTaskUnmarshaller, 
+  AWS.Runtime.Exceptions, 
+  System.SysUtils, 
+  AWS.Internal.ErrorResponse, 
+  AWS.Transform.JsonErrorResponseUnmarshaller, 
+  System.Classes, 
+  AWS.Polly.Transform.InvalidTaskIdExceptionUnmarshaller, 
+  AWS.Polly.Transform.ServiceFailureExceptionUnmarshaller, 
+  AWS.Polly.Transform.SynthesisTaskNotFoundExceptionUnmarshaller, 
+  AWS.Polly.Exception;
 
 type
   IGetSpeechSynthesisTaskResponseUnmarshaller = IResponseUnmarshaller;
@@ -18,6 +27,7 @@ type
     class constructor Create;
   public
     function Unmarshall(AContext: TJsonUnmarshallerContext): TAmazonWebServiceResponse; overload; override;
+    function UnmarshallException(AContext: TJsonUnmarshallerContext; AInnerException: Exception; AStatusCode: Integer): EAmazonServiceException; override;
     class function Instance: IGetSpeechSynthesisTaskResponseUnmarshaller; static;
   end;
   
@@ -44,6 +54,38 @@ begin
     Response := nil;
   finally
     Response.Free;
+  end;
+end;
+
+function TGetSpeechSynthesisTaskResponseUnmarshaller.UnmarshallException(AContext: TJsonUnmarshallerContext; AInnerException: Exception; AStatusCode: Integer): EAmazonServiceException;
+var
+  ErrorResponse: TErrorResponse;
+  StreamCopy: TStream;
+  ContextCopy: TJsonUnmarshallerContext;
+begin
+  ErrorResponse := TJsonErrorResponseUnmarshaller.Instance.Unmarshall(AContext);
+  try
+    ErrorResponse.InnerException := AInnerException;
+    ErrorResponse.StatusCode := AStatusCode;
+    StreamCopy := TBytesStream.Create(AContext.GetResponseBodyBytes);
+    try
+      ContextCopy := TJsonUnmarshallerContext.Create(StreamCopy, False, nil);
+      try
+        if ErrorResponse.Code = 'InvalidTaskIdException' then
+          Exit(TInvalidTaskIdExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
+        if ErrorResponse.Code = 'ServiceFailureException' then
+          Exit(TServiceFailureExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
+        if ErrorResponse.Code = 'SynthesisTaskNotFoundException' then
+          Exit(TSynthesisTaskNotFoundExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
+      finally
+        ContextCopy.Free;
+      end;
+    finally
+      StreamCopy.Free;
+    end;
+    Exit(EAmazonPollyException.Create(ErrorResponse.Message, AInnerException, ErrorResponse.ErrorType, ErrorResponse.Code, ErrorResponse.RequestId, AStatusCode));
+  finally
+    ErrorResponse.Free;
   end;
 end;
 
