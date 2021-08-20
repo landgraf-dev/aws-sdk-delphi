@@ -4,7 +4,9 @@ interface
 
 uses
   AWS.Polly.Model.DeleteLexiconResponse, 
-  AWS.Transform.ResponseUnmarshaller;
+  AWS.Transform.ResponseUnmarshaller, 
+  AWS.Runtime.Model, 
+  AWS.Transform.JsonUnmarshallerContext;
 
 type
   IDeleteLexiconResponseUnmarshaller = IResponseUnmarshaller;
@@ -14,12 +16,26 @@ type
     class var FInstance: IDeleteLexiconResponseUnmarshaller;
     class constructor Create;
   public
+    function Unmarshall(AContext: TJsonUnmarshallerContext): TAmazonWebServiceResponse; overload; override;
     class function Instance: IDeleteLexiconResponseUnmarshaller; static;
   end;
   
 implementation
 
 { TDeleteLexiconResponseUnmarshaller }
+
+function TDeleteLexiconResponseUnmarshaller.Unmarshall(AContext: TJsonUnmarshallerContext): TAmazonWebServiceResponse;
+var
+  Response: TDeleteLexiconResponse;
+begin
+  Response := TDeleteLexiconResponse.Create;
+  try
+    Result := Response;
+    Response := nil;
+  finally
+    Response.Free;
+  end;
+end;
 
 class constructor TDeleteLexiconResponseUnmarshaller.Create;
 begin
