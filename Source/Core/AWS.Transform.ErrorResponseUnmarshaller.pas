@@ -79,6 +79,7 @@ begin
   try
     Result := AContext.Read;
   except
+    // TODO: Improve exception handling
 //    on E: EXmlException do
 //      Result := False
 //    else
