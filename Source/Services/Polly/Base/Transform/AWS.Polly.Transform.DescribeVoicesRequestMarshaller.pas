@@ -50,6 +50,7 @@ begin
     Request.Parameters.Add('NextToken', TStringUtils.Fromstring(PublicRequest.NextToken));
   Request.ResourcePath := '/v1/voices';
   Request.UseQueryString := True;
+  Result := Request;
 end;
 
 class constructor TDescribeVoicesRequestMarshaller.Create;

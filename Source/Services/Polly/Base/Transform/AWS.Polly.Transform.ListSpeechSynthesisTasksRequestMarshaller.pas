@@ -48,6 +48,7 @@ begin
     Request.Parameters.Add('Status', PublicRequest.Status.Value);
   Request.ResourcePath := '/v1/synthesisTasks';
   Request.UseQueryString := True;
+  Result := Request;
 end;
 
 class constructor TListSpeechSynthesisTasksRequestMarshaller.Create;

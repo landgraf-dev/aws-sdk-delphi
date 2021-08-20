@@ -42,7 +42,7 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.Polly');
-  Request.Headers['Content-Type'] := 'application/json';
+  Request.Headers.AddOrSetValue('Content-Type', 'application/json');
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'PUT';
   if not PublicRequest.IsSetName then
@@ -62,6 +62,7 @@ begin
           Context.Writer.WriteString(PublicRequest.Content);
         end;
         Writer.WriteEndObject;
+        Writer.Flush;
         var Snippet: string := Stream.DataString;
         Request.Content := TEncoding.UTF8.GetBytes(Snippet);
       finally
@@ -73,6 +74,7 @@ begin
   finally
     Stream.Free;
   end;
+  Result := Request;
 end;
 
 class constructor TPutLexiconRequestMarshaller.Create;

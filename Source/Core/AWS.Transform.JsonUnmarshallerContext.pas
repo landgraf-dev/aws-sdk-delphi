@@ -160,6 +160,7 @@ begin
   MaintainResponseBody := AMaintainResponseBody;
   IsException := AIsException;
   FJsonReader := TJsonReader.Create(FStream);
+  FStack := TJsonPathStack.Create;
 end;
 
 function TJsonUnmarshallerContext.CurrentDepth: Integer;
@@ -180,6 +181,7 @@ end;
 destructor TJsonUnmarshallerContext.Destroy;
 begin
   FJsonReader.Free;
+  FStack.Free;
   inherited;
 end;
 
@@ -222,7 +224,8 @@ begin
   if not FReadCalled then
     FReadCalled := True;
   FCurrentToken := FJsonReader.Peek;
-  if not FJsonReader.Eof then
+  Result := FCurrentToken <> TJsonToken.EOF;
+  if Result then
     UpdateContext
   else
   begin
@@ -230,7 +233,6 @@ begin
     FCurrentText := SNull;
   end;
   FWasPeeked := False;
-  Result := FCurrentToken <> TJsonToken.EOF;
 end;
 
 function TJsonUnmarshallerContext.ReadText: string;
@@ -250,7 +252,10 @@ begin
   if (FCurrentToken.Value = TJsonToken.BeginObject) or (FCurrentToken.Value = TJsonToken.BeginArray) then
   begin
     FStack.Push(TPathSegment.Create(TPathSegmentType.Delimiter, DELIMITER));
-    FJsonReader.SkipValue;
+    if FCurrentToken.Value = TJsonToken.BeginObject then
+      FJsonReader.ReadBeginObject
+    else
+      FJsonReader.ReadBeginArray;
   end
   else
   if (FCurrentToken.Value = TJsonToken.EndObject) or (FCurrentToken.Value = TJsonToken.EndArray) then
@@ -265,7 +270,10 @@ begin
         // e.g. {"a":["1","2","3"]}
         FStack.Pop;
     end;
-    FJsonReader.SkipValue;
+    if FCurrentToken.Value = TJsonToken.EndObject then
+      FJsonReader.ReadEndObject
+    else
+      FJsonReader.ReadEndArray;
   end
   else
   if (FCurrentToken.Value = TJsonToken.Name) then
@@ -292,7 +300,7 @@ begin
       TJsonToken.Null:
         begin
           FCurrentText := '';
-          FJsonReader.SkipValue;
+          FJsonReader.ReadNull;
         end
     else
       // TJsonToken.Text, TJsonToken.Number

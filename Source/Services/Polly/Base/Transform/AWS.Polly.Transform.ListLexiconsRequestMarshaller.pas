@@ -44,6 +44,7 @@ begin
     Request.Parameters.Add('NextToken', TStringUtils.Fromstring(PublicRequest.NextToken));
   Request.ResourcePath := '/v1/lexicons';
   Request.UseQueryString := True;
+  Result := Request;
 end;
 
 class constructor TListLexiconsRequestMarshaller.Create;
