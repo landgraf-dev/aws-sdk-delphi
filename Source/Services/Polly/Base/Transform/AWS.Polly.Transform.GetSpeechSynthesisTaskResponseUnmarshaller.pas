@@ -32,7 +32,7 @@ begin
   Response := TGetSpeechSynthesisTaskResponse.Create;
   try
     AContext.Read;
-    var TargetDepth := TargetDepth := AContext.CurrentDepth;
+    var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
       if AContext.TestExpression('SynthesisTask', TargetDepth) then
       begin

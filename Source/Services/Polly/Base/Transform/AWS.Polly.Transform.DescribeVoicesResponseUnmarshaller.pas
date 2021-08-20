@@ -34,7 +34,7 @@ begin
   Response := TDescribeVoicesResponse.Create;
   try
     AContext.Read;
-    var TargetDepth := TargetDepth := AContext.CurrentDepth;
+    var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
       if AContext.TestExpression('NextToken', TargetDepth) then
@@ -45,7 +45,7 @@ begin
       end;
       if AContext.TestExpression('Voices', TargetDepth) then
       begin
-        var Unmarshaller := TJsonListUnmarshaller<TVoice, IVoiceUnmarshaller>.JsonNew(TVoiceUnmarshaller.JsonInstance);
+        var Unmarshaller := TJsonObjectListUnmarshaller<TVoice, IVoiceUnmarshaller>.JsonNew(TVoiceUnmarshaller.JsonInstance);
         Response.Voices := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;

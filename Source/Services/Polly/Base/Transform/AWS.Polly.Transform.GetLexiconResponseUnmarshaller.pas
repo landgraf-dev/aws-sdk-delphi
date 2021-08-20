@@ -33,7 +33,7 @@ begin
   Response := TGetLexiconResponse.Create;
   try
     AContext.Read;
-    var TargetDepth := TargetDepth := AContext.CurrentDepth;
+    var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
       if AContext.TestExpression('Lexicon', TargetDepth) then

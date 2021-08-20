@@ -34,7 +34,7 @@ begin
   Response := TListSpeechSynthesisTasksResponse.Create;
   try
     AContext.Read;
-    var TargetDepth := TargetDepth := AContext.CurrentDepth;
+    var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
       if AContext.TestExpression('NextToken', TargetDepth) then
@@ -45,7 +45,7 @@ begin
       end;
       if AContext.TestExpression('SynthesisTasks', TargetDepth) then
       begin
-        var Unmarshaller := TJsonListUnmarshaller<TSynthesisTask, ISynthesisTaskUnmarshaller>.JsonNew(TSynthesisTaskUnmarshaller.JsonInstance);
+        var Unmarshaller := TJsonObjectListUnmarshaller<TSynthesisTask, ISynthesisTaskUnmarshaller>.JsonNew(TSynthesisTaskUnmarshaller.JsonInstance);
         Response.SynthesisTasks := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;

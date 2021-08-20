@@ -34,12 +34,12 @@ begin
   Response := TListLexiconsResponse.Create;
   try
     AContext.Read;
-    var TargetDepth := TargetDepth := AContext.CurrentDepth;
+    var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
       if AContext.TestExpression('Lexicons', TargetDepth) then
       begin
-        var Unmarshaller := TJsonListUnmarshaller<TLexiconDescription, ILexiconDescriptionUnmarshaller>.JsonNew(TLexiconDescriptionUnmarshaller.JsonInstance);
+        var Unmarshaller := TJsonObjectListUnmarshaller<TLexiconDescription, ILexiconDescriptionUnmarshaller>.JsonNew(TLexiconDescriptionUnmarshaller.JsonInstance);
         Response.Lexicons := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
