@@ -4,6 +4,7 @@ interface
 
 uses
   System.Classes, 
+  System.SysUtils, 
   Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
@@ -53,25 +54,25 @@ begin
         if PublicRequest.IsSetEngine then
         begin
           Context.Writer.WriteName('Engine');
-          Context.Writer.WriteString(PublicRequest.Engine);
+          Context.Writer.WriteString(PublicRequest.Engine.Value);
         end;
         if PublicRequest.IsSetLanguageCode then
         begin
           Context.Writer.WriteName('LanguageCode');
-          Context.Writer.WriteString(PublicRequest.LanguageCode);
+          Context.Writer.WriteString(PublicRequest.LanguageCode.Value);
         end;
         if PublicRequest.IsSetLexiconNames then
         begin
           Context.Writer.WriteName('LexiconNames');
           Context.Writer.WriteBeginArray;
-          for PublicRequestLexiconNamesListValue in PublicRequest.LexiconNames do
+          for var PublicRequestLexiconNamesListValue in PublicRequest.LexiconNames do
             Context.Writer.WriteString(PublicRequestLexiconNamesListValue);
           Context.Writer.WriteEndArray;
         end;
         if PublicRequest.IsSetOutputFormat then
         begin
           Context.Writer.WriteName('OutputFormat');
-          Context.Writer.WriteString(PublicRequest.OutputFormat);
+          Context.Writer.WriteString(PublicRequest.OutputFormat.Value);
         end;
         if PublicRequest.IsSetSampleRate then
         begin
@@ -82,7 +83,7 @@ begin
         begin
           Context.Writer.WriteName('SpeechMarkTypes');
           Context.Writer.WriteBeginArray;
-          for PublicRequestSpeechMarkTypesListValue in PublicRequest.SpeechMarkTypes do
+          for var PublicRequestSpeechMarkTypesListValue in PublicRequest.SpeechMarkTypes do
             Context.Writer.WriteString(PublicRequestSpeechMarkTypesListValue);
           Context.Writer.WriteEndArray;
         end;
@@ -94,12 +95,12 @@ begin
         if PublicRequest.IsSetTextType then
         begin
           Context.Writer.WriteName('TextType');
-          Context.Writer.WriteString(PublicRequest.TextType);
+          Context.Writer.WriteString(PublicRequest.TextType.Value);
         end;
         if PublicRequest.IsSetVoiceId then
         begin
           Context.Writer.WriteName('VoiceId');
-          Context.Writer.WriteString(PublicRequest.VoiceId);
+          Context.Writer.WriteString(PublicRequest.VoiceId.Value);
         end;
         Writer.WriteEndObject;
         var Snippet: string := Stream.DataString;

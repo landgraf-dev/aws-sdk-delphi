@@ -4,6 +4,7 @@ interface
 
 uses
   System.Classes, 
+  System.SysUtils, 
   Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 

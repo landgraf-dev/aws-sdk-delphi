@@ -45,7 +45,7 @@ begin
   if PublicRequest.IsSetNextToken then
     Request.Parameters.Add('NextToken', TStringUtils.Fromstring(PublicRequest.NextToken));
   if PublicRequest.IsSetStatus then
-    Request.Parameters.Add('Status', TStringUtils.Fromstring(PublicRequest.Status));
+    Request.Parameters.Add('Status', PublicRequest.Status.Value);
   Request.ResourcePath := '/v1/synthesisTasks';
   Request.UseQueryString := True;
 end;

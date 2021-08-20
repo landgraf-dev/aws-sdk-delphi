@@ -41,11 +41,11 @@ begin
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'GET';
   if PublicRequest.IsSetEngine then
-    Request.Parameters.Add('Engine', TStringUtils.Fromstring(PublicRequest.Engine));
+    Request.Parameters.Add('Engine', PublicRequest.Engine.Value);
   if PublicRequest.IsSetIncludeAdditionalLanguageCodes then
     Request.Parameters.Add('IncludeAdditionalLanguageCodes', TStringUtils.FromBoolean(PublicRequest.IncludeAdditionalLanguageCodes));
   if PublicRequest.IsSetLanguageCode then
-    Request.Parameters.Add('LanguageCode', TStringUtils.Fromstring(PublicRequest.LanguageCode));
+    Request.Parameters.Add('LanguageCode', PublicRequest.LanguageCode.Value);
   if PublicRequest.IsSetNextToken then
     Request.Parameters.Add('NextToken', TStringUtils.Fromstring(PublicRequest.NextToken));
   Request.ResourcePath := '/v1/voices';
