@@ -52,20 +52,12 @@ begin
       Inc(TargetDepth, 2);
     while AContext.ReadAtDepth(OriginalDepth) do
       if AContext.IsStartElement or AContext.IsAttribute then
-      begin
-        if AContext.TestExpression('Message', TargetDepth) then
-        begin
-          var Unmarshaller := TStringUnmarshaller.Instance;
-          Response.Message := Unmarshaller.Unmarshall(AContext);
-          Continue;
-        end;
         if AContext.TestExpression('Status', TargetDepth) then
         begin
           var Unmarshaller := TStringUnmarshaller.Instance;
           Response.Status := Unmarshaller.Unmarshall(AContext);
           Continue;
         end;
-      end;
     Result := Response;
     Response := nil;
   finally

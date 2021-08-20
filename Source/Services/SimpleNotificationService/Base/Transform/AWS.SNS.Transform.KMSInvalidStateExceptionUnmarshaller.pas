@@ -6,8 +6,7 @@ uses
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.SNS.Model.KMSInvalidStateException, 
-  AWS.Internal.ErrorResponse, 
-  AWS.Transform.SimpleTypeUnmarshaller;
+  AWS.Internal.ErrorResponse;
 
 type
   IKMSInvalidStateExceptionUnmarshaller = IErrorResponseUnmarshaller<EKMSInvalidStateException, TXmlUnmarshallerContext>;
@@ -41,23 +40,15 @@ end;
 function TKMSInvalidStateExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): EKMSInvalidStateException;
 var
   OriginalDepth: Integer;
-  TargetDepth: Integer;
   Response: EKMSInvalidStateException;
 begin
   Response := EKMSInvalidStateException.Create(AErrorResponse.Message, AErrorResponse.InnerException, AErrorResponse.ErrorType, AErrorResponse.Code, AErrorResponse.RequestId, AErrorResponse.StatusCode);
   try
     OriginalDepth := AContext.CurrentDepth;
-    TargetDepth := OriginalDepth + 1;
-    if AContext.IsStartOfDocument then
-      Inc(TargetDepth, 2);
     while AContext.ReadAtDepth(OriginalDepth) do
       if AContext.IsStartElement or AContext.IsAttribute then
-        if AContext.TestExpression('message', TargetDepth) then
-        begin
-          var Unmarshaller := TStringUnmarshaller.Instance;
-          Response.Message := Unmarshaller.Unmarshall(AContext);
-          Continue;
-        end;
+      begin
+      end;
     Result := Response;
     Response := nil;
   finally
