@@ -3,6 +3,7 @@ unit AWS.Polly.Transform.SynthesizeSpeechResponseUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Polly.Model.SynthesizeSpeechResponse, 
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
@@ -31,6 +32,10 @@ begin
   Response := TSynthesizeSpeechResponse.Create;
   try
     Response.AudioStream := AContext.Stream;
+    if AContext.ResponseData.IsHeaderPresent('Content-Type') then
+      Response.ContentType := AContext.ResponseData.GetHeaderValue('Content-Type');
+    if AContext.ResponseData.IsHeaderPresent('x-amzn-RequestCharacters') then
+      Response.RequestCharacters := StrToInt(AContext.ResponseData.GetHeaderValue('x-amzn-RequestCharacters'));
     Result := Response;
     Response := nil;
   finally
