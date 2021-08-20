@@ -45,7 +45,6 @@ begin
     raise EAmazonPollyException.Create('Request object does not have required field TaskId set');
   Request.AddPathResource('{TaskId}', TStringUtils.Fromstring(PublicRequest.TaskId));
   Request.ResourcePath := '/v1/synthesisTasks/{TaskId}';
-  Result := Request;
 end;
 
 class constructor TGetSpeechSynthesisTaskRequestMarshaller.Create;
