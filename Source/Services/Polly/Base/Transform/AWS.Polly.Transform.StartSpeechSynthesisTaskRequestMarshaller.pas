@@ -3,6 +3,8 @@ unit AWS.Polly.Transform.StartSpeechSynthesisTaskRequestMarshaller;
 interface
 
 uses
+  System.Classes, 
+  Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
@@ -41,6 +43,91 @@ begin
   Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2016-06-10');
   Request.HttpMethod := 'POST';
   Request.ResourcePath := '/v1/synthesisTasks';
+  var Stream: TStringStream := TStringStream.Create('', TEncoding.UTF8, False);
+  try
+    var Writer: TJsonWriter := TJsonWriter.Create(Stream);
+    try
+      var Context: TJsonMarshallerContext := TJsonMarshallerContext.Create(Request, Writer);
+      try
+        Writer.WriteBeginObject;
+        if PublicRequest.IsSetEngine then
+        begin
+          Context.Writer.WriteName('Engine');
+          Context.Writer.WriteString(PublicRequest.Engine);
+        end;
+        if PublicRequest.IsSetLanguageCode then
+        begin
+          Context.Writer.WriteName('LanguageCode');
+          Context.Writer.WriteString(PublicRequest.LanguageCode);
+        end;
+        if PublicRequest.IsSetLexiconNames then
+        begin
+          Context.Writer.WriteName('LexiconNames');
+          Context.Writer.WriteBeginArray;
+          for PublicRequestLexiconNamesListValue in PublicRequest.LexiconNames do
+            Context.Writer.WriteString(PublicRequestLexiconNamesListValue);
+          Context.Writer.WriteEndArray;
+        end;
+        if PublicRequest.IsSetOutputFormat then
+        begin
+          Context.Writer.WriteName('OutputFormat');
+          Context.Writer.WriteString(PublicRequest.OutputFormat);
+        end;
+        if PublicRequest.IsSetOutputS3BucketName then
+        begin
+          Context.Writer.WriteName('OutputS3BucketName');
+          Context.Writer.WriteString(PublicRequest.OutputS3BucketName);
+        end;
+        if PublicRequest.IsSetOutputS3KeyPrefix then
+        begin
+          Context.Writer.WriteName('OutputS3KeyPrefix');
+          Context.Writer.WriteString(PublicRequest.OutputS3KeyPrefix);
+        end;
+        if PublicRequest.IsSetSampleRate then
+        begin
+          Context.Writer.WriteName('SampleRate');
+          Context.Writer.WriteString(PublicRequest.SampleRate);
+        end;
+        if PublicRequest.IsSetSnsTopicArn then
+        begin
+          Context.Writer.WriteName('SnsTopicArn');
+          Context.Writer.WriteString(PublicRequest.SnsTopicArn);
+        end;
+        if PublicRequest.IsSetSpeechMarkTypes then
+        begin
+          Context.Writer.WriteName('SpeechMarkTypes');
+          Context.Writer.WriteBeginArray;
+          for PublicRequestSpeechMarkTypesListValue in PublicRequest.SpeechMarkTypes do
+            Context.Writer.WriteString(PublicRequestSpeechMarkTypesListValue);
+          Context.Writer.WriteEndArray;
+        end;
+        if PublicRequest.IsSetText then
+        begin
+          Context.Writer.WriteName('Text');
+          Context.Writer.WriteString(PublicRequest.Text);
+        end;
+        if PublicRequest.IsSetTextType then
+        begin
+          Context.Writer.WriteName('TextType');
+          Context.Writer.WriteString(PublicRequest.TextType);
+        end;
+        if PublicRequest.IsSetVoiceId then
+        begin
+          Context.Writer.WriteName('VoiceId');
+          Context.Writer.WriteString(PublicRequest.VoiceId);
+        end;
+        Writer.WriteEndObject;
+        var Snippet: string := Stream.DataString;
+        Request.Content := TEncoding.UTF8.GetBytes(Snippet);
+      finally
+        Context.Free;
+      end;
+    finally
+      Writer.Free;
+    end;
+  finally
+    Stream.Free;
+  end;
 end;
 
 class constructor TStartSpeechSynthesisTaskRequestMarshaller.Create;
