@@ -53,6 +53,8 @@ type
     FWasPeeked: Boolean;
     FReadCalled: Boolean;
     procedure UpdateContext;
+  strict protected
+    function JsonReader: TJsonReader;
   public
     constructor Create(AResponseStream: TStream; AMaintainResponseBody: Boolean;
       AResponseData: IWebResponseData; AIsException: Boolean = false); reintroduce;
@@ -162,7 +164,6 @@ begin
   WebResponseData := AResponseData;
   MaintainResponseBody := AMaintainResponseBody;
   IsException := AIsException;
-  FJsonReader := TJsonReader.Create(FStream);
   FStack := TJsonPathStack.Create;
 end;
 
@@ -211,6 +212,13 @@ begin
   Result := not FReadCalled;
 end;
 
+function TJsonUnmarshallerContext.JsonReader: TJsonReader;
+begin
+  if FJsonReader = nil then
+    FJsonReader := TJsonReader.Create(FStream);
+  Result := FJsonReader;
+end;
+
 function TJsonUnmarshallerContext.Peek(AToken: TJsonToken): Boolean;
 begin
   if FWasPeeked then
@@ -234,7 +242,7 @@ begin
 
   if not FReadCalled then
     FReadCalled := True;
-  FCurrentToken := FJsonReader.Peek;
+  FCurrentToken := JsonReader.Peek;
   Result := FCurrentToken <> TJsonToken.EOF;
   if Result then
     UpdateContext
@@ -264,9 +272,9 @@ begin
   begin
     FStack.Push(TPathSegment.Create(TPathSegmentType.Delimiter, DELIMITER));
     if FCurrentToken.Value = TJsonToken.BeginObject then
-      FJsonReader.ReadBeginObject
+      JsonReader.ReadBeginObject
     else
-      FJsonReader.ReadBeginArray;
+      JsonReader.ReadBeginArray;
   end
   else
   if (FCurrentToken.Value = TJsonToken.EndObject) or (FCurrentToken.Value = TJsonToken.EndArray) then
@@ -282,14 +290,14 @@ begin
         FStack.Pop;
     end;
     if FCurrentToken.Value = TJsonToken.EndObject then
-      FJsonReader.ReadEndObject
+      JsonReader.ReadEndObject
     else
-      FJsonReader.ReadEndArray;
+      JsonReader.ReadEndArray;
   end
   else
   if (FCurrentToken.Value = TJsonToken.Name) then
   begin
-    FCurrentText := FJsonReader.ReadName;
+    FCurrentText := JsonReader.ReadName;
     FStack.Push(TPathSegment.Create(TPathSegmentType.Value, FCurrentText))
   end
   else
@@ -304,18 +312,18 @@ begin
 
     case FCurrentToken.Value of
       TJsonToken.Boolean:
-        if FJsonReader.ReadBoolean then
+        if JsonReader.ReadBoolean then
           FCurrentText := 'true'
         else
           FCurrentText := 'false';
       TJsonToken.Null:
         begin
           FCurrentText := '';
-          FJsonReader.ReadNull;
+          JsonReader.ReadNull;
         end
     else
       // TJsonToken.Text, TJsonToken.Number
-      FCurrentText := FJsonReader.ReadString;
+      FCurrentText := JsonReader.ReadString;
     end;
   end;
 end;

@@ -23,7 +23,8 @@ uses
   AWSTests.TestBase in 'Source\AWSTests.TestBase.pas',
   AWSTests.SES in 'Source\AWSTests.SES.pas',
   AWSTests.SNS in 'Source\AWSTests.SNS.pas',
-  AWSTests.Utils in 'Source\AWSTests.Utils.pas';
+  AWSTests.Utils in 'Source\AWSTests.Utils.pas',
+  AWSTests.Polly in 'Source\AWSTests.Polly.pas';
 
 {$R *.RES}
 
