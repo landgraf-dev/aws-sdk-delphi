@@ -54,7 +54,7 @@ end;
 
 destructor TListTemplatesResponse.Destroy;
 begin
-  FTemplatesMetadata.Free;
+  TemplatesMetadata := nil;
   inherited;
 end;
 

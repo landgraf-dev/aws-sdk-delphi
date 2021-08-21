@@ -54,7 +54,7 @@ end;
 
 destructor TDescribeVoicesResponse.Destroy;
 begin
-  FVoices.Free;
+  Voices := nil;
   inherited;
 end;
 

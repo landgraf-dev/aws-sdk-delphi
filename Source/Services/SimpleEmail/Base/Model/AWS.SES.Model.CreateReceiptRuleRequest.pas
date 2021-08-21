@@ -55,7 +55,7 @@ implementation
 
 destructor TCreateReceiptRuleRequest.Destroy;
 begin
-  FRule.Free;
+  Rule := nil;
   inherited;
 end;
 

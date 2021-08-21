@@ -44,7 +44,7 @@ end;
 
 destructor TListTagsForResourceResponse.Destroy;
 begin
-  FTags.Free;
+  Tags := nil;
   inherited;
 end;
 

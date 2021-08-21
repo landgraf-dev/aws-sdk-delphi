@@ -54,7 +54,7 @@ end;
 
 destructor TListSubscriptionsByTopicResponse.Destroy;
 begin
-  FSubscriptions.Free;
+  Subscriptions := nil;
   inherited;
 end;
 

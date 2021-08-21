@@ -36,7 +36,7 @@ implementation
 
 destructor TCreateReceiptFilterRequest.Destroy;
 begin
-  FFilter.Free;
+  Filter := nil;
   inherited;
 end;
 

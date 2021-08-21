@@ -44,7 +44,7 @@ end;
 
 destructor TSendBulkTemplatedEmailResponse.Destroy;
 begin
-  FStatus.Free;
+  Status := nil;
   inherited;
 end;
 

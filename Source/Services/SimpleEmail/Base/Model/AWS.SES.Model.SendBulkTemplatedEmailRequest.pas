@@ -138,9 +138,9 @@ end;
 
 destructor TSendBulkTemplatedEmailRequest.Destroy;
 begin
-  FReplyToAddresses.Free;
-  FDestinations.Free;
-  FDefaultTags.Free;
+  ReplyToAddresses := nil;
+  Destinations := nil;
+  DefaultTags := nil;
   inherited;
 end;
 

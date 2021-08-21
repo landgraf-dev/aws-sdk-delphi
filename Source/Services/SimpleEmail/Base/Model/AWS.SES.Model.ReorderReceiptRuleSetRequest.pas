@@ -53,7 +53,7 @@ end;
 
 destructor TReorderReceiptRuleSetRequest.Destroy;
 begin
-  FRuleNames.Free;
+  RuleNames := nil;
   inherited;
 end;
 

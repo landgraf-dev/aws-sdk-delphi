@@ -43,7 +43,7 @@ end;
 
 destructor TCloudWatchDestination.Destroy;
 begin
-  FDimensionConfigurations.Free;
+  DimensionConfigurations := nil;
   inherited;
 end;
 

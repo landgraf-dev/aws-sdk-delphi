@@ -43,7 +43,7 @@ end;
 
 destructor TGetSubscriptionAttributesResponse.Destroy;
 begin
-  FAttributes.Free;
+  Attributes := nil;
   inherited;
 end;
 

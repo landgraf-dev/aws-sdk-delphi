@@ -53,7 +53,7 @@ end;
 
 destructor TGetIdentityPoliciesRequest.Destroy;
 begin
-  FPolicyNames.Free;
+  PolicyNames := nil;
   inherited;
 end;
 

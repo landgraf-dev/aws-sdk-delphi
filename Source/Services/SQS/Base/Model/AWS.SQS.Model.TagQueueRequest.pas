@@ -53,7 +53,7 @@ end;
 
 destructor TTagQueueRequest.Destroy;
 begin
-  FTags.Free;
+  Tags := nil;
   inherited;
 end;
 

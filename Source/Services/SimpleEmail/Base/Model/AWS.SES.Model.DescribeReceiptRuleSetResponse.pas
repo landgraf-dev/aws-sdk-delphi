@@ -54,8 +54,8 @@ end;
 
 destructor TDescribeReceiptRuleSetResponse.Destroy;
 begin
-  FRules.Free;
-  FMetadata.Free;
+  Rules := nil;
+  Metadata := nil;
   inherited;
 end;
 

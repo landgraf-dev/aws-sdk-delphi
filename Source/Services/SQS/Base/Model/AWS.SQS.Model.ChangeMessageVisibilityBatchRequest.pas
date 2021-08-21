@@ -55,7 +55,7 @@ end;
 
 destructor TChangeMessageVisibilityBatchRequest.Destroy;
 begin
-  FEntries.Free;
+  Entries := nil;
   inherited;
 end;
 

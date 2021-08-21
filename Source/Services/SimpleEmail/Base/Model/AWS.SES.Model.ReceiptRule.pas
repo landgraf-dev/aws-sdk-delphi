@@ -91,8 +91,8 @@ end;
 
 destructor TReceiptRule.Destroy;
 begin
-  FRecipients.Free;
-  FActions.Free;
+  Recipients := nil;
+  Actions := nil;
   inherited;
 end;
 

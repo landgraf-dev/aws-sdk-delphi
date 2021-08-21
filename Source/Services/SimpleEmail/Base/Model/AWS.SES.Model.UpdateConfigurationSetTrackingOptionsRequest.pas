@@ -46,7 +46,7 @@ implementation
 
 destructor TUpdateConfigurationSetTrackingOptionsRequest.Destroy;
 begin
-  FTrackingOptions.Free;
+  TrackingOptions := nil;
   inherited;
 end;
 

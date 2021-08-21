@@ -44,7 +44,7 @@ end;
 
 destructor TGetIdentityDkimAttributesResponse.Destroy;
 begin
-  FDkimAttributes.Free;
+  DkimAttributes := nil;
   inherited;
 end;
 

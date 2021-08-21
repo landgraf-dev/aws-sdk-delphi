@@ -55,8 +55,8 @@ end;
 
 destructor TDeleteMessageBatchResponse.Destroy;
 begin
-  FSuccessful.Free;
-  FFailed.Free;
+  Successful := nil;
+  Failed := nil;
   inherited;
 end;
 

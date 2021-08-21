@@ -55,7 +55,7 @@ implementation
 
 destructor TSynthesizeSpeechResponse.Destroy;
 begin
-  FAudioStream.Free;
+  AudioStream := nil;
   inherited;
 end;
 

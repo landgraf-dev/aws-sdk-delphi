@@ -53,7 +53,7 @@ end;
 
 destructor TListPhoneNumbersOptedOutResponse.Destroy;
 begin
-  FPhoneNumbers.Free;
+  PhoneNumbers := nil;
   inherited;
 end;
 

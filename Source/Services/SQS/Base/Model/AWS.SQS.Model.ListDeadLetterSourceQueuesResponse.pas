@@ -53,7 +53,7 @@ end;
 
 destructor TListDeadLetterSourceQueuesResponse.Destroy;
 begin
-  FQueueUrls.Free;
+  QueueUrls := nil;
   inherited;
 end;
 

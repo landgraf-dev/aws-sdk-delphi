@@ -44,7 +44,7 @@ end;
 
 destructor TReceiveMessageResponse.Destroy;
 begin
-  FMessages.Free;
+  Messages := nil;
   inherited;
 end;
 

@@ -84,11 +84,11 @@ end;
 
 destructor TDescribeConfigurationSetResponse.Destroy;
 begin
-  FTrackingOptions.Free;
-  FReputationOptions.Free;
-  FEventDestinations.Free;
-  FDeliveryOptions.Free;
-  FConfigurationSet.Free;
+  TrackingOptions := nil;
+  ReputationOptions := nil;
+  EventDestinations := nil;
+  DeliveryOptions := nil;
+  ConfigurationSet := nil;
   inherited;
 end;
 

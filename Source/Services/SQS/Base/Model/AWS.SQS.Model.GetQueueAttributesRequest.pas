@@ -54,7 +54,7 @@ end;
 
 destructor TGetQueueAttributesRequest.Destroy;
 begin
-  FAttributeNames.Free;
+  AttributeNames := nil;
   inherited;
 end;
 

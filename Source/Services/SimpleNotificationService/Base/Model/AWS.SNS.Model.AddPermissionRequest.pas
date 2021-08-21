@@ -73,8 +73,8 @@ end;
 
 destructor TAddPermissionRequest.Destroy;
 begin
-  FActionName.Free;
-  FAWSAccountId.Free;
+  ActionName := nil;
+  AWSAccountId := nil;
   inherited;
 end;
 

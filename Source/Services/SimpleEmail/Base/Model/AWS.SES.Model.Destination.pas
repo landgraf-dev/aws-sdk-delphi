@@ -63,9 +63,9 @@ end;
 
 destructor TDestination.Destroy;
 begin
-  FToAddresses.Free;
-  FCcAddresses.Free;
-  FBccAddresses.Free;
+  ToAddresses := nil;
+  CcAddresses := nil;
+  BccAddresses := nil;
   inherited;
 end;
 

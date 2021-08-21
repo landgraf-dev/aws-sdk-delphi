@@ -111,9 +111,9 @@ end;
 
 destructor TSendRawEmailRequest.Destroy;
 begin
-  FTags.Free;
-  FRawMessage.Free;
-  FDestinations.Free;
+  Tags := nil;
+  RawMessage := nil;
+  Destinations := nil;
   inherited;
 end;
 

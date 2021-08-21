@@ -54,7 +54,7 @@ end;
 
 destructor TListSMSSandboxPhoneNumbersResponse.Destroy;
 begin
-  FPhoneNumbers.Free;
+  PhoneNumbers := nil;
   inherited;
 end;
 

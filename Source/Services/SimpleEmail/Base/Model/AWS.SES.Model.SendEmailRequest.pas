@@ -121,10 +121,10 @@ end;
 
 destructor TSendEmailRequest.Destroy;
 begin
-  FTags.Free;
-  FReplyToAddresses.Free;
-  FMessage.Free;
-  FDestination.Free;
+  Tags := nil;
+  ReplyToAddresses := nil;
+  Message := nil;
+  Destination := nil;
   inherited;
 end;
 

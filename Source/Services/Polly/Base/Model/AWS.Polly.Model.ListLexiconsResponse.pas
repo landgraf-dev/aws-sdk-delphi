@@ -54,7 +54,7 @@ end;
 
 destructor TListLexiconsResponse.Destroy;
 begin
-  FLexicons.Free;
+  Lexicons := nil;
   inherited;
 end;
 

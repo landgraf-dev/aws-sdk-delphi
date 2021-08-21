@@ -46,7 +46,7 @@ implementation
 
 destructor TUpdateReceiptRuleRequest.Destroy;
 begin
-  FRule.Free;
+  Rule := nil;
   inherited;
 end;
 

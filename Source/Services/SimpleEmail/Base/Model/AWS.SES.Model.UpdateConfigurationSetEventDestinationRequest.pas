@@ -46,7 +46,7 @@ implementation
 
 destructor TUpdateConfigurationSetEventDestinationRequest.Destroy;
 begin
-  FEventDestination.Free;
+  EventDestination := nil;
   inherited;
 end;
 

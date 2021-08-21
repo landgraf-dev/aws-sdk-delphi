@@ -44,7 +44,7 @@ end;
 
 destructor TGetIdentityMailFromDomainAttributesResponse.Destroy;
 begin
-  FMailFromDomainAttributes.Free;
+  MailFromDomainAttributes := nil;
   inherited;
 end;
 

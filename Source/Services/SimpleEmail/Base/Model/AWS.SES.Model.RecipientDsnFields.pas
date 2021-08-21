@@ -107,7 +107,7 @@ end;
 
 destructor TRecipientDsnFields.Destroy;
 begin
-  FExtensionFields.Free;
+  ExtensionFields := nil;
   inherited;
 end;
 

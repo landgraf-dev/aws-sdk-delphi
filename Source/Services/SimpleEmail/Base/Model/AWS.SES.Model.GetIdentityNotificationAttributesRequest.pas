@@ -43,7 +43,7 @@ end;
 
 destructor TGetIdentityNotificationAttributesRequest.Destroy;
 begin
-  FIdentities.Free;
+  Identities := nil;
   inherited;
 end;
 

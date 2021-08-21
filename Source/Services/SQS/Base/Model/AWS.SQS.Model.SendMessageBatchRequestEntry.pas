@@ -101,8 +101,8 @@ end;
 
 destructor TSendMessageBatchRequestEntry.Destroy;
 begin
-  FMessageSystemAttributes.Free;
-  FMessageAttributes.Free;
+  MessageSystemAttributes := nil;
+  MessageAttributes := nil;
   inherited;
 end;
 

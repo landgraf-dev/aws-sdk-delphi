@@ -46,7 +46,7 @@ var
 begin
   Response := TSynthesizeSpeechResponse.Create;
   try
-    Response.AudioStream := AContext.ExtractStream;
+    Response.AudioStream := AContext.Stream;
     if AContext.ResponseData.IsHeaderPresent('Content-Type') then
       Response.ContentType := AContext.ResponseData.GetHeaderValue('Content-Type');
     if AContext.ResponseData.IsHeaderPresent('x-amzn-RequestCharacters') then

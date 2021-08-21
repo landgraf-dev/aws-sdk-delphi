@@ -43,7 +43,7 @@ end;
 
 destructor TGetSMSAttributesRequest.Destroy;
 begin
-  FAttributes.Free;
+  Attributes := nil;
   inherited;
 end;
 

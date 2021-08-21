@@ -43,7 +43,7 @@ end;
 
 destructor TListIdentityPoliciesResponse.Destroy;
 begin
-  FPolicyNames.Free;
+  PolicyNames := nil;
   inherited;
 end;
 

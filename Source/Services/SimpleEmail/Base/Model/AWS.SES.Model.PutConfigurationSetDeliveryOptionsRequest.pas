@@ -46,7 +46,7 @@ implementation
 
 destructor TPutConfigurationSetDeliveryOptionsRequest.Destroy;
 begin
-  FDeliveryOptions.Free;
+  DeliveryOptions := nil;
   inherited;
 end;
 

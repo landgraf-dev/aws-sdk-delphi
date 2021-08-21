@@ -53,7 +53,7 @@ end;
 
 destructor TDescribeConfigurationSetRequest.Destroy;
 begin
-  FConfigurationSetAttributeNames.Free;
+  ConfigurationSetAttributeNames := nil;
   inherited;
 end;
 

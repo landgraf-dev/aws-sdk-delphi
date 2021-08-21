@@ -95,13 +95,13 @@ implementation
 
 destructor TReceiptAction.Destroy;
 begin
-  FWorkmailAction.Free;
-  FStopAction.Free;
-  FSNSAction.Free;
-  FS3Action.Free;
-  FLambdaAction.Free;
-  FBounceAction.Free;
-  FAddHeaderAction.Free;
+  WorkmailAction := nil;
+  StopAction := nil;
+  SNSAction := nil;
+  S3Action := nil;
+  LambdaAction := nil;
+  BounceAction := nil;
+  AddHeaderAction := nil;
   inherited;
 end;
 

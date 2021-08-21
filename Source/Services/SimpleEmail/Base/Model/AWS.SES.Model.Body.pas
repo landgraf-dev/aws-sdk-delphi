@@ -45,8 +45,8 @@ implementation
 
 destructor TBody.Destroy;
 begin
-  FText.Free;
-  FHtml.Free;
+  Text := nil;
+  Html := nil;
   inherited;
 end;
 

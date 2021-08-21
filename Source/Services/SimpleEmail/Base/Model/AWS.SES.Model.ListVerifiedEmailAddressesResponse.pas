@@ -43,7 +43,7 @@ end;
 
 destructor TListVerifiedEmailAddressesResponse.Destroy;
 begin
-  FVerifiedEmailAddresses.Free;
+  VerifiedEmailAddresses := nil;
   inherited;
 end;
 

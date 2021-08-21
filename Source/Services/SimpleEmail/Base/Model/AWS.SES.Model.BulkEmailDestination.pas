@@ -63,8 +63,8 @@ end;
 
 destructor TBulkEmailDestination.Destroy;
 begin
-  FReplacementTags.Free;
-  FDestination.Free;
+  ReplacementTags := nil;
+  Destination := nil;
   inherited;
 end;
 

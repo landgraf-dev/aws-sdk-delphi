@@ -36,7 +36,7 @@ implementation
 
 destructor TCreateConfigurationSetRequest.Destroy;
 begin
-  FConfigurationSet.Free;
+  ConfigurationSet := nil;
   inherited;
 end;
 

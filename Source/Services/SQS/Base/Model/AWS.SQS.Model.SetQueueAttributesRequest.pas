@@ -54,7 +54,7 @@ end;
 
 destructor TSetQueueAttributesRequest.Destroy;
 begin
-  FAttributes.Free;
+  Attributes := nil;
   inherited;
 end;
 

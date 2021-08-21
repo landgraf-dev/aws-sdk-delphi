@@ -55,7 +55,7 @@ end;
 
 destructor TSendMessageBatchRequest.Destroy;
 begin
-  FEntries.Free;
+  Entries := nil;
   inherited;
 end;
 

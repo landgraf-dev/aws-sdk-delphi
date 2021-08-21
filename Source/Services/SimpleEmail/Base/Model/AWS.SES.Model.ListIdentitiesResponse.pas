@@ -53,7 +53,7 @@ end;
 
 destructor TListIdentitiesResponse.Destroy;
 begin
-  FIdentities.Free;
+  Identities := nil;
   inherited;
 end;
 

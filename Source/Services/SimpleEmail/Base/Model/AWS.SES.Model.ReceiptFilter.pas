@@ -45,7 +45,7 @@ implementation
 
 destructor TReceiptFilter.Destroy;
 begin
-  FIpFilter.Free;
+  IpFilter := nil;
   inherited;
 end;
 

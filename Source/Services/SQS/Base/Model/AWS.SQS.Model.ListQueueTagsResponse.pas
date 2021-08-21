@@ -43,7 +43,7 @@ end;
 
 destructor TListQueueTagsResponse.Destroy;
 begin
-  FTags.Free;
+  Tags := nil;
   inherited;
 end;
 

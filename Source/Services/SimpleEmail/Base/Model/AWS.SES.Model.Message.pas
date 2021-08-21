@@ -46,8 +46,8 @@ implementation
 
 destructor TMessage.Destroy;
 begin
-  FSubject.Free;
-  FBody.Free;
+  Subject := nil;
+  Body := nil;
   inherited;
 end;
 

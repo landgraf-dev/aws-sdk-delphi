@@ -91,8 +91,8 @@ end;
 
 destructor TSendBounceRequest.Destroy;
 begin
-  FMessageDsn.Free;
-  FBouncedRecipientInfoList.Free;
+  MessageDsn := nil;
+  BouncedRecipientInfoList := nil;
   inherited;
 end;
 

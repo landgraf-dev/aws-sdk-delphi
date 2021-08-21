@@ -54,7 +54,7 @@ end;
 
 destructor TListConfigurationSetsResponse.Destroy;
 begin
-  FConfigurationSets.Free;
+  ConfigurationSets := nil;
   inherited;
 end;
 

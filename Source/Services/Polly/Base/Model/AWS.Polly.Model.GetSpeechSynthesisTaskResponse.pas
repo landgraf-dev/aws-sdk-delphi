@@ -36,7 +36,7 @@ implementation
 
 destructor TGetSpeechSynthesisTaskResponse.Destroy;
 begin
-  FSynthesisTask.Free;
+  SynthesisTask := nil;
   inherited;
 end;
 

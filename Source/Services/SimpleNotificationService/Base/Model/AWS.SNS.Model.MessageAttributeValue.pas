@@ -54,7 +54,7 @@ implementation
 
 destructor TMessageAttributeValue.Destroy;
 begin
-  FBinaryValue.Free;
+  BinaryValue := nil;
   inherited;
 end;
 

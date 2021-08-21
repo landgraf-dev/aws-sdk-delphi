@@ -54,7 +54,7 @@ end;
 
 destructor TListEndpointsByPlatformApplicationResponse.Destroy;
 begin
-  FEndpoints.Free;
+  Endpoints := nil;
   inherited;
 end;
 

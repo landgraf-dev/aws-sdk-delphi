@@ -44,7 +44,7 @@ end;
 
 destructor TGetIdentityNotificationAttributesResponse.Destroy;
 begin
-  FNotificationAttributes.Free;
+  NotificationAttributes := nil;
   inherited;
 end;
 

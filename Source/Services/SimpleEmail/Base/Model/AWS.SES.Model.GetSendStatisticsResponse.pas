@@ -44,7 +44,7 @@ end;
 
 destructor TGetSendStatisticsResponse.Destroy;
 begin
-  FSendDataPoints.Free;
+  SendDataPoints := nil;
   inherited;
 end;
 

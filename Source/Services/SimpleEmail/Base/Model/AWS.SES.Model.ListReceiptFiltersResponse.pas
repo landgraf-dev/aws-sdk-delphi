@@ -44,7 +44,7 @@ end;
 
 destructor TListReceiptFiltersResponse.Destroy;
 begin
-  FFilters.Free;
+  Filters := nil;
   inherited;
 end;
 

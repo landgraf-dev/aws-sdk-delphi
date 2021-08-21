@@ -89,7 +89,7 @@ end;
 
 destructor TPhoneNumberInformation.Destroy;
 begin
-  FNumberCapabilities.Free;
+  NumberCapabilities := nil;
   inherited;
 end;
 

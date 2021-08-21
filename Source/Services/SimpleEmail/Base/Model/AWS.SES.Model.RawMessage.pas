@@ -36,7 +36,7 @@ implementation
 
 destructor TRawMessage.Destroy;
 begin
-  FData.Free;
+  Data := nil;
   inherited;
 end;
 

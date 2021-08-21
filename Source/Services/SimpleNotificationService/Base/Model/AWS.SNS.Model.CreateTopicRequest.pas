@@ -65,8 +65,8 @@ end;
 
 destructor TCreateTopicRequest.Destroy;
 begin
-  FTags.Free;
-  FAttributes.Free;
+  Tags := nil;
+  Attributes := nil;
   inherited;
 end;
 

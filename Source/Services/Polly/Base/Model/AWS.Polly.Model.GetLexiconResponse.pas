@@ -46,8 +46,8 @@ implementation
 
 destructor TGetLexiconResponse.Destroy;
 begin
-  FLexiconAttributes.Free;
-  FLexicon.Free;
+  LexiconAttributes := nil;
+  Lexicon := nil;
   inherited;
 end;
 

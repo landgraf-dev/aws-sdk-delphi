@@ -43,7 +43,7 @@ end;
 
 destructor TVerifyDomainDkimResponse.Destroy;
 begin
-  FDkimTokens.Free;
+  DkimTokens := nil;
   inherited;
 end;
 

@@ -53,7 +53,7 @@ end;
 
 destructor TUntagResourceRequest.Destroy;
 begin
-  FTagKeys.Free;
+  TagKeys := nil;
   inherited;
 end;
 

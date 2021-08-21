@@ -53,7 +53,7 @@ end;
 
 destructor TUntagQueueRequest.Destroy;
 begin
-  FTagKeys.Free;
+  TagKeys := nil;
   inherited;
 end;
 

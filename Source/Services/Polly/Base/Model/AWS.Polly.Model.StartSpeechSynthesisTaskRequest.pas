@@ -145,8 +145,8 @@ end;
 
 destructor TStartSpeechSynthesisTaskRequest.Destroy;
 begin
-  FSpeechMarkTypes.Free;
-  FLexiconNames.Free;
+  SpeechMarkTypes := nil;
+  LexiconNames := nil;
   inherited;
 end;
 

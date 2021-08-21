@@ -70,7 +70,7 @@ end;
 
 destructor TMessageDsn.Destroy;
 begin
-  FExtensionFields.Free;
+  ExtensionFields := nil;
   inherited;
 end;
 

@@ -36,7 +36,7 @@ implementation
 
 destructor TDescribeReceiptRuleResponse.Destroy;
 begin
-  FRule.Free;
+  Rule := nil;
   inherited;
 end;
 

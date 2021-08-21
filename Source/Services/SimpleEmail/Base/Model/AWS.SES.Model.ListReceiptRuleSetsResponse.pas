@@ -54,7 +54,7 @@ end;
 
 destructor TListReceiptRuleSetsResponse.Destroy;
 begin
-  FRuleSets.Free;
+  RuleSets := nil;
   inherited;
 end;
 

@@ -43,7 +43,7 @@ end;
 
 destructor TGetTopicAttributesResponse.Destroy;
 begin
-  FAttributes.Free;
+  Attributes := nil;
   inherited;
 end;
 

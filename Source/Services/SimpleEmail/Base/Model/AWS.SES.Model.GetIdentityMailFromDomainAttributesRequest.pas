@@ -43,7 +43,7 @@ end;
 
 destructor TGetIdentityMailFromDomainAttributesRequest.Destroy;
 begin
-  FIdentities.Free;
+  Identities := nil;
   inherited;
 end;
 

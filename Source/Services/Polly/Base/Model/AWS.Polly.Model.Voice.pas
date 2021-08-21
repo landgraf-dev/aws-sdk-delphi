@@ -99,8 +99,8 @@ end;
 
 destructor TVoice.Destroy;
 begin
-  FSupportedEngines.Free;
-  FAdditionalLanguageCodes.Free;
+  SupportedEngines := nil;
+  AdditionalLanguageCodes := nil;
   inherited;
 end;
 

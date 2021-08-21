@@ -62,7 +62,7 @@ end;
 
 destructor TIdentityDkimAttributes.Destroy;
 begin
-  FDkimTokens.Free;
+  DkimTokens := nil;
   inherited;
 end;
 

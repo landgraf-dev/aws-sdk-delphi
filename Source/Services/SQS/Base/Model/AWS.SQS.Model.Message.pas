@@ -99,8 +99,8 @@ end;
 
 destructor TMessage.Destroy;
 begin
-  FMessageAttributes.Free;
-  FAttributes.Free;
+  MessageAttributes := nil;
+  Attributes := nil;
   inherited;
 end;
 

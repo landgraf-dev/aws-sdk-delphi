@@ -54,7 +54,7 @@ end;
 
 destructor TListCustomVerificationEmailTemplatesResponse.Destroy;
 begin
-  FCustomVerificationEmailTemplates.Free;
+  CustomVerificationEmailTemplates := nil;
   inherited;
 end;
 

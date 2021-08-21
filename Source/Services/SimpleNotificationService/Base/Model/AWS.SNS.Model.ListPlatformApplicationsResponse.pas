@@ -54,7 +54,7 @@ end;
 
 destructor TListPlatformApplicationsResponse.Destroy;
 begin
-  FPlatformApplications.Free;
+  PlatformApplications := nil;
   inherited;
 end;
 

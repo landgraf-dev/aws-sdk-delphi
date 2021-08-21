@@ -119,7 +119,7 @@ end;
 
 destructor TPublishRequest.Destroy;
 begin
-  FMessageAttributes.Free;
+  MessageAttributes := nil;
   inherited;
 end;
 

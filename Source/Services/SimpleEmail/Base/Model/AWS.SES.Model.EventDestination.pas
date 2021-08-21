@@ -91,10 +91,10 @@ end;
 
 destructor TEventDestination.Destroy;
 begin
-  FSNSDestination.Free;
-  FMatchingEventTypes.Free;
-  FKinesisFirehoseDestination.Free;
-  FCloudWatchDestination.Free;
+  SNSDestination := nil;
+  MatchingEventTypes := nil;
+  KinesisFirehoseDestination := nil;
+  CloudWatchDestination := nil;
   inherited;
 end;
 

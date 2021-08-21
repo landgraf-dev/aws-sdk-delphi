@@ -54,7 +54,7 @@ end;
 
 destructor TListSpeechSynthesisTasksResponse.Destroy;
 begin
-  FSynthesisTasks.Free;
+  SynthesisTasks := nil;
   inherited;
 end;
 

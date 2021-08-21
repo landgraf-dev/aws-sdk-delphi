@@ -36,7 +36,7 @@ implementation
 
 destructor TUpdateTemplateRequest.Destroy;
 begin
-  FTemplate.Free;
+  Template := nil;
   inherited;
 end;
 

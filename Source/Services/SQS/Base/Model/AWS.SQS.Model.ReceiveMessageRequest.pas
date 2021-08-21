@@ -100,8 +100,8 @@ end;
 
 destructor TReceiveMessageRequest.Destroy;
 begin
-  FMessageAttributeNames.Free;
-  FAttributeNames.Free;
+  MessageAttributeNames := nil;
+  AttributeNames := nil;
   inherited;
 end;
 

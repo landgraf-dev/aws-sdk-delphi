@@ -44,7 +44,7 @@ end;
 
 destructor TGetIdentityVerificationAttributesResponse.Destroy;
 begin
-  FVerificationAttributes.Free;
+  VerificationAttributes := nil;
   inherited;
 end;
 

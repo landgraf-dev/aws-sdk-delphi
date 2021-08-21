@@ -64,7 +64,7 @@ implementation
 
 destructor TBouncedRecipientInfo.Destroy;
 begin
-  FRecipientDsnFields.Free;
+  RecipientDsnFields := nil;
   inherited;
 end;
 

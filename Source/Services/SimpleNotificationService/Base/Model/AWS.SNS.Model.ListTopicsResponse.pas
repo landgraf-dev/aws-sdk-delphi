@@ -54,7 +54,7 @@ end;
 
 destructor TListTopicsResponse.Destroy;
 begin
-  FTopics.Free;
+  Topics := nil;
   inherited;
 end;
 

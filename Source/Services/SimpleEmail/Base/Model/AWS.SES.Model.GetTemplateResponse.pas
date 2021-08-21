@@ -36,7 +36,7 @@ implementation
 
 destructor TGetTemplateResponse.Destroy;
 begin
-  FTemplate.Free;
+  Template := nil;
   inherited;
 end;
 

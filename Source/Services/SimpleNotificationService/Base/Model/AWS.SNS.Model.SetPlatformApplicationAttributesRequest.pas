@@ -53,7 +53,7 @@ end;
 
 destructor TSetPlatformApplicationAttributesRequest.Destroy;
 begin
-  FAttributes.Free;
+  Attributes := nil;
   inherited;
 end;
 

@@ -54,7 +54,7 @@ end;
 
 destructor TListOriginationNumbersResponse.Destroy;
 begin
-  FPhoneNumbers.Free;
+  PhoneNumbers := nil;
   inherited;
 end;
 

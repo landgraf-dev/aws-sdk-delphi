@@ -81,9 +81,9 @@ end;
 
 destructor TMessageSystemAttributeValue.Destroy;
 begin
-  FStringListValues.Free;
-  FBinaryValue.Free;
-  FBinaryListValues.Free;
+  StringListValues := nil;
+  BinaryValue := nil;
+  BinaryListValues := nil;
   inherited;
 end;
 
