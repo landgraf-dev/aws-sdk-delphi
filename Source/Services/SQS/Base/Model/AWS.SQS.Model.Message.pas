@@ -13,6 +13,8 @@ type
   IMessage = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetBody: string;
     procedure SetBody(const Value: string);
     function GetMD5OfBody: string;
@@ -21,6 +23,8 @@ type
     procedure SetMD5OfMessageAttributes(const Value: string);
     function GetMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
     procedure SetMessageAttributes(const Value: TObjectDictionary<string, TMessageAttributeValue>);
+    function GetKeepMessageAttributes: Boolean;
+    procedure SetKeepMessageAttributes(const Value: Boolean);
     function GetMessageId: string;
     procedure SetMessageId(const Value: string);
     function GetReceiptHandle: string;
@@ -34,10 +38,12 @@ type
     function IsSetMessageId: Boolean;
     function IsSetReceiptHandle: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Body: string read GetBody write SetBody;
     property MD5OfBody: string read GetMD5OfBody write SetMD5OfBody;
     property MD5OfMessageAttributes: string read GetMD5OfMessageAttributes write SetMD5OfMessageAttributes;
     property MessageAttributes: TObjectDictionary<string, TMessageAttributeValue> read GetMessageAttributes write SetMessageAttributes;
+    property KeepMessageAttributes: Boolean read GetKeepMessageAttributes write SetKeepMessageAttributes;
     property MessageId: string read GetMessageId write SetMessageId;
     property ReceiptHandle: string read GetReceiptHandle write SetReceiptHandle;
   end;
@@ -45,14 +51,18 @@ type
   TMessage = class
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FBody: Nullable<string>;
     FMD5OfBody: Nullable<string>;
     FMD5OfMessageAttributes: Nullable<string>;
     FMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
+    FKeepMessageAttributes: Boolean;
     FMessageId: Nullable<string>;
     FReceiptHandle: Nullable<string>;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetBody: string;
     procedure SetBody(const Value: string);
     function GetMD5OfBody: string;
@@ -61,6 +71,8 @@ type
     procedure SetMD5OfMessageAttributes(const Value: string);
     function GetMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
     procedure SetMessageAttributes(const Value: TObjectDictionary<string, TMessageAttributeValue>);
+    function GetKeepMessageAttributes: Boolean;
+    procedure SetKeepMessageAttributes(const Value: Boolean);
     function GetMessageId: string;
     procedure SetMessageId(const Value: string);
     function GetReceiptHandle: string;
@@ -78,10 +90,12 @@ type
     function IsSetMessageId: Boolean;
     function IsSetReceiptHandle: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Body: string read GetBody write SetBody;
     property MD5OfBody: string read GetMD5OfBody write SetMD5OfBody;
     property MD5OfMessageAttributes: string read GetMD5OfMessageAttributes write SetMD5OfMessageAttributes;
     property MessageAttributes: TObjectDictionary<string, TMessageAttributeValue> read GetMessageAttributes write SetMessageAttributes;
+    property KeepMessageAttributes: Boolean read GetKeepMessageAttributes write SetKeepMessageAttributes;
     property MessageId: string read GetMessageId write SetMessageId;
     property ReceiptHandle: string read GetReceiptHandle write SetReceiptHandle;
   end;
@@ -118,9 +132,20 @@ procedure TMessage.SetAttributes(const Value: TDictionary<string, string>);
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TMessage.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TMessage.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TMessage.IsSetAttributes: Boolean;
@@ -182,9 +207,20 @@ procedure TMessage.SetMessageAttributes(const Value: TObjectDictionary<string, T
 begin
   if FMessageAttributes <> Value then
   begin
-    FMessageAttributes.Free;
+    if not KeepMessageAttributes then
+      FMessageAttributes.Free;
     FMessageAttributes := Value;
   end;
+end;
+
+function TMessage.GetKeepMessageAttributes: Boolean;
+begin
+  Result := FKeepMessageAttributes;
+end;
+
+procedure TMessage.SetKeepMessageAttributes(const Value: Boolean);
+begin
+  FKeepMessageAttributes := Value;
 end;
 
 function TMessage.IsSetMessageAttributes: Boolean;

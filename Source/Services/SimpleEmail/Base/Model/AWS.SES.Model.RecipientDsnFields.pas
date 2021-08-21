@@ -19,6 +19,8 @@ type
     procedure SetDiagnosticCode(const Value: string);
     function GetExtensionFields: TObjectList<TExtensionField>;
     procedure SetExtensionFields(const Value: TObjectList<TExtensionField>);
+    function GetKeepExtensionFields: Boolean;
+    procedure SetKeepExtensionFields(const Value: Boolean);
     function GetFinalRecipient: string;
     procedure SetFinalRecipient(const Value: string);
     function GetLastAttemptDateUtc: TDateTime;
@@ -40,6 +42,7 @@ type
     property Action: TDsnAction read GetAction write SetAction;
     property DiagnosticCode: string read GetDiagnosticCode write SetDiagnosticCode;
     property ExtensionFields: TObjectList<TExtensionField> read GetExtensionFields write SetExtensionFields;
+    property KeepExtensionFields: Boolean read GetKeepExtensionFields write SetKeepExtensionFields;
     property FinalRecipient: string read GetFinalRecipient write SetFinalRecipient;
     property LastAttemptDateUtc: TDateTime read GetLastAttemptDateUtc write SetLastAttemptDateUtc;
     property RemoteMta: string read GetRemoteMta write SetRemoteMta;
@@ -52,6 +55,7 @@ type
     FAction: Nullable<TDsnAction>;
     FDiagnosticCode: Nullable<string>;
     FExtensionFields: TObjectList<TExtensionField>;
+    FKeepExtensionFields: Boolean;
     FFinalRecipient: Nullable<string>;
     FLastAttemptDateUtc: Nullable<TDateTime>;
     FRemoteMta: Nullable<string>;
@@ -63,6 +67,8 @@ type
     procedure SetDiagnosticCode(const Value: string);
     function GetExtensionFields: TObjectList<TExtensionField>;
     procedure SetExtensionFields(const Value: TObjectList<TExtensionField>);
+    function GetKeepExtensionFields: Boolean;
+    procedure SetKeepExtensionFields(const Value: Boolean);
     function GetFinalRecipient: string;
     procedure SetFinalRecipient(const Value: string);
     function GetLastAttemptDateUtc: TDateTime;
@@ -88,6 +94,7 @@ type
     property Action: TDsnAction read GetAction write SetAction;
     property DiagnosticCode: string read GetDiagnosticCode write SetDiagnosticCode;
     property ExtensionFields: TObjectList<TExtensionField> read GetExtensionFields write SetExtensionFields;
+    property KeepExtensionFields: Boolean read GetKeepExtensionFields write SetKeepExtensionFields;
     property FinalRecipient: string read GetFinalRecipient write SetFinalRecipient;
     property LastAttemptDateUtc: TDateTime read GetLastAttemptDateUtc write SetLastAttemptDateUtc;
     property RemoteMta: string read GetRemoteMta write SetRemoteMta;
@@ -155,9 +162,20 @@ procedure TRecipientDsnFields.SetExtensionFields(const Value: TObjectList<TExten
 begin
   if FExtensionFields <> Value then
   begin
-    FExtensionFields.Free;
+    if not KeepExtensionFields then
+      FExtensionFields.Free;
     FExtensionFields := Value;
   end;
+end;
+
+function TRecipientDsnFields.GetKeepExtensionFields: Boolean;
+begin
+  Result := FKeepExtensionFields;
+end;
+
+procedure TRecipientDsnFields.SetKeepExtensionFields(const Value: Boolean);
+begin
+  FKeepExtensionFields := Value;
 end;
 
 function TRecipientDsnFields.IsSetExtensionFields: Boolean;

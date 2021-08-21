@@ -11,23 +11,35 @@ type
   IBody = interface
     function GetHtml: TContent;
     procedure SetHtml(const Value: TContent);
+    function GetKeepHtml: Boolean;
+    procedure SetKeepHtml(const Value: Boolean);
     function GetText: TContent;
     procedure SetText(const Value: TContent);
+    function GetKeepText: Boolean;
+    procedure SetKeepText(const Value: Boolean);
     function Obj: TBody;
     function IsSetHtml: Boolean;
     function IsSetText: Boolean;
     property Html: TContent read GetHtml write SetHtml;
+    property KeepHtml: Boolean read GetKeepHtml write SetKeepHtml;
     property Text: TContent read GetText write SetText;
+    property KeepText: Boolean read GetKeepText write SetKeepText;
   end;
   
   TBody = class
   strict private
     FHtml: TContent;
+    FKeepHtml: Boolean;
     FText: TContent;
+    FKeepText: Boolean;
     function GetHtml: TContent;
     procedure SetHtml(const Value: TContent);
+    function GetKeepHtml: Boolean;
+    procedure SetKeepHtml(const Value: Boolean);
     function GetText: TContent;
     procedure SetText(const Value: TContent);
+    function GetKeepText: Boolean;
+    procedure SetKeepText(const Value: Boolean);
   strict protected
     function Obj: TBody;
   public
@@ -36,7 +48,9 @@ type
     function IsSetHtml: Boolean;
     function IsSetText: Boolean;
     property Html: TContent read GetHtml write SetHtml;
+    property KeepHtml: Boolean read GetKeepHtml write SetKeepHtml;
     property Text: TContent read GetText write SetText;
+    property KeepText: Boolean read GetKeepText write SetKeepText;
   end;
   
 implementation
@@ -70,9 +84,20 @@ procedure TBody.SetHtml(const Value: TContent);
 begin
   if FHtml <> Value then
   begin
-    FHtml.Free;
+    if not KeepHtml then
+      FHtml.Free;
     FHtml := Value;
   end;
+end;
+
+function TBody.GetKeepHtml: Boolean;
+begin
+  Result := FKeepHtml;
+end;
+
+procedure TBody.SetKeepHtml(const Value: Boolean);
+begin
+  FKeepHtml := Value;
 end;
 
 function TBody.IsSetHtml: Boolean;
@@ -89,9 +114,20 @@ procedure TBody.SetText(const Value: TContent);
 begin
   if FText <> Value then
   begin
-    FText.Free;
+    if not KeepText then
+      FText.Free;
     FText := Value;
   end;
+end;
+
+function TBody.GetKeepText: Boolean;
+begin
+  Result := FKeepText;
+end;
+
+procedure TBody.SetKeepText(const Value: Boolean);
+begin
+  FKeepText := Value;
 end;
 
 function TBody.IsSetText: Boolean;

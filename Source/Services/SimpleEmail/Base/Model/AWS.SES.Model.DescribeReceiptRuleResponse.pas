@@ -12,22 +12,29 @@ type
   IDescribeReceiptRuleResponse = interface(IAmazonWebServiceResponse)
     function GetRule: TReceiptRule;
     procedure SetRule(const Value: TReceiptRule);
+    function GetKeepRule: Boolean;
+    procedure SetKeepRule(const Value: Boolean);
     function Obj: TDescribeReceiptRuleResponse;
     function IsSetRule: Boolean;
     property Rule: TReceiptRule read GetRule write SetRule;
+    property KeepRule: Boolean read GetKeepRule write SetKeepRule;
   end;
   
   TDescribeReceiptRuleResponse = class(TAmazonWebServiceResponse, IDescribeReceiptRuleResponse)
   strict private
     FRule: TReceiptRule;
+    FKeepRule: Boolean;
     function GetRule: TReceiptRule;
     procedure SetRule(const Value: TReceiptRule);
+    function GetKeepRule: Boolean;
+    procedure SetKeepRule(const Value: Boolean);
   strict protected
     function Obj: TDescribeReceiptRuleResponse;
   public
     destructor Destroy; override;
     function IsSetRule: Boolean;
     property Rule: TReceiptRule read GetRule write SetRule;
+    property KeepRule: Boolean read GetKeepRule write SetKeepRule;
   end;
   
 implementation
@@ -54,9 +61,20 @@ procedure TDescribeReceiptRuleResponse.SetRule(const Value: TReceiptRule);
 begin
   if FRule <> Value then
   begin
-    FRule.Free;
+    if not KeepRule then
+      FRule.Free;
     FRule := Value;
   end;
+end;
+
+function TDescribeReceiptRuleResponse.GetKeepRule: Boolean;
+begin
+  Result := FKeepRule;
+end;
+
+procedure TDescribeReceiptRuleResponse.SetKeepRule(const Value: Boolean);
+begin
+  FKeepRule := Value;
 end;
 
 function TDescribeReceiptRuleResponse.IsSetRule: Boolean;

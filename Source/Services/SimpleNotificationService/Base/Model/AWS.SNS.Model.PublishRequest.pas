@@ -16,6 +16,8 @@ type
     procedure SetMessage(const Value: string);
     function GetMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
     procedure SetMessageAttributes(const Value: TObjectDictionary<string, TMessageAttributeValue>);
+    function GetKeepMessageAttributes: Boolean;
+    procedure SetKeepMessageAttributes(const Value: Boolean);
     function GetMessageDeduplicationId: string;
     procedure SetMessageDeduplicationId(const Value: string);
     function GetMessageGroupId: string;
@@ -42,6 +44,7 @@ type
     function IsSetTopicArn: Boolean;
     property Message: string read GetMessage write SetMessage;
     property MessageAttributes: TObjectDictionary<string, TMessageAttributeValue> read GetMessageAttributes write SetMessageAttributes;
+    property KeepMessageAttributes: Boolean read GetKeepMessageAttributes write SetKeepMessageAttributes;
     property MessageDeduplicationId: string read GetMessageDeduplicationId write SetMessageDeduplicationId;
     property MessageGroupId: string read GetMessageGroupId write SetMessageGroupId;
     property MessageStructure: string read GetMessageStructure write SetMessageStructure;
@@ -55,6 +58,7 @@ type
   strict private
     FMessage: Nullable<string>;
     FMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
+    FKeepMessageAttributes: Boolean;
     FMessageDeduplicationId: Nullable<string>;
     FMessageGroupId: Nullable<string>;
     FMessageStructure: Nullable<string>;
@@ -66,6 +70,8 @@ type
     procedure SetMessage(const Value: string);
     function GetMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
     procedure SetMessageAttributes(const Value: TObjectDictionary<string, TMessageAttributeValue>);
+    function GetKeepMessageAttributes: Boolean;
+    procedure SetKeepMessageAttributes(const Value: Boolean);
     function GetMessageDeduplicationId: string;
     procedure SetMessageDeduplicationId(const Value: string);
     function GetMessageGroupId: string;
@@ -98,6 +104,7 @@ type
     function IsSetTopicArn: Boolean;
     property Message: string read GetMessage write SetMessage;
     property MessageAttributes: TObjectDictionary<string, TMessageAttributeValue> read GetMessageAttributes write SetMessageAttributes;
+    property KeepMessageAttributes: Boolean read GetKeepMessageAttributes write SetKeepMessageAttributes;
     property MessageDeduplicationId: string read GetMessageDeduplicationId write SetMessageDeduplicationId;
     property MessageGroupId: string read GetMessageGroupId write SetMessageGroupId;
     property MessageStructure: string read GetMessageStructure write SetMessageStructure;
@@ -167,9 +174,20 @@ procedure TPublishRequest.SetMessageAttributes(const Value: TObjectDictionary<st
 begin
   if FMessageAttributes <> Value then
   begin
-    FMessageAttributes.Free;
+    if not KeepMessageAttributes then
+      FMessageAttributes.Free;
     FMessageAttributes := Value;
   end;
+end;
+
+function TPublishRequest.GetKeepMessageAttributes: Boolean;
+begin
+  Result := FKeepMessageAttributes;
+end;
+
+procedure TPublishRequest.SetKeepMessageAttributes(const Value: Boolean);
+begin
+  FKeepMessageAttributes := Value;
 end;
 
 function TPublishRequest.IsSetMessageAttributes: Boolean;

@@ -14,21 +14,27 @@ type
   ISendMessageBatchRequest = interface
     function GetEntries: TObjectList<TSendMessageBatchRequestEntry>;
     procedure SetEntries(const Value: TObjectList<TSendMessageBatchRequestEntry>);
+    function GetKeepEntries: Boolean;
+    procedure SetKeepEntries(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function Obj: TSendMessageBatchRequest;
     function IsSetEntries: Boolean;
     function IsSetQueueUrl: Boolean;
     property Entries: TObjectList<TSendMessageBatchRequestEntry> read GetEntries write SetEntries;
+    property KeepEntries: Boolean read GetKeepEntries write SetKeepEntries;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
   TSendMessageBatchRequest = class(TAmazonSQSRequest, ISendMessageBatchRequest)
   strict private
     FEntries: TObjectList<TSendMessageBatchRequestEntry>;
+    FKeepEntries: Boolean;
     FQueueUrl: Nullable<string>;
     function GetEntries: TObjectList<TSendMessageBatchRequestEntry>;
     procedure SetEntries(const Value: TObjectList<TSendMessageBatchRequestEntry>);
+    function GetKeepEntries: Boolean;
+    procedure SetKeepEntries(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
   strict protected
@@ -40,6 +46,7 @@ type
     function IsSetEntries: Boolean;
     function IsSetQueueUrl: Boolean;
     property Entries: TObjectList<TSendMessageBatchRequestEntry> read GetEntries write SetEntries;
+    property KeepEntries: Boolean read GetKeepEntries write SetKeepEntries;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
@@ -80,9 +87,20 @@ procedure TSendMessageBatchRequest.SetEntries(const Value: TObjectList<TSendMess
 begin
   if FEntries <> Value then
   begin
-    FEntries.Free;
+    if not KeepEntries then
+      FEntries.Free;
     FEntries := Value;
   end;
+end;
+
+function TSendMessageBatchRequest.GetKeepEntries: Boolean;
+begin
+  Result := FKeepEntries;
+end;
+
+procedure TSendMessageBatchRequest.SetKeepEntries(const Value: Boolean);
+begin
+  FKeepEntries := Value;
 end;
 
 function TSendMessageBatchRequest.IsSetEntries: Boolean;

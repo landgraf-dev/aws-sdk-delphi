@@ -16,6 +16,8 @@ type
     procedure SetArrivalDateUtc(const Value: TDateTime);
     function GetExtensionFields: TObjectList<TExtensionField>;
     procedure SetExtensionFields(const Value: TObjectList<TExtensionField>);
+    function GetKeepExtensionFields: Boolean;
+    procedure SetKeepExtensionFields(const Value: Boolean);
     function GetReportingMta: string;
     procedure SetReportingMta(const Value: string);
     function GetArrivalDate: TDateTime;
@@ -26,6 +28,7 @@ type
     function IsSetReportingMta: Boolean;
     property ArrivalDateUtc: TDateTime read GetArrivalDateUtc write SetArrivalDateUtc;
     property ExtensionFields: TObjectList<TExtensionField> read GetExtensionFields write SetExtensionFields;
+    property KeepExtensionFields: Boolean read GetKeepExtensionFields write SetKeepExtensionFields;
     property ReportingMta: string read GetReportingMta write SetReportingMta;
     property ArrivalDate: TDateTime read GetArrivalDate write SetArrivalDate;
   end;
@@ -34,12 +37,15 @@ type
   strict private
     FArrivalDateUtc: Nullable<TDateTime>;
     FExtensionFields: TObjectList<TExtensionField>;
+    FKeepExtensionFields: Boolean;
     FReportingMta: Nullable<string>;
     FArrivalDate: Nullable<TDateTime>;
     function GetArrivalDateUtc: TDateTime;
     procedure SetArrivalDateUtc(const Value: TDateTime);
     function GetExtensionFields: TObjectList<TExtensionField>;
     procedure SetExtensionFields(const Value: TObjectList<TExtensionField>);
+    function GetKeepExtensionFields: Boolean;
+    procedure SetKeepExtensionFields(const Value: Boolean);
     function GetReportingMta: string;
     procedure SetReportingMta(const Value: string);
     function GetArrivalDate: TDateTime;
@@ -54,6 +60,7 @@ type
     function IsSetReportingMta: Boolean;
     property ArrivalDateUtc: TDateTime read GetArrivalDateUtc write SetArrivalDateUtc;
     property ExtensionFields: TObjectList<TExtensionField> read GetExtensionFields write SetExtensionFields;
+    property KeepExtensionFields: Boolean read GetKeepExtensionFields write SetKeepExtensionFields;
     property ReportingMta: string read GetReportingMta write SetReportingMta;
     property ArrivalDate: TDateTime read GetArrivalDate write SetArrivalDate;
   end;
@@ -104,9 +111,20 @@ procedure TMessageDsn.SetExtensionFields(const Value: TObjectList<TExtensionFiel
 begin
   if FExtensionFields <> Value then
   begin
-    FExtensionFields.Free;
+    if not KeepExtensionFields then
+      FExtensionFields.Free;
     FExtensionFields := Value;
   end;
+end;
+
+function TMessageDsn.GetKeepExtensionFields: Boolean;
+begin
+  Result := FKeepExtensionFields;
+end;
+
+procedure TMessageDsn.SetKeepExtensionFields(const Value: Boolean);
+begin
+  FKeepExtensionFields := Value;
 end;
 
 function TMessageDsn.IsSetExtensionFields: Boolean;

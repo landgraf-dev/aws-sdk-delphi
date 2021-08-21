@@ -15,6 +15,8 @@ type
     procedure SetAfter(const Value: string);
     function GetRule: TReceiptRule;
     procedure SetRule(const Value: TReceiptRule);
+    function GetKeepRule: Boolean;
+    procedure SetKeepRule(const Value: Boolean);
     function GetRuleSetName: string;
     procedure SetRuleSetName(const Value: string);
     function Obj: TCreateReceiptRuleRequest;
@@ -23,6 +25,7 @@ type
     function IsSetRuleSetName: Boolean;
     property After: string read GetAfter write SetAfter;
     property Rule: TReceiptRule read GetRule write SetRule;
+    property KeepRule: Boolean read GetKeepRule write SetKeepRule;
     property RuleSetName: string read GetRuleSetName write SetRuleSetName;
   end;
   
@@ -30,11 +33,14 @@ type
   strict private
     FAfter: Nullable<string>;
     FRule: TReceiptRule;
+    FKeepRule: Boolean;
     FRuleSetName: Nullable<string>;
     function GetAfter: string;
     procedure SetAfter(const Value: string);
     function GetRule: TReceiptRule;
     procedure SetRule(const Value: TReceiptRule);
+    function GetKeepRule: Boolean;
+    procedure SetKeepRule(const Value: Boolean);
     function GetRuleSetName: string;
     procedure SetRuleSetName(const Value: string);
   strict protected
@@ -46,6 +52,7 @@ type
     function IsSetRuleSetName: Boolean;
     property After: string read GetAfter write SetAfter;
     property Rule: TReceiptRule read GetRule write SetRule;
+    property KeepRule: Boolean read GetKeepRule write SetKeepRule;
     property RuleSetName: string read GetRuleSetName write SetRuleSetName;
   end;
   
@@ -88,9 +95,20 @@ procedure TCreateReceiptRuleRequest.SetRule(const Value: TReceiptRule);
 begin
   if FRule <> Value then
   begin
-    FRule.Free;
+    if not KeepRule then
+      FRule.Free;
     FRule := Value;
   end;
+end;
+
+function TCreateReceiptRuleRequest.GetKeepRule: Boolean;
+begin
+  Result := FKeepRule;
+end;
+
+procedure TCreateReceiptRuleRequest.SetKeepRule(const Value: Boolean);
+begin
+  FKeepRule := Value;
 end;
 
 function TCreateReceiptRuleRequest.IsSetRule: Boolean;

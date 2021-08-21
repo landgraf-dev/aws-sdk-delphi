@@ -15,16 +15,24 @@ type
   IEventDestination = interface
     function GetCloudWatchDestination: TCloudWatchDestination;
     procedure SetCloudWatchDestination(const Value: TCloudWatchDestination);
+    function GetKeepCloudWatchDestination: Boolean;
+    procedure SetKeepCloudWatchDestination(const Value: Boolean);
     function GetEnabled: Boolean;
     procedure SetEnabled(const Value: Boolean);
     function GetKinesisFirehoseDestination: TKinesisFirehoseDestination;
     procedure SetKinesisFirehoseDestination(const Value: TKinesisFirehoseDestination);
+    function GetKeepKinesisFirehoseDestination: Boolean;
+    procedure SetKeepKinesisFirehoseDestination(const Value: Boolean);
     function GetMatchingEventTypes: TList<string>;
     procedure SetMatchingEventTypes(const Value: TList<string>);
+    function GetKeepMatchingEventTypes: Boolean;
+    procedure SetKeepMatchingEventTypes(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetSNSDestination: TSNSDestination;
     procedure SetSNSDestination(const Value: TSNSDestination);
+    function GetKeepSNSDestination: Boolean;
+    procedure SetKeepSNSDestination(const Value: Boolean);
     function Obj: TEventDestination;
     function IsSetCloudWatchDestination: Boolean;
     function IsSetEnabled: Boolean;
@@ -33,33 +41,49 @@ type
     function IsSetName: Boolean;
     function IsSetSNSDestination: Boolean;
     property CloudWatchDestination: TCloudWatchDestination read GetCloudWatchDestination write SetCloudWatchDestination;
+    property KeepCloudWatchDestination: Boolean read GetKeepCloudWatchDestination write SetKeepCloudWatchDestination;
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property KinesisFirehoseDestination: TKinesisFirehoseDestination read GetKinesisFirehoseDestination write SetKinesisFirehoseDestination;
+    property KeepKinesisFirehoseDestination: Boolean read GetKeepKinesisFirehoseDestination write SetKeepKinesisFirehoseDestination;
     property MatchingEventTypes: TList<string> read GetMatchingEventTypes write SetMatchingEventTypes;
+    property KeepMatchingEventTypes: Boolean read GetKeepMatchingEventTypes write SetKeepMatchingEventTypes;
     property Name: string read GetName write SetName;
     property SNSDestination: TSNSDestination read GetSNSDestination write SetSNSDestination;
+    property KeepSNSDestination: Boolean read GetKeepSNSDestination write SetKeepSNSDestination;
   end;
   
   TEventDestination = class
   strict private
     FCloudWatchDestination: TCloudWatchDestination;
+    FKeepCloudWatchDestination: Boolean;
     FEnabled: Nullable<Boolean>;
     FKinesisFirehoseDestination: TKinesisFirehoseDestination;
+    FKeepKinesisFirehoseDestination: Boolean;
     FMatchingEventTypes: TList<string>;
+    FKeepMatchingEventTypes: Boolean;
     FName: Nullable<string>;
     FSNSDestination: TSNSDestination;
+    FKeepSNSDestination: Boolean;
     function GetCloudWatchDestination: TCloudWatchDestination;
     procedure SetCloudWatchDestination(const Value: TCloudWatchDestination);
+    function GetKeepCloudWatchDestination: Boolean;
+    procedure SetKeepCloudWatchDestination(const Value: Boolean);
     function GetEnabled: Boolean;
     procedure SetEnabled(const Value: Boolean);
     function GetKinesisFirehoseDestination: TKinesisFirehoseDestination;
     procedure SetKinesisFirehoseDestination(const Value: TKinesisFirehoseDestination);
+    function GetKeepKinesisFirehoseDestination: Boolean;
+    procedure SetKeepKinesisFirehoseDestination(const Value: Boolean);
     function GetMatchingEventTypes: TList<string>;
     procedure SetMatchingEventTypes(const Value: TList<string>);
+    function GetKeepMatchingEventTypes: Boolean;
+    procedure SetKeepMatchingEventTypes(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetSNSDestination: TSNSDestination;
     procedure SetSNSDestination(const Value: TSNSDestination);
+    function GetKeepSNSDestination: Boolean;
+    procedure SetKeepSNSDestination(const Value: Boolean);
   strict protected
     function Obj: TEventDestination;
   public
@@ -72,11 +96,15 @@ type
     function IsSetName: Boolean;
     function IsSetSNSDestination: Boolean;
     property CloudWatchDestination: TCloudWatchDestination read GetCloudWatchDestination write SetCloudWatchDestination;
+    property KeepCloudWatchDestination: Boolean read GetKeepCloudWatchDestination write SetKeepCloudWatchDestination;
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property KinesisFirehoseDestination: TKinesisFirehoseDestination read GetKinesisFirehoseDestination write SetKinesisFirehoseDestination;
+    property KeepKinesisFirehoseDestination: Boolean read GetKeepKinesisFirehoseDestination write SetKeepKinesisFirehoseDestination;
     property MatchingEventTypes: TList<string> read GetMatchingEventTypes write SetMatchingEventTypes;
+    property KeepMatchingEventTypes: Boolean read GetKeepMatchingEventTypes write SetKeepMatchingEventTypes;
     property Name: string read GetName write SetName;
     property SNSDestination: TSNSDestination read GetSNSDestination write SetSNSDestination;
+    property KeepSNSDestination: Boolean read GetKeepSNSDestination write SetKeepSNSDestination;
   end;
   
 implementation
@@ -112,9 +140,20 @@ procedure TEventDestination.SetCloudWatchDestination(const Value: TCloudWatchDes
 begin
   if FCloudWatchDestination <> Value then
   begin
-    FCloudWatchDestination.Free;
+    if not KeepCloudWatchDestination then
+      FCloudWatchDestination.Free;
     FCloudWatchDestination := Value;
   end;
+end;
+
+function TEventDestination.GetKeepCloudWatchDestination: Boolean;
+begin
+  Result := FKeepCloudWatchDestination;
+end;
+
+procedure TEventDestination.SetKeepCloudWatchDestination(const Value: Boolean);
+begin
+  FKeepCloudWatchDestination := Value;
 end;
 
 function TEventDestination.IsSetCloudWatchDestination: Boolean;
@@ -146,9 +185,20 @@ procedure TEventDestination.SetKinesisFirehoseDestination(const Value: TKinesisF
 begin
   if FKinesisFirehoseDestination <> Value then
   begin
-    FKinesisFirehoseDestination.Free;
+    if not KeepKinesisFirehoseDestination then
+      FKinesisFirehoseDestination.Free;
     FKinesisFirehoseDestination := Value;
   end;
+end;
+
+function TEventDestination.GetKeepKinesisFirehoseDestination: Boolean;
+begin
+  Result := FKeepKinesisFirehoseDestination;
+end;
+
+procedure TEventDestination.SetKeepKinesisFirehoseDestination(const Value: Boolean);
+begin
+  FKeepKinesisFirehoseDestination := Value;
 end;
 
 function TEventDestination.IsSetKinesisFirehoseDestination: Boolean;
@@ -165,9 +215,20 @@ procedure TEventDestination.SetMatchingEventTypes(const Value: TList<string>);
 begin
   if FMatchingEventTypes <> Value then
   begin
-    FMatchingEventTypes.Free;
+    if not KeepMatchingEventTypes then
+      FMatchingEventTypes.Free;
     FMatchingEventTypes := Value;
   end;
+end;
+
+function TEventDestination.GetKeepMatchingEventTypes: Boolean;
+begin
+  Result := FKeepMatchingEventTypes;
+end;
+
+procedure TEventDestination.SetKeepMatchingEventTypes(const Value: Boolean);
+begin
+  FKeepMatchingEventTypes := Value;
 end;
 
 function TEventDestination.IsSetMatchingEventTypes: Boolean;
@@ -199,9 +260,20 @@ procedure TEventDestination.SetSNSDestination(const Value: TSNSDestination);
 begin
   if FSNSDestination <> Value then
   begin
-    FSNSDestination.Free;
+    if not KeepSNSDestination then
+      FSNSDestination.Free;
     FSNSDestination := Value;
   end;
+end;
+
+function TEventDestination.GetKeepSNSDestination: Boolean;
+begin
+  Result := FKeepSNSDestination;
+end;
+
+procedure TEventDestination.SetKeepSNSDestination(const Value: Boolean);
+begin
+  FKeepSNSDestination := Value;
 end;
 
 function TEventDestination.IsSetSNSDestination: Boolean;

@@ -12,16 +12,22 @@ type
   IListQueueTagsResponse = interface(IAmazonWebServiceResponse)
     function GetTags: TDictionary<string, string>;
     procedure SetTags(const Value: TDictionary<string, string>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function Obj: TListQueueTagsResponse;
     function IsSetTags: Boolean;
     property Tags: TDictionary<string, string> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
   TListQueueTagsResponse = class(TAmazonWebServiceResponse, IListQueueTagsResponse)
   strict private
     FTags: TDictionary<string, string>;
+    FKeepTags: Boolean;
     function GetTags: TDictionary<string, string>;
     procedure SetTags(const Value: TDictionary<string, string>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
   strict protected
     function Obj: TListQueueTagsResponse;
   public
@@ -29,6 +35,7 @@ type
     destructor Destroy; override;
     function IsSetTags: Boolean;
     property Tags: TDictionary<string, string> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
 implementation
@@ -61,9 +68,20 @@ procedure TListQueueTagsResponse.SetTags(const Value: TDictionary<string, string
 begin
   if FTags <> Value then
   begin
-    FTags.Free;
+    if not KeepTags then
+      FTags.Free;
     FTags := Value;
   end;
+end;
+
+function TListQueueTagsResponse.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TListQueueTagsResponse.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
 end;
 
 function TListQueueTagsResponse.IsSetTags: Boolean;

@@ -16,21 +16,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetSynthesisTasks: TObjectList<TSynthesisTask>;
     procedure SetSynthesisTasks(const Value: TObjectList<TSynthesisTask>);
+    function GetKeepSynthesisTasks: Boolean;
+    procedure SetKeepSynthesisTasks(const Value: Boolean);
     function Obj: TListSpeechSynthesisTasksResponse;
     function IsSetNextToken: Boolean;
     function IsSetSynthesisTasks: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property SynthesisTasks: TObjectList<TSynthesisTask> read GetSynthesisTasks write SetSynthesisTasks;
+    property KeepSynthesisTasks: Boolean read GetKeepSynthesisTasks write SetKeepSynthesisTasks;
   end;
   
   TListSpeechSynthesisTasksResponse = class(TAmazonWebServiceResponse, IListSpeechSynthesisTasksResponse)
   strict private
     FNextToken: Nullable<string>;
     FSynthesisTasks: TObjectList<TSynthesisTask>;
+    FKeepSynthesisTasks: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetSynthesisTasks: TObjectList<TSynthesisTask>;
     procedure SetSynthesisTasks(const Value: TObjectList<TSynthesisTask>);
+    function GetKeepSynthesisTasks: Boolean;
+    procedure SetKeepSynthesisTasks(const Value: Boolean);
   strict protected
     function Obj: TListSpeechSynthesisTasksResponse;
   public
@@ -40,6 +46,7 @@ type
     function IsSetSynthesisTasks: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property SynthesisTasks: TObjectList<TSynthesisTask> read GetSynthesisTasks write SetSynthesisTasks;
+    property KeepSynthesisTasks: Boolean read GetKeepSynthesisTasks write SetKeepSynthesisTasks;
   end;
   
 implementation
@@ -87,9 +94,20 @@ procedure TListSpeechSynthesisTasksResponse.SetSynthesisTasks(const Value: TObje
 begin
   if FSynthesisTasks <> Value then
   begin
-    FSynthesisTasks.Free;
+    if not KeepSynthesisTasks then
+      FSynthesisTasks.Free;
     FSynthesisTasks := Value;
   end;
+end;
+
+function TListSpeechSynthesisTasksResponse.GetKeepSynthesisTasks: Boolean;
+begin
+  Result := FKeepSynthesisTasks;
+end;
+
+procedure TListSpeechSynthesisTasksResponse.SetKeepSynthesisTasks(const Value: Boolean);
+begin
+  FKeepSynthesisTasks := Value;
 end;
 
 function TListSpeechSynthesisTasksResponse.IsSetSynthesisTasks: Boolean;

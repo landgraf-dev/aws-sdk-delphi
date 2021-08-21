@@ -12,16 +12,22 @@ type
   IGetIdentityNotificationAttributesRequest = interface
     function GetIdentities: TList<string>;
     procedure SetIdentities(const Value: TList<string>);
+    function GetKeepIdentities: Boolean;
+    procedure SetKeepIdentities(const Value: Boolean);
     function Obj: TGetIdentityNotificationAttributesRequest;
     function IsSetIdentities: Boolean;
     property Identities: TList<string> read GetIdentities write SetIdentities;
+    property KeepIdentities: Boolean read GetKeepIdentities write SetKeepIdentities;
   end;
   
   TGetIdentityNotificationAttributesRequest = class(TAmazonSimpleEmailServiceRequest, IGetIdentityNotificationAttributesRequest)
   strict private
     FIdentities: TList<string>;
+    FKeepIdentities: Boolean;
     function GetIdentities: TList<string>;
     procedure SetIdentities(const Value: TList<string>);
+    function GetKeepIdentities: Boolean;
+    procedure SetKeepIdentities(const Value: Boolean);
   strict protected
     function Obj: TGetIdentityNotificationAttributesRequest;
   public
@@ -29,6 +35,7 @@ type
     destructor Destroy; override;
     function IsSetIdentities: Boolean;
     property Identities: TList<string> read GetIdentities write SetIdentities;
+    property KeepIdentities: Boolean read GetKeepIdentities write SetKeepIdentities;
   end;
   
 implementation
@@ -61,9 +68,20 @@ procedure TGetIdentityNotificationAttributesRequest.SetIdentities(const Value: T
 begin
   if FIdentities <> Value then
   begin
-    FIdentities.Free;
+    if not KeepIdentities then
+      FIdentities.Free;
     FIdentities := Value;
   end;
+end;
+
+function TGetIdentityNotificationAttributesRequest.GetKeepIdentities: Boolean;
+begin
+  Result := FKeepIdentities;
+end;
+
+procedure TGetIdentityNotificationAttributesRequest.SetKeepIdentities(const Value: Boolean);
+begin
+  FKeepIdentities := Value;
 end;
 
 function TGetIdentityNotificationAttributesRequest.IsSetIdentities: Boolean;

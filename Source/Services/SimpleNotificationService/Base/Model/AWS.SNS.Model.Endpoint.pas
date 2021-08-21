@@ -12,21 +12,27 @@ type
   IEndpoint = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetEndpointArn: string;
     procedure SetEndpointArn(const Value: string);
     function Obj: TEndpoint;
     function IsSetAttributes: Boolean;
     function IsSetEndpointArn: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property EndpointArn: string read GetEndpointArn write SetEndpointArn;
   end;
   
   TEndpoint = class
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FEndpointArn: Nullable<string>;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetEndpointArn: string;
     procedure SetEndpointArn(const Value: string);
   strict protected
@@ -37,6 +43,7 @@ type
     function IsSetAttributes: Boolean;
     function IsSetEndpointArn: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property EndpointArn: string read GetEndpointArn write SetEndpointArn;
   end;
   
@@ -70,9 +77,20 @@ procedure TEndpoint.SetAttributes(const Value: TDictionary<string, string>);
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TEndpoint.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TEndpoint.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TEndpoint.IsSetAttributes: Boolean;

@@ -15,21 +15,27 @@ type
     procedure SetResourceArn(const Value: string);
     function GetTagKeys: TList<string>;
     procedure SetTagKeys(const Value: TList<string>);
+    function GetKeepTagKeys: Boolean;
+    procedure SetKeepTagKeys(const Value: Boolean);
     function Obj: TUntagResourceRequest;
     function IsSetResourceArn: Boolean;
     function IsSetTagKeys: Boolean;
     property ResourceArn: string read GetResourceArn write SetResourceArn;
     property TagKeys: TList<string> read GetTagKeys write SetTagKeys;
+    property KeepTagKeys: Boolean read GetKeepTagKeys write SetKeepTagKeys;
   end;
   
   TUntagResourceRequest = class(TAmazonSimpleNotificationServiceRequest, IUntagResourceRequest)
   strict private
     FResourceArn: Nullable<string>;
     FTagKeys: TList<string>;
+    FKeepTagKeys: Boolean;
     function GetResourceArn: string;
     procedure SetResourceArn(const Value: string);
     function GetTagKeys: TList<string>;
     procedure SetTagKeys(const Value: TList<string>);
+    function GetKeepTagKeys: Boolean;
+    procedure SetKeepTagKeys(const Value: Boolean);
   strict protected
     function Obj: TUntagResourceRequest;
   public
@@ -39,6 +45,7 @@ type
     function IsSetTagKeys: Boolean;
     property ResourceArn: string read GetResourceArn write SetResourceArn;
     property TagKeys: TList<string> read GetTagKeys write SetTagKeys;
+    property KeepTagKeys: Boolean read GetKeepTagKeys write SetKeepTagKeys;
   end;
   
 implementation
@@ -86,9 +93,20 @@ procedure TUntagResourceRequest.SetTagKeys(const Value: TList<string>);
 begin
   if FTagKeys <> Value then
   begin
-    FTagKeys.Free;
+    if not KeepTagKeys then
+      FTagKeys.Free;
     FTagKeys := Value;
   end;
+end;
+
+function TUntagResourceRequest.GetKeepTagKeys: Boolean;
+begin
+  Result := FKeepTagKeys;
+end;
+
+procedure TUntagResourceRequest.SetKeepTagKeys(const Value: Boolean);
+begin
+  FKeepTagKeys := Value;
 end;
 
 function TUntagResourceRequest.IsSetTagKeys: Boolean;

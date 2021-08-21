@@ -16,21 +16,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetPhoneNumbers: TObjectList<TSMSSandboxPhoneNumber>;
     procedure SetPhoneNumbers(const Value: TObjectList<TSMSSandboxPhoneNumber>);
+    function GetKeepPhoneNumbers: Boolean;
+    procedure SetKeepPhoneNumbers(const Value: Boolean);
     function Obj: TListSMSSandboxPhoneNumbersResponse;
     function IsSetNextToken: Boolean;
     function IsSetPhoneNumbers: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property PhoneNumbers: TObjectList<TSMSSandboxPhoneNumber> read GetPhoneNumbers write SetPhoneNumbers;
+    property KeepPhoneNumbers: Boolean read GetKeepPhoneNumbers write SetKeepPhoneNumbers;
   end;
   
   TListSMSSandboxPhoneNumbersResponse = class(TAmazonWebServiceResponse, IListSMSSandboxPhoneNumbersResponse)
   strict private
     FNextToken: Nullable<string>;
     FPhoneNumbers: TObjectList<TSMSSandboxPhoneNumber>;
+    FKeepPhoneNumbers: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetPhoneNumbers: TObjectList<TSMSSandboxPhoneNumber>;
     procedure SetPhoneNumbers(const Value: TObjectList<TSMSSandboxPhoneNumber>);
+    function GetKeepPhoneNumbers: Boolean;
+    procedure SetKeepPhoneNumbers(const Value: Boolean);
   strict protected
     function Obj: TListSMSSandboxPhoneNumbersResponse;
   public
@@ -40,6 +46,7 @@ type
     function IsSetPhoneNumbers: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property PhoneNumbers: TObjectList<TSMSSandboxPhoneNumber> read GetPhoneNumbers write SetPhoneNumbers;
+    property KeepPhoneNumbers: Boolean read GetKeepPhoneNumbers write SetKeepPhoneNumbers;
   end;
   
 implementation
@@ -87,9 +94,20 @@ procedure TListSMSSandboxPhoneNumbersResponse.SetPhoneNumbers(const Value: TObje
 begin
   if FPhoneNumbers <> Value then
   begin
-    FPhoneNumbers.Free;
+    if not KeepPhoneNumbers then
+      FPhoneNumbers.Free;
     FPhoneNumbers := Value;
   end;
+end;
+
+function TListSMSSandboxPhoneNumbersResponse.GetKeepPhoneNumbers: Boolean;
+begin
+  Result := FKeepPhoneNumbers;
+end;
+
+procedure TListSMSSandboxPhoneNumbersResponse.SetKeepPhoneNumbers(const Value: Boolean);
+begin
+  FKeepPhoneNumbers := Value;
 end;
 
 function TListSMSSandboxPhoneNumbersResponse.IsSetPhoneNumbers: Boolean;

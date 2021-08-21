@@ -12,21 +12,27 @@ type
   IPlatformApplication = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetPlatformApplicationArn: string;
     procedure SetPlatformApplicationArn(const Value: string);
     function Obj: TPlatformApplication;
     function IsSetAttributes: Boolean;
     function IsSetPlatformApplicationArn: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property PlatformApplicationArn: string read GetPlatformApplicationArn write SetPlatformApplicationArn;
   end;
   
   TPlatformApplication = class
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FPlatformApplicationArn: Nullable<string>;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetPlatformApplicationArn: string;
     procedure SetPlatformApplicationArn(const Value: string);
   strict protected
@@ -37,6 +43,7 @@ type
     function IsSetAttributes: Boolean;
     function IsSetPlatformApplicationArn: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property PlatformApplicationArn: string read GetPlatformApplicationArn write SetPlatformApplicationArn;
   end;
   
@@ -70,9 +77,20 @@ procedure TPlatformApplication.SetAttributes(const Value: TDictionary<string, st
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TPlatformApplication.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TPlatformApplication.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TPlatformApplication.IsSetAttributes: Boolean;

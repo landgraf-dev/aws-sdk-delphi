@@ -13,21 +13,27 @@ type
   IGetQueueAttributesRequest = interface
     function GetAttributeNames: TList<string>;
     procedure SetAttributeNames(const Value: TList<string>);
+    function GetKeepAttributeNames: Boolean;
+    procedure SetKeepAttributeNames(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function Obj: TGetQueueAttributesRequest;
     function IsSetAttributeNames: Boolean;
     function IsSetQueueUrl: Boolean;
     property AttributeNames: TList<string> read GetAttributeNames write SetAttributeNames;
+    property KeepAttributeNames: Boolean read GetKeepAttributeNames write SetKeepAttributeNames;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
   TGetQueueAttributesRequest = class(TAmazonSQSRequest, IGetQueueAttributesRequest)
   strict private
     FAttributeNames: TList<string>;
+    FKeepAttributeNames: Boolean;
     FQueueUrl: Nullable<string>;
     function GetAttributeNames: TList<string>;
     procedure SetAttributeNames(const Value: TList<string>);
+    function GetKeepAttributeNames: Boolean;
+    procedure SetKeepAttributeNames(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
   strict protected
@@ -39,6 +45,7 @@ type
     function IsSetAttributeNames: Boolean;
     function IsSetQueueUrl: Boolean;
     property AttributeNames: TList<string> read GetAttributeNames write SetAttributeNames;
+    property KeepAttributeNames: Boolean read GetKeepAttributeNames write SetKeepAttributeNames;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
@@ -79,9 +86,20 @@ procedure TGetQueueAttributesRequest.SetAttributeNames(const Value: TList<string
 begin
   if FAttributeNames <> Value then
   begin
-    FAttributeNames.Free;
+    if not KeepAttributeNames then
+      FAttributeNames.Free;
     FAttributeNames := Value;
   end;
+end;
+
+function TGetQueueAttributesRequest.GetKeepAttributeNames: Boolean;
+begin
+  Result := FKeepAttributeNames;
+end;
+
+procedure TGetQueueAttributesRequest.SetKeepAttributeNames(const Value: Boolean);
+begin
+  FKeepAttributeNames := Value;
 end;
 
 function TGetQueueAttributesRequest.IsSetAttributeNames: Boolean;

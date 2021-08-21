@@ -12,23 +12,35 @@ type
   IMessage = interface
     function GetBody: TBody;
     procedure SetBody(const Value: TBody);
+    function GetKeepBody: Boolean;
+    procedure SetKeepBody(const Value: Boolean);
     function GetSubject: TContent;
     procedure SetSubject(const Value: TContent);
+    function GetKeepSubject: Boolean;
+    procedure SetKeepSubject(const Value: Boolean);
     function Obj: TMessage;
     function IsSetBody: Boolean;
     function IsSetSubject: Boolean;
     property Body: TBody read GetBody write SetBody;
+    property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property Subject: TContent read GetSubject write SetSubject;
+    property KeepSubject: Boolean read GetKeepSubject write SetKeepSubject;
   end;
   
   TMessage = class
   strict private
     FBody: TBody;
+    FKeepBody: Boolean;
     FSubject: TContent;
+    FKeepSubject: Boolean;
     function GetBody: TBody;
     procedure SetBody(const Value: TBody);
+    function GetKeepBody: Boolean;
+    procedure SetKeepBody(const Value: Boolean);
     function GetSubject: TContent;
     procedure SetSubject(const Value: TContent);
+    function GetKeepSubject: Boolean;
+    procedure SetKeepSubject(const Value: Boolean);
   strict protected
     function Obj: TMessage;
   public
@@ -37,7 +49,9 @@ type
     function IsSetBody: Boolean;
     function IsSetSubject: Boolean;
     property Body: TBody read GetBody write SetBody;
+    property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property Subject: TContent read GetSubject write SetSubject;
+    property KeepSubject: Boolean read GetKeepSubject write SetKeepSubject;
   end;
   
 implementation
@@ -72,9 +86,20 @@ procedure TMessage.SetBody(const Value: TBody);
 begin
   if FBody <> Value then
   begin
-    FBody.Free;
+    if not KeepBody then
+      FBody.Free;
     FBody := Value;
   end;
+end;
+
+function TMessage.GetKeepBody: Boolean;
+begin
+  Result := FKeepBody;
+end;
+
+procedure TMessage.SetKeepBody(const Value: Boolean);
+begin
+  FKeepBody := Value;
 end;
 
 function TMessage.IsSetBody: Boolean;
@@ -91,9 +116,20 @@ procedure TMessage.SetSubject(const Value: TContent);
 begin
   if FSubject <> Value then
   begin
-    FSubject.Free;
+    if not KeepSubject then
+      FSubject.Free;
     FSubject := Value;
   end;
+end;
+
+function TMessage.GetKeepSubject: Boolean;
+begin
+  Result := FKeepSubject;
+end;
+
+procedure TMessage.SetKeepSubject(const Value: Boolean);
+begin
+  FKeepSubject := Value;
 end;
 
 function TMessage.IsSetSubject: Boolean;

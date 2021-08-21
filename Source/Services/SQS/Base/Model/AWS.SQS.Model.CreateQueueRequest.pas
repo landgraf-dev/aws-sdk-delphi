@@ -13,30 +13,42 @@ type
   ICreateQueueRequest = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetQueueName: string;
     procedure SetQueueName(const Value: string);
     function GetTags: TDictionary<string, string>;
     procedure SetTags(const Value: TDictionary<string, string>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function Obj: TCreateQueueRequest;
     function IsSetAttributes: Boolean;
     function IsSetQueueName: Boolean;
     function IsSetTags: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property QueueName: string read GetQueueName write SetQueueName;
     property Tags: TDictionary<string, string> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
   TCreateQueueRequest = class(TAmazonSQSRequest, ICreateQueueRequest)
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FQueueName: Nullable<string>;
     FTags: TDictionary<string, string>;
+    FKeepTags: Boolean;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetQueueName: string;
     procedure SetQueueName(const Value: string);
     function GetTags: TDictionary<string, string>;
     procedure SetTags(const Value: TDictionary<string, string>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
   strict protected
     function Obj: TCreateQueueRequest;
   public
@@ -47,8 +59,10 @@ type
     function IsSetQueueName: Boolean;
     function IsSetTags: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property QueueName: string read GetQueueName write SetQueueName;
     property Tags: TDictionary<string, string> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
 implementation
@@ -89,9 +103,20 @@ procedure TCreateQueueRequest.SetAttributes(const Value: TDictionary<string, str
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TCreateQueueRequest.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TCreateQueueRequest.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TCreateQueueRequest.IsSetAttributes: Boolean;
@@ -123,9 +148,20 @@ procedure TCreateQueueRequest.SetTags(const Value: TDictionary<string, string>);
 begin
   if FTags <> Value then
   begin
-    FTags.Free;
+    if not KeepTags then
+      FTags.Free;
     FTags := Value;
   end;
+end;
+
+function TCreateQueueRequest.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TCreateQueueRequest.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
 end;
 
 function TCreateQueueRequest.IsSetTags: Boolean;

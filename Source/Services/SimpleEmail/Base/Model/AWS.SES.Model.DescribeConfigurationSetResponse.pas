@@ -17,14 +17,24 @@ type
   IDescribeConfigurationSetResponse = interface(IAmazonWebServiceResponse)
     function GetConfigurationSet: TConfigurationSet;
     procedure SetConfigurationSet(const Value: TConfigurationSet);
+    function GetKeepConfigurationSet: Boolean;
+    procedure SetKeepConfigurationSet(const Value: Boolean);
     function GetDeliveryOptions: TDeliveryOptions;
     procedure SetDeliveryOptions(const Value: TDeliveryOptions);
+    function GetKeepDeliveryOptions: Boolean;
+    procedure SetKeepDeliveryOptions(const Value: Boolean);
     function GetEventDestinations: TObjectList<TEventDestination>;
     procedure SetEventDestinations(const Value: TObjectList<TEventDestination>);
+    function GetKeepEventDestinations: Boolean;
+    procedure SetKeepEventDestinations(const Value: Boolean);
     function GetReputationOptions: TReputationOptions;
     procedure SetReputationOptions(const Value: TReputationOptions);
+    function GetKeepReputationOptions: Boolean;
+    procedure SetKeepReputationOptions(const Value: Boolean);
     function GetTrackingOptions: TTrackingOptions;
     procedure SetTrackingOptions(const Value: TTrackingOptions);
+    function GetKeepTrackingOptions: Boolean;
+    procedure SetKeepTrackingOptions(const Value: Boolean);
     function Obj: TDescribeConfigurationSetResponse;
     function IsSetConfigurationSet: Boolean;
     function IsSetDeliveryOptions: Boolean;
@@ -32,29 +42,49 @@ type
     function IsSetReputationOptions: Boolean;
     function IsSetTrackingOptions: Boolean;
     property ConfigurationSet: TConfigurationSet read GetConfigurationSet write SetConfigurationSet;
+    property KeepConfigurationSet: Boolean read GetKeepConfigurationSet write SetKeepConfigurationSet;
     property DeliveryOptions: TDeliveryOptions read GetDeliveryOptions write SetDeliveryOptions;
+    property KeepDeliveryOptions: Boolean read GetKeepDeliveryOptions write SetKeepDeliveryOptions;
     property EventDestinations: TObjectList<TEventDestination> read GetEventDestinations write SetEventDestinations;
+    property KeepEventDestinations: Boolean read GetKeepEventDestinations write SetKeepEventDestinations;
     property ReputationOptions: TReputationOptions read GetReputationOptions write SetReputationOptions;
+    property KeepReputationOptions: Boolean read GetKeepReputationOptions write SetKeepReputationOptions;
     property TrackingOptions: TTrackingOptions read GetTrackingOptions write SetTrackingOptions;
+    property KeepTrackingOptions: Boolean read GetKeepTrackingOptions write SetKeepTrackingOptions;
   end;
   
   TDescribeConfigurationSetResponse = class(TAmazonWebServiceResponse, IDescribeConfigurationSetResponse)
   strict private
     FConfigurationSet: TConfigurationSet;
+    FKeepConfigurationSet: Boolean;
     FDeliveryOptions: TDeliveryOptions;
+    FKeepDeliveryOptions: Boolean;
     FEventDestinations: TObjectList<TEventDestination>;
+    FKeepEventDestinations: Boolean;
     FReputationOptions: TReputationOptions;
+    FKeepReputationOptions: Boolean;
     FTrackingOptions: TTrackingOptions;
+    FKeepTrackingOptions: Boolean;
     function GetConfigurationSet: TConfigurationSet;
     procedure SetConfigurationSet(const Value: TConfigurationSet);
+    function GetKeepConfigurationSet: Boolean;
+    procedure SetKeepConfigurationSet(const Value: Boolean);
     function GetDeliveryOptions: TDeliveryOptions;
     procedure SetDeliveryOptions(const Value: TDeliveryOptions);
+    function GetKeepDeliveryOptions: Boolean;
+    procedure SetKeepDeliveryOptions(const Value: Boolean);
     function GetEventDestinations: TObjectList<TEventDestination>;
     procedure SetEventDestinations(const Value: TObjectList<TEventDestination>);
+    function GetKeepEventDestinations: Boolean;
+    procedure SetKeepEventDestinations(const Value: Boolean);
     function GetReputationOptions: TReputationOptions;
     procedure SetReputationOptions(const Value: TReputationOptions);
+    function GetKeepReputationOptions: Boolean;
+    procedure SetKeepReputationOptions(const Value: Boolean);
     function GetTrackingOptions: TTrackingOptions;
     procedure SetTrackingOptions(const Value: TTrackingOptions);
+    function GetKeepTrackingOptions: Boolean;
+    procedure SetKeepTrackingOptions(const Value: Boolean);
   strict protected
     function Obj: TDescribeConfigurationSetResponse;
   public
@@ -66,10 +96,15 @@ type
     function IsSetReputationOptions: Boolean;
     function IsSetTrackingOptions: Boolean;
     property ConfigurationSet: TConfigurationSet read GetConfigurationSet write SetConfigurationSet;
+    property KeepConfigurationSet: Boolean read GetKeepConfigurationSet write SetKeepConfigurationSet;
     property DeliveryOptions: TDeliveryOptions read GetDeliveryOptions write SetDeliveryOptions;
+    property KeepDeliveryOptions: Boolean read GetKeepDeliveryOptions write SetKeepDeliveryOptions;
     property EventDestinations: TObjectList<TEventDestination> read GetEventDestinations write SetEventDestinations;
+    property KeepEventDestinations: Boolean read GetKeepEventDestinations write SetKeepEventDestinations;
     property ReputationOptions: TReputationOptions read GetReputationOptions write SetReputationOptions;
+    property KeepReputationOptions: Boolean read GetKeepReputationOptions write SetKeepReputationOptions;
     property TrackingOptions: TTrackingOptions read GetTrackingOptions write SetTrackingOptions;
+    property KeepTrackingOptions: Boolean read GetKeepTrackingOptions write SetKeepTrackingOptions;
   end;
   
 implementation
@@ -106,9 +141,20 @@ procedure TDescribeConfigurationSetResponse.SetConfigurationSet(const Value: TCo
 begin
   if FConfigurationSet <> Value then
   begin
-    FConfigurationSet.Free;
+    if not KeepConfigurationSet then
+      FConfigurationSet.Free;
     FConfigurationSet := Value;
   end;
+end;
+
+function TDescribeConfigurationSetResponse.GetKeepConfigurationSet: Boolean;
+begin
+  Result := FKeepConfigurationSet;
+end;
+
+procedure TDescribeConfigurationSetResponse.SetKeepConfigurationSet(const Value: Boolean);
+begin
+  FKeepConfigurationSet := Value;
 end;
 
 function TDescribeConfigurationSetResponse.IsSetConfigurationSet: Boolean;
@@ -125,9 +171,20 @@ procedure TDescribeConfigurationSetResponse.SetDeliveryOptions(const Value: TDel
 begin
   if FDeliveryOptions <> Value then
   begin
-    FDeliveryOptions.Free;
+    if not KeepDeliveryOptions then
+      FDeliveryOptions.Free;
     FDeliveryOptions := Value;
   end;
+end;
+
+function TDescribeConfigurationSetResponse.GetKeepDeliveryOptions: Boolean;
+begin
+  Result := FKeepDeliveryOptions;
+end;
+
+procedure TDescribeConfigurationSetResponse.SetKeepDeliveryOptions(const Value: Boolean);
+begin
+  FKeepDeliveryOptions := Value;
 end;
 
 function TDescribeConfigurationSetResponse.IsSetDeliveryOptions: Boolean;
@@ -144,9 +201,20 @@ procedure TDescribeConfigurationSetResponse.SetEventDestinations(const Value: TO
 begin
   if FEventDestinations <> Value then
   begin
-    FEventDestinations.Free;
+    if not KeepEventDestinations then
+      FEventDestinations.Free;
     FEventDestinations := Value;
   end;
+end;
+
+function TDescribeConfigurationSetResponse.GetKeepEventDestinations: Boolean;
+begin
+  Result := FKeepEventDestinations;
+end;
+
+procedure TDescribeConfigurationSetResponse.SetKeepEventDestinations(const Value: Boolean);
+begin
+  FKeepEventDestinations := Value;
 end;
 
 function TDescribeConfigurationSetResponse.IsSetEventDestinations: Boolean;
@@ -163,9 +231,20 @@ procedure TDescribeConfigurationSetResponse.SetReputationOptions(const Value: TR
 begin
   if FReputationOptions <> Value then
   begin
-    FReputationOptions.Free;
+    if not KeepReputationOptions then
+      FReputationOptions.Free;
     FReputationOptions := Value;
   end;
+end;
+
+function TDescribeConfigurationSetResponse.GetKeepReputationOptions: Boolean;
+begin
+  Result := FKeepReputationOptions;
+end;
+
+procedure TDescribeConfigurationSetResponse.SetKeepReputationOptions(const Value: Boolean);
+begin
+  FKeepReputationOptions := Value;
 end;
 
 function TDescribeConfigurationSetResponse.IsSetReputationOptions: Boolean;
@@ -182,9 +261,20 @@ procedure TDescribeConfigurationSetResponse.SetTrackingOptions(const Value: TTra
 begin
   if FTrackingOptions <> Value then
   begin
-    FTrackingOptions.Free;
+    if not KeepTrackingOptions then
+      FTrackingOptions.Free;
     FTrackingOptions := Value;
   end;
+end;
+
+function TDescribeConfigurationSetResponse.GetKeepTrackingOptions: Boolean;
+begin
+  Result := FKeepTrackingOptions;
+end;
+
+procedure TDescribeConfigurationSetResponse.SetKeepTrackingOptions(const Value: Boolean);
+begin
+  FKeepTrackingOptions := Value;
 end;
 
 function TDescribeConfigurationSetResponse.IsSetTrackingOptions: Boolean;

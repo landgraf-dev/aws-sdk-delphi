@@ -12,16 +12,22 @@ type
   IGetSubscriptionAttributesResponse = interface(IAmazonWebServiceResponse)
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function Obj: TGetSubscriptionAttributesResponse;
     function IsSetAttributes: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
   end;
   
   TGetSubscriptionAttributesResponse = class(TAmazonWebServiceResponse, IGetSubscriptionAttributesResponse)
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
   strict protected
     function Obj: TGetSubscriptionAttributesResponse;
   public
@@ -29,6 +35,7 @@ type
     destructor Destroy; override;
     function IsSetAttributes: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
   end;
   
 implementation
@@ -61,9 +68,20 @@ procedure TGetSubscriptionAttributesResponse.SetAttributes(const Value: TDiction
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TGetSubscriptionAttributesResponse.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TGetSubscriptionAttributesResponse.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TGetSubscriptionAttributesResponse.IsSetAttributes: Boolean;

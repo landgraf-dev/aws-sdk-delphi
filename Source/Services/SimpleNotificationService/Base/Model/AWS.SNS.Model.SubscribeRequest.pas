@@ -13,6 +13,8 @@ type
   ISubscribeRequest = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetEndpoint: string;
     procedure SetEndpoint(const Value: string);
     function GetProtocol: string;
@@ -28,6 +30,7 @@ type
     function IsSetReturnSubscriptionArn: Boolean;
     function IsSetTopicArn: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Endpoint: string read GetEndpoint write SetEndpoint;
     property Protocol: string read GetProtocol write SetProtocol;
     property ReturnSubscriptionArn: Boolean read GetReturnSubscriptionArn write SetReturnSubscriptionArn;
@@ -37,12 +40,15 @@ type
   TSubscribeRequest = class(TAmazonSimpleNotificationServiceRequest, ISubscribeRequest)
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FEndpoint: Nullable<string>;
     FProtocol: Nullable<string>;
     FReturnSubscriptionArn: Nullable<Boolean>;
     FTopicArn: Nullable<string>;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetEndpoint: string;
     procedure SetEndpoint(const Value: string);
     function GetProtocol: string;
@@ -63,6 +69,7 @@ type
     function IsSetReturnSubscriptionArn: Boolean;
     function IsSetTopicArn: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Endpoint: string read GetEndpoint write SetEndpoint;
     property Protocol: string read GetProtocol write SetProtocol;
     property ReturnSubscriptionArn: Boolean read GetReturnSubscriptionArn write SetReturnSubscriptionArn;
@@ -107,9 +114,20 @@ procedure TSubscribeRequest.SetAttributes(const Value: TDictionary<string, strin
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TSubscribeRequest.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TSubscribeRequest.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TSubscribeRequest.IsSetAttributes: Boolean;

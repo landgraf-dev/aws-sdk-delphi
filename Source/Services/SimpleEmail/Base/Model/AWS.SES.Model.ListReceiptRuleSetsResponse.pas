@@ -16,21 +16,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetRuleSets: TObjectList<TReceiptRuleSetMetadata>;
     procedure SetRuleSets(const Value: TObjectList<TReceiptRuleSetMetadata>);
+    function GetKeepRuleSets: Boolean;
+    procedure SetKeepRuleSets(const Value: Boolean);
     function Obj: TListReceiptRuleSetsResponse;
     function IsSetNextToken: Boolean;
     function IsSetRuleSets: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property RuleSets: TObjectList<TReceiptRuleSetMetadata> read GetRuleSets write SetRuleSets;
+    property KeepRuleSets: Boolean read GetKeepRuleSets write SetKeepRuleSets;
   end;
   
   TListReceiptRuleSetsResponse = class(TAmazonWebServiceResponse, IListReceiptRuleSetsResponse)
   strict private
     FNextToken: Nullable<string>;
     FRuleSets: TObjectList<TReceiptRuleSetMetadata>;
+    FKeepRuleSets: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetRuleSets: TObjectList<TReceiptRuleSetMetadata>;
     procedure SetRuleSets(const Value: TObjectList<TReceiptRuleSetMetadata>);
+    function GetKeepRuleSets: Boolean;
+    procedure SetKeepRuleSets(const Value: Boolean);
   strict protected
     function Obj: TListReceiptRuleSetsResponse;
   public
@@ -40,6 +46,7 @@ type
     function IsSetRuleSets: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property RuleSets: TObjectList<TReceiptRuleSetMetadata> read GetRuleSets write SetRuleSets;
+    property KeepRuleSets: Boolean read GetKeepRuleSets write SetKeepRuleSets;
   end;
   
 implementation
@@ -87,9 +94,20 @@ procedure TListReceiptRuleSetsResponse.SetRuleSets(const Value: TObjectList<TRec
 begin
   if FRuleSets <> Value then
   begin
-    FRuleSets.Free;
+    if not KeepRuleSets then
+      FRuleSets.Free;
     FRuleSets := Value;
   end;
+end;
+
+function TListReceiptRuleSetsResponse.GetKeepRuleSets: Boolean;
+begin
+  Result := FKeepRuleSets;
+end;
+
+procedure TListReceiptRuleSetsResponse.SetKeepRuleSets(const Value: Boolean);
+begin
+  FKeepRuleSets := Value;
 end;
 
 function TListReceiptRuleSetsResponse.IsSetRuleSets: Boolean;

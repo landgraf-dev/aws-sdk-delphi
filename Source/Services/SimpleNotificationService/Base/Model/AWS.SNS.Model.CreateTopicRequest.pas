@@ -14,30 +14,42 @@ type
   ICreateTopicRequest = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetTags: TObjectList<TTag>;
     procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function Obj: TCreateTopicRequest;
     function IsSetAttributes: Boolean;
     function IsSetName: Boolean;
     function IsSetTags: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Name: string read GetName write SetName;
     property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
   TCreateTopicRequest = class(TAmazonSimpleNotificationServiceRequest, ICreateTopicRequest)
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FName: Nullable<string>;
     FTags: TObjectList<TTag>;
+    FKeepTags: Boolean;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetTags: TObjectList<TTag>;
     procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
   strict protected
     function Obj: TCreateTopicRequest;
   public
@@ -48,8 +60,10 @@ type
     function IsSetName: Boolean;
     function IsSetTags: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Name: string read GetName write SetName;
     property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
 implementation
@@ -90,9 +104,20 @@ procedure TCreateTopicRequest.SetAttributes(const Value: TDictionary<string, str
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TCreateTopicRequest.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TCreateTopicRequest.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TCreateTopicRequest.IsSetAttributes: Boolean;
@@ -124,9 +149,20 @@ procedure TCreateTopicRequest.SetTags(const Value: TObjectList<TTag>);
 begin
   if FTags <> Value then
   begin
-    FTags.Free;
+    if not KeepTags then
+      FTags.Free;
     FTags := Value;
   end;
+end;
+
+function TCreateTopicRequest.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TCreateTopicRequest.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
 end;
 
 function TCreateTopicRequest.IsSetTags: Boolean;

@@ -13,6 +13,8 @@ type
   IVoice = interface
     function GetAdditionalLanguageCodes: TList<string>;
     procedure SetAdditionalLanguageCodes(const Value: TList<string>);
+    function GetKeepAdditionalLanguageCodes: Boolean;
+    procedure SetKeepAdditionalLanguageCodes(const Value: Boolean);
     function GetGender: TGender;
     procedure SetGender(const Value: TGender);
     function GetId: TVoiceId;
@@ -25,6 +27,8 @@ type
     procedure SetName(const Value: string);
     function GetSupportedEngines: TList<string>;
     procedure SetSupportedEngines(const Value: TList<string>);
+    function GetKeepSupportedEngines: Boolean;
+    procedure SetKeepSupportedEngines(const Value: Boolean);
     function Obj: TVoice;
     function IsSetAdditionalLanguageCodes: Boolean;
     function IsSetGender: Boolean;
@@ -34,25 +38,31 @@ type
     function IsSetName: Boolean;
     function IsSetSupportedEngines: Boolean;
     property AdditionalLanguageCodes: TList<string> read GetAdditionalLanguageCodes write SetAdditionalLanguageCodes;
+    property KeepAdditionalLanguageCodes: Boolean read GetKeepAdditionalLanguageCodes write SetKeepAdditionalLanguageCodes;
     property Gender: TGender read GetGender write SetGender;
     property Id: TVoiceId read GetId write SetId;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
     property LanguageName: string read GetLanguageName write SetLanguageName;
     property Name: string read GetName write SetName;
     property SupportedEngines: TList<string> read GetSupportedEngines write SetSupportedEngines;
+    property KeepSupportedEngines: Boolean read GetKeepSupportedEngines write SetKeepSupportedEngines;
   end;
   
   TVoice = class
   strict private
     FAdditionalLanguageCodes: TList<string>;
+    FKeepAdditionalLanguageCodes: Boolean;
     FGender: Nullable<TGender>;
     FId: Nullable<TVoiceId>;
     FLanguageCode: Nullable<TLanguageCode>;
     FLanguageName: Nullable<string>;
     FName: Nullable<string>;
     FSupportedEngines: TList<string>;
+    FKeepSupportedEngines: Boolean;
     function GetAdditionalLanguageCodes: TList<string>;
     procedure SetAdditionalLanguageCodes(const Value: TList<string>);
+    function GetKeepAdditionalLanguageCodes: Boolean;
+    procedure SetKeepAdditionalLanguageCodes(const Value: Boolean);
     function GetGender: TGender;
     procedure SetGender(const Value: TGender);
     function GetId: TVoiceId;
@@ -65,6 +75,8 @@ type
     procedure SetName(const Value: string);
     function GetSupportedEngines: TList<string>;
     procedure SetSupportedEngines(const Value: TList<string>);
+    function GetKeepSupportedEngines: Boolean;
+    procedure SetKeepSupportedEngines(const Value: Boolean);
   strict protected
     function Obj: TVoice;
   public
@@ -78,12 +90,14 @@ type
     function IsSetName: Boolean;
     function IsSetSupportedEngines: Boolean;
     property AdditionalLanguageCodes: TList<string> read GetAdditionalLanguageCodes write SetAdditionalLanguageCodes;
+    property KeepAdditionalLanguageCodes: Boolean read GetKeepAdditionalLanguageCodes write SetKeepAdditionalLanguageCodes;
     property Gender: TGender read GetGender write SetGender;
     property Id: TVoiceId read GetId write SetId;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
     property LanguageName: string read GetLanguageName write SetLanguageName;
     property Name: string read GetName write SetName;
     property SupportedEngines: TList<string> read GetSupportedEngines write SetSupportedEngines;
+    property KeepSupportedEngines: Boolean read GetKeepSupportedEngines write SetKeepSupportedEngines;
   end;
   
 implementation
@@ -118,9 +132,20 @@ procedure TVoice.SetAdditionalLanguageCodes(const Value: TList<string>);
 begin
   if FAdditionalLanguageCodes <> Value then
   begin
-    FAdditionalLanguageCodes.Free;
+    if not KeepAdditionalLanguageCodes then
+      FAdditionalLanguageCodes.Free;
     FAdditionalLanguageCodes := Value;
   end;
+end;
+
+function TVoice.GetKeepAdditionalLanguageCodes: Boolean;
+begin
+  Result := FKeepAdditionalLanguageCodes;
+end;
+
+procedure TVoice.SetKeepAdditionalLanguageCodes(const Value: Boolean);
+begin
+  FKeepAdditionalLanguageCodes := Value;
 end;
 
 function TVoice.IsSetAdditionalLanguageCodes: Boolean;
@@ -212,9 +237,20 @@ procedure TVoice.SetSupportedEngines(const Value: TList<string>);
 begin
   if FSupportedEngines <> Value then
   begin
-    FSupportedEngines.Free;
+    if not KeepSupportedEngines then
+      FSupportedEngines.Free;
     FSupportedEngines := Value;
   end;
+end;
+
+function TVoice.GetKeepSupportedEngines: Boolean;
+begin
+  Result := FKeepSupportedEngines;
+end;
+
+procedure TVoice.SetKeepSupportedEngines(const Value: Boolean);
+begin
+  FKeepSupportedEngines := Value;
 end;
 
 function TVoice.IsSetSupportedEngines: Boolean;

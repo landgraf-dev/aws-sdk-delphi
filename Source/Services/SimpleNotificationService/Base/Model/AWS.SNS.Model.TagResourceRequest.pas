@@ -16,21 +16,27 @@ type
     procedure SetResourceArn(const Value: string);
     function GetTags: TObjectList<TTag>;
     procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function Obj: TTagResourceRequest;
     function IsSetResourceArn: Boolean;
     function IsSetTags: Boolean;
     property ResourceArn: string read GetResourceArn write SetResourceArn;
     property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
   TTagResourceRequest = class(TAmazonSimpleNotificationServiceRequest, ITagResourceRequest)
   strict private
     FResourceArn: Nullable<string>;
     FTags: TObjectList<TTag>;
+    FKeepTags: Boolean;
     function GetResourceArn: string;
     procedure SetResourceArn(const Value: string);
     function GetTags: TObjectList<TTag>;
     procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
   strict protected
     function Obj: TTagResourceRequest;
   public
@@ -40,6 +46,7 @@ type
     function IsSetTags: Boolean;
     property ResourceArn: string read GetResourceArn write SetResourceArn;
     property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
 implementation
@@ -87,9 +94,20 @@ procedure TTagResourceRequest.SetTags(const Value: TObjectList<TTag>);
 begin
   if FTags <> Value then
   begin
-    FTags.Free;
+    if not KeepTags then
+      FTags.Free;
     FTags := Value;
   end;
+end;
+
+function TTagResourceRequest.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TTagResourceRequest.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
 end;
 
 function TTagResourceRequest.IsSetTags: Boolean;

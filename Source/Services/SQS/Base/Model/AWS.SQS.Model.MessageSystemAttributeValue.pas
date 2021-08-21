@@ -13,12 +13,18 @@ type
   IMessageSystemAttributeValue = interface
     function GetBinaryListValues: TObjectList<TBytesStream>;
     procedure SetBinaryListValues(const Value: TObjectList<TBytesStream>);
+    function GetKeepBinaryListValues: Boolean;
+    procedure SetKeepBinaryListValues(const Value: Boolean);
     function GetBinaryValue: TBytesStream;
     procedure SetBinaryValue(const Value: TBytesStream);
+    function GetKeepBinaryValue: Boolean;
+    procedure SetKeepBinaryValue(const Value: Boolean);
     function GetDataType: string;
     procedure SetDataType(const Value: string);
     function GetStringListValues: TList<string>;
     procedure SetStringListValues(const Value: TList<string>);
+    function GetKeepStringListValues: Boolean;
+    procedure SetKeepStringListValues(const Value: Boolean);
     function GetStringValue: string;
     procedure SetStringValue(const Value: string);
     function Obj: TMessageSystemAttributeValue;
@@ -28,27 +34,39 @@ type
     function IsSetStringListValues: Boolean;
     function IsSetStringValue: Boolean;
     property BinaryListValues: TObjectList<TBytesStream> read GetBinaryListValues write SetBinaryListValues;
+    property KeepBinaryListValues: Boolean read GetKeepBinaryListValues write SetKeepBinaryListValues;
     property BinaryValue: TBytesStream read GetBinaryValue write SetBinaryValue;
+    property KeepBinaryValue: Boolean read GetKeepBinaryValue write SetKeepBinaryValue;
     property DataType: string read GetDataType write SetDataType;
     property StringListValues: TList<string> read GetStringListValues write SetStringListValues;
+    property KeepStringListValues: Boolean read GetKeepStringListValues write SetKeepStringListValues;
     property StringValue: string read GetStringValue write SetStringValue;
   end;
   
   TMessageSystemAttributeValue = class
   strict private
     FBinaryListValues: TObjectList<TBytesStream>;
+    FKeepBinaryListValues: Boolean;
     FBinaryValue: TBytesStream;
+    FKeepBinaryValue: Boolean;
     FDataType: Nullable<string>;
     FStringListValues: TList<string>;
+    FKeepStringListValues: Boolean;
     FStringValue: Nullable<string>;
     function GetBinaryListValues: TObjectList<TBytesStream>;
     procedure SetBinaryListValues(const Value: TObjectList<TBytesStream>);
+    function GetKeepBinaryListValues: Boolean;
+    procedure SetKeepBinaryListValues(const Value: Boolean);
     function GetBinaryValue: TBytesStream;
     procedure SetBinaryValue(const Value: TBytesStream);
+    function GetKeepBinaryValue: Boolean;
+    procedure SetKeepBinaryValue(const Value: Boolean);
     function GetDataType: string;
     procedure SetDataType(const Value: string);
     function GetStringListValues: TList<string>;
     procedure SetStringListValues(const Value: TList<string>);
+    function GetKeepStringListValues: Boolean;
+    procedure SetKeepStringListValues(const Value: Boolean);
     function GetStringValue: string;
     procedure SetStringValue(const Value: string);
   strict protected
@@ -62,9 +80,12 @@ type
     function IsSetStringListValues: Boolean;
     function IsSetStringValue: Boolean;
     property BinaryListValues: TObjectList<TBytesStream> read GetBinaryListValues write SetBinaryListValues;
+    property KeepBinaryListValues: Boolean read GetKeepBinaryListValues write SetKeepBinaryListValues;
     property BinaryValue: TBytesStream read GetBinaryValue write SetBinaryValue;
+    property KeepBinaryValue: Boolean read GetKeepBinaryValue write SetKeepBinaryValue;
     property DataType: string read GetDataType write SetDataType;
     property StringListValues: TList<string> read GetStringListValues write SetStringListValues;
+    property KeepStringListValues: Boolean read GetKeepStringListValues write SetKeepStringListValues;
     property StringValue: string read GetStringValue write SetStringValue;
   end;
   
@@ -101,9 +122,20 @@ procedure TMessageSystemAttributeValue.SetBinaryListValues(const Value: TObjectL
 begin
   if FBinaryListValues <> Value then
   begin
-    FBinaryListValues.Free;
+    if not KeepBinaryListValues then
+      FBinaryListValues.Free;
     FBinaryListValues := Value;
   end;
+end;
+
+function TMessageSystemAttributeValue.GetKeepBinaryListValues: Boolean;
+begin
+  Result := FKeepBinaryListValues;
+end;
+
+procedure TMessageSystemAttributeValue.SetKeepBinaryListValues(const Value: Boolean);
+begin
+  FKeepBinaryListValues := Value;
 end;
 
 function TMessageSystemAttributeValue.IsSetBinaryListValues: Boolean;
@@ -120,9 +152,20 @@ procedure TMessageSystemAttributeValue.SetBinaryValue(const Value: TBytesStream)
 begin
   if FBinaryValue <> Value then
   begin
-    FBinaryValue.Free;
+    if not KeepBinaryValue then
+      FBinaryValue.Free;
     FBinaryValue := Value;
   end;
+end;
+
+function TMessageSystemAttributeValue.GetKeepBinaryValue: Boolean;
+begin
+  Result := FKeepBinaryValue;
+end;
+
+procedure TMessageSystemAttributeValue.SetKeepBinaryValue(const Value: Boolean);
+begin
+  FKeepBinaryValue := Value;
 end;
 
 function TMessageSystemAttributeValue.IsSetBinaryValue: Boolean;
@@ -154,9 +197,20 @@ procedure TMessageSystemAttributeValue.SetStringListValues(const Value: TList<st
 begin
   if FStringListValues <> Value then
   begin
-    FStringListValues.Free;
+    if not KeepStringListValues then
+      FStringListValues.Free;
     FStringListValues := Value;
   end;
+end;
+
+function TMessageSystemAttributeValue.GetKeepStringListValues: Boolean;
+begin
+  Result := FKeepStringListValues;
+end;
+
+procedure TMessageSystemAttributeValue.SetKeepStringListValues(const Value: Boolean);
+begin
+  FKeepStringListValues := Value;
 end;
 
 function TMessageSystemAttributeValue.IsSetStringListValues: Boolean;

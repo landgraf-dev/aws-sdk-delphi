@@ -14,21 +14,27 @@ type
   IDeleteMessageBatchRequest = interface
     function GetEntries: TObjectList<TDeleteMessageBatchRequestEntry>;
     procedure SetEntries(const Value: TObjectList<TDeleteMessageBatchRequestEntry>);
+    function GetKeepEntries: Boolean;
+    procedure SetKeepEntries(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function Obj: TDeleteMessageBatchRequest;
     function IsSetEntries: Boolean;
     function IsSetQueueUrl: Boolean;
     property Entries: TObjectList<TDeleteMessageBatchRequestEntry> read GetEntries write SetEntries;
+    property KeepEntries: Boolean read GetKeepEntries write SetKeepEntries;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
   TDeleteMessageBatchRequest = class(TAmazonSQSRequest, IDeleteMessageBatchRequest)
   strict private
     FEntries: TObjectList<TDeleteMessageBatchRequestEntry>;
+    FKeepEntries: Boolean;
     FQueueUrl: Nullable<string>;
     function GetEntries: TObjectList<TDeleteMessageBatchRequestEntry>;
     procedure SetEntries(const Value: TObjectList<TDeleteMessageBatchRequestEntry>);
+    function GetKeepEntries: Boolean;
+    procedure SetKeepEntries(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
   strict protected
@@ -40,6 +46,7 @@ type
     function IsSetEntries: Boolean;
     function IsSetQueueUrl: Boolean;
     property Entries: TObjectList<TDeleteMessageBatchRequestEntry> read GetEntries write SetEntries;
+    property KeepEntries: Boolean read GetKeepEntries write SetKeepEntries;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
@@ -80,9 +87,20 @@ procedure TDeleteMessageBatchRequest.SetEntries(const Value: TObjectList<TDelete
 begin
   if FEntries <> Value then
   begin
-    FEntries.Free;
+    if not KeepEntries then
+      FEntries.Free;
     FEntries := Value;
   end;
+end;
+
+function TDeleteMessageBatchRequest.GetKeepEntries: Boolean;
+begin
+  Result := FKeepEntries;
+end;
+
+procedure TDeleteMessageBatchRequest.SetKeepEntries(const Value: Boolean);
+begin
+  FKeepEntries := Value;
 end;
 
 function TDeleteMessageBatchRequest.IsSetEntries: Boolean;

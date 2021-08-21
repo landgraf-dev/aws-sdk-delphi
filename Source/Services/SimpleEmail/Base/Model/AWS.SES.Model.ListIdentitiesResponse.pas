@@ -13,21 +13,27 @@ type
   IListIdentitiesResponse = interface(IAmazonWebServiceResponse)
     function GetIdentities: TList<string>;
     procedure SetIdentities(const Value: TList<string>);
+    function GetKeepIdentities: Boolean;
+    procedure SetKeepIdentities(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function Obj: TListIdentitiesResponse;
     function IsSetIdentities: Boolean;
     function IsSetNextToken: Boolean;
     property Identities: TList<string> read GetIdentities write SetIdentities;
+    property KeepIdentities: Boolean read GetKeepIdentities write SetKeepIdentities;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
   TListIdentitiesResponse = class(TAmazonWebServiceResponse, IListIdentitiesResponse)
   strict private
     FIdentities: TList<string>;
+    FKeepIdentities: Boolean;
     FNextToken: Nullable<string>;
     function GetIdentities: TList<string>;
     procedure SetIdentities(const Value: TList<string>);
+    function GetKeepIdentities: Boolean;
+    procedure SetKeepIdentities(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
   strict protected
@@ -38,6 +44,7 @@ type
     function IsSetIdentities: Boolean;
     function IsSetNextToken: Boolean;
     property Identities: TList<string> read GetIdentities write SetIdentities;
+    property KeepIdentities: Boolean read GetKeepIdentities write SetKeepIdentities;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
@@ -71,9 +78,20 @@ procedure TListIdentitiesResponse.SetIdentities(const Value: TList<string>);
 begin
   if FIdentities <> Value then
   begin
-    FIdentities.Free;
+    if not KeepIdentities then
+      FIdentities.Free;
     FIdentities := Value;
   end;
+end;
+
+function TListIdentitiesResponse.GetKeepIdentities: Boolean;
+begin
+  Result := FKeepIdentities;
+end;
+
+procedure TListIdentitiesResponse.SetKeepIdentities(const Value: Boolean);
+begin
+  FKeepIdentities := Value;
 end;
 
 function TListIdentitiesResponse.IsSetIdentities: Boolean;

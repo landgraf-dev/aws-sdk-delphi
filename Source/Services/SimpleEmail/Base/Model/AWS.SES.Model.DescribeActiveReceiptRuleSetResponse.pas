@@ -14,23 +14,35 @@ type
   IDescribeActiveReceiptRuleSetResponse = interface(IAmazonWebServiceResponse)
     function GetMetadata: TReceiptRuleSetMetadata;
     procedure SetMetadata(const Value: TReceiptRuleSetMetadata);
+    function GetKeepMetadata: Boolean;
+    procedure SetKeepMetadata(const Value: Boolean);
     function GetRules: TObjectList<TReceiptRule>;
     procedure SetRules(const Value: TObjectList<TReceiptRule>);
+    function GetKeepRules: Boolean;
+    procedure SetKeepRules(const Value: Boolean);
     function Obj: TDescribeActiveReceiptRuleSetResponse;
     function IsSetMetadata: Boolean;
     function IsSetRules: Boolean;
     property Metadata: TReceiptRuleSetMetadata read GetMetadata write SetMetadata;
+    property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property Rules: TObjectList<TReceiptRule> read GetRules write SetRules;
+    property KeepRules: Boolean read GetKeepRules write SetKeepRules;
   end;
   
   TDescribeActiveReceiptRuleSetResponse = class(TAmazonWebServiceResponse, IDescribeActiveReceiptRuleSetResponse)
   strict private
     FMetadata: TReceiptRuleSetMetadata;
+    FKeepMetadata: Boolean;
     FRules: TObjectList<TReceiptRule>;
+    FKeepRules: Boolean;
     function GetMetadata: TReceiptRuleSetMetadata;
     procedure SetMetadata(const Value: TReceiptRuleSetMetadata);
+    function GetKeepMetadata: Boolean;
+    procedure SetKeepMetadata(const Value: Boolean);
     function GetRules: TObjectList<TReceiptRule>;
     procedure SetRules(const Value: TObjectList<TReceiptRule>);
+    function GetKeepRules: Boolean;
+    procedure SetKeepRules(const Value: Boolean);
   strict protected
     function Obj: TDescribeActiveReceiptRuleSetResponse;
   public
@@ -39,7 +51,9 @@ type
     function IsSetMetadata: Boolean;
     function IsSetRules: Boolean;
     property Metadata: TReceiptRuleSetMetadata read GetMetadata write SetMetadata;
+    property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property Rules: TObjectList<TReceiptRule> read GetRules write SetRules;
+    property KeepRules: Boolean read GetKeepRules write SetKeepRules;
   end;
   
 implementation
@@ -73,9 +87,20 @@ procedure TDescribeActiveReceiptRuleSetResponse.SetMetadata(const Value: TReceip
 begin
   if FMetadata <> Value then
   begin
-    FMetadata.Free;
+    if not KeepMetadata then
+      FMetadata.Free;
     FMetadata := Value;
   end;
+end;
+
+function TDescribeActiveReceiptRuleSetResponse.GetKeepMetadata: Boolean;
+begin
+  Result := FKeepMetadata;
+end;
+
+procedure TDescribeActiveReceiptRuleSetResponse.SetKeepMetadata(const Value: Boolean);
+begin
+  FKeepMetadata := Value;
 end;
 
 function TDescribeActiveReceiptRuleSetResponse.IsSetMetadata: Boolean;
@@ -92,9 +117,20 @@ procedure TDescribeActiveReceiptRuleSetResponse.SetRules(const Value: TObjectLis
 begin
   if FRules <> Value then
   begin
-    FRules.Free;
+    if not KeepRules then
+      FRules.Free;
     FRules := Value;
   end;
+end;
+
+function TDescribeActiveReceiptRuleSetResponse.GetKeepRules: Boolean;
+begin
+  Result := FKeepRules;
+end;
+
+procedure TDescribeActiveReceiptRuleSetResponse.SetKeepRules(const Value: Boolean);
+begin
+  FKeepRules := Value;
 end;
 
 function TDescribeActiveReceiptRuleSetResponse.IsSetRules: Boolean;

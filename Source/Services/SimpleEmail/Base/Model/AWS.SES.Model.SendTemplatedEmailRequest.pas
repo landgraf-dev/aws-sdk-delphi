@@ -17,8 +17,12 @@ type
     procedure SetConfigurationSetName(const Value: string);
     function GetDestination: TDestination;
     procedure SetDestination(const Value: TDestination);
+    function GetKeepDestination: Boolean;
+    procedure SetKeepDestination(const Value: Boolean);
     function GetReplyToAddresses: TList<string>;
     procedure SetReplyToAddresses(const Value: TList<string>);
+    function GetKeepReplyToAddresses: Boolean;
+    procedure SetKeepReplyToAddresses(const Value: Boolean);
     function GetReturnPath: string;
     procedure SetReturnPath(const Value: string);
     function GetReturnPathArn: string;
@@ -29,6 +33,8 @@ type
     procedure SetSourceArn(const Value: string);
     function GetTags: TObjectList<TMessageTag>;
     procedure SetTags(const Value: TObjectList<TMessageTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetTemplate: string;
     procedure SetTemplate(const Value: string);
     function GetTemplateArn: string;
@@ -49,12 +55,15 @@ type
     function IsSetTemplateData: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property Destination: TDestination read GetDestination write SetDestination;
+    property KeepDestination: Boolean read GetKeepDestination write SetKeepDestination;
     property ReplyToAddresses: TList<string> read GetReplyToAddresses write SetReplyToAddresses;
+    property KeepReplyToAddresses: Boolean read GetKeepReplyToAddresses write SetKeepReplyToAddresses;
     property ReturnPath: string read GetReturnPath write SetReturnPath;
     property ReturnPathArn: string read GetReturnPathArn write SetReturnPathArn;
     property Source: string read GetSource write SetSource;
     property SourceArn: string read GetSourceArn write SetSourceArn;
     property Tags: TObjectList<TMessageTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property Template: string read GetTemplate write SetTemplate;
     property TemplateArn: string read GetTemplateArn write SetTemplateArn;
     property TemplateData: string read GetTemplateData write SetTemplateData;
@@ -64,12 +73,15 @@ type
   strict private
     FConfigurationSetName: Nullable<string>;
     FDestination: TDestination;
+    FKeepDestination: Boolean;
     FReplyToAddresses: TList<string>;
+    FKeepReplyToAddresses: Boolean;
     FReturnPath: Nullable<string>;
     FReturnPathArn: Nullable<string>;
     FSource: Nullable<string>;
     FSourceArn: Nullable<string>;
     FTags: TObjectList<TMessageTag>;
+    FKeepTags: Boolean;
     FTemplate: Nullable<string>;
     FTemplateArn: Nullable<string>;
     FTemplateData: Nullable<string>;
@@ -77,8 +89,12 @@ type
     procedure SetConfigurationSetName(const Value: string);
     function GetDestination: TDestination;
     procedure SetDestination(const Value: TDestination);
+    function GetKeepDestination: Boolean;
+    procedure SetKeepDestination(const Value: Boolean);
     function GetReplyToAddresses: TList<string>;
     procedure SetReplyToAddresses(const Value: TList<string>);
+    function GetKeepReplyToAddresses: Boolean;
+    procedure SetKeepReplyToAddresses(const Value: Boolean);
     function GetReturnPath: string;
     procedure SetReturnPath(const Value: string);
     function GetReturnPathArn: string;
@@ -89,6 +105,8 @@ type
     procedure SetSourceArn(const Value: string);
     function GetTags: TObjectList<TMessageTag>;
     procedure SetTags(const Value: TObjectList<TMessageTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetTemplate: string;
     procedure SetTemplate(const Value: string);
     function GetTemplateArn: string;
@@ -113,12 +131,15 @@ type
     function IsSetTemplateData: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property Destination: TDestination read GetDestination write SetDestination;
+    property KeepDestination: Boolean read GetKeepDestination write SetKeepDestination;
     property ReplyToAddresses: TList<string> read GetReplyToAddresses write SetReplyToAddresses;
+    property KeepReplyToAddresses: Boolean read GetKeepReplyToAddresses write SetKeepReplyToAddresses;
     property ReturnPath: string read GetReturnPath write SetReturnPath;
     property ReturnPathArn: string read GetReturnPathArn write SetReturnPathArn;
     property Source: string read GetSource write SetSource;
     property SourceArn: string read GetSourceArn write SetSourceArn;
     property Tags: TObjectList<TMessageTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property Template: string read GetTemplate write SetTemplate;
     property TemplateArn: string read GetTemplateArn write SetTemplateArn;
     property TemplateData: string read GetTemplateData write SetTemplateData;
@@ -172,9 +193,20 @@ procedure TSendTemplatedEmailRequest.SetDestination(const Value: TDestination);
 begin
   if FDestination <> Value then
   begin
-    FDestination.Free;
+    if not KeepDestination then
+      FDestination.Free;
     FDestination := Value;
   end;
+end;
+
+function TSendTemplatedEmailRequest.GetKeepDestination: Boolean;
+begin
+  Result := FKeepDestination;
+end;
+
+procedure TSendTemplatedEmailRequest.SetKeepDestination(const Value: Boolean);
+begin
+  FKeepDestination := Value;
 end;
 
 function TSendTemplatedEmailRequest.IsSetDestination: Boolean;
@@ -191,9 +223,20 @@ procedure TSendTemplatedEmailRequest.SetReplyToAddresses(const Value: TList<stri
 begin
   if FReplyToAddresses <> Value then
   begin
-    FReplyToAddresses.Free;
+    if not KeepReplyToAddresses then
+      FReplyToAddresses.Free;
     FReplyToAddresses := Value;
   end;
+end;
+
+function TSendTemplatedEmailRequest.GetKeepReplyToAddresses: Boolean;
+begin
+  Result := FKeepReplyToAddresses;
+end;
+
+procedure TSendTemplatedEmailRequest.SetKeepReplyToAddresses(const Value: Boolean);
+begin
+  FKeepReplyToAddresses := Value;
 end;
 
 function TSendTemplatedEmailRequest.IsSetReplyToAddresses: Boolean;
@@ -270,9 +313,20 @@ procedure TSendTemplatedEmailRequest.SetTags(const Value: TObjectList<TMessageTa
 begin
   if FTags <> Value then
   begin
-    FTags.Free;
+    if not KeepTags then
+      FTags.Free;
     FTags := Value;
   end;
+end;
+
+function TSendTemplatedEmailRequest.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TSendTemplatedEmailRequest.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
 end;
 
 function TSendTemplatedEmailRequest.IsSetTags: Boolean;

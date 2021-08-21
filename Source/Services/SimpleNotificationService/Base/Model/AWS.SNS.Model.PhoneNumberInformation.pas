@@ -17,6 +17,8 @@ type
     procedure SetIso2CountryCode(const Value: string);
     function GetNumberCapabilities: TList<string>;
     procedure SetNumberCapabilities(const Value: TList<string>);
+    function GetKeepNumberCapabilities: Boolean;
+    procedure SetKeepNumberCapabilities(const Value: Boolean);
     function GetPhoneNumber: string;
     procedure SetPhoneNumber(const Value: string);
     function GetRouteType: TRouteType;
@@ -33,6 +35,7 @@ type
     property CreatedAt: TDateTime read GetCreatedAt write SetCreatedAt;
     property Iso2CountryCode: string read GetIso2CountryCode write SetIso2CountryCode;
     property NumberCapabilities: TList<string> read GetNumberCapabilities write SetNumberCapabilities;
+    property KeepNumberCapabilities: Boolean read GetKeepNumberCapabilities write SetKeepNumberCapabilities;
     property PhoneNumber: string read GetPhoneNumber write SetPhoneNumber;
     property RouteType: TRouteType read GetRouteType write SetRouteType;
     property Status: string read GetStatus write SetStatus;
@@ -43,6 +46,7 @@ type
     FCreatedAt: Nullable<TDateTime>;
     FIso2CountryCode: Nullable<string>;
     FNumberCapabilities: TList<string>;
+    FKeepNumberCapabilities: Boolean;
     FPhoneNumber: Nullable<string>;
     FRouteType: Nullable<TRouteType>;
     FStatus: Nullable<string>;
@@ -52,6 +56,8 @@ type
     procedure SetIso2CountryCode(const Value: string);
     function GetNumberCapabilities: TList<string>;
     procedure SetNumberCapabilities(const Value: TList<string>);
+    function GetKeepNumberCapabilities: Boolean;
+    procedure SetKeepNumberCapabilities(const Value: Boolean);
     function GetPhoneNumber: string;
     procedure SetPhoneNumber(const Value: string);
     function GetRouteType: TRouteType;
@@ -72,6 +78,7 @@ type
     property CreatedAt: TDateTime read GetCreatedAt write SetCreatedAt;
     property Iso2CountryCode: string read GetIso2CountryCode write SetIso2CountryCode;
     property NumberCapabilities: TList<string> read GetNumberCapabilities write SetNumberCapabilities;
+    property KeepNumberCapabilities: Boolean read GetKeepNumberCapabilities write SetKeepNumberCapabilities;
     property PhoneNumber: string read GetPhoneNumber write SetPhoneNumber;
     property RouteType: TRouteType read GetRouteType write SetRouteType;
     property Status: string read GetStatus write SetStatus;
@@ -137,9 +144,20 @@ procedure TPhoneNumberInformation.SetNumberCapabilities(const Value: TList<strin
 begin
   if FNumberCapabilities <> Value then
   begin
-    FNumberCapabilities.Free;
+    if not KeepNumberCapabilities then
+      FNumberCapabilities.Free;
     FNumberCapabilities := Value;
   end;
+end;
+
+function TPhoneNumberInformation.GetKeepNumberCapabilities: Boolean;
+begin
+  Result := FKeepNumberCapabilities;
+end;
+
+procedure TPhoneNumberInformation.SetKeepNumberCapabilities(const Value: Boolean);
+begin
+  FKeepNumberCapabilities := Value;
 end;
 
 function TPhoneNumberInformation.IsSetNumberCapabilities: Boolean;

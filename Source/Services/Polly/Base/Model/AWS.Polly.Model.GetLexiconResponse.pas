@@ -13,23 +13,35 @@ type
   IGetLexiconResponse = interface(IAmazonWebServiceResponse)
     function GetLexicon: TLexicon;
     procedure SetLexicon(const Value: TLexicon);
+    function GetKeepLexicon: Boolean;
+    procedure SetKeepLexicon(const Value: Boolean);
     function GetLexiconAttributes: TLexiconAttributes;
     procedure SetLexiconAttributes(const Value: TLexiconAttributes);
+    function GetKeepLexiconAttributes: Boolean;
+    procedure SetKeepLexiconAttributes(const Value: Boolean);
     function Obj: TGetLexiconResponse;
     function IsSetLexicon: Boolean;
     function IsSetLexiconAttributes: Boolean;
     property Lexicon: TLexicon read GetLexicon write SetLexicon;
+    property KeepLexicon: Boolean read GetKeepLexicon write SetKeepLexicon;
     property LexiconAttributes: TLexiconAttributes read GetLexiconAttributes write SetLexiconAttributes;
+    property KeepLexiconAttributes: Boolean read GetKeepLexiconAttributes write SetKeepLexiconAttributes;
   end;
   
   TGetLexiconResponse = class(TAmazonWebServiceResponse, IGetLexiconResponse)
   strict private
     FLexicon: TLexicon;
+    FKeepLexicon: Boolean;
     FLexiconAttributes: TLexiconAttributes;
+    FKeepLexiconAttributes: Boolean;
     function GetLexicon: TLexicon;
     procedure SetLexicon(const Value: TLexicon);
+    function GetKeepLexicon: Boolean;
+    procedure SetKeepLexicon(const Value: Boolean);
     function GetLexiconAttributes: TLexiconAttributes;
     procedure SetLexiconAttributes(const Value: TLexiconAttributes);
+    function GetKeepLexiconAttributes: Boolean;
+    procedure SetKeepLexiconAttributes(const Value: Boolean);
   strict protected
     function Obj: TGetLexiconResponse;
   public
@@ -37,7 +49,9 @@ type
     function IsSetLexicon: Boolean;
     function IsSetLexiconAttributes: Boolean;
     property Lexicon: TLexicon read GetLexicon write SetLexicon;
+    property KeepLexicon: Boolean read GetKeepLexicon write SetKeepLexicon;
     property LexiconAttributes: TLexiconAttributes read GetLexiconAttributes write SetLexiconAttributes;
+    property KeepLexiconAttributes: Boolean read GetKeepLexiconAttributes write SetKeepLexiconAttributes;
   end;
   
 implementation
@@ -65,9 +79,20 @@ procedure TGetLexiconResponse.SetLexicon(const Value: TLexicon);
 begin
   if FLexicon <> Value then
   begin
-    FLexicon.Free;
+    if not KeepLexicon then
+      FLexicon.Free;
     FLexicon := Value;
   end;
+end;
+
+function TGetLexiconResponse.GetKeepLexicon: Boolean;
+begin
+  Result := FKeepLexicon;
+end;
+
+procedure TGetLexiconResponse.SetKeepLexicon(const Value: Boolean);
+begin
+  FKeepLexicon := Value;
 end;
 
 function TGetLexiconResponse.IsSetLexicon: Boolean;
@@ -84,9 +109,20 @@ procedure TGetLexiconResponse.SetLexiconAttributes(const Value: TLexiconAttribut
 begin
   if FLexiconAttributes <> Value then
   begin
-    FLexiconAttributes.Free;
+    if not KeepLexiconAttributes then
+      FLexiconAttributes.Free;
     FLexiconAttributes := Value;
   end;
+end;
+
+function TGetLexiconResponse.GetKeepLexiconAttributes: Boolean;
+begin
+  Result := FKeepLexiconAttributes;
+end;
+
+procedure TGetLexiconResponse.SetKeepLexiconAttributes(const Value: Boolean);
+begin
+  FKeepLexiconAttributes := Value;
 end;
 
 function TGetLexiconResponse.IsSetLexiconAttributes: Boolean;

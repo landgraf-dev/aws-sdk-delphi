@@ -13,16 +13,22 @@ type
   ISendBulkTemplatedEmailResponse = interface(IAmazonWebServiceResponse)
     function GetStatus: TObjectList<TBulkEmailDestinationStatus>;
     procedure SetStatus(const Value: TObjectList<TBulkEmailDestinationStatus>);
+    function GetKeepStatus: Boolean;
+    procedure SetKeepStatus(const Value: Boolean);
     function Obj: TSendBulkTemplatedEmailResponse;
     function IsSetStatus: Boolean;
     property Status: TObjectList<TBulkEmailDestinationStatus> read GetStatus write SetStatus;
+    property KeepStatus: Boolean read GetKeepStatus write SetKeepStatus;
   end;
   
   TSendBulkTemplatedEmailResponse = class(TAmazonWebServiceResponse, ISendBulkTemplatedEmailResponse)
   strict private
     FStatus: TObjectList<TBulkEmailDestinationStatus>;
+    FKeepStatus: Boolean;
     function GetStatus: TObjectList<TBulkEmailDestinationStatus>;
     procedure SetStatus(const Value: TObjectList<TBulkEmailDestinationStatus>);
+    function GetKeepStatus: Boolean;
+    procedure SetKeepStatus(const Value: Boolean);
   strict protected
     function Obj: TSendBulkTemplatedEmailResponse;
   public
@@ -30,6 +36,7 @@ type
     destructor Destroy; override;
     function IsSetStatus: Boolean;
     property Status: TObjectList<TBulkEmailDestinationStatus> read GetStatus write SetStatus;
+    property KeepStatus: Boolean read GetKeepStatus write SetKeepStatus;
   end;
   
 implementation
@@ -62,9 +69,20 @@ procedure TSendBulkTemplatedEmailResponse.SetStatus(const Value: TObjectList<TBu
 begin
   if FStatus <> Value then
   begin
-    FStatus.Free;
+    if not KeepStatus then
+      FStatus.Free;
     FStatus := Value;
   end;
+end;
+
+function TSendBulkTemplatedEmailResponse.GetKeepStatus: Boolean;
+begin
+  Result := FKeepStatus;
+end;
+
+procedure TSendBulkTemplatedEmailResponse.SetKeepStatus(const Value: Boolean);
+begin
+  FKeepStatus := Value;
 end;
 
 function TSendBulkTemplatedEmailResponse.IsSetStatus: Boolean;

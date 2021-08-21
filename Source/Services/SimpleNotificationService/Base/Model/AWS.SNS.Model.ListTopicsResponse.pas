@@ -16,21 +16,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetTopics: TObjectList<TTopic>;
     procedure SetTopics(const Value: TObjectList<TTopic>);
+    function GetKeepTopics: Boolean;
+    procedure SetKeepTopics(const Value: Boolean);
     function Obj: TListTopicsResponse;
     function IsSetNextToken: Boolean;
     function IsSetTopics: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property Topics: TObjectList<TTopic> read GetTopics write SetTopics;
+    property KeepTopics: Boolean read GetKeepTopics write SetKeepTopics;
   end;
   
   TListTopicsResponse = class(TAmazonWebServiceResponse, IListTopicsResponse)
   strict private
     FNextToken: Nullable<string>;
     FTopics: TObjectList<TTopic>;
+    FKeepTopics: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetTopics: TObjectList<TTopic>;
     procedure SetTopics(const Value: TObjectList<TTopic>);
+    function GetKeepTopics: Boolean;
+    procedure SetKeepTopics(const Value: Boolean);
   strict protected
     function Obj: TListTopicsResponse;
   public
@@ -40,6 +46,7 @@ type
     function IsSetTopics: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property Topics: TObjectList<TTopic> read GetTopics write SetTopics;
+    property KeepTopics: Boolean read GetKeepTopics write SetKeepTopics;
   end;
   
 implementation
@@ -87,9 +94,20 @@ procedure TListTopicsResponse.SetTopics(const Value: TObjectList<TTopic>);
 begin
   if FTopics <> Value then
   begin
-    FTopics.Free;
+    if not KeepTopics then
+      FTopics.Free;
     FTopics := Value;
   end;
+end;
+
+function TListTopicsResponse.GetKeepTopics: Boolean;
+begin
+  Result := FKeepTopics;
+end;
+
+procedure TListTopicsResponse.SetKeepTopics(const Value: Boolean);
+begin
+  FKeepTopics := Value;
 end;
 
 function TListTopicsResponse.IsSetTopics: Boolean;

@@ -14,23 +14,35 @@ type
   ISendMessageBatchResponse = interface(IAmazonWebServiceResponse)
     function GetFailed: TObjectList<TBatchResultErrorEntry>;
     procedure SetFailed(const Value: TObjectList<TBatchResultErrorEntry>);
+    function GetKeepFailed: Boolean;
+    procedure SetKeepFailed(const Value: Boolean);
     function GetSuccessful: TObjectList<TSendMessageBatchResultEntry>;
     procedure SetSuccessful(const Value: TObjectList<TSendMessageBatchResultEntry>);
+    function GetKeepSuccessful: Boolean;
+    procedure SetKeepSuccessful(const Value: Boolean);
     function Obj: TSendMessageBatchResponse;
     function IsSetFailed: Boolean;
     function IsSetSuccessful: Boolean;
     property Failed: TObjectList<TBatchResultErrorEntry> read GetFailed write SetFailed;
+    property KeepFailed: Boolean read GetKeepFailed write SetKeepFailed;
     property Successful: TObjectList<TSendMessageBatchResultEntry> read GetSuccessful write SetSuccessful;
+    property KeepSuccessful: Boolean read GetKeepSuccessful write SetKeepSuccessful;
   end;
   
   TSendMessageBatchResponse = class(TAmazonWebServiceResponse, ISendMessageBatchResponse)
   strict private
     FFailed: TObjectList<TBatchResultErrorEntry>;
+    FKeepFailed: Boolean;
     FSuccessful: TObjectList<TSendMessageBatchResultEntry>;
+    FKeepSuccessful: Boolean;
     function GetFailed: TObjectList<TBatchResultErrorEntry>;
     procedure SetFailed(const Value: TObjectList<TBatchResultErrorEntry>);
+    function GetKeepFailed: Boolean;
+    procedure SetKeepFailed(const Value: Boolean);
     function GetSuccessful: TObjectList<TSendMessageBatchResultEntry>;
     procedure SetSuccessful(const Value: TObjectList<TSendMessageBatchResultEntry>);
+    function GetKeepSuccessful: Boolean;
+    procedure SetKeepSuccessful(const Value: Boolean);
   strict protected
     function Obj: TSendMessageBatchResponse;
   public
@@ -39,7 +51,9 @@ type
     function IsSetFailed: Boolean;
     function IsSetSuccessful: Boolean;
     property Failed: TObjectList<TBatchResultErrorEntry> read GetFailed write SetFailed;
+    property KeepFailed: Boolean read GetKeepFailed write SetKeepFailed;
     property Successful: TObjectList<TSendMessageBatchResultEntry> read GetSuccessful write SetSuccessful;
+    property KeepSuccessful: Boolean read GetKeepSuccessful write SetKeepSuccessful;
   end;
   
 implementation
@@ -74,9 +88,20 @@ procedure TSendMessageBatchResponse.SetFailed(const Value: TObjectList<TBatchRes
 begin
   if FFailed <> Value then
   begin
-    FFailed.Free;
+    if not KeepFailed then
+      FFailed.Free;
     FFailed := Value;
   end;
+end;
+
+function TSendMessageBatchResponse.GetKeepFailed: Boolean;
+begin
+  Result := FKeepFailed;
+end;
+
+procedure TSendMessageBatchResponse.SetKeepFailed(const Value: Boolean);
+begin
+  FKeepFailed := Value;
 end;
 
 function TSendMessageBatchResponse.IsSetFailed: Boolean;
@@ -93,9 +118,20 @@ procedure TSendMessageBatchResponse.SetSuccessful(const Value: TObjectList<TSend
 begin
   if FSuccessful <> Value then
   begin
-    FSuccessful.Free;
+    if not KeepSuccessful then
+      FSuccessful.Free;
     FSuccessful := Value;
   end;
+end;
+
+function TSendMessageBatchResponse.GetKeepSuccessful: Boolean;
+begin
+  Result := FKeepSuccessful;
+end;
+
+procedure TSendMessageBatchResponse.SetKeepSuccessful(const Value: Boolean);
+begin
+  FKeepSuccessful := Value;
 end;
 
 function TSendMessageBatchResponse.IsSetSuccessful: Boolean;

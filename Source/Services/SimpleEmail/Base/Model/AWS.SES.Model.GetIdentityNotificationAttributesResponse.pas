@@ -13,16 +13,22 @@ type
   IGetIdentityNotificationAttributesResponse = interface(IAmazonWebServiceResponse)
     function GetNotificationAttributes: TObjectDictionary<string, TIdentityNotificationAttributes>;
     procedure SetNotificationAttributes(const Value: TObjectDictionary<string, TIdentityNotificationAttributes>);
+    function GetKeepNotificationAttributes: Boolean;
+    procedure SetKeepNotificationAttributes(const Value: Boolean);
     function Obj: TGetIdentityNotificationAttributesResponse;
     function IsSetNotificationAttributes: Boolean;
     property NotificationAttributes: TObjectDictionary<string, TIdentityNotificationAttributes> read GetNotificationAttributes write SetNotificationAttributes;
+    property KeepNotificationAttributes: Boolean read GetKeepNotificationAttributes write SetKeepNotificationAttributes;
   end;
   
   TGetIdentityNotificationAttributesResponse = class(TAmazonWebServiceResponse, IGetIdentityNotificationAttributesResponse)
   strict private
     FNotificationAttributes: TObjectDictionary<string, TIdentityNotificationAttributes>;
+    FKeepNotificationAttributes: Boolean;
     function GetNotificationAttributes: TObjectDictionary<string, TIdentityNotificationAttributes>;
     procedure SetNotificationAttributes(const Value: TObjectDictionary<string, TIdentityNotificationAttributes>);
+    function GetKeepNotificationAttributes: Boolean;
+    procedure SetKeepNotificationAttributes(const Value: Boolean);
   strict protected
     function Obj: TGetIdentityNotificationAttributesResponse;
   public
@@ -30,6 +36,7 @@ type
     destructor Destroy; override;
     function IsSetNotificationAttributes: Boolean;
     property NotificationAttributes: TObjectDictionary<string, TIdentityNotificationAttributes> read GetNotificationAttributes write SetNotificationAttributes;
+    property KeepNotificationAttributes: Boolean read GetKeepNotificationAttributes write SetKeepNotificationAttributes;
   end;
   
 implementation
@@ -62,9 +69,20 @@ procedure TGetIdentityNotificationAttributesResponse.SetNotificationAttributes(c
 begin
   if FNotificationAttributes <> Value then
   begin
-    FNotificationAttributes.Free;
+    if not KeepNotificationAttributes then
+      FNotificationAttributes.Free;
     FNotificationAttributes := Value;
   end;
+end;
+
+function TGetIdentityNotificationAttributesResponse.GetKeepNotificationAttributes: Boolean;
+begin
+  Result := FKeepNotificationAttributes;
+end;
+
+procedure TGetIdentityNotificationAttributesResponse.SetKeepNotificationAttributes(const Value: Boolean);
+begin
+  FKeepNotificationAttributes := Value;
 end;
 
 function TGetIdentityNotificationAttributesResponse.IsSetNotificationAttributes: Boolean;

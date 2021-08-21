@@ -16,21 +16,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetSubscriptions: TObjectList<TSubscription>;
     procedure SetSubscriptions(const Value: TObjectList<TSubscription>);
+    function GetKeepSubscriptions: Boolean;
+    procedure SetKeepSubscriptions(const Value: Boolean);
     function Obj: TListSubscriptionsByTopicResponse;
     function IsSetNextToken: Boolean;
     function IsSetSubscriptions: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property Subscriptions: TObjectList<TSubscription> read GetSubscriptions write SetSubscriptions;
+    property KeepSubscriptions: Boolean read GetKeepSubscriptions write SetKeepSubscriptions;
   end;
   
   TListSubscriptionsByTopicResponse = class(TAmazonWebServiceResponse, IListSubscriptionsByTopicResponse)
   strict private
     FNextToken: Nullable<string>;
     FSubscriptions: TObjectList<TSubscription>;
+    FKeepSubscriptions: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetSubscriptions: TObjectList<TSubscription>;
     procedure SetSubscriptions(const Value: TObjectList<TSubscription>);
+    function GetKeepSubscriptions: Boolean;
+    procedure SetKeepSubscriptions(const Value: Boolean);
   strict protected
     function Obj: TListSubscriptionsByTopicResponse;
   public
@@ -40,6 +46,7 @@ type
     function IsSetSubscriptions: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property Subscriptions: TObjectList<TSubscription> read GetSubscriptions write SetSubscriptions;
+    property KeepSubscriptions: Boolean read GetKeepSubscriptions write SetKeepSubscriptions;
   end;
   
 implementation
@@ -87,9 +94,20 @@ procedure TListSubscriptionsByTopicResponse.SetSubscriptions(const Value: TObjec
 begin
   if FSubscriptions <> Value then
   begin
-    FSubscriptions.Free;
+    if not KeepSubscriptions then
+      FSubscriptions.Free;
     FSubscriptions := Value;
   end;
+end;
+
+function TListSubscriptionsByTopicResponse.GetKeepSubscriptions: Boolean;
+begin
+  Result := FKeepSubscriptions;
+end;
+
+procedure TListSubscriptionsByTopicResponse.SetKeepSubscriptions(const Value: Boolean);
+begin
+  FKeepSubscriptions := Value;
 end;
 
 function TListSubscriptionsByTopicResponse.IsSetSubscriptions: Boolean;

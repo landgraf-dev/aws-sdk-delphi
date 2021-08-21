@@ -15,21 +15,27 @@ type
     procedure SetConfigurationSetName(const Value: string);
     function GetTrackingOptions: TTrackingOptions;
     procedure SetTrackingOptions(const Value: TTrackingOptions);
+    function GetKeepTrackingOptions: Boolean;
+    procedure SetKeepTrackingOptions(const Value: Boolean);
     function Obj: TUpdateConfigurationSetTrackingOptionsRequest;
     function IsSetConfigurationSetName: Boolean;
     function IsSetTrackingOptions: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property TrackingOptions: TTrackingOptions read GetTrackingOptions write SetTrackingOptions;
+    property KeepTrackingOptions: Boolean read GetKeepTrackingOptions write SetKeepTrackingOptions;
   end;
   
   TUpdateConfigurationSetTrackingOptionsRequest = class(TAmazonSimpleEmailServiceRequest, IUpdateConfigurationSetTrackingOptionsRequest)
   strict private
     FConfigurationSetName: Nullable<string>;
     FTrackingOptions: TTrackingOptions;
+    FKeepTrackingOptions: Boolean;
     function GetConfigurationSetName: string;
     procedure SetConfigurationSetName(const Value: string);
     function GetTrackingOptions: TTrackingOptions;
     procedure SetTrackingOptions(const Value: TTrackingOptions);
+    function GetKeepTrackingOptions: Boolean;
+    procedure SetKeepTrackingOptions(const Value: Boolean);
   strict protected
     function Obj: TUpdateConfigurationSetTrackingOptionsRequest;
   public
@@ -38,6 +44,7 @@ type
     function IsSetTrackingOptions: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property TrackingOptions: TTrackingOptions read GetTrackingOptions write SetTrackingOptions;
+    property KeepTrackingOptions: Boolean read GetKeepTrackingOptions write SetKeepTrackingOptions;
   end;
   
 implementation
@@ -79,9 +86,20 @@ procedure TUpdateConfigurationSetTrackingOptionsRequest.SetTrackingOptions(const
 begin
   if FTrackingOptions <> Value then
   begin
-    FTrackingOptions.Free;
+    if not KeepTrackingOptions then
+      FTrackingOptions.Free;
     FTrackingOptions := Value;
   end;
+end;
+
+function TUpdateConfigurationSetTrackingOptionsRequest.GetKeepTrackingOptions: Boolean;
+begin
+  Result := FKeepTrackingOptions;
+end;
+
+procedure TUpdateConfigurationSetTrackingOptionsRequest.SetKeepTrackingOptions(const Value: Boolean);
+begin
+  FKeepTrackingOptions := Value;
 end;
 
 function TUpdateConfigurationSetTrackingOptionsRequest.IsSetTrackingOptions: Boolean;

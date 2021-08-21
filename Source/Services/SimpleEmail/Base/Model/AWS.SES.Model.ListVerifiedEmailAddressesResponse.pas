@@ -12,16 +12,22 @@ type
   IListVerifiedEmailAddressesResponse = interface(IAmazonWebServiceResponse)
     function GetVerifiedEmailAddresses: TList<string>;
     procedure SetVerifiedEmailAddresses(const Value: TList<string>);
+    function GetKeepVerifiedEmailAddresses: Boolean;
+    procedure SetKeepVerifiedEmailAddresses(const Value: Boolean);
     function Obj: TListVerifiedEmailAddressesResponse;
     function IsSetVerifiedEmailAddresses: Boolean;
     property VerifiedEmailAddresses: TList<string> read GetVerifiedEmailAddresses write SetVerifiedEmailAddresses;
+    property KeepVerifiedEmailAddresses: Boolean read GetKeepVerifiedEmailAddresses write SetKeepVerifiedEmailAddresses;
   end;
   
   TListVerifiedEmailAddressesResponse = class(TAmazonWebServiceResponse, IListVerifiedEmailAddressesResponse)
   strict private
     FVerifiedEmailAddresses: TList<string>;
+    FKeepVerifiedEmailAddresses: Boolean;
     function GetVerifiedEmailAddresses: TList<string>;
     procedure SetVerifiedEmailAddresses(const Value: TList<string>);
+    function GetKeepVerifiedEmailAddresses: Boolean;
+    procedure SetKeepVerifiedEmailAddresses(const Value: Boolean);
   strict protected
     function Obj: TListVerifiedEmailAddressesResponse;
   public
@@ -29,6 +35,7 @@ type
     destructor Destroy; override;
     function IsSetVerifiedEmailAddresses: Boolean;
     property VerifiedEmailAddresses: TList<string> read GetVerifiedEmailAddresses write SetVerifiedEmailAddresses;
+    property KeepVerifiedEmailAddresses: Boolean read GetKeepVerifiedEmailAddresses write SetKeepVerifiedEmailAddresses;
   end;
   
 implementation
@@ -61,9 +68,20 @@ procedure TListVerifiedEmailAddressesResponse.SetVerifiedEmailAddresses(const Va
 begin
   if FVerifiedEmailAddresses <> Value then
   begin
-    FVerifiedEmailAddresses.Free;
+    if not KeepVerifiedEmailAddresses then
+      FVerifiedEmailAddresses.Free;
     FVerifiedEmailAddresses := Value;
   end;
+end;
+
+function TListVerifiedEmailAddressesResponse.GetKeepVerifiedEmailAddresses: Boolean;
+begin
+  Result := FKeepVerifiedEmailAddresses;
+end;
+
+procedure TListVerifiedEmailAddressesResponse.SetKeepVerifiedEmailAddresses(const Value: Boolean);
+begin
+  FKeepVerifiedEmailAddresses := Value;
 end;
 
 function TListVerifiedEmailAddressesResponse.IsSetVerifiedEmailAddresses: Boolean;

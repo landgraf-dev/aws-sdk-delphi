@@ -13,16 +13,22 @@ type
   IGetIdentityVerificationAttributesResponse = interface(IAmazonWebServiceResponse)
     function GetVerificationAttributes: TObjectDictionary<string, TIdentityVerificationAttributes>;
     procedure SetVerificationAttributes(const Value: TObjectDictionary<string, TIdentityVerificationAttributes>);
+    function GetKeepVerificationAttributes: Boolean;
+    procedure SetKeepVerificationAttributes(const Value: Boolean);
     function Obj: TGetIdentityVerificationAttributesResponse;
     function IsSetVerificationAttributes: Boolean;
     property VerificationAttributes: TObjectDictionary<string, TIdentityVerificationAttributes> read GetVerificationAttributes write SetVerificationAttributes;
+    property KeepVerificationAttributes: Boolean read GetKeepVerificationAttributes write SetKeepVerificationAttributes;
   end;
   
   TGetIdentityVerificationAttributesResponse = class(TAmazonWebServiceResponse, IGetIdentityVerificationAttributesResponse)
   strict private
     FVerificationAttributes: TObjectDictionary<string, TIdentityVerificationAttributes>;
+    FKeepVerificationAttributes: Boolean;
     function GetVerificationAttributes: TObjectDictionary<string, TIdentityVerificationAttributes>;
     procedure SetVerificationAttributes(const Value: TObjectDictionary<string, TIdentityVerificationAttributes>);
+    function GetKeepVerificationAttributes: Boolean;
+    procedure SetKeepVerificationAttributes(const Value: Boolean);
   strict protected
     function Obj: TGetIdentityVerificationAttributesResponse;
   public
@@ -30,6 +36,7 @@ type
     destructor Destroy; override;
     function IsSetVerificationAttributes: Boolean;
     property VerificationAttributes: TObjectDictionary<string, TIdentityVerificationAttributes> read GetVerificationAttributes write SetVerificationAttributes;
+    property KeepVerificationAttributes: Boolean read GetKeepVerificationAttributes write SetKeepVerificationAttributes;
   end;
   
 implementation
@@ -62,9 +69,20 @@ procedure TGetIdentityVerificationAttributesResponse.SetVerificationAttributes(c
 begin
   if FVerificationAttributes <> Value then
   begin
-    FVerificationAttributes.Free;
+    if not KeepVerificationAttributes then
+      FVerificationAttributes.Free;
     FVerificationAttributes := Value;
   end;
+end;
+
+function TGetIdentityVerificationAttributesResponse.GetKeepVerificationAttributes: Boolean;
+begin
+  Result := FKeepVerificationAttributes;
+end;
+
+procedure TGetIdentityVerificationAttributesResponse.SetKeepVerificationAttributes(const Value: Boolean);
+begin
+  FKeepVerificationAttributes := Value;
 end;
 
 function TGetIdentityVerificationAttributesResponse.IsSetVerificationAttributes: Boolean;

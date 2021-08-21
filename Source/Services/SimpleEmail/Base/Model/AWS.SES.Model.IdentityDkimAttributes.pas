@@ -15,6 +15,8 @@ type
     procedure SetDkimEnabled(const Value: Boolean);
     function GetDkimTokens: TList<string>;
     procedure SetDkimTokens(const Value: TList<string>);
+    function GetKeepDkimTokens: Boolean;
+    procedure SetKeepDkimTokens(const Value: Boolean);
     function GetDkimVerificationStatus: TVerificationStatus;
     procedure SetDkimVerificationStatus(const Value: TVerificationStatus);
     function Obj: TIdentityDkimAttributes;
@@ -23,6 +25,7 @@ type
     function IsSetDkimVerificationStatus: Boolean;
     property DkimEnabled: Boolean read GetDkimEnabled write SetDkimEnabled;
     property DkimTokens: TList<string> read GetDkimTokens write SetDkimTokens;
+    property KeepDkimTokens: Boolean read GetKeepDkimTokens write SetKeepDkimTokens;
     property DkimVerificationStatus: TVerificationStatus read GetDkimVerificationStatus write SetDkimVerificationStatus;
   end;
   
@@ -30,11 +33,14 @@ type
   strict private
     FDkimEnabled: Nullable<Boolean>;
     FDkimTokens: TList<string>;
+    FKeepDkimTokens: Boolean;
     FDkimVerificationStatus: Nullable<TVerificationStatus>;
     function GetDkimEnabled: Boolean;
     procedure SetDkimEnabled(const Value: Boolean);
     function GetDkimTokens: TList<string>;
     procedure SetDkimTokens(const Value: TList<string>);
+    function GetKeepDkimTokens: Boolean;
+    procedure SetKeepDkimTokens(const Value: Boolean);
     function GetDkimVerificationStatus: TVerificationStatus;
     procedure SetDkimVerificationStatus(const Value: TVerificationStatus);
   strict protected
@@ -47,6 +53,7 @@ type
     function IsSetDkimVerificationStatus: Boolean;
     property DkimEnabled: Boolean read GetDkimEnabled write SetDkimEnabled;
     property DkimTokens: TList<string> read GetDkimTokens write SetDkimTokens;
+    property KeepDkimTokens: Boolean read GetKeepDkimTokens write SetKeepDkimTokens;
     property DkimVerificationStatus: TVerificationStatus read GetDkimVerificationStatus write SetDkimVerificationStatus;
   end;
   
@@ -95,9 +102,20 @@ procedure TIdentityDkimAttributes.SetDkimTokens(const Value: TList<string>);
 begin
   if FDkimTokens <> Value then
   begin
-    FDkimTokens.Free;
+    if not KeepDkimTokens then
+      FDkimTokens.Free;
     FDkimTokens := Value;
   end;
+end;
+
+function TIdentityDkimAttributes.GetKeepDkimTokens: Boolean;
+begin
+  Result := FKeepDkimTokens;
+end;
+
+procedure TIdentityDkimAttributes.SetKeepDkimTokens(const Value: Boolean);
+begin
+  FKeepDkimTokens := Value;
 end;
 
 function TIdentityDkimAttributes.IsSetDkimTokens: Boolean;

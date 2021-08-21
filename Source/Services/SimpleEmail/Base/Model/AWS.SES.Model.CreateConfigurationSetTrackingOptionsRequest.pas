@@ -15,21 +15,27 @@ type
     procedure SetConfigurationSetName(const Value: string);
     function GetTrackingOptions: TTrackingOptions;
     procedure SetTrackingOptions(const Value: TTrackingOptions);
+    function GetKeepTrackingOptions: Boolean;
+    procedure SetKeepTrackingOptions(const Value: Boolean);
     function Obj: TCreateConfigurationSetTrackingOptionsRequest;
     function IsSetConfigurationSetName: Boolean;
     function IsSetTrackingOptions: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property TrackingOptions: TTrackingOptions read GetTrackingOptions write SetTrackingOptions;
+    property KeepTrackingOptions: Boolean read GetKeepTrackingOptions write SetKeepTrackingOptions;
   end;
   
   TCreateConfigurationSetTrackingOptionsRequest = class(TAmazonSimpleEmailServiceRequest, ICreateConfigurationSetTrackingOptionsRequest)
   strict private
     FConfigurationSetName: Nullable<string>;
     FTrackingOptions: TTrackingOptions;
+    FKeepTrackingOptions: Boolean;
     function GetConfigurationSetName: string;
     procedure SetConfigurationSetName(const Value: string);
     function GetTrackingOptions: TTrackingOptions;
     procedure SetTrackingOptions(const Value: TTrackingOptions);
+    function GetKeepTrackingOptions: Boolean;
+    procedure SetKeepTrackingOptions(const Value: Boolean);
   strict protected
     function Obj: TCreateConfigurationSetTrackingOptionsRequest;
   public
@@ -38,6 +44,7 @@ type
     function IsSetTrackingOptions: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property TrackingOptions: TTrackingOptions read GetTrackingOptions write SetTrackingOptions;
+    property KeepTrackingOptions: Boolean read GetKeepTrackingOptions write SetKeepTrackingOptions;
   end;
   
 implementation
@@ -79,9 +86,20 @@ procedure TCreateConfigurationSetTrackingOptionsRequest.SetTrackingOptions(const
 begin
   if FTrackingOptions <> Value then
   begin
-    FTrackingOptions.Free;
+    if not KeepTrackingOptions then
+      FTrackingOptions.Free;
     FTrackingOptions := Value;
   end;
+end;
+
+function TCreateConfigurationSetTrackingOptionsRequest.GetKeepTrackingOptions: Boolean;
+begin
+  Result := FKeepTrackingOptions;
+end;
+
+procedure TCreateConfigurationSetTrackingOptionsRequest.SetKeepTrackingOptions(const Value: Boolean);
+begin
+  FKeepTrackingOptions := Value;
 end;
 
 function TCreateConfigurationSetTrackingOptionsRequest.IsSetTrackingOptions: Boolean;

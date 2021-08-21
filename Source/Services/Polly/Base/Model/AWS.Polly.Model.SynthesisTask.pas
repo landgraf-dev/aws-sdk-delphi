@@ -19,6 +19,8 @@ type
     procedure SetLanguageCode(const Value: TLanguageCode);
     function GetLexiconNames: TList<string>;
     procedure SetLexiconNames(const Value: TList<string>);
+    function GetKeepLexiconNames: Boolean;
+    procedure SetKeepLexiconNames(const Value: Boolean);
     function GetOutputFormat: TOutputFormat;
     procedure SetOutputFormat(const Value: TOutputFormat);
     function GetOutputUri: string;
@@ -31,6 +33,8 @@ type
     procedure SetSnsTopicArn(const Value: string);
     function GetSpeechMarkTypes: TList<string>;
     procedure SetSpeechMarkTypes(const Value: TList<string>);
+    function GetKeepSpeechMarkTypes: Boolean;
+    procedure SetKeepSpeechMarkTypes(const Value: Boolean);
     function GetTaskId: string;
     procedure SetTaskId(const Value: string);
     function GetTaskStatus: TTaskStatus;
@@ -61,12 +65,14 @@ type
     property Engine: TEngine read GetEngine write SetEngine;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
     property LexiconNames: TList<string> read GetLexiconNames write SetLexiconNames;
+    property KeepLexiconNames: Boolean read GetKeepLexiconNames write SetKeepLexiconNames;
     property OutputFormat: TOutputFormat read GetOutputFormat write SetOutputFormat;
     property OutputUri: string read GetOutputUri write SetOutputUri;
     property RequestCharacters: Integer read GetRequestCharacters write SetRequestCharacters;
     property SampleRate: string read GetSampleRate write SetSampleRate;
     property SnsTopicArn: string read GetSnsTopicArn write SetSnsTopicArn;
     property SpeechMarkTypes: TList<string> read GetSpeechMarkTypes write SetSpeechMarkTypes;
+    property KeepSpeechMarkTypes: Boolean read GetKeepSpeechMarkTypes write SetKeepSpeechMarkTypes;
     property TaskId: string read GetTaskId write SetTaskId;
     property TaskStatus: TTaskStatus read GetTaskStatus write SetTaskStatus;
     property TaskStatusReason: string read GetTaskStatusReason write SetTaskStatusReason;
@@ -80,12 +86,14 @@ type
     FEngine: Nullable<TEngine>;
     FLanguageCode: Nullable<TLanguageCode>;
     FLexiconNames: TList<string>;
+    FKeepLexiconNames: Boolean;
     FOutputFormat: Nullable<TOutputFormat>;
     FOutputUri: Nullable<string>;
     FRequestCharacters: Nullable<Integer>;
     FSampleRate: Nullable<string>;
     FSnsTopicArn: Nullable<string>;
     FSpeechMarkTypes: TList<string>;
+    FKeepSpeechMarkTypes: Boolean;
     FTaskId: Nullable<string>;
     FTaskStatus: Nullable<TTaskStatus>;
     FTaskStatusReason: Nullable<string>;
@@ -99,6 +107,8 @@ type
     procedure SetLanguageCode(const Value: TLanguageCode);
     function GetLexiconNames: TList<string>;
     procedure SetLexiconNames(const Value: TList<string>);
+    function GetKeepLexiconNames: Boolean;
+    procedure SetKeepLexiconNames(const Value: Boolean);
     function GetOutputFormat: TOutputFormat;
     procedure SetOutputFormat(const Value: TOutputFormat);
     function GetOutputUri: string;
@@ -111,6 +121,8 @@ type
     procedure SetSnsTopicArn(const Value: string);
     function GetSpeechMarkTypes: TList<string>;
     procedure SetSpeechMarkTypes(const Value: TList<string>);
+    function GetKeepSpeechMarkTypes: Boolean;
+    procedure SetKeepSpeechMarkTypes(const Value: Boolean);
     function GetTaskId: string;
     procedure SetTaskId(const Value: string);
     function GetTaskStatus: TTaskStatus;
@@ -145,12 +157,14 @@ type
     property Engine: TEngine read GetEngine write SetEngine;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
     property LexiconNames: TList<string> read GetLexiconNames write SetLexiconNames;
+    property KeepLexiconNames: Boolean read GetKeepLexiconNames write SetKeepLexiconNames;
     property OutputFormat: TOutputFormat read GetOutputFormat write SetOutputFormat;
     property OutputUri: string read GetOutputUri write SetOutputUri;
     property RequestCharacters: Integer read GetRequestCharacters write SetRequestCharacters;
     property SampleRate: string read GetSampleRate write SetSampleRate;
     property SnsTopicArn: string read GetSnsTopicArn write SetSnsTopicArn;
     property SpeechMarkTypes: TList<string> read GetSpeechMarkTypes write SetSpeechMarkTypes;
+    property KeepSpeechMarkTypes: Boolean read GetKeepSpeechMarkTypes write SetKeepSpeechMarkTypes;
     property TaskId: string read GetTaskId write SetTaskId;
     property TaskStatus: TTaskStatus read GetTaskStatus write SetTaskStatus;
     property TaskStatusReason: string read GetTaskStatusReason write SetTaskStatusReason;
@@ -235,9 +249,20 @@ procedure TSynthesisTask.SetLexiconNames(const Value: TList<string>);
 begin
   if FLexiconNames <> Value then
   begin
-    FLexiconNames.Free;
+    if not KeepLexiconNames then
+      FLexiconNames.Free;
     FLexiconNames := Value;
   end;
+end;
+
+function TSynthesisTask.GetKeepLexiconNames: Boolean;
+begin
+  Result := FKeepLexiconNames;
+end;
+
+procedure TSynthesisTask.SetKeepLexiconNames(const Value: Boolean);
+begin
+  FKeepLexiconNames := Value;
 end;
 
 function TSynthesisTask.IsSetLexiconNames: Boolean;
@@ -329,9 +354,20 @@ procedure TSynthesisTask.SetSpeechMarkTypes(const Value: TList<string>);
 begin
   if FSpeechMarkTypes <> Value then
   begin
-    FSpeechMarkTypes.Free;
+    if not KeepSpeechMarkTypes then
+      FSpeechMarkTypes.Free;
     FSpeechMarkTypes := Value;
   end;
+end;
+
+function TSynthesisTask.GetKeepSpeechMarkTypes: Boolean;
+begin
+  Result := FKeepSpeechMarkTypes;
+end;
+
+procedure TSynthesisTask.SetKeepSpeechMarkTypes(const Value: Boolean);
+begin
+  FKeepSpeechMarkTypes := Value;
 end;
 
 function TSynthesisTask.IsSetSpeechMarkTypes: Boolean;

@@ -13,16 +13,22 @@ type
   IGetSendStatisticsResponse = interface(IAmazonWebServiceResponse)
     function GetSendDataPoints: TObjectList<TSendDataPoint>;
     procedure SetSendDataPoints(const Value: TObjectList<TSendDataPoint>);
+    function GetKeepSendDataPoints: Boolean;
+    procedure SetKeepSendDataPoints(const Value: Boolean);
     function Obj: TGetSendStatisticsResponse;
     function IsSetSendDataPoints: Boolean;
     property SendDataPoints: TObjectList<TSendDataPoint> read GetSendDataPoints write SetSendDataPoints;
+    property KeepSendDataPoints: Boolean read GetKeepSendDataPoints write SetKeepSendDataPoints;
   end;
   
   TGetSendStatisticsResponse = class(TAmazonWebServiceResponse, IGetSendStatisticsResponse)
   strict private
     FSendDataPoints: TObjectList<TSendDataPoint>;
+    FKeepSendDataPoints: Boolean;
     function GetSendDataPoints: TObjectList<TSendDataPoint>;
     procedure SetSendDataPoints(const Value: TObjectList<TSendDataPoint>);
+    function GetKeepSendDataPoints: Boolean;
+    procedure SetKeepSendDataPoints(const Value: Boolean);
   strict protected
     function Obj: TGetSendStatisticsResponse;
   public
@@ -30,6 +36,7 @@ type
     destructor Destroy; override;
     function IsSetSendDataPoints: Boolean;
     property SendDataPoints: TObjectList<TSendDataPoint> read GetSendDataPoints write SetSendDataPoints;
+    property KeepSendDataPoints: Boolean read GetKeepSendDataPoints write SetKeepSendDataPoints;
   end;
   
 implementation
@@ -62,9 +69,20 @@ procedure TGetSendStatisticsResponse.SetSendDataPoints(const Value: TObjectList<
 begin
   if FSendDataPoints <> Value then
   begin
-    FSendDataPoints.Free;
+    if not KeepSendDataPoints then
+      FSendDataPoints.Free;
     FSendDataPoints := Value;
   end;
+end;
+
+function TGetSendStatisticsResponse.GetKeepSendDataPoints: Boolean;
+begin
+  Result := FKeepSendDataPoints;
+end;
+
+procedure TGetSendStatisticsResponse.SetKeepSendDataPoints(const Value: Boolean);
+begin
+  FKeepSendDataPoints := Value;
 end;
 
 function TGetSendStatisticsResponse.IsSetSendDataPoints: Boolean;

@@ -15,21 +15,27 @@ type
     procedure SetConfigurationSetName(const Value: string);
     function GetDeliveryOptions: TDeliveryOptions;
     procedure SetDeliveryOptions(const Value: TDeliveryOptions);
+    function GetKeepDeliveryOptions: Boolean;
+    procedure SetKeepDeliveryOptions(const Value: Boolean);
     function Obj: TPutConfigurationSetDeliveryOptionsRequest;
     function IsSetConfigurationSetName: Boolean;
     function IsSetDeliveryOptions: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property DeliveryOptions: TDeliveryOptions read GetDeliveryOptions write SetDeliveryOptions;
+    property KeepDeliveryOptions: Boolean read GetKeepDeliveryOptions write SetKeepDeliveryOptions;
   end;
   
   TPutConfigurationSetDeliveryOptionsRequest = class(TAmazonSimpleEmailServiceRequest, IPutConfigurationSetDeliveryOptionsRequest)
   strict private
     FConfigurationSetName: Nullable<string>;
     FDeliveryOptions: TDeliveryOptions;
+    FKeepDeliveryOptions: Boolean;
     function GetConfigurationSetName: string;
     procedure SetConfigurationSetName(const Value: string);
     function GetDeliveryOptions: TDeliveryOptions;
     procedure SetDeliveryOptions(const Value: TDeliveryOptions);
+    function GetKeepDeliveryOptions: Boolean;
+    procedure SetKeepDeliveryOptions(const Value: Boolean);
   strict protected
     function Obj: TPutConfigurationSetDeliveryOptionsRequest;
   public
@@ -38,6 +44,7 @@ type
     function IsSetDeliveryOptions: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property DeliveryOptions: TDeliveryOptions read GetDeliveryOptions write SetDeliveryOptions;
+    property KeepDeliveryOptions: Boolean read GetKeepDeliveryOptions write SetKeepDeliveryOptions;
   end;
   
 implementation
@@ -79,9 +86,20 @@ procedure TPutConfigurationSetDeliveryOptionsRequest.SetDeliveryOptions(const Va
 begin
   if FDeliveryOptions <> Value then
   begin
-    FDeliveryOptions.Free;
+    if not KeepDeliveryOptions then
+      FDeliveryOptions.Free;
     FDeliveryOptions := Value;
   end;
+end;
+
+function TPutConfigurationSetDeliveryOptionsRequest.GetKeepDeliveryOptions: Boolean;
+begin
+  Result := FKeepDeliveryOptions;
+end;
+
+procedure TPutConfigurationSetDeliveryOptionsRequest.SetKeepDeliveryOptions(const Value: Boolean);
+begin
+  FKeepDeliveryOptions := Value;
 end;
 
 function TPutConfigurationSetDeliveryOptionsRequest.IsSetDeliveryOptions: Boolean;

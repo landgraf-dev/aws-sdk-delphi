@@ -12,22 +12,29 @@ type
   ICreateTemplateRequest = interface
     function GetTemplate: TTemplate;
     procedure SetTemplate(const Value: TTemplate);
+    function GetKeepTemplate: Boolean;
+    procedure SetKeepTemplate(const Value: Boolean);
     function Obj: TCreateTemplateRequest;
     function IsSetTemplate: Boolean;
     property Template: TTemplate read GetTemplate write SetTemplate;
+    property KeepTemplate: Boolean read GetKeepTemplate write SetKeepTemplate;
   end;
   
   TCreateTemplateRequest = class(TAmazonSimpleEmailServiceRequest, ICreateTemplateRequest)
   strict private
     FTemplate: TTemplate;
+    FKeepTemplate: Boolean;
     function GetTemplate: TTemplate;
     procedure SetTemplate(const Value: TTemplate);
+    function GetKeepTemplate: Boolean;
+    procedure SetKeepTemplate(const Value: Boolean);
   strict protected
     function Obj: TCreateTemplateRequest;
   public
     destructor Destroy; override;
     function IsSetTemplate: Boolean;
     property Template: TTemplate read GetTemplate write SetTemplate;
+    property KeepTemplate: Boolean read GetKeepTemplate write SetKeepTemplate;
   end;
   
 implementation
@@ -54,9 +61,20 @@ procedure TCreateTemplateRequest.SetTemplate(const Value: TTemplate);
 begin
   if FTemplate <> Value then
   begin
-    FTemplate.Free;
+    if not KeepTemplate then
+      FTemplate.Free;
     FTemplate := Value;
   end;
+end;
+
+function TCreateTemplateRequest.GetKeepTemplate: Boolean;
+begin
+  Result := FKeepTemplate;
+end;
+
+procedure TCreateTemplateRequest.SetKeepTemplate(const Value: Boolean);
+begin
+  FKeepTemplate := Value;
 end;
 
 function TCreateTemplateRequest.IsSetTemplate: Boolean;

@@ -12,16 +12,22 @@ type
   IGetIdentityPoliciesResponse = interface(IAmazonWebServiceResponse)
     function GetPolicies: TDictionary<string, string>;
     procedure SetPolicies(const Value: TDictionary<string, string>);
+    function GetKeepPolicies: Boolean;
+    procedure SetKeepPolicies(const Value: Boolean);
     function Obj: TGetIdentityPoliciesResponse;
     function IsSetPolicies: Boolean;
     property Policies: TDictionary<string, string> read GetPolicies write SetPolicies;
+    property KeepPolicies: Boolean read GetKeepPolicies write SetKeepPolicies;
   end;
   
   TGetIdentityPoliciesResponse = class(TAmazonWebServiceResponse, IGetIdentityPoliciesResponse)
   strict private
     FPolicies: TDictionary<string, string>;
+    FKeepPolicies: Boolean;
     function GetPolicies: TDictionary<string, string>;
     procedure SetPolicies(const Value: TDictionary<string, string>);
+    function GetKeepPolicies: Boolean;
+    procedure SetKeepPolicies(const Value: Boolean);
   strict protected
     function Obj: TGetIdentityPoliciesResponse;
   public
@@ -29,6 +35,7 @@ type
     destructor Destroy; override;
     function IsSetPolicies: Boolean;
     property Policies: TDictionary<string, string> read GetPolicies write SetPolicies;
+    property KeepPolicies: Boolean read GetKeepPolicies write SetKeepPolicies;
   end;
   
 implementation
@@ -61,9 +68,20 @@ procedure TGetIdentityPoliciesResponse.SetPolicies(const Value: TDictionary<stri
 begin
   if FPolicies <> Value then
   begin
-    FPolicies.Free;
+    if not KeepPolicies then
+      FPolicies.Free;
     FPolicies := Value;
   end;
+end;
+
+function TGetIdentityPoliciesResponse.GetKeepPolicies: Boolean;
+begin
+  Result := FKeepPolicies;
+end;
+
+procedure TGetIdentityPoliciesResponse.SetKeepPolicies(const Value: Boolean);
+begin
+  FKeepPolicies := Value;
 end;
 
 function TGetIdentityPoliciesResponse.IsSetPolicies: Boolean;

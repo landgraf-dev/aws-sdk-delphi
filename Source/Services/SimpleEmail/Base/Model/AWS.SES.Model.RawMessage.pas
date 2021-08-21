@@ -11,16 +11,22 @@ type
   IRawMessage = interface
     function GetData: TBytesStream;
     procedure SetData(const Value: TBytesStream);
+    function GetKeepData: Boolean;
+    procedure SetKeepData(const Value: Boolean);
     function Obj: TRawMessage;
     function IsSetData: Boolean;
     property Data: TBytesStream read GetData write SetData;
+    property KeepData: Boolean read GetKeepData write SetKeepData;
   end;
   
   TRawMessage = class
   strict private
     FData: TBytesStream;
+    FKeepData: Boolean;
     function GetData: TBytesStream;
     procedure SetData(const Value: TBytesStream);
+    function GetKeepData: Boolean;
+    procedure SetKeepData(const Value: Boolean);
   strict protected
     function Obj: TRawMessage;
   public
@@ -28,6 +34,7 @@ type
     constructor Create(const AData: TBytesStream); overload;
     function IsSetData: Boolean;
     property Data: TBytesStream read GetData write SetData;
+    property KeepData: Boolean read GetKeepData write SetKeepData;
   end;
   
 implementation
@@ -60,9 +67,20 @@ procedure TRawMessage.SetData(const Value: TBytesStream);
 begin
   if FData <> Value then
   begin
-    FData.Free;
+    if not KeepData then
+      FData.Free;
     FData := Value;
   end;
+end;
+
+function TRawMessage.GetKeepData: Boolean;
+begin
+  Result := FKeepData;
+end;
+
+procedure TRawMessage.SetKeepData(const Value: Boolean);
+begin
+  FKeepData := Value;
 end;
 
 function TRawMessage.IsSetData: Boolean;

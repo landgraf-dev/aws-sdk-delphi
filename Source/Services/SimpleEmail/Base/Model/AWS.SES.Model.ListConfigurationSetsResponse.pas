@@ -14,21 +14,27 @@ type
   IListConfigurationSetsResponse = interface(IAmazonWebServiceResponse)
     function GetConfigurationSets: TObjectList<TConfigurationSet>;
     procedure SetConfigurationSets(const Value: TObjectList<TConfigurationSet>);
+    function GetKeepConfigurationSets: Boolean;
+    procedure SetKeepConfigurationSets(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function Obj: TListConfigurationSetsResponse;
     function IsSetConfigurationSets: Boolean;
     function IsSetNextToken: Boolean;
     property ConfigurationSets: TObjectList<TConfigurationSet> read GetConfigurationSets write SetConfigurationSets;
+    property KeepConfigurationSets: Boolean read GetKeepConfigurationSets write SetKeepConfigurationSets;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
   TListConfigurationSetsResponse = class(TAmazonWebServiceResponse, IListConfigurationSetsResponse)
   strict private
     FConfigurationSets: TObjectList<TConfigurationSet>;
+    FKeepConfigurationSets: Boolean;
     FNextToken: Nullable<string>;
     function GetConfigurationSets: TObjectList<TConfigurationSet>;
     procedure SetConfigurationSets(const Value: TObjectList<TConfigurationSet>);
+    function GetKeepConfigurationSets: Boolean;
+    procedure SetKeepConfigurationSets(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
   strict protected
@@ -39,6 +45,7 @@ type
     function IsSetConfigurationSets: Boolean;
     function IsSetNextToken: Boolean;
     property ConfigurationSets: TObjectList<TConfigurationSet> read GetConfigurationSets write SetConfigurationSets;
+    property KeepConfigurationSets: Boolean read GetKeepConfigurationSets write SetKeepConfigurationSets;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
@@ -72,9 +79,20 @@ procedure TListConfigurationSetsResponse.SetConfigurationSets(const Value: TObje
 begin
   if FConfigurationSets <> Value then
   begin
-    FConfigurationSets.Free;
+    if not KeepConfigurationSets then
+      FConfigurationSets.Free;
     FConfigurationSets := Value;
   end;
+end;
+
+function TListConfigurationSetsResponse.GetKeepConfigurationSets: Boolean;
+begin
+  Result := FKeepConfigurationSets;
+end;
+
+procedure TListConfigurationSetsResponse.SetKeepConfigurationSets(const Value: Boolean);
+begin
+  FKeepConfigurationSets := Value;
 end;
 
 function TListConfigurationSetsResponse.IsSetConfigurationSets: Boolean;

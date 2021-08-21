@@ -13,6 +13,8 @@ type
   ICreatePlatformApplicationRequest = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetPlatform: string;
@@ -22,6 +24,7 @@ type
     function IsSetName: Boolean;
     function IsSetPlatform: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Name: string read GetName write SetName;
     property Platform: string read GetPlatform write SetPlatform;
   end;
@@ -29,10 +32,13 @@ type
   TCreatePlatformApplicationRequest = class(TAmazonSimpleNotificationServiceRequest, ICreatePlatformApplicationRequest)
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FName: Nullable<string>;
     FPlatform: Nullable<string>;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetPlatform: string;
@@ -46,6 +52,7 @@ type
     function IsSetName: Boolean;
     function IsSetPlatform: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Name: string read GetName write SetName;
     property Platform: string read GetPlatform write SetPlatform;
   end;
@@ -80,9 +87,20 @@ procedure TCreatePlatformApplicationRequest.SetAttributes(const Value: TDictiona
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TCreatePlatformApplicationRequest.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TCreatePlatformApplicationRequest.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TCreatePlatformApplicationRequest.IsSetAttributes: Boolean;

@@ -15,21 +15,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetQueueUrls: TList<string>;
     procedure SetQueueUrls(const Value: TList<string>);
+    function GetKeepQueueUrls: Boolean;
+    procedure SetKeepQueueUrls(const Value: Boolean);
     function Obj: TListDeadLetterSourceQueuesResponse;
     function IsSetNextToken: Boolean;
     function IsSetQueueUrls: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property QueueUrls: TList<string> read GetQueueUrls write SetQueueUrls;
+    property KeepQueueUrls: Boolean read GetKeepQueueUrls write SetKeepQueueUrls;
   end;
   
   TListDeadLetterSourceQueuesResponse = class(TAmazonWebServiceResponse, IListDeadLetterSourceQueuesResponse)
   strict private
     FNextToken: Nullable<string>;
     FQueueUrls: TList<string>;
+    FKeepQueueUrls: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetQueueUrls: TList<string>;
     procedure SetQueueUrls(const Value: TList<string>);
+    function GetKeepQueueUrls: Boolean;
+    procedure SetKeepQueueUrls(const Value: Boolean);
   strict protected
     function Obj: TListDeadLetterSourceQueuesResponse;
   public
@@ -39,6 +45,7 @@ type
     function IsSetQueueUrls: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property QueueUrls: TList<string> read GetQueueUrls write SetQueueUrls;
+    property KeepQueueUrls: Boolean read GetKeepQueueUrls write SetKeepQueueUrls;
   end;
   
 implementation
@@ -86,9 +93,20 @@ procedure TListDeadLetterSourceQueuesResponse.SetQueueUrls(const Value: TList<st
 begin
   if FQueueUrls <> Value then
   begin
-    FQueueUrls.Free;
+    if not KeepQueueUrls then
+      FQueueUrls.Free;
     FQueueUrls := Value;
   end;
+end;
+
+function TListDeadLetterSourceQueuesResponse.GetKeepQueueUrls: Boolean;
+begin
+  Result := FKeepQueueUrls;
+end;
+
+procedure TListDeadLetterSourceQueuesResponse.SetKeepQueueUrls(const Value: Boolean);
+begin
+  FKeepQueueUrls := Value;
 end;
 
 function TListDeadLetterSourceQueuesResponse.IsSetQueueUrls: Boolean;

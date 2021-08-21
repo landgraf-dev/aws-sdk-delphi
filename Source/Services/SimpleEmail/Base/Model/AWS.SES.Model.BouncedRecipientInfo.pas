@@ -19,6 +19,8 @@ type
     procedure SetRecipientArn(const Value: string);
     function GetRecipientDsnFields: TRecipientDsnFields;
     procedure SetRecipientDsnFields(const Value: TRecipientDsnFields);
+    function GetKeepRecipientDsnFields: Boolean;
+    procedure SetKeepRecipientDsnFields(const Value: Boolean);
     function Obj: TBouncedRecipientInfo;
     function IsSetBounceType: Boolean;
     function IsSetRecipient: Boolean;
@@ -28,6 +30,7 @@ type
     property Recipient: string read GetRecipient write SetRecipient;
     property RecipientArn: string read GetRecipientArn write SetRecipientArn;
     property RecipientDsnFields: TRecipientDsnFields read GetRecipientDsnFields write SetRecipientDsnFields;
+    property KeepRecipientDsnFields: Boolean read GetKeepRecipientDsnFields write SetKeepRecipientDsnFields;
   end;
   
   TBouncedRecipientInfo = class
@@ -36,6 +39,7 @@ type
     FRecipient: Nullable<string>;
     FRecipientArn: Nullable<string>;
     FRecipientDsnFields: TRecipientDsnFields;
+    FKeepRecipientDsnFields: Boolean;
     function GetBounceType: TBounceType;
     procedure SetBounceType(const Value: TBounceType);
     function GetRecipient: string;
@@ -44,6 +48,8 @@ type
     procedure SetRecipientArn(const Value: string);
     function GetRecipientDsnFields: TRecipientDsnFields;
     procedure SetRecipientDsnFields(const Value: TRecipientDsnFields);
+    function GetKeepRecipientDsnFields: Boolean;
+    procedure SetKeepRecipientDsnFields(const Value: Boolean);
   strict protected
     function Obj: TBouncedRecipientInfo;
   public
@@ -56,6 +62,7 @@ type
     property Recipient: string read GetRecipient write SetRecipient;
     property RecipientArn: string read GetRecipientArn write SetRecipientArn;
     property RecipientDsnFields: TRecipientDsnFields read GetRecipientDsnFields write SetRecipientDsnFields;
+    property KeepRecipientDsnFields: Boolean read GetKeepRecipientDsnFields write SetKeepRecipientDsnFields;
   end;
   
 implementation
@@ -127,9 +134,20 @@ procedure TBouncedRecipientInfo.SetRecipientDsnFields(const Value: TRecipientDsn
 begin
   if FRecipientDsnFields <> Value then
   begin
-    FRecipientDsnFields.Free;
+    if not KeepRecipientDsnFields then
+      FRecipientDsnFields.Free;
     FRecipientDsnFields := Value;
   end;
+end;
+
+function TBouncedRecipientInfo.GetKeepRecipientDsnFields: Boolean;
+begin
+  Result := FKeepRecipientDsnFields;
+end;
+
+procedure TBouncedRecipientInfo.SetKeepRecipientDsnFields(const Value: Boolean);
+begin
+  FKeepRecipientDsnFields := Value;
 end;
 
 function TBouncedRecipientInfo.IsSetRecipientDsnFields: Boolean;

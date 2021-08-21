@@ -12,21 +12,27 @@ type
   IReceiptFilter = interface
     function GetIpFilter: TReceiptIpFilter;
     procedure SetIpFilter(const Value: TReceiptIpFilter);
+    function GetKeepIpFilter: Boolean;
+    procedure SetKeepIpFilter(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function Obj: TReceiptFilter;
     function IsSetIpFilter: Boolean;
     function IsSetName: Boolean;
     property IpFilter: TReceiptIpFilter read GetIpFilter write SetIpFilter;
+    property KeepIpFilter: Boolean read GetKeepIpFilter write SetKeepIpFilter;
     property Name: string read GetName write SetName;
   end;
   
   TReceiptFilter = class
   strict private
     FIpFilter: TReceiptIpFilter;
+    FKeepIpFilter: Boolean;
     FName: Nullable<string>;
     function GetIpFilter: TReceiptIpFilter;
     procedure SetIpFilter(const Value: TReceiptIpFilter);
+    function GetKeepIpFilter: Boolean;
+    procedure SetKeepIpFilter(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
   strict protected
@@ -36,6 +42,7 @@ type
     function IsSetIpFilter: Boolean;
     function IsSetName: Boolean;
     property IpFilter: TReceiptIpFilter read GetIpFilter write SetIpFilter;
+    property KeepIpFilter: Boolean read GetKeepIpFilter write SetKeepIpFilter;
     property Name: string read GetName write SetName;
   end;
   
@@ -63,9 +70,20 @@ procedure TReceiptFilter.SetIpFilter(const Value: TReceiptIpFilter);
 begin
   if FIpFilter <> Value then
   begin
-    FIpFilter.Free;
+    if not KeepIpFilter then
+      FIpFilter.Free;
     FIpFilter := Value;
   end;
+end;
+
+function TReceiptFilter.GetKeepIpFilter: Boolean;
+begin
+  Result := FKeepIpFilter;
+end;
+
+procedure TReceiptFilter.SetKeepIpFilter(const Value: Boolean);
+begin
+  FKeepIpFilter := Value;
 end;
 
 function TReceiptFilter.IsSetIpFilter: Boolean;

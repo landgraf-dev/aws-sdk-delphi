@@ -14,21 +14,27 @@ type
   IListLexiconsResponse = interface(IAmazonWebServiceResponse)
     function GetLexicons: TObjectList<TLexiconDescription>;
     procedure SetLexicons(const Value: TObjectList<TLexiconDescription>);
+    function GetKeepLexicons: Boolean;
+    procedure SetKeepLexicons(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function Obj: TListLexiconsResponse;
     function IsSetLexicons: Boolean;
     function IsSetNextToken: Boolean;
     property Lexicons: TObjectList<TLexiconDescription> read GetLexicons write SetLexicons;
+    property KeepLexicons: Boolean read GetKeepLexicons write SetKeepLexicons;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
   TListLexiconsResponse = class(TAmazonWebServiceResponse, IListLexiconsResponse)
   strict private
     FLexicons: TObjectList<TLexiconDescription>;
+    FKeepLexicons: Boolean;
     FNextToken: Nullable<string>;
     function GetLexicons: TObjectList<TLexiconDescription>;
     procedure SetLexicons(const Value: TObjectList<TLexiconDescription>);
+    function GetKeepLexicons: Boolean;
+    procedure SetKeepLexicons(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
   strict protected
@@ -39,6 +45,7 @@ type
     function IsSetLexicons: Boolean;
     function IsSetNextToken: Boolean;
     property Lexicons: TObjectList<TLexiconDescription> read GetLexicons write SetLexicons;
+    property KeepLexicons: Boolean read GetKeepLexicons write SetKeepLexicons;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
@@ -72,9 +79,20 @@ procedure TListLexiconsResponse.SetLexicons(const Value: TObjectList<TLexiconDes
 begin
   if FLexicons <> Value then
   begin
-    FLexicons.Free;
+    if not KeepLexicons then
+      FLexicons.Free;
     FLexicons := Value;
   end;
+end;
+
+function TListLexiconsResponse.GetKeepLexicons: Boolean;
+begin
+  Result := FKeepLexicons;
+end;
+
+procedure TListLexiconsResponse.SetKeepLexicons(const Value: Boolean);
+begin
+  FKeepLexicons := Value;
 end;
 
 function TListLexiconsResponse.IsSetLexicons: Boolean;

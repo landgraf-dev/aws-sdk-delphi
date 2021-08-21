@@ -13,21 +13,27 @@ type
   IDescribeConfigurationSetRequest = interface
     function GetConfigurationSetAttributeNames: TList<string>;
     procedure SetConfigurationSetAttributeNames(const Value: TList<string>);
+    function GetKeepConfigurationSetAttributeNames: Boolean;
+    procedure SetKeepConfigurationSetAttributeNames(const Value: Boolean);
     function GetConfigurationSetName: string;
     procedure SetConfigurationSetName(const Value: string);
     function Obj: TDescribeConfigurationSetRequest;
     function IsSetConfigurationSetAttributeNames: Boolean;
     function IsSetConfigurationSetName: Boolean;
     property ConfigurationSetAttributeNames: TList<string> read GetConfigurationSetAttributeNames write SetConfigurationSetAttributeNames;
+    property KeepConfigurationSetAttributeNames: Boolean read GetKeepConfigurationSetAttributeNames write SetKeepConfigurationSetAttributeNames;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
   end;
   
   TDescribeConfigurationSetRequest = class(TAmazonSimpleEmailServiceRequest, IDescribeConfigurationSetRequest)
   strict private
     FConfigurationSetAttributeNames: TList<string>;
+    FKeepConfigurationSetAttributeNames: Boolean;
     FConfigurationSetName: Nullable<string>;
     function GetConfigurationSetAttributeNames: TList<string>;
     procedure SetConfigurationSetAttributeNames(const Value: TList<string>);
+    function GetKeepConfigurationSetAttributeNames: Boolean;
+    procedure SetKeepConfigurationSetAttributeNames(const Value: Boolean);
     function GetConfigurationSetName: string;
     procedure SetConfigurationSetName(const Value: string);
   strict protected
@@ -38,6 +44,7 @@ type
     function IsSetConfigurationSetAttributeNames: Boolean;
     function IsSetConfigurationSetName: Boolean;
     property ConfigurationSetAttributeNames: TList<string> read GetConfigurationSetAttributeNames write SetConfigurationSetAttributeNames;
+    property KeepConfigurationSetAttributeNames: Boolean read GetKeepConfigurationSetAttributeNames write SetKeepConfigurationSetAttributeNames;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
   end;
   
@@ -71,9 +78,20 @@ procedure TDescribeConfigurationSetRequest.SetConfigurationSetAttributeNames(con
 begin
   if FConfigurationSetAttributeNames <> Value then
   begin
-    FConfigurationSetAttributeNames.Free;
+    if not KeepConfigurationSetAttributeNames then
+      FConfigurationSetAttributeNames.Free;
     FConfigurationSetAttributeNames := Value;
   end;
+end;
+
+function TDescribeConfigurationSetRequest.GetKeepConfigurationSetAttributeNames: Boolean;
+begin
+  Result := FKeepConfigurationSetAttributeNames;
+end;
+
+procedure TDescribeConfigurationSetRequest.SetKeepConfigurationSetAttributeNames(const Value: Boolean);
+begin
+  FKeepConfigurationSetAttributeNames := Value;
 end;
 
 function TDescribeConfigurationSetRequest.IsSetConfigurationSetAttributeNames: Boolean;

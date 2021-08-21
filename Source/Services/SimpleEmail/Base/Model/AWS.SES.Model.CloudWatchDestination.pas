@@ -12,16 +12,22 @@ type
   ICloudWatchDestination = interface
     function GetDimensionConfigurations: TObjectList<TCloudWatchDimensionConfiguration>;
     procedure SetDimensionConfigurations(const Value: TObjectList<TCloudWatchDimensionConfiguration>);
+    function GetKeepDimensionConfigurations: Boolean;
+    procedure SetKeepDimensionConfigurations(const Value: Boolean);
     function Obj: TCloudWatchDestination;
     function IsSetDimensionConfigurations: Boolean;
     property DimensionConfigurations: TObjectList<TCloudWatchDimensionConfiguration> read GetDimensionConfigurations write SetDimensionConfigurations;
+    property KeepDimensionConfigurations: Boolean read GetKeepDimensionConfigurations write SetKeepDimensionConfigurations;
   end;
   
   TCloudWatchDestination = class
   strict private
     FDimensionConfigurations: TObjectList<TCloudWatchDimensionConfiguration>;
+    FKeepDimensionConfigurations: Boolean;
     function GetDimensionConfigurations: TObjectList<TCloudWatchDimensionConfiguration>;
     procedure SetDimensionConfigurations(const Value: TObjectList<TCloudWatchDimensionConfiguration>);
+    function GetKeepDimensionConfigurations: Boolean;
+    procedure SetKeepDimensionConfigurations(const Value: Boolean);
   strict protected
     function Obj: TCloudWatchDestination;
   public
@@ -29,6 +35,7 @@ type
     destructor Destroy; override;
     function IsSetDimensionConfigurations: Boolean;
     property DimensionConfigurations: TObjectList<TCloudWatchDimensionConfiguration> read GetDimensionConfigurations write SetDimensionConfigurations;
+    property KeepDimensionConfigurations: Boolean read GetKeepDimensionConfigurations write SetKeepDimensionConfigurations;
   end;
   
 implementation
@@ -61,9 +68,20 @@ procedure TCloudWatchDestination.SetDimensionConfigurations(const Value: TObject
 begin
   if FDimensionConfigurations <> Value then
   begin
-    FDimensionConfigurations.Free;
+    if not KeepDimensionConfigurations then
+      FDimensionConfigurations.Free;
     FDimensionConfigurations := Value;
   end;
+end;
+
+function TCloudWatchDestination.GetKeepDimensionConfigurations: Boolean;
+begin
+  Result := FKeepDimensionConfigurations;
+end;
+
+procedure TCloudWatchDestination.SetKeepDimensionConfigurations(const Value: Boolean);
+begin
+  FKeepDimensionConfigurations := Value;
 end;
 
 function TCloudWatchDestination.IsSetDimensionConfigurations: Boolean;

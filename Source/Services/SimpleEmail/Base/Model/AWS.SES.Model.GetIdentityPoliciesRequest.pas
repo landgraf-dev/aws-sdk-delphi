@@ -15,21 +15,27 @@ type
     procedure SetIdentity(const Value: string);
     function GetPolicyNames: TList<string>;
     procedure SetPolicyNames(const Value: TList<string>);
+    function GetKeepPolicyNames: Boolean;
+    procedure SetKeepPolicyNames(const Value: Boolean);
     function Obj: TGetIdentityPoliciesRequest;
     function IsSetIdentity: Boolean;
     function IsSetPolicyNames: Boolean;
     property Identity: string read GetIdentity write SetIdentity;
     property PolicyNames: TList<string> read GetPolicyNames write SetPolicyNames;
+    property KeepPolicyNames: Boolean read GetKeepPolicyNames write SetKeepPolicyNames;
   end;
   
   TGetIdentityPoliciesRequest = class(TAmazonSimpleEmailServiceRequest, IGetIdentityPoliciesRequest)
   strict private
     FIdentity: Nullable<string>;
     FPolicyNames: TList<string>;
+    FKeepPolicyNames: Boolean;
     function GetIdentity: string;
     procedure SetIdentity(const Value: string);
     function GetPolicyNames: TList<string>;
     procedure SetPolicyNames(const Value: TList<string>);
+    function GetKeepPolicyNames: Boolean;
+    procedure SetKeepPolicyNames(const Value: Boolean);
   strict protected
     function Obj: TGetIdentityPoliciesRequest;
   public
@@ -39,6 +45,7 @@ type
     function IsSetPolicyNames: Boolean;
     property Identity: string read GetIdentity write SetIdentity;
     property PolicyNames: TList<string> read GetPolicyNames write SetPolicyNames;
+    property KeepPolicyNames: Boolean read GetKeepPolicyNames write SetKeepPolicyNames;
   end;
   
 implementation
@@ -86,9 +93,20 @@ procedure TGetIdentityPoliciesRequest.SetPolicyNames(const Value: TList<string>)
 begin
   if FPolicyNames <> Value then
   begin
-    FPolicyNames.Free;
+    if not KeepPolicyNames then
+      FPolicyNames.Free;
     FPolicyNames := Value;
   end;
+end;
+
+function TGetIdentityPoliciesRequest.GetKeepPolicyNames: Boolean;
+begin
+  Result := FKeepPolicyNames;
+end;
+
+procedure TGetIdentityPoliciesRequest.SetKeepPolicyNames(const Value: Boolean);
+begin
+  FKeepPolicyNames := Value;
 end;
 
 function TGetIdentityPoliciesRequest.IsSetPolicyNames: Boolean;

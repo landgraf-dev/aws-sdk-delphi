@@ -14,21 +14,27 @@ type
   IChangeMessageVisibilityBatchRequest = interface
     function GetEntries: TObjectList<TChangeMessageVisibilityBatchRequestEntry>;
     procedure SetEntries(const Value: TObjectList<TChangeMessageVisibilityBatchRequestEntry>);
+    function GetKeepEntries: Boolean;
+    procedure SetKeepEntries(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function Obj: TChangeMessageVisibilityBatchRequest;
     function IsSetEntries: Boolean;
     function IsSetQueueUrl: Boolean;
     property Entries: TObjectList<TChangeMessageVisibilityBatchRequestEntry> read GetEntries write SetEntries;
+    property KeepEntries: Boolean read GetKeepEntries write SetKeepEntries;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
   TChangeMessageVisibilityBatchRequest = class(TAmazonSQSRequest, IChangeMessageVisibilityBatchRequest)
   strict private
     FEntries: TObjectList<TChangeMessageVisibilityBatchRequestEntry>;
+    FKeepEntries: Boolean;
     FQueueUrl: Nullable<string>;
     function GetEntries: TObjectList<TChangeMessageVisibilityBatchRequestEntry>;
     procedure SetEntries(const Value: TObjectList<TChangeMessageVisibilityBatchRequestEntry>);
+    function GetKeepEntries: Boolean;
+    procedure SetKeepEntries(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
   strict protected
@@ -40,6 +46,7 @@ type
     function IsSetEntries: Boolean;
     function IsSetQueueUrl: Boolean;
     property Entries: TObjectList<TChangeMessageVisibilityBatchRequestEntry> read GetEntries write SetEntries;
+    property KeepEntries: Boolean read GetKeepEntries write SetKeepEntries;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
@@ -80,9 +87,20 @@ procedure TChangeMessageVisibilityBatchRequest.SetEntries(const Value: TObjectLi
 begin
   if FEntries <> Value then
   begin
-    FEntries.Free;
+    if not KeepEntries then
+      FEntries.Free;
     FEntries := Value;
   end;
+end;
+
+function TChangeMessageVisibilityBatchRequest.GetKeepEntries: Boolean;
+begin
+  Result := FKeepEntries;
+end;
+
+procedure TChangeMessageVisibilityBatchRequest.SetKeepEntries(const Value: Boolean);
+begin
+  FKeepEntries := Value;
 end;
 
 function TChangeMessageVisibilityBatchRequest.IsSetEntries: Boolean;

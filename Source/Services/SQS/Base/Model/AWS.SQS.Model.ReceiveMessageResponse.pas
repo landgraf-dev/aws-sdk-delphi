@@ -13,16 +13,22 @@ type
   IReceiveMessageResponse = interface(IAmazonWebServiceResponse)
     function GetMessages: TObjectList<TMessage>;
     procedure SetMessages(const Value: TObjectList<TMessage>);
+    function GetKeepMessages: Boolean;
+    procedure SetKeepMessages(const Value: Boolean);
     function Obj: TReceiveMessageResponse;
     function IsSetMessages: Boolean;
     property Messages: TObjectList<TMessage> read GetMessages write SetMessages;
+    property KeepMessages: Boolean read GetKeepMessages write SetKeepMessages;
   end;
   
   TReceiveMessageResponse = class(TAmazonWebServiceResponse, IReceiveMessageResponse)
   strict private
     FMessages: TObjectList<TMessage>;
+    FKeepMessages: Boolean;
     function GetMessages: TObjectList<TMessage>;
     procedure SetMessages(const Value: TObjectList<TMessage>);
+    function GetKeepMessages: Boolean;
+    procedure SetKeepMessages(const Value: Boolean);
   strict protected
     function Obj: TReceiveMessageResponse;
   public
@@ -30,6 +36,7 @@ type
     destructor Destroy; override;
     function IsSetMessages: Boolean;
     property Messages: TObjectList<TMessage> read GetMessages write SetMessages;
+    property KeepMessages: Boolean read GetKeepMessages write SetKeepMessages;
   end;
   
 implementation
@@ -62,9 +69,20 @@ procedure TReceiveMessageResponse.SetMessages(const Value: TObjectList<TMessage>
 begin
   if FMessages <> Value then
   begin
-    FMessages.Free;
+    if not KeepMessages then
+      FMessages.Free;
     FMessages := Value;
   end;
+end;
+
+function TReceiveMessageResponse.GetKeepMessages: Boolean;
+begin
+  Result := FKeepMessages;
+end;
+
+procedure TReceiveMessageResponse.SetKeepMessages(const Value: Boolean);
+begin
+  FKeepMessages := Value;
 end;
 
 function TReceiveMessageResponse.IsSetMessages: Boolean;

@@ -12,22 +12,29 @@ type
   IGetTemplateResponse = interface(IAmazonWebServiceResponse)
     function GetTemplate: TTemplate;
     procedure SetTemplate(const Value: TTemplate);
+    function GetKeepTemplate: Boolean;
+    procedure SetKeepTemplate(const Value: Boolean);
     function Obj: TGetTemplateResponse;
     function IsSetTemplate: Boolean;
     property Template: TTemplate read GetTemplate write SetTemplate;
+    property KeepTemplate: Boolean read GetKeepTemplate write SetKeepTemplate;
   end;
   
   TGetTemplateResponse = class(TAmazonWebServiceResponse, IGetTemplateResponse)
   strict private
     FTemplate: TTemplate;
+    FKeepTemplate: Boolean;
     function GetTemplate: TTemplate;
     procedure SetTemplate(const Value: TTemplate);
+    function GetKeepTemplate: Boolean;
+    procedure SetKeepTemplate(const Value: Boolean);
   strict protected
     function Obj: TGetTemplateResponse;
   public
     destructor Destroy; override;
     function IsSetTemplate: Boolean;
     property Template: TTemplate read GetTemplate write SetTemplate;
+    property KeepTemplate: Boolean read GetKeepTemplate write SetKeepTemplate;
   end;
   
 implementation
@@ -54,9 +61,20 @@ procedure TGetTemplateResponse.SetTemplate(const Value: TTemplate);
 begin
   if FTemplate <> Value then
   begin
-    FTemplate.Free;
+    if not KeepTemplate then
+      FTemplate.Free;
     FTemplate := Value;
   end;
+end;
+
+function TGetTemplateResponse.GetKeepTemplate: Boolean;
+begin
+  Result := FKeepTemplate;
+end;
+
+procedure TGetTemplateResponse.SetKeepTemplate(const Value: Boolean);
+begin
+  FKeepTemplate := Value;
 end;
 
 function TGetTemplateResponse.IsSetTemplate: Boolean;

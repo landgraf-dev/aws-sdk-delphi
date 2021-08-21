@@ -14,21 +14,27 @@ type
   IListEndpointsByPlatformApplicationResponse = interface(IAmazonWebServiceResponse)
     function GetEndpoints: TObjectList<TEndpoint>;
     procedure SetEndpoints(const Value: TObjectList<TEndpoint>);
+    function GetKeepEndpoints: Boolean;
+    procedure SetKeepEndpoints(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function Obj: TListEndpointsByPlatformApplicationResponse;
     function IsSetEndpoints: Boolean;
     function IsSetNextToken: Boolean;
     property Endpoints: TObjectList<TEndpoint> read GetEndpoints write SetEndpoints;
+    property KeepEndpoints: Boolean read GetKeepEndpoints write SetKeepEndpoints;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
   TListEndpointsByPlatformApplicationResponse = class(TAmazonWebServiceResponse, IListEndpointsByPlatformApplicationResponse)
   strict private
     FEndpoints: TObjectList<TEndpoint>;
+    FKeepEndpoints: Boolean;
     FNextToken: Nullable<string>;
     function GetEndpoints: TObjectList<TEndpoint>;
     procedure SetEndpoints(const Value: TObjectList<TEndpoint>);
+    function GetKeepEndpoints: Boolean;
+    procedure SetKeepEndpoints(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
   strict protected
@@ -39,6 +45,7 @@ type
     function IsSetEndpoints: Boolean;
     function IsSetNextToken: Boolean;
     property Endpoints: TObjectList<TEndpoint> read GetEndpoints write SetEndpoints;
+    property KeepEndpoints: Boolean read GetKeepEndpoints write SetKeepEndpoints;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
@@ -72,9 +79,20 @@ procedure TListEndpointsByPlatformApplicationResponse.SetEndpoints(const Value: 
 begin
   if FEndpoints <> Value then
   begin
-    FEndpoints.Free;
+    if not KeepEndpoints then
+      FEndpoints.Free;
     FEndpoints := Value;
   end;
+end;
+
+function TListEndpointsByPlatformApplicationResponse.GetKeepEndpoints: Boolean;
+begin
+  Result := FKeepEndpoints;
+end;
+
+procedure TListEndpointsByPlatformApplicationResponse.SetKeepEndpoints(const Value: Boolean);
+begin
+  FKeepEndpoints := Value;
 end;
 
 function TListEndpointsByPlatformApplicationResponse.IsSetEndpoints: Boolean;

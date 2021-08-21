@@ -12,16 +12,22 @@ type
   IGetIdentityDkimAttributesRequest = interface
     function GetIdentities: TList<string>;
     procedure SetIdentities(const Value: TList<string>);
+    function GetKeepIdentities: Boolean;
+    procedure SetKeepIdentities(const Value: Boolean);
     function Obj: TGetIdentityDkimAttributesRequest;
     function IsSetIdentities: Boolean;
     property Identities: TList<string> read GetIdentities write SetIdentities;
+    property KeepIdentities: Boolean read GetKeepIdentities write SetKeepIdentities;
   end;
   
   TGetIdentityDkimAttributesRequest = class(TAmazonSimpleEmailServiceRequest, IGetIdentityDkimAttributesRequest)
   strict private
     FIdentities: TList<string>;
+    FKeepIdentities: Boolean;
     function GetIdentities: TList<string>;
     procedure SetIdentities(const Value: TList<string>);
+    function GetKeepIdentities: Boolean;
+    procedure SetKeepIdentities(const Value: Boolean);
   strict protected
     function Obj: TGetIdentityDkimAttributesRequest;
   public
@@ -29,6 +35,7 @@ type
     destructor Destroy; override;
     function IsSetIdentities: Boolean;
     property Identities: TList<string> read GetIdentities write SetIdentities;
+    property KeepIdentities: Boolean read GetKeepIdentities write SetKeepIdentities;
   end;
   
 implementation
@@ -61,9 +68,20 @@ procedure TGetIdentityDkimAttributesRequest.SetIdentities(const Value: TList<str
 begin
   if FIdentities <> Value then
   begin
-    FIdentities.Free;
+    if not KeepIdentities then
+      FIdentities.Free;
     FIdentities := Value;
   end;
+end;
+
+function TGetIdentityDkimAttributesRequest.GetKeepIdentities: Boolean;
+begin
+  Result := FKeepIdentities;
+end;
+
+procedure TGetIdentityDkimAttributesRequest.SetKeepIdentities(const Value: Boolean);
+begin
+  FKeepIdentities := Value;
 end;
 
 function TGetIdentityDkimAttributesRequest.IsSetIdentities: Boolean;

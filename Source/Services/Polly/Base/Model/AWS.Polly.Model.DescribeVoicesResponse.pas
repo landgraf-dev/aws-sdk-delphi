@@ -16,21 +16,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetVoices: TObjectList<TVoice>;
     procedure SetVoices(const Value: TObjectList<TVoice>);
+    function GetKeepVoices: Boolean;
+    procedure SetKeepVoices(const Value: Boolean);
     function Obj: TDescribeVoicesResponse;
     function IsSetNextToken: Boolean;
     function IsSetVoices: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property Voices: TObjectList<TVoice> read GetVoices write SetVoices;
+    property KeepVoices: Boolean read GetKeepVoices write SetKeepVoices;
   end;
   
   TDescribeVoicesResponse = class(TAmazonWebServiceResponse, IDescribeVoicesResponse)
   strict private
     FNextToken: Nullable<string>;
     FVoices: TObjectList<TVoice>;
+    FKeepVoices: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetVoices: TObjectList<TVoice>;
     procedure SetVoices(const Value: TObjectList<TVoice>);
+    function GetKeepVoices: Boolean;
+    procedure SetKeepVoices(const Value: Boolean);
   strict protected
     function Obj: TDescribeVoicesResponse;
   public
@@ -40,6 +46,7 @@ type
     function IsSetVoices: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property Voices: TObjectList<TVoice> read GetVoices write SetVoices;
+    property KeepVoices: Boolean read GetKeepVoices write SetKeepVoices;
   end;
   
 implementation
@@ -87,9 +94,20 @@ procedure TDescribeVoicesResponse.SetVoices(const Value: TObjectList<TVoice>);
 begin
   if FVoices <> Value then
   begin
-    FVoices.Free;
+    if not KeepVoices then
+      FVoices.Free;
     FVoices := Value;
   end;
+end;
+
+function TDescribeVoicesResponse.GetKeepVoices: Boolean;
+begin
+  Result := FKeepVoices;
+end;
+
+procedure TDescribeVoicesResponse.SetKeepVoices(const Value: Boolean);
+begin
+  FKeepVoices := Value;
 end;
 
 function TDescribeVoicesResponse.IsSetVoices: Boolean;

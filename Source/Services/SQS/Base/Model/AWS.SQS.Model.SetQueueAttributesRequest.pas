@@ -13,21 +13,27 @@ type
   ISetQueueAttributesRequest = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function Obj: TSetQueueAttributesRequest;
     function IsSetAttributes: Boolean;
     function IsSetQueueUrl: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
   TSetQueueAttributesRequest = class(TAmazonSQSRequest, ISetQueueAttributesRequest)
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FQueueUrl: Nullable<string>;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
   strict protected
@@ -39,6 +45,7 @@ type
     function IsSetAttributes: Boolean;
     function IsSetQueueUrl: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
@@ -79,9 +86,20 @@ procedure TSetQueueAttributesRequest.SetAttributes(const Value: TDictionary<stri
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TSetQueueAttributesRequest.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TSetQueueAttributesRequest.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TSetQueueAttributesRequest.IsSetAttributes: Boolean;

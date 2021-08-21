@@ -14,21 +14,27 @@ type
   IListCustomVerificationEmailTemplatesResponse = interface(IAmazonWebServiceResponse)
     function GetCustomVerificationEmailTemplates: TObjectList<TCustomVerificationEmailTemplate>;
     procedure SetCustomVerificationEmailTemplates(const Value: TObjectList<TCustomVerificationEmailTemplate>);
+    function GetKeepCustomVerificationEmailTemplates: Boolean;
+    procedure SetKeepCustomVerificationEmailTemplates(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function Obj: TListCustomVerificationEmailTemplatesResponse;
     function IsSetCustomVerificationEmailTemplates: Boolean;
     function IsSetNextToken: Boolean;
     property CustomVerificationEmailTemplates: TObjectList<TCustomVerificationEmailTemplate> read GetCustomVerificationEmailTemplates write SetCustomVerificationEmailTemplates;
+    property KeepCustomVerificationEmailTemplates: Boolean read GetKeepCustomVerificationEmailTemplates write SetKeepCustomVerificationEmailTemplates;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
   TListCustomVerificationEmailTemplatesResponse = class(TAmazonWebServiceResponse, IListCustomVerificationEmailTemplatesResponse)
   strict private
     FCustomVerificationEmailTemplates: TObjectList<TCustomVerificationEmailTemplate>;
+    FKeepCustomVerificationEmailTemplates: Boolean;
     FNextToken: Nullable<string>;
     function GetCustomVerificationEmailTemplates: TObjectList<TCustomVerificationEmailTemplate>;
     procedure SetCustomVerificationEmailTemplates(const Value: TObjectList<TCustomVerificationEmailTemplate>);
+    function GetKeepCustomVerificationEmailTemplates: Boolean;
+    procedure SetKeepCustomVerificationEmailTemplates(const Value: Boolean);
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
   strict protected
@@ -39,6 +45,7 @@ type
     function IsSetCustomVerificationEmailTemplates: Boolean;
     function IsSetNextToken: Boolean;
     property CustomVerificationEmailTemplates: TObjectList<TCustomVerificationEmailTemplate> read GetCustomVerificationEmailTemplates write SetCustomVerificationEmailTemplates;
+    property KeepCustomVerificationEmailTemplates: Boolean read GetKeepCustomVerificationEmailTemplates write SetKeepCustomVerificationEmailTemplates;
     property NextToken: string read GetNextToken write SetNextToken;
   end;
   
@@ -72,9 +79,20 @@ procedure TListCustomVerificationEmailTemplatesResponse.SetCustomVerificationEma
 begin
   if FCustomVerificationEmailTemplates <> Value then
   begin
-    FCustomVerificationEmailTemplates.Free;
+    if not KeepCustomVerificationEmailTemplates then
+      FCustomVerificationEmailTemplates.Free;
     FCustomVerificationEmailTemplates := Value;
   end;
+end;
+
+function TListCustomVerificationEmailTemplatesResponse.GetKeepCustomVerificationEmailTemplates: Boolean;
+begin
+  Result := FKeepCustomVerificationEmailTemplates;
+end;
+
+procedure TListCustomVerificationEmailTemplatesResponse.SetKeepCustomVerificationEmailTemplates(const Value: Boolean);
+begin
+  FKeepCustomVerificationEmailTemplates := Value;
 end;
 
 function TListCustomVerificationEmailTemplatesResponse.IsSetCustomVerificationEmailTemplates: Boolean;

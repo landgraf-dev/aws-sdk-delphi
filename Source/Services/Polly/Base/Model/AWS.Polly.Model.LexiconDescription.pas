@@ -12,21 +12,27 @@ type
   ILexiconDescription = interface
     function GetAttributes: TLexiconAttributes;
     procedure SetAttributes(const Value: TLexiconAttributes);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function Obj: TLexiconDescription;
     function IsSetAttributes: Boolean;
     function IsSetName: Boolean;
     property Attributes: TLexiconAttributes read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Name: string read GetName write SetName;
   end;
   
   TLexiconDescription = class
   strict private
     FAttributes: TLexiconAttributes;
+    FKeepAttributes: Boolean;
     FName: Nullable<string>;
     function GetAttributes: TLexiconAttributes;
     procedure SetAttributes(const Value: TLexiconAttributes);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
   strict protected
@@ -36,6 +42,7 @@ type
     function IsSetAttributes: Boolean;
     function IsSetName: Boolean;
     property Attributes: TLexiconAttributes read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property Name: string read GetName write SetName;
   end;
   
@@ -63,9 +70,20 @@ procedure TLexiconDescription.SetAttributes(const Value: TLexiconAttributes);
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TLexiconDescription.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TLexiconDescription.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TLexiconDescription.IsSetAttributes: Boolean;

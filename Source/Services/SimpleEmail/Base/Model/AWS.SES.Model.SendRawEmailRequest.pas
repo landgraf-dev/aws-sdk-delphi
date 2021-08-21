@@ -17,10 +17,14 @@ type
     procedure SetConfigurationSetName(const Value: string);
     function GetDestinations: TList<string>;
     procedure SetDestinations(const Value: TList<string>);
+    function GetKeepDestinations: Boolean;
+    procedure SetKeepDestinations(const Value: Boolean);
     function GetFromArn: string;
     procedure SetFromArn(const Value: string);
     function GetRawMessage: TRawMessage;
     procedure SetRawMessage(const Value: TRawMessage);
+    function GetKeepRawMessage: Boolean;
+    procedure SetKeepRawMessage(const Value: Boolean);
     function GetReturnPathArn: string;
     procedure SetReturnPathArn(const Value: string);
     function GetSource: string;
@@ -29,6 +33,8 @@ type
     procedure SetSourceArn(const Value: string);
     function GetTags: TObjectList<TMessageTag>;
     procedure SetTags(const Value: TObjectList<TMessageTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function Obj: TSendRawEmailRequest;
     function IsSetConfigurationSetName: Boolean;
     function IsSetDestinations: Boolean;
@@ -40,32 +46,42 @@ type
     function IsSetTags: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property Destinations: TList<string> read GetDestinations write SetDestinations;
+    property KeepDestinations: Boolean read GetKeepDestinations write SetKeepDestinations;
     property FromArn: string read GetFromArn write SetFromArn;
     property RawMessage: TRawMessage read GetRawMessage write SetRawMessage;
+    property KeepRawMessage: Boolean read GetKeepRawMessage write SetKeepRawMessage;
     property ReturnPathArn: string read GetReturnPathArn write SetReturnPathArn;
     property Source: string read GetSource write SetSource;
     property SourceArn: string read GetSourceArn write SetSourceArn;
     property Tags: TObjectList<TMessageTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
   TSendRawEmailRequest = class(TAmazonSimpleEmailServiceRequest, ISendRawEmailRequest)
   strict private
     FConfigurationSetName: Nullable<string>;
     FDestinations: TList<string>;
+    FKeepDestinations: Boolean;
     FFromArn: Nullable<string>;
     FRawMessage: TRawMessage;
+    FKeepRawMessage: Boolean;
     FReturnPathArn: Nullable<string>;
     FSource: Nullable<string>;
     FSourceArn: Nullable<string>;
     FTags: TObjectList<TMessageTag>;
+    FKeepTags: Boolean;
     function GetConfigurationSetName: string;
     procedure SetConfigurationSetName(const Value: string);
     function GetDestinations: TList<string>;
     procedure SetDestinations(const Value: TList<string>);
+    function GetKeepDestinations: Boolean;
+    procedure SetKeepDestinations(const Value: Boolean);
     function GetFromArn: string;
     procedure SetFromArn(const Value: string);
     function GetRawMessage: TRawMessage;
     procedure SetRawMessage(const Value: TRawMessage);
+    function GetKeepRawMessage: Boolean;
+    procedure SetKeepRawMessage(const Value: Boolean);
     function GetReturnPathArn: string;
     procedure SetReturnPathArn(const Value: string);
     function GetSource: string;
@@ -74,6 +90,8 @@ type
     procedure SetSourceArn(const Value: string);
     function GetTags: TObjectList<TMessageTag>;
     procedure SetTags(const Value: TObjectList<TMessageTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
   strict protected
     function Obj: TSendRawEmailRequest;
   public
@@ -90,12 +108,15 @@ type
     function IsSetTags: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property Destinations: TList<string> read GetDestinations write SetDestinations;
+    property KeepDestinations: Boolean read GetKeepDestinations write SetKeepDestinations;
     property FromArn: string read GetFromArn write SetFromArn;
     property RawMessage: TRawMessage read GetRawMessage write SetRawMessage;
+    property KeepRawMessage: Boolean read GetKeepRawMessage write SetKeepRawMessage;
     property ReturnPathArn: string read GetReturnPathArn write SetReturnPathArn;
     property Source: string read GetSource write SetSource;
     property SourceArn: string read GetSourceArn write SetSourceArn;
     property Tags: TObjectList<TMessageTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
   end;
   
 implementation
@@ -152,9 +173,20 @@ procedure TSendRawEmailRequest.SetDestinations(const Value: TList<string>);
 begin
   if FDestinations <> Value then
   begin
-    FDestinations.Free;
+    if not KeepDestinations then
+      FDestinations.Free;
     FDestinations := Value;
   end;
+end;
+
+function TSendRawEmailRequest.GetKeepDestinations: Boolean;
+begin
+  Result := FKeepDestinations;
+end;
+
+procedure TSendRawEmailRequest.SetKeepDestinations(const Value: Boolean);
+begin
+  FKeepDestinations := Value;
 end;
 
 function TSendRawEmailRequest.IsSetDestinations: Boolean;
@@ -186,9 +218,20 @@ procedure TSendRawEmailRequest.SetRawMessage(const Value: TRawMessage);
 begin
   if FRawMessage <> Value then
   begin
-    FRawMessage.Free;
+    if not KeepRawMessage then
+      FRawMessage.Free;
     FRawMessage := Value;
   end;
+end;
+
+function TSendRawEmailRequest.GetKeepRawMessage: Boolean;
+begin
+  Result := FKeepRawMessage;
+end;
+
+procedure TSendRawEmailRequest.SetKeepRawMessage(const Value: Boolean);
+begin
+  FKeepRawMessage := Value;
 end;
 
 function TSendRawEmailRequest.IsSetRawMessage: Boolean;
@@ -250,9 +293,20 @@ procedure TSendRawEmailRequest.SetTags(const Value: TObjectList<TMessageTag>);
 begin
   if FTags <> Value then
   begin
-    FTags.Free;
+    if not KeepTags then
+      FTags.Free;
     FTags := Value;
   end;
+end;
+
+function TSendRawEmailRequest.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TSendRawEmailRequest.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
 end;
 
 function TSendRawEmailRequest.IsSetTags: Boolean;

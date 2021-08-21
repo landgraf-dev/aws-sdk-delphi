@@ -12,16 +12,22 @@ type
   ISetSMSAttributesRequest = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function Obj: TSetSMSAttributesRequest;
     function IsSetAttributes: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
   end;
   
   TSetSMSAttributesRequest = class(TAmazonSimpleNotificationServiceRequest, ISetSMSAttributesRequest)
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
   strict protected
     function Obj: TSetSMSAttributesRequest;
   public
@@ -29,6 +35,7 @@ type
     destructor Destroy; override;
     function IsSetAttributes: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
   end;
   
 implementation
@@ -61,9 +68,20 @@ procedure TSetSMSAttributesRequest.SetAttributes(const Value: TDictionary<string
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TSetSMSAttributesRequest.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TSetSMSAttributesRequest.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TSetSMSAttributesRequest.IsSetAttributes: Boolean;

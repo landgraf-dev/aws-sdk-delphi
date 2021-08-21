@@ -19,10 +19,14 @@ type
     procedure SetBounceSenderArn(const Value: string);
     function GetBouncedRecipientInfoList: TObjectList<TBouncedRecipientInfo>;
     procedure SetBouncedRecipientInfoList(const Value: TObjectList<TBouncedRecipientInfo>);
+    function GetKeepBouncedRecipientInfoList: Boolean;
+    procedure SetKeepBouncedRecipientInfoList(const Value: Boolean);
     function GetExplanation: string;
     procedure SetExplanation(const Value: string);
     function GetMessageDsn: TMessageDsn;
     procedure SetMessageDsn(const Value: TMessageDsn);
+    function GetKeepMessageDsn: Boolean;
+    procedure SetKeepMessageDsn(const Value: Boolean);
     function GetOriginalMessageId: string;
     procedure SetOriginalMessageId(const Value: string);
     function Obj: TSendBounceRequest;
@@ -35,8 +39,10 @@ type
     property BounceSender: string read GetBounceSender write SetBounceSender;
     property BounceSenderArn: string read GetBounceSenderArn write SetBounceSenderArn;
     property BouncedRecipientInfoList: TObjectList<TBouncedRecipientInfo> read GetBouncedRecipientInfoList write SetBouncedRecipientInfoList;
+    property KeepBouncedRecipientInfoList: Boolean read GetKeepBouncedRecipientInfoList write SetKeepBouncedRecipientInfoList;
     property Explanation: string read GetExplanation write SetExplanation;
     property MessageDsn: TMessageDsn read GetMessageDsn write SetMessageDsn;
+    property KeepMessageDsn: Boolean read GetKeepMessageDsn write SetKeepMessageDsn;
     property OriginalMessageId: string read GetOriginalMessageId write SetOriginalMessageId;
   end;
   
@@ -45,8 +51,10 @@ type
     FBounceSender: Nullable<string>;
     FBounceSenderArn: Nullable<string>;
     FBouncedRecipientInfoList: TObjectList<TBouncedRecipientInfo>;
+    FKeepBouncedRecipientInfoList: Boolean;
     FExplanation: Nullable<string>;
     FMessageDsn: TMessageDsn;
+    FKeepMessageDsn: Boolean;
     FOriginalMessageId: Nullable<string>;
     function GetBounceSender: string;
     procedure SetBounceSender(const Value: string);
@@ -54,10 +62,14 @@ type
     procedure SetBounceSenderArn(const Value: string);
     function GetBouncedRecipientInfoList: TObjectList<TBouncedRecipientInfo>;
     procedure SetBouncedRecipientInfoList(const Value: TObjectList<TBouncedRecipientInfo>);
+    function GetKeepBouncedRecipientInfoList: Boolean;
+    procedure SetKeepBouncedRecipientInfoList(const Value: Boolean);
     function GetExplanation: string;
     procedure SetExplanation(const Value: string);
     function GetMessageDsn: TMessageDsn;
     procedure SetMessageDsn(const Value: TMessageDsn);
+    function GetKeepMessageDsn: Boolean;
+    procedure SetKeepMessageDsn(const Value: Boolean);
     function GetOriginalMessageId: string;
     procedure SetOriginalMessageId(const Value: string);
   strict protected
@@ -74,8 +86,10 @@ type
     property BounceSender: string read GetBounceSender write SetBounceSender;
     property BounceSenderArn: string read GetBounceSenderArn write SetBounceSenderArn;
     property BouncedRecipientInfoList: TObjectList<TBouncedRecipientInfo> read GetBouncedRecipientInfoList write SetBouncedRecipientInfoList;
+    property KeepBouncedRecipientInfoList: Boolean read GetKeepBouncedRecipientInfoList write SetKeepBouncedRecipientInfoList;
     property Explanation: string read GetExplanation write SetExplanation;
     property MessageDsn: TMessageDsn read GetMessageDsn write SetMessageDsn;
+    property KeepMessageDsn: Boolean read GetKeepMessageDsn write SetKeepMessageDsn;
     property OriginalMessageId: string read GetOriginalMessageId write SetOriginalMessageId;
   end;
   
@@ -140,9 +154,20 @@ procedure TSendBounceRequest.SetBouncedRecipientInfoList(const Value: TObjectLis
 begin
   if FBouncedRecipientInfoList <> Value then
   begin
-    FBouncedRecipientInfoList.Free;
+    if not KeepBouncedRecipientInfoList then
+      FBouncedRecipientInfoList.Free;
     FBouncedRecipientInfoList := Value;
   end;
+end;
+
+function TSendBounceRequest.GetKeepBouncedRecipientInfoList: Boolean;
+begin
+  Result := FKeepBouncedRecipientInfoList;
+end;
+
+procedure TSendBounceRequest.SetKeepBouncedRecipientInfoList(const Value: Boolean);
+begin
+  FKeepBouncedRecipientInfoList := Value;
 end;
 
 function TSendBounceRequest.IsSetBouncedRecipientInfoList: Boolean;
@@ -174,9 +199,20 @@ procedure TSendBounceRequest.SetMessageDsn(const Value: TMessageDsn);
 begin
   if FMessageDsn <> Value then
   begin
-    FMessageDsn.Free;
+    if not KeepMessageDsn then
+      FMessageDsn.Free;
     FMessageDsn := Value;
   end;
+end;
+
+function TSendBounceRequest.GetKeepMessageDsn: Boolean;
+begin
+  Result := FKeepMessageDsn;
+end;
+
+procedure TSendBounceRequest.SetKeepMessageDsn(const Value: Boolean);
+begin
+  FKeepMessageDsn := Value;
 end;
 
 function TSendBounceRequest.IsSetMessageDsn: Boolean;

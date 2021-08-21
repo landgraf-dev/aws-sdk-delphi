@@ -13,21 +13,27 @@ type
   IReorderReceiptRuleSetRequest = interface
     function GetRuleNames: TList<string>;
     procedure SetRuleNames(const Value: TList<string>);
+    function GetKeepRuleNames: Boolean;
+    procedure SetKeepRuleNames(const Value: Boolean);
     function GetRuleSetName: string;
     procedure SetRuleSetName(const Value: string);
     function Obj: TReorderReceiptRuleSetRequest;
     function IsSetRuleNames: Boolean;
     function IsSetRuleSetName: Boolean;
     property RuleNames: TList<string> read GetRuleNames write SetRuleNames;
+    property KeepRuleNames: Boolean read GetKeepRuleNames write SetKeepRuleNames;
     property RuleSetName: string read GetRuleSetName write SetRuleSetName;
   end;
   
   TReorderReceiptRuleSetRequest = class(TAmazonSimpleEmailServiceRequest, IReorderReceiptRuleSetRequest)
   strict private
     FRuleNames: TList<string>;
+    FKeepRuleNames: Boolean;
     FRuleSetName: Nullable<string>;
     function GetRuleNames: TList<string>;
     procedure SetRuleNames(const Value: TList<string>);
+    function GetKeepRuleNames: Boolean;
+    procedure SetKeepRuleNames(const Value: Boolean);
     function GetRuleSetName: string;
     procedure SetRuleSetName(const Value: string);
   strict protected
@@ -38,6 +44,7 @@ type
     function IsSetRuleNames: Boolean;
     function IsSetRuleSetName: Boolean;
     property RuleNames: TList<string> read GetRuleNames write SetRuleNames;
+    property KeepRuleNames: Boolean read GetKeepRuleNames write SetKeepRuleNames;
     property RuleSetName: string read GetRuleSetName write SetRuleSetName;
   end;
   
@@ -71,9 +78,20 @@ procedure TReorderReceiptRuleSetRequest.SetRuleNames(const Value: TList<string>)
 begin
   if FRuleNames <> Value then
   begin
-    FRuleNames.Free;
+    if not KeepRuleNames then
+      FRuleNames.Free;
     FRuleNames := Value;
   end;
+end;
+
+function TReorderReceiptRuleSetRequest.GetKeepRuleNames: Boolean;
+begin
+  Result := FKeepRuleNames;
+end;
+
+procedure TReorderReceiptRuleSetRequest.SetKeepRuleNames(const Value: Boolean);
+begin
+  FKeepRuleNames := Value;
 end;
 
 function TReorderReceiptRuleSetRequest.IsSetRuleNames: Boolean;

@@ -11,30 +11,48 @@ type
   IDestination = interface
     function GetBccAddresses: TList<string>;
     procedure SetBccAddresses(const Value: TList<string>);
+    function GetKeepBccAddresses: Boolean;
+    procedure SetKeepBccAddresses(const Value: Boolean);
     function GetCcAddresses: TList<string>;
     procedure SetCcAddresses(const Value: TList<string>);
+    function GetKeepCcAddresses: Boolean;
+    procedure SetKeepCcAddresses(const Value: Boolean);
     function GetToAddresses: TList<string>;
     procedure SetToAddresses(const Value: TList<string>);
+    function GetKeepToAddresses: Boolean;
+    procedure SetKeepToAddresses(const Value: Boolean);
     function Obj: TDestination;
     function IsSetBccAddresses: Boolean;
     function IsSetCcAddresses: Boolean;
     function IsSetToAddresses: Boolean;
     property BccAddresses: TList<string> read GetBccAddresses write SetBccAddresses;
+    property KeepBccAddresses: Boolean read GetKeepBccAddresses write SetKeepBccAddresses;
     property CcAddresses: TList<string> read GetCcAddresses write SetCcAddresses;
+    property KeepCcAddresses: Boolean read GetKeepCcAddresses write SetKeepCcAddresses;
     property ToAddresses: TList<string> read GetToAddresses write SetToAddresses;
+    property KeepToAddresses: Boolean read GetKeepToAddresses write SetKeepToAddresses;
   end;
   
   TDestination = class
   strict private
     FBccAddresses: TList<string>;
+    FKeepBccAddresses: Boolean;
     FCcAddresses: TList<string>;
+    FKeepCcAddresses: Boolean;
     FToAddresses: TList<string>;
+    FKeepToAddresses: Boolean;
     function GetBccAddresses: TList<string>;
     procedure SetBccAddresses(const Value: TList<string>);
+    function GetKeepBccAddresses: Boolean;
+    procedure SetKeepBccAddresses(const Value: Boolean);
     function GetCcAddresses: TList<string>;
     procedure SetCcAddresses(const Value: TList<string>);
+    function GetKeepCcAddresses: Boolean;
+    procedure SetKeepCcAddresses(const Value: Boolean);
     function GetToAddresses: TList<string>;
     procedure SetToAddresses(const Value: TList<string>);
+    function GetKeepToAddresses: Boolean;
+    procedure SetKeepToAddresses(const Value: Boolean);
   strict protected
     function Obj: TDestination;
   public
@@ -45,8 +63,11 @@ type
     function IsSetCcAddresses: Boolean;
     function IsSetToAddresses: Boolean;
     property BccAddresses: TList<string> read GetBccAddresses write SetBccAddresses;
+    property KeepBccAddresses: Boolean read GetKeepBccAddresses write SetKeepBccAddresses;
     property CcAddresses: TList<string> read GetCcAddresses write SetCcAddresses;
+    property KeepCcAddresses: Boolean read GetKeepCcAddresses write SetKeepCcAddresses;
     property ToAddresses: TList<string> read GetToAddresses write SetToAddresses;
+    property KeepToAddresses: Boolean read GetKeepToAddresses write SetKeepToAddresses;
   end;
   
 implementation
@@ -89,9 +110,20 @@ procedure TDestination.SetBccAddresses(const Value: TList<string>);
 begin
   if FBccAddresses <> Value then
   begin
-    FBccAddresses.Free;
+    if not KeepBccAddresses then
+      FBccAddresses.Free;
     FBccAddresses := Value;
   end;
+end;
+
+function TDestination.GetKeepBccAddresses: Boolean;
+begin
+  Result := FKeepBccAddresses;
+end;
+
+procedure TDestination.SetKeepBccAddresses(const Value: Boolean);
+begin
+  FKeepBccAddresses := Value;
 end;
 
 function TDestination.IsSetBccAddresses: Boolean;
@@ -108,9 +140,20 @@ procedure TDestination.SetCcAddresses(const Value: TList<string>);
 begin
   if FCcAddresses <> Value then
   begin
-    FCcAddresses.Free;
+    if not KeepCcAddresses then
+      FCcAddresses.Free;
     FCcAddresses := Value;
   end;
+end;
+
+function TDestination.GetKeepCcAddresses: Boolean;
+begin
+  Result := FKeepCcAddresses;
+end;
+
+procedure TDestination.SetKeepCcAddresses(const Value: Boolean);
+begin
+  FKeepCcAddresses := Value;
 end;
 
 function TDestination.IsSetCcAddresses: Boolean;
@@ -127,9 +170,20 @@ procedure TDestination.SetToAddresses(const Value: TList<string>);
 begin
   if FToAddresses <> Value then
   begin
-    FToAddresses.Free;
+    if not KeepToAddresses then
+      FToAddresses.Free;
     FToAddresses := Value;
   end;
+end;
+
+function TDestination.GetKeepToAddresses: Boolean;
+begin
+  Result := FKeepToAddresses;
+end;
+
+procedure TDestination.SetKeepToAddresses(const Value: Boolean);
+begin
+  FKeepToAddresses := Value;
 end;
 
 function TDestination.IsSetToAddresses: Boolean;

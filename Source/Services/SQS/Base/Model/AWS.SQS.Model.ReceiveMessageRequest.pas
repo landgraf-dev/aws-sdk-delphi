@@ -13,10 +13,14 @@ type
   IReceiveMessageRequest = interface
     function GetAttributeNames: TList<string>;
     procedure SetAttributeNames(const Value: TList<string>);
+    function GetKeepAttributeNames: Boolean;
+    procedure SetKeepAttributeNames(const Value: Boolean);
     function GetMaxNumberOfMessages: Integer;
     procedure SetMaxNumberOfMessages(const Value: Integer);
     function GetMessageAttributeNames: TList<string>;
     procedure SetMessageAttributeNames(const Value: TList<string>);
+    function GetKeepMessageAttributeNames: Boolean;
+    procedure SetKeepMessageAttributeNames(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function GetReceiveRequestAttemptId: string;
@@ -34,8 +38,10 @@ type
     function IsSetVisibilityTimeout: Boolean;
     function IsSetWaitTimeSeconds: Boolean;
     property AttributeNames: TList<string> read GetAttributeNames write SetAttributeNames;
+    property KeepAttributeNames: Boolean read GetKeepAttributeNames write SetKeepAttributeNames;
     property MaxNumberOfMessages: Integer read GetMaxNumberOfMessages write SetMaxNumberOfMessages;
     property MessageAttributeNames: TList<string> read GetMessageAttributeNames write SetMessageAttributeNames;
+    property KeepMessageAttributeNames: Boolean read GetKeepMessageAttributeNames write SetKeepMessageAttributeNames;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
     property ReceiveRequestAttemptId: string read GetReceiveRequestAttemptId write SetReceiveRequestAttemptId;
     property VisibilityTimeout: Integer read GetVisibilityTimeout write SetVisibilityTimeout;
@@ -45,18 +51,24 @@ type
   TReceiveMessageRequest = class(TAmazonSQSRequest, IReceiveMessageRequest)
   strict private
     FAttributeNames: TList<string>;
+    FKeepAttributeNames: Boolean;
     FMaxNumberOfMessages: Nullable<Integer>;
     FMessageAttributeNames: TList<string>;
+    FKeepMessageAttributeNames: Boolean;
     FQueueUrl: Nullable<string>;
     FReceiveRequestAttemptId: Nullable<string>;
     FVisibilityTimeout: Nullable<Integer>;
     FWaitTimeSeconds: Nullable<Integer>;
     function GetAttributeNames: TList<string>;
     procedure SetAttributeNames(const Value: TList<string>);
+    function GetKeepAttributeNames: Boolean;
+    procedure SetKeepAttributeNames(const Value: Boolean);
     function GetMaxNumberOfMessages: Integer;
     procedure SetMaxNumberOfMessages(const Value: Integer);
     function GetMessageAttributeNames: TList<string>;
     procedure SetMessageAttributeNames(const Value: TList<string>);
+    function GetKeepMessageAttributeNames: Boolean;
+    procedure SetKeepMessageAttributeNames(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function GetReceiveRequestAttemptId: string;
@@ -79,8 +91,10 @@ type
     function IsSetVisibilityTimeout: Boolean;
     function IsSetWaitTimeSeconds: Boolean;
     property AttributeNames: TList<string> read GetAttributeNames write SetAttributeNames;
+    property KeepAttributeNames: Boolean read GetKeepAttributeNames write SetKeepAttributeNames;
     property MaxNumberOfMessages: Integer read GetMaxNumberOfMessages write SetMaxNumberOfMessages;
     property MessageAttributeNames: TList<string> read GetMessageAttributeNames write SetMessageAttributeNames;
+    property KeepMessageAttributeNames: Boolean read GetKeepMessageAttributeNames write SetKeepMessageAttributeNames;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
     property ReceiveRequestAttemptId: string read GetReceiveRequestAttemptId write SetReceiveRequestAttemptId;
     property VisibilityTimeout: Integer read GetVisibilityTimeout write SetVisibilityTimeout;
@@ -125,9 +139,20 @@ procedure TReceiveMessageRequest.SetAttributeNames(const Value: TList<string>);
 begin
   if FAttributeNames <> Value then
   begin
-    FAttributeNames.Free;
+    if not KeepAttributeNames then
+      FAttributeNames.Free;
     FAttributeNames := Value;
   end;
+end;
+
+function TReceiveMessageRequest.GetKeepAttributeNames: Boolean;
+begin
+  Result := FKeepAttributeNames;
+end;
+
+procedure TReceiveMessageRequest.SetKeepAttributeNames(const Value: Boolean);
+begin
+  FKeepAttributeNames := Value;
 end;
 
 function TReceiveMessageRequest.IsSetAttributeNames: Boolean;
@@ -159,9 +184,20 @@ procedure TReceiveMessageRequest.SetMessageAttributeNames(const Value: TList<str
 begin
   if FMessageAttributeNames <> Value then
   begin
-    FMessageAttributeNames.Free;
+    if not KeepMessageAttributeNames then
+      FMessageAttributeNames.Free;
     FMessageAttributeNames := Value;
   end;
+end;
+
+function TReceiveMessageRequest.GetKeepMessageAttributeNames: Boolean;
+begin
+  Result := FKeepMessageAttributeNames;
+end;
+
+procedure TReceiveMessageRequest.SetKeepMessageAttributeNames(const Value: Boolean);
+begin
+  FKeepMessageAttributeNames := Value;
 end;
 
 function TReceiveMessageRequest.IsSetMessageAttributeNames: Boolean;

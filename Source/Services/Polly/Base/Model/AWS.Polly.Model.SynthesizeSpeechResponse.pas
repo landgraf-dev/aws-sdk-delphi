@@ -13,6 +13,8 @@ type
   ISynthesizeSpeechResponse = interface(IAmazonWebServiceResponse)
     function GetAudioStream: TStream;
     procedure SetAudioStream(const Value: TStream);
+    function GetKeepAudioStream: Boolean;
+    procedure SetKeepAudioStream(const Value: Boolean);
     function GetContentType: string;
     procedure SetContentType(const Value: string);
     function GetRequestCharacters: Integer;
@@ -22,6 +24,7 @@ type
     function IsSetContentType: Boolean;
     function IsSetRequestCharacters: Boolean;
     property AudioStream: TStream read GetAudioStream write SetAudioStream;
+    property KeepAudioStream: Boolean read GetKeepAudioStream write SetKeepAudioStream;
     property ContentType: string read GetContentType write SetContentType;
     property RequestCharacters: Integer read GetRequestCharacters write SetRequestCharacters;
   end;
@@ -29,10 +32,13 @@ type
   TSynthesizeSpeechResponse = class(TAmazonWebServiceResponse, ISynthesizeSpeechResponse)
   strict private
     FAudioStream: TStream;
+    FKeepAudioStream: Boolean;
     FContentType: Nullable<string>;
     FRequestCharacters: Nullable<Integer>;
     function GetAudioStream: TStream;
     procedure SetAudioStream(const Value: TStream);
+    function GetKeepAudioStream: Boolean;
+    procedure SetKeepAudioStream(const Value: Boolean);
     function GetContentType: string;
     procedure SetContentType(const Value: string);
     function GetRequestCharacters: Integer;
@@ -45,6 +51,7 @@ type
     function IsSetContentType: Boolean;
     function IsSetRequestCharacters: Boolean;
     property AudioStream: TStream read GetAudioStream write SetAudioStream;
+    property KeepAudioStream: Boolean read GetKeepAudioStream write SetKeepAudioStream;
     property ContentType: string read GetContentType write SetContentType;
     property RequestCharacters: Integer read GetRequestCharacters write SetRequestCharacters;
   end;
@@ -73,9 +80,20 @@ procedure TSynthesizeSpeechResponse.SetAudioStream(const Value: TStream);
 begin
   if FAudioStream <> Value then
   begin
-    FAudioStream.Free;
+    if not KeepAudioStream then
+      FAudioStream.Free;
     FAudioStream := Value;
   end;
+end;
+
+function TSynthesizeSpeechResponse.GetKeepAudioStream: Boolean;
+begin
+  Result := FKeepAudioStream;
+end;
+
+procedure TSynthesizeSpeechResponse.SetKeepAudioStream(const Value: Boolean);
+begin
+  FKeepAudioStream := Value;
 end;
 
 function TSynthesizeSpeechResponse.IsSetAudioStream: Boolean;

@@ -16,21 +16,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetPhoneNumbers: TObjectList<TPhoneNumberInformation>;
     procedure SetPhoneNumbers(const Value: TObjectList<TPhoneNumberInformation>);
+    function GetKeepPhoneNumbers: Boolean;
+    procedure SetKeepPhoneNumbers(const Value: Boolean);
     function Obj: TListOriginationNumbersResponse;
     function IsSetNextToken: Boolean;
     function IsSetPhoneNumbers: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property PhoneNumbers: TObjectList<TPhoneNumberInformation> read GetPhoneNumbers write SetPhoneNumbers;
+    property KeepPhoneNumbers: Boolean read GetKeepPhoneNumbers write SetKeepPhoneNumbers;
   end;
   
   TListOriginationNumbersResponse = class(TAmazonWebServiceResponse, IListOriginationNumbersResponse)
   strict private
     FNextToken: Nullable<string>;
     FPhoneNumbers: TObjectList<TPhoneNumberInformation>;
+    FKeepPhoneNumbers: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetPhoneNumbers: TObjectList<TPhoneNumberInformation>;
     procedure SetPhoneNumbers(const Value: TObjectList<TPhoneNumberInformation>);
+    function GetKeepPhoneNumbers: Boolean;
+    procedure SetKeepPhoneNumbers(const Value: Boolean);
   strict protected
     function Obj: TListOriginationNumbersResponse;
   public
@@ -40,6 +46,7 @@ type
     function IsSetPhoneNumbers: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property PhoneNumbers: TObjectList<TPhoneNumberInformation> read GetPhoneNumbers write SetPhoneNumbers;
+    property KeepPhoneNumbers: Boolean read GetKeepPhoneNumbers write SetKeepPhoneNumbers;
   end;
   
 implementation
@@ -87,9 +94,20 @@ procedure TListOriginationNumbersResponse.SetPhoneNumbers(const Value: TObjectLi
 begin
   if FPhoneNumbers <> Value then
   begin
-    FPhoneNumbers.Free;
+    if not KeepPhoneNumbers then
+      FPhoneNumbers.Free;
     FPhoneNumbers := Value;
   end;
+end;
+
+function TListOriginationNumbersResponse.GetKeepPhoneNumbers: Boolean;
+begin
+  Result := FKeepPhoneNumbers;
+end;
+
+procedure TListOriginationNumbersResponse.SetKeepPhoneNumbers(const Value: Boolean);
+begin
+  FKeepPhoneNumbers := Value;
 end;
 
 function TListOriginationNumbersResponse.IsSetPhoneNumbers: Boolean;

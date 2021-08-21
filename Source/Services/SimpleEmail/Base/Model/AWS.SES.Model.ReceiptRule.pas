@@ -14,12 +14,16 @@ type
   IReceiptRule = interface
     function GetActions: TObjectList<TReceiptAction>;
     procedure SetActions(const Value: TObjectList<TReceiptAction>);
+    function GetKeepActions: Boolean;
+    procedure SetKeepActions(const Value: Boolean);
     function GetEnabled: Boolean;
     procedure SetEnabled(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetRecipients: TList<string>;
     procedure SetRecipients(const Value: TList<string>);
+    function GetKeepRecipients: Boolean;
+    procedure SetKeepRecipients(const Value: Boolean);
     function GetScanEnabled: Boolean;
     procedure SetScanEnabled(const Value: Boolean);
     function GetTlsPolicy: TTlsPolicy;
@@ -32,9 +36,11 @@ type
     function IsSetScanEnabled: Boolean;
     function IsSetTlsPolicy: Boolean;
     property Actions: TObjectList<TReceiptAction> read GetActions write SetActions;
+    property KeepActions: Boolean read GetKeepActions write SetKeepActions;
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property Name: string read GetName write SetName;
     property Recipients: TList<string> read GetRecipients write SetRecipients;
+    property KeepRecipients: Boolean read GetKeepRecipients write SetKeepRecipients;
     property ScanEnabled: Boolean read GetScanEnabled write SetScanEnabled;
     property TlsPolicy: TTlsPolicy read GetTlsPolicy write SetTlsPolicy;
   end;
@@ -42,19 +48,25 @@ type
   TReceiptRule = class
   strict private
     FActions: TObjectList<TReceiptAction>;
+    FKeepActions: Boolean;
     FEnabled: Nullable<Boolean>;
     FName: Nullable<string>;
     FRecipients: TList<string>;
+    FKeepRecipients: Boolean;
     FScanEnabled: Nullable<Boolean>;
     FTlsPolicy: Nullable<TTlsPolicy>;
     function GetActions: TObjectList<TReceiptAction>;
     procedure SetActions(const Value: TObjectList<TReceiptAction>);
+    function GetKeepActions: Boolean;
+    procedure SetKeepActions(const Value: Boolean);
     function GetEnabled: Boolean;
     procedure SetEnabled(const Value: Boolean);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetRecipients: TList<string>;
     procedure SetRecipients(const Value: TList<string>);
+    function GetKeepRecipients: Boolean;
+    procedure SetKeepRecipients(const Value: Boolean);
     function GetScanEnabled: Boolean;
     procedure SetScanEnabled(const Value: Boolean);
     function GetTlsPolicy: TTlsPolicy;
@@ -71,9 +83,11 @@ type
     function IsSetScanEnabled: Boolean;
     function IsSetTlsPolicy: Boolean;
     property Actions: TObjectList<TReceiptAction> read GetActions write SetActions;
+    property KeepActions: Boolean read GetKeepActions write SetKeepActions;
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property Name: string read GetName write SetName;
     property Recipients: TList<string> read GetRecipients write SetRecipients;
+    property KeepRecipients: Boolean read GetKeepRecipients write SetKeepRecipients;
     property ScanEnabled: Boolean read GetScanEnabled write SetScanEnabled;
     property TlsPolicy: TTlsPolicy read GetTlsPolicy write SetTlsPolicy;
   end;
@@ -110,9 +124,20 @@ procedure TReceiptRule.SetActions(const Value: TObjectList<TReceiptAction>);
 begin
   if FActions <> Value then
   begin
-    FActions.Free;
+    if not KeepActions then
+      FActions.Free;
     FActions := Value;
   end;
+end;
+
+function TReceiptRule.GetKeepActions: Boolean;
+begin
+  Result := FKeepActions;
+end;
+
+procedure TReceiptRule.SetKeepActions(const Value: Boolean);
+begin
+  FKeepActions := Value;
 end;
 
 function TReceiptRule.IsSetActions: Boolean;
@@ -159,9 +184,20 @@ procedure TReceiptRule.SetRecipients(const Value: TList<string>);
 begin
   if FRecipients <> Value then
   begin
-    FRecipients.Free;
+    if not KeepRecipients then
+      FRecipients.Free;
     FRecipients := Value;
   end;
+end;
+
+function TReceiptRule.GetKeepRecipients: Boolean;
+begin
+  Result := FKeepRecipients;
+end;
+
+procedure TReceiptRule.SetKeepRecipients(const Value: Boolean);
+begin
+  FKeepRecipients := Value;
 end;
 
 function TReceiptRule.IsSetRecipients: Boolean;

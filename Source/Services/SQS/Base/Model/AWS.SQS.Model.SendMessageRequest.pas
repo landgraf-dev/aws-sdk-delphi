@@ -17,6 +17,8 @@ type
     procedure SetDelaySeconds(const Value: Integer);
     function GetMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
     procedure SetMessageAttributes(const Value: TObjectDictionary<string, TMessageAttributeValue>);
+    function GetKeepMessageAttributes: Boolean;
+    procedure SetKeepMessageAttributes(const Value: Boolean);
     function GetMessageBody: string;
     procedure SetMessageBody(const Value: string);
     function GetMessageDeduplicationId: string;
@@ -25,6 +27,8 @@ type
     procedure SetMessageGroupId(const Value: string);
     function GetMessageSystemAttributes: TObjectDictionary<string, TMessageSystemAttributeValue>;
     procedure SetMessageSystemAttributes(const Value: TObjectDictionary<string, TMessageSystemAttributeValue>);
+    function GetKeepMessageSystemAttributes: Boolean;
+    procedure SetKeepMessageSystemAttributes(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
     function Obj: TSendMessageRequest;
@@ -37,10 +41,12 @@ type
     function IsSetQueueUrl: Boolean;
     property DelaySeconds: Integer read GetDelaySeconds write SetDelaySeconds;
     property MessageAttributes: TObjectDictionary<string, TMessageAttributeValue> read GetMessageAttributes write SetMessageAttributes;
+    property KeepMessageAttributes: Boolean read GetKeepMessageAttributes write SetKeepMessageAttributes;
     property MessageBody: string read GetMessageBody write SetMessageBody;
     property MessageDeduplicationId: string read GetMessageDeduplicationId write SetMessageDeduplicationId;
     property MessageGroupId: string read GetMessageGroupId write SetMessageGroupId;
     property MessageSystemAttributes: TObjectDictionary<string, TMessageSystemAttributeValue> read GetMessageSystemAttributes write SetMessageSystemAttributes;
+    property KeepMessageSystemAttributes: Boolean read GetKeepMessageSystemAttributes write SetKeepMessageSystemAttributes;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
@@ -48,15 +54,19 @@ type
   strict private
     FDelaySeconds: Nullable<Integer>;
     FMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
+    FKeepMessageAttributes: Boolean;
     FMessageBody: Nullable<string>;
     FMessageDeduplicationId: Nullable<string>;
     FMessageGroupId: Nullable<string>;
     FMessageSystemAttributes: TObjectDictionary<string, TMessageSystemAttributeValue>;
+    FKeepMessageSystemAttributes: Boolean;
     FQueueUrl: Nullable<string>;
     function GetDelaySeconds: Integer;
     procedure SetDelaySeconds(const Value: Integer);
     function GetMessageAttributes: TObjectDictionary<string, TMessageAttributeValue>;
     procedure SetMessageAttributes(const Value: TObjectDictionary<string, TMessageAttributeValue>);
+    function GetKeepMessageAttributes: Boolean;
+    procedure SetKeepMessageAttributes(const Value: Boolean);
     function GetMessageBody: string;
     procedure SetMessageBody(const Value: string);
     function GetMessageDeduplicationId: string;
@@ -65,6 +75,8 @@ type
     procedure SetMessageGroupId(const Value: string);
     function GetMessageSystemAttributes: TObjectDictionary<string, TMessageSystemAttributeValue>;
     procedure SetMessageSystemAttributes(const Value: TObjectDictionary<string, TMessageSystemAttributeValue>);
+    function GetKeepMessageSystemAttributes: Boolean;
+    procedure SetKeepMessageSystemAttributes(const Value: Boolean);
     function GetQueueUrl: string;
     procedure SetQueueUrl(const Value: string);
   strict protected
@@ -82,10 +94,12 @@ type
     function IsSetQueueUrl: Boolean;
     property DelaySeconds: Integer read GetDelaySeconds write SetDelaySeconds;
     property MessageAttributes: TObjectDictionary<string, TMessageAttributeValue> read GetMessageAttributes write SetMessageAttributes;
+    property KeepMessageAttributes: Boolean read GetKeepMessageAttributes write SetKeepMessageAttributes;
     property MessageBody: string read GetMessageBody write SetMessageBody;
     property MessageDeduplicationId: string read GetMessageDeduplicationId write SetMessageDeduplicationId;
     property MessageGroupId: string read GetMessageGroupId write SetMessageGroupId;
     property MessageSystemAttributes: TObjectDictionary<string, TMessageSystemAttributeValue> read GetMessageSystemAttributes write SetMessageSystemAttributes;
+    property KeepMessageSystemAttributes: Boolean read GetKeepMessageSystemAttributes write SetKeepMessageSystemAttributes;
     property QueueUrl: string read GetQueueUrl write SetQueueUrl;
   end;
   
@@ -143,9 +157,20 @@ procedure TSendMessageRequest.SetMessageAttributes(const Value: TObjectDictionar
 begin
   if FMessageAttributes <> Value then
   begin
-    FMessageAttributes.Free;
+    if not KeepMessageAttributes then
+      FMessageAttributes.Free;
     FMessageAttributes := Value;
   end;
+end;
+
+function TSendMessageRequest.GetKeepMessageAttributes: Boolean;
+begin
+  Result := FKeepMessageAttributes;
+end;
+
+procedure TSendMessageRequest.SetKeepMessageAttributes(const Value: Boolean);
+begin
+  FKeepMessageAttributes := Value;
 end;
 
 function TSendMessageRequest.IsSetMessageAttributes: Boolean;
@@ -207,9 +232,20 @@ procedure TSendMessageRequest.SetMessageSystemAttributes(const Value: TObjectDic
 begin
   if FMessageSystemAttributes <> Value then
   begin
-    FMessageSystemAttributes.Free;
+    if not KeepMessageSystemAttributes then
+      FMessageSystemAttributes.Free;
     FMessageSystemAttributes := Value;
   end;
+end;
+
+function TSendMessageRequest.GetKeepMessageSystemAttributes: Boolean;
+begin
+  Result := FKeepMessageSystemAttributes;
+end;
+
+procedure TSendMessageRequest.SetKeepMessageSystemAttributes(const Value: Boolean);
+begin
+  FKeepMessageSystemAttributes := Value;
 end;
 
 function TSendMessageRequest.IsSetMessageSystemAttributes: Boolean;

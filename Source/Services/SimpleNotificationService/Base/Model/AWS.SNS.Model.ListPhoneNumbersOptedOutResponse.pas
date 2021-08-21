@@ -15,21 +15,27 @@ type
     procedure SetNextToken(const Value: string);
     function GetPhoneNumbers: TList<string>;
     procedure SetPhoneNumbers(const Value: TList<string>);
+    function GetKeepPhoneNumbers: Boolean;
+    procedure SetKeepPhoneNumbers(const Value: Boolean);
     function Obj: TListPhoneNumbersOptedOutResponse;
     function IsSetNextToken: Boolean;
     function IsSetPhoneNumbers: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property PhoneNumbers: TList<string> read GetPhoneNumbers write SetPhoneNumbers;
+    property KeepPhoneNumbers: Boolean read GetKeepPhoneNumbers write SetKeepPhoneNumbers;
   end;
   
   TListPhoneNumbersOptedOutResponse = class(TAmazonWebServiceResponse, IListPhoneNumbersOptedOutResponse)
   strict private
     FNextToken: Nullable<string>;
     FPhoneNumbers: TList<string>;
+    FKeepPhoneNumbers: Boolean;
     function GetNextToken: string;
     procedure SetNextToken(const Value: string);
     function GetPhoneNumbers: TList<string>;
     procedure SetPhoneNumbers(const Value: TList<string>);
+    function GetKeepPhoneNumbers: Boolean;
+    procedure SetKeepPhoneNumbers(const Value: Boolean);
   strict protected
     function Obj: TListPhoneNumbersOptedOutResponse;
   public
@@ -39,6 +45,7 @@ type
     function IsSetPhoneNumbers: Boolean;
     property NextToken: string read GetNextToken write SetNextToken;
     property PhoneNumbers: TList<string> read GetPhoneNumbers write SetPhoneNumbers;
+    property KeepPhoneNumbers: Boolean read GetKeepPhoneNumbers write SetKeepPhoneNumbers;
   end;
   
 implementation
@@ -86,9 +93,20 @@ procedure TListPhoneNumbersOptedOutResponse.SetPhoneNumbers(const Value: TList<s
 begin
   if FPhoneNumbers <> Value then
   begin
-    FPhoneNumbers.Free;
+    if not KeepPhoneNumbers then
+      FPhoneNumbers.Free;
     FPhoneNumbers := Value;
   end;
+end;
+
+function TListPhoneNumbersOptedOutResponse.GetKeepPhoneNumbers: Boolean;
+begin
+  Result := FKeepPhoneNumbers;
+end;
+
+procedure TListPhoneNumbersOptedOutResponse.SetKeepPhoneNumbers(const Value: Boolean);
+begin
+  FKeepPhoneNumbers := Value;
 end;
 
 function TListPhoneNumbersOptedOutResponse.IsSetPhoneNumbers: Boolean;

@@ -12,22 +12,29 @@ type
   IGetSpeechSynthesisTaskResponse = interface(IAmazonWebServiceResponse)
     function GetSynthesisTask: TSynthesisTask;
     procedure SetSynthesisTask(const Value: TSynthesisTask);
+    function GetKeepSynthesisTask: Boolean;
+    procedure SetKeepSynthesisTask(const Value: Boolean);
     function Obj: TGetSpeechSynthesisTaskResponse;
     function IsSetSynthesisTask: Boolean;
     property SynthesisTask: TSynthesisTask read GetSynthesisTask write SetSynthesisTask;
+    property KeepSynthesisTask: Boolean read GetKeepSynthesisTask write SetKeepSynthesisTask;
   end;
   
   TGetSpeechSynthesisTaskResponse = class(TAmazonWebServiceResponse, IGetSpeechSynthesisTaskResponse)
   strict private
     FSynthesisTask: TSynthesisTask;
+    FKeepSynthesisTask: Boolean;
     function GetSynthesisTask: TSynthesisTask;
     procedure SetSynthesisTask(const Value: TSynthesisTask);
+    function GetKeepSynthesisTask: Boolean;
+    procedure SetKeepSynthesisTask(const Value: Boolean);
   strict protected
     function Obj: TGetSpeechSynthesisTaskResponse;
   public
     destructor Destroy; override;
     function IsSetSynthesisTask: Boolean;
     property SynthesisTask: TSynthesisTask read GetSynthesisTask write SetSynthesisTask;
+    property KeepSynthesisTask: Boolean read GetKeepSynthesisTask write SetKeepSynthesisTask;
   end;
   
 implementation
@@ -54,9 +61,20 @@ procedure TGetSpeechSynthesisTaskResponse.SetSynthesisTask(const Value: TSynthes
 begin
   if FSynthesisTask <> Value then
   begin
-    FSynthesisTask.Free;
+    if not KeepSynthesisTask then
+      FSynthesisTask.Free;
     FSynthesisTask := Value;
   end;
+end;
+
+function TGetSpeechSynthesisTaskResponse.GetKeepSynthesisTask: Boolean;
+begin
+  Result := FKeepSynthesisTask;
+end;
+
+procedure TGetSpeechSynthesisTaskResponse.SetKeepSynthesisTask(const Value: Boolean);
+begin
+  FKeepSynthesisTask := Value;
 end;
 
 function TGetSpeechSynthesisTaskResponse.IsSetSynthesisTask: Boolean;

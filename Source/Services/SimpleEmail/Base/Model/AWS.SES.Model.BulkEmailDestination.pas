@@ -14,8 +14,12 @@ type
   IBulkEmailDestination = interface
     function GetDestination: TDestination;
     procedure SetDestination(const Value: TDestination);
+    function GetKeepDestination: Boolean;
+    procedure SetKeepDestination(const Value: Boolean);
     function GetReplacementTags: TObjectList<TMessageTag>;
     procedure SetReplacementTags(const Value: TObjectList<TMessageTag>);
+    function GetKeepReplacementTags: Boolean;
+    procedure SetKeepReplacementTags(const Value: Boolean);
     function GetReplacementTemplateData: string;
     procedure SetReplacementTemplateData(const Value: string);
     function Obj: TBulkEmailDestination;
@@ -23,19 +27,27 @@ type
     function IsSetReplacementTags: Boolean;
     function IsSetReplacementTemplateData: Boolean;
     property Destination: TDestination read GetDestination write SetDestination;
+    property KeepDestination: Boolean read GetKeepDestination write SetKeepDestination;
     property ReplacementTags: TObjectList<TMessageTag> read GetReplacementTags write SetReplacementTags;
+    property KeepReplacementTags: Boolean read GetKeepReplacementTags write SetKeepReplacementTags;
     property ReplacementTemplateData: string read GetReplacementTemplateData write SetReplacementTemplateData;
   end;
   
   TBulkEmailDestination = class
   strict private
     FDestination: TDestination;
+    FKeepDestination: Boolean;
     FReplacementTags: TObjectList<TMessageTag>;
+    FKeepReplacementTags: Boolean;
     FReplacementTemplateData: Nullable<string>;
     function GetDestination: TDestination;
     procedure SetDestination(const Value: TDestination);
+    function GetKeepDestination: Boolean;
+    procedure SetKeepDestination(const Value: Boolean);
     function GetReplacementTags: TObjectList<TMessageTag>;
     procedure SetReplacementTags(const Value: TObjectList<TMessageTag>);
+    function GetKeepReplacementTags: Boolean;
+    procedure SetKeepReplacementTags(const Value: Boolean);
     function GetReplacementTemplateData: string;
     procedure SetReplacementTemplateData(const Value: string);
   strict protected
@@ -47,7 +59,9 @@ type
     function IsSetReplacementTags: Boolean;
     function IsSetReplacementTemplateData: Boolean;
     property Destination: TDestination read GetDestination write SetDestination;
+    property KeepDestination: Boolean read GetKeepDestination write SetKeepDestination;
     property ReplacementTags: TObjectList<TMessageTag> read GetReplacementTags write SetReplacementTags;
+    property KeepReplacementTags: Boolean read GetKeepReplacementTags write SetKeepReplacementTags;
     property ReplacementTemplateData: string read GetReplacementTemplateData write SetReplacementTemplateData;
   end;
   
@@ -82,9 +96,20 @@ procedure TBulkEmailDestination.SetDestination(const Value: TDestination);
 begin
   if FDestination <> Value then
   begin
-    FDestination.Free;
+    if not KeepDestination then
+      FDestination.Free;
     FDestination := Value;
   end;
+end;
+
+function TBulkEmailDestination.GetKeepDestination: Boolean;
+begin
+  Result := FKeepDestination;
+end;
+
+procedure TBulkEmailDestination.SetKeepDestination(const Value: Boolean);
+begin
+  FKeepDestination := Value;
 end;
 
 function TBulkEmailDestination.IsSetDestination: Boolean;
@@ -101,9 +126,20 @@ procedure TBulkEmailDestination.SetReplacementTags(const Value: TObjectList<TMes
 begin
   if FReplacementTags <> Value then
   begin
-    FReplacementTags.Free;
+    if not KeepReplacementTags then
+      FReplacementTags.Free;
     FReplacementTags := Value;
   end;
+end;
+
+function TBulkEmailDestination.GetKeepReplacementTags: Boolean;
+begin
+  Result := FKeepReplacementTags;
+end;
+
+procedure TBulkEmailDestination.SetKeepReplacementTags(const Value: Boolean);
+begin
+  FKeepReplacementTags := Value;
 end;
 
 function TBulkEmailDestination.IsSetReplacementTags: Boolean;

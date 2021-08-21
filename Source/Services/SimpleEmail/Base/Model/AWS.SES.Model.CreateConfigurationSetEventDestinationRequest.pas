@@ -15,21 +15,27 @@ type
     procedure SetConfigurationSetName(const Value: string);
     function GetEventDestination: TEventDestination;
     procedure SetEventDestination(const Value: TEventDestination);
+    function GetKeepEventDestination: Boolean;
+    procedure SetKeepEventDestination(const Value: Boolean);
     function Obj: TCreateConfigurationSetEventDestinationRequest;
     function IsSetConfigurationSetName: Boolean;
     function IsSetEventDestination: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property EventDestination: TEventDestination read GetEventDestination write SetEventDestination;
+    property KeepEventDestination: Boolean read GetKeepEventDestination write SetKeepEventDestination;
   end;
   
   TCreateConfigurationSetEventDestinationRequest = class(TAmazonSimpleEmailServiceRequest, ICreateConfigurationSetEventDestinationRequest)
   strict private
     FConfigurationSetName: Nullable<string>;
     FEventDestination: TEventDestination;
+    FKeepEventDestination: Boolean;
     function GetConfigurationSetName: string;
     procedure SetConfigurationSetName(const Value: string);
     function GetEventDestination: TEventDestination;
     procedure SetEventDestination(const Value: TEventDestination);
+    function GetKeepEventDestination: Boolean;
+    procedure SetKeepEventDestination(const Value: Boolean);
   strict protected
     function Obj: TCreateConfigurationSetEventDestinationRequest;
   public
@@ -38,6 +44,7 @@ type
     function IsSetEventDestination: Boolean;
     property ConfigurationSetName: string read GetConfigurationSetName write SetConfigurationSetName;
     property EventDestination: TEventDestination read GetEventDestination write SetEventDestination;
+    property KeepEventDestination: Boolean read GetKeepEventDestination write SetKeepEventDestination;
   end;
   
 implementation
@@ -79,9 +86,20 @@ procedure TCreateConfigurationSetEventDestinationRequest.SetEventDestination(con
 begin
   if FEventDestination <> Value then
   begin
-    FEventDestination.Free;
+    if not KeepEventDestination then
+      FEventDestination.Free;
     FEventDestination := Value;
   end;
+end;
+
+function TCreateConfigurationSetEventDestinationRequest.GetKeepEventDestination: Boolean;
+begin
+  Result := FKeepEventDestination;
+end;
+
+procedure TCreateConfigurationSetEventDestinationRequest.SetKeepEventDestination(const Value: Boolean);
+begin
+  FKeepEventDestination := Value;
 end;
 
 function TCreateConfigurationSetEventDestinationRequest.IsSetEventDestination: Boolean;

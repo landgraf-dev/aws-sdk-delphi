@@ -13,8 +13,12 @@ type
   IAddPermissionRequest = interface
     function GetAWSAccountId: TList<string>;
     procedure SetAWSAccountId(const Value: TList<string>);
+    function GetKeepAWSAccountId: Boolean;
+    procedure SetKeepAWSAccountId(const Value: Boolean);
     function GetActionName: TList<string>;
     procedure SetActionName(const Value: TList<string>);
+    function GetKeepActionName: Boolean;
+    procedure SetKeepActionName(const Value: Boolean);
     function GetLabel: string;
     procedure SetLabel(const Value: string);
     function GetTopicArn: string;
@@ -25,7 +29,9 @@ type
     function IsSetLabel: Boolean;
     function IsSetTopicArn: Boolean;
     property AWSAccountId: TList<string> read GetAWSAccountId write SetAWSAccountId;
+    property KeepAWSAccountId: Boolean read GetKeepAWSAccountId write SetKeepAWSAccountId;
     property ActionName: TList<string> read GetActionName write SetActionName;
+    property KeepActionName: Boolean read GetKeepActionName write SetKeepActionName;
     property &Label: string read GetLabel write SetLabel;
     property TopicArn: string read GetTopicArn write SetTopicArn;
   end;
@@ -33,13 +39,19 @@ type
   TAddPermissionRequest = class(TAmazonSimpleNotificationServiceRequest, IAddPermissionRequest)
   strict private
     FAWSAccountId: TList<string>;
+    FKeepAWSAccountId: Boolean;
     FActionName: TList<string>;
+    FKeepActionName: Boolean;
     FLabel: Nullable<string>;
     FTopicArn: Nullable<string>;
     function GetAWSAccountId: TList<string>;
     procedure SetAWSAccountId(const Value: TList<string>);
+    function GetKeepAWSAccountId: Boolean;
+    procedure SetKeepAWSAccountId(const Value: Boolean);
     function GetActionName: TList<string>;
     procedure SetActionName(const Value: TList<string>);
+    function GetKeepActionName: Boolean;
+    procedure SetKeepActionName(const Value: Boolean);
     function GetLabel: string;
     procedure SetLabel(const Value: string);
     function GetTopicArn: string;
@@ -55,7 +67,9 @@ type
     function IsSetLabel: Boolean;
     function IsSetTopicArn: Boolean;
     property AWSAccountId: TList<string> read GetAWSAccountId write SetAWSAccountId;
+    property KeepAWSAccountId: Boolean read GetKeepAWSAccountId write SetKeepAWSAccountId;
     property ActionName: TList<string> read GetActionName write SetActionName;
+    property KeepActionName: Boolean read GetKeepActionName write SetKeepActionName;
     property &Label: string read GetLabel write SetLabel;
     property TopicArn: string read GetTopicArn write SetTopicArn;
   end;
@@ -101,9 +115,20 @@ procedure TAddPermissionRequest.SetAWSAccountId(const Value: TList<string>);
 begin
   if FAWSAccountId <> Value then
   begin
-    FAWSAccountId.Free;
+    if not KeepAWSAccountId then
+      FAWSAccountId.Free;
     FAWSAccountId := Value;
   end;
+end;
+
+function TAddPermissionRequest.GetKeepAWSAccountId: Boolean;
+begin
+  Result := FKeepAWSAccountId;
+end;
+
+procedure TAddPermissionRequest.SetKeepAWSAccountId(const Value: Boolean);
+begin
+  FKeepAWSAccountId := Value;
 end;
 
 function TAddPermissionRequest.IsSetAWSAccountId: Boolean;
@@ -120,9 +145,20 @@ procedure TAddPermissionRequest.SetActionName(const Value: TList<string>);
 begin
   if FActionName <> Value then
   begin
-    FActionName.Free;
+    if not KeepActionName then
+      FActionName.Free;
     FActionName := Value;
   end;
+end;
+
+function TAddPermissionRequest.GetKeepActionName: Boolean;
+begin
+  Result := FKeepActionName;
+end;
+
+procedure TAddPermissionRequest.SetKeepActionName(const Value: Boolean);
+begin
+  FKeepActionName := Value;
 end;
 
 function TAddPermissionRequest.IsSetActionName: Boolean;

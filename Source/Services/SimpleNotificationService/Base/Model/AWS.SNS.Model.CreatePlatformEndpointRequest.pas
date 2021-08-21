@@ -13,6 +13,8 @@ type
   ICreatePlatformEndpointRequest = interface
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetCustomUserData: string;
     procedure SetCustomUserData(const Value: string);
     function GetPlatformApplicationArn: string;
@@ -25,6 +27,7 @@ type
     function IsSetPlatformApplicationArn: Boolean;
     function IsSetToken: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property CustomUserData: string read GetCustomUserData write SetCustomUserData;
     property PlatformApplicationArn: string read GetPlatformApplicationArn write SetPlatformApplicationArn;
     property Token: string read GetToken write SetToken;
@@ -33,11 +36,14 @@ type
   TCreatePlatformEndpointRequest = class(TAmazonSimpleNotificationServiceRequest, ICreatePlatformEndpointRequest)
   strict private
     FAttributes: TDictionary<string, string>;
+    FKeepAttributes: Boolean;
     FCustomUserData: Nullable<string>;
     FPlatformApplicationArn: Nullable<string>;
     FToken: Nullable<string>;
     function GetAttributes: TDictionary<string, string>;
     procedure SetAttributes(const Value: TDictionary<string, string>);
+    function GetKeepAttributes: Boolean;
+    procedure SetKeepAttributes(const Value: Boolean);
     function GetCustomUserData: string;
     procedure SetCustomUserData(const Value: string);
     function GetPlatformApplicationArn: string;
@@ -54,6 +60,7 @@ type
     function IsSetPlatformApplicationArn: Boolean;
     function IsSetToken: Boolean;
     property Attributes: TDictionary<string, string> read GetAttributes write SetAttributes;
+    property KeepAttributes: Boolean read GetKeepAttributes write SetKeepAttributes;
     property CustomUserData: string read GetCustomUserData write SetCustomUserData;
     property PlatformApplicationArn: string read GetPlatformApplicationArn write SetPlatformApplicationArn;
     property Token: string read GetToken write SetToken;
@@ -89,9 +96,20 @@ procedure TCreatePlatformEndpointRequest.SetAttributes(const Value: TDictionary<
 begin
   if FAttributes <> Value then
   begin
-    FAttributes.Free;
+    if not KeepAttributes then
+      FAttributes.Free;
     FAttributes := Value;
   end;
+end;
+
+function TCreatePlatformEndpointRequest.GetKeepAttributes: Boolean;
+begin
+  Result := FKeepAttributes;
+end;
+
+procedure TCreatePlatformEndpointRequest.SetKeepAttributes(const Value: Boolean);
+begin
+  FKeepAttributes := Value;
 end;
 
 function TCreatePlatformEndpointRequest.IsSetAttributes: Boolean;
