@@ -18,6 +18,7 @@ type
     FMaintainResponseBody: Boolean;
     FWebResponseData: IWebResponseData;
     FWrappingStream: TCachingWrapperStream;
+    FOwnsWrappingStream: Boolean;
     function GetResponseBody: string;
   strict protected
     procedure SetWrappingStream(const Value: TCachingWrapperStream);
@@ -25,6 +26,7 @@ type
     property WebResponseData: IWebResponseData read FWebResponseData write FWebResponseData;
     property MaintainResponseBody: Boolean read FMaintainResponseBody write FMaintainResponseBody;
     property WrappingStream: TCachingWrapperStream read FWrappingStream write SetWrappingStream;
+    property OwnsWrappingStream: Boolean read FOwnsWrappingStream write FOwnsWrappingStream;
   public
     { Abstract methods }
     function CurrentPath: string; virtual; abstract;
@@ -95,7 +97,8 @@ uses
 
 destructor TUnmarshallerContext.Destroy;
 begin
-  FWrappingStream.Free;
+  if OwnsWrappingStream then
+    FWrappingStream.Free;
   inherited;
 end;
 
@@ -192,6 +195,7 @@ begin
   else
   if AMaintainResponseBody then
     SetWrappingStream(TCachingWrapperStream.Create(AResponseStream, False, SizeLimit, SizeLimit));
+  OwnsWrappingStream := True;
 
   if IsException or AMaintainResponseBody then
     AResponseStream := WrappingStream;

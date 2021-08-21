@@ -116,10 +116,15 @@ begin
   inherited;
 end;
 
+type
+  TInternalAWSResponse = class(TAmazonWebServiceResponse)
+  end;
+
 function TResponseContext.ExtractResponse: TAmazonWebServiceResponse;
 begin
   Result := FResponse;
   FResponse := nil;
+  TInternalAWSResponse(Result).SetWebResponse(FHttpResponse);
 end;
 
 procedure TResponseContext.SetResponse(const Value: TAmazonWebServiceResponse);

@@ -45,6 +45,7 @@ type
     const DELIMITER = '/';
   strict private
     FStream: TStream;
+    FResponseStream: TStream;
     FJsonReader: TJsonReader;
     FStack: TJsonPathStack;
     FCurrentText: Nullable<string>;
@@ -56,6 +57,7 @@ type
     constructor Create(AResponseStream: TStream; AMaintainResponseBody: Boolean;
       AResponseData: IWebResponseData; AIsException: Boolean = false); reintroduce;
     destructor Destroy; override;
+    function ExtractStream: TStream;
     function CurrentPath: string; override;
     function CurrentDepth: Integer; override;
     function CurrentTokenType: TJsonToken;
@@ -65,7 +67,6 @@ type
     function IsEndElement: Boolean; override;
     function IsStartOfDocument: Boolean; override;
     function Peek(AToken: TJsonToken): Boolean; overload;
-    property Stream: TStream read FStream;
   end;
 
 implementation
@@ -145,12 +146,14 @@ var
   SizeLimit: Integer;
 begin
   inherited Create;
+  FResponseStream := AResponseStream;
   SizeLimit := TAWSConfigs.LoggingConfig.LogResponsesSizeLimit;
   if IsException then
     SetWrappingStream(TCachingWrapperStream.Create(AResponseStream, False, SizeLimit, MaxInt))
   else
   if AMaintainResponseBody then
     SetWrappingStream(TCachingWrapperStream.Create(AResponseStream, False, SizeLimit, SizeLimit));
+  OwnsWrappingStream := True;
 
   if IsException or AMaintainResponseBody then
     AResponseStream := WrappingStream;
@@ -183,6 +186,14 @@ begin
   FJsonReader.Free;
   FStack.Free;
   inherited;
+end;
+
+function TJsonUnmarshallerContext.ExtractStream: TStream;
+begin
+  Result := FResponseStream;
+//  Result := FStream;
+//  if Result = WrappingStream then
+//    OwnsWrappingStream := False;
 end;
 
 function TJsonUnmarshallerContext.IsEndElement: Boolean;

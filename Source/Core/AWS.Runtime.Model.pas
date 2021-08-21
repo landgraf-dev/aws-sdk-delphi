@@ -4,7 +4,8 @@ interface
 
 uses
   System.Generics.Collections,
-  AWS.Auth.Signer;
+  AWS.Auth.Signer,
+  AWS.Internal.WebResponseData;
 
 type
   TResponseMetadata = class
@@ -32,10 +33,13 @@ type
     FContentLength: Int64;
     FHttpStatusCode: Integer;
     FResponseMetadata: TResponseMetadata;
+    FWebResponse: IWebResponseData;
     function GetResponseMetadata: TResponseMetadata;
     procedure SetResponseMetadata(const Value: TResponseMetadata);
     function GetContentLength: Int64;
     function GetHttpStatusCode: Integer;
+  protected
+    procedure SetWebResponse(AWebResponse: IWebResponseData);
   public
     destructor Destroy; override;
     property ContentLength: Int64 read GetContentLength write FContentLength;
@@ -117,6 +121,11 @@ begin
     FResponseMetadata.Free;
     FResponseMetadata := Value;
   end;
+end;
+
+procedure TAmazonWebServiceResponse.SetWebResponse(AWebResponse: IWebResponseData);
+begin
+  FWebResponse := AWebResponse;
 end;
 
 { TResponseMetadata }
