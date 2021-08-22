@@ -27,14 +27,18 @@ type
   end;
 
   IBooleanUnmarshaller = IUnmarshaller<Boolean, TXmlUnmarshallerContext>;
-  TBooleanUnmarshaller = class(TInterfacedObject, IUnmarshaller<Boolean, TXmlUnmarshallerContext>)
+  IJsonBooleanUnmarshaller = IUnmarshaller<Boolean, TJsonUnmarshallerContext>;
+  TBooleanUnmarshaller = class(TInterfacedObject, IUnmarshaller<Boolean, TXmlUnmarshallerContext>, IJsonBooleanUnmarshaller)
   strict private
     class var FInstance: IBooleanUnmarshaller;
+    class var FJsonInstance: IJsonBooleanUnmarshaller;
     class constructor Create;
   public
     class function Instance: IBooleanUnmarshaller;
+    class function JsonInstance: IJsonBooleanUnmarshaller;
   public
-    function Unmarshall(AContext: TXmlUnmarshallerContext): Boolean;
+    function Unmarshall(AContext: TXmlUnmarshallerContext): Boolean; overload;
+    function Unmarshall(AContext: TJsonUnmarshallerContext): Boolean; overload;
   end;
 
   IIntegerUnmarshaller = IUnmarshaller<Integer, TXmlUnmarshallerContext>;
@@ -64,15 +68,19 @@ type
   end;
 
   IDoubleUnmarshaller = IUnmarshaller<Double, TXmlUnmarshallerContext>;
-  TDoubleUnmarshaller = class(TInterfacedObject, IUnmarshaller<Double, TXmlUnmarshallerContext>)
+  IJsonDoubleUnmarshaller = IUnmarshaller<Double, TJsonUnmarshallerContext>;
+  TDoubleUnmarshaller = class(TInterfacedObject, IUnmarshaller<Double, TXmlUnmarshallerContext>, IJsonDoubleUnmarshaller)
   strict private
     class var FInstance: IDoubleUnmarshaller;
+    class var FJsonInstance: IJsonDoubleUnmarshaller;
     class var FFormatSettings: TFormatSettings;
     class constructor Create;
   public
     class function Instance: IDoubleUnmarshaller;
+    class function JsonInstance: IJsonDoubleUnmarshaller;
   public
-    function Unmarshall(AContext: TXmlUnmarshallerContext): Double;
+    function Unmarshall(AContext: TXmlUnmarshallerContext): Double; overload;
+    function Unmarshall(AContext: TJsonUnmarshallerContext): Double; overload;
   end;
 
   IDateTimeUnmarshaller = IUnmarshaller<TDateTime, TXmlUnmarshallerContext>;
@@ -321,11 +329,26 @@ end;
 class constructor TBooleanUnmarshaller.Create;
 begin
   FInstance := TBooleanUnmarshaller.Create;
+  FJsonInstance := TBooleanUnmarshaller.Create;
 end;
 
 class function TBooleanUnmarshaller.Instance: IBooleanUnmarshaller;
 begin
   Result := FInstance;
+end;
+
+class function TBooleanUnmarshaller.JsonInstance: IJsonBooleanUnmarshaller;
+begin
+  Result := FJsonInstance;
+end;
+
+function TBooleanUnmarshaller.Unmarshall(AContext: TJsonUnmarshallerContext): Boolean;
+begin
+  AContext.Read;
+  if AContext.CurrentTokenType = TJsonToken.Null then
+    Result := Default(Boolean)
+  else
+    Result := StrToBool(AContext.ReadText);
 end;
 
 function TBooleanUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): Boolean;
@@ -338,6 +361,7 @@ end;
 class constructor TDoubleUnmarshaller.Create;
 begin
   FInstance := TDoubleUnmarshaller.Create;
+  FJsonInstance := TDoubleUnmarshaller.Create;
   FFormatSettings := TFormatSettings.Create;
   FFormatSettings.DecimalSeparator := '.';
 end;
@@ -345,6 +369,20 @@ end;
 class function TDoubleUnmarshaller.Instance: IDoubleUnmarshaller;
 begin
   Result := FInstance;
+end;
+
+class function TDoubleUnmarshaller.JsonInstance: IJsonDoubleUnmarshaller;
+begin
+  Result := FJsonInstance;
+end;
+
+function TDoubleUnmarshaller.Unmarshall(AContext: TJsonUnmarshallerContext): Double;
+begin
+  AContext.Read;
+  if AContext.CurrentTokenType = TJsonToken.Null then
+    Result := Default(Double)
+  else
+    Result := StrToFloat(AContext.ReadText, FFormatSettings);
 end;
 
 function TDoubleUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): Double;
