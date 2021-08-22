@@ -13,7 +13,8 @@ uses
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
   AWS.LexRuntimeService.Exception, 
-  AWS.Internal.StringUtils;
+  AWS.Internal.StringUtils, 
+  AWS.LexRuntimeService.Transform.ActiveContextMarshaller;
 
 type
   IPostTextRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -69,7 +70,7 @@ begin
           for var PublicRequestActiveContextsListValue in PublicRequest.ActiveContexts do
           begin
             Context.Writer.WriteBeginObject;
-            TActiveContextRequestMarshaller.Instance.Marshall(PublicRequestActiveContextsListValue, Context);
+            TActiveContextMarshaller.Instance.Marshall(PublicRequestActiveContextsListValue, Context);
             Context.Writer.WriteEndObject;
           end;
           Context.Writer.WriteEndArray;

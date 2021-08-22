@@ -4,7 +4,8 @@ interface
 
 uses
   AWS.LexRuntimeService.Model.ActiveContext, 
-  AWS.Transform.RequestMarshaller;
+  AWS.Transform.RequestMarshaller, 
+  AWS.LexRuntimeService.Transform.ActiveContextTimeToLiveMarshaller;
 
 type
   IActiveContextMarshaller = IRequestMarshaller<TActiveContext, TJsonMarshallerContext>;
@@ -45,7 +46,7 @@ begin
   begin
     Context.Writer.WriteName('timeToLive');
     Context.Writer.WriteBeginObject;
-    TActiveContextTimeToLiveRequestMarshaller.Instance.Marshall(ARequestObject.TimeToLive, Context);
+    TActiveContextTimeToLiveMarshaller.Instance.Marshall(ARequestObject.TimeToLive, Context);
     Context.Writer.WriteEndObject;
   end;
 end;

@@ -13,7 +13,10 @@ uses
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
   AWS.LexRuntimeService.Exception, 
-  AWS.Internal.StringUtils;
+  AWS.Internal.StringUtils, 
+  AWS.LexRuntimeService.Transform.ActiveContextMarshaller, 
+  AWS.LexRuntimeService.Transform.DialogActionMarshaller, 
+  AWS.LexRuntimeService.Transform.IntentSummaryMarshaller;
 
 type
   IPutSessionRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -69,7 +72,7 @@ begin
           for var PublicRequestActiveContextsListValue in PublicRequest.ActiveContexts do
           begin
             Context.Writer.WriteBeginObject;
-            TActiveContextRequestMarshaller.Instance.Marshall(PublicRequestActiveContextsListValue, Context);
+            TActiveContextMarshaller.Instance.Marshall(PublicRequestActiveContextsListValue, Context);
             Context.Writer.WriteEndObject;
           end;
           Context.Writer.WriteEndArray;
@@ -78,7 +81,7 @@ begin
         begin
           Context.Writer.WriteName('dialogAction');
           Context.Writer.WriteBeginObject;
-          TDialogActionRequestMarshaller.Instance.Marshall(PublicRequest.DialogAction, Context);
+          TDialogActionMarshaller.Instance.Marshall(PublicRequest.DialogAction, Context);
           Context.Writer.WriteEndObject;
         end;
         if PublicRequest.IsSetRecentIntentSummaryView then
@@ -88,7 +91,7 @@ begin
           for var PublicRequestRecentIntentSummaryViewListValue in PublicRequest.RecentIntentSummaryView do
           begin
             Context.Writer.WriteBeginObject;
-            TIntentSummaryRequestMarshaller.Instance.Marshall(PublicRequestRecentIntentSummaryViewListValue, Context);
+            TIntentSummaryMarshaller.Instance.Marshall(PublicRequestRecentIntentSummaryViewListValue, Context);
             Context.Writer.WriteEndObject;
           end;
           Context.Writer.WriteEndArray;
