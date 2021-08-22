@@ -25,6 +25,7 @@ type
     FOriginalRequest: TAmazonWebServiceRequest;
     FContent: TArray<Byte>;
     FContentStream: TStream;
+    FOwnsContentStream: Boolean;
     FHttpMethod: string;
     FUseQueryString: Boolean;
     FRequestName: string;
@@ -55,6 +56,8 @@ type
     procedure SetContent(const Value: TArray<Byte>);
     function GetContentStream: TStream;
     procedure SetContentStream(const Value: TStream);
+    function GetOwnsContentStream: Boolean;
+    procedure SetOwnsContentStream(const Value: Boolean);
     function GetResourcePath: string;
     procedure SetResourcePath(const Value: string);
     function GetPathResources: TDictionary<string, string>;
@@ -90,7 +93,7 @@ type
     function GetSuppress404Exceptions: Boolean;
     procedure SetSuppress404Exceptions(const Value: Boolean);
   public
-    constructor Create(ARequest: TAmazonWebServiceRequest; AServiceName: string);
+    constructor Create(ARequest: TAmazonWebServiceRequest; AServiceName: string); reintroduce;
     destructor Destroy; override;
     function MayContainRequestBody: Boolean;
     function HasRequestBody: Boolean;
@@ -104,6 +107,7 @@ type
     property Headers: TDictionary<string, string> read GetHeaders;
     property Content: TArray<Byte> read GetContent write SetContent;
     property ContentStream: TStream read GetContentStream write SetContentStream;
+    property OwnsContentStream: Boolean read GetOwnsContentStream write SetOwnsContentStream;
     property ResourcePath: string read GetResourcePath write SetResourcePath;
     property PathResources: TDictionary<string, string> read GetPathResources;
     property SubResources: TDictionary<string, string> read GetSubResources;
@@ -187,6 +191,7 @@ begin
   FServiceName := AServiceName;
   FOriginalRequest := ARequest;
   FRequestName := Copy(FOriginalRequest.ClassName, 2);
+  FOwnsContentStream := True;
   UseSigV4 := ARequest.UseSigV4;
 
   FParametersCollection := TParameterCollection.Create;
@@ -277,6 +282,11 @@ end;
 function TDefaultRequest.GetOverrideSigningServiceName: string;
 begin
   Result := FOverrideSigningServiceName;
+end;
+
+function TDefaultRequest.GetOwnsContentStream: Boolean;
+begin
+  Result := FOwnsContentStream;
 end;
 
 function TDefaultRequest.GetParameterCollection: TParameterCollection;
@@ -386,7 +396,8 @@ var
 begin
   if FContentStream <> Value then
   begin
-    FContentStream.Free;
+    if OwnsContentStream then
+      FContentStream.Free;
     FContentStream := Value;
     OriginalStreamPosition := -1;
     if FContentStream <> nil then
@@ -431,6 +442,11 @@ end;
 procedure TDefaultRequest.SetOverrideSigningServiceName(const Value: string);
 begin
   FOverrideSigningServiceName := Value;
+end;
+
+procedure TDefaultRequest.SetOwnsContentStream(const Value: Boolean);
+begin
+  FOwnsContentStream := Value;
 end;
 
 procedure TDefaultRequest.SetResourcePath(const Value: string);

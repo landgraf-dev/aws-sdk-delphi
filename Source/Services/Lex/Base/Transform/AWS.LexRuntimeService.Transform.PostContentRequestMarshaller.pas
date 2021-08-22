@@ -3,6 +3,8 @@ unit AWS.LexRuntimeService.Transform.PostContentRequestMarshaller;
 interface
 
 uses
+  System.Classes, 
+  AWS.Util.Streams, 
   Bcl.Utils, 
   System.SysUtils, 
   AWS.Internal.Request, 
@@ -54,6 +56,21 @@ begin
     raise EAmazonLexException.Create('Request object does not have required field UserId set');
   Request.AddPathResource('{userId}', TStringUtils.Fromstring(PublicRequest.UserId));
   Request.ResourcePath := '/bot/{botName}/alias/{botAlias}/user/{userId}/content';
+  if PublicRequest.InputStream <> nil then
+  begin
+    Request.ContentStream := PublicRequest.InputStream;
+    Request.OwnsContentStream := False;
+  end
+  else
+  begin
+    Request.ContentStream := TBytesStream.Create;
+    Request.OwnsContentStream := True;
+  end;
+  if CanSeek(Request.ContentStream) then
+    Request.Headers.AddOrSetValue(THeaderKeys.ContentLengthHeader, IntToStr(Request.ContentStream.Size))
+  else
+    Request.Headers.AddOrSetValue(THeaderKeys.TransferEncodingHeader, 'chunked');
+  Request.Headers.AddOrSetValue(THeaderKeys.ContentTypeHeader, 'binary/octet-stream');
   if PublicRequest.IsSetAccept then
     Request.Headers.Add('Accept', PublicRequest.Accept);
   if PublicRequest.IsSetActiveContexts then

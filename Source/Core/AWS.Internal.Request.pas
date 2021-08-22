@@ -22,6 +22,8 @@ type
     procedure SetContent(const Value: TArray<Byte>);
     function GetContentStream: TStream;
     procedure SetContentStream(const Value: TStream);
+    function GetOwnsContentStream: Boolean;
+    procedure SetOwnsContentStream(const Value: Boolean);
     function GetResourcePath: string;
     procedure SetResourcePath(const Value: string);
     function GetPathResources: TDictionary<string, string>;
@@ -71,6 +73,7 @@ type
     property Headers: TDictionary<string, string> read GetHeaders;
     property Content: TArray<Byte> read GetContent write SetContent;
     property ContentStream: TStream read GetContentStream write SetContentStream;
+    property OwnsContentStream: Boolean read GetOwnsContentStream write SetOwnsContentStream;
     property ResourcePath: string read GetResourcePath write SetResourcePath;
     property PathResources: TDictionary<string, string> read GetPathResources;
     property SubResources: TDictionary<string, string> read GetSubResources;

@@ -5,7 +5,8 @@ interface
 uses
   Bcl.Types.Nullable, 
   AWS.LexRuntimeService.Model.Request, 
-  System.Classes;
+  System.Classes, 
+  AWS.Auth.Signer;
 
 type
   TPostContentRequest = class;
@@ -32,6 +33,7 @@ type
     function GetUserId: string;
     procedure SetUserId(const Value: string);
     function Obj: TPostContentRequest;
+    function CreateSigner: TAbstractAWSSigner;
     function IsSetAccept: Boolean;
     function IsSetActiveContexts: Boolean;
     function IsSetBotAlias: Boolean;
@@ -87,6 +89,7 @@ type
     procedure SetUserId(const Value: string);
   strict protected
     function Obj: TPostContentRequest;
+    function CreateSigner: TAbstractAWSSigner; override;
   public
     destructor Destroy; override;
     function IsSetAccept: Boolean;
@@ -273,6 +276,11 @@ end;
 function TPostContentRequest.IsSetUserId: Boolean;
 begin
   Result := FUserId.HasValue;
+end;
+
+function TPostContentRequest.CreateSigner: TAbstractAWSSigner;
+begin
+  Result := TAWS4Signer.Create(False);
 end;
 
 end.
