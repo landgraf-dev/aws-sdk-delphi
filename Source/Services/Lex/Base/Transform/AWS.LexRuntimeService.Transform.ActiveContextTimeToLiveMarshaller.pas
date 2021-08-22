@@ -27,12 +27,12 @@ begin
   if ARequestObject.IsSetTimeToLiveInSeconds then
   begin
     Context.Writer.WriteName('timeToLiveInSeconds');
-    Context.Writer.WriteString(ARequestObject.TimeToLiveInSeconds);
+    Context.Writer.WriteInteger(ARequestObject.TimeToLiveInSeconds);
   end;
   if ARequestObject.IsSetTurnsToLive then
   begin
     Context.Writer.WriteName('turnsToLive');
-    Context.Writer.WriteString(ARequestObject.TurnsToLive);
+    Context.Writer.WriteInteger(ARequestObject.TurnsToLive);
   end;
 end;
 
