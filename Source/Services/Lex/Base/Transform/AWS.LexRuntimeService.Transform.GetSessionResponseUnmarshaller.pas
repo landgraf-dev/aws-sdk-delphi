@@ -71,7 +71,7 @@ begin
       end;
       if AContext.TestExpression('sessionAttributes', TargetDepth) then
       begin
-        var Unmarshaller := TDictionaryUnmarshaller<string, string, IJsonStringUnmarshaller, IJsonStringUnmarshaller>.JsonNew(TStringUnmarshaller.Instance, TStringUnmarshaller.JsonInstance);
+        var Unmarshaller := TJsonDictionaryUnmarshaller<string, string, IJsonStringUnmarshaller, IJsonStringUnmarshaller>.JsonNew(TStringUnmarshaller.JsonInstance, TStringUnmarshaller.JsonInstance);
         Response.SessionAttributes := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;

@@ -19,7 +19,7 @@ type
     property Request: IRequest read FRequest;
   end;
 
-  IRequestMarshaller<R, T: TMarshallerContext> = interface
+  IRequestMarshaller<R; T: TMarshallerContext> = interface
     procedure Marshall(ARequestObject: R; AContext: T);
   end;
 

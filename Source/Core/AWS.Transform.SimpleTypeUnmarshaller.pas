@@ -162,7 +162,7 @@ type
   strict private
     FKVUnmarshaller: TJsonKeyValueUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>;
   public
-    class function New(AKeyUnmarshaller: TKeyUnmarshaller;
+    class function JsonNew(AKeyUnmarshaller: TKeyUnmarshaller;
       AValueUnmarshaller: TValueUnmarshaller): IUnmarshaller<TDictionary<TKey, TValue>, TJsonUnmarshallerContext>;
   public
     constructor Create(AKeyUnmarshaller: TKeyUnmarshaller; AValueUnmarshaller: TValueUnmarshaller);
@@ -176,7 +176,7 @@ type
   strict private
     FKVUnmarshaller: TJsonKeyValueUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>;
   public
-    class function New(AKeyUnmarshaller: TKeyUnmarshaller;
+    class function JsonNew(AKeyUnmarshaller: TKeyUnmarshaller;
       AValueUnmarshaller: TValueUnmarshaller): IUnmarshaller<TObjectDictionary<TKey, TValue>, TJsonUnmarshallerContext>;
   public
     constructor Create(AKeyUnmarshaller: TKeyUnmarshaller; AValueUnmarshaller: TValueUnmarshaller);
@@ -650,7 +650,7 @@ begin
     .Create(AKeyUnmarshaller, AValueUnmarshaller);
 end;
 
-class function TJsonDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.New(
+class function TJsonDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.JsonNew(
   AKeyUnmarshaller: TKeyUnmarshaller;
   AValueUnmarshaller: TValueUnmarshaller): IUnmarshaller<TDictionary<TKey, TValue>, TJsonUnmarshallerContext>;
 begin
@@ -694,7 +694,7 @@ begin
     .Create(AKeyUnmarshaller, AValueUnmarshaller);
 end;
 
-class function TJsonObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.New(
+class function TJsonObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.JsonNew(
   AKeyUnmarshaller: TKeyUnmarshaller;
   AValueUnmarshaller: TValueUnmarshaller): IUnmarshaller<TObjectDictionary<TKey, TValue>, TJsonUnmarshallerContext>;
 begin
