@@ -16,6 +16,7 @@ type
   TParameterCollection = class(TOrderedObjectDictionary<string, TParameterValue>)
   public
     procedure Add(const Key, Value: string); overload;
+    procedure Add(const Key: string; Values: TEnumerable<string>); overload;
     function GetSortedParametersList: TParameterPairArray;
   end;
 
@@ -33,7 +34,8 @@ type
   private
     procedure SetValue(const Value: TList<string>);
   public
-    constructor Create;
+    constructor Create; overload;
+    constructor Create(AValue: TEnumerable<string>); overload;
     destructor Destroy; override;
     property Value: TList<string> read FValue write SetValue;
   end;
@@ -50,11 +52,18 @@ begin
   inherited Add(Key, TStringParameterValue.Create(Value));
 end;
 
+procedure TParameterCollection.Add(const Key: string; Values: TEnumerable<string>);
+begin
+  inherited Add(Key, TStringListParameterValue.Create(Values));
+end;
+
 function TParameterCollection.GetSortedParametersList: TParameterPairArray;
 var
   Kvp: TPair<string, TParameterValue>;
   Value: TParameterValue;
   I: Integer;
+  ListIndex: Integer;
+  SortedList: TList<string>;
 begin
   SetLength(Result, Self.Count);
 
@@ -64,10 +73,25 @@ begin
     Result[I].Key := Kvp.Key;
     Value := Kvp.Value;
     if Value is TStringParameterValue then
-      Result[I].Value := TStringParameterValue(Value).Value
+    begin
+      Result[I].Value := TStringParameterValue(Value).Value;
+      Inc(I);
+    end
+    else
+    if Value is TStringListParameterValue then
+    begin
+      SortedList := TStringListParameterValue(Value).Value;
+      SortedList.Sort;
+      SetLength(Result, Length(Result) + SortedList.Count);
+      for ListIndex := 0 to SortedList.Count - 1 do
+      begin
+        Result[I].Key := Kvp.Key;
+        Result[I].Value := SortedList[ListIndex];
+        Inc(I);
+      end;
+    end
     else
       raise EAmazonClientException.Create('Unsupported parameter value type "' + Value.ClassName + '"');
-    Inc(I);
   end;
 end;
 
@@ -85,6 +109,12 @@ constructor TStringListParameterValue.Create;
 begin
   inherited Create;
   FValue := TList<string>.Create;
+end;
+
+constructor TStringListParameterValue.Create(AValue: TEnumerable<string>);
+begin
+  inherited Create;
+  FValue := TList<string>.Create(AValue);
 end;
 
 destructor TStringListParameterValue.Destroy;

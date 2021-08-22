@@ -5,7 +5,7 @@ package awspolly;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -129,6 +129,7 @@ contains
   AWS.Polly.Transform.UnsupportedPlsAlphabetExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.UnsupportedPlsAlphabetExceptionUnmarshaller.pas',
   AWS.Polly.Transform.UnsupportedPlsLanguageExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.UnsupportedPlsLanguageExceptionUnmarshaller.pas',
   AWS.Polly.Transform.VoiceUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.VoiceUnmarshaller.pas',
-  AWS.Polly in '..\..\Source\Services\Polly\Base\AWS.Polly.pas';
+  AWS.Polly in '..\..\Source\Services\Polly\Base\AWS.Polly.pas',
+  AWS.Polly.SynthesizeSpeechUtil in '..\..\Source\Services\Polly\Custom\AWS.Polly.SynthesizeSpeechUtil.pas';
 
 end.

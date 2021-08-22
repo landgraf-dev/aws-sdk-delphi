@@ -18,10 +18,10 @@ type
   THttpRequestMessageFactory = class(TInterfacedObject, IHttpRequestFactory)
   strict private
     FClientConfig: IClientConfig;
-    class function CreateHttpClient(AClientConfig: IClientConfig): THttpClient;
     class function CreateManagedHttpClient(AClientConfig: IClientConfig): THttpClient;
   public
     constructor Create(AClientConfig: IClientConfig);
+    class function CreateHttpClient(AClientConfig: IClientConfig): THttpClient;
     function CreateHttpRequest(const ARequestUri: string): IWebHttpRequest;
   end;
 

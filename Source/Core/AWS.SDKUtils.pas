@@ -250,7 +250,8 @@ uses
   Sparkle.Utils,
   AWS.Internal.RegionFinder,
   Sparkle.Http.Client,
-  AWS.Internal.SDKUtils;
+  AWS.Internal.SDKUtils,
+  AWS.Runtime.HttpRequestMessageFactory;
 
 { TProfileIniFile }
 
@@ -462,7 +463,7 @@ var
   Response: THttpResponse;
   HeaderInfo: THttpHeaderInfo;
 begin
-  Client := THttpClient.Create;
+  Client := THttpRequestMessageFactory.CreateHttpClient(nil);
   try
     // Create the request
     Request := Client.CreateRequest;

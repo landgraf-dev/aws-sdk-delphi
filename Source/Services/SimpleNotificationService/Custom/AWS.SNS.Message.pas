@@ -83,7 +83,8 @@ uses
   Sparkle.Http.Client,
   Sparkle.Uri,
   RegularExpressions,
-  AWS.Runtime.Exceptions;
+  AWS.Runtime.Exceptions,
+  AWS.Runtime.HttpRequestMessageFactory;
 
 { TMessage }
 
@@ -201,7 +202,7 @@ begin
     begin
       for Retries := 1 to MAX_RETRIES do
         try
-          Client := THttpClient.Create;
+          Client := THttpRequestMessageFactory.CreateHttpClient(nil);
           try
             Response := Client.Get(SigningCertURL);
             try
