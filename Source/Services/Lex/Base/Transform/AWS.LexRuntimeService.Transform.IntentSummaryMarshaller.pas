@@ -9,12 +9,12 @@ uses
 type
   IIntentSummaryMarshaller = IRequestMarshaller<TIntentSummary, TJsonMarshallerContext>;
   
-  TIntentSummaryMarshaller = class(TInterfacedObject, IRequestMarshaller<TIntentSummary, TJsonMarshallerContext>, IIntentSummaryMarshaller)
+  TIntentSummaryMarshaller = class(TInterfacedObject, IRequestMarshaller<TIntentSummary, TJsonMarshallerContext>)
   strict private
     class var FInstance: IIntentSummaryMarshaller;
     class constructor Create;
   public
-    procedure Marshall(ARequestObject: TIntentSummary; AContext: TJsonMarshallerContext);
+    procedure Marshall(ARequestObject: TIntentSummary; Context: TJsonMarshallerContext);
     class function Instance: IIntentSummaryMarshaller; static;
   end;
   
@@ -22,7 +22,7 @@ implementation
 
 { TIntentSummaryMarshaller }
 
-procedure TIntentSummaryMarshaller.Marshall(ARequestObject: TIntentSummary; AContext: TJsonMarshallerContext);
+procedure TIntentSummaryMarshaller.Marshall(ARequestObject: TIntentSummary; Context: TJsonMarshallerContext);
 begin
   if ARequestObject.IsSetCheckpointLabel then
   begin

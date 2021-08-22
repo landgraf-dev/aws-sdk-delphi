@@ -9,12 +9,12 @@ uses
 type
   IDialogActionMarshaller = IRequestMarshaller<TDialogAction, TJsonMarshallerContext>;
   
-  TDialogActionMarshaller = class(TInterfacedObject, IRequestMarshaller<TDialogAction, TJsonMarshallerContext>, IDialogActionMarshaller)
+  TDialogActionMarshaller = class(TInterfacedObject, IRequestMarshaller<TDialogAction, TJsonMarshallerContext>)
   strict private
     class var FInstance: IDialogActionMarshaller;
     class constructor Create;
   public
-    procedure Marshall(ARequestObject: TDialogAction; AContext: TJsonMarshallerContext);
+    procedure Marshall(ARequestObject: TDialogAction; Context: TJsonMarshallerContext);
     class function Instance: IDialogActionMarshaller; static;
   end;
   
@@ -22,7 +22,7 @@ implementation
 
 { TDialogActionMarshaller }
 
-procedure TDialogActionMarshaller.Marshall(ARequestObject: TDialogAction; AContext: TJsonMarshallerContext);
+procedure TDialogActionMarshaller.Marshall(ARequestObject: TDialogAction; Context: TJsonMarshallerContext);
 begin
   if ARequestObject.IsSetFulfillmentState then
   begin

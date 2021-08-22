@@ -9,12 +9,12 @@ uses
 type
   IActiveContextMarshaller = IRequestMarshaller<TActiveContext, TJsonMarshallerContext>;
   
-  TActiveContextMarshaller = class(TInterfacedObject, IRequestMarshaller<TActiveContext, TJsonMarshallerContext>, IActiveContextMarshaller)
+  TActiveContextMarshaller = class(TInterfacedObject, IRequestMarshaller<TActiveContext, TJsonMarshallerContext>)
   strict private
     class var FInstance: IActiveContextMarshaller;
     class constructor Create;
   public
-    procedure Marshall(ARequestObject: TActiveContext; AContext: TJsonMarshallerContext);
+    procedure Marshall(ARequestObject: TActiveContext; Context: TJsonMarshallerContext);
     class function Instance: IActiveContextMarshaller; static;
   end;
   
@@ -22,7 +22,7 @@ implementation
 
 { TActiveContextMarshaller }
 
-procedure TActiveContextMarshaller.Marshall(ARequestObject: TActiveContext; AContext: TJsonMarshallerContext);
+procedure TActiveContextMarshaller.Marshall(ARequestObject: TActiveContext; Context: TJsonMarshallerContext);
 begin
   if ARequestObject.IsSetName then
   begin

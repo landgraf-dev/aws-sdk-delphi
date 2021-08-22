@@ -9,12 +9,12 @@ uses
 type
   IActiveContextTimeToLiveMarshaller = IRequestMarshaller<TActiveContextTimeToLive, TJsonMarshallerContext>;
   
-  TActiveContextTimeToLiveMarshaller = class(TInterfacedObject, IRequestMarshaller<TActiveContextTimeToLive, TJsonMarshallerContext>, IActiveContextTimeToLiveMarshaller)
+  TActiveContextTimeToLiveMarshaller = class(TInterfacedObject, IRequestMarshaller<TActiveContextTimeToLive, TJsonMarshallerContext>)
   strict private
     class var FInstance: IActiveContextTimeToLiveMarshaller;
     class constructor Create;
   public
-    procedure Marshall(ARequestObject: TActiveContextTimeToLive; AContext: TJsonMarshallerContext);
+    procedure Marshall(ARequestObject: TActiveContextTimeToLive; Context: TJsonMarshallerContext);
     class function Instance: IActiveContextTimeToLiveMarshaller; static;
   end;
   
@@ -22,7 +22,7 @@ implementation
 
 { TActiveContextTimeToLiveMarshaller }
 
-procedure TActiveContextTimeToLiveMarshaller.Marshall(ARequestObject: TActiveContextTimeToLive; AContext: TJsonMarshallerContext);
+procedure TActiveContextTimeToLiveMarshaller.Marshall(ARequestObject: TActiveContextTimeToLive; Context: TJsonMarshallerContext);
 begin
   if ARequestObject.IsSetTimeToLiveInSeconds then
   begin
