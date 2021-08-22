@@ -12,6 +12,13 @@ type
   TAlwaysSendObjectList<T: class> = class(TObjectList<T>)
   end;
 
+  TAlwaysSendDictionary<K, V> = class(TDictionary<K, V>)
+  end;
+
+  TAlwaysSendObjectDictionary<K; V: class> = class(TObjectDictionary<K, V>)
+  end;
+
+
 implementation
 
 end.
