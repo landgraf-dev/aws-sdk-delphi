@@ -216,7 +216,7 @@ type
     RefreshRate = 2 * 60 * 1000; // 2 minutes
     CredentialsLockTimeout = 5000; // 5 seconds
   strict private
-    class var FInstance: TDefaultInstanceProfileAWSCredentials;
+    class var FInstance: IAWSCredentials;
     class var FInstanceLock: TObject;
     class constructor Create;
     class destructor Destroy;
@@ -229,7 +229,7 @@ type
     FCredentialsLock: TObject;
     procedure RenewCredentials(Unused: TObject);
   public
-    class function Instance: TDefaultInstanceProfileAWSCredentials; static;
+    class function Instance: IAWSCredentials; static;
   public
     constructor Create;
     destructor Destroy; override;
@@ -1021,6 +1021,7 @@ end;
 destructor TDefaultInstanceProfileAWSCredentials.Destroy;
 begin
   FCredentialsLock.Free;
+  FCredentialsRetrieverTimer.Free;
   inherited;
 end;
 
@@ -1103,7 +1104,7 @@ begin
   Result := Credentials;
 end;
 
-class function TDefaultInstanceProfileAWSCredentials.Instance: TDefaultInstanceProfileAWSCredentials;
+class function TDefaultInstanceProfileAWSCredentials.Instance: IAWSCredentials;
 begin
   CheckIsIMDSEnabled;
   if FInstance = nil then
