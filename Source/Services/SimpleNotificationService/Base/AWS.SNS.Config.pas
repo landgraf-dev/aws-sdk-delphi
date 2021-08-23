@@ -41,7 +41,7 @@ end;
 
 class constructor TAmazonSimpleNotificationServiceConfig.Create;
 begin
-  FUserAgent := TInternalSDKUtils.BuildUserAgentString('0.3.0.0');
+  FUserAgent := TInternalSDKUtils.BuildUserAgentString('0.4.0.0');
 end;
 
 function TAmazonSimpleNotificationServiceConfig.GetUserAgent: string;

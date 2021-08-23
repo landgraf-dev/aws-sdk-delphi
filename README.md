@@ -9,6 +9,8 @@ This is the list of AWS services currently supported by the SDK. More will be ad
 * [Amazon SES: Simple Email Service](https://aws.amazon.com/ses/)
 * [Amazon SQS: Simple Queue Service](https://aws.amazon.com/sqs/)
 * [Amazon SNS: Simple Notification Service](#amazon-sns)
+* [Amazon Polly](https://aws.amazon.com/polly/)
+* [Amazon Lex: Conversational AI for Chatbox](https://aws.amazon.com/lex/)
 
 ## Bug report and feature requests
 
