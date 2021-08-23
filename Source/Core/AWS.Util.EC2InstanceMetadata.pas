@@ -359,9 +359,13 @@ begin
   if IdDocument <> '' then
   try
     JsonDocument := TJson.Deserialize<TJObject>(IdDocument);
-    RegionName := JsonDocument['region'];
-    if RegionName <> nil then
-      Exit(TRegionEndpoint.GetBySystemName(RegionName.AsString));
+    try
+      RegionName := JsonDocument['region'];
+      if RegionName <> nil then
+        Exit(TRegionEndpoint.GetBySystemName(RegionName.AsString));
+    finally
+      JsonDocument.Free;
+    end;
   except
     on E: Exception do
     begin
