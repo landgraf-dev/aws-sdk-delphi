@@ -99,7 +99,7 @@ begin
   for Retry := 1 to Tries do
   begin
     if not IsIMDSEnabled or FUseNullToken then
-      Result := '';
+      Exit('');
 
     try
       UriForToken := EC2_APITOKEN_URL;
