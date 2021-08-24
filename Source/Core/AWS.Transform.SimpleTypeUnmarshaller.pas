@@ -57,14 +57,18 @@ type
   end;
 
   IInt64Unmarshaller = IUnmarshaller<Int64, TXmlUnmarshallerContext>;
-  TInt64Unmarshaller = class(TInterfacedObject, IUnmarshaller<Int64, TXmlUnmarshallerContext>)
+  IJsonInt64Unmarshaller = IUnmarshaller<Int64, TJsonUnmarshallerContext>;
+  TInt64Unmarshaller = class(TInterfacedObject, IUnmarshaller<Int64, TXmlUnmarshallerContext>, IJsonInt64Unmarshaller)
   strict private
     class var FInstance: IInt64Unmarshaller;
+    class var FJsonInstance: IJsonInt64Unmarshaller;
     class constructor Create;
   public
     class function Instance: IInt64Unmarshaller;
+    class function JsonInstance: IJsonInt64Unmarshaller;
   public
-    function Unmarshall(AContext: TXmlUnmarshallerContext): Int64;
+    function Unmarshall(AContext: TXmlUnmarshallerContext): Int64; overload;
+    function Unmarshall(AContext: TJsonUnmarshallerContext): Int64; overload;
   end;
 
   IDoubleUnmarshaller = IUnmarshaller<Double, TXmlUnmarshallerContext>;
@@ -512,11 +516,26 @@ end;
 class constructor TInt64Unmarshaller.Create;
 begin
   FInstance := TInt64Unmarshaller.Create;
+  FJsonInstance := TInt64Unmarshaller.Create;
 end;
 
 class function TInt64Unmarshaller.Instance: IInt64Unmarshaller;
 begin
   Result := FInstance;
+end;
+
+class function TInt64Unmarshaller.JsonInstance: IJsonInt64Unmarshaller;
+begin
+  Result := FJsonInstance;
+end;
+
+function TInt64Unmarshaller.Unmarshall(AContext: TJsonUnmarshallerContext): Int64;
+begin
+  AContext.Read;
+  if AContext.CurrentTokenType = TJsonToken.Null then
+    Result := Default(Int64)
+  else
+    Result := StrToInt64(AContext.ReadText);
 end;
 
 function TInt64Unmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): Int64;
@@ -529,6 +548,7 @@ end;
 class constructor TIntegerUnmarshaller.Create;
 begin
   FInstance := TIntegerUnmarshaller.Create;
+  FJsonInstance := TIntegerUnmarshaller.Create;
 end;
 
 class function TIntegerUnmarshaller.Instance: IIntegerUnmarshaller;
