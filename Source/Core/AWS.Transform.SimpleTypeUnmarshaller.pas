@@ -460,6 +460,7 @@ end;
 class constructor TDateTimeUnmarshaller.Create;
 begin
   FInstance := TDateTimeUnmarshaller.Create;
+  FJsonInstance := TDateTimeUnmarshaller.Create;
   FFormatSettings := TFormatSettings.Invariant;
 end;
 
