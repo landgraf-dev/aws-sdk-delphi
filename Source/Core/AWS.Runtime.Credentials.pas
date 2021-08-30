@@ -1015,7 +1015,7 @@ begin
   {TODO: Replace this by a ReadWriterLock later}
   FCredentialsLock := TObject.Create;
   FLogger := LogManager.GetLogger(TDefaultInstanceProfileAWSCredentials);
-  FCredentialsRetrieverTimer := TSparkleTimer.Create(RenewCredentials, nil, 0, TTimerType.Periodic);
+  FCredentialsRetrieverTimer := TSparkleTimer.Create(RenewCredentials, nil, 1, TTimerType.SingleShot);
 end;
 
 destructor TDefaultInstanceProfileAWSCredentials.Destroy;
