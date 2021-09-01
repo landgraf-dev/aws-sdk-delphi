@@ -1,6 +1,6 @@
 # AWS SDK for Delphi
 
-The **AWS SDK for Delphi** enables Delphi developers to easily work with [Amazon Web Services][aws] and build scalable solutions with Amazon SES, Amazon SQS, and more. It is a non-official SDK based on the official [AWS SDK for .NET][aws-sdk-net].
+The **AWS SDK for Delphi** enables Delphi developers to easily work with [Amazon Web Services][aws] and build scalable solutions with Amazon SES, Amazon SQS, and more. It is a non-official SDK based on the official [AWS SDK for .NET][aws-sdk-net]. Sample projects can be found in [AWS SDK for Delphi Samples](https://github.com/landgraf-dev/aws-sdk-delphi-samples) repository.
 
 ## Supported services
 
