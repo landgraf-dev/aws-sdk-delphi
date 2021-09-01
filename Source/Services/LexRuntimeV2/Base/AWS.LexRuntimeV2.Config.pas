@@ -41,7 +41,7 @@ end;
 
 class constructor TAmazonLexRuntimeV2Config.Create;
 begin
-  FUserAgent := TInternalSDKUtils.BuildUserAgentString('0.5.0.0');
+  FUserAgent := TInternalSDKUtils.BuildUserAgentString('0.6.0.0');
 end;
 
 function TAmazonLexRuntimeV2Config.GetUserAgent: string;
