@@ -12,6 +12,24 @@
         <Projects Include="awsses.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="awssesv2.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awspolly.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awssns.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awstranslate.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awslexruntimeservice.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awslexruntimev2.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +65,68 @@
     <Target Name="awsses:Make">
         <MSBuild Projects="awsses.dproj" Targets="Make"/>
     </Target>
+    <Target Name="awssesv2">
+        <MSBuild Projects="awssesv2.dproj"/>
+    </Target>
+    <Target Name="awssesv2:Clean">
+        <MSBuild Projects="awssesv2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awssesv2:Make">
+        <MSBuild Projects="awssesv2.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awspolly">
+        <MSBuild Projects="awspolly.dproj"/>
+    </Target>
+    <Target Name="awspolly:Clean">
+        <MSBuild Projects="awspolly.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awspolly:Make">
+        <MSBuild Projects="awspolly.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awssns">
+        <MSBuild Projects="awssns.dproj"/>
+    </Target>
+    <Target Name="awssns:Clean">
+        <MSBuild Projects="awssns.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awssns:Make">
+        <MSBuild Projects="awssns.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awstranslate">
+        <MSBuild Projects="awstranslate.dproj"/>
+    </Target>
+    <Target Name="awstranslate:Clean">
+        <MSBuild Projects="awstranslate.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awstranslate:Make">
+        <MSBuild Projects="awstranslate.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awslexruntimeservice">
+        <MSBuild Projects="awslexruntimeservice.dproj"/>
+    </Target>
+    <Target Name="awslexruntimeservice:Clean">
+        <MSBuild Projects="awslexruntimeservice.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awslexruntimeservice:Make">
+        <MSBuild Projects="awslexruntimeservice.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awslexruntimev2">
+        <MSBuild Projects="awslexruntimev2.dproj"/>
+    </Target>
+    <Target Name="awslexruntimev2:Clean">
+        <MSBuild Projects="awslexruntimev2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awslexruntimev2:Make">
+        <MSBuild Projects="awslexruntimev2.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="awscore;awssqs;awsses"/>
+        <CallTarget Targets="awscore;awssqs;awsses;awssesv2;awspolly;awssns;awstranslate;awslexruntimeservice;awslexruntimev2"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="awscore:Clean;awssqs:Clean;awsses:Clean"/>
+        <CallTarget Targets="awscore:Clean;awssqs:Clean;awsses:Clean;awssesv2:Clean;awspolly:Clean;awssns:Clean;awstranslate:Clean;awslexruntimeservice:Clean;awslexruntimev2:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="awscore:Make;awssqs:Make;awsses:Make"/>
+        <CallTarget Targets="awscore:Make;awssqs:Make;awsses:Make;awssesv2:Make;awspolly:Make;awssns:Make;awstranslate:Make;awslexruntimeservice:Make;awslexruntimev2:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
