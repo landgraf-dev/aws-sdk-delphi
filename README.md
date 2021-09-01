@@ -12,6 +12,7 @@ This is the list of AWS services currently supported by the SDK. More will be ad
 * [Amazon SNS: Simple Notification Service](#amazon-sns)
 * [Amazon Polly: Text To Speech](https://aws.amazon.com/polly/)
 * [Amazon Lex: Conversational AI for Chatbox](https://aws.amazon.com/lex/)
+* [Amazon Translate: Text Translation](http://aws.amazon.com/translate/)
 
 ## Bug report and feature requests
 
