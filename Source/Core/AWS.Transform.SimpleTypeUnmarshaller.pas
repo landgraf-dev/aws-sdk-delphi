@@ -87,6 +87,10 @@ type
     function Unmarshall(AContext: TJsonUnmarshallerContext): Double; overload;
   end;
 
+  IFloatUnmarshaller = IDoubleUnmarshaller;
+  IJsonFloatUnmarshalle = IJsonDoubleUnmarshaller;
+  TFloatUnmarshaller = TDoubleUnmarshaller;
+
   IDateTimeUnmarshaller = IUnmarshaller<TDateTime, TXmlUnmarshallerContext>;
   IJsonDateTimeUnmarshaller = IUnmarshaller<TDateTime, TJsonUnmarshallerContext>;
   TDateTimeUnmarshaller = class(TInterfacedObject, IUnmarshaller<TDateTime, TXmlUnmarshallerContext>, IJsonDateTimeUnmarshaller)
