@@ -41,7 +41,7 @@ end;
 
 class constructor TAmazonPollyConfig.Create;
 begin
-  FUserAgent := TInternalSDKUtils.BuildUserAgentString('0.6.0.0');
+  FUserAgent := TInternalSDKUtils.BuildUserAgentString('0.7.0.0');
 end;
 
 function TAmazonPollyConfig.GetUserAgent: string;

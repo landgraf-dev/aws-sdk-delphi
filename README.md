@@ -6,12 +6,13 @@ The **AWS SDK for Delphi** enables Delphi developers to easily work with [Amazon
 
 This is the list of AWS services currently supported by the SDK. More will be added over time:
 
-* [Amazon SES: Simple Email Service API (Classic)](https://aws.amazon.com/ses/)
-* [Amazon SES V2: Simple Email Service API v2](https://aws.amazon.com/ses/)
-* [Amazon SQS: Simple Queue Service](https://aws.amazon.com/sqs/)
-* [Amazon SNS: Simple Notification Service](#amazon-sns)
 * [Amazon Polly: Text To Speech](https://aws.amazon.com/polly/)
 * [Amazon Lex: Conversational AI for Chatbox](https://aws.amazon.com/lex/)
+* [Amazon Rekognition: Image and Video Analysis](https://aws.amazon.com/rekognition/)
+* [Amazon SES: Simple Email Service API (Classic)](https://aws.amazon.com/ses/)
+* [Amazon SES V2: Simple Email Service API v2](https://aws.amazon.com/ses/)
+* [Amazon SNS: Simple Notification Service](#amazon-sns)
+* [Amazon SQS: Simple Queue Service](https://aws.amazon.com/sqs/)
 * [Amazon Translate: Text Translation](http://aws.amazon.com/translate/)
 
 ## Bug report and feature requests
