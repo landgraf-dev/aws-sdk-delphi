@@ -69,3 +69,4 @@ __recovery/
 Samples/SQS/AmazonSQSDemo.res
 Win32/
 Tests/AWSTests.res
+AndroidManifest.template.xml
