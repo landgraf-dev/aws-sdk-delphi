@@ -1,0 +1,177 @@
+package awssqs;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Amazon Simple Queue Service'}
+{$LIBSUFFIX AUTO}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  awscore;
+
+contains
+  AWS.SQS.Client in '..\..\Source\Services\SQS\Base\AWS.SQS.Client.pas',
+  AWS.SQS.ClientIntf in '..\..\Source\Services\SQS\Base\AWS.SQS.ClientIntf.pas',
+  AWS.SQS.Config in '..\..\Source\Services\SQS\Base\AWS.SQS.Config.pas',
+  AWS.SQS.Enums in '..\..\Source\Services\SQS\Base\AWS.SQS.Enums.pas',
+  AWS.SQS.Exception in '..\..\Source\Services\SQS\Base\AWS.SQS.Exception.pas',
+  AWS.SQS.Metadata in '..\..\Source\Services\SQS\Base\AWS.SQS.Metadata.pas',
+  AWS.SQS.Model.AddPermissionRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.AddPermissionRequest.pas',
+  AWS.SQS.Model.AddPermissionResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.AddPermissionResponse.pas',
+  AWS.SQS.Model.BatchEntryIdsNotDistinctException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.BatchEntryIdsNotDistinctException.pas',
+  AWS.SQS.Model.BatchRequestTooLongException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.BatchRequestTooLongException.pas',
+  AWS.SQS.Model.BatchResultErrorEntry in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.BatchResultErrorEntry.pas',
+  AWS.SQS.Model.ChangeMessageVisibilityBatchRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ChangeMessageVisibilityBatchRequest.pas',
+  AWS.SQS.Model.ChangeMessageVisibilityBatchRequestEntry in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ChangeMessageVisibilityBatchRequestEntry.pas',
+  AWS.SQS.Model.ChangeMessageVisibilityBatchResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ChangeMessageVisibilityBatchResponse.pas',
+  AWS.SQS.Model.ChangeMessageVisibilityBatchResultEntry in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ChangeMessageVisibilityBatchResultEntry.pas',
+  AWS.SQS.Model.ChangeMessageVisibilityRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ChangeMessageVisibilityRequest.pas',
+  AWS.SQS.Model.ChangeMessageVisibilityResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ChangeMessageVisibilityResponse.pas',
+  AWS.SQS.Model.CreateQueueRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.CreateQueueRequest.pas',
+  AWS.SQS.Model.CreateQueueResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.CreateQueueResponse.pas',
+  AWS.SQS.Model.DeleteMessageBatchRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.DeleteMessageBatchRequest.pas',
+  AWS.SQS.Model.DeleteMessageBatchRequestEntry in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.DeleteMessageBatchRequestEntry.pas',
+  AWS.SQS.Model.DeleteMessageBatchResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.DeleteMessageBatchResponse.pas',
+  AWS.SQS.Model.DeleteMessageBatchResultEntry in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.DeleteMessageBatchResultEntry.pas',
+  AWS.SQS.Model.DeleteMessageRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.DeleteMessageRequest.pas',
+  AWS.SQS.Model.DeleteMessageResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.DeleteMessageResponse.pas',
+  AWS.SQS.Model.DeleteQueueRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.DeleteQueueRequest.pas',
+  AWS.SQS.Model.DeleteQueueResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.DeleteQueueResponse.pas',
+  AWS.SQS.Model.EmptyBatchRequestException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.EmptyBatchRequestException.pas',
+  AWS.SQS.Model.GetQueueAttributesRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.GetQueueAttributesRequest.pas',
+  AWS.SQS.Model.GetQueueAttributesResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.GetQueueAttributesResponse.pas',
+  AWS.SQS.Model.GetQueueUrlRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.GetQueueUrlRequest.pas',
+  AWS.SQS.Model.GetQueueUrlResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.GetQueueUrlResponse.pas',
+  AWS.SQS.Model.InvalidAttributeNameException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.InvalidAttributeNameException.pas',
+  AWS.SQS.Model.InvalidBatchEntryIdException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.InvalidBatchEntryIdException.pas',
+  AWS.SQS.Model.InvalidIdFormatException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.InvalidIdFormatException.pas',
+  AWS.SQS.Model.InvalidMessageContentsException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.InvalidMessageContentsException.pas',
+  AWS.SQS.Model.ListDeadLetterSourceQueuesRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ListDeadLetterSourceQueuesRequest.pas',
+  AWS.SQS.Model.ListDeadLetterSourceQueuesResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ListDeadLetterSourceQueuesResponse.pas',
+  AWS.SQS.Model.ListQueueTagsRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ListQueueTagsRequest.pas',
+  AWS.SQS.Model.ListQueueTagsResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ListQueueTagsResponse.pas',
+  AWS.SQS.Model.ListQueuesRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ListQueuesRequest.pas',
+  AWS.SQS.Model.ListQueuesResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ListQueuesResponse.pas',
+  AWS.SQS.Model.Message in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.Message.pas',
+  AWS.SQS.Model.MessageAttributeValue in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.MessageAttributeValue.pas',
+  AWS.SQS.Model.MessageNotInflightException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.MessageNotInflightException.pas',
+  AWS.SQS.Model.MessageSystemAttributeValue in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.MessageSystemAttributeValue.pas',
+  AWS.SQS.Model.OverLimitException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.OverLimitException.pas',
+  AWS.SQS.Model.PurgeQueueInProgressException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.PurgeQueueInProgressException.pas',
+  AWS.SQS.Model.PurgeQueueRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.PurgeQueueRequest.pas',
+  AWS.SQS.Model.PurgeQueueResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.PurgeQueueResponse.pas',
+  AWS.SQS.Model.QueueDeletedRecentlyException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.QueueDeletedRecentlyException.pas',
+  AWS.SQS.Model.QueueDoesNotExistException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.QueueDoesNotExistException.pas',
+  AWS.SQS.Model.QueueNameExistsException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.QueueNameExistsException.pas',
+  AWS.SQS.Model.ReceiptHandleIsInvalidException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ReceiptHandleIsInvalidException.pas',
+  AWS.SQS.Model.ReceiveMessageRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ReceiveMessageRequest.pas',
+  AWS.SQS.Model.ReceiveMessageResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.ReceiveMessageResponse.pas',
+  AWS.SQS.Model.RemovePermissionRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.RemovePermissionRequest.pas',
+  AWS.SQS.Model.RemovePermissionResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.RemovePermissionResponse.pas',
+  AWS.SQS.Model.Request in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.Request.pas',
+  AWS.SQS.Model.SendMessageBatchRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.SendMessageBatchRequest.pas',
+  AWS.SQS.Model.SendMessageBatchRequestEntry in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.SendMessageBatchRequestEntry.pas',
+  AWS.SQS.Model.SendMessageBatchResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.SendMessageBatchResponse.pas',
+  AWS.SQS.Model.SendMessageBatchResultEntry in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.SendMessageBatchResultEntry.pas',
+  AWS.SQS.Model.SendMessageRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.SendMessageRequest.pas',
+  AWS.SQS.Model.SendMessageResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.SendMessageResponse.pas',
+  AWS.SQS.Model.SetQueueAttributesRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.SetQueueAttributesRequest.pas',
+  AWS.SQS.Model.SetQueueAttributesResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.SetQueueAttributesResponse.pas',
+  AWS.SQS.Model.TagQueueRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.TagQueueRequest.pas',
+  AWS.SQS.Model.TagQueueResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.TagQueueResponse.pas',
+  AWS.SQS.Model.TooManyEntriesInBatchRequestException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.TooManyEntriesInBatchRequestException.pas',
+  AWS.SQS.Model.UnsupportedOperationException in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.UnsupportedOperationException.pas',
+  AWS.SQS.Model.UntagQueueRequest in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.UntagQueueRequest.pas',
+  AWS.SQS.Model.UntagQueueResponse in '..\..\Source\Services\SQS\Base\Model\AWS.SQS.Model.UntagQueueResponse.pas',
+  AWS.SQS.Transform.AddPermissionRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.AddPermissionRequestMarshaller.pas',
+  AWS.SQS.Transform.AddPermissionResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.AddPermissionResponseUnmarshaller.pas',
+  AWS.SQS.Transform.BatchEntryIdsNotDistinctExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.BatchEntryIdsNotDistinctExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.BatchRequestTooLongExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.BatchRequestTooLongExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.BatchResultErrorEntryUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.BatchResultErrorEntryUnmarshaller.pas',
+  AWS.SQS.Transform.ChangeMessageVisibilityBatchRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ChangeMessageVisibilityBatchRequestMarshaller.pas',
+  AWS.SQS.Transform.ChangeMessageVisibilityBatchResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ChangeMessageVisibilityBatchResponseUnmarshaller.pas',
+  AWS.SQS.Transform.ChangeMessageVisibilityBatchResultEntryUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ChangeMessageVisibilityBatchResultEntryUnmarshaller.pas',
+  AWS.SQS.Transform.ChangeMessageVisibilityRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ChangeMessageVisibilityRequestMarshaller.pas',
+  AWS.SQS.Transform.ChangeMessageVisibilityResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ChangeMessageVisibilityResponseUnmarshaller.pas',
+  AWS.SQS.Transform.CreateQueueRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.CreateQueueRequestMarshaller.pas',
+  AWS.SQS.Transform.CreateQueueResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.CreateQueueResponseUnmarshaller.pas',
+  AWS.SQS.Transform.DeleteMessageBatchRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.DeleteMessageBatchRequestMarshaller.pas',
+  AWS.SQS.Transform.DeleteMessageBatchResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.DeleteMessageBatchResponseUnmarshaller.pas',
+  AWS.SQS.Transform.DeleteMessageBatchResultEntryUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.DeleteMessageBatchResultEntryUnmarshaller.pas',
+  AWS.SQS.Transform.DeleteMessageRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.DeleteMessageRequestMarshaller.pas',
+  AWS.SQS.Transform.DeleteMessageResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.DeleteMessageResponseUnmarshaller.pas',
+  AWS.SQS.Transform.DeleteQueueRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.DeleteQueueRequestMarshaller.pas',
+  AWS.SQS.Transform.DeleteQueueResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.DeleteQueueResponseUnmarshaller.pas',
+  AWS.SQS.Transform.EmptyBatchRequestExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.EmptyBatchRequestExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.GetQueueAttributesRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.GetQueueAttributesRequestMarshaller.pas',
+  AWS.SQS.Transform.GetQueueAttributesResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.GetQueueAttributesResponseUnmarshaller.pas',
+  AWS.SQS.Transform.GetQueueUrlRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.GetQueueUrlRequestMarshaller.pas',
+  AWS.SQS.Transform.GetQueueUrlResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.GetQueueUrlResponseUnmarshaller.pas',
+  AWS.SQS.Transform.InvalidAttributeNameExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.InvalidAttributeNameExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.InvalidBatchEntryIdExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.InvalidBatchEntryIdExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.InvalidIdFormatExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.InvalidIdFormatExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.InvalidMessageContentsExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.InvalidMessageContentsExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.ListDeadLetterSourceQueuesRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ListDeadLetterSourceQueuesRequestMarshaller.pas',
+  AWS.SQS.Transform.ListDeadLetterSourceQueuesResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ListDeadLetterSourceQueuesResponseUnmarshaller.pas',
+  AWS.SQS.Transform.ListQueueTagsRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ListQueueTagsRequestMarshaller.pas',
+  AWS.SQS.Transform.ListQueueTagsResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ListQueueTagsResponseUnmarshaller.pas',
+  AWS.SQS.Transform.ListQueuesRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ListQueuesRequestMarshaller.pas',
+  AWS.SQS.Transform.ListQueuesResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ListQueuesResponseUnmarshaller.pas',
+  AWS.SQS.Transform.MessageAttributeValueUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.MessageAttributeValueUnmarshaller.pas',
+  AWS.SQS.Transform.MessageNotInflightExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.MessageNotInflightExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.MessageUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.MessageUnmarshaller.pas',
+  AWS.SQS.Transform.OverLimitExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.OverLimitExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.PurgeQueueInProgressExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.PurgeQueueInProgressExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.PurgeQueueRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.PurgeQueueRequestMarshaller.pas',
+  AWS.SQS.Transform.PurgeQueueResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.PurgeQueueResponseUnmarshaller.pas',
+  AWS.SQS.Transform.QueueDeletedRecentlyExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.QueueDeletedRecentlyExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.QueueDoesNotExistExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.QueueDoesNotExistExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.QueueNameExistsExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.QueueNameExistsExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.ReceiptHandleIsInvalidExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ReceiptHandleIsInvalidExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.ReceiveMessageRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ReceiveMessageRequestMarshaller.pas',
+  AWS.SQS.Transform.ReceiveMessageResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.ReceiveMessageResponseUnmarshaller.pas',
+  AWS.SQS.Transform.RemovePermissionRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.RemovePermissionRequestMarshaller.pas',
+  AWS.SQS.Transform.RemovePermissionResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.RemovePermissionResponseUnmarshaller.pas',
+  AWS.SQS.Transform.SendMessageBatchRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.SendMessageBatchRequestMarshaller.pas',
+  AWS.SQS.Transform.SendMessageBatchResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.SendMessageBatchResponseUnmarshaller.pas',
+  AWS.SQS.Transform.SendMessageBatchResultEntryUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.SendMessageBatchResultEntryUnmarshaller.pas',
+  AWS.SQS.Transform.SendMessageRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.SendMessageRequestMarshaller.pas',
+  AWS.SQS.Transform.SendMessageResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.SendMessageResponseUnmarshaller.pas',
+  AWS.SQS.Transform.SetQueueAttributesRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.SetQueueAttributesRequestMarshaller.pas',
+  AWS.SQS.Transform.SetQueueAttributesResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.SetQueueAttributesResponseUnmarshaller.pas',
+  AWS.SQS.Transform.TagQueueRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.TagQueueRequestMarshaller.pas',
+  AWS.SQS.Transform.TagQueueResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.TagQueueResponseUnmarshaller.pas',
+  AWS.SQS.Transform.TooManyEntriesInBatchRequestExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.TooManyEntriesInBatchRequestExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.UnsupportedOperationExceptionUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.UnsupportedOperationExceptionUnmarshaller.pas',
+  AWS.SQS.Transform.UntagQueueRequestMarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.UntagQueueRequestMarshaller.pas',
+  AWS.SQS.Transform.UntagQueueResponseUnmarshaller in '..\..\Source\Services\SQS\Base\Transform\AWS.SQS.Transform.UntagQueueResponseUnmarshaller.pas',
+  AWS.SQS in '..\..\Source\Services\SQS\Base\AWS.SQS.pas',
+  AWS.SQS.Consts in '..\..\Source\Services\SQS\Custom\AWS.SQS.Consts.pas',
+  AWS.SQS.Pipeline.ProcessRequestHandler in '..\..\Source\Services\SQS\Custom\AWS.SQS.Pipeline.ProcessRequestHandler.pas',
+  AWS.SQS.Pipeline.ValidationResponseHandler in '..\..\Source\Services\SQS\Custom\AWS.SQS.Pipeline.ValidationResponseHandler.pas';
+
+end.
