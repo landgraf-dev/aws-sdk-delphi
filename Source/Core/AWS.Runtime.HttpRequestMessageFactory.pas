@@ -228,7 +228,8 @@ end;
 
 function THttpClientResponseData.GetContentLength: Integer;
 begin
-  Result := FResponse.ContentLength;
+  if not TryStrToInt(GetHeaderValue(THeaderKeys.ContentLengthHeader), Result) then
+    Result := 0;
 end;
 
 function THttpClientResponseData.GetContentType: string;
