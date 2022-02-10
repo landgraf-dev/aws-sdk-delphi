@@ -97,7 +97,7 @@ end;
 
 constructor TDestination.Create(const AToAddresses: TList<string>);
 begin
-  inherited Create;
+  Create;
   ToAddresses := AToAddresses;
 end;
 

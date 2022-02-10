@@ -41,7 +41,7 @@ end;
 
 constructor TDeleteQueueRequest.Create(const AQueueUrl: string);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
 end;
 

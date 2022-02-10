@@ -99,7 +99,7 @@ end;
 
 constructor TAddPermissionRequest.Create(const AQueueUrl: string; const ALabel: string; const AAWSAccountIds: TList<string>; const AActions: TList<string>);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   &Label := ALabel;
   AWSAccountIds := AAWSAccountIds;

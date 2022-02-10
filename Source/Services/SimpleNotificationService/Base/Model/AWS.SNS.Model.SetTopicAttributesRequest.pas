@@ -59,7 +59,7 @@ end;
 
 constructor TSetTopicAttributesRequest.Create(const ATopicArn: string; const AAttributeName: string; const AAttributeValue: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   AttributeName := AAttributeName;
   AttributeValue := AAttributeValue;

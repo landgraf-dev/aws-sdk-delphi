@@ -41,7 +41,7 @@ end;
 
 constructor TListSubscriptionsRequest.Create(const ANextToken: string);
 begin
-  inherited Create;
+  Create;
   NextToken := ANextToken;
 end;
 

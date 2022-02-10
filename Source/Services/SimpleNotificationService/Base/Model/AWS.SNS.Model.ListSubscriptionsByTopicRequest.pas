@@ -51,13 +51,13 @@ end;
 
 constructor TListSubscriptionsByTopicRequest.Create(const ATopicArn: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
 end;
 
 constructor TListSubscriptionsByTopicRequest.Create(const ATopicArn: string; const ANextToken: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   NextToken := ANextToken;
 end;

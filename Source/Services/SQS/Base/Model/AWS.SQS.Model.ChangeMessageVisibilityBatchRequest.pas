@@ -73,7 +73,7 @@ end;
 
 constructor TChangeMessageVisibilityBatchRequest.Create(const AQueueUrl: string; const AEntries: TObjectList<TChangeMessageVisibilityBatchRequestEntry>);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   Entries := AEntries;
 end;

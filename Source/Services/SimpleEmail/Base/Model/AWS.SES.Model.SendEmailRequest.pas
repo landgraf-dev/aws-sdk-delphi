@@ -163,7 +163,7 @@ end;
 
 constructor TSendEmailRequest.Create(const ASource: string; const ADestination: TDestination; const AMessage: TMessage);
 begin
-  inherited Create;
+  Create;
   Source := ASource;
   Destination := ADestination;
   Message := AMessage;

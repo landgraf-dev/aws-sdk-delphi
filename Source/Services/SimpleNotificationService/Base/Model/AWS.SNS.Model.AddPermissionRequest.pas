@@ -99,7 +99,7 @@ end;
 
 constructor TAddPermissionRequest.Create(const ATopicArn: string; const ALabel: string; const AAWSAccountId: TList<string>; const AActionName: TList<string>);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   &Label := ALabel;
   AWSAccountId := AAWSAccountId;

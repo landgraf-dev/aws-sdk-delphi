@@ -59,7 +59,7 @@ end;
 
 constructor TListQueuesRequest.Create(const AQueueNamePrefix: string);
 begin
-  inherited Create;
+  Create;
   QueueNamePrefix := AQueueNamePrefix;
 end;
 

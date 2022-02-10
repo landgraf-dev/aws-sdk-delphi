@@ -41,7 +41,7 @@ end;
 
 constructor TUnsubscribeRequest.Create(const ASubscriptionArn: string);
 begin
-  inherited Create;
+  Create;
   SubscriptionArn := ASubscriptionArn;
 end;
 

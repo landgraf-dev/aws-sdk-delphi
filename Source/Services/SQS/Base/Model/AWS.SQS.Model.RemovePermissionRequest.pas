@@ -50,7 +50,7 @@ end;
 
 constructor TRemovePermissionRequest.Create(const AQueueUrl: string; const ALabel: string);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   &Label := ALabel;
 end;

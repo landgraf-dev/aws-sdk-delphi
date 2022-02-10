@@ -41,7 +41,7 @@ end;
 
 constructor TGetTopicAttributesRequest.Create(const ATopicArn: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
 end;
 

@@ -73,7 +73,7 @@ end;
 
 constructor TDeleteMessageBatchRequest.Create(const AQueueUrl: string; const AEntries: TObjectList<TDeleteMessageBatchRequestEntry>);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   Entries := AEntries;
 end;

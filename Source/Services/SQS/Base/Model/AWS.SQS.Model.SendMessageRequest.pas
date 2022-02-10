@@ -128,7 +128,7 @@ end;
 
 constructor TSendMessageRequest.Create(const AQueueUrl: string; const AMessageBody: string);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   MessageBody := AMessageBody;
 end;

@@ -50,7 +50,7 @@ end;
 
 constructor TGetQueueUrlRequest.Create(const AQueueName: string);
 begin
-  inherited Create;
+  Create;
   QueueName := AQueueName;
 end;
 

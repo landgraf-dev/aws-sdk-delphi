@@ -60,14 +60,14 @@ end;
 
 constructor TConfirmSubscriptionRequest.Create(const ATopicArn: string; const AToken: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   Token := AToken;
 end;
 
 constructor TConfirmSubscriptionRequest.Create(const ATopicArn: string; const AToken: string; const AAuthenticateOnUnsubscribe: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   Token := AToken;
   AuthenticateOnUnsubscribe := AAuthenticateOnUnsubscribe;

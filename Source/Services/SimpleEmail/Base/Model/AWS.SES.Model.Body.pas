@@ -71,7 +71,7 @@ end;
 
 constructor TBody.Create(const AText: TContent);
 begin
-  inherited Create;
+  Create;
   Text := AText;
 end;
 

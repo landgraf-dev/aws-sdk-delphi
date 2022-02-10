@@ -41,7 +41,7 @@ end;
 
 constructor TDeleteTopicRequest.Create(const ATopicArn: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
 end;
 

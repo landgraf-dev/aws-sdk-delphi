@@ -137,14 +137,14 @@ end;
 
 constructor TPublishRequest.Create(const ATopicArn: string; const AMessage: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   Message := AMessage;
 end;
 
 constructor TPublishRequest.Create(const ATopicArn: string; const AMessage: string; const ASubject: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   Message := AMessage;
   Subject := ASubject;

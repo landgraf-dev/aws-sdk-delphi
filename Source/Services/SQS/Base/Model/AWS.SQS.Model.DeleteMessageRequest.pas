@@ -50,7 +50,7 @@ end;
 
 constructor TDeleteMessageRequest.Create(const AQueueUrl: string; const AReceiptHandle: string);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   ReceiptHandle := AReceiptHandle;
 end;

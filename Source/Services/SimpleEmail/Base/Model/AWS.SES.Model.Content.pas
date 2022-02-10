@@ -49,7 +49,7 @@ end;
 
 constructor TContent.Create(const AData: string);
 begin
-  inherited Create;
+  Create;
   Data := AData;
 end;
 

@@ -59,7 +59,7 @@ end;
 
 constructor TChangeMessageVisibilityRequest.Create(const AQueueUrl: string; const AReceiptHandle: string; const AVisibilityTimeout: Integer);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   ReceiptHandle := AReceiptHandle;
   VisibilityTimeout := AVisibilityTimeout;

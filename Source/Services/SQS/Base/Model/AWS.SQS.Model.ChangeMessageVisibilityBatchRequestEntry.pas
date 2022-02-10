@@ -58,7 +58,7 @@ end;
 
 constructor TChangeMessageVisibilityBatchRequestEntry.Create(const AId: string; const AReceiptHandle: string);
 begin
-  inherited Create;
+  Create;
   Id := AId;
   ReceiptHandle := AReceiptHandle;
 end;

@@ -72,7 +72,7 @@ end;
 
 constructor TSetQueueAttributesRequest.Create(const AQueueUrl: string; const AAttributes: TDictionary<string, string>);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   Attributes := AAttributes;
 end;

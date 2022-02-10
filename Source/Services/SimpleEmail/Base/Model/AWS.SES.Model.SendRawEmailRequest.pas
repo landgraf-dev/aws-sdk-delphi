@@ -145,7 +145,7 @@ end;
 
 constructor TSendRawEmailRequest.Create(const ARawMessage: TRawMessage);
 begin
-  inherited Create;
+  Create;
   RawMessage := ARawMessage;
 end;
 

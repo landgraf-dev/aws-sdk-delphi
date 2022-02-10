@@ -72,7 +72,7 @@ end;
 
 constructor TMessage.Create(const ASubject: TContent; const ABody: TBody);
 begin
-  inherited Create;
+  Create;
   Subject := ASubject;
   Body := ABody;
 end;

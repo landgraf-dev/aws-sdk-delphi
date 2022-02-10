@@ -127,7 +127,7 @@ end;
 
 constructor TSendMessageBatchRequestEntry.Create(const AId: string; const AMessageBody: string);
 begin
-  inherited Create;
+  Create;
   Id := AId;
   MessageBody := AMessageBody;
 end;

@@ -126,7 +126,7 @@ end;
 
 constructor TReceiveMessageRequest.Create(const AQueueUrl: string);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
 end;
 

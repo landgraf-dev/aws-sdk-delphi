@@ -50,7 +50,7 @@ end;
 
 constructor TRemovePermissionRequest.Create(const ATopicArn: string; const ALabel: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   &Label := ALabel;
 end;

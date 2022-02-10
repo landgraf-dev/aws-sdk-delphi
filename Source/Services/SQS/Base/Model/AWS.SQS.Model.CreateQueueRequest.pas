@@ -90,7 +90,7 @@ end;
 
 constructor TCreateQueueRequest.Create(const AQueueName: string);
 begin
-  inherited Create;
+  Create;
   QueueName := AQueueName;
 end;
 

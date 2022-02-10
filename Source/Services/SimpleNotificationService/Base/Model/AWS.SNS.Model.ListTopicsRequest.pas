@@ -41,7 +41,7 @@ end;
 
 constructor TListTopicsRequest.Create(const ANextToken: string);
 begin
-  inherited Create;
+  Create;
   NextToken := ANextToken;
 end;
 

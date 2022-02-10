@@ -59,7 +59,7 @@ end;
 
 constructor TSetSubscriptionAttributesRequest.Create(const ASubscriptionArn: string; const AAttributeName: string; const AAttributeValue: string);
 begin
-  inherited Create;
+  Create;
   SubscriptionArn := ASubscriptionArn;
   AttributeName := AAttributeName;
   AttributeValue := AAttributeValue;

@@ -54,7 +54,7 @@ end;
 
 constructor TRawMessage.Create(const AData: TBytesStream);
 begin
-  inherited Create;
+  Create;
   Data := AData;
 end;
 

@@ -91,7 +91,7 @@ end;
 
 constructor TCreateTopicRequest.Create(const AName: string);
 begin
-  inherited Create;
+  Create;
   Name := AName;
 end;
 

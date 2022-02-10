@@ -73,7 +73,7 @@ end;
 
 constructor TSendMessageBatchRequest.Create(const AQueueUrl: string; const AEntries: TObjectList<TSendMessageBatchRequestEntry>);
 begin
-  inherited Create;
+  Create;
   QueueUrl := AQueueUrl;
   Entries := AEntries;
 end;

@@ -99,7 +99,7 @@ end;
 
 constructor TSubscribeRequest.Create(const ATopicArn: string; const AProtocol: string; const AEndpoint: string);
 begin
-  inherited Create;
+  Create;
   TopicArn := ATopicArn;
   Protocol := AProtocol;
   Endpoint := AEndpoint;

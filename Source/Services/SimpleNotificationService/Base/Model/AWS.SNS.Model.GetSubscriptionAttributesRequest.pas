@@ -41,7 +41,7 @@ end;
 
 constructor TGetSubscriptionAttributesRequest.Create(const ASubscriptionArn: string);
 begin
-  inherited Create;
+  Create;
   SubscriptionArn := ASubscriptionArn;
 end;
 
