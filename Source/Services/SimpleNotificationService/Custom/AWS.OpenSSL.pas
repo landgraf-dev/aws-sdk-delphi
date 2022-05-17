@@ -1,7 +1,5 @@
 unit AWS.OpenSSL;
 
-{$I AWS.inc}
-
 interface
 
 uses

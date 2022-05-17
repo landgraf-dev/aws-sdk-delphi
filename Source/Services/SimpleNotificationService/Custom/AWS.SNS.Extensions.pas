@@ -1,7 +1,5 @@
 unit AWS.SNS.Extensions;
 
-{$I AWS.inc}
-
 interface
 
 uses
