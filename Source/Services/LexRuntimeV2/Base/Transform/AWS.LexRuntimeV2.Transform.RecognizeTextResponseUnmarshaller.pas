@@ -82,7 +82,7 @@ begin
       if AContext.TestExpression('sessionState', TargetDepth) then
       begin
         var Unmarshaller := TSessionStateUnmarshaller.JsonInstance;
-        Response.SessionState := Unmarshaller.Unmarshall(AContext);
+        Response.SessionStateValue := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
     end;

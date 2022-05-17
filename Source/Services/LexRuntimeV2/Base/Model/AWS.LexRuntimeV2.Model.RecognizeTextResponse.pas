@@ -28,16 +28,16 @@ type
     procedure SetKeepRequestAttributes(const Value: Boolean);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: TSessionState;
-    procedure SetSessionState(const Value: TSessionState);
-    function GetKeepSessionState: Boolean;
-    procedure SetKeepSessionState(const Value: Boolean);
+    function GetSessionStateValue: TSessionState;
+    procedure SetSessionStateValue(const Value: TSessionState);
+    function GetKeepSessionStateValue: Boolean;
+    procedure SetKeepSessionStateValue(const Value: Boolean);
     function Obj: TRecognizeTextResponse;
     function IsSetInterpretations: Boolean;
     function IsSetMessages: Boolean;
     function IsSetRequestAttributes: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property Interpretations: TObjectList<TInterpretation> read GetInterpretations write SetInterpretations;
     property KeepInterpretations: Boolean read GetKeepInterpretations write SetKeepInterpretations;
     property Messages: TObjectList<TMessage> read GetMessages write SetMessages;
@@ -45,8 +45,8 @@ type
     property RequestAttributes: TDictionary<string, string> read GetRequestAttributes write SetRequestAttributes;
     property KeepRequestAttributes: Boolean read GetKeepRequestAttributes write SetKeepRequestAttributes;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: TSessionState read GetSessionState write SetSessionState;
-    property KeepSessionState: Boolean read GetKeepSessionState write SetKeepSessionState;
+    property SessionStateValue: TSessionState read GetSessionStateValue write SetSessionStateValue;
+    property KeepSessionStateValue: Boolean read GetKeepSessionStateValue write SetKeepSessionStateValue;
   end;
   
   TRecognizeTextResponse = class(TAmazonWebServiceResponse, IRecognizeTextResponse)
@@ -58,8 +58,8 @@ type
     FRequestAttributes: TDictionary<string, string>;
     FKeepRequestAttributes: Boolean;
     FSessionId: Nullable<string>;
-    FSessionState: TSessionState;
-    FKeepSessionState: Boolean;
+    FSessionStateValue: TSessionState;
+    FKeepSessionStateValue: Boolean;
     function GetInterpretations: TObjectList<TInterpretation>;
     procedure SetInterpretations(const Value: TObjectList<TInterpretation>);
     function GetKeepInterpretations: Boolean;
@@ -74,10 +74,10 @@ type
     procedure SetKeepRequestAttributes(const Value: Boolean);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: TSessionState;
-    procedure SetSessionState(const Value: TSessionState);
-    function GetKeepSessionState: Boolean;
-    procedure SetKeepSessionState(const Value: Boolean);
+    function GetSessionStateValue: TSessionState;
+    procedure SetSessionStateValue(const Value: TSessionState);
+    function GetKeepSessionStateValue: Boolean;
+    procedure SetKeepSessionStateValue(const Value: Boolean);
   strict protected
     function Obj: TRecognizeTextResponse;
   public
@@ -87,7 +87,7 @@ type
     function IsSetMessages: Boolean;
     function IsSetRequestAttributes: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property Interpretations: TObjectList<TInterpretation> read GetInterpretations write SetInterpretations;
     property KeepInterpretations: Boolean read GetKeepInterpretations write SetKeepInterpretations;
     property Messages: TObjectList<TMessage> read GetMessages write SetMessages;
@@ -95,8 +95,8 @@ type
     property RequestAttributes: TDictionary<string, string> read GetRequestAttributes write SetRequestAttributes;
     property KeepRequestAttributes: Boolean read GetKeepRequestAttributes write SetKeepRequestAttributes;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: TSessionState read GetSessionState write SetSessionState;
-    property KeepSessionState: Boolean read GetKeepSessionState write SetKeepSessionState;
+    property SessionStateValue: TSessionState read GetSessionStateValue write SetSessionStateValue;
+    property KeepSessionStateValue: Boolean read GetKeepSessionStateValue write SetKeepSessionStateValue;
   end;
   
 implementation
@@ -113,7 +113,7 @@ end;
 
 destructor TRecognizeTextResponse.Destroy;
 begin
-  SessionState := nil;
+  SessionStateValue := nil;
   RequestAttributes := nil;
   Messages := nil;
   Interpretations := nil;
@@ -230,34 +230,34 @@ begin
   Result := FSessionId.HasValue;
 end;
 
-function TRecognizeTextResponse.GetSessionState: TSessionState;
+function TRecognizeTextResponse.GetSessionStateValue: TSessionState;
 begin
-  Result := FSessionState;
+  Result := FSessionStateValue;
 end;
 
-procedure TRecognizeTextResponse.SetSessionState(const Value: TSessionState);
+procedure TRecognizeTextResponse.SetSessionStateValue(const Value: TSessionState);
 begin
-  if FSessionState <> Value then
+  if FSessionStateValue <> Value then
   begin
-    if not KeepSessionState then
-      FSessionState.Free;
-    FSessionState := Value;
+    if not KeepSessionStateValue then
+      FSessionStateValue.Free;
+    FSessionStateValue := Value;
   end;
 end;
 
-function TRecognizeTextResponse.GetKeepSessionState: Boolean;
+function TRecognizeTextResponse.GetKeepSessionStateValue: Boolean;
 begin
-  Result := FKeepSessionState;
+  Result := FKeepSessionStateValue;
 end;
 
-procedure TRecognizeTextResponse.SetKeepSessionState(const Value: Boolean);
+procedure TRecognizeTextResponse.SetKeepSessionStateValue(const Value: Boolean);
 begin
-  FKeepSessionState := Value;
+  FKeepSessionStateValue := Value;
 end;
 
-function TRecognizeTextResponse.IsSetSessionState: Boolean;
+function TRecognizeTextResponse.IsSetSessionStateValue: Boolean;
 begin
-  Result := FSessionState <> nil;
+  Result := FSessionStateValue <> nil;
 end;
 
 end.

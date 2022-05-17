@@ -24,22 +24,22 @@ type
     procedure SetKeepMessages(const Value: Boolean);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: TSessionState;
-    procedure SetSessionState(const Value: TSessionState);
-    function GetKeepSessionState: Boolean;
-    procedure SetKeepSessionState(const Value: Boolean);
+    function GetSessionStateValue: TSessionState;
+    procedure SetSessionStateValue(const Value: TSessionState);
+    function GetKeepSessionStateValue: Boolean;
+    procedure SetKeepSessionStateValue(const Value: Boolean);
     function Obj: TGetSessionResponse;
     function IsSetInterpretations: Boolean;
     function IsSetMessages: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property Interpretations: TObjectList<TInterpretation> read GetInterpretations write SetInterpretations;
     property KeepInterpretations: Boolean read GetKeepInterpretations write SetKeepInterpretations;
     property Messages: TObjectList<TMessage> read GetMessages write SetMessages;
     property KeepMessages: Boolean read GetKeepMessages write SetKeepMessages;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: TSessionState read GetSessionState write SetSessionState;
-    property KeepSessionState: Boolean read GetKeepSessionState write SetKeepSessionState;
+    property SessionStateValue: TSessionState read GetSessionStateValue write SetSessionStateValue;
+    property KeepSessionStateValue: Boolean read GetKeepSessionStateValue write SetKeepSessionStateValue;
   end;
   
   TGetSessionResponse = class(TAmazonWebServiceResponse, IGetSessionResponse)
@@ -49,8 +49,8 @@ type
     FMessages: TObjectList<TMessage>;
     FKeepMessages: Boolean;
     FSessionId: Nullable<string>;
-    FSessionState: TSessionState;
-    FKeepSessionState: Boolean;
+    FSessionStateValue: TSessionState;
+    FKeepSessionStateValue: Boolean;
     function GetInterpretations: TObjectList<TInterpretation>;
     procedure SetInterpretations(const Value: TObjectList<TInterpretation>);
     function GetKeepInterpretations: Boolean;
@@ -61,10 +61,10 @@ type
     procedure SetKeepMessages(const Value: Boolean);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: TSessionState;
-    procedure SetSessionState(const Value: TSessionState);
-    function GetKeepSessionState: Boolean;
-    procedure SetKeepSessionState(const Value: Boolean);
+    function GetSessionStateValue: TSessionState;
+    procedure SetSessionStateValue(const Value: TSessionState);
+    function GetKeepSessionStateValue: Boolean;
+    procedure SetKeepSessionStateValue(const Value: Boolean);
   strict protected
     function Obj: TGetSessionResponse;
   public
@@ -73,14 +73,14 @@ type
     function IsSetInterpretations: Boolean;
     function IsSetMessages: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property Interpretations: TObjectList<TInterpretation> read GetInterpretations write SetInterpretations;
     property KeepInterpretations: Boolean read GetKeepInterpretations write SetKeepInterpretations;
     property Messages: TObjectList<TMessage> read GetMessages write SetMessages;
     property KeepMessages: Boolean read GetKeepMessages write SetKeepMessages;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: TSessionState read GetSessionState write SetSessionState;
-    property KeepSessionState: Boolean read GetKeepSessionState write SetKeepSessionState;
+    property SessionStateValue: TSessionState read GetSessionStateValue write SetSessionStateValue;
+    property KeepSessionStateValue: Boolean read GetKeepSessionStateValue write SetKeepSessionStateValue;
   end;
   
 implementation
@@ -96,7 +96,7 @@ end;
 
 destructor TGetSessionResponse.Destroy;
 begin
-  SessionState := nil;
+  SessionStateValue := nil;
   Messages := nil;
   Interpretations := nil;
   inherited;
@@ -182,34 +182,34 @@ begin
   Result := FSessionId.HasValue;
 end;
 
-function TGetSessionResponse.GetSessionState: TSessionState;
+function TGetSessionResponse.GetSessionStateValue: TSessionState;
 begin
-  Result := FSessionState;
+  Result := FSessionStateValue;
 end;
 
-procedure TGetSessionResponse.SetSessionState(const Value: TSessionState);
+procedure TGetSessionResponse.SetSessionStateValue(const Value: TSessionState);
 begin
-  if FSessionState <> Value then
+  if FSessionStateValue <> Value then
   begin
-    if not KeepSessionState then
-      FSessionState.Free;
-    FSessionState := Value;
+    if not KeepSessionStateValue then
+      FSessionStateValue.Free;
+    FSessionStateValue := Value;
   end;
 end;
 
-function TGetSessionResponse.GetKeepSessionState: Boolean;
+function TGetSessionResponse.GetKeepSessionStateValue: Boolean;
 begin
-  Result := FKeepSessionState;
+  Result := FKeepSessionStateValue;
 end;
 
-procedure TGetSessionResponse.SetKeepSessionState(const Value: Boolean);
+procedure TGetSessionResponse.SetKeepSessionStateValue(const Value: Boolean);
 begin
-  FKeepSessionState := Value;
+  FKeepSessionStateValue := Value;
 end;
 
-function TGetSessionResponse.IsSetSessionState: Boolean;
+function TGetSessionResponse.IsSetSessionStateValue: Boolean;
 begin
-  Result := FSessionState <> nil;
+  Result := FSessionStateValue <> nil;
 end;
 
 end.

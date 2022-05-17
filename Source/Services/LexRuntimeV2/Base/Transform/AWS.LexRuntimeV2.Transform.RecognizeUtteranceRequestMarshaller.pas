@@ -79,8 +79,8 @@ begin
     Request.Headers.Add('Content-Type', PublicRequest.RequestContentType);
   if PublicRequest.IsSetResponseContentType then
     Request.Headers.Add('Response-Content-Type', PublicRequest.ResponseContentType);
-  if PublicRequest.IsSetSessionState then
-    Request.Headers.Add('x-amz-lex-session-state', PublicRequest.SessionState);
+  if PublicRequest.IsSetSessionStateValue then
+    Request.Headers.Add('x-amz-lex-session-state', PublicRequest.SessionStateValue);
   Result := Request;
 end;
 

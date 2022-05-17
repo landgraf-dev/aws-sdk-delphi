@@ -56,7 +56,7 @@ begin
     if AContext.ResponseData.IsHeaderPresent('x-amz-lex-session-id') then
       Response.SessionId := AContext.ResponseData.GetHeaderValue('x-amz-lex-session-id');
     if AContext.ResponseData.IsHeaderPresent('x-amz-lex-session-state') then
-      Response.SessionState := AContext.ResponseData.GetHeaderValue('x-amz-lex-session-state');
+      Response.SessionStateValue := AContext.ResponseData.GetHeaderValue('x-amz-lex-session-state');
     Result := Response;
     Response := nil;
   finally

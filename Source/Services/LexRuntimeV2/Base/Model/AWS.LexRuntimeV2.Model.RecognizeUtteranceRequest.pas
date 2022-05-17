@@ -30,8 +30,8 @@ type
     procedure SetResponseContentType(const Value: string);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: string;
-    procedure SetSessionState(const Value: string);
+    function GetSessionStateValue: string;
+    procedure SetSessionStateValue(const Value: string);
     function Obj: TRecognizeUtteranceRequest;
     function CreateSigner: TAbstractAWSSigner;
     function IsSetBotAliasId: Boolean;
@@ -42,7 +42,7 @@ type
     function IsSetRequestContentType: Boolean;
     function IsSetResponseContentType: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property BotAliasId: string read GetBotAliasId write SetBotAliasId;
     property BotId: string read GetBotId write SetBotId;
     property InputStream: TStream read GetInputStream write SetInputStream;
@@ -52,7 +52,7 @@ type
     property RequestContentType: string read GetRequestContentType write SetRequestContentType;
     property ResponseContentType: string read GetResponseContentType write SetResponseContentType;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: string read GetSessionState write SetSessionState;
+    property SessionStateValue: string read GetSessionStateValue write SetSessionStateValue;
   end;
   
   TRecognizeUtteranceRequest = class(TAmazonLexRuntimeV2Request, IRecognizeUtteranceRequest)
@@ -66,7 +66,7 @@ type
     FRequestContentType: Nullable<string>;
     FResponseContentType: Nullable<string>;
     FSessionId: Nullable<string>;
-    FSessionState: Nullable<string>;
+    FSessionStateValue: Nullable<string>;
     function GetBotAliasId: string;
     procedure SetBotAliasId(const Value: string);
     function GetBotId: string;
@@ -85,8 +85,8 @@ type
     procedure SetResponseContentType(const Value: string);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: string;
-    procedure SetSessionState(const Value: string);
+    function GetSessionStateValue: string;
+    procedure SetSessionStateValue(const Value: string);
   strict protected
     function Obj: TRecognizeUtteranceRequest;
     function CreateSigner: TAbstractAWSSigner; override;
@@ -100,7 +100,7 @@ type
     function IsSetRequestContentType: Boolean;
     function IsSetResponseContentType: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property BotAliasId: string read GetBotAliasId write SetBotAliasId;
     property BotId: string read GetBotId write SetBotId;
     property InputStream: TStream read GetInputStream write SetInputStream;
@@ -110,7 +110,7 @@ type
     property RequestContentType: string read GetRequestContentType write SetRequestContentType;
     property ResponseContentType: string read GetResponseContentType write SetResponseContentType;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: string read GetSessionState write SetSessionState;
+    property SessionStateValue: string read GetSessionStateValue write SetSessionStateValue;
   end;
   
 implementation
@@ -263,19 +263,19 @@ begin
   Result := FSessionId.HasValue;
 end;
 
-function TRecognizeUtteranceRequest.GetSessionState: string;
+function TRecognizeUtteranceRequest.GetSessionStateValue: string;
 begin
-  Result := FSessionState.ValueOrDefault;
+  Result := FSessionStateValue.ValueOrDefault;
 end;
 
-procedure TRecognizeUtteranceRequest.SetSessionState(const Value: string);
+procedure TRecognizeUtteranceRequest.SetSessionStateValue(const Value: string);
 begin
-  FSessionState := Value;
+  FSessionStateValue := Value;
 end;
 
-function TRecognizeUtteranceRequest.IsSetSessionState: Boolean;
+function TRecognizeUtteranceRequest.IsSetSessionStateValue: Boolean;
 begin
-  Result := FSessionState.HasValue;
+  Result := FSessionStateValue.HasValue;
 end;
 
 function TRecognizeUtteranceRequest.CreateSigner: TAbstractAWSSigner;

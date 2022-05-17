@@ -31,10 +31,10 @@ type
     procedure SetResponseContentType(const Value: string);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: TSessionState;
-    procedure SetSessionState(const Value: TSessionState);
-    function GetKeepSessionState: Boolean;
-    procedure SetKeepSessionState(const Value: Boolean);
+    function GetSessionStateValue: TSessionState;
+    procedure SetSessionStateValue(const Value: TSessionState);
+    function GetKeepSessionStateValue: Boolean;
+    procedure SetKeepSessionStateValue(const Value: Boolean);
     function Obj: TPutSessionRequest;
     function IsSetBotAliasId: Boolean;
     function IsSetBotId: Boolean;
@@ -43,7 +43,7 @@ type
     function IsSetRequestAttributes: Boolean;
     function IsSetResponseContentType: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property BotAliasId: string read GetBotAliasId write SetBotAliasId;
     property BotId: string read GetBotId write SetBotId;
     property LocaleId: string read GetLocaleId write SetLocaleId;
@@ -53,8 +53,8 @@ type
     property KeepRequestAttributes: Boolean read GetKeepRequestAttributes write SetKeepRequestAttributes;
     property ResponseContentType: string read GetResponseContentType write SetResponseContentType;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: TSessionState read GetSessionState write SetSessionState;
-    property KeepSessionState: Boolean read GetKeepSessionState write SetKeepSessionState;
+    property SessionStateValue: TSessionState read GetSessionStateValue write SetSessionStateValue;
+    property KeepSessionStateValue: Boolean read GetKeepSessionStateValue write SetKeepSessionStateValue;
   end;
   
   TPutSessionRequest = class(TAmazonLexRuntimeV2Request, IPutSessionRequest)
@@ -68,8 +68,8 @@ type
     FKeepRequestAttributes: Boolean;
     FResponseContentType: Nullable<string>;
     FSessionId: Nullable<string>;
-    FSessionState: TSessionState;
-    FKeepSessionState: Boolean;
+    FSessionStateValue: TSessionState;
+    FKeepSessionStateValue: Boolean;
     function GetBotAliasId: string;
     procedure SetBotAliasId(const Value: string);
     function GetBotId: string;
@@ -88,10 +88,10 @@ type
     procedure SetResponseContentType(const Value: string);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: TSessionState;
-    procedure SetSessionState(const Value: TSessionState);
-    function GetKeepSessionState: Boolean;
-    procedure SetKeepSessionState(const Value: Boolean);
+    function GetSessionStateValue: TSessionState;
+    procedure SetSessionStateValue(const Value: TSessionState);
+    function GetKeepSessionStateValue: Boolean;
+    procedure SetKeepSessionStateValue(const Value: Boolean);
   strict protected
     function Obj: TPutSessionRequest;
   public
@@ -104,7 +104,7 @@ type
     function IsSetRequestAttributes: Boolean;
     function IsSetResponseContentType: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property BotAliasId: string read GetBotAliasId write SetBotAliasId;
     property BotId: string read GetBotId write SetBotId;
     property LocaleId: string read GetLocaleId write SetLocaleId;
@@ -114,8 +114,8 @@ type
     property KeepRequestAttributes: Boolean read GetKeepRequestAttributes write SetKeepRequestAttributes;
     property ResponseContentType: string read GetResponseContentType write SetResponseContentType;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: TSessionState read GetSessionState write SetSessionState;
-    property KeepSessionState: Boolean read GetKeepSessionState write SetKeepSessionState;
+    property SessionStateValue: TSessionState read GetSessionStateValue write SetSessionStateValue;
+    property KeepSessionStateValue: Boolean read GetKeepSessionStateValue write SetKeepSessionStateValue;
   end;
   
 implementation
@@ -131,7 +131,7 @@ end;
 
 destructor TPutSessionRequest.Destroy;
 begin
-  SessionState := nil;
+  SessionStateValue := nil;
   RequestAttributes := nil;
   Messages := nil;
   inherited;
@@ -277,34 +277,34 @@ begin
   Result := FSessionId.HasValue;
 end;
 
-function TPutSessionRequest.GetSessionState: TSessionState;
+function TPutSessionRequest.GetSessionStateValue: TSessionState;
 begin
-  Result := FSessionState;
+  Result := FSessionStateValue;
 end;
 
-procedure TPutSessionRequest.SetSessionState(const Value: TSessionState);
+procedure TPutSessionRequest.SetSessionStateValue(const Value: TSessionState);
 begin
-  if FSessionState <> Value then
+  if FSessionStateValue <> Value then
   begin
-    if not KeepSessionState then
-      FSessionState.Free;
-    FSessionState := Value;
+    if not KeepSessionStateValue then
+      FSessionStateValue.Free;
+    FSessionStateValue := Value;
   end;
 end;
 
-function TPutSessionRequest.GetKeepSessionState: Boolean;
+function TPutSessionRequest.GetKeepSessionStateValue: Boolean;
 begin
-  Result := FKeepSessionState;
+  Result := FKeepSessionStateValue;
 end;
 
-procedure TPutSessionRequest.SetKeepSessionState(const Value: Boolean);
+procedure TPutSessionRequest.SetKeepSessionStateValue(const Value: Boolean);
 begin
-  FKeepSessionState := Value;
+  FKeepSessionStateValue := Value;
 end;
 
-function TPutSessionRequest.IsSetSessionState: Boolean;
+function TPutSessionRequest.IsSetSessionStateValue: Boolean;
 begin
-  Result := FSessionState <> nil;
+  Result := FSessionStateValue <> nil;
 end;
 
 end.

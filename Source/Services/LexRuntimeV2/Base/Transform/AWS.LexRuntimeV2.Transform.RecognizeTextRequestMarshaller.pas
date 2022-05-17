@@ -78,11 +78,11 @@ begin
           end;
           Context.Writer.WriteEndObject;
         end;
-        if PublicRequest.IsSetSessionState then
+        if PublicRequest.IsSetSessionStateValue then
         begin
           Context.Writer.WriteName('sessionState');
           Context.Writer.WriteBeginObject;
-          TSessionStateMarshaller.Instance.Marshall(PublicRequest.SessionState, Context);
+          TSessionStateMarshaller.Instance.Marshall(PublicRequest.SessionStateValue, Context);
           Context.Writer.WriteEndObject;
         end;
         if PublicRequest.IsSetText then

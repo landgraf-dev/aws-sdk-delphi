@@ -29,8 +29,8 @@ type
     procedure SetRequestAttributes(const Value: string);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: string;
-    procedure SetSessionState(const Value: string);
+    function GetSessionStateValue: string;
+    procedure SetSessionStateValue(const Value: string);
     function Obj: TRecognizeUtteranceResponse;
     function IsSetAudioStream: Boolean;
     function IsSetContentType: Boolean;
@@ -40,7 +40,7 @@ type
     function IsSetMessages: Boolean;
     function IsSetRequestAttributes: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property AudioStream: TStream read GetAudioStream write SetAudioStream;
     property KeepAudioStream: Boolean read GetKeepAudioStream write SetKeepAudioStream;
     property ContentType: string read GetContentType write SetContentType;
@@ -50,7 +50,7 @@ type
     property Messages: string read GetMessages write SetMessages;
     property RequestAttributes: string read GetRequestAttributes write SetRequestAttributes;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: string read GetSessionState write SetSessionState;
+    property SessionStateValue: string read GetSessionStateValue write SetSessionStateValue;
   end;
   
   TRecognizeUtteranceResponse = class(TAmazonWebServiceResponse, IRecognizeUtteranceResponse)
@@ -64,7 +64,7 @@ type
     FMessages: Nullable<string>;
     FRequestAttributes: Nullable<string>;
     FSessionId: Nullable<string>;
-    FSessionState: Nullable<string>;
+    FSessionStateValue: Nullable<string>;
     function GetAudioStream: TStream;
     procedure SetAudioStream(const Value: TStream);
     function GetKeepAudioStream: Boolean;
@@ -83,8 +83,8 @@ type
     procedure SetRequestAttributes(const Value: string);
     function GetSessionId: string;
     procedure SetSessionId(const Value: string);
-    function GetSessionState: string;
-    procedure SetSessionState(const Value: string);
+    function GetSessionStateValue: string;
+    procedure SetSessionStateValue(const Value: string);
   strict protected
     function Obj: TRecognizeUtteranceResponse;
   public
@@ -97,7 +97,7 @@ type
     function IsSetMessages: Boolean;
     function IsSetRequestAttributes: Boolean;
     function IsSetSessionId: Boolean;
-    function IsSetSessionState: Boolean;
+    function IsSetSessionStateValue: Boolean;
     property AudioStream: TStream read GetAudioStream write SetAudioStream;
     property KeepAudioStream: Boolean read GetKeepAudioStream write SetKeepAudioStream;
     property ContentType: string read GetContentType write SetContentType;
@@ -107,7 +107,7 @@ type
     property Messages: string read GetMessages write SetMessages;
     property RequestAttributes: string read GetRequestAttributes write SetRequestAttributes;
     property SessionId: string read GetSessionId write SetSessionId;
-    property SessionState: string read GetSessionState write SetSessionState;
+    property SessionStateValue: string read GetSessionStateValue write SetSessionStateValue;
   end;
   
 implementation
@@ -260,19 +260,19 @@ begin
   Result := FSessionId.HasValue;
 end;
 
-function TRecognizeUtteranceResponse.GetSessionState: string;
+function TRecognizeUtteranceResponse.GetSessionStateValue: string;
 begin
-  Result := FSessionState.ValueOrDefault;
+  Result := FSessionStateValue.ValueOrDefault;
 end;
 
-procedure TRecognizeUtteranceResponse.SetSessionState(const Value: string);
+procedure TRecognizeUtteranceResponse.SetSessionStateValue(const Value: string);
 begin
-  FSessionState := Value;
+  FSessionStateValue := Value;
 end;
 
-function TRecognizeUtteranceResponse.IsSetSessionState: Boolean;
+function TRecognizeUtteranceResponse.IsSetSessionStateValue: Boolean;
 begin
-  Result := FSessionState.HasValue;
+  Result := FSessionStateValue.HasValue;
 end;
 
 end.
