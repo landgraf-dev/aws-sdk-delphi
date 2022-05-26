@@ -499,7 +499,7 @@ begin
   if TryStrToInt64(Text, IntSeconds) then
     Result := UnixToDateTime(IntSeconds, False)
   else
-  if TryStrToFloat(Text, Seconds) then
+  if TryStrToFloat(Text, Seconds, FFormatSettings) then
     Result := TTimeZone.Local.ToLocalTime(IncMilliSecond(UnixDateDelta, Trunc(Seconds * 1000)))
   else
     if Text = '' then
