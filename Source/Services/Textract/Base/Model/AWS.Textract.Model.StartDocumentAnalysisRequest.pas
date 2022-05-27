@@ -8,7 +8,8 @@ uses
   AWS.Textract.Model.Request, 
   AWS.Textract.Model.DocumentLocation, 
   AWS.Textract.Model.NotificationChannel, 
-  AWS.Textract.Model.OutputConfig;
+  AWS.Textract.Model.OutputConfig, 
+  AWS.Textract.Model.QueriesConfig;
 
 type
   TStartDocumentAnalysisRequest = class;
@@ -36,6 +37,10 @@ type
     procedure SetOutputConfig(const Value: TOutputConfig);
     function GetKeepOutputConfig: Boolean;
     procedure SetKeepOutputConfig(const Value: Boolean);
+    function GetQueriesConfig: TQueriesConfig;
+    procedure SetQueriesConfig(const Value: TQueriesConfig);
+    function GetKeepQueriesConfig: Boolean;
+    procedure SetKeepQueriesConfig(const Value: Boolean);
     function Obj: TStartDocumentAnalysisRequest;
     function IsSetClientRequestToken: Boolean;
     function IsSetDocumentLocation: Boolean;
@@ -44,6 +49,7 @@ type
     function IsSetKMSKeyId: Boolean;
     function IsSetNotificationChannel: Boolean;
     function IsSetOutputConfig: Boolean;
+    function IsSetQueriesConfig: Boolean;
     property ClientRequestToken: string read GetClientRequestToken write SetClientRequestToken;
     property DocumentLocation: TDocumentLocation read GetDocumentLocation write SetDocumentLocation;
     property KeepDocumentLocation: Boolean read GetKeepDocumentLocation write SetKeepDocumentLocation;
@@ -55,6 +61,8 @@ type
     property KeepNotificationChannel: Boolean read GetKeepNotificationChannel write SetKeepNotificationChannel;
     property OutputConfig: TOutputConfig read GetOutputConfig write SetOutputConfig;
     property KeepOutputConfig: Boolean read GetKeepOutputConfig write SetKeepOutputConfig;
+    property QueriesConfig: TQueriesConfig read GetQueriesConfig write SetQueriesConfig;
+    property KeepQueriesConfig: Boolean read GetKeepQueriesConfig write SetKeepQueriesConfig;
   end;
   
   TStartDocumentAnalysisRequest = class(TAmazonTextractRequest, IStartDocumentAnalysisRequest)
@@ -70,6 +78,8 @@ type
     FKeepNotificationChannel: Boolean;
     FOutputConfig: TOutputConfig;
     FKeepOutputConfig: Boolean;
+    FQueriesConfig: TQueriesConfig;
+    FKeepQueriesConfig: Boolean;
     function GetClientRequestToken: string;
     procedure SetClientRequestToken(const Value: string);
     function GetDocumentLocation: TDocumentLocation;
@@ -92,6 +102,10 @@ type
     procedure SetOutputConfig(const Value: TOutputConfig);
     function GetKeepOutputConfig: Boolean;
     procedure SetKeepOutputConfig(const Value: Boolean);
+    function GetQueriesConfig: TQueriesConfig;
+    procedure SetQueriesConfig(const Value: TQueriesConfig);
+    function GetKeepQueriesConfig: Boolean;
+    procedure SetKeepQueriesConfig(const Value: Boolean);
   strict protected
     function Obj: TStartDocumentAnalysisRequest;
   public
@@ -104,6 +118,7 @@ type
     function IsSetKMSKeyId: Boolean;
     function IsSetNotificationChannel: Boolean;
     function IsSetOutputConfig: Boolean;
+    function IsSetQueriesConfig: Boolean;
     property ClientRequestToken: string read GetClientRequestToken write SetClientRequestToken;
     property DocumentLocation: TDocumentLocation read GetDocumentLocation write SetDocumentLocation;
     property KeepDocumentLocation: Boolean read GetKeepDocumentLocation write SetKeepDocumentLocation;
@@ -115,6 +130,8 @@ type
     property KeepNotificationChannel: Boolean read GetKeepNotificationChannel write SetKeepNotificationChannel;
     property OutputConfig: TOutputConfig read GetOutputConfig write SetOutputConfig;
     property KeepOutputConfig: Boolean read GetKeepOutputConfig write SetKeepOutputConfig;
+    property QueriesConfig: TQueriesConfig read GetQueriesConfig write SetQueriesConfig;
+    property KeepQueriesConfig: Boolean read GetKeepQueriesConfig write SetKeepQueriesConfig;
   end;
   
 implementation
@@ -129,6 +146,7 @@ end;
 
 destructor TStartDocumentAnalysisRequest.Destroy;
 begin
+  QueriesConfig := nil;
   OutputConfig := nil;
   NotificationChannel := nil;
   FeatureTypes := nil;
@@ -304,6 +322,36 @@ end;
 function TStartDocumentAnalysisRequest.IsSetOutputConfig: Boolean;
 begin
   Result := FOutputConfig <> nil;
+end;
+
+function TStartDocumentAnalysisRequest.GetQueriesConfig: TQueriesConfig;
+begin
+  Result := FQueriesConfig;
+end;
+
+procedure TStartDocumentAnalysisRequest.SetQueriesConfig(const Value: TQueriesConfig);
+begin
+  if FQueriesConfig <> Value then
+  begin
+    if not KeepQueriesConfig then
+      FQueriesConfig.Free;
+    FQueriesConfig := Value;
+  end;
+end;
+
+function TStartDocumentAnalysisRequest.GetKeepQueriesConfig: Boolean;
+begin
+  Result := FKeepQueriesConfig;
+end;
+
+procedure TStartDocumentAnalysisRequest.SetKeepQueriesConfig(const Value: Boolean);
+begin
+  FKeepQueriesConfig := Value;
+end;
+
+function TStartDocumentAnalysisRequest.IsSetQueriesConfig: Boolean;
+begin
+  Result := FQueriesConfig <> nil;
 end;
 
 end.

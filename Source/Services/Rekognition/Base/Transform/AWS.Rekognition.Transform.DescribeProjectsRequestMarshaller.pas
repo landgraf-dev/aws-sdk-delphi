@@ -62,6 +62,14 @@ begin
           Context.Writer.WriteName('NextToken');
           Context.Writer.WriteString(PublicRequest.NextToken);
         end;
+        if PublicRequest.IsSetProjectNames then
+        begin
+          Context.Writer.WriteName('ProjectNames');
+          Context.Writer.WriteBeginArray;
+          for var PublicRequestProjectNamesListValue in PublicRequest.ProjectNames do
+            Context.Writer.WriteString(PublicRequestProjectNamesListValue);
+          Context.Writer.WriteEndArray;
+        end;
         Writer.WriteEndObject;
         Writer.Flush;
         var Snippet: string := Stream.DataString;

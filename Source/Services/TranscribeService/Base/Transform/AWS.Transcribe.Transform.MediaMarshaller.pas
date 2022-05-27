@@ -29,6 +29,11 @@ begin
     Context.Writer.WriteName('MediaFileUri');
     Context.Writer.WriteString(ARequestObject.MediaFileUri);
   end;
+  if ARequestObject.IsSetRedactedMediaFileUri then
+  begin
+    Context.Writer.WriteName('RedactedMediaFileUri');
+    Context.Writer.WriteString(ARequestObject.RedactedMediaFileUri);
+  end;
 end;
 
 class constructor TMediaMarshaller.Create;

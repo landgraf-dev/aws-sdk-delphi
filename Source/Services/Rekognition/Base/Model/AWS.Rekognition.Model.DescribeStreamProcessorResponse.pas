@@ -4,9 +4,13 @@ interface
 
 uses
   Bcl.Types.Nullable, 
+  System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Rekognition.Model.StreamProcessorDataSharingPreference, 
   AWS.Rekognition.Model.StreamProcessorInput, 
+  AWS.Rekognition.Model.StreamProcessorNotificationChannel, 
   AWS.Rekognition.Model.StreamProcessorOutput, 
+  AWS.Rekognition.Model.RegionOfInterest, 
   AWS.Rekognition.Model.StreamProcessorSettings, 
   AWS.Rekognition.Enums;
 
@@ -16,18 +20,32 @@ type
   IDescribeStreamProcessorResponse = interface(IAmazonWebServiceResponse)
     function GetCreationTimestamp: TDateTime;
     procedure SetCreationTimestamp(const Value: TDateTime);
+    function GetDataSharingPreference: TStreamProcessorDataSharingPreference;
+    procedure SetDataSharingPreference(const Value: TStreamProcessorDataSharingPreference);
+    function GetKeepDataSharingPreference: Boolean;
+    procedure SetKeepDataSharingPreference(const Value: Boolean);
     function GetInput: TStreamProcessorInput;
     procedure SetInput(const Value: TStreamProcessorInput);
     function GetKeepInput: Boolean;
     procedure SetKeepInput(const Value: Boolean);
+    function GetKmsKeyId: string;
+    procedure SetKmsKeyId(const Value: string);
     function GetLastUpdateTimestamp: TDateTime;
     procedure SetLastUpdateTimestamp(const Value: TDateTime);
     function GetName: string;
     procedure SetName(const Value: string);
+    function GetNotificationChannel: TStreamProcessorNotificationChannel;
+    procedure SetNotificationChannel(const Value: TStreamProcessorNotificationChannel);
+    function GetKeepNotificationChannel: Boolean;
+    procedure SetKeepNotificationChannel(const Value: Boolean);
     function GetOutput: TStreamProcessorOutput;
     procedure SetOutput(const Value: TStreamProcessorOutput);
     function GetKeepOutput: Boolean;
     procedure SetKeepOutput(const Value: Boolean);
+    function GetRegionsOfInterest: TObjectList<TRegionOfInterest>;
+    procedure SetRegionsOfInterest(const Value: TObjectList<TRegionOfInterest>);
+    function GetKeepRegionsOfInterest: Boolean;
+    procedure SetKeepRegionsOfInterest(const Value: Boolean);
     function GetRoleArn: string;
     procedure SetRoleArn(const Value: string);
     function GetSettings: TStreamProcessorSettings;
@@ -42,22 +60,33 @@ type
     procedure SetStreamProcessorArn(const Value: string);
     function Obj: TDescribeStreamProcessorResponse;
     function IsSetCreationTimestamp: Boolean;
+    function IsSetDataSharingPreference: Boolean;
     function IsSetInput: Boolean;
+    function IsSetKmsKeyId: Boolean;
     function IsSetLastUpdateTimestamp: Boolean;
     function IsSetName: Boolean;
+    function IsSetNotificationChannel: Boolean;
     function IsSetOutput: Boolean;
+    function IsSetRegionsOfInterest: Boolean;
     function IsSetRoleArn: Boolean;
     function IsSetSettings: Boolean;
     function IsSetStatus: Boolean;
     function IsSetStatusMessage: Boolean;
     function IsSetStreamProcessorArn: Boolean;
     property CreationTimestamp: TDateTime read GetCreationTimestamp write SetCreationTimestamp;
+    property DataSharingPreference: TStreamProcessorDataSharingPreference read GetDataSharingPreference write SetDataSharingPreference;
+    property KeepDataSharingPreference: Boolean read GetKeepDataSharingPreference write SetKeepDataSharingPreference;
     property Input: TStreamProcessorInput read GetInput write SetInput;
     property KeepInput: Boolean read GetKeepInput write SetKeepInput;
+    property KmsKeyId: string read GetKmsKeyId write SetKmsKeyId;
     property LastUpdateTimestamp: TDateTime read GetLastUpdateTimestamp write SetLastUpdateTimestamp;
     property Name: string read GetName write SetName;
+    property NotificationChannel: TStreamProcessorNotificationChannel read GetNotificationChannel write SetNotificationChannel;
+    property KeepNotificationChannel: Boolean read GetKeepNotificationChannel write SetKeepNotificationChannel;
     property Output: TStreamProcessorOutput read GetOutput write SetOutput;
     property KeepOutput: Boolean read GetKeepOutput write SetKeepOutput;
+    property RegionsOfInterest: TObjectList<TRegionOfInterest> read GetRegionsOfInterest write SetRegionsOfInterest;
+    property KeepRegionsOfInterest: Boolean read GetKeepRegionsOfInterest write SetKeepRegionsOfInterest;
     property RoleArn: string read GetRoleArn write SetRoleArn;
     property Settings: TStreamProcessorSettings read GetSettings write SetSettings;
     property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
@@ -69,12 +98,19 @@ type
   TDescribeStreamProcessorResponse = class(TAmazonWebServiceResponse, IDescribeStreamProcessorResponse)
   strict private
     FCreationTimestamp: Nullable<TDateTime>;
+    FDataSharingPreference: TStreamProcessorDataSharingPreference;
+    FKeepDataSharingPreference: Boolean;
     FInput: TStreamProcessorInput;
     FKeepInput: Boolean;
+    FKmsKeyId: Nullable<string>;
     FLastUpdateTimestamp: Nullable<TDateTime>;
     FName: Nullable<string>;
+    FNotificationChannel: TStreamProcessorNotificationChannel;
+    FKeepNotificationChannel: Boolean;
     FOutput: TStreamProcessorOutput;
     FKeepOutput: Boolean;
+    FRegionsOfInterest: TObjectList<TRegionOfInterest>;
+    FKeepRegionsOfInterest: Boolean;
     FRoleArn: Nullable<string>;
     FSettings: TStreamProcessorSettings;
     FKeepSettings: Boolean;
@@ -83,18 +119,32 @@ type
     FStreamProcessorArn: Nullable<string>;
     function GetCreationTimestamp: TDateTime;
     procedure SetCreationTimestamp(const Value: TDateTime);
+    function GetDataSharingPreference: TStreamProcessorDataSharingPreference;
+    procedure SetDataSharingPreference(const Value: TStreamProcessorDataSharingPreference);
+    function GetKeepDataSharingPreference: Boolean;
+    procedure SetKeepDataSharingPreference(const Value: Boolean);
     function GetInput: TStreamProcessorInput;
     procedure SetInput(const Value: TStreamProcessorInput);
     function GetKeepInput: Boolean;
     procedure SetKeepInput(const Value: Boolean);
+    function GetKmsKeyId: string;
+    procedure SetKmsKeyId(const Value: string);
     function GetLastUpdateTimestamp: TDateTime;
     procedure SetLastUpdateTimestamp(const Value: TDateTime);
     function GetName: string;
     procedure SetName(const Value: string);
+    function GetNotificationChannel: TStreamProcessorNotificationChannel;
+    procedure SetNotificationChannel(const Value: TStreamProcessorNotificationChannel);
+    function GetKeepNotificationChannel: Boolean;
+    procedure SetKeepNotificationChannel(const Value: Boolean);
     function GetOutput: TStreamProcessorOutput;
     procedure SetOutput(const Value: TStreamProcessorOutput);
     function GetKeepOutput: Boolean;
     procedure SetKeepOutput(const Value: Boolean);
+    function GetRegionsOfInterest: TObjectList<TRegionOfInterest>;
+    procedure SetRegionsOfInterest(const Value: TObjectList<TRegionOfInterest>);
+    function GetKeepRegionsOfInterest: Boolean;
+    procedure SetKeepRegionsOfInterest(const Value: Boolean);
     function GetRoleArn: string;
     procedure SetRoleArn(const Value: string);
     function GetSettings: TStreamProcessorSettings;
@@ -110,24 +160,36 @@ type
   strict protected
     function Obj: TDescribeStreamProcessorResponse;
   public
+    constructor Create;
     destructor Destroy; override;
     function IsSetCreationTimestamp: Boolean;
+    function IsSetDataSharingPreference: Boolean;
     function IsSetInput: Boolean;
+    function IsSetKmsKeyId: Boolean;
     function IsSetLastUpdateTimestamp: Boolean;
     function IsSetName: Boolean;
+    function IsSetNotificationChannel: Boolean;
     function IsSetOutput: Boolean;
+    function IsSetRegionsOfInterest: Boolean;
     function IsSetRoleArn: Boolean;
     function IsSetSettings: Boolean;
     function IsSetStatus: Boolean;
     function IsSetStatusMessage: Boolean;
     function IsSetStreamProcessorArn: Boolean;
     property CreationTimestamp: TDateTime read GetCreationTimestamp write SetCreationTimestamp;
+    property DataSharingPreference: TStreamProcessorDataSharingPreference read GetDataSharingPreference write SetDataSharingPreference;
+    property KeepDataSharingPreference: Boolean read GetKeepDataSharingPreference write SetKeepDataSharingPreference;
     property Input: TStreamProcessorInput read GetInput write SetInput;
     property KeepInput: Boolean read GetKeepInput write SetKeepInput;
+    property KmsKeyId: string read GetKmsKeyId write SetKmsKeyId;
     property LastUpdateTimestamp: TDateTime read GetLastUpdateTimestamp write SetLastUpdateTimestamp;
     property Name: string read GetName write SetName;
+    property NotificationChannel: TStreamProcessorNotificationChannel read GetNotificationChannel write SetNotificationChannel;
+    property KeepNotificationChannel: Boolean read GetKeepNotificationChannel write SetKeepNotificationChannel;
     property Output: TStreamProcessorOutput read GetOutput write SetOutput;
     property KeepOutput: Boolean read GetKeepOutput write SetKeepOutput;
+    property RegionsOfInterest: TObjectList<TRegionOfInterest> read GetRegionsOfInterest write SetRegionsOfInterest;
+    property KeepRegionsOfInterest: Boolean read GetKeepRegionsOfInterest write SetKeepRegionsOfInterest;
     property RoleArn: string read GetRoleArn write SetRoleArn;
     property Settings: TStreamProcessorSettings read GetSettings write SetSettings;
     property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
@@ -140,11 +202,20 @@ implementation
 
 { TDescribeStreamProcessorResponse }
 
+constructor TDescribeStreamProcessorResponse.Create;
+begin
+  inherited;
+  FRegionsOfInterest := TObjectList<TRegionOfInterest>.Create;
+end;
+
 destructor TDescribeStreamProcessorResponse.Destroy;
 begin
   Settings := nil;
+  RegionsOfInterest := nil;
   Output := nil;
+  NotificationChannel := nil;
   Input := nil;
+  DataSharingPreference := nil;
   inherited;
 end;
 
@@ -166,6 +237,36 @@ end;
 function TDescribeStreamProcessorResponse.IsSetCreationTimestamp: Boolean;
 begin
   Result := FCreationTimestamp.HasValue;
+end;
+
+function TDescribeStreamProcessorResponse.GetDataSharingPreference: TStreamProcessorDataSharingPreference;
+begin
+  Result := FDataSharingPreference;
+end;
+
+procedure TDescribeStreamProcessorResponse.SetDataSharingPreference(const Value: TStreamProcessorDataSharingPreference);
+begin
+  if FDataSharingPreference <> Value then
+  begin
+    if not KeepDataSharingPreference then
+      FDataSharingPreference.Free;
+    FDataSharingPreference := Value;
+  end;
+end;
+
+function TDescribeStreamProcessorResponse.GetKeepDataSharingPreference: Boolean;
+begin
+  Result := FKeepDataSharingPreference;
+end;
+
+procedure TDescribeStreamProcessorResponse.SetKeepDataSharingPreference(const Value: Boolean);
+begin
+  FKeepDataSharingPreference := Value;
+end;
+
+function TDescribeStreamProcessorResponse.IsSetDataSharingPreference: Boolean;
+begin
+  Result := FDataSharingPreference <> nil;
 end;
 
 function TDescribeStreamProcessorResponse.GetInput: TStreamProcessorInput;
@@ -198,6 +299,21 @@ begin
   Result := FInput <> nil;
 end;
 
+function TDescribeStreamProcessorResponse.GetKmsKeyId: string;
+begin
+  Result := FKmsKeyId.ValueOrDefault;
+end;
+
+procedure TDescribeStreamProcessorResponse.SetKmsKeyId(const Value: string);
+begin
+  FKmsKeyId := Value;
+end;
+
+function TDescribeStreamProcessorResponse.IsSetKmsKeyId: Boolean;
+begin
+  Result := FKmsKeyId.HasValue;
+end;
+
 function TDescribeStreamProcessorResponse.GetLastUpdateTimestamp: TDateTime;
 begin
   Result := FLastUpdateTimestamp.ValueOrDefault;
@@ -228,6 +344,36 @@ begin
   Result := FName.HasValue;
 end;
 
+function TDescribeStreamProcessorResponse.GetNotificationChannel: TStreamProcessorNotificationChannel;
+begin
+  Result := FNotificationChannel;
+end;
+
+procedure TDescribeStreamProcessorResponse.SetNotificationChannel(const Value: TStreamProcessorNotificationChannel);
+begin
+  if FNotificationChannel <> Value then
+  begin
+    if not KeepNotificationChannel then
+      FNotificationChannel.Free;
+    FNotificationChannel := Value;
+  end;
+end;
+
+function TDescribeStreamProcessorResponse.GetKeepNotificationChannel: Boolean;
+begin
+  Result := FKeepNotificationChannel;
+end;
+
+procedure TDescribeStreamProcessorResponse.SetKeepNotificationChannel(const Value: Boolean);
+begin
+  FKeepNotificationChannel := Value;
+end;
+
+function TDescribeStreamProcessorResponse.IsSetNotificationChannel: Boolean;
+begin
+  Result := FNotificationChannel <> nil;
+end;
+
 function TDescribeStreamProcessorResponse.GetOutput: TStreamProcessorOutput;
 begin
   Result := FOutput;
@@ -256,6 +402,36 @@ end;
 function TDescribeStreamProcessorResponse.IsSetOutput: Boolean;
 begin
   Result := FOutput <> nil;
+end;
+
+function TDescribeStreamProcessorResponse.GetRegionsOfInterest: TObjectList<TRegionOfInterest>;
+begin
+  Result := FRegionsOfInterest;
+end;
+
+procedure TDescribeStreamProcessorResponse.SetRegionsOfInterest(const Value: TObjectList<TRegionOfInterest>);
+begin
+  if FRegionsOfInterest <> Value then
+  begin
+    if not KeepRegionsOfInterest then
+      FRegionsOfInterest.Free;
+    FRegionsOfInterest := Value;
+  end;
+end;
+
+function TDescribeStreamProcessorResponse.GetKeepRegionsOfInterest: Boolean;
+begin
+  Result := FKeepRegionsOfInterest;
+end;
+
+procedure TDescribeStreamProcessorResponse.SetKeepRegionsOfInterest(const Value: Boolean);
+begin
+  FKeepRegionsOfInterest := Value;
+end;
+
+function TDescribeStreamProcessorResponse.IsSetRegionsOfInterest: Boolean;
+begin
+  Result := (FRegionsOfInterest <> nil) and (FRegionsOfInterest.Count > 0);
 end;
 
 function TDescribeStreamProcessorResponse.GetRoleArn: string;

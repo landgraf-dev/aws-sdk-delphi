@@ -14,7 +14,8 @@ uses
   AWS.SDKUtils, 
   AWS.Textract.Transform.DocumentLocationMarshaller, 
   AWS.Textract.Transform.NotificationChannelMarshaller, 
-  AWS.Textract.Transform.OutputConfigMarshaller;
+  AWS.Textract.Transform.OutputConfigMarshaller, 
+  AWS.Textract.Transform.QueriesConfigMarshaller;
 
 type
   IStartDocumentAnalysisRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -97,6 +98,13 @@ begin
           Context.Writer.WriteName('OutputConfig');
           Context.Writer.WriteBeginObject;
           TOutputConfigMarshaller.Instance.Marshall(PublicRequest.OutputConfig, Context);
+          Context.Writer.WriteEndObject;
+        end;
+        if PublicRequest.IsSetQueriesConfig then
+        begin
+          Context.Writer.WriteName('QueriesConfig');
+          Context.Writer.WriteBeginObject;
+          TQueriesConfigMarshaller.Instance.Marshall(PublicRequest.QueriesConfig, Context);
           Context.Writer.WriteEndObject;
         end;
         Writer.WriteEndObject;

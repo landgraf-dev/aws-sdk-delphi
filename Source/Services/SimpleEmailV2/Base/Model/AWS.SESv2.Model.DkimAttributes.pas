@@ -11,6 +11,12 @@ type
   TDkimAttributes = class;
   
   IDkimAttributes = interface
+    function GetCurrentSigningKeyLength: TDkimSigningKeyLength;
+    procedure SetCurrentSigningKeyLength(const Value: TDkimSigningKeyLength);
+    function GetLastKeyGenerationTimestamp: TDateTime;
+    procedure SetLastKeyGenerationTimestamp(const Value: TDateTime);
+    function GetNextSigningKeyLength: TDkimSigningKeyLength;
+    procedure SetNextSigningKeyLength(const Value: TDkimSigningKeyLength);
     function GetSigningAttributesOrigin: TDkimSigningAttributesOrigin;
     procedure SetSigningAttributesOrigin(const Value: TDkimSigningAttributesOrigin);
     function GetSigningEnabled: Boolean;
@@ -22,10 +28,16 @@ type
     function GetKeepTokens: Boolean;
     procedure SetKeepTokens(const Value: Boolean);
     function Obj: TDkimAttributes;
+    function IsSetCurrentSigningKeyLength: Boolean;
+    function IsSetLastKeyGenerationTimestamp: Boolean;
+    function IsSetNextSigningKeyLength: Boolean;
     function IsSetSigningAttributesOrigin: Boolean;
     function IsSetSigningEnabled: Boolean;
     function IsSetStatus: Boolean;
     function IsSetTokens: Boolean;
+    property CurrentSigningKeyLength: TDkimSigningKeyLength read GetCurrentSigningKeyLength write SetCurrentSigningKeyLength;
+    property LastKeyGenerationTimestamp: TDateTime read GetLastKeyGenerationTimestamp write SetLastKeyGenerationTimestamp;
+    property NextSigningKeyLength: TDkimSigningKeyLength read GetNextSigningKeyLength write SetNextSigningKeyLength;
     property SigningAttributesOrigin: TDkimSigningAttributesOrigin read GetSigningAttributesOrigin write SetSigningAttributesOrigin;
     property SigningEnabled: Boolean read GetSigningEnabled write SetSigningEnabled;
     property Status: TDkimStatus read GetStatus write SetStatus;
@@ -35,11 +47,20 @@ type
   
   TDkimAttributes = class
   strict private
+    FCurrentSigningKeyLength: Nullable<TDkimSigningKeyLength>;
+    FLastKeyGenerationTimestamp: Nullable<TDateTime>;
+    FNextSigningKeyLength: Nullable<TDkimSigningKeyLength>;
     FSigningAttributesOrigin: Nullable<TDkimSigningAttributesOrigin>;
     FSigningEnabled: Nullable<Boolean>;
     FStatus: Nullable<TDkimStatus>;
     FTokens: TList<string>;
     FKeepTokens: Boolean;
+    function GetCurrentSigningKeyLength: TDkimSigningKeyLength;
+    procedure SetCurrentSigningKeyLength(const Value: TDkimSigningKeyLength);
+    function GetLastKeyGenerationTimestamp: TDateTime;
+    procedure SetLastKeyGenerationTimestamp(const Value: TDateTime);
+    function GetNextSigningKeyLength: TDkimSigningKeyLength;
+    procedure SetNextSigningKeyLength(const Value: TDkimSigningKeyLength);
     function GetSigningAttributesOrigin: TDkimSigningAttributesOrigin;
     procedure SetSigningAttributesOrigin(const Value: TDkimSigningAttributesOrigin);
     function GetSigningEnabled: Boolean;
@@ -55,10 +76,16 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    function IsSetCurrentSigningKeyLength: Boolean;
+    function IsSetLastKeyGenerationTimestamp: Boolean;
+    function IsSetNextSigningKeyLength: Boolean;
     function IsSetSigningAttributesOrigin: Boolean;
     function IsSetSigningEnabled: Boolean;
     function IsSetStatus: Boolean;
     function IsSetTokens: Boolean;
+    property CurrentSigningKeyLength: TDkimSigningKeyLength read GetCurrentSigningKeyLength write SetCurrentSigningKeyLength;
+    property LastKeyGenerationTimestamp: TDateTime read GetLastKeyGenerationTimestamp write SetLastKeyGenerationTimestamp;
+    property NextSigningKeyLength: TDkimSigningKeyLength read GetNextSigningKeyLength write SetNextSigningKeyLength;
     property SigningAttributesOrigin: TDkimSigningAttributesOrigin read GetSigningAttributesOrigin write SetSigningAttributesOrigin;
     property SigningEnabled: Boolean read GetSigningEnabled write SetSigningEnabled;
     property Status: TDkimStatus read GetStatus write SetStatus;
@@ -85,6 +112,51 @@ end;
 function TDkimAttributes.Obj: TDkimAttributes;
 begin
   Result := Self;
+end;
+
+function TDkimAttributes.GetCurrentSigningKeyLength: TDkimSigningKeyLength;
+begin
+  Result := FCurrentSigningKeyLength.ValueOrDefault;
+end;
+
+procedure TDkimAttributes.SetCurrentSigningKeyLength(const Value: TDkimSigningKeyLength);
+begin
+  FCurrentSigningKeyLength := Value;
+end;
+
+function TDkimAttributes.IsSetCurrentSigningKeyLength: Boolean;
+begin
+  Result := FCurrentSigningKeyLength.HasValue;
+end;
+
+function TDkimAttributes.GetLastKeyGenerationTimestamp: TDateTime;
+begin
+  Result := FLastKeyGenerationTimestamp.ValueOrDefault;
+end;
+
+procedure TDkimAttributes.SetLastKeyGenerationTimestamp(const Value: TDateTime);
+begin
+  FLastKeyGenerationTimestamp := Value;
+end;
+
+function TDkimAttributes.IsSetLastKeyGenerationTimestamp: Boolean;
+begin
+  Result := FLastKeyGenerationTimestamp.HasValue;
+end;
+
+function TDkimAttributes.GetNextSigningKeyLength: TDkimSigningKeyLength;
+begin
+  Result := FNextSigningKeyLength.ValueOrDefault;
+end;
+
+procedure TDkimAttributes.SetNextSigningKeyLength(const Value: TDkimSigningKeyLength);
+begin
+  FNextSigningKeyLength := Value;
+end;
+
+function TDkimAttributes.IsSetNextSigningKeyLength: Boolean;
+begin
+  Result := FNextSigningKeyLength.HasValue;
 end;
 
 function TDkimAttributes.GetSigningAttributesOrigin: TDkimSigningAttributesOrigin;

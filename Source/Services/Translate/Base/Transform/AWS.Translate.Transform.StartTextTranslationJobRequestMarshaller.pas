@@ -13,7 +13,8 @@ uses
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
   AWS.Translate.Transform.InputDataConfigMarshaller, 
-  AWS.Translate.Transform.OutputDataConfigMarshaller;
+  AWS.Translate.Transform.OutputDataConfigMarshaller, 
+  AWS.Translate.Transform.TranslationSettingsMarshaller;
 
 type
   IStartTextTranslationJobRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -96,6 +97,13 @@ begin
           for var PublicRequestParallelDataNamesListValue in PublicRequest.ParallelDataNames do
             Context.Writer.WriteString(PublicRequestParallelDataNamesListValue);
           Context.Writer.WriteEndArray;
+        end;
+        if PublicRequest.IsSetSettings then
+        begin
+          Context.Writer.WriteName('Settings');
+          Context.Writer.WriteBeginObject;
+          TTranslationSettingsMarshaller.Instance.Marshall(PublicRequest.Settings, Context);
+          Context.Writer.WriteEndObject;
         end;
         if PublicRequest.IsSetSourceLanguageCode then
         begin

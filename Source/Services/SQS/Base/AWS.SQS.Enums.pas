@@ -57,7 +57,9 @@ type
     class function Policy: TQueueAttributeName; static;
     class function QueueArn: TQueueAttributeName; static;
     class function ReceiveMessageWaitTimeSeconds: TQueueAttributeName; static;
+    class function RedriveAllowPolicy: TQueueAttributeName; static;
     class function RedrivePolicy: TQueueAttributeName; static;
+    class function SqsManagedSseEnabled: TQueueAttributeName; static;
     class function VisibilityTimeout: TQueueAttributeName; static;
     class operator Equal(a: TQueueAttributeName; b: TQueueAttributeName): Boolean;
     class operator NotEqual(a: TQueueAttributeName; b: TQueueAttributeName): Boolean;
@@ -253,9 +255,19 @@ begin
   Result := TQueueAttributeName.Create('ReceiveMessageWaitTimeSeconds');
 end;
 
+class function TQueueAttributeName.RedriveAllowPolicy: TQueueAttributeName;
+begin
+  Result := TQueueAttributeName.Create('RedriveAllowPolicy');
+end;
+
 class function TQueueAttributeName.RedrivePolicy: TQueueAttributeName;
 begin
   Result := TQueueAttributeName.Create('RedrivePolicy');
+end;
+
+class function TQueueAttributeName.SqsManagedSseEnabled: TQueueAttributeName;
+begin
+  Result := TQueueAttributeName.Create('SqsManagedSseEnabled');
 end;
 
 class function TQueueAttributeName.VisibilityTimeout: TQueueAttributeName;

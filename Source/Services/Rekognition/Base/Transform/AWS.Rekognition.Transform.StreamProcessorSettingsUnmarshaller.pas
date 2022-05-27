@@ -7,6 +7,7 @@ uses
   AWS.Transform.JsonUnmarshallerContext, 
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Internal.Request, 
+  AWS.Rekognition.Transform.ConnectedHomeSettingsUnmarshaller, 
   AWS.Rekognition.Transform.FaceSearchSettingsUnmarshaller;
 
 type
@@ -37,12 +38,20 @@ begin
       Exit(nil);
     TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
+    begin
+      if AContext.TestExpression('ConnectedHome', TargetDepth) then
+      begin
+        var Unmarshaller := TConnectedHomeSettingsUnmarshaller.JsonInstance;
+        UnmarshalledObject.ConnectedHome := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('FaceSearch', TargetDepth) then
       begin
         var Unmarshaller := TFaceSearchSettingsUnmarshaller.JsonInstance;
         UnmarshalledObject.FaceSearch := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+    end;
     Result := UnmarshalledObject;
     UnmarshalledObject := nil;
   finally

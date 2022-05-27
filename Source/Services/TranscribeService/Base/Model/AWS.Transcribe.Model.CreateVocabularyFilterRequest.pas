@@ -6,7 +6,8 @@ uses
   Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Transcribe.Model.Request, 
-  AWS.Transcribe.Enums;
+  AWS.Transcribe.Enums, 
+  AWS.Transcribe.Model.Tag;
 
 type
   TCreateVocabularyFilterRequest = class;
@@ -14,6 +15,10 @@ type
   ICreateVocabularyFilterRequest = interface
     function GetLanguageCode: TLanguageCode;
     procedure SetLanguageCode(const Value: TLanguageCode);
+    function GetTags: TObjectList<TTag>;
+    procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetVocabularyFilterFileUri: string;
     procedure SetVocabularyFilterFileUri(const Value: string);
     function GetVocabularyFilterName: string;
@@ -24,10 +29,13 @@ type
     procedure SetKeepWords(const Value: Boolean);
     function Obj: TCreateVocabularyFilterRequest;
     function IsSetLanguageCode: Boolean;
+    function IsSetTags: Boolean;
     function IsSetVocabularyFilterFileUri: Boolean;
     function IsSetVocabularyFilterName: Boolean;
     function IsSetWords: Boolean;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
+    property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property VocabularyFilterFileUri: string read GetVocabularyFilterFileUri write SetVocabularyFilterFileUri;
     property VocabularyFilterName: string read GetVocabularyFilterName write SetVocabularyFilterName;
     property Words: TList<string> read GetWords write SetWords;
@@ -37,12 +45,18 @@ type
   TCreateVocabularyFilterRequest = class(TAmazonTranscribeServiceRequest, ICreateVocabularyFilterRequest)
   strict private
     FLanguageCode: Nullable<TLanguageCode>;
+    FTags: TObjectList<TTag>;
+    FKeepTags: Boolean;
     FVocabularyFilterFileUri: Nullable<string>;
     FVocabularyFilterName: Nullable<string>;
     FWords: TList<string>;
     FKeepWords: Boolean;
     function GetLanguageCode: TLanguageCode;
     procedure SetLanguageCode(const Value: TLanguageCode);
+    function GetTags: TObjectList<TTag>;
+    procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetVocabularyFilterFileUri: string;
     procedure SetVocabularyFilterFileUri(const Value: string);
     function GetVocabularyFilterName: string;
@@ -57,10 +71,13 @@ type
     constructor Create;
     destructor Destroy; override;
     function IsSetLanguageCode: Boolean;
+    function IsSetTags: Boolean;
     function IsSetVocabularyFilterFileUri: Boolean;
     function IsSetVocabularyFilterName: Boolean;
     function IsSetWords: Boolean;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
+    property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property VocabularyFilterFileUri: string read GetVocabularyFilterFileUri write SetVocabularyFilterFileUri;
     property VocabularyFilterName: string read GetVocabularyFilterName write SetVocabularyFilterName;
     property Words: TList<string> read GetWords write SetWords;
@@ -74,12 +91,14 @@ implementation
 constructor TCreateVocabularyFilterRequest.Create;
 begin
   inherited;
+  FTags := TObjectList<TTag>.Create;
   FWords := TList<string>.Create;
 end;
 
 destructor TCreateVocabularyFilterRequest.Destroy;
 begin
   Words := nil;
+  Tags := nil;
   inherited;
 end;
 
@@ -101,6 +120,36 @@ end;
 function TCreateVocabularyFilterRequest.IsSetLanguageCode: Boolean;
 begin
   Result := FLanguageCode.HasValue;
+end;
+
+function TCreateVocabularyFilterRequest.GetTags: TObjectList<TTag>;
+begin
+  Result := FTags;
+end;
+
+procedure TCreateVocabularyFilterRequest.SetTags(const Value: TObjectList<TTag>);
+begin
+  if FTags <> Value then
+  begin
+    if not KeepTags then
+      FTags.Free;
+    FTags := Value;
+  end;
+end;
+
+function TCreateVocabularyFilterRequest.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TCreateVocabularyFilterRequest.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
+end;
+
+function TCreateVocabularyFilterRequest.IsSetTags: Boolean;
+begin
+  Result := (FTags <> nil) and (FTags.Count > 0);
 end;
 
 function TCreateVocabularyFilterRequest.GetVocabularyFilterFileUri: string;

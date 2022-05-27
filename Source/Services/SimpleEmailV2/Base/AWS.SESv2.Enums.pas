@@ -134,6 +134,19 @@ type
     property Value: string read FValue;
   end;
   
+  TDkimSigningKeyLength = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function RSA_1024_BIT: TDkimSigningKeyLength; static;
+    class function RSA_2048_BIT: TDkimSigningKeyLength; static;
+    class operator Equal(a: TDkimSigningKeyLength; b: TDkimSigningKeyLength): Boolean;
+    class operator NotEqual(a: TDkimSigningKeyLength; b: TDkimSigningKeyLength): Boolean;
+    class operator Implicit(a: string): TDkimSigningKeyLength;
+    property Value: string read FValue;
+  end;
+  
   TDkimStatus = record
   strict private
     FValue: string;
@@ -677,6 +690,38 @@ begin
 end;
 
 class operator TDkimSigningAttributesOrigin.Implicit(a: string): TDkimSigningAttributesOrigin;
+begin
+  Result.FValue := a;;
+end;
+
+{ TDkimSigningKeyLength }
+
+constructor TDkimSigningKeyLength.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TDkimSigningKeyLength.RSA_1024_BIT: TDkimSigningKeyLength;
+begin
+  Result := TDkimSigningKeyLength.Create('RSA_1024_BIT');
+end;
+
+class function TDkimSigningKeyLength.RSA_2048_BIT: TDkimSigningKeyLength;
+begin
+  Result := TDkimSigningKeyLength.Create('RSA_2048_BIT');
+end;
+
+class operator TDkimSigningKeyLength.Equal(a: TDkimSigningKeyLength; b: TDkimSigningKeyLength): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TDkimSigningKeyLength.NotEqual(a: TDkimSigningKeyLength; b: TDkimSigningKeyLength): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TDkimSigningKeyLength.Implicit(a: string): TDkimSigningKeyLength;
 begin
   Result.FValue := a;;
 end;

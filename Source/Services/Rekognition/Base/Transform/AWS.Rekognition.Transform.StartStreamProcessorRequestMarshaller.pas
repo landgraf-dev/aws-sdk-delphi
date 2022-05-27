@@ -11,7 +11,9 @@ uses
   AWS.Runtime.Model, 
   AWS.Rekognition.Model.StartStreamProcessorRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Rekognition.Transform.StreamProcessingStartSelectorMarshaller, 
+  AWS.Rekognition.Transform.StreamProcessingStopSelectorMarshaller;
 
 type
   IStartStreamProcessorRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -56,6 +58,20 @@ begin
         begin
           Context.Writer.WriteName('Name');
           Context.Writer.WriteString(PublicRequest.Name);
+        end;
+        if PublicRequest.IsSetStartSelector then
+        begin
+          Context.Writer.WriteName('StartSelector');
+          Context.Writer.WriteBeginObject;
+          TStreamProcessingStartSelectorMarshaller.Instance.Marshall(PublicRequest.StartSelector, Context);
+          Context.Writer.WriteEndObject;
+        end;
+        if PublicRequest.IsSetStopSelector then
+        begin
+          Context.Writer.WriteName('StopSelector');
+          Context.Writer.WriteBeginObject;
+          TStreamProcessingStopSelectorMarshaller.Instance.Marshall(PublicRequest.StopSelector, Context);
+          Context.Writer.WriteEndObject;
         end;
         Writer.WriteEndObject;
         Writer.Flush;

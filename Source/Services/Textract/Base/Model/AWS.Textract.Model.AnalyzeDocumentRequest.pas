@@ -6,7 +6,8 @@ uses
   System.Generics.Collections, 
   AWS.Textract.Model.Request, 
   AWS.Textract.Model.Document, 
-  AWS.Textract.Model.HumanLoopConfig;
+  AWS.Textract.Model.HumanLoopConfig, 
+  AWS.Textract.Model.QueriesConfig;
 
 type
   TAnalyzeDocumentRequest = class;
@@ -24,16 +25,23 @@ type
     procedure SetHumanLoopConfig(const Value: THumanLoopConfig);
     function GetKeepHumanLoopConfig: Boolean;
     procedure SetKeepHumanLoopConfig(const Value: Boolean);
+    function GetQueriesConfig: TQueriesConfig;
+    procedure SetQueriesConfig(const Value: TQueriesConfig);
+    function GetKeepQueriesConfig: Boolean;
+    procedure SetKeepQueriesConfig(const Value: Boolean);
     function Obj: TAnalyzeDocumentRequest;
     function IsSetDocument: Boolean;
     function IsSetFeatureTypes: Boolean;
     function IsSetHumanLoopConfig: Boolean;
+    function IsSetQueriesConfig: Boolean;
     property Document: TDocument read GetDocument write SetDocument;
     property KeepDocument: Boolean read GetKeepDocument write SetKeepDocument;
     property FeatureTypes: TList<string> read GetFeatureTypes write SetFeatureTypes;
     property KeepFeatureTypes: Boolean read GetKeepFeatureTypes write SetKeepFeatureTypes;
     property HumanLoopConfig: THumanLoopConfig read GetHumanLoopConfig write SetHumanLoopConfig;
     property KeepHumanLoopConfig: Boolean read GetKeepHumanLoopConfig write SetKeepHumanLoopConfig;
+    property QueriesConfig: TQueriesConfig read GetQueriesConfig write SetQueriesConfig;
+    property KeepQueriesConfig: Boolean read GetKeepQueriesConfig write SetKeepQueriesConfig;
   end;
   
   TAnalyzeDocumentRequest = class(TAmazonTextractRequest, IAnalyzeDocumentRequest)
@@ -44,6 +52,8 @@ type
     FKeepFeatureTypes: Boolean;
     FHumanLoopConfig: THumanLoopConfig;
     FKeepHumanLoopConfig: Boolean;
+    FQueriesConfig: TQueriesConfig;
+    FKeepQueriesConfig: Boolean;
     function GetDocument: TDocument;
     procedure SetDocument(const Value: TDocument);
     function GetKeepDocument: Boolean;
@@ -56,6 +66,10 @@ type
     procedure SetHumanLoopConfig(const Value: THumanLoopConfig);
     function GetKeepHumanLoopConfig: Boolean;
     procedure SetKeepHumanLoopConfig(const Value: Boolean);
+    function GetQueriesConfig: TQueriesConfig;
+    procedure SetQueriesConfig(const Value: TQueriesConfig);
+    function GetKeepQueriesConfig: Boolean;
+    procedure SetKeepQueriesConfig(const Value: Boolean);
   strict protected
     function Obj: TAnalyzeDocumentRequest;
   public
@@ -64,12 +78,15 @@ type
     function IsSetDocument: Boolean;
     function IsSetFeatureTypes: Boolean;
     function IsSetHumanLoopConfig: Boolean;
+    function IsSetQueriesConfig: Boolean;
     property Document: TDocument read GetDocument write SetDocument;
     property KeepDocument: Boolean read GetKeepDocument write SetKeepDocument;
     property FeatureTypes: TList<string> read GetFeatureTypes write SetFeatureTypes;
     property KeepFeatureTypes: Boolean read GetKeepFeatureTypes write SetKeepFeatureTypes;
     property HumanLoopConfig: THumanLoopConfig read GetHumanLoopConfig write SetHumanLoopConfig;
     property KeepHumanLoopConfig: Boolean read GetKeepHumanLoopConfig write SetKeepHumanLoopConfig;
+    property QueriesConfig: TQueriesConfig read GetQueriesConfig write SetQueriesConfig;
+    property KeepQueriesConfig: Boolean read GetKeepQueriesConfig write SetKeepQueriesConfig;
   end;
   
 implementation
@@ -84,6 +101,7 @@ end;
 
 destructor TAnalyzeDocumentRequest.Destroy;
 begin
+  QueriesConfig := nil;
   HumanLoopConfig := nil;
   FeatureTypes := nil;
   Document := nil;
@@ -183,6 +201,36 @@ end;
 function TAnalyzeDocumentRequest.IsSetHumanLoopConfig: Boolean;
 begin
   Result := FHumanLoopConfig <> nil;
+end;
+
+function TAnalyzeDocumentRequest.GetQueriesConfig: TQueriesConfig;
+begin
+  Result := FQueriesConfig;
+end;
+
+procedure TAnalyzeDocumentRequest.SetQueriesConfig(const Value: TQueriesConfig);
+begin
+  if FQueriesConfig <> Value then
+  begin
+    if not KeepQueriesConfig then
+      FQueriesConfig.Free;
+    FQueriesConfig := Value;
+  end;
+end;
+
+function TAnalyzeDocumentRequest.GetKeepQueriesConfig: Boolean;
+begin
+  Result := FKeepQueriesConfig;
+end;
+
+procedure TAnalyzeDocumentRequest.SetKeepQueriesConfig(const Value: Boolean);
+begin
+  FKeepQueriesConfig := Value;
+end;
+
+function TAnalyzeDocumentRequest.IsSetQueriesConfig: Boolean;
+begin
+  Result := FQueriesConfig <> nil;
 end;
 
 end.

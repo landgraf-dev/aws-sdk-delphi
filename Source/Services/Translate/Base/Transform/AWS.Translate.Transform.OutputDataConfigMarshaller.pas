@@ -4,7 +4,8 @@ interface
 
 uses
   AWS.Translate.Model.OutputDataConfig, 
-  AWS.Transform.RequestMarshaller;
+  AWS.Transform.RequestMarshaller, 
+  AWS.Translate.Transform.EncryptionKeyMarshaller;
 
 type
   IOutputDataConfigMarshaller = IRequestMarshaller<TOutputDataConfig, TJsonMarshallerContext>;
@@ -24,6 +25,13 @@ implementation
 
 procedure TOutputDataConfigMarshaller.Marshall(ARequestObject: TOutputDataConfig; Context: TJsonMarshallerContext);
 begin
+  if ARequestObject.IsSetEncryptionKey then
+  begin
+    Context.Writer.WriteName('EncryptionKey');
+    Context.Writer.WriteBeginObject;
+    TEncryptionKeyMarshaller.Instance.Marshall(ARequestObject.EncryptionKey, Context);
+    Context.Writer.WriteEndObject;
+  end;
   if ARequestObject.IsSetS3Uri then
   begin
     Context.Writer.WriteName('S3Uri');

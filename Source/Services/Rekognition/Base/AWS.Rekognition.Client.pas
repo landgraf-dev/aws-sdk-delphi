@@ -22,6 +22,10 @@ uses
   AWS.Rekognition.Model.CreateCollectionRequest, 
   AWS.Rekognition.Transform.CreateCollectionRequestMarshaller, 
   AWS.Rekognition.Transform.CreateCollectionResponseUnmarshaller, 
+  AWS.Rekognition.Model.CreateDatasetResponse, 
+  AWS.Rekognition.Model.CreateDatasetRequest, 
+  AWS.Rekognition.Transform.CreateDatasetRequestMarshaller, 
+  AWS.Rekognition.Transform.CreateDatasetResponseUnmarshaller, 
   AWS.Rekognition.Model.CreateProjectResponse, 
   AWS.Rekognition.Model.CreateProjectRequest, 
   AWS.Rekognition.Transform.CreateProjectRequestMarshaller, 
@@ -38,6 +42,10 @@ uses
   AWS.Rekognition.Model.DeleteCollectionRequest, 
   AWS.Rekognition.Transform.DeleteCollectionRequestMarshaller, 
   AWS.Rekognition.Transform.DeleteCollectionResponseUnmarshaller, 
+  AWS.Rekognition.Model.DeleteDatasetResponse, 
+  AWS.Rekognition.Model.DeleteDatasetRequest, 
+  AWS.Rekognition.Transform.DeleteDatasetRequestMarshaller, 
+  AWS.Rekognition.Transform.DeleteDatasetResponseUnmarshaller, 
   AWS.Rekognition.Model.DeleteFacesResponse, 
   AWS.Rekognition.Model.DeleteFacesRequest, 
   AWS.Rekognition.Transform.DeleteFacesRequestMarshaller, 
@@ -58,6 +66,10 @@ uses
   AWS.Rekognition.Model.DescribeCollectionRequest, 
   AWS.Rekognition.Transform.DescribeCollectionRequestMarshaller, 
   AWS.Rekognition.Transform.DescribeCollectionResponseUnmarshaller, 
+  AWS.Rekognition.Model.DescribeDatasetResponse, 
+  AWS.Rekognition.Model.DescribeDatasetRequest, 
+  AWS.Rekognition.Transform.DescribeDatasetRequestMarshaller, 
+  AWS.Rekognition.Transform.DescribeDatasetResponseUnmarshaller, 
   AWS.Rekognition.Model.DescribeProjectVersionsResponse, 
   AWS.Rekognition.Model.DescribeProjectVersionsRequest, 
   AWS.Rekognition.Transform.DescribeProjectVersionsRequestMarshaller, 
@@ -94,6 +106,10 @@ uses
   AWS.Rekognition.Model.DetectTextRequest, 
   AWS.Rekognition.Transform.DetectTextRequestMarshaller, 
   AWS.Rekognition.Transform.DetectTextResponseUnmarshaller, 
+  AWS.Rekognition.Model.DistributeDatasetEntriesResponse, 
+  AWS.Rekognition.Model.DistributeDatasetEntriesRequest, 
+  AWS.Rekognition.Transform.DistributeDatasetEntriesRequestMarshaller, 
+  AWS.Rekognition.Transform.DistributeDatasetEntriesResponseUnmarshaller, 
   AWS.Rekognition.Model.GetCelebrityInfoResponse, 
   AWS.Rekognition.Model.GetCelebrityInfoRequest, 
   AWS.Rekognition.Transform.GetCelebrityInfoRequestMarshaller, 
@@ -138,6 +154,14 @@ uses
   AWS.Rekognition.Model.ListCollectionsRequest, 
   AWS.Rekognition.Transform.ListCollectionsRequestMarshaller, 
   AWS.Rekognition.Transform.ListCollectionsResponseUnmarshaller, 
+  AWS.Rekognition.Model.ListDatasetEntriesResponse, 
+  AWS.Rekognition.Model.ListDatasetEntriesRequest, 
+  AWS.Rekognition.Transform.ListDatasetEntriesRequestMarshaller, 
+  AWS.Rekognition.Transform.ListDatasetEntriesResponseUnmarshaller, 
+  AWS.Rekognition.Model.ListDatasetLabelsResponse, 
+  AWS.Rekognition.Model.ListDatasetLabelsRequest, 
+  AWS.Rekognition.Transform.ListDatasetLabelsRequestMarshaller, 
+  AWS.Rekognition.Transform.ListDatasetLabelsResponseUnmarshaller, 
   AWS.Rekognition.Model.ListFacesResponse, 
   AWS.Rekognition.Model.ListFacesRequest, 
   AWS.Rekognition.Transform.ListFacesRequestMarshaller, 
@@ -217,7 +241,15 @@ uses
   AWS.Rekognition.Model.UntagResourceResponse, 
   AWS.Rekognition.Model.UntagResourceRequest, 
   AWS.Rekognition.Transform.UntagResourceRequestMarshaller, 
-  AWS.Rekognition.Transform.UntagResourceResponseUnmarshaller;
+  AWS.Rekognition.Transform.UntagResourceResponseUnmarshaller, 
+  AWS.Rekognition.Model.UpdateDatasetEntriesResponse, 
+  AWS.Rekognition.Model.UpdateDatasetEntriesRequest, 
+  AWS.Rekognition.Transform.UpdateDatasetEntriesRequestMarshaller, 
+  AWS.Rekognition.Transform.UpdateDatasetEntriesResponseUnmarshaller, 
+  AWS.Rekognition.Model.UpdateStreamProcessorResponse, 
+  AWS.Rekognition.Model.UpdateStreamProcessorRequest, 
+  AWS.Rekognition.Transform.UpdateStreamProcessorRequestMarshaller, 
+  AWS.Rekognition.Transform.UpdateStreamProcessorResponseUnmarshaller;
 
 type
   TAmazonRekognitionClient = class(TAmazonServiceClient, IAmazonRekognition)
@@ -243,15 +275,18 @@ type
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string; Config: IClientConfig); reintroduce; overload;
     function CompareFaces(Request: ICompareFacesRequest): ICompareFacesResponse; overload;
     function CreateCollection(Request: ICreateCollectionRequest): ICreateCollectionResponse; overload;
+    function CreateDataset(Request: ICreateDatasetRequest): ICreateDatasetResponse; overload;
     function CreateProject(Request: ICreateProjectRequest): ICreateProjectResponse; overload;
     function CreateProjectVersion(Request: ICreateProjectVersionRequest): ICreateProjectVersionResponse; overload;
     function CreateStreamProcessor(Request: ICreateStreamProcessorRequest): ICreateStreamProcessorResponse; overload;
     function DeleteCollection(Request: IDeleteCollectionRequest): IDeleteCollectionResponse; overload;
+    function DeleteDataset(Request: IDeleteDatasetRequest): IDeleteDatasetResponse; overload;
     function DeleteFaces(Request: IDeleteFacesRequest): IDeleteFacesResponse; overload;
     function DeleteProject(Request: IDeleteProjectRequest): IDeleteProjectResponse; overload;
     function DeleteProjectVersion(Request: IDeleteProjectVersionRequest): IDeleteProjectVersionResponse; overload;
     function DeleteStreamProcessor(Request: IDeleteStreamProcessorRequest): IDeleteStreamProcessorResponse; overload;
     function DescribeCollection(Request: IDescribeCollectionRequest): IDescribeCollectionResponse; overload;
+    function DescribeDataset(Request: IDescribeDatasetRequest): IDescribeDatasetResponse; overload;
     function DescribeProjectVersions(Request: IDescribeProjectVersionsRequest): IDescribeProjectVersionsResponse; overload;
     function DescribeProjects(Request: IDescribeProjectsRequest): IDescribeProjectsResponse; overload;
     function DescribeStreamProcessor(Request: IDescribeStreamProcessorRequest): IDescribeStreamProcessorResponse; overload;
@@ -261,6 +296,7 @@ type
     function DetectModerationLabels(Request: IDetectModerationLabelsRequest): IDetectModerationLabelsResponse; overload;
     function DetectProtectiveEquipment(Request: IDetectProtectiveEquipmentRequest): IDetectProtectiveEquipmentResponse; overload;
     function DetectText(Request: IDetectTextRequest): IDetectTextResponse; overload;
+    function DistributeDatasetEntries(Request: IDistributeDatasetEntriesRequest): IDistributeDatasetEntriesResponse; overload;
     function GetCelebrityInfo(Request: IGetCelebrityInfoRequest): IGetCelebrityInfoResponse; overload;
     function GetCelebrityRecognition(Request: IGetCelebrityRecognitionRequest): IGetCelebrityRecognitionResponse; overload;
     function GetContentModeration(Request: IGetContentModerationRequest): IGetContentModerationResponse; overload;
@@ -272,6 +308,8 @@ type
     function GetTextDetection(Request: IGetTextDetectionRequest): IGetTextDetectionResponse; overload;
     function IndexFaces(Request: IIndexFacesRequest): IIndexFacesResponse; overload;
     function ListCollections(Request: IListCollectionsRequest): IListCollectionsResponse; overload;
+    function ListDatasetEntries(Request: IListDatasetEntriesRequest): IListDatasetEntriesResponse; overload;
+    function ListDatasetLabels(Request: IListDatasetLabelsRequest): IListDatasetLabelsResponse; overload;
     function ListFaces(Request: IListFacesRequest): IListFacesResponse; overload;
     function ListStreamProcessors(Request: IListStreamProcessorsRequest): IListStreamProcessorsResponse; overload;
     function ListTagsForResource(Request: IListTagsForResourceRequest): IListTagsForResourceResponse; overload;
@@ -292,6 +330,8 @@ type
     function StopStreamProcessor(Request: IStopStreamProcessorRequest): IStopStreamProcessorResponse; overload;
     function TagResource(Request: ITagResourceRequest): ITagResourceResponse; overload;
     function UntagResource(Request: IUntagResourceRequest): IUntagResourceResponse; overload;
+    function UpdateDatasetEntries(Request: IUpdateDatasetEntriesRequest): IUpdateDatasetEntriesResponse; overload;
+    function UpdateStreamProcessor(Request: IUpdateStreamProcessorRequest): IUpdateStreamProcessorResponse; overload;
   end;
   
 implementation
@@ -401,6 +441,20 @@ begin
   end;
 end;
 
+function TAmazonRekognitionClient.CreateDataset(Request: ICreateDatasetRequest): ICreateDatasetResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TCreateDatasetRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TCreateDatasetResponseUnmarshaller.Instance;
+    Result := Invoke<TCreateDatasetResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
 function TAmazonRekognitionClient.CreateProject(Request: ICreateProjectRequest): ICreateProjectResponse;
 var
   Options: TInvokeOptions;
@@ -452,6 +506,20 @@ begin
     Options.RequestMarshaller := TDeleteCollectionRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TDeleteCollectionResponseUnmarshaller.Instance;
     Result := Invoke<TDeleteCollectionResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonRekognitionClient.DeleteDataset(Request: IDeleteDatasetRequest): IDeleteDatasetResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TDeleteDatasetRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TDeleteDatasetResponseUnmarshaller.Instance;
+    Result := Invoke<TDeleteDatasetResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;
@@ -522,6 +590,20 @@ begin
     Options.RequestMarshaller := TDescribeCollectionRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TDescribeCollectionResponseUnmarshaller.Instance;
     Result := Invoke<TDescribeCollectionResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonRekognitionClient.DescribeDataset(Request: IDescribeDatasetRequest): IDescribeDatasetResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TDescribeDatasetRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TDescribeDatasetResponseUnmarshaller.Instance;
+    Result := Invoke<TDescribeDatasetResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;
@@ -648,6 +730,20 @@ begin
     Options.RequestMarshaller := TDetectTextRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TDetectTextResponseUnmarshaller.Instance;
     Result := Invoke<TDetectTextResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonRekognitionClient.DistributeDatasetEntries(Request: IDistributeDatasetEntriesRequest): IDistributeDatasetEntriesResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TDistributeDatasetEntriesRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TDistributeDatasetEntriesResponseUnmarshaller.Instance;
+    Result := Invoke<TDistributeDatasetEntriesResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;
@@ -802,6 +898,34 @@ begin
     Options.RequestMarshaller := TListCollectionsRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TListCollectionsResponseUnmarshaller.Instance;
     Result := Invoke<TListCollectionsResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonRekognitionClient.ListDatasetEntries(Request: IListDatasetEntriesRequest): IListDatasetEntriesResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TListDatasetEntriesRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TListDatasetEntriesResponseUnmarshaller.Instance;
+    Result := Invoke<TListDatasetEntriesResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonRekognitionClient.ListDatasetLabels(Request: IListDatasetLabelsRequest): IListDatasetLabelsResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TListDatasetLabelsRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TListDatasetLabelsResponseUnmarshaller.Instance;
+    Result := Invoke<TListDatasetLabelsResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;
@@ -1082,6 +1206,34 @@ begin
     Options.RequestMarshaller := TUntagResourceRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TUntagResourceResponseUnmarshaller.Instance;
     Result := Invoke<TUntagResourceResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonRekognitionClient.UpdateDatasetEntries(Request: IUpdateDatasetEntriesRequest): IUpdateDatasetEntriesResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TUpdateDatasetEntriesRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TUpdateDatasetEntriesResponseUnmarshaller.Instance;
+    Result := Invoke<TUpdateDatasetEntriesResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonRekognitionClient.UpdateStreamProcessor(Request: IUpdateStreamProcessorRequest): IUpdateStreamProcessorResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TUpdateStreamProcessorRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TUpdateStreamProcessorResponseUnmarshaller.Instance;
+    Result := Invoke<TUpdateStreamProcessorResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;

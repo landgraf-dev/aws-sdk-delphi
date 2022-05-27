@@ -38,6 +38,12 @@ begin
     TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
+      if AContext.TestExpression('PiiEntityTypes', TargetDepth) then
+      begin
+        var Unmarshaller := TJsonListUnmarshaller<string, IJsonStringUnmarshaller>.JsonNew(TStringUnmarshaller.JsonInstance);
+        UnmarshalledObject.PiiEntityTypes := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('RedactionOutput', TargetDepth) then
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;

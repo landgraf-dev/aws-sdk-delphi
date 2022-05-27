@@ -32,6 +32,21 @@ type
     property Value: string read FValue;
   end;
   
+  TCallAnalyticsJobStatus = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function COMPLETED: TCallAnalyticsJobStatus; static;
+    class function FAILED: TCallAnalyticsJobStatus; static;
+    class function IN_PROGRESS: TCallAnalyticsJobStatus; static;
+    class function QUEUED: TCallAnalyticsJobStatus; static;
+    class operator Equal(a: TCallAnalyticsJobStatus; b: TCallAnalyticsJobStatus): Boolean;
+    class operator NotEqual(a: TCallAnalyticsJobStatus; b: TCallAnalyticsJobStatus): Boolean;
+    class operator Implicit(a: string): TCallAnalyticsJobStatus;
+    property Value: string read FValue;
+  end;
+  
   TLanguageCode = record
   strict private
     FValue: string;
@@ -49,8 +64,10 @@ type
     class function EnGB: TLanguageCode; static;
     class function EnIE: TLanguageCode; static;
     class function EnIN: TLanguageCode; static;
+    class function EnNZ: TLanguageCode; static;
     class function EnUS: TLanguageCode; static;
     class function EnWL: TLanguageCode; static;
+    class function EnZA: TLanguageCode; static;
     class function EsES: TLanguageCode; static;
     class function EsUS: TLanguageCode; static;
     class function FaIR: TLanguageCode; static;
@@ -71,8 +88,10 @@ type
     class function RuRU: TLanguageCode; static;
     class function TaIN: TLanguageCode; static;
     class function TeIN: TLanguageCode; static;
+    class function ThTH: TLanguageCode; static;
     class function TrTR: TLanguageCode; static;
     class function ZhCN: TLanguageCode; static;
+    class function ZhTW: TLanguageCode; static;
     class operator Equal(a: TLanguageCode; b: TLanguageCode): Boolean;
     class operator NotEqual(a: TLanguageCode; b: TLanguageCode): Boolean;
     class operator Implicit(a: string): TLanguageCode;
@@ -136,6 +155,42 @@ type
     property Value: string read FValue;
   end;
   
+  TParticipantRole = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function AGENT: TParticipantRole; static;
+    class function CUSTOMER: TParticipantRole; static;
+    class operator Equal(a: TParticipantRole; b: TParticipantRole): Boolean;
+    class operator NotEqual(a: TParticipantRole; b: TParticipantRole): Boolean;
+    class operator Implicit(a: string): TParticipantRole;
+    property Value: string read FValue;
+  end;
+  
+  TPiiEntityType = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function ADDRESS: TPiiEntityType; static;
+    class function ALL: TPiiEntityType; static;
+    class function BANK_ACCOUNT_NUMBER: TPiiEntityType; static;
+    class function BANK_ROUTING: TPiiEntityType; static;
+    class function CREDIT_DEBIT_CVV: TPiiEntityType; static;
+    class function CREDIT_DEBIT_EXPIRY: TPiiEntityType; static;
+    class function CREDIT_DEBIT_NUMBER: TPiiEntityType; static;
+    class function EMAIL: TPiiEntityType; static;
+    class function NAME: TPiiEntityType; static;
+    class function PHONE: TPiiEntityType; static;
+    class function PIN: TPiiEntityType; static;
+    class function SSN: TPiiEntityType; static;
+    class operator Equal(a: TPiiEntityType; b: TPiiEntityType): Boolean;
+    class operator NotEqual(a: TPiiEntityType; b: TPiiEntityType): Boolean;
+    class operator Implicit(a: string): TPiiEntityType;
+    property Value: string read FValue;
+  end;
+  
   TRedactionOutput = record
   strict private
     FValue: string;
@@ -161,6 +216,21 @@ type
     property Value: string read FValue;
   end;
   
+  TSentimentValue = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function MIXED: TSentimentValue; static;
+    class function NEGATIVE: TSentimentValue; static;
+    class function NEUTRAL: TSentimentValue; static;
+    class function POSITIVE: TSentimentValue; static;
+    class operator Equal(a: TSentimentValue; b: TSentimentValue): Boolean;
+    class operator NotEqual(a: TSentimentValue; b: TSentimentValue): Boolean;
+    class operator Implicit(a: string): TSentimentValue;
+    property Value: string read FValue;
+  end;
+  
   TSpecialty = record
   strict private
     FValue: string;
@@ -170,6 +240,31 @@ type
     class operator Equal(a: TSpecialty; b: TSpecialty): Boolean;
     class operator NotEqual(a: TSpecialty; b: TSpecialty): Boolean;
     class operator Implicit(a: string): TSpecialty;
+    property Value: string read FValue;
+  end;
+  
+  TSubtitleFormat = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function Srt: TSubtitleFormat; static;
+    class function Vtt: TSubtitleFormat; static;
+    class operator Equal(a: TSubtitleFormat; b: TSubtitleFormat): Boolean;
+    class operator NotEqual(a: TSubtitleFormat; b: TSubtitleFormat): Boolean;
+    class operator Implicit(a: string): TSubtitleFormat;
+    property Value: string read FValue;
+  end;
+  
+  TTranscriptFilterType = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function EXACT: TTranscriptFilterType; static;
+    class operator Equal(a: TTranscriptFilterType; b: TTranscriptFilterType): Boolean;
+    class operator NotEqual(a: TTranscriptFilterType; b: TTranscriptFilterType): Boolean;
+    class operator Implicit(a: string): TTranscriptFilterType;
     property Value: string read FValue;
   end;
   
@@ -310,6 +405,48 @@ begin
   Result.FValue := a;;
 end;
 
+{ TCallAnalyticsJobStatus }
+
+constructor TCallAnalyticsJobStatus.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TCallAnalyticsJobStatus.COMPLETED: TCallAnalyticsJobStatus;
+begin
+  Result := TCallAnalyticsJobStatus.Create('COMPLETED');
+end;
+
+class function TCallAnalyticsJobStatus.FAILED: TCallAnalyticsJobStatus;
+begin
+  Result := TCallAnalyticsJobStatus.Create('FAILED');
+end;
+
+class function TCallAnalyticsJobStatus.IN_PROGRESS: TCallAnalyticsJobStatus;
+begin
+  Result := TCallAnalyticsJobStatus.Create('IN_PROGRESS');
+end;
+
+class function TCallAnalyticsJobStatus.QUEUED: TCallAnalyticsJobStatus;
+begin
+  Result := TCallAnalyticsJobStatus.Create('QUEUED');
+end;
+
+class operator TCallAnalyticsJobStatus.Equal(a: TCallAnalyticsJobStatus; b: TCallAnalyticsJobStatus): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TCallAnalyticsJobStatus.NotEqual(a: TCallAnalyticsJobStatus; b: TCallAnalyticsJobStatus): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TCallAnalyticsJobStatus.Implicit(a: string): TCallAnalyticsJobStatus;
+begin
+  Result.FValue := a;;
+end;
+
 { TLanguageCode }
 
 constructor TLanguageCode.Create(const AValue: string);
@@ -377,6 +514,11 @@ begin
   Result := TLanguageCode.Create('en-IN');
 end;
 
+class function TLanguageCode.EnNZ: TLanguageCode;
+begin
+  Result := TLanguageCode.Create('en-NZ');
+end;
+
 class function TLanguageCode.EnUS: TLanguageCode;
 begin
   Result := TLanguageCode.Create('en-US');
@@ -385,6 +527,11 @@ end;
 class function TLanguageCode.EnWL: TLanguageCode;
 begin
   Result := TLanguageCode.Create('en-WL');
+end;
+
+class function TLanguageCode.EnZA: TLanguageCode;
+begin
+  Result := TLanguageCode.Create('en-ZA');
 end;
 
 class function TLanguageCode.EsES: TLanguageCode;
@@ -487,6 +634,11 @@ begin
   Result := TLanguageCode.Create('te-IN');
 end;
 
+class function TLanguageCode.ThTH: TLanguageCode;
+begin
+  Result := TLanguageCode.Create('th-TH');
+end;
+
 class function TLanguageCode.TrTR: TLanguageCode;
 begin
   Result := TLanguageCode.Create('tr-TR');
@@ -495,6 +647,11 @@ end;
 class function TLanguageCode.ZhCN: TLanguageCode;
 begin
   Result := TLanguageCode.Create('zh-CN');
+end;
+
+class function TLanguageCode.ZhTW: TLanguageCode;
+begin
+  Result := TLanguageCode.Create('zh-TW');
 end;
 
 class operator TLanguageCode.Equal(a: TLanguageCode; b: TLanguageCode): Boolean;
@@ -665,6 +822,120 @@ begin
   Result.FValue := a;;
 end;
 
+{ TParticipantRole }
+
+constructor TParticipantRole.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TParticipantRole.AGENT: TParticipantRole;
+begin
+  Result := TParticipantRole.Create('AGENT');
+end;
+
+class function TParticipantRole.CUSTOMER: TParticipantRole;
+begin
+  Result := TParticipantRole.Create('CUSTOMER');
+end;
+
+class operator TParticipantRole.Equal(a: TParticipantRole; b: TParticipantRole): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TParticipantRole.NotEqual(a: TParticipantRole; b: TParticipantRole): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TParticipantRole.Implicit(a: string): TParticipantRole;
+begin
+  Result.FValue := a;;
+end;
+
+{ TPiiEntityType }
+
+constructor TPiiEntityType.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TPiiEntityType.ADDRESS: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('ADDRESS');
+end;
+
+class function TPiiEntityType.ALL: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('ALL');
+end;
+
+class function TPiiEntityType.BANK_ACCOUNT_NUMBER: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('BANK_ACCOUNT_NUMBER');
+end;
+
+class function TPiiEntityType.BANK_ROUTING: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('BANK_ROUTING');
+end;
+
+class function TPiiEntityType.CREDIT_DEBIT_CVV: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('CREDIT_DEBIT_CVV');
+end;
+
+class function TPiiEntityType.CREDIT_DEBIT_EXPIRY: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('CREDIT_DEBIT_EXPIRY');
+end;
+
+class function TPiiEntityType.CREDIT_DEBIT_NUMBER: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('CREDIT_DEBIT_NUMBER');
+end;
+
+class function TPiiEntityType.EMAIL: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('EMAIL');
+end;
+
+class function TPiiEntityType.NAME: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('NAME');
+end;
+
+class function TPiiEntityType.PHONE: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('PHONE');
+end;
+
+class function TPiiEntityType.PIN: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('PIN');
+end;
+
+class function TPiiEntityType.SSN: TPiiEntityType;
+begin
+  Result := TPiiEntityType.Create('SSN');
+end;
+
+class operator TPiiEntityType.Equal(a: TPiiEntityType; b: TPiiEntityType): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TPiiEntityType.NotEqual(a: TPiiEntityType; b: TPiiEntityType): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TPiiEntityType.Implicit(a: string): TPiiEntityType;
+begin
+  Result.FValue := a;;
+end;
+
 { TRedactionOutput }
 
 constructor TRedactionOutput.Create(const AValue: string);
@@ -724,6 +995,48 @@ begin
   Result.FValue := a;;
 end;
 
+{ TSentimentValue }
+
+constructor TSentimentValue.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TSentimentValue.MIXED: TSentimentValue;
+begin
+  Result := TSentimentValue.Create('MIXED');
+end;
+
+class function TSentimentValue.NEGATIVE: TSentimentValue;
+begin
+  Result := TSentimentValue.Create('NEGATIVE');
+end;
+
+class function TSentimentValue.NEUTRAL: TSentimentValue;
+begin
+  Result := TSentimentValue.Create('NEUTRAL');
+end;
+
+class function TSentimentValue.POSITIVE: TSentimentValue;
+begin
+  Result := TSentimentValue.Create('POSITIVE');
+end;
+
+class operator TSentimentValue.Equal(a: TSentimentValue; b: TSentimentValue): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TSentimentValue.NotEqual(a: TSentimentValue; b: TSentimentValue): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TSentimentValue.Implicit(a: string): TSentimentValue;
+begin
+  Result.FValue := a;;
+end;
+
 { TSpecialty }
 
 constructor TSpecialty.Create(const AValue: string);
@@ -747,6 +1060,65 @@ begin
 end;
 
 class operator TSpecialty.Implicit(a: string): TSpecialty;
+begin
+  Result.FValue := a;;
+end;
+
+{ TSubtitleFormat }
+
+constructor TSubtitleFormat.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TSubtitleFormat.Srt: TSubtitleFormat;
+begin
+  Result := TSubtitleFormat.Create('srt');
+end;
+
+class function TSubtitleFormat.Vtt: TSubtitleFormat;
+begin
+  Result := TSubtitleFormat.Create('vtt');
+end;
+
+class operator TSubtitleFormat.Equal(a: TSubtitleFormat; b: TSubtitleFormat): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TSubtitleFormat.NotEqual(a: TSubtitleFormat; b: TSubtitleFormat): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TSubtitleFormat.Implicit(a: string): TSubtitleFormat;
+begin
+  Result.FValue := a;;
+end;
+
+{ TTranscriptFilterType }
+
+constructor TTranscriptFilterType.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TTranscriptFilterType.EXACT: TTranscriptFilterType;
+begin
+  Result := TTranscriptFilterType.Create('EXACT');
+end;
+
+class operator TTranscriptFilterType.Equal(a: TTranscriptFilterType; b: TTranscriptFilterType): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TTranscriptFilterType.NotEqual(a: TTranscriptFilterType; b: TTranscriptFilterType): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TTranscriptFilterType.Implicit(a: string): TTranscriptFilterType;
 begin
   Result.FValue := a;;
 end;

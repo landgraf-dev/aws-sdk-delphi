@@ -3,7 +3,8 @@ unit AWS.Rekognition.Model.VideoMetadata;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  Bcl.Types.Nullable, 
+  AWS.Rekognition.Enums;
 
 type
   TVideoMetadata = class;
@@ -11,6 +12,8 @@ type
   IVideoMetadata = interface
     function GetCodec: string;
     procedure SetCodec(const Value: string);
+    function GetColorRange: TVideoColorRange;
+    procedure SetColorRange(const Value: TVideoColorRange);
     function GetDurationMillis: Int64;
     procedure SetDurationMillis(const Value: Int64);
     function GetFormat: string;
@@ -23,12 +26,14 @@ type
     procedure SetFrameWidth(const Value: Int64);
     function Obj: TVideoMetadata;
     function IsSetCodec: Boolean;
+    function IsSetColorRange: Boolean;
     function IsSetDurationMillis: Boolean;
     function IsSetFormat: Boolean;
     function IsSetFrameHeight: Boolean;
     function IsSetFrameRate: Boolean;
     function IsSetFrameWidth: Boolean;
     property Codec: string read GetCodec write SetCodec;
+    property ColorRange: TVideoColorRange read GetColorRange write SetColorRange;
     property DurationMillis: Int64 read GetDurationMillis write SetDurationMillis;
     property Format: string read GetFormat write SetFormat;
     property FrameHeight: Int64 read GetFrameHeight write SetFrameHeight;
@@ -39,6 +44,7 @@ type
   TVideoMetadata = class
   strict private
     FCodec: Nullable<string>;
+    FColorRange: Nullable<TVideoColorRange>;
     FDurationMillis: Nullable<Int64>;
     FFormat: Nullable<string>;
     FFrameHeight: Nullable<Int64>;
@@ -46,6 +52,8 @@ type
     FFrameWidth: Nullable<Int64>;
     function GetCodec: string;
     procedure SetCodec(const Value: string);
+    function GetColorRange: TVideoColorRange;
+    procedure SetColorRange(const Value: TVideoColorRange);
     function GetDurationMillis: Int64;
     procedure SetDurationMillis(const Value: Int64);
     function GetFormat: string;
@@ -60,12 +68,14 @@ type
     function Obj: TVideoMetadata;
   public
     function IsSetCodec: Boolean;
+    function IsSetColorRange: Boolean;
     function IsSetDurationMillis: Boolean;
     function IsSetFormat: Boolean;
     function IsSetFrameHeight: Boolean;
     function IsSetFrameRate: Boolean;
     function IsSetFrameWidth: Boolean;
     property Codec: string read GetCodec write SetCodec;
+    property ColorRange: TVideoColorRange read GetColorRange write SetColorRange;
     property DurationMillis: Int64 read GetDurationMillis write SetDurationMillis;
     property Format: string read GetFormat write SetFormat;
     property FrameHeight: Int64 read GetFrameHeight write SetFrameHeight;
@@ -95,6 +105,21 @@ end;
 function TVideoMetadata.IsSetCodec: Boolean;
 begin
   Result := FCodec.HasValue;
+end;
+
+function TVideoMetadata.GetColorRange: TVideoColorRange;
+begin
+  Result := FColorRange.ValueOrDefault;
+end;
+
+procedure TVideoMetadata.SetColorRange(const Value: TVideoColorRange);
+begin
+  FColorRange := Value;
+end;
+
+function TVideoMetadata.IsSetColorRange: Boolean;
+begin
+  Result := FColorRange.HasValue;
 end;
 
 function TVideoMetadata.GetDurationMillis: Int64;

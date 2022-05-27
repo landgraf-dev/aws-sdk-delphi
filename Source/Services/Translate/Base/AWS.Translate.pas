@@ -62,6 +62,7 @@ uses
   AWS.Translate.Model.TooManyRequestsException, 
   AWS.Translate.Model.TranslateTextRequest, 
   AWS.Translate.Model.TranslateTextResponse, 
+  AWS.Translate.Model.TranslationSettings, 
   AWS.Translate.Model.UnsupportedLanguagePairException, 
   AWS.Translate.Model.UpdateParallelDataRequest, 
   AWS.Translate.Model.UpdateParallelDataResponse;
@@ -122,6 +123,7 @@ type
   ITextTranslationJobProperties = AWS.Translate.Model.TextTranslationJobProperties.ITextTranslationJobProperties;
   ITranslateTextRequest = AWS.Translate.Model.TranslateTextRequest.ITranslateTextRequest;
   ITranslateTextResponse = AWS.Translate.Model.TranslateTextResponse.ITranslateTextResponse;
+  ITranslationSettings = AWS.Translate.Model.TranslationSettings.ITranslationSettings;
   IUpdateParallelDataRequest = AWS.Translate.Model.UpdateParallelDataRequest.IUpdateParallelDataRequest;
   IUpdateParallelDataResponse = AWS.Translate.Model.UpdateParallelDataResponse.IUpdateParallelDataResponse;
   TAmazonTranslateClient = AWS.Translate.Client.TAmazonTranslateClient;
@@ -137,8 +139,10 @@ type
   TDeleteTerminologyResponse = AWS.Translate.Model.DeleteTerminologyResponse.TDeleteTerminologyResponse;
   TDescribeTextTranslationJobRequest = AWS.Translate.Model.DescribeTextTranslationJobRequest.TDescribeTextTranslationJobRequest;
   TDescribeTextTranslationJobResponse = AWS.Translate.Model.DescribeTextTranslationJobResponse.TDescribeTextTranslationJobResponse;
+  TDirectionality = AWS.Translate.Enums.TDirectionality;
   TEncryptionKey = AWS.Translate.Model.EncryptionKey.TEncryptionKey;
   TEncryptionKeyType = AWS.Translate.Enums.TEncryptionKeyType;
+  TFormality = AWS.Translate.Enums.TFormality;
   TGetParallelDataRequest = AWS.Translate.Model.GetParallelDataRequest.TGetParallelDataRequest;
   TGetParallelDataResponse = AWS.Translate.Model.GetParallelDataResponse.TGetParallelDataResponse;
   TGetTerminologyRequest = AWS.Translate.Model.GetTerminologyRequest.TGetTerminologyRequest;
@@ -161,6 +165,7 @@ type
   TParallelDataFormat = AWS.Translate.Enums.TParallelDataFormat;
   TParallelDataProperties = AWS.Translate.Model.ParallelDataProperties.TParallelDataProperties;
   TParallelDataStatus = AWS.Translate.Enums.TParallelDataStatus;
+  TProfanity = AWS.Translate.Enums.TProfanity;
   TStartTextTranslationJobRequest = AWS.Translate.Model.StartTextTranslationJobRequest.TStartTextTranslationJobRequest;
   TStartTextTranslationJobResponse = AWS.Translate.Model.StartTextTranslationJobResponse.TStartTextTranslationJobResponse;
   TStopTextTranslationJobRequest = AWS.Translate.Model.StopTextTranslationJobRequest.TStopTextTranslationJobRequest;
@@ -174,6 +179,7 @@ type
   TTextTranslationJobProperties = AWS.Translate.Model.TextTranslationJobProperties.TTextTranslationJobProperties;
   TTranslateTextRequest = AWS.Translate.Model.TranslateTextRequest.TTranslateTextRequest;
   TTranslateTextResponse = AWS.Translate.Model.TranslateTextResponse.TTranslateTextResponse;
+  TTranslationSettings = AWS.Translate.Model.TranslationSettings.TTranslationSettings;
   TUpdateParallelDataRequest = AWS.Translate.Model.UpdateParallelDataRequest.TUpdateParallelDataRequest;
   TUpdateParallelDataResponse = AWS.Translate.Model.UpdateParallelDataResponse.TUpdateParallelDataResponse;
   

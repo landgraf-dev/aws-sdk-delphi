@@ -47,6 +47,12 @@ begin
     var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
+      if AContext.TestExpression('AuxiliaryDataLocation', TargetDepth) then
+      begin
+        var Unmarshaller := TTerminologyDataLocationUnmarshaller.JsonInstance;
+        Response.AuxiliaryDataLocation := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('TerminologyDataLocation', TargetDepth) then
       begin
         var Unmarshaller := TTerminologyDataLocationUnmarshaller.JsonInstance;

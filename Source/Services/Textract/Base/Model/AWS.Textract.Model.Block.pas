@@ -7,6 +7,7 @@ uses
   System.Generics.Collections, 
   AWS.Textract.Enums, 
   AWS.Textract.Model.Geometry, 
+  AWS.Textract.Model.Query, 
   AWS.Textract.Model.Relationship;
 
 type
@@ -33,6 +34,10 @@ type
     procedure SetId(const Value: string);
     function GetPage: Integer;
     procedure SetPage(const Value: Integer);
+    function GetQuery: TQuery;
+    procedure SetQuery(const Value: TQuery);
+    function GetKeepQuery: Boolean;
+    procedure SetKeepQuery(const Value: Boolean);
     function GetRelationships: TObjectList<TRelationship>;
     procedure SetRelationships(const Value: TObjectList<TRelationship>);
     function GetKeepRelationships: Boolean;
@@ -56,6 +61,7 @@ type
     function IsSetGeometry: Boolean;
     function IsSetId: Boolean;
     function IsSetPage: Boolean;
+    function IsSetQuery: Boolean;
     function IsSetRelationships: Boolean;
     function IsSetRowIndex: Boolean;
     function IsSetRowSpan: Boolean;
@@ -72,6 +78,8 @@ type
     property KeepGeometry: Boolean read GetKeepGeometry write SetKeepGeometry;
     property Id: string read GetId write SetId;
     property Page: Integer read GetPage write SetPage;
+    property Query: TQuery read GetQuery write SetQuery;
+    property KeepQuery: Boolean read GetKeepQuery write SetKeepQuery;
     property Relationships: TObjectList<TRelationship> read GetRelationships write SetRelationships;
     property KeepRelationships: Boolean read GetKeepRelationships write SetKeepRelationships;
     property RowIndex: Integer read GetRowIndex write SetRowIndex;
@@ -93,6 +101,8 @@ type
     FKeepGeometry: Boolean;
     FId: Nullable<string>;
     FPage: Nullable<Integer>;
+    FQuery: TQuery;
+    FKeepQuery: Boolean;
     FRelationships: TObjectList<TRelationship>;
     FKeepRelationships: Boolean;
     FRowIndex: Nullable<Integer>;
@@ -120,6 +130,10 @@ type
     procedure SetId(const Value: string);
     function GetPage: Integer;
     procedure SetPage(const Value: Integer);
+    function GetQuery: TQuery;
+    procedure SetQuery(const Value: TQuery);
+    function GetKeepQuery: Boolean;
+    procedure SetKeepQuery(const Value: Boolean);
     function GetRelationships: TObjectList<TRelationship>;
     procedure SetRelationships(const Value: TObjectList<TRelationship>);
     function GetKeepRelationships: Boolean;
@@ -147,6 +161,7 @@ type
     function IsSetGeometry: Boolean;
     function IsSetId: Boolean;
     function IsSetPage: Boolean;
+    function IsSetQuery: Boolean;
     function IsSetRelationships: Boolean;
     function IsSetRowIndex: Boolean;
     function IsSetRowSpan: Boolean;
@@ -163,6 +178,8 @@ type
     property KeepGeometry: Boolean read GetKeepGeometry write SetKeepGeometry;
     property Id: string read GetId write SetId;
     property Page: Integer read GetPage write SetPage;
+    property Query: TQuery read GetQuery write SetQuery;
+    property KeepQuery: Boolean read GetKeepQuery write SetKeepQuery;
     property Relationships: TObjectList<TRelationship> read GetRelationships write SetRelationships;
     property KeepRelationships: Boolean read GetKeepRelationships write SetKeepRelationships;
     property RowIndex: Integer read GetRowIndex write SetRowIndex;
@@ -186,6 +203,7 @@ end;
 destructor TBlock.Destroy;
 begin
   Relationships := nil;
+  Query := nil;
   Geometry := nil;
   EntityTypes := nil;
   inherited;
@@ -344,6 +362,36 @@ end;
 function TBlock.IsSetPage: Boolean;
 begin
   Result := FPage.HasValue;
+end;
+
+function TBlock.GetQuery: TQuery;
+begin
+  Result := FQuery;
+end;
+
+procedure TBlock.SetQuery(const Value: TQuery);
+begin
+  if FQuery <> Value then
+  begin
+    if not KeepQuery then
+      FQuery.Free;
+    FQuery := Value;
+  end;
+end;
+
+function TBlock.GetKeepQuery: Boolean;
+begin
+  Result := FKeepQuery;
+end;
+
+procedure TBlock.SetKeepQuery(const Value: Boolean);
+begin
+  FKeepQuery := Value;
+end;
+
+function TBlock.IsSetQuery: Boolean;
+begin
+  Result := FQuery <> nil;
 end;
 
 function TBlock.GetRelationships: TObjectList<TRelationship>;

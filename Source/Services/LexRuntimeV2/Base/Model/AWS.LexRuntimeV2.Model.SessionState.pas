@@ -7,7 +7,8 @@ uses
   Bcl.Types.Nullable, 
   AWS.LexRuntimeV2.Model.ActiveContext, 
   AWS.LexRuntimeV2.Model.DialogAction, 
-  AWS.LexRuntimeV2.Model.Intent;
+  AWS.LexRuntimeV2.Model.Intent, 
+  AWS.LexRuntimeV2.Model.RuntimeHints;
 
 type
   TSessionState = class;
@@ -27,6 +28,10 @@ type
     procedure SetKeepIntent(const Value: Boolean);
     function GetOriginatingRequestId: string;
     procedure SetOriginatingRequestId(const Value: string);
+    function GetRuntimeHints: TRuntimeHints;
+    procedure SetRuntimeHints(const Value: TRuntimeHints);
+    function GetKeepRuntimeHints: Boolean;
+    procedure SetKeepRuntimeHints(const Value: Boolean);
     function GetSessionAttributes: TDictionary<string, string>;
     procedure SetSessionAttributes(const Value: TDictionary<string, string>);
     function GetKeepSessionAttributes: Boolean;
@@ -36,6 +41,7 @@ type
     function IsSetDialogAction: Boolean;
     function IsSetIntent: Boolean;
     function IsSetOriginatingRequestId: Boolean;
+    function IsSetRuntimeHints: Boolean;
     function IsSetSessionAttributes: Boolean;
     property ActiveContexts: TObjectList<TActiveContext> read GetActiveContexts write SetActiveContexts;
     property KeepActiveContexts: Boolean read GetKeepActiveContexts write SetKeepActiveContexts;
@@ -44,6 +50,8 @@ type
     property Intent: TIntent read GetIntent write SetIntent;
     property KeepIntent: Boolean read GetKeepIntent write SetKeepIntent;
     property OriginatingRequestId: string read GetOriginatingRequestId write SetOriginatingRequestId;
+    property RuntimeHints: TRuntimeHints read GetRuntimeHints write SetRuntimeHints;
+    property KeepRuntimeHints: Boolean read GetKeepRuntimeHints write SetKeepRuntimeHints;
     property SessionAttributes: TDictionary<string, string> read GetSessionAttributes write SetSessionAttributes;
     property KeepSessionAttributes: Boolean read GetKeepSessionAttributes write SetKeepSessionAttributes;
   end;
@@ -57,6 +65,8 @@ type
     FIntent: TIntent;
     FKeepIntent: Boolean;
     FOriginatingRequestId: Nullable<string>;
+    FRuntimeHints: TRuntimeHints;
+    FKeepRuntimeHints: Boolean;
     FSessionAttributes: TDictionary<string, string>;
     FKeepSessionAttributes: Boolean;
     function GetActiveContexts: TObjectList<TActiveContext>;
@@ -73,6 +83,10 @@ type
     procedure SetKeepIntent(const Value: Boolean);
     function GetOriginatingRequestId: string;
     procedure SetOriginatingRequestId(const Value: string);
+    function GetRuntimeHints: TRuntimeHints;
+    procedure SetRuntimeHints(const Value: TRuntimeHints);
+    function GetKeepRuntimeHints: Boolean;
+    procedure SetKeepRuntimeHints(const Value: Boolean);
     function GetSessionAttributes: TDictionary<string, string>;
     procedure SetSessionAttributes(const Value: TDictionary<string, string>);
     function GetKeepSessionAttributes: Boolean;
@@ -86,6 +100,7 @@ type
     function IsSetDialogAction: Boolean;
     function IsSetIntent: Boolean;
     function IsSetOriginatingRequestId: Boolean;
+    function IsSetRuntimeHints: Boolean;
     function IsSetSessionAttributes: Boolean;
     property ActiveContexts: TObjectList<TActiveContext> read GetActiveContexts write SetActiveContexts;
     property KeepActiveContexts: Boolean read GetKeepActiveContexts write SetKeepActiveContexts;
@@ -94,6 +109,8 @@ type
     property Intent: TIntent read GetIntent write SetIntent;
     property KeepIntent: Boolean read GetKeepIntent write SetKeepIntent;
     property OriginatingRequestId: string read GetOriginatingRequestId write SetOriginatingRequestId;
+    property RuntimeHints: TRuntimeHints read GetRuntimeHints write SetRuntimeHints;
+    property KeepRuntimeHints: Boolean read GetKeepRuntimeHints write SetKeepRuntimeHints;
     property SessionAttributes: TDictionary<string, string> read GetSessionAttributes write SetSessionAttributes;
     property KeepSessionAttributes: Boolean read GetKeepSessionAttributes write SetKeepSessionAttributes;
   end;
@@ -112,6 +129,7 @@ end;
 destructor TSessionState.Destroy;
 begin
   SessionAttributes := nil;
+  RuntimeHints := nil;
   Intent := nil;
   DialogAction := nil;
   ActiveContexts := nil;
@@ -226,6 +244,36 @@ end;
 function TSessionState.IsSetOriginatingRequestId: Boolean;
 begin
   Result := FOriginatingRequestId.HasValue;
+end;
+
+function TSessionState.GetRuntimeHints: TRuntimeHints;
+begin
+  Result := FRuntimeHints;
+end;
+
+procedure TSessionState.SetRuntimeHints(const Value: TRuntimeHints);
+begin
+  if FRuntimeHints <> Value then
+  begin
+    if not KeepRuntimeHints then
+      FRuntimeHints.Free;
+    FRuntimeHints := Value;
+  end;
+end;
+
+function TSessionState.GetKeepRuntimeHints: Boolean;
+begin
+  Result := FKeepRuntimeHints;
+end;
+
+procedure TSessionState.SetKeepRuntimeHints(const Value: Boolean);
+begin
+  FKeepRuntimeHints := Value;
+end;
+
+function TSessionState.IsSetRuntimeHints: Boolean;
+begin
+  Result := FRuntimeHints <> nil;
 end;
 
 function TSessionState.GetSessionAttributes: TDictionary<string, string>;

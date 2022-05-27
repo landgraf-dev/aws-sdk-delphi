@@ -40,6 +40,7 @@ type
     class function Delegate: TDialogActionType; static;
     class function ElicitIntent: TDialogActionType; static;
     class function ElicitSlot: TDialogActionType; static;
+    class function None: TDialogActionType; static;
     class operator Equal(a: TDialogActionType; b: TDialogActionType): Boolean;
     class operator NotEqual(a: TDialogActionType; b: TDialogActionType): Boolean;
     class operator Implicit(a: string): TDialogActionType;
@@ -67,6 +68,7 @@ type
     constructor Create(const AValue: string);
     class function Failed: TIntentState; static;
     class function Fulfilled: TIntentState; static;
+    class function FulfillmentInProgress: TIntentState; static;
     class function InProgress: TIntentState; static;
     class function ReadyForFulfillment: TIntentState; static;
     class function Waiting: TIntentState; static;
@@ -130,6 +132,20 @@ type
     class operator Equal(a: TShape; b: TShape): Boolean;
     class operator NotEqual(a: TShape; b: TShape): Boolean;
     class operator Implicit(a: string): TShape;
+    property Value: string read FValue;
+  end;
+  
+  TStyleType = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function Default: TStyleType; static;
+    class function SpellByLetter: TStyleType; static;
+    class function SpellByWord: TStyleType; static;
+    class operator Equal(a: TStyleType; b: TStyleType): Boolean;
+    class operator NotEqual(a: TStyleType; b: TStyleType): Boolean;
+    class operator Implicit(a: string): TStyleType;
     property Value: string read FValue;
   end;
   
@@ -236,6 +252,11 @@ begin
   Result := TDialogActionType.Create('ElicitSlot');
 end;
 
+class function TDialogActionType.None: TDialogActionType;
+begin
+  Result := TDialogActionType.Create('None');
+end;
+
 class operator TDialogActionType.Equal(a: TDialogActionType; b: TDialogActionType): Boolean;
 begin
   Result := a.Value = b.Value;
@@ -303,6 +324,11 @@ end;
 class function TIntentState.Fulfilled: TIntentState;
 begin
   Result := TIntentState.Create('Fulfilled');
+end;
+
+class function TIntentState.FulfillmentInProgress: TIntentState;
+begin
+  Result := TIntentState.Create('FulfillmentInProgress');
 end;
 
 class function TIntentState.InProgress: TIntentState;
@@ -484,6 +510,43 @@ begin
 end;
 
 class operator TShape.Implicit(a: string): TShape;
+begin
+  Result.FValue := a;;
+end;
+
+{ TStyleType }
+
+constructor TStyleType.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TStyleType.Default: TStyleType;
+begin
+  Result := TStyleType.Create('Default');
+end;
+
+class function TStyleType.SpellByLetter: TStyleType;
+begin
+  Result := TStyleType.Create('SpellByLetter');
+end;
+
+class function TStyleType.SpellByWord: TStyleType;
+begin
+  Result := TStyleType.Create('SpellByWord');
+end;
+
+class operator TStyleType.Equal(a: TStyleType; b: TStyleType): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TStyleType.NotEqual(a: TStyleType; b: TStyleType): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TStyleType.Implicit(a: string): TStyleType;
 begin
   Result.FValue := a;;
 end;

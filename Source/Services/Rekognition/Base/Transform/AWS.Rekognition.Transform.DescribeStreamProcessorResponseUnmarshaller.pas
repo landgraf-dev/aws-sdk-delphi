@@ -8,8 +8,12 @@ uses
   AWS.Runtime.Model, 
   AWS.Transform.JsonUnmarshallerContext, 
   AWS.Transform.SimpleTypeUnmarshaller, 
+  AWS.Rekognition.Transform.StreamProcessorDataSharingPreferenceUnmarshaller, 
   AWS.Rekognition.Transform.StreamProcessorInputUnmarshaller, 
+  AWS.Rekognition.Transform.StreamProcessorNotificationChannelUnmarshaller, 
   AWS.Rekognition.Transform.StreamProcessorOutputUnmarshaller, 
+  AWS.Rekognition.Transform.RegionOfInterestUnmarshaller, 
+  AWS.Rekognition.Model.RegionOfInterest, 
   AWS.Rekognition.Transform.StreamProcessorSettingsUnmarshaller, 
   AWS.Runtime.Exceptions, 
   System.SysUtils, 
@@ -57,10 +61,22 @@ begin
         Response.CreationTimestamp := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('DataSharingPreference', TargetDepth) then
+      begin
+        var Unmarshaller := TStreamProcessorDataSharingPreferenceUnmarshaller.JsonInstance;
+        Response.DataSharingPreference := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('Input', TargetDepth) then
       begin
         var Unmarshaller := TStreamProcessorInputUnmarshaller.JsonInstance;
         Response.Input := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('KmsKeyId', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        Response.KmsKeyId := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('LastUpdateTimestamp', TargetDepth) then
@@ -75,10 +91,22 @@ begin
         Response.Name := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('NotificationChannel', TargetDepth) then
+      begin
+        var Unmarshaller := TStreamProcessorNotificationChannelUnmarshaller.JsonInstance;
+        Response.NotificationChannel := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('Output', TargetDepth) then
       begin
         var Unmarshaller := TStreamProcessorOutputUnmarshaller.JsonInstance;
         Response.Output := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('RegionsOfInterest', TargetDepth) then
+      begin
+        var Unmarshaller := TJsonObjectListUnmarshaller<TRegionOfInterest, IRegionOfInterestUnmarshaller>.JsonNew(TRegionOfInterestUnmarshaller.JsonInstance);
+        Response.RegionsOfInterest := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('RoleArn', TargetDepth) then

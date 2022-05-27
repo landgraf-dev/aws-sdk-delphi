@@ -6,12 +6,17 @@ uses
   System.Generics.Collections, 
   Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Translate.Model.TranslationSettings, 
   AWS.Translate.Model.AppliedTerminology;
 
 type
   TTranslateTextResponse = class;
   
   ITranslateTextResponse = interface(IAmazonWebServiceResponse)
+    function GetAppliedSettings: TTranslationSettings;
+    procedure SetAppliedSettings(const Value: TTranslationSettings);
+    function GetKeepAppliedSettings: Boolean;
+    procedure SetKeepAppliedSettings(const Value: Boolean);
     function GetAppliedTerminologies: TObjectList<TAppliedTerminology>;
     procedure SetAppliedTerminologies(const Value: TObjectList<TAppliedTerminology>);
     function GetKeepAppliedTerminologies: Boolean;
@@ -23,10 +28,13 @@ type
     function GetTranslatedText: string;
     procedure SetTranslatedText(const Value: string);
     function Obj: TTranslateTextResponse;
+    function IsSetAppliedSettings: Boolean;
     function IsSetAppliedTerminologies: Boolean;
     function IsSetSourceLanguageCode: Boolean;
     function IsSetTargetLanguageCode: Boolean;
     function IsSetTranslatedText: Boolean;
+    property AppliedSettings: TTranslationSettings read GetAppliedSettings write SetAppliedSettings;
+    property KeepAppliedSettings: Boolean read GetKeepAppliedSettings write SetKeepAppliedSettings;
     property AppliedTerminologies: TObjectList<TAppliedTerminology> read GetAppliedTerminologies write SetAppliedTerminologies;
     property KeepAppliedTerminologies: Boolean read GetKeepAppliedTerminologies write SetKeepAppliedTerminologies;
     property SourceLanguageCode: string read GetSourceLanguageCode write SetSourceLanguageCode;
@@ -36,11 +44,17 @@ type
   
   TTranslateTextResponse = class(TAmazonWebServiceResponse, ITranslateTextResponse)
   strict private
+    FAppliedSettings: TTranslationSettings;
+    FKeepAppliedSettings: Boolean;
     FAppliedTerminologies: TObjectList<TAppliedTerminology>;
     FKeepAppliedTerminologies: Boolean;
     FSourceLanguageCode: Nullable<string>;
     FTargetLanguageCode: Nullable<string>;
     FTranslatedText: Nullable<string>;
+    function GetAppliedSettings: TTranslationSettings;
+    procedure SetAppliedSettings(const Value: TTranslationSettings);
+    function GetKeepAppliedSettings: Boolean;
+    procedure SetKeepAppliedSettings(const Value: Boolean);
     function GetAppliedTerminologies: TObjectList<TAppliedTerminology>;
     procedure SetAppliedTerminologies(const Value: TObjectList<TAppliedTerminology>);
     function GetKeepAppliedTerminologies: Boolean;
@@ -56,10 +70,13 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    function IsSetAppliedSettings: Boolean;
     function IsSetAppliedTerminologies: Boolean;
     function IsSetSourceLanguageCode: Boolean;
     function IsSetTargetLanguageCode: Boolean;
     function IsSetTranslatedText: Boolean;
+    property AppliedSettings: TTranslationSettings read GetAppliedSettings write SetAppliedSettings;
+    property KeepAppliedSettings: Boolean read GetKeepAppliedSettings write SetKeepAppliedSettings;
     property AppliedTerminologies: TObjectList<TAppliedTerminology> read GetAppliedTerminologies write SetAppliedTerminologies;
     property KeepAppliedTerminologies: Boolean read GetKeepAppliedTerminologies write SetKeepAppliedTerminologies;
     property SourceLanguageCode: string read GetSourceLanguageCode write SetSourceLanguageCode;
@@ -80,12 +97,43 @@ end;
 destructor TTranslateTextResponse.Destroy;
 begin
   AppliedTerminologies := nil;
+  AppliedSettings := nil;
   inherited;
 end;
 
 function TTranslateTextResponse.Obj: TTranslateTextResponse;
 begin
   Result := Self;
+end;
+
+function TTranslateTextResponse.GetAppliedSettings: TTranslationSettings;
+begin
+  Result := FAppliedSettings;
+end;
+
+procedure TTranslateTextResponse.SetAppliedSettings(const Value: TTranslationSettings);
+begin
+  if FAppliedSettings <> Value then
+  begin
+    if not KeepAppliedSettings then
+      FAppliedSettings.Free;
+    FAppliedSettings := Value;
+  end;
+end;
+
+function TTranslateTextResponse.GetKeepAppliedSettings: Boolean;
+begin
+  Result := FKeepAppliedSettings;
+end;
+
+procedure TTranslateTextResponse.SetKeepAppliedSettings(const Value: Boolean);
+begin
+  FKeepAppliedSettings := Value;
+end;
+
+function TTranslateTextResponse.IsSetAppliedSettings: Boolean;
+begin
+  Result := FAppliedSettings <> nil;
 end;
 
 function TTranslateTextResponse.GetAppliedTerminologies: TObjectList<TAppliedTerminology>;

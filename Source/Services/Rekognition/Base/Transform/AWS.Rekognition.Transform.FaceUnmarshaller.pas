@@ -69,6 +69,12 @@ begin
         UnmarshalledObject.ImageId := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('IndexFacesModelVersion', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.IndexFacesModelVersion := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
     end;
     Result := UnmarshalledObject;
     UnmarshalledObject := nil;

@@ -7,7 +7,8 @@ uses
   AWS.Transform.RequestMarshaller, 
   AWS.LexRuntimeV2.Transform.ActiveContextMarshaller, 
   AWS.LexRuntimeV2.Transform.DialogActionMarshaller, 
-  AWS.LexRuntimeV2.Transform.IntentMarshaller;
+  AWS.LexRuntimeV2.Transform.IntentMarshaller, 
+  AWS.LexRuntimeV2.Transform.RuntimeHintsMarshaller;
 
 type
   ISessionStateMarshaller = IRequestMarshaller<TSessionState, TJsonMarshallerContext>;
@@ -57,6 +58,13 @@ begin
   begin
     Context.Writer.WriteName('originatingRequestId');
     Context.Writer.WriteString(ARequestObject.OriginatingRequestId);
+  end;
+  if ARequestObject.IsSetRuntimeHints then
+  begin
+    Context.Writer.WriteName('runtimeHints');
+    Context.Writer.WriteBeginObject;
+    TRuntimeHintsMarshaller.Instance.Marshall(ARequestObject.RuntimeHints, Context);
+    Context.Writer.WriteEndObject;
   end;
   if ARequestObject.IsSetSessionAttributes then
   begin

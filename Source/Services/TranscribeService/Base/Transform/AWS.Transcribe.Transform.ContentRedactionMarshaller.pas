@@ -24,6 +24,14 @@ implementation
 
 procedure TContentRedactionMarshaller.Marshall(ARequestObject: TContentRedaction; Context: TJsonMarshallerContext);
 begin
+  if ARequestObject.IsSetPiiEntityTypes then
+  begin
+    Context.Writer.WriteName('PiiEntityTypes');
+    Context.Writer.WriteBeginArray;
+    for var ARequestObjectPiiEntityTypesListValue in ARequestObject.PiiEntityTypes do
+      Context.Writer.WriteString(ARequestObjectPiiEntityTypesListValue);
+    Context.Writer.WriteEndArray;
+  end;
   if ARequestObject.IsSetRedactionOutput then
   begin
     Context.Writer.WriteName('RedactionOutput');

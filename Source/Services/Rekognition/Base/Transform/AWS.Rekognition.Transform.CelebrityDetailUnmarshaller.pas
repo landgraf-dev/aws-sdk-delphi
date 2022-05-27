@@ -9,7 +9,8 @@ uses
   AWS.Internal.Request, 
   AWS.Rekognition.Transform.BoundingBoxUnmarshaller, 
   AWS.Transform.SimpleTypeUnmarshaller, 
-  AWS.Rekognition.Transform.FaceDetailUnmarshaller;
+  AWS.Rekognition.Transform.FaceDetailUnmarshaller, 
+  AWS.Rekognition.Transform.KnownGenderUnmarshaller;
 
 type
   ICelebrityDetailUnmarshaller = IUnmarshaller<TCelebrityDetail, TJsonUnmarshallerContext>;
@@ -62,6 +63,12 @@ begin
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;
         UnmarshalledObject.Id := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('KnownGender', TargetDepth) then
+      begin
+        var Unmarshaller := TKnownGenderUnmarshaller.JsonInstance;
+        UnmarshalledObject.KnownGender := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('Name', TargetDepth) then

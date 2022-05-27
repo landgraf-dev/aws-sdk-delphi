@@ -8,7 +8,8 @@ uses
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Internal.Request, 
   AWS.Rekognition.Transform.ComparedFaceUnmarshaller, 
-  AWS.Transform.SimpleTypeUnmarshaller;
+  AWS.Transform.SimpleTypeUnmarshaller, 
+  AWS.Rekognition.Transform.KnownGenderUnmarshaller;
 
 type
   ICelebrityUnmarshaller = IUnmarshaller<TCelebrity, TJsonUnmarshallerContext>;
@@ -49,6 +50,12 @@ begin
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;
         UnmarshalledObject.Id := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('KnownGender', TargetDepth) then
+      begin
+        var Unmarshaller := TKnownGenderUnmarshaller.JsonInstance;
+        UnmarshalledObject.KnownGender := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('MatchConfidence', TargetDepth) then

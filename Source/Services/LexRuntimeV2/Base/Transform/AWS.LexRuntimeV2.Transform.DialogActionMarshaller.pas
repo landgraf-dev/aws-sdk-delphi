@@ -24,6 +24,11 @@ implementation
 
 procedure TDialogActionMarshaller.Marshall(ARequestObject: TDialogAction; Context: TJsonMarshallerContext);
 begin
+  if ARequestObject.IsSetSlotElicitationStyle then
+  begin
+    Context.Writer.WriteName('slotElicitationStyle');
+    Context.Writer.WriteString(ARequestObject.SlotElicitationStyle.Value);
+  end;
   if ARequestObject.IsSetSlotToElicit then
   begin
     Context.Writer.WriteName('slotToElicit');

@@ -11,7 +11,8 @@ uses
   AWS.LexRuntimeV2.Model.ActiveContext, 
   AWS.Transform.SimpleTypeUnmarshaller, 
   AWS.LexRuntimeV2.Transform.DialogActionUnmarshaller, 
-  AWS.LexRuntimeV2.Transform.IntentUnmarshaller;
+  AWS.LexRuntimeV2.Transform.IntentUnmarshaller, 
+  AWS.LexRuntimeV2.Transform.RuntimeHintsUnmarshaller;
 
 type
   ISessionStateUnmarshaller = IUnmarshaller<TSessionState, TJsonUnmarshallerContext>;
@@ -64,6 +65,12 @@ begin
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;
         UnmarshalledObject.OriginatingRequestId := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('runtimeHints', TargetDepth) then
+      begin
+        var Unmarshaller := TRuntimeHintsUnmarshaller.JsonInstance;
+        UnmarshalledObject.RuntimeHints := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('sessionAttributes', TargetDepth) then

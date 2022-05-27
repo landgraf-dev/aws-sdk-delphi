@@ -7,6 +7,7 @@ uses
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.JsonUnmarshallerContext, 
+  AWS.Transform.SimpleTypeUnmarshaller, 
   AWS.Runtime.Exceptions, 
   System.SysUtils, 
   AWS.Internal.ErrorResponse, 
@@ -44,6 +45,15 @@ var
 begin
   Response := TStartStreamProcessorResponse.Create;
   try
+    AContext.Read;
+    var TargetDepth := AContext.CurrentDepth;
+    while AContext.ReadAtDepth(TargetDepth) do
+      if AContext.TestExpression('SessionId', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        Response.SessionId := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
     Result := Response;
     Response := nil;
   finally

@@ -127,6 +127,10 @@ uses
   AWS.SNS.Model.PublishRequest, 
   AWS.SNS.Transform.PublishRequestMarshaller, 
   AWS.SNS.Transform.PublishResponseUnmarshaller, 
+  AWS.SNS.Model.PublishBatchResponse, 
+  AWS.SNS.Model.PublishBatchRequest, 
+  AWS.SNS.Transform.PublishBatchRequestMarshaller, 
+  AWS.SNS.Transform.PublishBatchResponseUnmarshaller, 
   AWS.SNS.Model.RemovePermissionResponse, 
   AWS.SNS.Model.RemovePermissionRequest, 
   AWS.SNS.Transform.RemovePermissionRequestMarshaller, 
@@ -238,6 +242,7 @@ type
     function Publish(const ATopicArn: string; const AMessage: string): IPublishResponse; overload;
     function Publish(const ATopicArn: string; const AMessage: string; const ASubject: string): IPublishResponse; overload;
     function Publish(Request: IPublishRequest): IPublishResponse; overload;
+    function PublishBatch(Request: IPublishBatchRequest): IPublishBatchResponse; overload;
     function RemovePermission(const ATopicArn: string; const ALabel: string): IRemovePermissionResponse; overload;
     function RemovePermission(Request: IRemovePermissionRequest): IRemovePermissionResponse; overload;
     function SetEndpointAttributes(Request: ISetEndpointAttributesRequest): ISetEndpointAttributesResponse; overload;
@@ -864,6 +869,20 @@ begin
     Options.RequestMarshaller := TPublishRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TPublishResponseUnmarshaller.Instance;
     Result := Invoke<TPublishResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonSimpleNotificationServiceClient.PublishBatch(Request: IPublishBatchRequest): IPublishBatchResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TPublishBatchRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TPublishBatchResponseUnmarshaller.Instance;
+    Result := Invoke<TPublishBatchResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;

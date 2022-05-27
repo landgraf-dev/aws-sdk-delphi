@@ -5,12 +5,17 @@ interface
 uses
   Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.Translate.Model.Request;
+  AWS.Translate.Model.Request, 
+  AWS.Translate.Model.TranslationSettings;
 
 type
   TTranslateTextRequest = class;
   
   ITranslateTextRequest = interface
+    function GetSettings: TTranslationSettings;
+    procedure SetSettings(const Value: TTranslationSettings);
+    function GetKeepSettings: Boolean;
+    procedure SetKeepSettings(const Value: Boolean);
     function GetSourceLanguageCode: string;
     procedure SetSourceLanguageCode(const Value: string);
     function GetTargetLanguageCode: string;
@@ -22,10 +27,13 @@ type
     function GetText: string;
     procedure SetText(const Value: string);
     function Obj: TTranslateTextRequest;
+    function IsSetSettings: Boolean;
     function IsSetSourceLanguageCode: Boolean;
     function IsSetTargetLanguageCode: Boolean;
     function IsSetTerminologyNames: Boolean;
     function IsSetText: Boolean;
+    property Settings: TTranslationSettings read GetSettings write SetSettings;
+    property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property SourceLanguageCode: string read GetSourceLanguageCode write SetSourceLanguageCode;
     property TargetLanguageCode: string read GetTargetLanguageCode write SetTargetLanguageCode;
     property TerminologyNames: TList<string> read GetTerminologyNames write SetTerminologyNames;
@@ -35,11 +43,17 @@ type
   
   TTranslateTextRequest = class(TAmazonTranslateRequest, ITranslateTextRequest)
   strict private
+    FSettings: TTranslationSettings;
+    FKeepSettings: Boolean;
     FSourceLanguageCode: Nullable<string>;
     FTargetLanguageCode: Nullable<string>;
     FTerminologyNames: TList<string>;
     FKeepTerminologyNames: Boolean;
     FText: Nullable<string>;
+    function GetSettings: TTranslationSettings;
+    procedure SetSettings(const Value: TTranslationSettings);
+    function GetKeepSettings: Boolean;
+    procedure SetKeepSettings(const Value: Boolean);
     function GetSourceLanguageCode: string;
     procedure SetSourceLanguageCode(const Value: string);
     function GetTargetLanguageCode: string;
@@ -55,10 +69,13 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    function IsSetSettings: Boolean;
     function IsSetSourceLanguageCode: Boolean;
     function IsSetTargetLanguageCode: Boolean;
     function IsSetTerminologyNames: Boolean;
     function IsSetText: Boolean;
+    property Settings: TTranslationSettings read GetSettings write SetSettings;
+    property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property SourceLanguageCode: string read GetSourceLanguageCode write SetSourceLanguageCode;
     property TargetLanguageCode: string read GetTargetLanguageCode write SetTargetLanguageCode;
     property TerminologyNames: TList<string> read GetTerminologyNames write SetTerminologyNames;
@@ -79,12 +96,43 @@ end;
 destructor TTranslateTextRequest.Destroy;
 begin
   TerminologyNames := nil;
+  Settings := nil;
   inherited;
 end;
 
 function TTranslateTextRequest.Obj: TTranslateTextRequest;
 begin
   Result := Self;
+end;
+
+function TTranslateTextRequest.GetSettings: TTranslationSettings;
+begin
+  Result := FSettings;
+end;
+
+procedure TTranslateTextRequest.SetSettings(const Value: TTranslationSettings);
+begin
+  if FSettings <> Value then
+  begin
+    if not KeepSettings then
+      FSettings.Free;
+    FSettings := Value;
+  end;
+end;
+
+function TTranslateTextRequest.GetKeepSettings: Boolean;
+begin
+  Result := FKeepSettings;
+end;
+
+procedure TTranslateTextRequest.SetKeepSettings(const Value: Boolean);
+begin
+  FKeepSettings := Value;
+end;
+
+function TTranslateTextRequest.IsSetSettings: Boolean;
+begin
+  Result := FSettings <> nil;
 end;
 
 function TTranslateTextRequest.GetSourceLanguageCode: string;

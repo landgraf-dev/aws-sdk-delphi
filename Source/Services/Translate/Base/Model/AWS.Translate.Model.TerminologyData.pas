@@ -4,13 +4,15 @@ interface
 
 uses
   Bcl.Types.Nullable, 
-  System.Classes, 
-  AWS.Translate.Enums;
+  AWS.Translate.Enums, 
+  System.Classes;
 
 type
   TTerminologyData = class;
   
   ITerminologyData = interface
+    function GetDirectionality: TDirectionality;
+    procedure SetDirectionality(const Value: TDirectionality);
     function GetFile: TBytesStream;
     procedure SetFile(const Value: TBytesStream);
     function GetKeepFile: Boolean;
@@ -18,8 +20,10 @@ type
     function GetFormat: TTerminologyDataFormat;
     procedure SetFormat(const Value: TTerminologyDataFormat);
     function Obj: TTerminologyData;
+    function IsSetDirectionality: Boolean;
     function IsSetFile: Boolean;
     function IsSetFormat: Boolean;
+    property Directionality: TDirectionality read GetDirectionality write SetDirectionality;
     property &File: TBytesStream read GetFile write SetFile;
     property KeepFile: Boolean read GetKeepFile write SetKeepFile;
     property Format: TTerminologyDataFormat read GetFormat write SetFormat;
@@ -27,9 +31,12 @@ type
   
   TTerminologyData = class
   strict private
+    FDirectionality: Nullable<TDirectionality>;
     FFile: TBytesStream;
     FKeepFile: Boolean;
     FFormat: Nullable<TTerminologyDataFormat>;
+    function GetDirectionality: TDirectionality;
+    procedure SetDirectionality(const Value: TDirectionality);
     function GetFile: TBytesStream;
     procedure SetFile(const Value: TBytesStream);
     function GetKeepFile: Boolean;
@@ -40,8 +47,10 @@ type
     function Obj: TTerminologyData;
   public
     destructor Destroy; override;
+    function IsSetDirectionality: Boolean;
     function IsSetFile: Boolean;
     function IsSetFormat: Boolean;
+    property Directionality: TDirectionality read GetDirectionality write SetDirectionality;
     property &File: TBytesStream read GetFile write SetFile;
     property KeepFile: Boolean read GetKeepFile write SetKeepFile;
     property Format: TTerminologyDataFormat read GetFormat write SetFormat;
@@ -60,6 +69,21 @@ end;
 function TTerminologyData.Obj: TTerminologyData;
 begin
   Result := Self;
+end;
+
+function TTerminologyData.GetDirectionality: TDirectionality;
+begin
+  Result := FDirectionality.ValueOrDefault;
+end;
+
+procedure TTerminologyData.SetDirectionality(const Value: TDirectionality);
+begin
+  FDirectionality := Value;
+end;
+
+function TTerminologyData.IsSetDirectionality: Boolean;
+begin
+  Result := FDirectionality.HasValue;
 end;
 
 function TTerminologyData.GetFile: TBytesStream;

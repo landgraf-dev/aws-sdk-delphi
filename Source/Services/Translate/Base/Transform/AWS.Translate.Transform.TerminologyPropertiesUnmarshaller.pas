@@ -57,16 +57,34 @@ begin
         UnmarshalledObject.Description := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('Directionality', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.Directionality := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('EncryptionKey', TargetDepth) then
       begin
         var Unmarshaller := TEncryptionKeyUnmarshaller.JsonInstance;
         UnmarshalledObject.EncryptionKey := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('Format', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.Format := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('LastUpdatedAt', TargetDepth) then
       begin
         var Unmarshaller := TDateTimeUnmarshaller.JsonInstance;
         UnmarshalledObject.LastUpdatedAt := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('Message', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.Message := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('Name', TargetDepth) then
@@ -79,6 +97,12 @@ begin
       begin
         var Unmarshaller := TIntegerUnmarshaller.JsonInstance;
         UnmarshalledObject.SizeBytes := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('SkippedTermCount', TargetDepth) then
+      begin
+        var Unmarshaller := TIntegerUnmarshaller.JsonInstance;
+        UnmarshalledObject.SkippedTermCount := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('SourceLanguageCode', TargetDepth) then

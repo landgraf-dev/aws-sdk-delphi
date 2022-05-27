@@ -3,6 +3,19 @@ unit AWS.Translate.Enums;
 interface
 
 type
+  TDirectionality = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function MULTI: TDirectionality; static;
+    class function UNI: TDirectionality; static;
+    class operator Equal(a: TDirectionality; b: TDirectionality): Boolean;
+    class operator NotEqual(a: TDirectionality; b: TDirectionality): Boolean;
+    class operator Implicit(a: string): TDirectionality;
+    property Value: string read FValue;
+  end;
+  
   TEncryptionKeyType = record
   strict private
     FValue: string;
@@ -12,6 +25,19 @@ type
     class operator Equal(a: TEncryptionKeyType; b: TEncryptionKeyType): Boolean;
     class operator NotEqual(a: TEncryptionKeyType; b: TEncryptionKeyType): Boolean;
     class operator Implicit(a: string): TEncryptionKeyType;
+    property Value: string read FValue;
+  end;
+  
+  TFormality = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function FORMAL: TFormality; static;
+    class function INFORMAL: TFormality; static;
+    class operator Equal(a: TFormality; b: TFormality): Boolean;
+    class operator NotEqual(a: TFormality; b: TFormality): Boolean;
+    class operator Implicit(a: string): TFormality;
     property Value: string read FValue;
   end;
   
@@ -75,6 +101,18 @@ type
     property Value: string read FValue;
   end;
   
+  TProfanity = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function MASK: TProfanity; static;
+    class operator Equal(a: TProfanity; b: TProfanity): Boolean;
+    class operator NotEqual(a: TProfanity; b: TProfanity): Boolean;
+    class operator Implicit(a: string): TProfanity;
+    property Value: string read FValue;
+  end;
+  
   TTerminologyDataFormat = record
   strict private
     FValue: string;
@@ -82,6 +120,7 @@ type
     constructor Create(const AValue: string);
     class function CSV: TTerminologyDataFormat; static;
     class function TMX: TTerminologyDataFormat; static;
+    class function TSV: TTerminologyDataFormat; static;
     class operator Equal(a: TTerminologyDataFormat; b: TTerminologyDataFormat): Boolean;
     class operator NotEqual(a: TTerminologyDataFormat; b: TTerminologyDataFormat): Boolean;
     class operator Implicit(a: string): TTerminologyDataFormat;
@@ -89,6 +128,38 @@ type
   end;
   
 implementation
+
+{ TDirectionality }
+
+constructor TDirectionality.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TDirectionality.MULTI: TDirectionality;
+begin
+  Result := TDirectionality.Create('MULTI');
+end;
+
+class function TDirectionality.UNI: TDirectionality;
+begin
+  Result := TDirectionality.Create('UNI');
+end;
+
+class operator TDirectionality.Equal(a: TDirectionality; b: TDirectionality): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TDirectionality.NotEqual(a: TDirectionality; b: TDirectionality): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TDirectionality.Implicit(a: string): TDirectionality;
+begin
+  Result.FValue := a;;
+end;
 
 { TEncryptionKeyType }
 
@@ -113,6 +184,38 @@ begin
 end;
 
 class operator TEncryptionKeyType.Implicit(a: string): TEncryptionKeyType;
+begin
+  Result.FValue := a;;
+end;
+
+{ TFormality }
+
+constructor TFormality.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TFormality.FORMAL: TFormality;
+begin
+  Result := TFormality.Create('FORMAL');
+end;
+
+class function TFormality.INFORMAL: TFormality;
+begin
+  Result := TFormality.Create('INFORMAL');
+end;
+
+class operator TFormality.Equal(a: TFormality; b: TFormality): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TFormality.NotEqual(a: TFormality; b: TFormality): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TFormality.Implicit(a: string): TFormality;
 begin
   Result.FValue := a;;
 end;
@@ -285,6 +388,33 @@ begin
   Result.FValue := a;;
 end;
 
+{ TProfanity }
+
+constructor TProfanity.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TProfanity.MASK: TProfanity;
+begin
+  Result := TProfanity.Create('MASK');
+end;
+
+class operator TProfanity.Equal(a: TProfanity; b: TProfanity): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TProfanity.NotEqual(a: TProfanity; b: TProfanity): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TProfanity.Implicit(a: string): TProfanity;
+begin
+  Result.FValue := a;;
+end;
+
 { TTerminologyDataFormat }
 
 constructor TTerminologyDataFormat.Create(const AValue: string);
@@ -300,6 +430,11 @@ end;
 class function TTerminologyDataFormat.TMX: TTerminologyDataFormat;
 begin
   Result := TTerminologyDataFormat.Create('TMX');
+end;
+
+class function TTerminologyDataFormat.TSV: TTerminologyDataFormat;
+begin
+  Result := TTerminologyDataFormat.Create('TSV');
 end;
 
 class operator TTerminologyDataFormat.Equal(a: TTerminologyDataFormat; b: TTerminologyDataFormat): Boolean;

@@ -5,6 +5,7 @@ interface
 uses
   Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Translate.Enums, 
   AWS.Translate.Model.EncryptionKey;
 
 type
@@ -17,16 +18,24 @@ type
     procedure SetCreatedAt(const Value: TDateTime);
     function GetDescription: string;
     procedure SetDescription(const Value: string);
+    function GetDirectionality: TDirectionality;
+    procedure SetDirectionality(const Value: TDirectionality);
     function GetEncryptionKey: TEncryptionKey;
     procedure SetEncryptionKey(const Value: TEncryptionKey);
     function GetKeepEncryptionKey: Boolean;
     procedure SetKeepEncryptionKey(const Value: Boolean);
+    function GetFormat: TTerminologyDataFormat;
+    procedure SetFormat(const Value: TTerminologyDataFormat);
     function GetLastUpdatedAt: TDateTime;
     procedure SetLastUpdatedAt(const Value: TDateTime);
+    function GetMessage: string;
+    procedure SetMessage(const Value: string);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetSizeBytes: Integer;
     procedure SetSizeBytes(const Value: Integer);
+    function GetSkippedTermCount: Integer;
+    procedure SetSkippedTermCount(const Value: Integer);
     function GetSourceLanguageCode: string;
     procedure SetSourceLanguageCode(const Value: string);
     function GetTargetLanguageCodes: TList<string>;
@@ -39,21 +48,29 @@ type
     function IsSetArn: Boolean;
     function IsSetCreatedAt: Boolean;
     function IsSetDescription: Boolean;
+    function IsSetDirectionality: Boolean;
     function IsSetEncryptionKey: Boolean;
+    function IsSetFormat: Boolean;
     function IsSetLastUpdatedAt: Boolean;
+    function IsSetMessage: Boolean;
     function IsSetName: Boolean;
     function IsSetSizeBytes: Boolean;
+    function IsSetSkippedTermCount: Boolean;
     function IsSetSourceLanguageCode: Boolean;
     function IsSetTargetLanguageCodes: Boolean;
     function IsSetTermCount: Boolean;
     property Arn: string read GetArn write SetArn;
     property CreatedAt: TDateTime read GetCreatedAt write SetCreatedAt;
     property Description: string read GetDescription write SetDescription;
+    property Directionality: TDirectionality read GetDirectionality write SetDirectionality;
     property EncryptionKey: TEncryptionKey read GetEncryptionKey write SetEncryptionKey;
     property KeepEncryptionKey: Boolean read GetKeepEncryptionKey write SetKeepEncryptionKey;
+    property Format: TTerminologyDataFormat read GetFormat write SetFormat;
     property LastUpdatedAt: TDateTime read GetLastUpdatedAt write SetLastUpdatedAt;
+    property Message: string read GetMessage write SetMessage;
     property Name: string read GetName write SetName;
     property SizeBytes: Integer read GetSizeBytes write SetSizeBytes;
+    property SkippedTermCount: Integer read GetSkippedTermCount write SetSkippedTermCount;
     property SourceLanguageCode: string read GetSourceLanguageCode write SetSourceLanguageCode;
     property TargetLanguageCodes: TList<string> read GetTargetLanguageCodes write SetTargetLanguageCodes;
     property KeepTargetLanguageCodes: Boolean read GetKeepTargetLanguageCodes write SetKeepTargetLanguageCodes;
@@ -65,11 +82,15 @@ type
     FArn: Nullable<string>;
     FCreatedAt: Nullable<TDateTime>;
     FDescription: Nullable<string>;
+    FDirectionality: Nullable<TDirectionality>;
     FEncryptionKey: TEncryptionKey;
     FKeepEncryptionKey: Boolean;
+    FFormat: Nullable<TTerminologyDataFormat>;
     FLastUpdatedAt: Nullable<TDateTime>;
+    FMessage: Nullable<string>;
     FName: Nullable<string>;
     FSizeBytes: Nullable<Integer>;
+    FSkippedTermCount: Nullable<Integer>;
     FSourceLanguageCode: Nullable<string>;
     FTargetLanguageCodes: TList<string>;
     FKeepTargetLanguageCodes: Boolean;
@@ -80,16 +101,24 @@ type
     procedure SetCreatedAt(const Value: TDateTime);
     function GetDescription: string;
     procedure SetDescription(const Value: string);
+    function GetDirectionality: TDirectionality;
+    procedure SetDirectionality(const Value: TDirectionality);
     function GetEncryptionKey: TEncryptionKey;
     procedure SetEncryptionKey(const Value: TEncryptionKey);
     function GetKeepEncryptionKey: Boolean;
     procedure SetKeepEncryptionKey(const Value: Boolean);
+    function GetFormat: TTerminologyDataFormat;
+    procedure SetFormat(const Value: TTerminologyDataFormat);
     function GetLastUpdatedAt: TDateTime;
     procedure SetLastUpdatedAt(const Value: TDateTime);
+    function GetMessage: string;
+    procedure SetMessage(const Value: string);
     function GetName: string;
     procedure SetName(const Value: string);
     function GetSizeBytes: Integer;
     procedure SetSizeBytes(const Value: Integer);
+    function GetSkippedTermCount: Integer;
+    procedure SetSkippedTermCount(const Value: Integer);
     function GetSourceLanguageCode: string;
     procedure SetSourceLanguageCode(const Value: string);
     function GetTargetLanguageCodes: TList<string>;
@@ -106,21 +135,29 @@ type
     function IsSetArn: Boolean;
     function IsSetCreatedAt: Boolean;
     function IsSetDescription: Boolean;
+    function IsSetDirectionality: Boolean;
     function IsSetEncryptionKey: Boolean;
+    function IsSetFormat: Boolean;
     function IsSetLastUpdatedAt: Boolean;
+    function IsSetMessage: Boolean;
     function IsSetName: Boolean;
     function IsSetSizeBytes: Boolean;
+    function IsSetSkippedTermCount: Boolean;
     function IsSetSourceLanguageCode: Boolean;
     function IsSetTargetLanguageCodes: Boolean;
     function IsSetTermCount: Boolean;
     property Arn: string read GetArn write SetArn;
     property CreatedAt: TDateTime read GetCreatedAt write SetCreatedAt;
     property Description: string read GetDescription write SetDescription;
+    property Directionality: TDirectionality read GetDirectionality write SetDirectionality;
     property EncryptionKey: TEncryptionKey read GetEncryptionKey write SetEncryptionKey;
     property KeepEncryptionKey: Boolean read GetKeepEncryptionKey write SetKeepEncryptionKey;
+    property Format: TTerminologyDataFormat read GetFormat write SetFormat;
     property LastUpdatedAt: TDateTime read GetLastUpdatedAt write SetLastUpdatedAt;
+    property Message: string read GetMessage write SetMessage;
     property Name: string read GetName write SetName;
     property SizeBytes: Integer read GetSizeBytes write SetSizeBytes;
+    property SkippedTermCount: Integer read GetSkippedTermCount write SetSkippedTermCount;
     property SourceLanguageCode: string read GetSourceLanguageCode write SetSourceLanguageCode;
     property TargetLanguageCodes: TList<string> read GetTargetLanguageCodes write SetTargetLanguageCodes;
     property KeepTargetLanguageCodes: Boolean read GetKeepTargetLanguageCodes write SetKeepTargetLanguageCodes;
@@ -194,6 +231,21 @@ begin
   Result := FDescription.HasValue;
 end;
 
+function TTerminologyProperties.GetDirectionality: TDirectionality;
+begin
+  Result := FDirectionality.ValueOrDefault;
+end;
+
+procedure TTerminologyProperties.SetDirectionality(const Value: TDirectionality);
+begin
+  FDirectionality := Value;
+end;
+
+function TTerminologyProperties.IsSetDirectionality: Boolean;
+begin
+  Result := FDirectionality.HasValue;
+end;
+
 function TTerminologyProperties.GetEncryptionKey: TEncryptionKey;
 begin
   Result := FEncryptionKey;
@@ -224,6 +276,21 @@ begin
   Result := FEncryptionKey <> nil;
 end;
 
+function TTerminologyProperties.GetFormat: TTerminologyDataFormat;
+begin
+  Result := FFormat.ValueOrDefault;
+end;
+
+procedure TTerminologyProperties.SetFormat(const Value: TTerminologyDataFormat);
+begin
+  FFormat := Value;
+end;
+
+function TTerminologyProperties.IsSetFormat: Boolean;
+begin
+  Result := FFormat.HasValue;
+end;
+
 function TTerminologyProperties.GetLastUpdatedAt: TDateTime;
 begin
   Result := FLastUpdatedAt.ValueOrDefault;
@@ -237,6 +304,21 @@ end;
 function TTerminologyProperties.IsSetLastUpdatedAt: Boolean;
 begin
   Result := FLastUpdatedAt.HasValue;
+end;
+
+function TTerminologyProperties.GetMessage: string;
+begin
+  Result := FMessage.ValueOrDefault;
+end;
+
+procedure TTerminologyProperties.SetMessage(const Value: string);
+begin
+  FMessage := Value;
+end;
+
+function TTerminologyProperties.IsSetMessage: Boolean;
+begin
+  Result := FMessage.HasValue;
 end;
 
 function TTerminologyProperties.GetName: string;
@@ -267,6 +349,21 @@ end;
 function TTerminologyProperties.IsSetSizeBytes: Boolean;
 begin
   Result := FSizeBytes.HasValue;
+end;
+
+function TTerminologyProperties.GetSkippedTermCount: Integer;
+begin
+  Result := FSkippedTermCount.ValueOrDefault;
+end;
+
+procedure TTerminologyProperties.SetSkippedTermCount(const Value: Integer);
+begin
+  FSkippedTermCount := Value;
+end;
+
+function TTerminologyProperties.IsSetSkippedTermCount: Boolean;
+begin
+  Result := FSkippedTermCount.HasValue;
 end;
 
 function TTerminologyProperties.GetSourceLanguageCode: string;

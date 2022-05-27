@@ -567,6 +567,7 @@ type
   TDkimAttributes = AWS.SESv2.Model.DkimAttributes.TDkimAttributes;
   TDkimSigningAttributes = AWS.SESv2.Model.DkimSigningAttributes.TDkimSigningAttributes;
   TDkimSigningAttributesOrigin = AWS.SESv2.Enums.TDkimSigningAttributesOrigin;
+  TDkimSigningKeyLength = AWS.SESv2.Enums.TDkimSigningKeyLength;
   TDkimStatus = AWS.SESv2.Enums.TDkimStatus;
   TDomainDeliverabilityCampaign = AWS.SESv2.Model.DomainDeliverabilityCampaign.TDomainDeliverabilityCampaign;
   TDomainDeliverabilityTrackingOption = AWS.SESv2.Model.DomainDeliverabilityTrackingOption.TDomainDeliverabilityTrackingOption;

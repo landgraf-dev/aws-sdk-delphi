@@ -12,7 +12,8 @@ uses
   AWS.Transcribe.Model.CreateLanguageModelRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
-  AWS.Transcribe.Transform.InputDataConfigMarshaller;
+  AWS.Transcribe.Transform.InputDataConfigMarshaller, 
+  AWS.Transcribe.Transform.TagMarshaller;
 
 type
   ICreateLanguageModelRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -74,6 +75,18 @@ begin
         begin
           Context.Writer.WriteName('ModelName');
           Context.Writer.WriteString(PublicRequest.ModelName);
+        end;
+        if PublicRequest.IsSetTags then
+        begin
+          Context.Writer.WriteName('Tags');
+          Context.Writer.WriteBeginArray;
+          for var PublicRequestTagsListValue in PublicRequest.Tags do
+          begin
+            Context.Writer.WriteBeginObject;
+            TTagMarshaller.Instance.Marshall(PublicRequestTagsListValue, Context);
+            Context.Writer.WriteEndObject;
+          end;
+          Context.Writer.WriteEndArray;
         end;
         Writer.WriteEndObject;
         Writer.Flush;

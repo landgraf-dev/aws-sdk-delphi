@@ -7,7 +7,8 @@ uses
   AWS.Transform.JsonUnmarshallerContext, 
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Internal.Request, 
-  AWS.Rekognition.Transform.KinesisDataStreamUnmarshaller;
+  AWS.Rekognition.Transform.KinesisDataStreamUnmarshaller, 
+  AWS.Rekognition.Transform.S3DestinationUnmarshaller;
 
 type
   IStreamProcessorOutputUnmarshaller = IUnmarshaller<TStreamProcessorOutput, TJsonUnmarshallerContext>;
@@ -37,12 +38,20 @@ begin
       Exit(nil);
     TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
+    begin
       if AContext.TestExpression('KinesisDataStream', TargetDepth) then
       begin
         var Unmarshaller := TKinesisDataStreamUnmarshaller.JsonInstance;
         UnmarshalledObject.KinesisDataStream := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('S3Destination', TargetDepth) then
+      begin
+        var Unmarshaller := TS3DestinationUnmarshaller.JsonInstance;
+        UnmarshalledObject.S3Destination := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+    end;
     Result := UnmarshalledObject;
     UnmarshalledObject := nil;
   finally

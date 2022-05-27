@@ -9,10 +9,13 @@ uses
   AWS.Internal.Request, 
   AWS.Rekognition.Transform.BoundingBoxUnmarshaller, 
   AWS.Transform.SimpleTypeUnmarshaller, 
+  AWS.Rekognition.Transform.EmotionUnmarshaller, 
+  AWS.Rekognition.Model.Emotion, 
   AWS.Rekognition.Transform.LandmarkUnmarshaller, 
   AWS.Rekognition.Model.Landmark, 
   AWS.Rekognition.Transform.PoseUnmarshaller, 
-  AWS.Rekognition.Transform.ImageQualityUnmarshaller;
+  AWS.Rekognition.Transform.ImageQualityUnmarshaller, 
+  AWS.Rekognition.Transform.SmileUnmarshaller;
 
 type
   IComparedFaceUnmarshaller = IUnmarshaller<TComparedFace, TJsonUnmarshallerContext>;
@@ -55,6 +58,12 @@ begin
         UnmarshalledObject.Confidence := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('Emotions', TargetDepth) then
+      begin
+        var Unmarshaller := TJsonObjectListUnmarshaller<TEmotion, IEmotionUnmarshaller>.JsonNew(TEmotionUnmarshaller.JsonInstance);
+        UnmarshalledObject.Emotions := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('Landmarks', TargetDepth) then
       begin
         var Unmarshaller := TJsonObjectListUnmarshaller<TLandmark, ILandmarkUnmarshaller>.JsonNew(TLandmarkUnmarshaller.JsonInstance);
@@ -71,6 +80,12 @@ begin
       begin
         var Unmarshaller := TImageQualityUnmarshaller.JsonInstance;
         UnmarshalledObject.Quality := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('Smile', TargetDepth) then
+      begin
+        var Unmarshaller := TSmileUnmarshaller.JsonInstance;
+        UnmarshalledObject.Smile := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
     end;

@@ -12,8 +12,11 @@ uses
   AWS.Rekognition.Model.CreateStreamProcessorRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
+  AWS.Rekognition.Transform.StreamProcessorDataSharingPreferenceMarshaller, 
   AWS.Rekognition.Transform.StreamProcessorInputMarshaller, 
+  AWS.Rekognition.Transform.StreamProcessorNotificationChannelMarshaller, 
   AWS.Rekognition.Transform.StreamProcessorOutputMarshaller, 
+  AWS.Rekognition.Transform.RegionOfInterestMarshaller, 
   AWS.Rekognition.Transform.StreamProcessorSettingsMarshaller;
 
 type
@@ -55,6 +58,13 @@ begin
       var Context: TJsonMarshallerContext := TJsonMarshallerContext.Create(Request, Writer);
       try
         Writer.WriteBeginObject;
+        if PublicRequest.IsSetDataSharingPreference then
+        begin
+          Context.Writer.WriteName('DataSharingPreference');
+          Context.Writer.WriteBeginObject;
+          TStreamProcessorDataSharingPreferenceMarshaller.Instance.Marshall(PublicRequest.DataSharingPreference, Context);
+          Context.Writer.WriteEndObject;
+        end;
         if PublicRequest.IsSetInput then
         begin
           Context.Writer.WriteName('Input');
@@ -62,10 +72,22 @@ begin
           TStreamProcessorInputMarshaller.Instance.Marshall(PublicRequest.Input, Context);
           Context.Writer.WriteEndObject;
         end;
+        if PublicRequest.IsSetKmsKeyId then
+        begin
+          Context.Writer.WriteName('KmsKeyId');
+          Context.Writer.WriteString(PublicRequest.KmsKeyId);
+        end;
         if PublicRequest.IsSetName then
         begin
           Context.Writer.WriteName('Name');
           Context.Writer.WriteString(PublicRequest.Name);
+        end;
+        if PublicRequest.IsSetNotificationChannel then
+        begin
+          Context.Writer.WriteName('NotificationChannel');
+          Context.Writer.WriteBeginObject;
+          TStreamProcessorNotificationChannelMarshaller.Instance.Marshall(PublicRequest.NotificationChannel, Context);
+          Context.Writer.WriteEndObject;
         end;
         if PublicRequest.IsSetOutput then
         begin
@@ -73,6 +95,18 @@ begin
           Context.Writer.WriteBeginObject;
           TStreamProcessorOutputMarshaller.Instance.Marshall(PublicRequest.Output, Context);
           Context.Writer.WriteEndObject;
+        end;
+        if PublicRequest.IsSetRegionsOfInterest then
+        begin
+          Context.Writer.WriteName('RegionsOfInterest');
+          Context.Writer.WriteBeginArray;
+          for var PublicRequestRegionsOfInterestListValue in PublicRequest.RegionsOfInterest do
+          begin
+            Context.Writer.WriteBeginObject;
+            TRegionOfInterestMarshaller.Instance.Marshall(PublicRequestRegionsOfInterestListValue, Context);
+            Context.Writer.WriteEndObject;
+          end;
+          Context.Writer.WriteEndArray;
         end;
         if PublicRequest.IsSetRoleArn then
         begin

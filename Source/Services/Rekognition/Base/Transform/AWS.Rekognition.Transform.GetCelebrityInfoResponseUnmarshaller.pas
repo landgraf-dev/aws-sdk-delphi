@@ -7,6 +7,7 @@ uses
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.JsonUnmarshallerContext, 
+  AWS.Rekognition.Transform.KnownGenderUnmarshaller, 
   AWS.Transform.SimpleTypeUnmarshaller, 
   AWS.Runtime.Exceptions, 
   System.SysUtils, 
@@ -48,6 +49,12 @@ begin
     var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
+      if AContext.TestExpression('KnownGender', TargetDepth) then
+      begin
+        var Unmarshaller := TKnownGenderUnmarshaller.JsonInstance;
+        Response.KnownGender := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('Name', TargetDepth) then
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;

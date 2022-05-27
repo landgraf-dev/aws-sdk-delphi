@@ -6,9 +6,11 @@ uses
   Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Rekognition.Model.BoundingBox, 
+  AWS.Rekognition.Model.Emotion, 
   AWS.Rekognition.Model.Landmark, 
   AWS.Rekognition.Model.Pose, 
-  AWS.Rekognition.Model.ImageQuality;
+  AWS.Rekognition.Model.ImageQuality, 
+  AWS.Rekognition.Model.Smile;
 
 type
   TComparedFace = class;
@@ -20,6 +22,10 @@ type
     procedure SetKeepBoundingBox(const Value: Boolean);
     function GetConfidence: Double;
     procedure SetConfidence(const Value: Double);
+    function GetEmotions: TObjectList<TEmotion>;
+    procedure SetEmotions(const Value: TObjectList<TEmotion>);
+    function GetKeepEmotions: Boolean;
+    procedure SetKeepEmotions(const Value: Boolean);
     function GetLandmarks: TObjectList<TLandmark>;
     procedure SetLandmarks(const Value: TObjectList<TLandmark>);
     function GetKeepLandmarks: Boolean;
@@ -32,21 +38,31 @@ type
     procedure SetQuality(const Value: TImageQuality);
     function GetKeepQuality: Boolean;
     procedure SetKeepQuality(const Value: Boolean);
+    function GetSmile: TSmile;
+    procedure SetSmile(const Value: TSmile);
+    function GetKeepSmile: Boolean;
+    procedure SetKeepSmile(const Value: Boolean);
     function Obj: TComparedFace;
     function IsSetBoundingBox: Boolean;
     function IsSetConfidence: Boolean;
+    function IsSetEmotions: Boolean;
     function IsSetLandmarks: Boolean;
     function IsSetPose: Boolean;
     function IsSetQuality: Boolean;
+    function IsSetSmile: Boolean;
     property BoundingBox: TBoundingBox read GetBoundingBox write SetBoundingBox;
     property KeepBoundingBox: Boolean read GetKeepBoundingBox write SetKeepBoundingBox;
     property Confidence: Double read GetConfidence write SetConfidence;
+    property Emotions: TObjectList<TEmotion> read GetEmotions write SetEmotions;
+    property KeepEmotions: Boolean read GetKeepEmotions write SetKeepEmotions;
     property Landmarks: TObjectList<TLandmark> read GetLandmarks write SetLandmarks;
     property KeepLandmarks: Boolean read GetKeepLandmarks write SetKeepLandmarks;
     property Pose: TPose read GetPose write SetPose;
     property KeepPose: Boolean read GetKeepPose write SetKeepPose;
     property Quality: TImageQuality read GetQuality write SetQuality;
     property KeepQuality: Boolean read GetKeepQuality write SetKeepQuality;
+    property Smile: TSmile read GetSmile write SetSmile;
+    property KeepSmile: Boolean read GetKeepSmile write SetKeepSmile;
   end;
   
   TComparedFace = class
@@ -54,18 +70,26 @@ type
     FBoundingBox: TBoundingBox;
     FKeepBoundingBox: Boolean;
     FConfidence: Nullable<Double>;
+    FEmotions: TObjectList<TEmotion>;
+    FKeepEmotions: Boolean;
     FLandmarks: TObjectList<TLandmark>;
     FKeepLandmarks: Boolean;
     FPose: TPose;
     FKeepPose: Boolean;
     FQuality: TImageQuality;
     FKeepQuality: Boolean;
+    FSmile: TSmile;
+    FKeepSmile: Boolean;
     function GetBoundingBox: TBoundingBox;
     procedure SetBoundingBox(const Value: TBoundingBox);
     function GetKeepBoundingBox: Boolean;
     procedure SetKeepBoundingBox(const Value: Boolean);
     function GetConfidence: Double;
     procedure SetConfidence(const Value: Double);
+    function GetEmotions: TObjectList<TEmotion>;
+    procedure SetEmotions(const Value: TObjectList<TEmotion>);
+    function GetKeepEmotions: Boolean;
+    procedure SetKeepEmotions(const Value: Boolean);
     function GetLandmarks: TObjectList<TLandmark>;
     procedure SetLandmarks(const Value: TObjectList<TLandmark>);
     function GetKeepLandmarks: Boolean;
@@ -78,6 +102,10 @@ type
     procedure SetQuality(const Value: TImageQuality);
     function GetKeepQuality: Boolean;
     procedure SetKeepQuality(const Value: Boolean);
+    function GetSmile: TSmile;
+    procedure SetSmile(const Value: TSmile);
+    function GetKeepSmile: Boolean;
+    procedure SetKeepSmile(const Value: Boolean);
   strict protected
     function Obj: TComparedFace;
   public
@@ -85,18 +113,24 @@ type
     destructor Destroy; override;
     function IsSetBoundingBox: Boolean;
     function IsSetConfidence: Boolean;
+    function IsSetEmotions: Boolean;
     function IsSetLandmarks: Boolean;
     function IsSetPose: Boolean;
     function IsSetQuality: Boolean;
+    function IsSetSmile: Boolean;
     property BoundingBox: TBoundingBox read GetBoundingBox write SetBoundingBox;
     property KeepBoundingBox: Boolean read GetKeepBoundingBox write SetKeepBoundingBox;
     property Confidence: Double read GetConfidence write SetConfidence;
+    property Emotions: TObjectList<TEmotion> read GetEmotions write SetEmotions;
+    property KeepEmotions: Boolean read GetKeepEmotions write SetKeepEmotions;
     property Landmarks: TObjectList<TLandmark> read GetLandmarks write SetLandmarks;
     property KeepLandmarks: Boolean read GetKeepLandmarks write SetKeepLandmarks;
     property Pose: TPose read GetPose write SetPose;
     property KeepPose: Boolean read GetKeepPose write SetKeepPose;
     property Quality: TImageQuality read GetQuality write SetQuality;
     property KeepQuality: Boolean read GetKeepQuality write SetKeepQuality;
+    property Smile: TSmile read GetSmile write SetSmile;
+    property KeepSmile: Boolean read GetKeepSmile write SetKeepSmile;
   end;
   
 implementation
@@ -106,14 +140,17 @@ implementation
 constructor TComparedFace.Create;
 begin
   inherited;
+  FEmotions := TObjectList<TEmotion>.Create;
   FLandmarks := TObjectList<TLandmark>.Create;
 end;
 
 destructor TComparedFace.Destroy;
 begin
+  Smile := nil;
   Quality := nil;
   Pose := nil;
   Landmarks := nil;
+  Emotions := nil;
   BoundingBox := nil;
   inherited;
 end;
@@ -166,6 +203,36 @@ end;
 function TComparedFace.IsSetConfidence: Boolean;
 begin
   Result := FConfidence.HasValue;
+end;
+
+function TComparedFace.GetEmotions: TObjectList<TEmotion>;
+begin
+  Result := FEmotions;
+end;
+
+procedure TComparedFace.SetEmotions(const Value: TObjectList<TEmotion>);
+begin
+  if FEmotions <> Value then
+  begin
+    if not KeepEmotions then
+      FEmotions.Free;
+    FEmotions := Value;
+  end;
+end;
+
+function TComparedFace.GetKeepEmotions: Boolean;
+begin
+  Result := FKeepEmotions;
+end;
+
+procedure TComparedFace.SetKeepEmotions(const Value: Boolean);
+begin
+  FKeepEmotions := Value;
+end;
+
+function TComparedFace.IsSetEmotions: Boolean;
+begin
+  Result := (FEmotions <> nil) and (FEmotions.Count > 0);
 end;
 
 function TComparedFace.GetLandmarks: TObjectList<TLandmark>;
@@ -256,6 +323,36 @@ end;
 function TComparedFace.IsSetQuality: Boolean;
 begin
   Result := FQuality <> nil;
+end;
+
+function TComparedFace.GetSmile: TSmile;
+begin
+  Result := FSmile;
+end;
+
+procedure TComparedFace.SetSmile(const Value: TSmile);
+begin
+  if FSmile <> Value then
+  begin
+    if not KeepSmile then
+      FSmile.Free;
+    FSmile := Value;
+  end;
+end;
+
+function TComparedFace.GetKeepSmile: Boolean;
+begin
+  Result := FKeepSmile;
+end;
+
+procedure TComparedFace.SetKeepSmile(const Value: Boolean);
+begin
+  FKeepSmile := Value;
+end;
+
+function TComparedFace.IsSetSmile: Boolean;
+begin
+  Result := FSmile <> nil;
 end;
 
 end.

@@ -10,6 +10,8 @@ uses
   AWS.Transform.SimpleTypeUnmarshaller, 
   AWS.Transcribe.Transform.MediaUnmarshaller, 
   AWS.Transcribe.Transform.MedicalTranscriptionSettingUnmarshaller, 
+  AWS.Transcribe.Transform.TagUnmarshaller, 
+  AWS.Transcribe.Model.Tag, 
   AWS.Transcribe.Transform.MedicalTranscriptUnmarshaller;
 
 type
@@ -111,6 +113,12 @@ begin
       begin
         var Unmarshaller := TDateTimeUnmarshaller.JsonInstance;
         UnmarshalledObject.StartTime := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('Tags', TargetDepth) then
+      begin
+        var Unmarshaller := TJsonObjectListUnmarshaller<TTag, ITagUnmarshaller>.JsonNew(TTagUnmarshaller.JsonInstance);
+        UnmarshalledObject.Tags := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('Transcript', TargetDepth) then

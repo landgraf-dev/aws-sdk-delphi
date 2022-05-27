@@ -34,6 +34,11 @@ begin
     Context.Writer.WriteName('DomainSigningSelector');
     Context.Writer.WriteString(ARequestObject.DomainSigningSelector);
   end;
+  if ARequestObject.IsSetNextSigningKeyLength then
+  begin
+    Context.Writer.WriteName('NextSigningKeyLength');
+    Context.Writer.WriteString(ARequestObject.NextSigningKeyLength.Value);
+  end;
 end;
 
 class constructor TDkimSigningAttributesMarshaller.Create;

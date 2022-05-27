@@ -21,6 +21,7 @@ uses
   AWS.Textract.Transform.AccessDeniedExceptionUnmarshaller, 
   AWS.Textract.Transform.InternalServerErrorExceptionUnmarshaller, 
   AWS.Textract.Transform.InvalidJobIdExceptionUnmarshaller, 
+  AWS.Textract.Transform.InvalidKMSKeyExceptionUnmarshaller, 
   AWS.Textract.Transform.InvalidParameterExceptionUnmarshaller, 
   AWS.Textract.Transform.InvalidS3ObjectExceptionUnmarshaller, 
   AWS.Textract.Transform.ProvisionedThroughputExceededExceptionUnmarshaller, 
@@ -124,6 +125,8 @@ begin
           Exit(TInternalServerErrorExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
         if ErrorResponse.Code = 'InvalidJobIdException' then
           Exit(TInvalidJobIdExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
+        if ErrorResponse.Code = 'InvalidKMSKeyException' then
+          Exit(TInvalidKMSKeyExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
         if ErrorResponse.Code = 'InvalidParameterException' then
           Exit(TInvalidParameterExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
         if ErrorResponse.Code = 'InvalidS3ObjectException' then

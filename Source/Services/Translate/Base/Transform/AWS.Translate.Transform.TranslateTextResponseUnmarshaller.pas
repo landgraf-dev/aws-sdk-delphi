@@ -7,6 +7,7 @@ uses
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.JsonUnmarshallerContext, 
+  AWS.Translate.Transform.TranslationSettingsUnmarshaller, 
   AWS.Translate.Transform.AppliedTerminologyUnmarshaller, 
   AWS.Translate.Model.AppliedTerminology, 
   AWS.Transform.SimpleTypeUnmarshaller, 
@@ -52,6 +53,12 @@ begin
     var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
+      if AContext.TestExpression('AppliedSettings', TargetDepth) then
+      begin
+        var Unmarshaller := TTranslationSettingsUnmarshaller.JsonInstance;
+        Response.AppliedSettings := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('AppliedTerminologies', TargetDepth) then
       begin
         var Unmarshaller := TJsonObjectListUnmarshaller<TAppliedTerminology, IAppliedTerminologyUnmarshaller>.JsonNew(TAppliedTerminologyUnmarshaller.JsonInstance);

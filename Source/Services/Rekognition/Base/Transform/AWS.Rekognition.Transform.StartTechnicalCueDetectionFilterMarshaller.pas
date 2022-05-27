@@ -4,7 +4,8 @@ interface
 
 uses
   AWS.Rekognition.Model.StartTechnicalCueDetectionFilter, 
-  AWS.Transform.RequestMarshaller;
+  AWS.Transform.RequestMarshaller, 
+  AWS.Rekognition.Transform.BlackFrameMarshaller;
 
 type
   IStartTechnicalCueDetectionFilterMarshaller = IRequestMarshaller<TStartTechnicalCueDetectionFilter, TJsonMarshallerContext>;
@@ -24,6 +25,13 @@ implementation
 
 procedure TStartTechnicalCueDetectionFilterMarshaller.Marshall(ARequestObject: TStartTechnicalCueDetectionFilter; Context: TJsonMarshallerContext);
 begin
+  if ARequestObject.IsSetBlackFrame then
+  begin
+    Context.Writer.WriteName('BlackFrame');
+    Context.Writer.WriteBeginObject;
+    TBlackFrameMarshaller.Instance.Marshall(ARequestObject.BlackFrame, Context);
+    Context.Writer.WriteEndObject;
+  end;
   if ARequestObject.IsSetMinSegmentConfidence then
   begin
     Context.Writer.WriteName('MinSegmentConfidence');

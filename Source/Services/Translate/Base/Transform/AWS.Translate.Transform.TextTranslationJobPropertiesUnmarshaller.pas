@@ -10,7 +10,8 @@ uses
   AWS.Transform.SimpleTypeUnmarshaller, 
   AWS.Translate.Transform.InputDataConfigUnmarshaller, 
   AWS.Translate.Transform.JobDetailsUnmarshaller, 
-  AWS.Translate.Transform.OutputDataConfigUnmarshaller;
+  AWS.Translate.Transform.OutputDataConfigUnmarshaller, 
+  AWS.Translate.Transform.TranslationSettingsUnmarshaller;
 
 type
   ITextTranslationJobPropertiesUnmarshaller = IUnmarshaller<TTextTranslationJobProperties, TJsonUnmarshallerContext>;
@@ -99,6 +100,12 @@ begin
       begin
         var Unmarshaller := TJsonListUnmarshaller<string, IJsonStringUnmarshaller>.JsonNew(TStringUnmarshaller.JsonInstance);
         UnmarshalledObject.ParallelDataNames := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('Settings', TargetDepth) then
+      begin
+        var Unmarshaller := TTranslationSettingsUnmarshaller.JsonInstance;
+        UnmarshalledObject.Settings := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('SourceLanguageCode', TargetDepth) then

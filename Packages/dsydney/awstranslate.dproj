@@ -153,6 +153,7 @@
         <DCCReference Include="..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TooManyRequestsException.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TranslateTextRequest.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TranslateTextResponse.pas"/>
+        <DCCReference Include="..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TranslationSettings.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.UnsupportedLanguagePairException.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.UpdateParallelDataRequest.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.UpdateParallelDataResponse.pas"/>
@@ -212,6 +213,8 @@
         <DCCReference Include="..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TooManyRequestsExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TranslateTextRequestMarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TranslateTextResponseUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TranslationSettingsMarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TranslationSettingsUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.UnsupportedLanguagePairExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.UpdateParallelDataRequestMarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.UpdateParallelDataResponseUnmarshaller.pas"/>

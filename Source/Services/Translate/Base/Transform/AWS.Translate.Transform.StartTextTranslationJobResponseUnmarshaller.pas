@@ -14,6 +14,7 @@ uses
   AWS.Transform.JsonErrorResponseUnmarshaller, 
   System.Classes, 
   AWS.Translate.Transform.InternalServerExceptionUnmarshaller, 
+  AWS.Translate.Transform.InvalidParameterValueExceptionUnmarshaller, 
   AWS.Translate.Transform.InvalidRequestExceptionUnmarshaller, 
   AWS.Translate.Transform.ResourceNotFoundExceptionUnmarshaller, 
   AWS.Translate.Transform.TooManyRequestsExceptionUnmarshaller, 
@@ -83,6 +84,8 @@ begin
       try
         if ErrorResponse.Code = 'InternalServerException' then
           Exit(TInternalServerExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
+        if ErrorResponse.Code = 'InvalidParameterValueException' then
+          Exit(TInvalidParameterValueExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
         if ErrorResponse.Code = 'InvalidRequestException' then
           Exit(TInvalidRequestExceptionUnmarshaller.Instance.Unmarshall(ContextCopy, ErrorResponse));
         if ErrorResponse.Code = 'ResourceNotFoundException' then

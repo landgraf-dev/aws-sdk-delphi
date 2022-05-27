@@ -126,6 +126,9 @@
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Request.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ResourceNotFoundException.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHintDetails.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHintValue.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHints.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SentimentResponse.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SentimentScore.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SessionState.pas"/>
@@ -165,6 +168,12 @@
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RecognizeUtteranceRequestMarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RecognizeUtteranceResponseUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ResourceNotFoundExceptionUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintDetailsMarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintDetailsUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintValueMarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintValueUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintsMarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintsUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SentimentResponseUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SentimentScoreUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SessionStateMarshaller.pas"/>

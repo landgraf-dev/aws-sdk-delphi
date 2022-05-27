@@ -8,6 +8,8 @@ uses
   AWS.Rekognition.Model.CompareFacesRequest, 
   AWS.Rekognition.Model.CreateCollectionResponse, 
   AWS.Rekognition.Model.CreateCollectionRequest, 
+  AWS.Rekognition.Model.CreateDatasetResponse, 
+  AWS.Rekognition.Model.CreateDatasetRequest, 
   AWS.Rekognition.Model.CreateProjectResponse, 
   AWS.Rekognition.Model.CreateProjectRequest, 
   AWS.Rekognition.Model.CreateProjectVersionResponse, 
@@ -16,6 +18,8 @@ uses
   AWS.Rekognition.Model.CreateStreamProcessorRequest, 
   AWS.Rekognition.Model.DeleteCollectionResponse, 
   AWS.Rekognition.Model.DeleteCollectionRequest, 
+  AWS.Rekognition.Model.DeleteDatasetResponse, 
+  AWS.Rekognition.Model.DeleteDatasetRequest, 
   AWS.Rekognition.Model.DeleteFacesResponse, 
   AWS.Rekognition.Model.DeleteFacesRequest, 
   AWS.Rekognition.Model.DeleteProjectResponse, 
@@ -26,6 +30,8 @@ uses
   AWS.Rekognition.Model.DeleteStreamProcessorRequest, 
   AWS.Rekognition.Model.DescribeCollectionResponse, 
   AWS.Rekognition.Model.DescribeCollectionRequest, 
+  AWS.Rekognition.Model.DescribeDatasetResponse, 
+  AWS.Rekognition.Model.DescribeDatasetRequest, 
   AWS.Rekognition.Model.DescribeProjectVersionsResponse, 
   AWS.Rekognition.Model.DescribeProjectVersionsRequest, 
   AWS.Rekognition.Model.DescribeProjectsResponse, 
@@ -44,6 +50,8 @@ uses
   AWS.Rekognition.Model.DetectProtectiveEquipmentRequest, 
   AWS.Rekognition.Model.DetectTextResponse, 
   AWS.Rekognition.Model.DetectTextRequest, 
+  AWS.Rekognition.Model.DistributeDatasetEntriesResponse, 
+  AWS.Rekognition.Model.DistributeDatasetEntriesRequest, 
   AWS.Rekognition.Model.GetCelebrityInfoResponse, 
   AWS.Rekognition.Model.GetCelebrityInfoRequest, 
   AWS.Rekognition.Model.GetCelebrityRecognitionResponse, 
@@ -66,6 +74,10 @@ uses
   AWS.Rekognition.Model.IndexFacesRequest, 
   AWS.Rekognition.Model.ListCollectionsResponse, 
   AWS.Rekognition.Model.ListCollectionsRequest, 
+  AWS.Rekognition.Model.ListDatasetEntriesResponse, 
+  AWS.Rekognition.Model.ListDatasetEntriesRequest, 
+  AWS.Rekognition.Model.ListDatasetLabelsResponse, 
+  AWS.Rekognition.Model.ListDatasetLabelsRequest, 
   AWS.Rekognition.Model.ListFacesResponse, 
   AWS.Rekognition.Model.ListFacesRequest, 
   AWS.Rekognition.Model.ListStreamProcessorsResponse, 
@@ -105,21 +117,28 @@ uses
   AWS.Rekognition.Model.TagResourceResponse, 
   AWS.Rekognition.Model.TagResourceRequest, 
   AWS.Rekognition.Model.UntagResourceResponse, 
-  AWS.Rekognition.Model.UntagResourceRequest;
+  AWS.Rekognition.Model.UntagResourceRequest, 
+  AWS.Rekognition.Model.UpdateDatasetEntriesResponse, 
+  AWS.Rekognition.Model.UpdateDatasetEntriesRequest, 
+  AWS.Rekognition.Model.UpdateStreamProcessorResponse, 
+  AWS.Rekognition.Model.UpdateStreamProcessorRequest;
 
 type
   IAmazonRekognition = interface(IAmazonService)
     function CompareFaces(Request: ICompareFacesRequest): ICompareFacesResponse; overload;
     function CreateCollection(Request: ICreateCollectionRequest): ICreateCollectionResponse; overload;
+    function CreateDataset(Request: ICreateDatasetRequest): ICreateDatasetResponse; overload;
     function CreateProject(Request: ICreateProjectRequest): ICreateProjectResponse; overload;
     function CreateProjectVersion(Request: ICreateProjectVersionRequest): ICreateProjectVersionResponse; overload;
     function CreateStreamProcessor(Request: ICreateStreamProcessorRequest): ICreateStreamProcessorResponse; overload;
     function DeleteCollection(Request: IDeleteCollectionRequest): IDeleteCollectionResponse; overload;
+    function DeleteDataset(Request: IDeleteDatasetRequest): IDeleteDatasetResponse; overload;
     function DeleteFaces(Request: IDeleteFacesRequest): IDeleteFacesResponse; overload;
     function DeleteProject(Request: IDeleteProjectRequest): IDeleteProjectResponse; overload;
     function DeleteProjectVersion(Request: IDeleteProjectVersionRequest): IDeleteProjectVersionResponse; overload;
     function DeleteStreamProcessor(Request: IDeleteStreamProcessorRequest): IDeleteStreamProcessorResponse; overload;
     function DescribeCollection(Request: IDescribeCollectionRequest): IDescribeCollectionResponse; overload;
+    function DescribeDataset(Request: IDescribeDatasetRequest): IDescribeDatasetResponse; overload;
     function DescribeProjectVersions(Request: IDescribeProjectVersionsRequest): IDescribeProjectVersionsResponse; overload;
     function DescribeProjects(Request: IDescribeProjectsRequest): IDescribeProjectsResponse; overload;
     function DescribeStreamProcessor(Request: IDescribeStreamProcessorRequest): IDescribeStreamProcessorResponse; overload;
@@ -129,6 +148,7 @@ type
     function DetectModerationLabels(Request: IDetectModerationLabelsRequest): IDetectModerationLabelsResponse; overload;
     function DetectProtectiveEquipment(Request: IDetectProtectiveEquipmentRequest): IDetectProtectiveEquipmentResponse; overload;
     function DetectText(Request: IDetectTextRequest): IDetectTextResponse; overload;
+    function DistributeDatasetEntries(Request: IDistributeDatasetEntriesRequest): IDistributeDatasetEntriesResponse; overload;
     function GetCelebrityInfo(Request: IGetCelebrityInfoRequest): IGetCelebrityInfoResponse; overload;
     function GetCelebrityRecognition(Request: IGetCelebrityRecognitionRequest): IGetCelebrityRecognitionResponse; overload;
     function GetContentModeration(Request: IGetContentModerationRequest): IGetContentModerationResponse; overload;
@@ -140,6 +160,8 @@ type
     function GetTextDetection(Request: IGetTextDetectionRequest): IGetTextDetectionResponse; overload;
     function IndexFaces(Request: IIndexFacesRequest): IIndexFacesResponse; overload;
     function ListCollections(Request: IListCollectionsRequest): IListCollectionsResponse; overload;
+    function ListDatasetEntries(Request: IListDatasetEntriesRequest): IListDatasetEntriesResponse; overload;
+    function ListDatasetLabels(Request: IListDatasetLabelsRequest): IListDatasetLabelsResponse; overload;
     function ListFaces(Request: IListFacesRequest): IListFacesResponse; overload;
     function ListStreamProcessors(Request: IListStreamProcessorsRequest): IListStreamProcessorsResponse; overload;
     function ListTagsForResource(Request: IListTagsForResourceRequest): IListTagsForResourceResponse; overload;
@@ -160,6 +182,8 @@ type
     function StopStreamProcessor(Request: IStopStreamProcessorRequest): IStopStreamProcessorResponse; overload;
     function TagResource(Request: ITagResourceRequest): ITagResourceResponse; overload;
     function UntagResource(Request: IUntagResourceRequest): IUntagResourceResponse; overload;
+    function UpdateDatasetEntries(Request: IUpdateDatasetEntriesRequest): IUpdateDatasetEntriesResponse; overload;
+    function UpdateStreamProcessor(Request: IUpdateStreamProcessorRequest): IUpdateStreamProcessorResponse; overload;
   end;
   
 implementation

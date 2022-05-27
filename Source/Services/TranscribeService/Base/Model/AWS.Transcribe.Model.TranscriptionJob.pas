@@ -8,9 +8,12 @@ uses
   AWS.Transcribe.Model.ContentRedaction, 
   AWS.Transcribe.Model.JobExecutionSettings, 
   AWS.Transcribe.Enums, 
+  AWS.Transcribe.Model.LanguageIdSettings, 
   AWS.Transcribe.Model.Media, 
   AWS.Transcribe.Model.ModelSettings, 
   AWS.Transcribe.Model.Settings, 
+  AWS.Transcribe.Model.SubtitlesOutput, 
+  AWS.Transcribe.Model.Tag, 
   AWS.Transcribe.Model.Transcript;
 
 type
@@ -37,6 +40,10 @@ type
     procedure SetKeepJobExecutionSettings(const Value: Boolean);
     function GetLanguageCode: TLanguageCode;
     procedure SetLanguageCode(const Value: TLanguageCode);
+    function GetLanguageIdSettings: TObjectDictionary<string, TLanguageIdSettings>;
+    procedure SetLanguageIdSettings(const Value: TObjectDictionary<string, TLanguageIdSettings>);
+    function GetKeepLanguageIdSettings: Boolean;
+    procedure SetKeepLanguageIdSettings(const Value: Boolean);
     function GetLanguageOptions: TList<string>;
     procedure SetLanguageOptions(const Value: TList<string>);
     function GetKeepLanguageOptions: Boolean;
@@ -59,6 +66,14 @@ type
     procedure SetKeepSettings(const Value: Boolean);
     function GetStartTime: TDateTime;
     procedure SetStartTime(const Value: TDateTime);
+    function GetSubtitles: TSubtitlesOutput;
+    procedure SetSubtitles(const Value: TSubtitlesOutput);
+    function GetKeepSubtitles: Boolean;
+    procedure SetKeepSubtitles(const Value: Boolean);
+    function GetTags: TObjectList<TTag>;
+    procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetTranscript: TTranscript;
     procedure SetTranscript(const Value: TTranscript);
     function GetKeepTranscript: Boolean;
@@ -76,6 +91,7 @@ type
     function IsSetIdentifyLanguage: Boolean;
     function IsSetJobExecutionSettings: Boolean;
     function IsSetLanguageCode: Boolean;
+    function IsSetLanguageIdSettings: Boolean;
     function IsSetLanguageOptions: Boolean;
     function IsSetMedia: Boolean;
     function IsSetMediaFormat: Boolean;
@@ -83,6 +99,8 @@ type
     function IsSetModelSettings: Boolean;
     function IsSetSettings: Boolean;
     function IsSetStartTime: Boolean;
+    function IsSetSubtitles: Boolean;
+    function IsSetTags: Boolean;
     function IsSetTranscript: Boolean;
     function IsSetTranscriptionJobName: Boolean;
     function IsSetTranscriptionJobStatus: Boolean;
@@ -96,6 +114,8 @@ type
     property JobExecutionSettings: TJobExecutionSettings read GetJobExecutionSettings write SetJobExecutionSettings;
     property KeepJobExecutionSettings: Boolean read GetKeepJobExecutionSettings write SetKeepJobExecutionSettings;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
+    property LanguageIdSettings: TObjectDictionary<string, TLanguageIdSettings> read GetLanguageIdSettings write SetLanguageIdSettings;
+    property KeepLanguageIdSettings: Boolean read GetKeepLanguageIdSettings write SetKeepLanguageIdSettings;
     property LanguageOptions: TList<string> read GetLanguageOptions write SetLanguageOptions;
     property KeepLanguageOptions: Boolean read GetKeepLanguageOptions write SetKeepLanguageOptions;
     property Media: TMedia read GetMedia write SetMedia;
@@ -107,6 +127,10 @@ type
     property Settings: TSettings read GetSettings write SetSettings;
     property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property StartTime: TDateTime read GetStartTime write SetStartTime;
+    property Subtitles: TSubtitlesOutput read GetSubtitles write SetSubtitles;
+    property KeepSubtitles: Boolean read GetKeepSubtitles write SetKeepSubtitles;
+    property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property Transcript: TTranscript read GetTranscript write SetTranscript;
     property KeepTranscript: Boolean read GetKeepTranscript write SetKeepTranscript;
     property TranscriptionJobName: string read GetTranscriptionJobName write SetTranscriptionJobName;
@@ -125,6 +149,8 @@ type
     FJobExecutionSettings: TJobExecutionSettings;
     FKeepJobExecutionSettings: Boolean;
     FLanguageCode: Nullable<TLanguageCode>;
+    FLanguageIdSettings: TObjectDictionary<string, TLanguageIdSettings>;
+    FKeepLanguageIdSettings: Boolean;
     FLanguageOptions: TList<string>;
     FKeepLanguageOptions: Boolean;
     FMedia: TMedia;
@@ -136,6 +162,10 @@ type
     FSettings: TSettings;
     FKeepSettings: Boolean;
     FStartTime: Nullable<TDateTime>;
+    FSubtitles: TSubtitlesOutput;
+    FKeepSubtitles: Boolean;
+    FTags: TObjectList<TTag>;
+    FKeepTags: Boolean;
     FTranscript: TTranscript;
     FKeepTranscript: Boolean;
     FTranscriptionJobName: Nullable<string>;
@@ -160,6 +190,10 @@ type
     procedure SetKeepJobExecutionSettings(const Value: Boolean);
     function GetLanguageCode: TLanguageCode;
     procedure SetLanguageCode(const Value: TLanguageCode);
+    function GetLanguageIdSettings: TObjectDictionary<string, TLanguageIdSettings>;
+    procedure SetLanguageIdSettings(const Value: TObjectDictionary<string, TLanguageIdSettings>);
+    function GetKeepLanguageIdSettings: Boolean;
+    procedure SetKeepLanguageIdSettings(const Value: Boolean);
     function GetLanguageOptions: TList<string>;
     procedure SetLanguageOptions(const Value: TList<string>);
     function GetKeepLanguageOptions: Boolean;
@@ -182,6 +216,14 @@ type
     procedure SetKeepSettings(const Value: Boolean);
     function GetStartTime: TDateTime;
     procedure SetStartTime(const Value: TDateTime);
+    function GetSubtitles: TSubtitlesOutput;
+    procedure SetSubtitles(const Value: TSubtitlesOutput);
+    function GetKeepSubtitles: Boolean;
+    procedure SetKeepSubtitles(const Value: Boolean);
+    function GetTags: TObjectList<TTag>;
+    procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetTranscript: TTranscript;
     procedure SetTranscript(const Value: TTranscript);
     function GetKeepTranscript: Boolean;
@@ -203,6 +245,7 @@ type
     function IsSetIdentifyLanguage: Boolean;
     function IsSetJobExecutionSettings: Boolean;
     function IsSetLanguageCode: Boolean;
+    function IsSetLanguageIdSettings: Boolean;
     function IsSetLanguageOptions: Boolean;
     function IsSetMedia: Boolean;
     function IsSetMediaFormat: Boolean;
@@ -210,6 +253,8 @@ type
     function IsSetModelSettings: Boolean;
     function IsSetSettings: Boolean;
     function IsSetStartTime: Boolean;
+    function IsSetSubtitles: Boolean;
+    function IsSetTags: Boolean;
     function IsSetTranscript: Boolean;
     function IsSetTranscriptionJobName: Boolean;
     function IsSetTranscriptionJobStatus: Boolean;
@@ -223,6 +268,8 @@ type
     property JobExecutionSettings: TJobExecutionSettings read GetJobExecutionSettings write SetJobExecutionSettings;
     property KeepJobExecutionSettings: Boolean read GetKeepJobExecutionSettings write SetKeepJobExecutionSettings;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
+    property LanguageIdSettings: TObjectDictionary<string, TLanguageIdSettings> read GetLanguageIdSettings write SetLanguageIdSettings;
+    property KeepLanguageIdSettings: Boolean read GetKeepLanguageIdSettings write SetKeepLanguageIdSettings;
     property LanguageOptions: TList<string> read GetLanguageOptions write SetLanguageOptions;
     property KeepLanguageOptions: Boolean read GetKeepLanguageOptions write SetKeepLanguageOptions;
     property Media: TMedia read GetMedia write SetMedia;
@@ -234,6 +281,10 @@ type
     property Settings: TSettings read GetSettings write SetSettings;
     property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property StartTime: TDateTime read GetStartTime write SetStartTime;
+    property Subtitles: TSubtitlesOutput read GetSubtitles write SetSubtitles;
+    property KeepSubtitles: Boolean read GetKeepSubtitles write SetKeepSubtitles;
+    property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property Transcript: TTranscript read GetTranscript write SetTranscript;
     property KeepTranscript: Boolean read GetKeepTranscript write SetKeepTranscript;
     property TranscriptionJobName: string read GetTranscriptionJobName write SetTranscriptionJobName;
@@ -247,16 +298,21 @@ implementation
 constructor TTranscriptionJob.Create;
 begin
   inherited;
+  FLanguageIdSettings := TObjectDictionary<string, TLanguageIdSettings>.Create([doOwnsValues]);
   FLanguageOptions := TList<string>.Create;
+  FTags := TObjectList<TTag>.Create;
 end;
 
 destructor TTranscriptionJob.Destroy;
 begin
   Transcript := nil;
+  Tags := nil;
+  Subtitles := nil;
   Settings := nil;
   ModelSettings := nil;
   Media := nil;
   LanguageOptions := nil;
+  LanguageIdSettings := nil;
   JobExecutionSettings := nil;
   ContentRedaction := nil;
   inherited;
@@ -415,6 +471,36 @@ end;
 function TTranscriptionJob.IsSetLanguageCode: Boolean;
 begin
   Result := FLanguageCode.HasValue;
+end;
+
+function TTranscriptionJob.GetLanguageIdSettings: TObjectDictionary<string, TLanguageIdSettings>;
+begin
+  Result := FLanguageIdSettings;
+end;
+
+procedure TTranscriptionJob.SetLanguageIdSettings(const Value: TObjectDictionary<string, TLanguageIdSettings>);
+begin
+  if FLanguageIdSettings <> Value then
+  begin
+    if not KeepLanguageIdSettings then
+      FLanguageIdSettings.Free;
+    FLanguageIdSettings := Value;
+  end;
+end;
+
+function TTranscriptionJob.GetKeepLanguageIdSettings: Boolean;
+begin
+  Result := FKeepLanguageIdSettings;
+end;
+
+procedure TTranscriptionJob.SetKeepLanguageIdSettings(const Value: Boolean);
+begin
+  FKeepLanguageIdSettings := Value;
+end;
+
+function TTranscriptionJob.IsSetLanguageIdSettings: Boolean;
+begin
+  Result := (FLanguageIdSettings <> nil) and (FLanguageIdSettings.Count > 0);
 end;
 
 function TTranscriptionJob.GetLanguageOptions: TList<string>;
@@ -580,6 +666,66 @@ end;
 function TTranscriptionJob.IsSetStartTime: Boolean;
 begin
   Result := FStartTime.HasValue;
+end;
+
+function TTranscriptionJob.GetSubtitles: TSubtitlesOutput;
+begin
+  Result := FSubtitles;
+end;
+
+procedure TTranscriptionJob.SetSubtitles(const Value: TSubtitlesOutput);
+begin
+  if FSubtitles <> Value then
+  begin
+    if not KeepSubtitles then
+      FSubtitles.Free;
+    FSubtitles := Value;
+  end;
+end;
+
+function TTranscriptionJob.GetKeepSubtitles: Boolean;
+begin
+  Result := FKeepSubtitles;
+end;
+
+procedure TTranscriptionJob.SetKeepSubtitles(const Value: Boolean);
+begin
+  FKeepSubtitles := Value;
+end;
+
+function TTranscriptionJob.IsSetSubtitles: Boolean;
+begin
+  Result := FSubtitles <> nil;
+end;
+
+function TTranscriptionJob.GetTags: TObjectList<TTag>;
+begin
+  Result := FTags;
+end;
+
+procedure TTranscriptionJob.SetTags(const Value: TObjectList<TTag>);
+begin
+  if FTags <> Value then
+  begin
+    if not KeepTags then
+      FTags.Free;
+    FTags := Value;
+  end;
+end;
+
+function TTranscriptionJob.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TTranscriptionJob.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
+end;
+
+function TTranscriptionJob.IsSetTags: Boolean;
+begin
+  Result := (FTags <> nil) and (FTags.Count > 0);
 end;
 
 function TTranscriptionJob.GetTranscript: TTranscript;

@@ -61,6 +61,8 @@ uses
   AWS.SNS.Model.OptInPhoneNumberRequest, 
   AWS.SNS.Model.PublishResponse, 
   AWS.SNS.Model.PublishRequest, 
+  AWS.SNS.Model.PublishBatchResponse, 
+  AWS.SNS.Model.PublishBatchRequest, 
   AWS.SNS.Model.RemovePermissionResponse, 
   AWS.SNS.Model.RemovePermissionRequest, 
   AWS.SNS.Model.SetEndpointAttributesResponse, 
@@ -130,6 +132,7 @@ type
     function Publish(const ATopicArn: string; const AMessage: string): IPublishResponse; overload;
     function Publish(const ATopicArn: string; const AMessage: string; const ASubject: string): IPublishResponse; overload;
     function Publish(Request: IPublishRequest): IPublishResponse; overload;
+    function PublishBatch(Request: IPublishBatchRequest): IPublishBatchResponse; overload;
     function RemovePermission(const ATopicArn: string; const ALabel: string): IRemovePermissionResponse; overload;
     function RemovePermission(Request: IRemovePermissionRequest): IRemovePermissionResponse; overload;
     function SetEndpointAttributes(Request: ISetEndpointAttributesRequest): ISetEndpointAttributesResponse; overload;

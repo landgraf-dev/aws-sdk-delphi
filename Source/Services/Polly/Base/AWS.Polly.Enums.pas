@@ -35,15 +35,19 @@ type
   public
     constructor Create(const AValue: string);
     class function Arb: TLanguageCode; static;
+    class function CaES: TLanguageCode; static;
     class function CmnCN: TLanguageCode; static;
     class function CyGB: TLanguageCode; static;
     class function DaDK: TLanguageCode; static;
+    class function DeAT: TLanguageCode; static;
     class function DeDE: TLanguageCode; static;
     class function EnAU: TLanguageCode; static;
     class function EnGB: TLanguageCode; static;
     class function EnGBWLS: TLanguageCode; static;
     class function EnIN: TLanguageCode; static;
+    class function EnNZ: TLanguageCode; static;
     class function EnUS: TLanguageCode; static;
+    class function EnZA: TLanguageCode; static;
     class function EsES: TLanguageCode; static;
     class function EsMX: TLanguageCode; static;
     class function EsUS: TLanguageCode; static;
@@ -134,7 +138,10 @@ type
     constructor Create(const AValue: string);
     class function Aditi: TVoiceId; static;
     class function Amy: TVoiceId; static;
+    class function Aria: TVoiceId; static;
+    class function Arlet: TVoiceId; static;
     class function Astrid: TVoiceId; static;
+    class function Ayanda: TVoiceId; static;
     class function Bianca: TVoiceId; static;
     class function Brian: TVoiceId; static;
     class function Camila: TVoiceId; static;
@@ -153,6 +160,7 @@ type
     class function Geraint: TVoiceId; static;
     class function Giorgio: TVoiceId; static;
     class function Gwyneth: TVoiceId; static;
+    class function Hannah: TVoiceId; static;
     class function Hans: TVoiceId; static;
     class function Ines: TVoiceId; static;
     class function Ivy: TVoiceId; static;
@@ -279,6 +287,11 @@ begin
   Result := TLanguageCode.Create('arb');
 end;
 
+class function TLanguageCode.CaES: TLanguageCode;
+begin
+  Result := TLanguageCode.Create('ca-ES');
+end;
+
 class function TLanguageCode.CmnCN: TLanguageCode;
 begin
   Result := TLanguageCode.Create('cmn-CN');
@@ -292,6 +305,11 @@ end;
 class function TLanguageCode.DaDK: TLanguageCode;
 begin
   Result := TLanguageCode.Create('da-DK');
+end;
+
+class function TLanguageCode.DeAT: TLanguageCode;
+begin
+  Result := TLanguageCode.Create('de-AT');
 end;
 
 class function TLanguageCode.DeDE: TLanguageCode;
@@ -319,9 +337,19 @@ begin
   Result := TLanguageCode.Create('en-IN');
 end;
 
+class function TLanguageCode.EnNZ: TLanguageCode;
+begin
+  Result := TLanguageCode.Create('en-NZ');
+end;
+
 class function TLanguageCode.EnUS: TLanguageCode;
 begin
   Result := TLanguageCode.Create('en-US');
+end;
+
+class function TLanguageCode.EnZA: TLanguageCode;
+begin
+  Result := TLanguageCode.Create('en-ZA');
 end;
 
 class function TLanguageCode.EsES: TLanguageCode;
@@ -609,9 +637,24 @@ begin
   Result := TVoiceId.Create('Amy');
 end;
 
+class function TVoiceId.Aria: TVoiceId;
+begin
+  Result := TVoiceId.Create('Aria');
+end;
+
+class function TVoiceId.Arlet: TVoiceId;
+begin
+  Result := TVoiceId.Create('Arlet');
+end;
+
 class function TVoiceId.Astrid: TVoiceId;
 begin
   Result := TVoiceId.Create('Astrid');
+end;
+
+class function TVoiceId.Ayanda: TVoiceId;
+begin
+  Result := TVoiceId.Create('Ayanda');
 end;
 
 class function TVoiceId.Bianca: TVoiceId;
@@ -702,6 +745,11 @@ end;
 class function TVoiceId.Gwyneth: TVoiceId;
 begin
   Result := TVoiceId.Create('Gwyneth');
+end;
+
+class function TVoiceId.Hannah: TVoiceId;
+begin
+  Result := TVoiceId.Create('Hannah');
 end;
 
 class function TVoiceId.Hans: TVoiceId;

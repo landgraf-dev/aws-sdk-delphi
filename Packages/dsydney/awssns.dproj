@@ -103,6 +103,9 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.AddPermissionRequest.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.AddPermissionResponse.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.AuthorizationErrorException.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.BatchEntryIdsNotDistinctException.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.BatchRequestTooLongException.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.BatchResultErrorEntry.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutRequest.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutResponse.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.ConcurrentAccessException.pas"/>
@@ -124,6 +127,7 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.DeleteSMSSandboxPhoneNumberResponse.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.DeleteTopicRequest.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.DeleteTopicResponse.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.EmptyBatchRequestException.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.Endpoint.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.EndpointDisabledException.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.FilterPolicyLimitExceededException.pas"/>
@@ -140,6 +144,7 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.GetTopicAttributesRequest.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.GetTopicAttributesResponse.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InternalErrorException.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InvalidBatchEntryIdException.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InvalidParameterException.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InvalidParameterValueException.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InvalidSecurityException.pas"/>
@@ -175,6 +180,10 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PhoneNumberInformation.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PlatformApplication.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PlatformApplicationDisabledException.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishBatchRequest.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishBatchRequestEntry.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishBatchResponse.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishBatchResultEntry.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishRequest.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishResponse.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.RemovePermissionRequest.pas"/>
@@ -203,6 +212,7 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.TagResourceRequest.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.TagResourceResponse.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.ThrottledException.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.TooManyEntriesInBatchRequestException.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.Topic.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.TopicLimitExceededException.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.UnsubscribeRequest.pas"/>
@@ -217,6 +227,9 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.AddPermissionRequestMarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.AddPermissionResponseUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.AuthorizationErrorExceptionUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.BatchEntryIdsNotDistinctExceptionUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.BatchRequestTooLongExceptionUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.BatchResultErrorEntryUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.CheckIfPhoneNumberIsOptedOutRequestMarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.CheckIfPhoneNumberIsOptedOutResponseUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.ConcurrentAccessExceptionUnmarshaller.pas"/>
@@ -238,6 +251,7 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.DeleteSMSSandboxPhoneNumberResponseUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.DeleteTopicRequestMarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.DeleteTopicResponseUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.EmptyBatchRequestExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.EndpointDisabledExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.EndpointUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.FilterPolicyLimitExceededExceptionUnmarshaller.pas"/>
@@ -254,6 +268,7 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.GetTopicAttributesRequestMarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.GetTopicAttributesResponseUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InternalErrorExceptionUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InvalidBatchEntryIdExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InvalidParameterExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InvalidParameterValueExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InvalidSecurityExceptionUnmarshaller.pas"/>
@@ -288,6 +303,9 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PhoneNumberInformationUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PlatformApplicationDisabledExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PlatformApplicationUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishBatchRequestMarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishBatchResponseUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishBatchResultEntryUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishRequestMarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishResponseUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.RemovePermissionRequestMarshaller.pas"/>
@@ -315,6 +333,7 @@
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TagResourceResponseUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TagUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.ThrottledExceptionUnmarshaller.pas"/>
+        <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TooManyEntriesInBatchRequestExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TopicLimitExceededExceptionUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TopicUnmarshaller.pas"/>
         <DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.UnsubscribeRequestMarshaller.pas"/>

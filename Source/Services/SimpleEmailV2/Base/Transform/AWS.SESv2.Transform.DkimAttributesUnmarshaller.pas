@@ -38,6 +38,24 @@ begin
     TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
+      if AContext.TestExpression('CurrentSigningKeyLength', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.CurrentSigningKeyLength := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('LastKeyGenerationTimestamp', TargetDepth) then
+      begin
+        var Unmarshaller := TDateTimeUnmarshaller.JsonInstance;
+        UnmarshalledObject.LastKeyGenerationTimestamp := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('NextSigningKeyLength', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.NextSigningKeyLength := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('SigningAttributesOrigin', TargetDepth) then
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;

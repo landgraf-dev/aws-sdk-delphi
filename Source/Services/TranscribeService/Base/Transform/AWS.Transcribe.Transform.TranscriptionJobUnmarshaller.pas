@@ -10,9 +10,14 @@ uses
   AWS.Transform.SimpleTypeUnmarshaller, 
   AWS.Transcribe.Transform.ContentRedactionUnmarshaller, 
   AWS.Transcribe.Transform.JobExecutionSettingsUnmarshaller, 
+  AWS.Transcribe.Transform.LanguageIdSettingsUnmarshaller, 
+  AWS.Transcribe.Model.LanguageIdSettings, 
   AWS.Transcribe.Transform.MediaUnmarshaller, 
   AWS.Transcribe.Transform.ModelSettingsUnmarshaller, 
   AWS.Transcribe.Transform.SettingsUnmarshaller, 
+  AWS.Transcribe.Transform.SubtitlesOutputUnmarshaller, 
+  AWS.Transcribe.Transform.TagUnmarshaller, 
+  AWS.Transcribe.Model.Tag, 
   AWS.Transcribe.Transform.TranscriptUnmarshaller;
 
 type
@@ -92,6 +97,12 @@ begin
         UnmarshalledObject.LanguageCode := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('LanguageIdSettings', TargetDepth) then
+      begin
+        var Unmarshaller := TJsonObjectDictionaryUnmarshaller<string, TLanguageIdSettings, IJsonStringUnmarshaller, ILanguageIdSettingsUnmarshaller>.JsonNew(TStringUnmarshaller.JsonInstance, TLanguageIdSettingsUnmarshaller.JsonInstance);
+        UnmarshalledObject.LanguageIdSettings := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('LanguageOptions', TargetDepth) then
       begin
         var Unmarshaller := TJsonListUnmarshaller<string, IJsonStringUnmarshaller>.JsonNew(TStringUnmarshaller.JsonInstance);
@@ -132,6 +143,18 @@ begin
       begin
         var Unmarshaller := TDateTimeUnmarshaller.JsonInstance;
         UnmarshalledObject.StartTime := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('Subtitles', TargetDepth) then
+      begin
+        var Unmarshaller := TSubtitlesOutputUnmarshaller.JsonInstance;
+        UnmarshalledObject.Subtitles := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('Tags', TargetDepth) then
+      begin
+        var Unmarshaller := TJsonObjectListUnmarshaller<TTag, ITagUnmarshaller>.JsonNew(TTagUnmarshaller.JsonInstance);
+        UnmarshalledObject.Tags := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('Transcript', TargetDepth) then

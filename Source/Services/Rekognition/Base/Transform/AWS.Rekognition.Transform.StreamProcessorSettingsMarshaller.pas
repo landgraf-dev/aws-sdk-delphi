@@ -5,6 +5,7 @@ interface
 uses
   AWS.Rekognition.Model.StreamProcessorSettings, 
   AWS.Transform.RequestMarshaller, 
+  AWS.Rekognition.Transform.ConnectedHomeSettingsMarshaller, 
   AWS.Rekognition.Transform.FaceSearchSettingsMarshaller;
 
 type
@@ -25,6 +26,13 @@ implementation
 
 procedure TStreamProcessorSettingsMarshaller.Marshall(ARequestObject: TStreamProcessorSettings; Context: TJsonMarshallerContext);
 begin
+  if ARequestObject.IsSetConnectedHome then
+  begin
+    Context.Writer.WriteName('ConnectedHome');
+    Context.Writer.WriteBeginObject;
+    TConnectedHomeSettingsMarshaller.Instance.Marshall(ARequestObject.ConnectedHome, Context);
+    Context.Writer.WriteEndObject;
+  end;
   if ARequestObject.IsSetFaceSearch then
   begin
     Context.Writer.WriteName('FaceSearch');

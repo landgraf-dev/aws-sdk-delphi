@@ -5,7 +5,8 @@ interface
 uses
   AWS.Rekognition.Model.RegionOfInterest, 
   AWS.Transform.RequestMarshaller, 
-  AWS.Rekognition.Transform.BoundingBoxMarshaller;
+  AWS.Rekognition.Transform.BoundingBoxMarshaller, 
+  AWS.Rekognition.Transform.PointMarshaller;
 
 type
   IRegionOfInterestMarshaller = IRequestMarshaller<TRegionOfInterest, TJsonMarshallerContext>;
@@ -31,6 +32,18 @@ begin
     Context.Writer.WriteBeginObject;
     TBoundingBoxMarshaller.Instance.Marshall(ARequestObject.BoundingBox, Context);
     Context.Writer.WriteEndObject;
+  end;
+  if ARequestObject.IsSetPolygon then
+  begin
+    Context.Writer.WriteName('Polygon');
+    Context.Writer.WriteBeginArray;
+    for var ARequestObjectPolygonListValue in ARequestObject.Polygon do
+    begin
+      Context.Writer.WriteBeginObject;
+      TPointMarshaller.Instance.Marshall(ARequestObjectPolygonListValue, Context);
+      Context.Writer.WriteEndObject;
+    end;
+    Context.Writer.WriteEndArray;
   end;
 end;
 

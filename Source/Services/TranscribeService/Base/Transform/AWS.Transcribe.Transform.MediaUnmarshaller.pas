@@ -37,12 +37,20 @@ begin
       Exit(nil);
     TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
+    begin
       if AContext.TestExpression('MediaFileUri', TargetDepth) then
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;
         UnmarshalledObject.MediaFileUri := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('RedactedMediaFileUri', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.RedactedMediaFileUri := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+    end;
     Result := UnmarshalledObject;
     UnmarshalledObject := nil;
   finally

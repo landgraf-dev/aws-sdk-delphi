@@ -11,9 +11,13 @@ type
     class function CELL: TBlockType; static;
     class function KEY_VALUE_SET: TBlockType; static;
     class function LINE: TBlockType; static;
+    class function MERGED_CELL: TBlockType; static;
     class function PAGE: TBlockType; static;
+    class function QUERY: TBlockType; static;
+    class function QUERY_RESULT: TBlockType; static;
     class function SELECTION_ELEMENT: TBlockType; static;
     class function TABLE: TBlockType; static;
+    class function TITLE: TBlockType; static;
     class function WORD: TBlockType; static;
     class operator Equal(a: TBlockType; b: TBlockType): Boolean;
     class operator NotEqual(a: TBlockType; b: TBlockType): Boolean;
@@ -39,6 +43,7 @@ type
     FValue: string;
   public
     constructor Create(const AValue: string);
+    class function COLUMN_HEADER: TEntityType; static;
     class function KEY: TEntityType; static;
     class function _VALUE: TEntityType; static;
     class operator Equal(a: TEntityType; b: TEntityType): Boolean;
@@ -53,6 +58,7 @@ type
   public
     constructor Create(const AValue: string);
     class function FORMS: TFeatureType; static;
+    class function QUERIES: TFeatureType; static;
     class function TABLES: TFeatureType; static;
     class operator Equal(a: TFeatureType; b: TFeatureType): Boolean;
     class operator NotEqual(a: TFeatureType; b: TFeatureType): Boolean;
@@ -80,8 +86,11 @@ type
     FValue: string;
   public
     constructor Create(const AValue: string);
+    class function ANSWER: TRelationshipType; static;
     class function CHILD: TRelationshipType; static;
     class function COMPLEX_FEATURES: TRelationshipType; static;
+    class function MERGED_CELL: TRelationshipType; static;
+    class function TITLE: TRelationshipType; static;
     class function _VALUE: TRelationshipType; static;
     class operator Equal(a: TRelationshipType; b: TRelationshipType): Boolean;
     class operator NotEqual(a: TRelationshipType; b: TRelationshipType): Boolean;
@@ -115,6 +124,18 @@ type
     property Value: string read FValue;
   end;
   
+  TValueType = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function DATE: TValueType; static;
+    class operator Equal(a: TValueType; b: TValueType): Boolean;
+    class operator NotEqual(a: TValueType; b: TValueType): Boolean;
+    class operator Implicit(a: string): TValueType;
+    property Value: string read FValue;
+  end;
+  
 implementation
 
 { TBlockType }
@@ -139,9 +160,24 @@ begin
   Result := TBlockType.Create('LINE');
 end;
 
+class function TBlockType.MERGED_CELL: TBlockType;
+begin
+  Result := TBlockType.Create('MERGED_CELL');
+end;
+
 class function TBlockType.PAGE: TBlockType;
 begin
   Result := TBlockType.Create('PAGE');
+end;
+
+class function TBlockType.QUERY: TBlockType;
+begin
+  Result := TBlockType.Create('QUERY');
+end;
+
+class function TBlockType.QUERY_RESULT: TBlockType;
+begin
+  Result := TBlockType.Create('QUERY_RESULT');
 end;
 
 class function TBlockType.SELECTION_ELEMENT: TBlockType;
@@ -152,6 +188,11 @@ end;
 class function TBlockType.TABLE: TBlockType;
 begin
   Result := TBlockType.Create('TABLE');
+end;
+
+class function TBlockType.TITLE: TBlockType;
+begin
+  Result := TBlockType.Create('TITLE');
 end;
 
 class function TBlockType.WORD: TBlockType;
@@ -213,6 +254,11 @@ begin
   FValue := AValue;
 end;
 
+class function TEntityType.COLUMN_HEADER: TEntityType;
+begin
+  Result := TEntityType.Create('COLUMN_HEADER');
+end;
+
 class function TEntityType.KEY: TEntityType;
 begin
   Result := TEntityType.Create('KEY');
@@ -248,6 +294,11 @@ end;
 class function TFeatureType.FORMS: TFeatureType;
 begin
   Result := TFeatureType.Create('FORMS');
+end;
+
+class function TFeatureType.QUERIES: TFeatureType;
+begin
+  Result := TFeatureType.Create('QUERIES');
 end;
 
 class function TFeatureType.TABLES: TFeatureType;
@@ -319,6 +370,11 @@ begin
   FValue := AValue;
 end;
 
+class function TRelationshipType.ANSWER: TRelationshipType;
+begin
+  Result := TRelationshipType.Create('ANSWER');
+end;
+
 class function TRelationshipType.CHILD: TRelationshipType;
 begin
   Result := TRelationshipType.Create('CHILD');
@@ -327,6 +383,16 @@ end;
 class function TRelationshipType.COMPLEX_FEATURES: TRelationshipType;
 begin
   Result := TRelationshipType.Create('COMPLEX_FEATURES');
+end;
+
+class function TRelationshipType.MERGED_CELL: TRelationshipType;
+begin
+  Result := TRelationshipType.Create('MERGED_CELL');
+end;
+
+class function TRelationshipType.TITLE: TRelationshipType;
+begin
+  Result := TRelationshipType.Create('TITLE');
 end;
 
 class function TRelationshipType._VALUE: TRelationshipType;
@@ -409,6 +475,33 @@ begin
 end;
 
 class operator TTextType.Implicit(a: string): TTextType;
+begin
+  Result.FValue := a;;
+end;
+
+{ TValueType }
+
+constructor TValueType.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TValueType.DATE: TValueType;
+begin
+  Result := TValueType.Create('DATE');
+end;
+
+class operator TValueType.Equal(a: TValueType; b: TValueType): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TValueType.NotEqual(a: TValueType; b: TValueType): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TValueType.Implicit(a: string): TValueType;
 begin
   Result.FValue := a;;
 end;

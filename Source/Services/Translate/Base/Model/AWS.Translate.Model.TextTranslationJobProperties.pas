@@ -8,7 +8,8 @@ uses
   AWS.Translate.Model.InputDataConfig, 
   AWS.Translate.Model.JobDetails, 
   AWS.Translate.Enums, 
-  AWS.Translate.Model.OutputDataConfig;
+  AWS.Translate.Model.OutputDataConfig, 
+  AWS.Translate.Model.TranslationSettings;
 
 type
   TTextTranslationJobProperties = class;
@@ -42,6 +43,10 @@ type
     procedure SetParallelDataNames(const Value: TList<string>);
     function GetKeepParallelDataNames: Boolean;
     procedure SetKeepParallelDataNames(const Value: Boolean);
+    function GetSettings: TTranslationSettings;
+    procedure SetSettings(const Value: TTranslationSettings);
+    function GetKeepSettings: Boolean;
+    procedure SetKeepSettings(const Value: Boolean);
     function GetSourceLanguageCode: string;
     procedure SetSourceLanguageCode(const Value: string);
     function GetSubmittedTime: TDateTime;
@@ -65,6 +70,7 @@ type
     function IsSetMessage: Boolean;
     function IsSetOutputDataConfig: Boolean;
     function IsSetParallelDataNames: Boolean;
+    function IsSetSettings: Boolean;
     function IsSetSourceLanguageCode: Boolean;
     function IsSetSubmittedTime: Boolean;
     function IsSetTargetLanguageCodes: Boolean;
@@ -83,6 +89,8 @@ type
     property KeepOutputDataConfig: Boolean read GetKeepOutputDataConfig write SetKeepOutputDataConfig;
     property ParallelDataNames: TList<string> read GetParallelDataNames write SetParallelDataNames;
     property KeepParallelDataNames: Boolean read GetKeepParallelDataNames write SetKeepParallelDataNames;
+    property Settings: TTranslationSettings read GetSettings write SetSettings;
+    property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property SourceLanguageCode: string read GetSourceLanguageCode write SetSourceLanguageCode;
     property SubmittedTime: TDateTime read GetSubmittedTime write SetSubmittedTime;
     property TargetLanguageCodes: TList<string> read GetTargetLanguageCodes write SetTargetLanguageCodes;
@@ -107,6 +115,8 @@ type
     FKeepOutputDataConfig: Boolean;
     FParallelDataNames: TList<string>;
     FKeepParallelDataNames: Boolean;
+    FSettings: TTranslationSettings;
+    FKeepSettings: Boolean;
     FSourceLanguageCode: Nullable<string>;
     FSubmittedTime: Nullable<TDateTime>;
     FTargetLanguageCodes: TList<string>;
@@ -141,6 +151,10 @@ type
     procedure SetParallelDataNames(const Value: TList<string>);
     function GetKeepParallelDataNames: Boolean;
     procedure SetKeepParallelDataNames(const Value: Boolean);
+    function GetSettings: TTranslationSettings;
+    procedure SetSettings(const Value: TTranslationSettings);
+    function GetKeepSettings: Boolean;
+    procedure SetKeepSettings(const Value: Boolean);
     function GetSourceLanguageCode: string;
     procedure SetSourceLanguageCode(const Value: string);
     function GetSubmittedTime: TDateTime;
@@ -168,6 +182,7 @@ type
     function IsSetMessage: Boolean;
     function IsSetOutputDataConfig: Boolean;
     function IsSetParallelDataNames: Boolean;
+    function IsSetSettings: Boolean;
     function IsSetSourceLanguageCode: Boolean;
     function IsSetSubmittedTime: Boolean;
     function IsSetTargetLanguageCodes: Boolean;
@@ -186,6 +201,8 @@ type
     property KeepOutputDataConfig: Boolean read GetKeepOutputDataConfig write SetKeepOutputDataConfig;
     property ParallelDataNames: TList<string> read GetParallelDataNames write SetParallelDataNames;
     property KeepParallelDataNames: Boolean read GetKeepParallelDataNames write SetKeepParallelDataNames;
+    property Settings: TTranslationSettings read GetSettings write SetSettings;
+    property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property SourceLanguageCode: string read GetSourceLanguageCode write SetSourceLanguageCode;
     property SubmittedTime: TDateTime read GetSubmittedTime write SetSubmittedTime;
     property TargetLanguageCodes: TList<string> read GetTargetLanguageCodes write SetTargetLanguageCodes;
@@ -210,6 +227,7 @@ destructor TTextTranslationJobProperties.Destroy;
 begin
   TerminologyNames := nil;
   TargetLanguageCodes := nil;
+  Settings := nil;
   ParallelDataNames := nil;
   OutputDataConfig := nil;
   JobDetails := nil;
@@ -430,6 +448,36 @@ end;
 function TTextTranslationJobProperties.IsSetParallelDataNames: Boolean;
 begin
   Result := (FParallelDataNames <> nil) and (FParallelDataNames.Count > 0);
+end;
+
+function TTextTranslationJobProperties.GetSettings: TTranslationSettings;
+begin
+  Result := FSettings;
+end;
+
+procedure TTextTranslationJobProperties.SetSettings(const Value: TTranslationSettings);
+begin
+  if FSettings <> Value then
+  begin
+    if not KeepSettings then
+      FSettings.Free;
+    FSettings := Value;
+  end;
+end;
+
+function TTextTranslationJobProperties.GetKeepSettings: Boolean;
+begin
+  Result := FKeepSettings;
+end;
+
+procedure TTextTranslationJobProperties.SetKeepSettings(const Value: Boolean);
+begin
+  FKeepSettings := Value;
+end;
+
+function TTextTranslationJobProperties.IsSetSettings: Boolean;
+begin
+  Result := FSettings <> nil;
 end;
 
 function TTextTranslationJobProperties.GetSourceLanguageCode: string;

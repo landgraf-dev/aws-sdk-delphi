@@ -7,6 +7,7 @@ uses
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.JsonUnmarshallerContext, 
+  AWS.Translate.Transform.TerminologyDataLocationUnmarshaller, 
   AWS.Translate.Transform.TerminologyPropertiesUnmarshaller, 
   AWS.Runtime.Exceptions, 
   System.SysUtils, 
@@ -45,12 +46,20 @@ begin
     AContext.Read;
     var TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
+    begin
+      if AContext.TestExpression('AuxiliaryDataLocation', TargetDepth) then
+      begin
+        var Unmarshaller := TTerminologyDataLocationUnmarshaller.JsonInstance;
+        Response.AuxiliaryDataLocation := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('TerminologyProperties', TargetDepth) then
       begin
         var Unmarshaller := TTerminologyPropertiesUnmarshaller.JsonInstance;
         Response.TerminologyProperties := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+    end;
     Result := Response;
     Response := nil;
   finally

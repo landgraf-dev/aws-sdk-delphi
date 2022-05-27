@@ -22,18 +22,22 @@ type
     procedure SetFaceId(const Value: string);
     function GetImageId: string;
     procedure SetImageId(const Value: string);
+    function GetIndexFacesModelVersion: string;
+    procedure SetIndexFacesModelVersion(const Value: string);
     function Obj: TFace;
     function IsSetBoundingBox: Boolean;
     function IsSetConfidence: Boolean;
     function IsSetExternalImageId: Boolean;
     function IsSetFaceId: Boolean;
     function IsSetImageId: Boolean;
+    function IsSetIndexFacesModelVersion: Boolean;
     property BoundingBox: TBoundingBox read GetBoundingBox write SetBoundingBox;
     property KeepBoundingBox: Boolean read GetKeepBoundingBox write SetKeepBoundingBox;
     property Confidence: Double read GetConfidence write SetConfidence;
     property ExternalImageId: string read GetExternalImageId write SetExternalImageId;
     property FaceId: string read GetFaceId write SetFaceId;
     property ImageId: string read GetImageId write SetImageId;
+    property IndexFacesModelVersion: string read GetIndexFacesModelVersion write SetIndexFacesModelVersion;
   end;
   
   TFace = class
@@ -44,6 +48,7 @@ type
     FExternalImageId: Nullable<string>;
     FFaceId: Nullable<string>;
     FImageId: Nullable<string>;
+    FIndexFacesModelVersion: Nullable<string>;
     function GetBoundingBox: TBoundingBox;
     procedure SetBoundingBox(const Value: TBoundingBox);
     function GetKeepBoundingBox: Boolean;
@@ -56,6 +61,8 @@ type
     procedure SetFaceId(const Value: string);
     function GetImageId: string;
     procedure SetImageId(const Value: string);
+    function GetIndexFacesModelVersion: string;
+    procedure SetIndexFacesModelVersion(const Value: string);
   strict protected
     function Obj: TFace;
   public
@@ -65,12 +72,14 @@ type
     function IsSetExternalImageId: Boolean;
     function IsSetFaceId: Boolean;
     function IsSetImageId: Boolean;
+    function IsSetIndexFacesModelVersion: Boolean;
     property BoundingBox: TBoundingBox read GetBoundingBox write SetBoundingBox;
     property KeepBoundingBox: Boolean read GetKeepBoundingBox write SetKeepBoundingBox;
     property Confidence: Double read GetConfidence write SetConfidence;
     property ExternalImageId: string read GetExternalImageId write SetExternalImageId;
     property FaceId: string read GetFaceId write SetFaceId;
     property ImageId: string read GetImageId write SetImageId;
+    property IndexFacesModelVersion: string read GetIndexFacesModelVersion write SetIndexFacesModelVersion;
   end;
   
 implementation
@@ -176,6 +185,21 @@ end;
 function TFace.IsSetImageId: Boolean;
 begin
   Result := FImageId.HasValue;
+end;
+
+function TFace.GetIndexFacesModelVersion: string;
+begin
+  Result := FIndexFacesModelVersion.ValueOrDefault;
+end;
+
+procedure TFace.SetIndexFacesModelVersion(const Value: string);
+begin
+  FIndexFacesModelVersion := Value;
+end;
+
+function TFace.IsSetIndexFacesModelVersion: Boolean;
+begin
+  Result := FIndexFacesModelVersion.HasValue;
 end;
 
 end.

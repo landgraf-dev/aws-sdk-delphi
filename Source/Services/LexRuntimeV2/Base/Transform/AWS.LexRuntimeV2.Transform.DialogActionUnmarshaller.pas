@@ -38,6 +38,12 @@ begin
     TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
+      if AContext.TestExpression('slotElicitationStyle', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.SlotElicitationStyle := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('slotToElicit', TargetDepth) then
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;

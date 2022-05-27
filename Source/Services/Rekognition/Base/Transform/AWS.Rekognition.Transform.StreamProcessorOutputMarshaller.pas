@@ -5,7 +5,8 @@ interface
 uses
   AWS.Rekognition.Model.StreamProcessorOutput, 
   AWS.Transform.RequestMarshaller, 
-  AWS.Rekognition.Transform.KinesisDataStreamMarshaller;
+  AWS.Rekognition.Transform.KinesisDataStreamMarshaller, 
+  AWS.Rekognition.Transform.S3DestinationMarshaller;
 
 type
   IStreamProcessorOutputMarshaller = IRequestMarshaller<TStreamProcessorOutput, TJsonMarshallerContext>;
@@ -30,6 +31,13 @@ begin
     Context.Writer.WriteName('KinesisDataStream');
     Context.Writer.WriteBeginObject;
     TKinesisDataStreamMarshaller.Instance.Marshall(ARequestObject.KinesisDataStream, Context);
+    Context.Writer.WriteEndObject;
+  end;
+  if ARequestObject.IsSetS3Destination then
+  begin
+    Context.Writer.WriteName('S3Destination');
+    Context.Writer.WriteBeginObject;
+    TS3DestinationMarshaller.Instance.Marshall(ARequestObject.S3Destination, Context);
     Context.Writer.WriteEndObject;
   end;
 end;

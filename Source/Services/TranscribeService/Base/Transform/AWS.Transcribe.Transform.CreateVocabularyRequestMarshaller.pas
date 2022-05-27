@@ -11,7 +11,8 @@ uses
   AWS.Runtime.Model, 
   AWS.Transcribe.Model.CreateVocabularyRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Transcribe.Transform.TagMarshaller;
 
 type
   ICreateVocabularyRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -63,6 +64,18 @@ begin
           Context.Writer.WriteBeginArray;
           for var PublicRequestPhrasesListValue in PublicRequest.Phrases do
             Context.Writer.WriteString(PublicRequestPhrasesListValue);
+          Context.Writer.WriteEndArray;
+        end;
+        if PublicRequest.IsSetTags then
+        begin
+          Context.Writer.WriteName('Tags');
+          Context.Writer.WriteBeginArray;
+          for var PublicRequestTagsListValue in PublicRequest.Tags do
+          begin
+            Context.Writer.WriteBeginObject;
+            TTagMarshaller.Instance.Marshall(PublicRequestTagsListValue, Context);
+            Context.Writer.WriteEndObject;
+          end;
           Context.Writer.WriteEndArray;
         end;
         if PublicRequest.IsSetVocabularyFileUri then

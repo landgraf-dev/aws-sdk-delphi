@@ -12,6 +12,9 @@ uses
   AWS.SNS.Model.AddPermissionRequest, 
   AWS.SNS.Model.AddPermissionResponse, 
   AWS.SNS.Model.AuthorizationErrorException, 
+  AWS.SNS.Model.BatchEntryIdsNotDistinctException, 
+  AWS.SNS.Model.BatchRequestTooLongException, 
+  AWS.SNS.Model.BatchResultErrorEntry, 
   AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutRequest, 
   AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutResponse, 
   AWS.SNS.Model.ConcurrentAccessException, 
@@ -33,6 +36,7 @@ uses
   AWS.SNS.Model.DeleteSMSSandboxPhoneNumberResponse, 
   AWS.SNS.Model.DeleteTopicRequest, 
   AWS.SNS.Model.DeleteTopicResponse, 
+  AWS.SNS.Model.EmptyBatchRequestException, 
   AWS.SNS.Model.Endpoint, 
   AWS.SNS.Model.EndpointDisabledException, 
   AWS.SNS.Model.FilterPolicyLimitExceededException, 
@@ -49,6 +53,7 @@ uses
   AWS.SNS.Model.GetTopicAttributesRequest, 
   AWS.SNS.Model.GetTopicAttributesResponse, 
   AWS.SNS.Model.InternalErrorException, 
+  AWS.SNS.Model.InvalidBatchEntryIdException, 
   AWS.SNS.Model.InvalidParameterException, 
   AWS.SNS.Model.InvalidParameterValueException, 
   AWS.SNS.Model.InvalidSecurityException, 
@@ -84,6 +89,10 @@ uses
   AWS.SNS.Model.PhoneNumberInformation, 
   AWS.SNS.Model.PlatformApplication, 
   AWS.SNS.Model.PlatformApplicationDisabledException, 
+  AWS.SNS.Model.PublishBatchRequest, 
+  AWS.SNS.Model.PublishBatchRequestEntry, 
+  AWS.SNS.Model.PublishBatchResponse, 
+  AWS.SNS.Model.PublishBatchResultEntry, 
   AWS.SNS.Model.PublishRequest, 
   AWS.SNS.Model.PublishResponse, 
   AWS.SNS.Model.RemovePermissionRequest, 
@@ -112,6 +121,7 @@ uses
   AWS.SNS.Model.TagResourceRequest, 
   AWS.SNS.Model.TagResourceResponse, 
   AWS.SNS.Model.ThrottledException, 
+  AWS.SNS.Model.TooManyEntriesInBatchRequestException, 
   AWS.SNS.Model.Topic, 
   AWS.SNS.Model.TopicLimitExceededException, 
   AWS.SNS.Model.UnsubscribeRequest, 
@@ -127,10 +137,14 @@ uses
 type
   EAmazonSimpleNotificationServiceException = AWS.SNS.Exception.EAmazonSimpleNotificationServiceException;
   EAuthorizationErrorException = AWS.SNS.Model.AuthorizationErrorException.EAuthorizationErrorException;
+  EBatchEntryIdsNotDistinctException = AWS.SNS.Model.BatchEntryIdsNotDistinctException.EBatchEntryIdsNotDistinctException;
+  EBatchRequestTooLongException = AWS.SNS.Model.BatchRequestTooLongException.EBatchRequestTooLongException;
   EConcurrentAccessException = AWS.SNS.Model.ConcurrentAccessException.EConcurrentAccessException;
+  EEmptyBatchRequestException = AWS.SNS.Model.EmptyBatchRequestException.EEmptyBatchRequestException;
   EEndpointDisabledException = AWS.SNS.Model.EndpointDisabledException.EEndpointDisabledException;
   EFilterPolicyLimitExceededException = AWS.SNS.Model.FilterPolicyLimitExceededException.EFilterPolicyLimitExceededException;
   EInternalErrorException = AWS.SNS.Model.InternalErrorException.EInternalErrorException;
+  EInvalidBatchEntryIdException = AWS.SNS.Model.InvalidBatchEntryIdException.EInvalidBatchEntryIdException;
   EInvalidParameterException = AWS.SNS.Model.InvalidParameterException.EInvalidParameterException;
   EInvalidParameterValueException = AWS.SNS.Model.InvalidParameterValueException.EInvalidParameterValueException;
   EInvalidSecurityException = AWS.SNS.Model.InvalidSecurityException.EInvalidSecurityException;
@@ -149,6 +163,7 @@ type
   ETagLimitExceededException = AWS.SNS.Model.TagLimitExceededException.ETagLimitExceededException;
   ETagPolicyException = AWS.SNS.Model.TagPolicyException.ETagPolicyException;
   EThrottledException = AWS.SNS.Model.ThrottledException.EThrottledException;
+  ETooManyEntriesInBatchRequestException = AWS.SNS.Model.TooManyEntriesInBatchRequestException.ETooManyEntriesInBatchRequestException;
   ETopicLimitExceededException = AWS.SNS.Model.TopicLimitExceededException.ETopicLimitExceededException;
   EUserErrorException = AWS.SNS.Model.UserErrorException.EUserErrorException;
   EValidationException = AWS.SNS.Model.ValidationException.EValidationException;
@@ -156,6 +171,7 @@ type
   IAddPermissionRequest = AWS.SNS.Model.AddPermissionRequest.IAddPermissionRequest;
   IAddPermissionResponse = AWS.SNS.Model.AddPermissionResponse.IAddPermissionResponse;
   IAmazonSimpleNotificationService = AWS.SNS.ClientIntf.IAmazonSimpleNotificationService;
+  IBatchResultErrorEntry = AWS.SNS.Model.BatchResultErrorEntry.IBatchResultErrorEntry;
   ICheckIfPhoneNumberIsOptedOutRequest = AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutRequest.ICheckIfPhoneNumberIsOptedOutRequest;
   ICheckIfPhoneNumberIsOptedOutResponse = AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutResponse.ICheckIfPhoneNumberIsOptedOutResponse;
   IConfirmSubscriptionRequest = AWS.SNS.Model.ConfirmSubscriptionRequest.IConfirmSubscriptionRequest;
@@ -212,6 +228,10 @@ type
   IOptInPhoneNumberResponse = AWS.SNS.Model.OptInPhoneNumberResponse.IOptInPhoneNumberResponse;
   IPhoneNumberInformation = AWS.SNS.Model.PhoneNumberInformation.IPhoneNumberInformation;
   IPlatformApplication = AWS.SNS.Model.PlatformApplication.IPlatformApplication;
+  IPublishBatchRequest = AWS.SNS.Model.PublishBatchRequest.IPublishBatchRequest;
+  IPublishBatchRequestEntry = AWS.SNS.Model.PublishBatchRequestEntry.IPublishBatchRequestEntry;
+  IPublishBatchResponse = AWS.SNS.Model.PublishBatchResponse.IPublishBatchResponse;
+  IPublishBatchResultEntry = AWS.SNS.Model.PublishBatchResultEntry.IPublishBatchResultEntry;
   IPublishRequest = AWS.SNS.Model.PublishRequest.IPublishRequest;
   IPublishResponse = AWS.SNS.Model.PublishResponse.IPublishResponse;
   IRemovePermissionRequest = AWS.SNS.Model.RemovePermissionRequest.IRemovePermissionRequest;
@@ -246,6 +266,7 @@ type
   TAmazonSimpleNotificationServiceConfig = AWS.SNS.Config.TAmazonSimpleNotificationServiceConfig;
   TAmazonSimpleNotificationServiceMetadata = AWS.SNS.Metadata.TAmazonSimpleNotificationServiceMetadata;
   TAmazonSimpleNotificationServiceRequest = AWS.SNS.Model.Request.TAmazonSimpleNotificationServiceRequest;
+  TBatchResultErrorEntry = AWS.SNS.Model.BatchResultErrorEntry.TBatchResultErrorEntry;
   TCheckIfPhoneNumberIsOptedOutRequest = AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutRequest.TCheckIfPhoneNumberIsOptedOutRequest;
   TCheckIfPhoneNumberIsOptedOutResponse = AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutResponse.TCheckIfPhoneNumberIsOptedOutResponse;
   TConfirmSubscriptionRequest = AWS.SNS.Model.ConfirmSubscriptionRequest.TConfirmSubscriptionRequest;
@@ -304,6 +325,10 @@ type
   TOptInPhoneNumberResponse = AWS.SNS.Model.OptInPhoneNumberResponse.TOptInPhoneNumberResponse;
   TPhoneNumberInformation = AWS.SNS.Model.PhoneNumberInformation.TPhoneNumberInformation;
   TPlatformApplication = AWS.SNS.Model.PlatformApplication.TPlatformApplication;
+  TPublishBatchRequest = AWS.SNS.Model.PublishBatchRequest.TPublishBatchRequest;
+  TPublishBatchRequestEntry = AWS.SNS.Model.PublishBatchRequestEntry.TPublishBatchRequestEntry;
+  TPublishBatchResponse = AWS.SNS.Model.PublishBatchResponse.TPublishBatchResponse;
+  TPublishBatchResultEntry = AWS.SNS.Model.PublishBatchResultEntry.TPublishBatchResultEntry;
   TPublishRequest = AWS.SNS.Model.PublishRequest.TPublishRequest;
   TPublishResponse = AWS.SNS.Model.PublishResponse.TPublishResponse;
   TRemovePermissionRequest = AWS.SNS.Model.RemovePermissionRequest.TRemovePermissionRequest;

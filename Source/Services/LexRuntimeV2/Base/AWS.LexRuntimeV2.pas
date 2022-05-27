@@ -35,6 +35,9 @@ uses
   AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse, 
   AWS.LexRuntimeV2.Model.Request, 
   AWS.LexRuntimeV2.Model.ResourceNotFoundException, 
+  AWS.LexRuntimeV2.Model.RuntimeHintDetails, 
+  AWS.LexRuntimeV2.Model.RuntimeHints, 
+  AWS.LexRuntimeV2.Model.RuntimeHintValue, 
   AWS.LexRuntimeV2.Model.SentimentResponse, 
   AWS.LexRuntimeV2.Model.SentimentScore, 
   AWS.LexRuntimeV2.Model.SessionState, 
@@ -73,6 +76,9 @@ type
   IRecognizeTextResponse = AWS.LexRuntimeV2.Model.RecognizeTextResponse.IRecognizeTextResponse;
   IRecognizeUtteranceRequest = AWS.LexRuntimeV2.Model.RecognizeUtteranceRequest.IRecognizeUtteranceRequest;
   IRecognizeUtteranceResponse = AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse.IRecognizeUtteranceResponse;
+  IRuntimeHintDetails = AWS.LexRuntimeV2.Model.RuntimeHintDetails.IRuntimeHintDetails;
+  IRuntimeHints = AWS.LexRuntimeV2.Model.RuntimeHints.IRuntimeHints;
+  IRuntimeHintValue = AWS.LexRuntimeV2.Model.RuntimeHintValue.IRuntimeHintValue;
   ISentimentResponse = AWS.LexRuntimeV2.Model.SentimentResponse.ISentimentResponse;
   ISentimentScore = AWS.LexRuntimeV2.Model.SentimentScore.ISentimentScore;
   ISessionState = AWS.LexRuntimeV2.Model.SessionState.ISessionState;
@@ -108,12 +114,16 @@ type
   TRecognizeTextResponse = AWS.LexRuntimeV2.Model.RecognizeTextResponse.TRecognizeTextResponse;
   TRecognizeUtteranceRequest = AWS.LexRuntimeV2.Model.RecognizeUtteranceRequest.TRecognizeUtteranceRequest;
   TRecognizeUtteranceResponse = AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse.TRecognizeUtteranceResponse;
+  TRuntimeHintDetails = AWS.LexRuntimeV2.Model.RuntimeHintDetails.TRuntimeHintDetails;
+  TRuntimeHints = AWS.LexRuntimeV2.Model.RuntimeHints.TRuntimeHints;
+  TRuntimeHintValue = AWS.LexRuntimeV2.Model.RuntimeHintValue.TRuntimeHintValue;
   TSentimentResponse = AWS.LexRuntimeV2.Model.SentimentResponse.TSentimentResponse;
   TSentimentScore = AWS.LexRuntimeV2.Model.SentimentScore.TSentimentScore;
   TSentimentType = AWS.LexRuntimeV2.Enums.TSentimentType;
   TSessionState = AWS.LexRuntimeV2.Model.SessionState.TSessionState;
   TShape = AWS.LexRuntimeV2.Enums.TShape;
   TSlot = AWS.LexRuntimeV2.Model.Slot.TSlot;
+  TStyleType = AWS.LexRuntimeV2.Enums.TStyleType;
   TValue = AWS.LexRuntimeV2.Model.Value.TValue;
   
 implementation

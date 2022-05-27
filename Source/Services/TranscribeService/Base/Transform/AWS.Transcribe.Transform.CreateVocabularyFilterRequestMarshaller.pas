@@ -11,7 +11,8 @@ uses
   AWS.Runtime.Model, 
   AWS.Transcribe.Model.CreateVocabularyFilterRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Transcribe.Transform.TagMarshaller;
 
 type
   ICreateVocabularyFilterRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -56,6 +57,18 @@ begin
         begin
           Context.Writer.WriteName('LanguageCode');
           Context.Writer.WriteString(PublicRequest.LanguageCode.Value);
+        end;
+        if PublicRequest.IsSetTags then
+        begin
+          Context.Writer.WriteName('Tags');
+          Context.Writer.WriteBeginArray;
+          for var PublicRequestTagsListValue in PublicRequest.Tags do
+          begin
+            Context.Writer.WriteBeginObject;
+            TTagMarshaller.Instance.Marshall(PublicRequestTagsListValue, Context);
+            Context.Writer.WriteEndObject;
+          end;
+          Context.Writer.WriteEndArray;
         end;
         if PublicRequest.IsSetVocabularyFilterFileUri then
         begin

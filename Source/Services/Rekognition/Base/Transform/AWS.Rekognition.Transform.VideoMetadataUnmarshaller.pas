@@ -44,6 +44,12 @@ begin
         UnmarshalledObject.Codec := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+      if AContext.TestExpression('ColorRange', TargetDepth) then
+      begin
+        var Unmarshaller := TStringUnmarshaller.JsonInstance;
+        UnmarshalledObject.ColorRange := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('DurationMillis', TargetDepth) then
       begin
         var Unmarshaller := TInt64Unmarshaller.JsonInstance;

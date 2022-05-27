@@ -25,6 +25,11 @@ implementation
 
 procedure TTerminologyDataMarshaller.Marshall(ARequestObject: TTerminologyData; Context: TJsonMarshallerContext);
 begin
+  if ARequestObject.IsSetDirectionality then
+  begin
+    Context.Writer.WriteName('Directionality');
+    Context.Writer.WriteString(ARequestObject.Directionality.Value);
+  end;
   if ARequestObject.IsSetFile then
   begin
     Context.Writer.WriteName('File');

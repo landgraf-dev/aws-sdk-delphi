@@ -10,21 +10,28 @@ type
   TDialogAction = class;
   
   IDialogAction = interface
+    function GetSlotElicitationStyle: TStyleType;
+    procedure SetSlotElicitationStyle(const Value: TStyleType);
     function GetSlotToElicit: string;
     procedure SetSlotToElicit(const Value: string);
     function GetType: TDialogActionType;
     procedure SetType(const Value: TDialogActionType);
     function Obj: TDialogAction;
+    function IsSetSlotElicitationStyle: Boolean;
     function IsSetSlotToElicit: Boolean;
     function IsSetType: Boolean;
+    property SlotElicitationStyle: TStyleType read GetSlotElicitationStyle write SetSlotElicitationStyle;
     property SlotToElicit: string read GetSlotToElicit write SetSlotToElicit;
     property &Type: TDialogActionType read GetType write SetType;
   end;
   
   TDialogAction = class
   strict private
+    FSlotElicitationStyle: Nullable<TStyleType>;
     FSlotToElicit: Nullable<string>;
     FType: Nullable<TDialogActionType>;
+    function GetSlotElicitationStyle: TStyleType;
+    procedure SetSlotElicitationStyle(const Value: TStyleType);
     function GetSlotToElicit: string;
     procedure SetSlotToElicit(const Value: string);
     function GetType: TDialogActionType;
@@ -32,8 +39,10 @@ type
   strict protected
     function Obj: TDialogAction;
   public
+    function IsSetSlotElicitationStyle: Boolean;
     function IsSetSlotToElicit: Boolean;
     function IsSetType: Boolean;
+    property SlotElicitationStyle: TStyleType read GetSlotElicitationStyle write SetSlotElicitationStyle;
     property SlotToElicit: string read GetSlotToElicit write SetSlotToElicit;
     property &Type: TDialogActionType read GetType write SetType;
   end;
@@ -45,6 +54,21 @@ implementation
 function TDialogAction.Obj: TDialogAction;
 begin
   Result := Self;
+end;
+
+function TDialogAction.GetSlotElicitationStyle: TStyleType;
+begin
+  Result := FSlotElicitationStyle.ValueOrDefault;
+end;
+
+procedure TDialogAction.SetSlotElicitationStyle(const Value: TStyleType);
+begin
+  FSlotElicitationStyle := Value;
+end;
+
+function TDialogAction.IsSetSlotElicitationStyle: Boolean;
+begin
+  Result := FSlotElicitationStyle.HasValue;
 end;
 
 function TDialogAction.GetSlotToElicit: string;

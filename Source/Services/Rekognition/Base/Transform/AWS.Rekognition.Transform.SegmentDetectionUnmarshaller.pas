@@ -40,6 +40,12 @@ begin
     TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
     begin
+      if AContext.TestExpression('DurationFrames', TargetDepth) then
+      begin
+        var Unmarshaller := TInt64Unmarshaller.JsonInstance;
+        UnmarshalledObject.DurationFrames := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('DurationMillis', TargetDepth) then
       begin
         var Unmarshaller := TInt64Unmarshaller.JsonInstance;
@@ -50,6 +56,12 @@ begin
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;
         UnmarshalledObject.DurationSMPTE := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('EndFrameNumber', TargetDepth) then
+      begin
+        var Unmarshaller := TInt64Unmarshaller.JsonInstance;
+        UnmarshalledObject.EndFrameNumber := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('EndTimecodeSMPTE', TargetDepth) then
@@ -68,6 +80,12 @@ begin
       begin
         var Unmarshaller := TShotSegmentUnmarshaller.JsonInstance;
         UnmarshalledObject.ShotSegment := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('StartFrameNumber', TargetDepth) then
+      begin
+        var Unmarshaller := TInt64Unmarshaller.JsonInstance;
+        UnmarshalledObject.StartFrameNumber := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('StartTimecodeSMPTE', TargetDepth) then

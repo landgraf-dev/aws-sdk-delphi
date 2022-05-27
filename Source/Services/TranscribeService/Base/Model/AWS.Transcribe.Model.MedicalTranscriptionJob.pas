@@ -4,9 +4,11 @@ interface
 
 uses
   Bcl.Types.Nullable, 
+  System.Generics.Collections, 
   AWS.Transcribe.Enums, 
   AWS.Transcribe.Model.Media, 
   AWS.Transcribe.Model.MedicalTranscriptionSetting, 
+  AWS.Transcribe.Model.Tag, 
   AWS.Transcribe.Model.MedicalTranscript;
 
 type
@@ -41,6 +43,10 @@ type
     procedure SetSpecialty(const Value: TSpecialty);
     function GetStartTime: TDateTime;
     procedure SetStartTime(const Value: TDateTime);
+    function GetTags: TObjectList<TTag>;
+    procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetTranscript: TMedicalTranscript;
     procedure SetTranscript(const Value: TMedicalTranscript);
     function GetKeepTranscript: Boolean;
@@ -62,6 +68,7 @@ type
     function IsSetSettings: Boolean;
     function IsSetSpecialty: Boolean;
     function IsSetStartTime: Boolean;
+    function IsSetTags: Boolean;
     function IsSetTranscript: Boolean;
     function IsSetTranscriptionJobStatus: Boolean;
     function IsSetType: Boolean;
@@ -79,6 +86,8 @@ type
     property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property Specialty: TSpecialty read GetSpecialty write SetSpecialty;
     property StartTime: TDateTime read GetStartTime write SetStartTime;
+    property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property Transcript: TMedicalTranscript read GetTranscript write SetTranscript;
     property KeepTranscript: Boolean read GetKeepTranscript write SetKeepTranscript;
     property TranscriptionJobStatus: TTranscriptionJobStatus read GetTranscriptionJobStatus write SetTranscriptionJobStatus;
@@ -101,6 +110,8 @@ type
     FKeepSettings: Boolean;
     FSpecialty: Nullable<TSpecialty>;
     FStartTime: Nullable<TDateTime>;
+    FTags: TObjectList<TTag>;
+    FKeepTags: Boolean;
     FTranscript: TMedicalTranscript;
     FKeepTranscript: Boolean;
     FTranscriptionJobStatus: Nullable<TTranscriptionJobStatus>;
@@ -133,6 +144,10 @@ type
     procedure SetSpecialty(const Value: TSpecialty);
     function GetStartTime: TDateTime;
     procedure SetStartTime(const Value: TDateTime);
+    function GetTags: TObjectList<TTag>;
+    procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetTranscript: TMedicalTranscript;
     procedure SetTranscript(const Value: TMedicalTranscript);
     function GetKeepTranscript: Boolean;
@@ -144,6 +159,7 @@ type
   strict protected
     function Obj: TMedicalTranscriptionJob;
   public
+    constructor Create;
     destructor Destroy; override;
     function IsSetCompletionTime: Boolean;
     function IsSetContentIdentificationType: Boolean;
@@ -157,6 +173,7 @@ type
     function IsSetSettings: Boolean;
     function IsSetSpecialty: Boolean;
     function IsSetStartTime: Boolean;
+    function IsSetTags: Boolean;
     function IsSetTranscript: Boolean;
     function IsSetTranscriptionJobStatus: Boolean;
     function IsSetType: Boolean;
@@ -174,6 +191,8 @@ type
     property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property Specialty: TSpecialty read GetSpecialty write SetSpecialty;
     property StartTime: TDateTime read GetStartTime write SetStartTime;
+    property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property Transcript: TMedicalTranscript read GetTranscript write SetTranscript;
     property KeepTranscript: Boolean read GetKeepTranscript write SetKeepTranscript;
     property TranscriptionJobStatus: TTranscriptionJobStatus read GetTranscriptionJobStatus write SetTranscriptionJobStatus;
@@ -184,9 +203,16 @@ implementation
 
 { TMedicalTranscriptionJob }
 
+constructor TMedicalTranscriptionJob.Create;
+begin
+  inherited;
+  FTags := TObjectList<TTag>.Create;
+end;
+
 destructor TMedicalTranscriptionJob.Destroy;
 begin
   Transcript := nil;
+  Tags := nil;
   Settings := nil;
   Media := nil;
   inherited;
@@ -405,6 +431,36 @@ end;
 function TMedicalTranscriptionJob.IsSetStartTime: Boolean;
 begin
   Result := FStartTime.HasValue;
+end;
+
+function TMedicalTranscriptionJob.GetTags: TObjectList<TTag>;
+begin
+  Result := FTags;
+end;
+
+procedure TMedicalTranscriptionJob.SetTags(const Value: TObjectList<TTag>);
+begin
+  if FTags <> Value then
+  begin
+    if not KeepTags then
+      FTags.Free;
+    FTags := Value;
+  end;
+end;
+
+function TMedicalTranscriptionJob.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TMedicalTranscriptionJob.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
+end;
+
+function TMedicalTranscriptionJob.IsSetTags: Boolean;
+begin
+  Result := (FTags <> nil) and (FTags.Count > 0);
 end;
 
 function TMedicalTranscriptionJob.GetTranscript: TMedicalTranscript;

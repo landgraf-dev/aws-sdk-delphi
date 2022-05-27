@@ -13,7 +13,8 @@ uses
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
   AWS.Transcribe.Transform.MediaMarshaller, 
-  AWS.Transcribe.Transform.MedicalTranscriptionSettingMarshaller;
+  AWS.Transcribe.Transform.MedicalTranscriptionSettingMarshaller, 
+  AWS.Transcribe.Transform.TagMarshaller;
 
 type
   IStartMedicalTranscriptionJobRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -58,6 +59,18 @@ begin
         begin
           Context.Writer.WriteName('ContentIdentificationType');
           Context.Writer.WriteString(PublicRequest.ContentIdentificationType.Value);
+        end;
+        if PublicRequest.IsSetKMSEncryptionContext then
+        begin
+          Context.Writer.WriteName('KMSEncryptionContext');
+          Context.Writer.WriteBeginObject;
+          for var PublicRequestKMSEncryptionContextKvp in PublicRequest.KMSEncryptionContext do
+          begin
+            Context.Writer.WriteName(PublicRequestKMSEncryptionContextKvp.Key);
+            var PublicRequestKMSEncryptionContextValue := PublicRequestKMSEncryptionContextKvp.Value;
+            Context.Writer.WriteString(PublicRequestKMSEncryptionContextValue);
+          end;
+          Context.Writer.WriteEndObject;
         end;
         if PublicRequest.IsSetLanguageCode then
         begin
@@ -112,6 +125,18 @@ begin
         begin
           Context.Writer.WriteName('Specialty');
           Context.Writer.WriteString(PublicRequest.Specialty.Value);
+        end;
+        if PublicRequest.IsSetTags then
+        begin
+          Context.Writer.WriteName('Tags');
+          Context.Writer.WriteBeginArray;
+          for var PublicRequestTagsListValue in PublicRequest.Tags do
+          begin
+            Context.Writer.WriteBeginObject;
+            TTagMarshaller.Instance.Marshall(PublicRequestTagsListValue, Context);
+            Context.Writer.WriteEndObject;
+          end;
+          Context.Writer.WriteEndArray;
         end;
         if PublicRequest.IsSetType then
         begin

@@ -14,6 +14,7 @@ uses
   AWS.Rekognition.Model.Asset, 
   AWS.Rekognition.Model.AudioMetadata, 
   AWS.Rekognition.Model.Beard, 
+  AWS.Rekognition.Model.BlackFrame, 
   AWS.Rekognition.Model.BoundingBox, 
   AWS.Rekognition.Model.Celebrity, 
   AWS.Rekognition.Model.CelebrityDetail, 
@@ -23,10 +24,14 @@ uses
   AWS.Rekognition.Model.CompareFacesMatch, 
   AWS.Rekognition.Model.CompareFacesRequest, 
   AWS.Rekognition.Model.CompareFacesResponse, 
+  AWS.Rekognition.Model.ConnectedHomeSettings, 
+  AWS.Rekognition.Model.ConnectedHomeSettingsForUpdate, 
   AWS.Rekognition.Model.ContentModerationDetection, 
   AWS.Rekognition.Model.CoversBodyPart, 
   AWS.Rekognition.Model.CreateCollectionRequest, 
   AWS.Rekognition.Model.CreateCollectionResponse, 
+  AWS.Rekognition.Model.CreateDatasetRequest, 
+  AWS.Rekognition.Model.CreateDatasetResponse, 
   AWS.Rekognition.Model.CreateProjectRequest, 
   AWS.Rekognition.Model.CreateProjectResponse, 
   AWS.Rekognition.Model.CreateProjectVersionRequest, 
@@ -34,8 +39,17 @@ uses
   AWS.Rekognition.Model.CreateStreamProcessorRequest, 
   AWS.Rekognition.Model.CreateStreamProcessorResponse, 
   AWS.Rekognition.Model.CustomLabel, 
+  AWS.Rekognition.Model.DatasetChanges, 
+  AWS.Rekognition.Model.DatasetDescription, 
+  AWS.Rekognition.Model.DatasetLabelDescription, 
+  AWS.Rekognition.Model.DatasetLabelStats, 
+  AWS.Rekognition.Model.DatasetMetadata, 
+  AWS.Rekognition.Model.DatasetSource, 
+  AWS.Rekognition.Model.DatasetStats, 
   AWS.Rekognition.Model.DeleteCollectionRequest, 
   AWS.Rekognition.Model.DeleteCollectionResponse, 
+  AWS.Rekognition.Model.DeleteDatasetRequest, 
+  AWS.Rekognition.Model.DeleteDatasetResponse, 
   AWS.Rekognition.Model.DeleteFacesRequest, 
   AWS.Rekognition.Model.DeleteFacesResponse, 
   AWS.Rekognition.Model.DeleteProjectRequest, 
@@ -46,6 +60,8 @@ uses
   AWS.Rekognition.Model.DeleteStreamProcessorResponse, 
   AWS.Rekognition.Model.DescribeCollectionRequest, 
   AWS.Rekognition.Model.DescribeCollectionResponse, 
+  AWS.Rekognition.Model.DescribeDatasetRequest, 
+  AWS.Rekognition.Model.DescribeDatasetResponse, 
   AWS.Rekognition.Model.DescribeProjectsRequest, 
   AWS.Rekognition.Model.DescribeProjectsResponse, 
   AWS.Rekognition.Model.DescribeProjectVersionsRequest, 
@@ -66,6 +82,9 @@ uses
   AWS.Rekognition.Model.DetectTextFilters, 
   AWS.Rekognition.Model.DetectTextRequest, 
   AWS.Rekognition.Model.DetectTextResponse, 
+  AWS.Rekognition.Model.DistributeDataset, 
+  AWS.Rekognition.Model.DistributeDatasetEntriesRequest, 
+  AWS.Rekognition.Model.DistributeDatasetEntriesResponse, 
   AWS.Rekognition.Model.Emotion, 
   AWS.Rekognition.Model.EquipmentDetection, 
   AWS.Rekognition.Model.EvaluationResult, 
@@ -116,12 +135,18 @@ uses
   AWS.Rekognition.Model.InvalidS3ObjectException, 
   AWS.Rekognition.Model.KinesisDataStream, 
   AWS.Rekognition.Model.KinesisVideoStream, 
+  AWS.Rekognition.Model.KinesisVideoStreamStartSelector, 
+  AWS.Rekognition.Model.KnownGender, 
   AWS.Rekognition.Model.LabelDetection, 
   AWS.Rekognition.Model.LabelTypes, 
   AWS.Rekognition.Model.Landmark, 
   AWS.Rekognition.Model.LimitExceededException, 
   AWS.Rekognition.Model.ListCollectionsRequest, 
   AWS.Rekognition.Model.ListCollectionsResponse, 
+  AWS.Rekognition.Model.ListDatasetEntriesRequest, 
+  AWS.Rekognition.Model.ListDatasetEntriesResponse, 
+  AWS.Rekognition.Model.ListDatasetLabelsRequest, 
+  AWS.Rekognition.Model.ListDatasetLabelsResponse, 
   AWS.Rekognition.Model.ListFacesRequest, 
   AWS.Rekognition.Model.ListFacesResponse, 
   AWS.Rekognition.Model.ListStreamProcessorsRequest, 
@@ -154,6 +179,7 @@ uses
   AWS.Rekognition.Model.ResourceInUseException, 
   AWS.Rekognition.Model.ResourceNotFoundException, 
   AWS.Rekognition.Model.ResourceNotReadyException, 
+  AWS.Rekognition.Model.S3Destination, 
   AWS.Rekognition.Model.S3Object, 
   AWS.Rekognition.Model.SearchFacesByImageRequest, 
   AWS.Rekognition.Model.SearchFacesByImageResponse, 
@@ -192,10 +218,15 @@ uses
   AWS.Rekognition.Model.StopProjectVersionResponse, 
   AWS.Rekognition.Model.StopStreamProcessorRequest, 
   AWS.Rekognition.Model.StopStreamProcessorResponse, 
+  AWS.Rekognition.Model.StreamProcessingStartSelector, 
+  AWS.Rekognition.Model.StreamProcessingStopSelector, 
   AWS.Rekognition.Model.StreamProcessor, 
+  AWS.Rekognition.Model.StreamProcessorDataSharingPreference, 
   AWS.Rekognition.Model.StreamProcessorInput, 
+  AWS.Rekognition.Model.StreamProcessorNotificationChannel, 
   AWS.Rekognition.Model.StreamProcessorOutput, 
   AWS.Rekognition.Model.StreamProcessorSettings, 
+  AWS.Rekognition.Model.StreamProcessorSettingsForUpdate, 
   AWS.Rekognition.Model.Summary, 
   AWS.Rekognition.Model.Sunglasses, 
   AWS.Rekognition.Model.TagResourceRequest, 
@@ -211,6 +242,10 @@ uses
   AWS.Rekognition.Model.UnindexedFace, 
   AWS.Rekognition.Model.UntagResourceRequest, 
   AWS.Rekognition.Model.UntagResourceResponse, 
+  AWS.Rekognition.Model.UpdateDatasetEntriesRequest, 
+  AWS.Rekognition.Model.UpdateDatasetEntriesResponse, 
+  AWS.Rekognition.Model.UpdateStreamProcessorRequest, 
+  AWS.Rekognition.Model.UpdateStreamProcessorResponse, 
   AWS.Rekognition.Model.ValidationData, 
   AWS.Rekognition.Model.Video, 
   AWS.Rekognition.Model.VideoMetadata, 
@@ -241,6 +276,7 @@ type
   IAsset = AWS.Rekognition.Model.Asset.IAsset;
   IAudioMetadata = AWS.Rekognition.Model.AudioMetadata.IAudioMetadata;
   IBeard = AWS.Rekognition.Model.Beard.IBeard;
+  IBlackFrame = AWS.Rekognition.Model.BlackFrame.IBlackFrame;
   IBoundingBox = AWS.Rekognition.Model.BoundingBox.IBoundingBox;
   ICelebrity = AWS.Rekognition.Model.Celebrity.ICelebrity;
   ICelebrityDetail = AWS.Rekognition.Model.CelebrityDetail.ICelebrityDetail;
@@ -250,10 +286,14 @@ type
   ICompareFacesMatch = AWS.Rekognition.Model.CompareFacesMatch.ICompareFacesMatch;
   ICompareFacesRequest = AWS.Rekognition.Model.CompareFacesRequest.ICompareFacesRequest;
   ICompareFacesResponse = AWS.Rekognition.Model.CompareFacesResponse.ICompareFacesResponse;
+  IConnectedHomeSettings = AWS.Rekognition.Model.ConnectedHomeSettings.IConnectedHomeSettings;
+  IConnectedHomeSettingsForUpdate = AWS.Rekognition.Model.ConnectedHomeSettingsForUpdate.IConnectedHomeSettingsForUpdate;
   IContentModerationDetection = AWS.Rekognition.Model.ContentModerationDetection.IContentModerationDetection;
   ICoversBodyPart = AWS.Rekognition.Model.CoversBodyPart.ICoversBodyPart;
   ICreateCollectionRequest = AWS.Rekognition.Model.CreateCollectionRequest.ICreateCollectionRequest;
   ICreateCollectionResponse = AWS.Rekognition.Model.CreateCollectionResponse.ICreateCollectionResponse;
+  ICreateDatasetRequest = AWS.Rekognition.Model.CreateDatasetRequest.ICreateDatasetRequest;
+  ICreateDatasetResponse = AWS.Rekognition.Model.CreateDatasetResponse.ICreateDatasetResponse;
   ICreateProjectRequest = AWS.Rekognition.Model.CreateProjectRequest.ICreateProjectRequest;
   ICreateProjectResponse = AWS.Rekognition.Model.CreateProjectResponse.ICreateProjectResponse;
   ICreateProjectVersionRequest = AWS.Rekognition.Model.CreateProjectVersionRequest.ICreateProjectVersionRequest;
@@ -261,8 +301,17 @@ type
   ICreateStreamProcessorRequest = AWS.Rekognition.Model.CreateStreamProcessorRequest.ICreateStreamProcessorRequest;
   ICreateStreamProcessorResponse = AWS.Rekognition.Model.CreateStreamProcessorResponse.ICreateStreamProcessorResponse;
   ICustomLabel = AWS.Rekognition.Model.CustomLabel.ICustomLabel;
+  IDatasetChanges = AWS.Rekognition.Model.DatasetChanges.IDatasetChanges;
+  IDatasetDescription = AWS.Rekognition.Model.DatasetDescription.IDatasetDescription;
+  IDatasetLabelDescription = AWS.Rekognition.Model.DatasetLabelDescription.IDatasetLabelDescription;
+  IDatasetLabelStats = AWS.Rekognition.Model.DatasetLabelStats.IDatasetLabelStats;
+  IDatasetMetadata = AWS.Rekognition.Model.DatasetMetadata.IDatasetMetadata;
+  IDatasetSource = AWS.Rekognition.Model.DatasetSource.IDatasetSource;
+  IDatasetStats = AWS.Rekognition.Model.DatasetStats.IDatasetStats;
   IDeleteCollectionRequest = AWS.Rekognition.Model.DeleteCollectionRequest.IDeleteCollectionRequest;
   IDeleteCollectionResponse = AWS.Rekognition.Model.DeleteCollectionResponse.IDeleteCollectionResponse;
+  IDeleteDatasetRequest = AWS.Rekognition.Model.DeleteDatasetRequest.IDeleteDatasetRequest;
+  IDeleteDatasetResponse = AWS.Rekognition.Model.DeleteDatasetResponse.IDeleteDatasetResponse;
   IDeleteFacesRequest = AWS.Rekognition.Model.DeleteFacesRequest.IDeleteFacesRequest;
   IDeleteFacesResponse = AWS.Rekognition.Model.DeleteFacesResponse.IDeleteFacesResponse;
   IDeleteProjectRequest = AWS.Rekognition.Model.DeleteProjectRequest.IDeleteProjectRequest;
@@ -273,6 +322,8 @@ type
   IDeleteStreamProcessorResponse = AWS.Rekognition.Model.DeleteStreamProcessorResponse.IDeleteStreamProcessorResponse;
   IDescribeCollectionRequest = AWS.Rekognition.Model.DescribeCollectionRequest.IDescribeCollectionRequest;
   IDescribeCollectionResponse = AWS.Rekognition.Model.DescribeCollectionResponse.IDescribeCollectionResponse;
+  IDescribeDatasetRequest = AWS.Rekognition.Model.DescribeDatasetRequest.IDescribeDatasetRequest;
+  IDescribeDatasetResponse = AWS.Rekognition.Model.DescribeDatasetResponse.IDescribeDatasetResponse;
   IDescribeProjectsRequest = AWS.Rekognition.Model.DescribeProjectsRequest.IDescribeProjectsRequest;
   IDescribeProjectsResponse = AWS.Rekognition.Model.DescribeProjectsResponse.IDescribeProjectsResponse;
   IDescribeProjectVersionsRequest = AWS.Rekognition.Model.DescribeProjectVersionsRequest.IDescribeProjectVersionsRequest;
@@ -293,6 +344,9 @@ type
   IDetectTextFilters = AWS.Rekognition.Model.DetectTextFilters.IDetectTextFilters;
   IDetectTextRequest = AWS.Rekognition.Model.DetectTextRequest.IDetectTextRequest;
   IDetectTextResponse = AWS.Rekognition.Model.DetectTextResponse.IDetectTextResponse;
+  IDistributeDataset = AWS.Rekognition.Model.DistributeDataset.IDistributeDataset;
+  IDistributeDatasetEntriesRequest = AWS.Rekognition.Model.DistributeDatasetEntriesRequest.IDistributeDatasetEntriesRequest;
+  IDistributeDatasetEntriesResponse = AWS.Rekognition.Model.DistributeDatasetEntriesResponse.IDistributeDatasetEntriesResponse;
   IEmotion = AWS.Rekognition.Model.Emotion.IEmotion;
   IEquipmentDetection = AWS.Rekognition.Model.EquipmentDetection.IEquipmentDetection;
   IEvaluationResult = AWS.Rekognition.Model.EvaluationResult.IEvaluationResult;
@@ -335,11 +389,17 @@ type
   IInstance = AWS.Rekognition.Model.Instance.IInstance;
   IKinesisDataStream = AWS.Rekognition.Model.KinesisDataStream.IKinesisDataStream;
   IKinesisVideoStream = AWS.Rekognition.Model.KinesisVideoStream.IKinesisVideoStream;
+  IKinesisVideoStreamStartSelector = AWS.Rekognition.Model.KinesisVideoStreamStartSelector.IKinesisVideoStreamStartSelector;
+  IKnownGender = AWS.Rekognition.Model.KnownGender.IKnownGender;
   ILabel = AWS.Rekognition.Model.LabelTypes.ILabel;
   ILabelDetection = AWS.Rekognition.Model.LabelDetection.ILabelDetection;
   ILandmark = AWS.Rekognition.Model.Landmark.ILandmark;
   IListCollectionsRequest = AWS.Rekognition.Model.ListCollectionsRequest.IListCollectionsRequest;
   IListCollectionsResponse = AWS.Rekognition.Model.ListCollectionsResponse.IListCollectionsResponse;
+  IListDatasetEntriesRequest = AWS.Rekognition.Model.ListDatasetEntriesRequest.IListDatasetEntriesRequest;
+  IListDatasetEntriesResponse = AWS.Rekognition.Model.ListDatasetEntriesResponse.IListDatasetEntriesResponse;
+  IListDatasetLabelsRequest = AWS.Rekognition.Model.ListDatasetLabelsRequest.IListDatasetLabelsRequest;
+  IListDatasetLabelsResponse = AWS.Rekognition.Model.ListDatasetLabelsResponse.IListDatasetLabelsResponse;
   IListFacesRequest = AWS.Rekognition.Model.ListFacesRequest.IListFacesRequest;
   IListFacesResponse = AWS.Rekognition.Model.ListFacesResponse.IListFacesResponse;
   IListStreamProcessorsRequest = AWS.Rekognition.Model.ListStreamProcessorsRequest.IListStreamProcessorsRequest;
@@ -366,6 +426,7 @@ type
   IRecognizeCelebritiesRequest = AWS.Rekognition.Model.RecognizeCelebritiesRequest.IRecognizeCelebritiesRequest;
   IRecognizeCelebritiesResponse = AWS.Rekognition.Model.RecognizeCelebritiesResponse.IRecognizeCelebritiesResponse;
   IRegionOfInterest = AWS.Rekognition.Model.RegionOfInterest.IRegionOfInterest;
+  IS3Destination = AWS.Rekognition.Model.S3Destination.IS3Destination;
   IS3Object = AWS.Rekognition.Model.S3Object.IS3Object;
   ISearchFacesByImageRequest = AWS.Rekognition.Model.SearchFacesByImageRequest.ISearchFacesByImageRequest;
   ISearchFacesByImageResponse = AWS.Rekognition.Model.SearchFacesByImageResponse.ISearchFacesByImageResponse;
@@ -403,10 +464,15 @@ type
   IStopProjectVersionResponse = AWS.Rekognition.Model.StopProjectVersionResponse.IStopProjectVersionResponse;
   IStopStreamProcessorRequest = AWS.Rekognition.Model.StopStreamProcessorRequest.IStopStreamProcessorRequest;
   IStopStreamProcessorResponse = AWS.Rekognition.Model.StopStreamProcessorResponse.IStopStreamProcessorResponse;
+  IStreamProcessingStartSelector = AWS.Rekognition.Model.StreamProcessingStartSelector.IStreamProcessingStartSelector;
+  IStreamProcessingStopSelector = AWS.Rekognition.Model.StreamProcessingStopSelector.IStreamProcessingStopSelector;
   IStreamProcessor = AWS.Rekognition.Model.StreamProcessor.IStreamProcessor;
+  IStreamProcessorDataSharingPreference = AWS.Rekognition.Model.StreamProcessorDataSharingPreference.IStreamProcessorDataSharingPreference;
   IStreamProcessorInput = AWS.Rekognition.Model.StreamProcessorInput.IStreamProcessorInput;
+  IStreamProcessorNotificationChannel = AWS.Rekognition.Model.StreamProcessorNotificationChannel.IStreamProcessorNotificationChannel;
   IStreamProcessorOutput = AWS.Rekognition.Model.StreamProcessorOutput.IStreamProcessorOutput;
   IStreamProcessorSettings = AWS.Rekognition.Model.StreamProcessorSettings.IStreamProcessorSettings;
+  IStreamProcessorSettingsForUpdate = AWS.Rekognition.Model.StreamProcessorSettingsForUpdate.IStreamProcessorSettingsForUpdate;
   ISummary = AWS.Rekognition.Model.Summary.ISummary;
   ISunglasses = AWS.Rekognition.Model.Sunglasses.ISunglasses;
   ITagResourceRequest = AWS.Rekognition.Model.TagResourceRequest.ITagResourceRequest;
@@ -421,6 +487,10 @@ type
   IUnindexedFace = AWS.Rekognition.Model.UnindexedFace.IUnindexedFace;
   IUntagResourceRequest = AWS.Rekognition.Model.UntagResourceRequest.IUntagResourceRequest;
   IUntagResourceResponse = AWS.Rekognition.Model.UntagResourceResponse.IUntagResourceResponse;
+  IUpdateDatasetEntriesRequest = AWS.Rekognition.Model.UpdateDatasetEntriesRequest.IUpdateDatasetEntriesRequest;
+  IUpdateDatasetEntriesResponse = AWS.Rekognition.Model.UpdateDatasetEntriesResponse.IUpdateDatasetEntriesResponse;
+  IUpdateStreamProcessorRequest = AWS.Rekognition.Model.UpdateStreamProcessorRequest.IUpdateStreamProcessorRequest;
+  IUpdateStreamProcessorResponse = AWS.Rekognition.Model.UpdateStreamProcessorResponse.IUpdateStreamProcessorResponse;
   IValidationData = AWS.Rekognition.Model.ValidationData.IValidationData;
   IVideo = AWS.Rekognition.Model.Video.IVideo;
   IVideoMetadata = AWS.Rekognition.Model.VideoMetadata.IVideoMetadata;
@@ -433,6 +503,7 @@ type
   TAttribute = AWS.Rekognition.Enums.TAttribute;
   TAudioMetadata = AWS.Rekognition.Model.AudioMetadata.TAudioMetadata;
   TBeard = AWS.Rekognition.Model.Beard.TBeard;
+  TBlackFrame = AWS.Rekognition.Model.BlackFrame.TBlackFrame;
   TBodyPart = AWS.Rekognition.Enums.TBodyPart;
   TBoundingBox = AWS.Rekognition.Model.BoundingBox.TBoundingBox;
   TCelebrity = AWS.Rekognition.Model.Celebrity.TCelebrity;
@@ -444,12 +515,16 @@ type
   TCompareFacesMatch = AWS.Rekognition.Model.CompareFacesMatch.TCompareFacesMatch;
   TCompareFacesRequest = AWS.Rekognition.Model.CompareFacesRequest.TCompareFacesRequest;
   TCompareFacesResponse = AWS.Rekognition.Model.CompareFacesResponse.TCompareFacesResponse;
+  TConnectedHomeSettings = AWS.Rekognition.Model.ConnectedHomeSettings.TConnectedHomeSettings;
+  TConnectedHomeSettingsForUpdate = AWS.Rekognition.Model.ConnectedHomeSettingsForUpdate.TConnectedHomeSettingsForUpdate;
   TContentClassifier = AWS.Rekognition.Enums.TContentClassifier;
   TContentModerationDetection = AWS.Rekognition.Model.ContentModerationDetection.TContentModerationDetection;
   TContentModerationSortBy = AWS.Rekognition.Enums.TContentModerationSortBy;
   TCoversBodyPart = AWS.Rekognition.Model.CoversBodyPart.TCoversBodyPart;
   TCreateCollectionRequest = AWS.Rekognition.Model.CreateCollectionRequest.TCreateCollectionRequest;
   TCreateCollectionResponse = AWS.Rekognition.Model.CreateCollectionResponse.TCreateCollectionResponse;
+  TCreateDatasetRequest = AWS.Rekognition.Model.CreateDatasetRequest.TCreateDatasetRequest;
+  TCreateDatasetResponse = AWS.Rekognition.Model.CreateDatasetResponse.TCreateDatasetResponse;
   TCreateProjectRequest = AWS.Rekognition.Model.CreateProjectRequest.TCreateProjectRequest;
   TCreateProjectResponse = AWS.Rekognition.Model.CreateProjectResponse.TCreateProjectResponse;
   TCreateProjectVersionRequest = AWS.Rekognition.Model.CreateProjectVersionRequest.TCreateProjectVersionRequest;
@@ -457,8 +532,20 @@ type
   TCreateStreamProcessorRequest = AWS.Rekognition.Model.CreateStreamProcessorRequest.TCreateStreamProcessorRequest;
   TCreateStreamProcessorResponse = AWS.Rekognition.Model.CreateStreamProcessorResponse.TCreateStreamProcessorResponse;
   TCustomLabel = AWS.Rekognition.Model.CustomLabel.TCustomLabel;
+  TDatasetChanges = AWS.Rekognition.Model.DatasetChanges.TDatasetChanges;
+  TDatasetDescription = AWS.Rekognition.Model.DatasetDescription.TDatasetDescription;
+  TDatasetLabelDescription = AWS.Rekognition.Model.DatasetLabelDescription.TDatasetLabelDescription;
+  TDatasetLabelStats = AWS.Rekognition.Model.DatasetLabelStats.TDatasetLabelStats;
+  TDatasetMetadata = AWS.Rekognition.Model.DatasetMetadata.TDatasetMetadata;
+  TDatasetSource = AWS.Rekognition.Model.DatasetSource.TDatasetSource;
+  TDatasetStats = AWS.Rekognition.Model.DatasetStats.TDatasetStats;
+  TDatasetStatus = AWS.Rekognition.Enums.TDatasetStatus;
+  TDatasetStatusMessageCode = AWS.Rekognition.Enums.TDatasetStatusMessageCode;
+  TDatasetType = AWS.Rekognition.Enums.TDatasetType;
   TDeleteCollectionRequest = AWS.Rekognition.Model.DeleteCollectionRequest.TDeleteCollectionRequest;
   TDeleteCollectionResponse = AWS.Rekognition.Model.DeleteCollectionResponse.TDeleteCollectionResponse;
+  TDeleteDatasetRequest = AWS.Rekognition.Model.DeleteDatasetRequest.TDeleteDatasetRequest;
+  TDeleteDatasetResponse = AWS.Rekognition.Model.DeleteDatasetResponse.TDeleteDatasetResponse;
   TDeleteFacesRequest = AWS.Rekognition.Model.DeleteFacesRequest.TDeleteFacesRequest;
   TDeleteFacesResponse = AWS.Rekognition.Model.DeleteFacesResponse.TDeleteFacesResponse;
   TDeleteProjectRequest = AWS.Rekognition.Model.DeleteProjectRequest.TDeleteProjectRequest;
@@ -469,6 +556,8 @@ type
   TDeleteStreamProcessorResponse = AWS.Rekognition.Model.DeleteStreamProcessorResponse.TDeleteStreamProcessorResponse;
   TDescribeCollectionRequest = AWS.Rekognition.Model.DescribeCollectionRequest.TDescribeCollectionRequest;
   TDescribeCollectionResponse = AWS.Rekognition.Model.DescribeCollectionResponse.TDescribeCollectionResponse;
+  TDescribeDatasetRequest = AWS.Rekognition.Model.DescribeDatasetRequest.TDescribeDatasetRequest;
+  TDescribeDatasetResponse = AWS.Rekognition.Model.DescribeDatasetResponse.TDescribeDatasetResponse;
   TDescribeProjectsRequest = AWS.Rekognition.Model.DescribeProjectsRequest.TDescribeProjectsRequest;
   TDescribeProjectsResponse = AWS.Rekognition.Model.DescribeProjectsResponse.TDescribeProjectsResponse;
   TDescribeProjectVersionsRequest = AWS.Rekognition.Model.DescribeProjectVersionsRequest.TDescribeProjectVersionsRequest;
@@ -489,6 +578,9 @@ type
   TDetectTextFilters = AWS.Rekognition.Model.DetectTextFilters.TDetectTextFilters;
   TDetectTextRequest = AWS.Rekognition.Model.DetectTextRequest.TDetectTextRequest;
   TDetectTextResponse = AWS.Rekognition.Model.DetectTextResponse.TDetectTextResponse;
+  TDistributeDataset = AWS.Rekognition.Model.DistributeDataset.TDistributeDataset;
+  TDistributeDatasetEntriesRequest = AWS.Rekognition.Model.DistributeDatasetEntriesRequest.TDistributeDatasetEntriesRequest;
+  TDistributeDatasetEntriesResponse = AWS.Rekognition.Model.DistributeDatasetEntriesResponse.TDistributeDatasetEntriesResponse;
   TEmotion = AWS.Rekognition.Model.Emotion.TEmotion;
   TEmotionName = AWS.Rekognition.Enums.TEmotionName;
   TEquipmentDetection = AWS.Rekognition.Model.EquipmentDetection.TEquipmentDetection;
@@ -535,6 +627,9 @@ type
   TInstance = AWS.Rekognition.Model.Instance.TInstance;
   TKinesisDataStream = AWS.Rekognition.Model.KinesisDataStream.TKinesisDataStream;
   TKinesisVideoStream = AWS.Rekognition.Model.KinesisVideoStream.TKinesisVideoStream;
+  TKinesisVideoStreamStartSelector = AWS.Rekognition.Model.KinesisVideoStreamStartSelector.TKinesisVideoStreamStartSelector;
+  TKnownGender = AWS.Rekognition.Model.KnownGender.TKnownGender;
+  TKnownGenderType = AWS.Rekognition.Enums.TKnownGenderType;
   TLabel = AWS.Rekognition.Model.LabelTypes.TLabel;
   TLabelDetection = AWS.Rekognition.Model.LabelDetection.TLabelDetection;
   TLabelDetectionSortBy = AWS.Rekognition.Enums.TLabelDetectionSortBy;
@@ -542,6 +637,10 @@ type
   TLandmarkType = AWS.Rekognition.Enums.TLandmarkType;
   TListCollectionsRequest = AWS.Rekognition.Model.ListCollectionsRequest.TListCollectionsRequest;
   TListCollectionsResponse = AWS.Rekognition.Model.ListCollectionsResponse.TListCollectionsResponse;
+  TListDatasetEntriesRequest = AWS.Rekognition.Model.ListDatasetEntriesRequest.TListDatasetEntriesRequest;
+  TListDatasetEntriesResponse = AWS.Rekognition.Model.ListDatasetEntriesResponse.TListDatasetEntriesResponse;
+  TListDatasetLabelsRequest = AWS.Rekognition.Model.ListDatasetLabelsRequest.TListDatasetLabelsRequest;
+  TListDatasetLabelsResponse = AWS.Rekognition.Model.ListDatasetLabelsResponse.TListDatasetLabelsResponse;
   TListFacesRequest = AWS.Rekognition.Model.ListFacesRequest.TListFacesRequest;
   TListFacesResponse = AWS.Rekognition.Model.ListFacesResponse.TListFacesResponse;
   TListStreamProcessorsRequest = AWS.Rekognition.Model.ListStreamProcessorsRequest.TListStreamProcessorsRequest;
@@ -575,6 +674,7 @@ type
   TRecognizeCelebritiesRequest = AWS.Rekognition.Model.RecognizeCelebritiesRequest.TRecognizeCelebritiesRequest;
   TRecognizeCelebritiesResponse = AWS.Rekognition.Model.RecognizeCelebritiesResponse.TRecognizeCelebritiesResponse;
   TRegionOfInterest = AWS.Rekognition.Model.RegionOfInterest.TRegionOfInterest;
+  TS3Destination = AWS.Rekognition.Model.S3Destination.TS3Destination;
   TS3Object = AWS.Rekognition.Model.S3Object.TS3Object;
   TSearchFacesByImageRequest = AWS.Rekognition.Model.SearchFacesByImageRequest.TSearchFacesByImageRequest;
   TSearchFacesByImageResponse = AWS.Rekognition.Model.SearchFacesByImageResponse.TSearchFacesByImageResponse;
@@ -613,10 +713,16 @@ type
   TStopProjectVersionResponse = AWS.Rekognition.Model.StopProjectVersionResponse.TStopProjectVersionResponse;
   TStopStreamProcessorRequest = AWS.Rekognition.Model.StopStreamProcessorRequest.TStopStreamProcessorRequest;
   TStopStreamProcessorResponse = AWS.Rekognition.Model.StopStreamProcessorResponse.TStopStreamProcessorResponse;
+  TStreamProcessingStartSelector = AWS.Rekognition.Model.StreamProcessingStartSelector.TStreamProcessingStartSelector;
+  TStreamProcessingStopSelector = AWS.Rekognition.Model.StreamProcessingStopSelector.TStreamProcessingStopSelector;
   TStreamProcessor = AWS.Rekognition.Model.StreamProcessor.TStreamProcessor;
+  TStreamProcessorDataSharingPreference = AWS.Rekognition.Model.StreamProcessorDataSharingPreference.TStreamProcessorDataSharingPreference;
   TStreamProcessorInput = AWS.Rekognition.Model.StreamProcessorInput.TStreamProcessorInput;
+  TStreamProcessorNotificationChannel = AWS.Rekognition.Model.StreamProcessorNotificationChannel.TStreamProcessorNotificationChannel;
   TStreamProcessorOutput = AWS.Rekognition.Model.StreamProcessorOutput.TStreamProcessorOutput;
+  TStreamProcessorParameterToDelete = AWS.Rekognition.Enums.TStreamProcessorParameterToDelete;
   TStreamProcessorSettings = AWS.Rekognition.Model.StreamProcessorSettings.TStreamProcessorSettings;
+  TStreamProcessorSettingsForUpdate = AWS.Rekognition.Model.StreamProcessorSettingsForUpdate.TStreamProcessorSettingsForUpdate;
   TStreamProcessorStatus = AWS.Rekognition.Enums.TStreamProcessorStatus;
   TSummary = AWS.Rekognition.Model.Summary.TSummary;
   TSunglasses = AWS.Rekognition.Model.Sunglasses.TSunglasses;
@@ -634,8 +740,13 @@ type
   TUnindexedFace = AWS.Rekognition.Model.UnindexedFace.TUnindexedFace;
   TUntagResourceRequest = AWS.Rekognition.Model.UntagResourceRequest.TUntagResourceRequest;
   TUntagResourceResponse = AWS.Rekognition.Model.UntagResourceResponse.TUntagResourceResponse;
+  TUpdateDatasetEntriesRequest = AWS.Rekognition.Model.UpdateDatasetEntriesRequest.TUpdateDatasetEntriesRequest;
+  TUpdateDatasetEntriesResponse = AWS.Rekognition.Model.UpdateDatasetEntriesResponse.TUpdateDatasetEntriesResponse;
+  TUpdateStreamProcessorRequest = AWS.Rekognition.Model.UpdateStreamProcessorRequest.TUpdateStreamProcessorRequest;
+  TUpdateStreamProcessorResponse = AWS.Rekognition.Model.UpdateStreamProcessorResponse.TUpdateStreamProcessorResponse;
   TValidationData = AWS.Rekognition.Model.ValidationData.TValidationData;
   TVideo = AWS.Rekognition.Model.Video.TVideo;
+  TVideoColorRange = AWS.Rekognition.Enums.TVideoColorRange;
   TVideoJobStatus = AWS.Rekognition.Enums.TVideoJobStatus;
   TVideoMetadata = AWS.Rekognition.Model.VideoMetadata.TVideoMetadata;
   

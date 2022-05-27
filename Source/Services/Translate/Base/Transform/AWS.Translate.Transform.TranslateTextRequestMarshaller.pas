@@ -11,7 +11,8 @@ uses
   AWS.Runtime.Model, 
   AWS.Translate.Model.TranslateTextRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Translate.Transform.TranslationSettingsMarshaller;
 
 type
   ITranslateTextRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -52,6 +53,13 @@ begin
       var Context: TJsonMarshallerContext := TJsonMarshallerContext.Create(Request, Writer);
       try
         Writer.WriteBeginObject;
+        if PublicRequest.IsSetSettings then
+        begin
+          Context.Writer.WriteName('Settings');
+          Context.Writer.WriteBeginObject;
+          TTranslationSettingsMarshaller.Instance.Marshall(PublicRequest.Settings, Context);
+          Context.Writer.WriteEndObject;
+        end;
         if PublicRequest.IsSetSourceLanguageCode then
         begin
           Context.Writer.WriteName('SourceLanguageCode');

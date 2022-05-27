@@ -7,6 +7,7 @@ uses
   AWS.Transform.JsonUnmarshallerContext, 
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Internal.Request, 
+  AWS.Translate.Transform.EncryptionKeyUnmarshaller, 
   AWS.Transform.SimpleTypeUnmarshaller;
 
 type
@@ -37,12 +38,20 @@ begin
       Exit(nil);
     TargetDepth := AContext.CurrentDepth;
     while AContext.ReadAtDepth(TargetDepth) do
+    begin
+      if AContext.TestExpression('EncryptionKey', TargetDepth) then
+      begin
+        var Unmarshaller := TEncryptionKeyUnmarshaller.JsonInstance;
+        UnmarshalledObject.EncryptionKey := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
       if AContext.TestExpression('S3Uri', TargetDepth) then
       begin
         var Unmarshaller := TStringUnmarshaller.JsonInstance;
         UnmarshalledObject.S3Uri := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
+    end;
     Result := UnmarshalledObject;
     UnmarshalledObject := nil;
   finally

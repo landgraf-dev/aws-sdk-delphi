@@ -4,10 +4,12 @@ interface
 
 uses
   Bcl.Types.Nullable, 
+  System.Generics.Collections, 
   AWS.Transcribe.Model.Request, 
   AWS.Transcribe.Enums, 
   AWS.Transcribe.Model.Media, 
-  AWS.Transcribe.Model.MedicalTranscriptionSetting;
+  AWS.Transcribe.Model.MedicalTranscriptionSetting, 
+  AWS.Transcribe.Model.Tag;
 
 type
   TStartMedicalTranscriptionJobRequest = class;
@@ -15,6 +17,10 @@ type
   IStartMedicalTranscriptionJobRequest = interface
     function GetContentIdentificationType: TMedicalContentIdentificationType;
     procedure SetContentIdentificationType(const Value: TMedicalContentIdentificationType);
+    function GetKMSEncryptionContext: TDictionary<string, string>;
+    procedure SetKMSEncryptionContext(const Value: TDictionary<string, string>);
+    function GetKeepKMSEncryptionContext: Boolean;
+    procedure SetKeepKMSEncryptionContext(const Value: Boolean);
     function GetLanguageCode: TLanguageCode;
     procedure SetLanguageCode(const Value: TLanguageCode);
     function GetMedia: TMedia;
@@ -39,10 +45,15 @@ type
     procedure SetKeepSettings(const Value: Boolean);
     function GetSpecialty: TSpecialty;
     procedure SetSpecialty(const Value: TSpecialty);
+    function GetTags: TObjectList<TTag>;
+    procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetType: TType;
     procedure SetType(const Value: TType);
     function Obj: TStartMedicalTranscriptionJobRequest;
     function IsSetContentIdentificationType: Boolean;
+    function IsSetKMSEncryptionContext: Boolean;
     function IsSetLanguageCode: Boolean;
     function IsSetMedia: Boolean;
     function IsSetMediaFormat: Boolean;
@@ -53,8 +64,11 @@ type
     function IsSetOutputKey: Boolean;
     function IsSetSettings: Boolean;
     function IsSetSpecialty: Boolean;
+    function IsSetTags: Boolean;
     function IsSetType: Boolean;
     property ContentIdentificationType: TMedicalContentIdentificationType read GetContentIdentificationType write SetContentIdentificationType;
+    property KMSEncryptionContext: TDictionary<string, string> read GetKMSEncryptionContext write SetKMSEncryptionContext;
+    property KeepKMSEncryptionContext: Boolean read GetKeepKMSEncryptionContext write SetKeepKMSEncryptionContext;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
     property Media: TMedia read GetMedia write SetMedia;
     property KeepMedia: Boolean read GetKeepMedia write SetKeepMedia;
@@ -67,12 +81,16 @@ type
     property Settings: TMedicalTranscriptionSetting read GetSettings write SetSettings;
     property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property Specialty: TSpecialty read GetSpecialty write SetSpecialty;
+    property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property &Type: TType read GetType write SetType;
   end;
   
   TStartMedicalTranscriptionJobRequest = class(TAmazonTranscribeServiceRequest, IStartMedicalTranscriptionJobRequest)
   strict private
     FContentIdentificationType: Nullable<TMedicalContentIdentificationType>;
+    FKMSEncryptionContext: TDictionary<string, string>;
+    FKeepKMSEncryptionContext: Boolean;
     FLanguageCode: Nullable<TLanguageCode>;
     FMedia: TMedia;
     FKeepMedia: Boolean;
@@ -85,9 +103,15 @@ type
     FSettings: TMedicalTranscriptionSetting;
     FKeepSettings: Boolean;
     FSpecialty: Nullable<TSpecialty>;
+    FTags: TObjectList<TTag>;
+    FKeepTags: Boolean;
     FType: Nullable<TType>;
     function GetContentIdentificationType: TMedicalContentIdentificationType;
     procedure SetContentIdentificationType(const Value: TMedicalContentIdentificationType);
+    function GetKMSEncryptionContext: TDictionary<string, string>;
+    procedure SetKMSEncryptionContext(const Value: TDictionary<string, string>);
+    function GetKeepKMSEncryptionContext: Boolean;
+    procedure SetKeepKMSEncryptionContext(const Value: Boolean);
     function GetLanguageCode: TLanguageCode;
     procedure SetLanguageCode(const Value: TLanguageCode);
     function GetMedia: TMedia;
@@ -112,13 +136,19 @@ type
     procedure SetKeepSettings(const Value: Boolean);
     function GetSpecialty: TSpecialty;
     procedure SetSpecialty(const Value: TSpecialty);
+    function GetTags: TObjectList<TTag>;
+    procedure SetTags(const Value: TObjectList<TTag>);
+    function GetKeepTags: Boolean;
+    procedure SetKeepTags(const Value: Boolean);
     function GetType: TType;
     procedure SetType(const Value: TType);
   strict protected
     function Obj: TStartMedicalTranscriptionJobRequest;
   public
+    constructor Create;
     destructor Destroy; override;
     function IsSetContentIdentificationType: Boolean;
+    function IsSetKMSEncryptionContext: Boolean;
     function IsSetLanguageCode: Boolean;
     function IsSetMedia: Boolean;
     function IsSetMediaFormat: Boolean;
@@ -129,8 +159,11 @@ type
     function IsSetOutputKey: Boolean;
     function IsSetSettings: Boolean;
     function IsSetSpecialty: Boolean;
+    function IsSetTags: Boolean;
     function IsSetType: Boolean;
     property ContentIdentificationType: TMedicalContentIdentificationType read GetContentIdentificationType write SetContentIdentificationType;
+    property KMSEncryptionContext: TDictionary<string, string> read GetKMSEncryptionContext write SetKMSEncryptionContext;
+    property KeepKMSEncryptionContext: Boolean read GetKeepKMSEncryptionContext write SetKeepKMSEncryptionContext;
     property LanguageCode: TLanguageCode read GetLanguageCode write SetLanguageCode;
     property Media: TMedia read GetMedia write SetMedia;
     property KeepMedia: Boolean read GetKeepMedia write SetKeepMedia;
@@ -143,6 +176,8 @@ type
     property Settings: TMedicalTranscriptionSetting read GetSettings write SetSettings;
     property KeepSettings: Boolean read GetKeepSettings write SetKeepSettings;
     property Specialty: TSpecialty read GetSpecialty write SetSpecialty;
+    property Tags: TObjectList<TTag> read GetTags write SetTags;
+    property KeepTags: Boolean read GetKeepTags write SetKeepTags;
     property &Type: TType read GetType write SetType;
   end;
   
@@ -150,10 +185,19 @@ implementation
 
 { TStartMedicalTranscriptionJobRequest }
 
+constructor TStartMedicalTranscriptionJobRequest.Create;
+begin
+  inherited;
+  FKMSEncryptionContext := TDictionary<string, string>.Create;
+  FTags := TObjectList<TTag>.Create;
+end;
+
 destructor TStartMedicalTranscriptionJobRequest.Destroy;
 begin
+  Tags := nil;
   Settings := nil;
   Media := nil;
+  KMSEncryptionContext := nil;
   inherited;
 end;
 
@@ -175,6 +219,36 @@ end;
 function TStartMedicalTranscriptionJobRequest.IsSetContentIdentificationType: Boolean;
 begin
   Result := FContentIdentificationType.HasValue;
+end;
+
+function TStartMedicalTranscriptionJobRequest.GetKMSEncryptionContext: TDictionary<string, string>;
+begin
+  Result := FKMSEncryptionContext;
+end;
+
+procedure TStartMedicalTranscriptionJobRequest.SetKMSEncryptionContext(const Value: TDictionary<string, string>);
+begin
+  if FKMSEncryptionContext <> Value then
+  begin
+    if not KeepKMSEncryptionContext then
+      FKMSEncryptionContext.Free;
+    FKMSEncryptionContext := Value;
+  end;
+end;
+
+function TStartMedicalTranscriptionJobRequest.GetKeepKMSEncryptionContext: Boolean;
+begin
+  Result := FKeepKMSEncryptionContext;
+end;
+
+procedure TStartMedicalTranscriptionJobRequest.SetKeepKMSEncryptionContext(const Value: Boolean);
+begin
+  FKeepKMSEncryptionContext := Value;
+end;
+
+function TStartMedicalTranscriptionJobRequest.IsSetKMSEncryptionContext: Boolean;
+begin
+  Result := (FKMSEncryptionContext <> nil) and (FKMSEncryptionContext.Count > 0);
 end;
 
 function TStartMedicalTranscriptionJobRequest.GetLanguageCode: TLanguageCode;
@@ -355,6 +429,36 @@ end;
 function TStartMedicalTranscriptionJobRequest.IsSetSpecialty: Boolean;
 begin
   Result := FSpecialty.HasValue;
+end;
+
+function TStartMedicalTranscriptionJobRequest.GetTags: TObjectList<TTag>;
+begin
+  Result := FTags;
+end;
+
+procedure TStartMedicalTranscriptionJobRequest.SetTags(const Value: TObjectList<TTag>);
+begin
+  if FTags <> Value then
+  begin
+    if not KeepTags then
+      FTags.Free;
+    FTags := Value;
+  end;
+end;
+
+function TStartMedicalTranscriptionJobRequest.GetKeepTags: Boolean;
+begin
+  Result := FKeepTags;
+end;
+
+procedure TStartMedicalTranscriptionJobRequest.SetKeepTags(const Value: Boolean);
+begin
+  FKeepTags := Value;
+end;
+
+function TStartMedicalTranscriptionJobRequest.IsSetTags: Boolean;
+begin
+  Result := (FTags <> nil) and (FTags.Count > 0);
 end;
 
 function TStartMedicalTranscriptionJobRequest.GetType: TType;

@@ -14,9 +14,12 @@ uses
   AWS.SDKUtils, 
   AWS.Transcribe.Transform.ContentRedactionMarshaller, 
   AWS.Transcribe.Transform.JobExecutionSettingsMarshaller, 
+  AWS.Transcribe.Transform.LanguageIdSettingsMarshaller, 
   AWS.Transcribe.Transform.MediaMarshaller, 
   AWS.Transcribe.Transform.ModelSettingsMarshaller, 
-  AWS.Transcribe.Transform.SettingsMarshaller;
+  AWS.Transcribe.Transform.SettingsMarshaller, 
+  AWS.Transcribe.Transform.SubtitlesMarshaller, 
+  AWS.Transcribe.Transform.TagMarshaller;
 
 type
   IStartTranscriptionJobRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -76,10 +79,36 @@ begin
           TJobExecutionSettingsMarshaller.Instance.Marshall(PublicRequest.JobExecutionSettings, Context);
           Context.Writer.WriteEndObject;
         end;
+        if PublicRequest.IsSetKMSEncryptionContext then
+        begin
+          Context.Writer.WriteName('KMSEncryptionContext');
+          Context.Writer.WriteBeginObject;
+          for var PublicRequestKMSEncryptionContextKvp in PublicRequest.KMSEncryptionContext do
+          begin
+            Context.Writer.WriteName(PublicRequestKMSEncryptionContextKvp.Key);
+            var PublicRequestKMSEncryptionContextValue := PublicRequestKMSEncryptionContextKvp.Value;
+            Context.Writer.WriteString(PublicRequestKMSEncryptionContextValue);
+          end;
+          Context.Writer.WriteEndObject;
+        end;
         if PublicRequest.IsSetLanguageCode then
         begin
           Context.Writer.WriteName('LanguageCode');
           Context.Writer.WriteString(PublicRequest.LanguageCode.Value);
+        end;
+        if PublicRequest.IsSetLanguageIdSettings then
+        begin
+          Context.Writer.WriteName('LanguageIdSettings');
+          Context.Writer.WriteBeginObject;
+          for var PublicRequestLanguageIdSettingsKvp in PublicRequest.LanguageIdSettings do
+          begin
+            Context.Writer.WriteName(PublicRequestLanguageIdSettingsKvp.Key);
+            var PublicRequestLanguageIdSettingsValue := PublicRequestLanguageIdSettingsKvp.Value;
+            Context.Writer.WriteBeginObject;
+            TLanguageIdSettingsMarshaller.Instance.Marshall(PublicRequestLanguageIdSettingsValue, Context);
+            Context.Writer.WriteEndObject;
+          end;
+          Context.Writer.WriteEndObject;
         end;
         if PublicRequest.IsSetLanguageOptions then
         begin
@@ -134,6 +163,25 @@ begin
           Context.Writer.WriteBeginObject;
           TSettingsMarshaller.Instance.Marshall(PublicRequest.Settings, Context);
           Context.Writer.WriteEndObject;
+        end;
+        if PublicRequest.IsSetSubtitles then
+        begin
+          Context.Writer.WriteName('Subtitles');
+          Context.Writer.WriteBeginObject;
+          TSubtitlesMarshaller.Instance.Marshall(PublicRequest.Subtitles, Context);
+          Context.Writer.WriteEndObject;
+        end;
+        if PublicRequest.IsSetTags then
+        begin
+          Context.Writer.WriteName('Tags');
+          Context.Writer.WriteBeginArray;
+          for var PublicRequestTagsListValue in PublicRequest.Tags do
+          begin
+            Context.Writer.WriteBeginObject;
+            TTagMarshaller.Instance.Marshall(PublicRequestTagsListValue, Context);
+            Context.Writer.WriteEndObject;
+          end;
+          Context.Writer.WriteEndArray;
         end;
         if PublicRequest.IsSetTranscriptionJobName then
         begin

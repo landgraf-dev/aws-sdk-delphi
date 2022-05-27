@@ -5,7 +5,8 @@ interface
 uses
   Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.Rekognition.Model.ComparedFace;
+  AWS.Rekognition.Model.ComparedFace, 
+  AWS.Rekognition.Model.KnownGender;
 
 type
   TCelebrity = class;
@@ -17,6 +18,10 @@ type
     procedure SetKeepFace(const Value: Boolean);
     function GetId: string;
     procedure SetId(const Value: string);
+    function GetKnownGender: TKnownGender;
+    procedure SetKnownGender(const Value: TKnownGender);
+    function GetKeepKnownGender: Boolean;
+    procedure SetKeepKnownGender(const Value: Boolean);
     function GetMatchConfidence: Double;
     procedure SetMatchConfidence(const Value: Double);
     function GetName: string;
@@ -28,12 +33,15 @@ type
     function Obj: TCelebrity;
     function IsSetFace: Boolean;
     function IsSetId: Boolean;
+    function IsSetKnownGender: Boolean;
     function IsSetMatchConfidence: Boolean;
     function IsSetName: Boolean;
     function IsSetUrls: Boolean;
     property Face: TComparedFace read GetFace write SetFace;
     property KeepFace: Boolean read GetKeepFace write SetKeepFace;
     property Id: string read GetId write SetId;
+    property KnownGender: TKnownGender read GetKnownGender write SetKnownGender;
+    property KeepKnownGender: Boolean read GetKeepKnownGender write SetKeepKnownGender;
     property MatchConfidence: Double read GetMatchConfidence write SetMatchConfidence;
     property Name: string read GetName write SetName;
     property Urls: TList<string> read GetUrls write SetUrls;
@@ -45,6 +53,8 @@ type
     FFace: TComparedFace;
     FKeepFace: Boolean;
     FId: Nullable<string>;
+    FKnownGender: TKnownGender;
+    FKeepKnownGender: Boolean;
     FMatchConfidence: Nullable<Double>;
     FName: Nullable<string>;
     FUrls: TList<string>;
@@ -55,6 +65,10 @@ type
     procedure SetKeepFace(const Value: Boolean);
     function GetId: string;
     procedure SetId(const Value: string);
+    function GetKnownGender: TKnownGender;
+    procedure SetKnownGender(const Value: TKnownGender);
+    function GetKeepKnownGender: Boolean;
+    procedure SetKeepKnownGender(const Value: Boolean);
     function GetMatchConfidence: Double;
     procedure SetMatchConfidence(const Value: Double);
     function GetName: string;
@@ -70,12 +84,15 @@ type
     destructor Destroy; override;
     function IsSetFace: Boolean;
     function IsSetId: Boolean;
+    function IsSetKnownGender: Boolean;
     function IsSetMatchConfidence: Boolean;
     function IsSetName: Boolean;
     function IsSetUrls: Boolean;
     property Face: TComparedFace read GetFace write SetFace;
     property KeepFace: Boolean read GetKeepFace write SetKeepFace;
     property Id: string read GetId write SetId;
+    property KnownGender: TKnownGender read GetKnownGender write SetKnownGender;
+    property KeepKnownGender: Boolean read GetKeepKnownGender write SetKeepKnownGender;
     property MatchConfidence: Double read GetMatchConfidence write SetMatchConfidence;
     property Name: string read GetName write SetName;
     property Urls: TList<string> read GetUrls write SetUrls;
@@ -95,6 +112,7 @@ end;
 destructor TCelebrity.Destroy;
 begin
   Urls := nil;
+  KnownGender := nil;
   Face := nil;
   inherited;
 end;
@@ -147,6 +165,36 @@ end;
 function TCelebrity.IsSetId: Boolean;
 begin
   Result := FId.HasValue;
+end;
+
+function TCelebrity.GetKnownGender: TKnownGender;
+begin
+  Result := FKnownGender;
+end;
+
+procedure TCelebrity.SetKnownGender(const Value: TKnownGender);
+begin
+  if FKnownGender <> Value then
+  begin
+    if not KeepKnownGender then
+      FKnownGender.Free;
+    FKnownGender := Value;
+  end;
+end;
+
+function TCelebrity.GetKeepKnownGender: Boolean;
+begin
+  Result := FKeepKnownGender;
+end;
+
+procedure TCelebrity.SetKeepKnownGender(const Value: Boolean);
+begin
+  FKeepKnownGender := Value;
+end;
+
+function TCelebrity.IsSetKnownGender: Boolean;
+begin
+  Result := FKnownGender <> nil;
 end;
 
 function TCelebrity.GetMatchConfidence: Double;

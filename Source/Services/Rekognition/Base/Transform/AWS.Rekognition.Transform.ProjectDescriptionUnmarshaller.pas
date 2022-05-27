@@ -7,7 +7,9 @@ uses
   AWS.Transform.JsonUnmarshallerContext, 
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Internal.Request, 
-  AWS.Transform.SimpleTypeUnmarshaller;
+  AWS.Transform.SimpleTypeUnmarshaller, 
+  AWS.Rekognition.Transform.DatasetMetadataUnmarshaller, 
+  AWS.Rekognition.Model.DatasetMetadata;
 
 type
   IProjectDescriptionUnmarshaller = IUnmarshaller<TProjectDescription, TJsonUnmarshallerContext>;
@@ -42,6 +44,12 @@ begin
       begin
         var Unmarshaller := TDateTimeUnmarshaller.JsonInstance;
         UnmarshalledObject.CreationTimestamp := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('Datasets', TargetDepth) then
+      begin
+        var Unmarshaller := TJsonObjectListUnmarshaller<TDatasetMetadata, IDatasetMetadataUnmarshaller>.JsonNew(TDatasetMetadataUnmarshaller.JsonInstance);
+        UnmarshalledObject.Datasets := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('ProjectArn', TargetDepth) then

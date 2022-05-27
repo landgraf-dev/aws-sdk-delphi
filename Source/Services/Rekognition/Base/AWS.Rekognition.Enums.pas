@@ -70,6 +70,51 @@ type
     property Value: string read FValue;
   end;
   
+  TDatasetStatus = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function CREATE_COMPLETE: TDatasetStatus; static;
+    class function CREATE_FAILED: TDatasetStatus; static;
+    class function CREATE_IN_PROGRESS: TDatasetStatus; static;
+    class function DELETE_IN_PROGRESS: TDatasetStatus; static;
+    class function UPDATE_COMPLETE: TDatasetStatus; static;
+    class function UPDATE_FAILED: TDatasetStatus; static;
+    class function UPDATE_IN_PROGRESS: TDatasetStatus; static;
+    class operator Equal(a: TDatasetStatus; b: TDatasetStatus): Boolean;
+    class operator NotEqual(a: TDatasetStatus; b: TDatasetStatus): Boolean;
+    class operator Implicit(a: string): TDatasetStatus;
+    property Value: string read FValue;
+  end;
+  
+  TDatasetStatusMessageCode = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function CLIENT_ERROR: TDatasetStatusMessageCode; static;
+    class function SERVICE_ERROR: TDatasetStatusMessageCode; static;
+    class function SUCCESS: TDatasetStatusMessageCode; static;
+    class operator Equal(a: TDatasetStatusMessageCode; b: TDatasetStatusMessageCode): Boolean;
+    class operator NotEqual(a: TDatasetStatusMessageCode; b: TDatasetStatusMessageCode): Boolean;
+    class operator Implicit(a: string): TDatasetStatusMessageCode;
+    property Value: string read FValue;
+  end;
+  
+  TDatasetType = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function TEST: TDatasetType; static;
+    class function TRAIN: TDatasetType; static;
+    class operator Equal(a: TDatasetType; b: TDatasetType): Boolean;
+    class operator NotEqual(a: TDatasetType; b: TDatasetType): Boolean;
+    class operator Implicit(a: string): TDatasetType;
+    property Value: string read FValue;
+  end;
+  
   TEmotionName = record
   strict private
     FValue: string;
@@ -126,6 +171,21 @@ type
     class operator Equal(a: TGenderType; b: TGenderType): Boolean;
     class operator NotEqual(a: TGenderType; b: TGenderType): Boolean;
     class operator Implicit(a: string): TGenderType;
+    property Value: string read FValue;
+  end;
+  
+  TKnownGenderType = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function Female: TKnownGenderType; static;
+    class function Male: TKnownGenderType; static;
+    class function Nonbinary: TKnownGenderType; static;
+    class function Unlisted: TKnownGenderType; static;
+    class operator Equal(a: TKnownGenderType; b: TKnownGenderType): Boolean;
+    class operator NotEqual(a: TKnownGenderType; b: TKnownGenderType): Boolean;
+    class operator Implicit(a: string): TKnownGenderType;
     property Value: string read FValue;
   end;
   
@@ -306,6 +366,19 @@ type
     property Value: string read FValue;
   end;
   
+  TStreamProcessorParameterToDelete = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function ConnectedHomeMinConfidence: TStreamProcessorParameterToDelete; static;
+    class function RegionsOfInterest: TStreamProcessorParameterToDelete; static;
+    class operator Equal(a: TStreamProcessorParameterToDelete; b: TStreamProcessorParameterToDelete): Boolean;
+    class operator NotEqual(a: TStreamProcessorParameterToDelete; b: TStreamProcessorParameterToDelete): Boolean;
+    class operator Implicit(a: string): TStreamProcessorParameterToDelete;
+    property Value: string read FValue;
+  end;
+  
   TStreamProcessorStatus = record
   strict private
     FValue: string;
@@ -316,6 +389,7 @@ type
     class function STARTING: TStreamProcessorStatus; static;
     class function STOPPED: TStreamProcessorStatus; static;
     class function STOPPING: TStreamProcessorStatus; static;
+    class function UPDATING: TStreamProcessorStatus; static;
     class operator Equal(a: TStreamProcessorStatus; b: TStreamProcessorStatus): Boolean;
     class operator NotEqual(a: TStreamProcessorStatus; b: TStreamProcessorStatus): Boolean;
     class operator Implicit(a: string): TStreamProcessorStatus;
@@ -329,7 +403,11 @@ type
     constructor Create(const AValue: string);
     class function BlackFrames: TTechnicalCueType; static;
     class function ColorBars: TTechnicalCueType; static;
+    class function Content: TTechnicalCueType; static;
     class function EndCredits: TTechnicalCueType; static;
+    class function OpeningCredits: TTechnicalCueType; static;
+    class function Slate: TTechnicalCueType; static;
+    class function StudioLogo: TTechnicalCueType; static;
     class operator Equal(a: TTechnicalCueType; b: TTechnicalCueType): Boolean;
     class operator NotEqual(a: TTechnicalCueType; b: TTechnicalCueType): Boolean;
     class operator Implicit(a: string): TTechnicalCueType;
@@ -346,6 +424,19 @@ type
     class operator Equal(a: TTextTypes; b: TTextTypes): Boolean;
     class operator NotEqual(a: TTextTypes; b: TTextTypes): Boolean;
     class operator Implicit(a: string): TTextTypes;
+    property Value: string read FValue;
+  end;
+  
+  TVideoColorRange = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function FULL: TVideoColorRange; static;
+    class function LIMITED: TVideoColorRange; static;
+    class operator Equal(a: TVideoColorRange; b: TVideoColorRange): Boolean;
+    class operator NotEqual(a: TVideoColorRange; b: TVideoColorRange): Boolean;
+    class operator Implicit(a: string): TVideoColorRange;
     property Value: string read FValue;
   end;
   
@@ -535,6 +626,132 @@ begin
   Result.FValue := a;;
 end;
 
+{ TDatasetStatus }
+
+constructor TDatasetStatus.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TDatasetStatus.CREATE_COMPLETE: TDatasetStatus;
+begin
+  Result := TDatasetStatus.Create('CREATE_COMPLETE');
+end;
+
+class function TDatasetStatus.CREATE_FAILED: TDatasetStatus;
+begin
+  Result := TDatasetStatus.Create('CREATE_FAILED');
+end;
+
+class function TDatasetStatus.CREATE_IN_PROGRESS: TDatasetStatus;
+begin
+  Result := TDatasetStatus.Create('CREATE_IN_PROGRESS');
+end;
+
+class function TDatasetStatus.DELETE_IN_PROGRESS: TDatasetStatus;
+begin
+  Result := TDatasetStatus.Create('DELETE_IN_PROGRESS');
+end;
+
+class function TDatasetStatus.UPDATE_COMPLETE: TDatasetStatus;
+begin
+  Result := TDatasetStatus.Create('UPDATE_COMPLETE');
+end;
+
+class function TDatasetStatus.UPDATE_FAILED: TDatasetStatus;
+begin
+  Result := TDatasetStatus.Create('UPDATE_FAILED');
+end;
+
+class function TDatasetStatus.UPDATE_IN_PROGRESS: TDatasetStatus;
+begin
+  Result := TDatasetStatus.Create('UPDATE_IN_PROGRESS');
+end;
+
+class operator TDatasetStatus.Equal(a: TDatasetStatus; b: TDatasetStatus): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TDatasetStatus.NotEqual(a: TDatasetStatus; b: TDatasetStatus): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TDatasetStatus.Implicit(a: string): TDatasetStatus;
+begin
+  Result.FValue := a;;
+end;
+
+{ TDatasetStatusMessageCode }
+
+constructor TDatasetStatusMessageCode.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TDatasetStatusMessageCode.CLIENT_ERROR: TDatasetStatusMessageCode;
+begin
+  Result := TDatasetStatusMessageCode.Create('CLIENT_ERROR');
+end;
+
+class function TDatasetStatusMessageCode.SERVICE_ERROR: TDatasetStatusMessageCode;
+begin
+  Result := TDatasetStatusMessageCode.Create('SERVICE_ERROR');
+end;
+
+class function TDatasetStatusMessageCode.SUCCESS: TDatasetStatusMessageCode;
+begin
+  Result := TDatasetStatusMessageCode.Create('SUCCESS');
+end;
+
+class operator TDatasetStatusMessageCode.Equal(a: TDatasetStatusMessageCode; b: TDatasetStatusMessageCode): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TDatasetStatusMessageCode.NotEqual(a: TDatasetStatusMessageCode; b: TDatasetStatusMessageCode): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TDatasetStatusMessageCode.Implicit(a: string): TDatasetStatusMessageCode;
+begin
+  Result.FValue := a;;
+end;
+
+{ TDatasetType }
+
+constructor TDatasetType.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TDatasetType.TEST: TDatasetType;
+begin
+  Result := TDatasetType.Create('TEST');
+end;
+
+class function TDatasetType.TRAIN: TDatasetType;
+begin
+  Result := TDatasetType.Create('TRAIN');
+end;
+
+class operator TDatasetType.Equal(a: TDatasetType; b: TDatasetType): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TDatasetType.NotEqual(a: TDatasetType; b: TDatasetType): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TDatasetType.Implicit(a: string): TDatasetType;
+begin
+  Result.FValue := a;;
+end;
+
 { TEmotionName }
 
 constructor TEmotionName.Create(const AValue: string);
@@ -694,6 +911,48 @@ begin
 end;
 
 class operator TGenderType.Implicit(a: string): TGenderType;
+begin
+  Result.FValue := a;;
+end;
+
+{ TKnownGenderType }
+
+constructor TKnownGenderType.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TKnownGenderType.Female: TKnownGenderType;
+begin
+  Result := TKnownGenderType.Create('Female');
+end;
+
+class function TKnownGenderType.Male: TKnownGenderType;
+begin
+  Result := TKnownGenderType.Create('Male');
+end;
+
+class function TKnownGenderType.Nonbinary: TKnownGenderType;
+begin
+  Result := TKnownGenderType.Create('Nonbinary');
+end;
+
+class function TKnownGenderType.Unlisted: TKnownGenderType;
+begin
+  Result := TKnownGenderType.Create('Unlisted');
+end;
+
+class operator TKnownGenderType.Equal(a: TKnownGenderType; b: TKnownGenderType): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TKnownGenderType.NotEqual(a: TKnownGenderType; b: TKnownGenderType): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TKnownGenderType.Implicit(a: string): TKnownGenderType;
 begin
   Result.FValue := a;;
 end;
@@ -1253,6 +1512,38 @@ begin
   Result.FValue := a;;
 end;
 
+{ TStreamProcessorParameterToDelete }
+
+constructor TStreamProcessorParameterToDelete.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TStreamProcessorParameterToDelete.ConnectedHomeMinConfidence: TStreamProcessorParameterToDelete;
+begin
+  Result := TStreamProcessorParameterToDelete.Create('ConnectedHomeMinConfidence');
+end;
+
+class function TStreamProcessorParameterToDelete.RegionsOfInterest: TStreamProcessorParameterToDelete;
+begin
+  Result := TStreamProcessorParameterToDelete.Create('RegionsOfInterest');
+end;
+
+class operator TStreamProcessorParameterToDelete.Equal(a: TStreamProcessorParameterToDelete; b: TStreamProcessorParameterToDelete): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TStreamProcessorParameterToDelete.NotEqual(a: TStreamProcessorParameterToDelete; b: TStreamProcessorParameterToDelete): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TStreamProcessorParameterToDelete.Implicit(a: string): TStreamProcessorParameterToDelete;
+begin
+  Result.FValue := a;;
+end;
+
 { TStreamProcessorStatus }
 
 constructor TStreamProcessorStatus.Create(const AValue: string);
@@ -1283,6 +1574,11 @@ end;
 class function TStreamProcessorStatus.STOPPING: TStreamProcessorStatus;
 begin
   Result := TStreamProcessorStatus.Create('STOPPING');
+end;
+
+class function TStreamProcessorStatus.UPDATING: TStreamProcessorStatus;
+begin
+  Result := TStreamProcessorStatus.Create('UPDATING');
 end;
 
 class operator TStreamProcessorStatus.Equal(a: TStreamProcessorStatus; b: TStreamProcessorStatus): Boolean;
@@ -1317,9 +1613,29 @@ begin
   Result := TTechnicalCueType.Create('ColorBars');
 end;
 
+class function TTechnicalCueType.Content: TTechnicalCueType;
+begin
+  Result := TTechnicalCueType.Create('Content');
+end;
+
 class function TTechnicalCueType.EndCredits: TTechnicalCueType;
 begin
   Result := TTechnicalCueType.Create('EndCredits');
+end;
+
+class function TTechnicalCueType.OpeningCredits: TTechnicalCueType;
+begin
+  Result := TTechnicalCueType.Create('OpeningCredits');
+end;
+
+class function TTechnicalCueType.Slate: TTechnicalCueType;
+begin
+  Result := TTechnicalCueType.Create('Slate');
+end;
+
+class function TTechnicalCueType.StudioLogo: TTechnicalCueType;
+begin
+  Result := TTechnicalCueType.Create('StudioLogo');
 end;
 
 class operator TTechnicalCueType.Equal(a: TTechnicalCueType; b: TTechnicalCueType): Boolean;
@@ -1365,6 +1681,38 @@ begin
 end;
 
 class operator TTextTypes.Implicit(a: string): TTextTypes;
+begin
+  Result.FValue := a;;
+end;
+
+{ TVideoColorRange }
+
+constructor TVideoColorRange.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TVideoColorRange.FULL: TVideoColorRange;
+begin
+  Result := TVideoColorRange.Create('FULL');
+end;
+
+class function TVideoColorRange.LIMITED: TVideoColorRange;
+begin
+  Result := TVideoColorRange.Create('LIMITED');
+end;
+
+class operator TVideoColorRange.Equal(a: TVideoColorRange; b: TVideoColorRange): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TVideoColorRange.NotEqual(a: TVideoColorRange; b: TVideoColorRange): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TVideoColorRange.Implicit(a: string): TVideoColorRange;
 begin
   Result.FValue := a;;
 end;

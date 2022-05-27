@@ -9,6 +9,7 @@ uses
   AWS.Internal.Request, 
   AWS.Transform.SimpleTypeUnmarshaller, 
   AWS.Textract.Transform.GeometryUnmarshaller, 
+  AWS.Textract.Transform.QueryUnmarshaller, 
   AWS.Textract.Transform.RelationshipUnmarshaller, 
   AWS.Textract.Model.Relationship;
 
@@ -87,6 +88,12 @@ begin
       begin
         var Unmarshaller := TIntegerUnmarshaller.JsonInstance;
         UnmarshalledObject.Page := Unmarshaller.Unmarshall(AContext);
+        Continue;
+      end;
+      if AContext.TestExpression('Query', TargetDepth) then
+      begin
+        var Unmarshaller := TQueryUnmarshaller.JsonInstance;
+        UnmarshalledObject.Query := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
       if AContext.TestExpression('Relationships', TargetDepth) then

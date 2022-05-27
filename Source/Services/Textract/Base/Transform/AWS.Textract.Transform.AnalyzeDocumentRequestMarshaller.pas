@@ -13,7 +13,8 @@ uses
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
   AWS.Textract.Transform.DocumentMarshaller, 
-  AWS.Textract.Transform.HumanLoopConfigMarshaller;
+  AWS.Textract.Transform.HumanLoopConfigMarshaller, 
+  AWS.Textract.Transform.QueriesConfigMarshaller;
 
 type
   IAnalyzeDocumentRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -74,6 +75,13 @@ begin
           Context.Writer.WriteName('HumanLoopConfig');
           Context.Writer.WriteBeginObject;
           THumanLoopConfigMarshaller.Instance.Marshall(PublicRequest.HumanLoopConfig, Context);
+          Context.Writer.WriteEndObject;
+        end;
+        if PublicRequest.IsSetQueriesConfig then
+        begin
+          Context.Writer.WriteName('QueriesConfig');
+          Context.Writer.WriteBeginObject;
+          TQueriesConfigMarshaller.Instance.Marshall(PublicRequest.QueriesConfig, Context);
           Context.Writer.WriteEndObject;
         end;
         Writer.WriteEndObject;
