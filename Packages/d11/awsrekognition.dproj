@@ -1,8 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<ProjectGuid>{C5523B0A-D60A-4B6F-8EF0-464203825ACC}</ProjectGuid>
+		<ProjectGuid>{EF6F0735-A19A-451F-B1E4-3D9EACBCCF0A}</ProjectGuid>
 		<MainSource>awsrekognition.dpk</MainSource>
-		<ProjectVersion>19.2</ProjectVersion>
+		<ProjectVersion>19.4</ProjectVersion>
 		<FrameworkType>None</FrameworkType>
 		<Base>True</Base>
 		<Config Condition="'$(Config)'==''">Debug</Config>
@@ -25,11 +25,6 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Base)'=='true') or '$(Base_iOSDevice64)'!=''">
 		<Base_iOSDevice64>true</Base_iOSDevice64>
-		<CfgParent>Base</CfgParent>
-		<Base>true</Base>
-	</PropertyGroup>
-	<PropertyGroup Condition="('$(Platform)'=='iOSSimulator' and '$(Base)'=='true') or '$(Base_iOSSimulator)'!=''">
-		<Base_iOSSimulator>true</Base_iOSSimulator>
 		<CfgParent>Base</CfgParent>
 		<Base>true</Base>
 	</PropertyGroup>
@@ -79,23 +74,21 @@
 		<DCC_Description>Amazon Rekognition</DCC_Description>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
 		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
-		<DllSuffix>270</DllSuffix>
+		<DllSuffix>280</DllSuffix>
 		<DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
 		<DCC_DcpOutput>.\$(Platform)\$(Config)</DCC_DcpOutput>
 		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
 		<DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">
-		<EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
+		<EnabledSysJars>annotation-1.2.0.dex.jar;asynclayoutinflater-1.0.0.dex.jar;billing-4.0.0.dex.jar;browser-1.0.0.dex.jar;cloud-messaging.dex.jar;collection-1.0.0.dex.jar;coordinatorlayout-1.0.0.dex.jar;core-1.5.0-rc02.dex.jar;core-common-2.0.1.dex.jar;core-runtime-2.0.1.dex.jar;cursoradapter-1.0.0.dex.jar;customview-1.0.0.dex.jar;documentfile-1.0.0.dex.jar;drawerlayout-1.0.0.dex.jar;firebase-annotations-16.0.0.dex.jar;firebase-common-20.0.0.dex.jar;firebase-components-17.0.0.dex.jar;firebase-datatransport-18.0.0.dex.jar;firebase-encoders-17.0.0.dex.jar;firebase-encoders-json-18.0.0.dex.jar;firebase-iid-interop-17.1.0.dex.jar;firebase-installations-17.0.0.dex.jar;firebase-installations-interop-17.0.0.dex.jar;firebase-measurement-connector-19.0.0.dex.jar;firebase-messaging-22.0.0.dex.jar;fmx.dex.jar;fragment-1.0.0.dex.jar;google-play-licensing.dex.jar;interpolator-1.0.0.dex.jar;javax.inject-1.dex.jar;legacy-support-core-ui-1.0.0.dex.jar;legacy-support-core-utils-1.0.0.dex.jar;lifecycle-common-2.0.0.dex.jar;lifecycle-livedata-2.0.0.dex.jar;lifecycle-livedata-core-2.0.0.dex.jar;lifecycle-runtime-2.0.0.dex.jar;lifecycle-service-2.0.0.dex.jar;lifecycle-viewmodel-2.0.0.dex.jar;listenablefuture-1.0.dex.jar;loader-1.0.0.dex.jar;localbroadcastmanager-1.0.0.dex.jar;play-services-ads-20.1.0.dex.jar;play-services-ads-base-20.1.0.dex.jar;play-services-ads-identifier-17.0.0.dex.jar;play-services-ads-lite-20.1.0.dex.jar;play-services-base-17.5.0.dex.jar;play-services-basement-17.6.0.dex.jar;play-services-cloud-messaging-16.0.0.dex.jar;play-services-drive-17.0.0.dex.jar;play-services-games-21.0.0.dex.jar;play-services-location-18.0.0.dex.jar;play-services-maps-17.0.1.dex.jar;play-services-measurement-base-18.0.0.dex.jar;play-services-measurement-sdk-api-18.0.0.dex.jar;play-services-places-placereport-17.0.0.dex.jar;play-services-stats-17.0.0.dex.jar;play-services-tasks-17.2.0.dex.jar;print-1.0.0.dex.jar;room-common-2.1.0.dex.jar;room-runtime-2.1.0.dex.jar;slidingpanelayout-1.0.0.dex.jar;sqlite-2.0.1.dex.jar;sqlite-framework-2.0.1.dex.jar;swiperefreshlayout-1.0.0.dex.jar;transport-api-3.0.0.dex.jar;transport-backend-cct-3.0.0.dex.jar;transport-runtime-3.0.0.dex.jar;user-messaging-platform-1.0.0.dex.jar;versionedparcelable-1.1.1.dex.jar;viewpager-1.0.0.dex.jar;work-runtime-2.1.0.dex.jar</EnabledSysJars>
 		<VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
 		<BT_BuildType>Debug</BT_BuildType>
-		<Android_LauncherIcon192>$(BDS)\bin\Artwork\Android\FM_LauncherIcon_192x192.png</Android_LauncherIcon192>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android64)'!=''">
-		<EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
+		<EnabledSysJars>annotation-1.2.0.dex.jar;asynclayoutinflater-1.0.0.dex.jar;billing-4.0.0.dex.jar;browser-1.0.0.dex.jar;cloud-messaging.dex.jar;collection-1.0.0.dex.jar;coordinatorlayout-1.0.0.dex.jar;core-1.5.0-rc02.dex.jar;core-common-2.0.1.dex.jar;core-runtime-2.0.1.dex.jar;cursoradapter-1.0.0.dex.jar;customview-1.0.0.dex.jar;documentfile-1.0.0.dex.jar;drawerlayout-1.0.0.dex.jar;firebase-annotations-16.0.0.dex.jar;firebase-common-20.0.0.dex.jar;firebase-components-17.0.0.dex.jar;firebase-datatransport-18.0.0.dex.jar;firebase-encoders-17.0.0.dex.jar;firebase-encoders-json-18.0.0.dex.jar;firebase-iid-interop-17.1.0.dex.jar;firebase-installations-17.0.0.dex.jar;firebase-installations-interop-17.0.0.dex.jar;firebase-measurement-connector-19.0.0.dex.jar;firebase-messaging-22.0.0.dex.jar;fmx.dex.jar;fragment-1.0.0.dex.jar;google-play-licensing.dex.jar;interpolator-1.0.0.dex.jar;javax.inject-1.dex.jar;legacy-support-core-ui-1.0.0.dex.jar;legacy-support-core-utils-1.0.0.dex.jar;lifecycle-common-2.0.0.dex.jar;lifecycle-livedata-2.0.0.dex.jar;lifecycle-livedata-core-2.0.0.dex.jar;lifecycle-runtime-2.0.0.dex.jar;lifecycle-service-2.0.0.dex.jar;lifecycle-viewmodel-2.0.0.dex.jar;listenablefuture-1.0.dex.jar;loader-1.0.0.dex.jar;localbroadcastmanager-1.0.0.dex.jar;play-services-ads-20.1.0.dex.jar;play-services-ads-base-20.1.0.dex.jar;play-services-ads-identifier-17.0.0.dex.jar;play-services-ads-lite-20.1.0.dex.jar;play-services-base-17.5.0.dex.jar;play-services-basement-17.6.0.dex.jar;play-services-cloud-messaging-16.0.0.dex.jar;play-services-drive-17.0.0.dex.jar;play-services-games-21.0.0.dex.jar;play-services-location-18.0.0.dex.jar;play-services-maps-17.0.1.dex.jar;play-services-measurement-base-18.0.0.dex.jar;play-services-measurement-sdk-api-18.0.0.dex.jar;play-services-places-placereport-17.0.0.dex.jar;play-services-stats-17.0.0.dex.jar;play-services-tasks-17.2.0.dex.jar;print-1.0.0.dex.jar;room-common-2.1.0.dex.jar;room-runtime-2.1.0.dex.jar;slidingpanelayout-1.0.0.dex.jar;sqlite-2.0.1.dex.jar;sqlite-framework-2.0.1.dex.jar;swiperefreshlayout-1.0.0.dex.jar;transport-api-3.0.0.dex.jar;transport-backend-cct-3.0.0.dex.jar;transport-runtime-3.0.0.dex.jar;user-messaging-platform-1.0.0.dex.jar;versionedparcelable-1.1.1.dex.jar;viewpager-1.0.0.dex.jar;work-runtime-2.1.0.dex.jar</EnabledSysJars>
 		<VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
 		<BT_BuildType>Debug</BT_BuildType>
-		<Android_LauncherIcon192>$(BDS)\bin\Artwork\Android\FM_LauncherIcon_192x192.png</Android_LauncherIcon192>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_iOSDevice64)'!=''">
 		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple's speech recognition servers</VerInfo_Keys>
@@ -103,12 +96,6 @@
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
-		<iOS_AppStore1024>$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_1024x1024.png</iOS_AppStore1024>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Base_iOSSimulator)'!=''">
-		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple's speech recognition servers</VerInfo_Keys>
-		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
-		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_OSX64)'!=''">
 		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities;NSLocationUsageDescription=The reason for accessing the location information of the user;NSContactsUsageDescription=The reason for accessing the contacts;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSCameraUsageDescription=The reason for accessing the camera;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSMotionUsageDescription=The reason for accessing the accelerometer;NSDesktopFolderUsageDescription=The reason for accessing the Desktop folder;NSDocumentsFolderUsageDescription=The reason for accessing the Documents folder;NSDownloadsFolderUsageDescription=The reason for accessing the Downloads folder;NSNetworkVolumesUsageDescription=The reason for accessing files on a network volume;NSRemovableVolumesUsageDescription=The reason for accessing files on a removable volume;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple's speech recognition servers</VerInfo_Keys>
@@ -133,6 +120,8 @@
 		<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
 		<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
 		<DCC_RemoteDebug>true</DCC_RemoteDebug>
+		<DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+		<DCC_RangeChecking>true</DCC_RangeChecking>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
 		<DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -159,6 +148,7 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.Asset.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.AudioMetadata.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.Beard.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.BlackFrame.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.BoundingBox.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.Celebrity.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CelebrityDetail.pas"/>
@@ -168,10 +158,14 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CompareFacesResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ComparedFace.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ComparedSourceImageFace.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ConnectedHomeSettings.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ConnectedHomeSettingsForUpdate.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ContentModerationDetection.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CoversBodyPart.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateCollectionRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateCollectionResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateDatasetRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateDatasetResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateProjectRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateProjectResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateProjectVersionRequest.pas"/>
@@ -179,8 +173,17 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateStreamProcessorRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CreateStreamProcessorResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.CustomLabel.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DatasetChanges.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DatasetDescription.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DatasetLabelDescription.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DatasetLabelStats.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DatasetMetadata.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DatasetSource.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DatasetStats.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DeleteCollectionRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DeleteCollectionResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DeleteDatasetRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DeleteDatasetResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DeleteFacesRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DeleteFacesResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DeleteProjectRequest.pas"/>
@@ -191,6 +194,8 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DeleteStreamProcessorResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DescribeCollectionRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DescribeCollectionResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DescribeDatasetRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DescribeDatasetResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DescribeProjectVersionsRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DescribeProjectVersionsResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DescribeProjectsRequest.pas"/>
@@ -211,6 +216,9 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DetectTextRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DetectTextResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DetectionFilter.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DistributeDataset.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DistributeDatasetEntriesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.DistributeDatasetEntriesResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.Emotion.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.EquipmentDetection.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.EvaluationResult.pas"/>
@@ -261,12 +269,18 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.InvalidS3ObjectException.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.KinesisDataStream.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.KinesisVideoStream.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.KinesisVideoStreamStartSelector.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.KnownGender.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.LabelDetection.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.LabelTypes.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.Landmark.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.LimitExceededException.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListCollectionsRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListCollectionsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListDatasetEntriesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListDatasetEntriesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListDatasetLabelsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListDatasetLabelsResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListFacesRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListFacesResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ListStreamProcessorsRequest.pas"/>
@@ -299,6 +313,7 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ResourceInUseException.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ResourceNotFoundException.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ResourceNotReadyException.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.S3Destination.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.S3Object.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.SearchFacesByImageRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.SearchFacesByImageResponse.pas"/>
@@ -337,10 +352,15 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StopProjectVersionResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StopStreamProcessorRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StopStreamProcessorResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessingStartSelector.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessingStopSelector.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessor.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessorDataSharingPreference.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessorInput.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessorNotificationChannel.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessorOutput.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessorSettings.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.StreamProcessorSettingsForUpdate.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.Summary.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.Sunglasses.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.TagResourceRequest.pas"/>
@@ -356,6 +376,10 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.UnindexedFace.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.UntagResourceRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.UntagResourceResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.UpdateDatasetEntriesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.UpdateDatasetEntriesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.UpdateStreamProcessorRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.UpdateStreamProcessorResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.ValidationData.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.Video.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Model\AWS.Rekognition.Model.VideoMetadata.pas"/>
@@ -366,6 +390,7 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.AssetUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.AudioMetadataUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.BeardUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.BlackFrameMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.BoundingBoxMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.BoundingBoxUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CelebrityDetailUnmarshaller.pas"/>
@@ -376,10 +401,15 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CompareFacesResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ComparedFaceUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ComparedSourceImageFaceUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ConnectedHomeSettingsForUpdateMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ConnectedHomeSettingsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ConnectedHomeSettingsUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ContentModerationDetectionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CoversBodyPartUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateCollectionRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateCollectionResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateDatasetRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateDatasetResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateProjectRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateProjectResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateProjectVersionRequestMarshaller.pas"/>
@@ -387,8 +417,17 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateStreamProcessorRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CreateStreamProcessorResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.CustomLabelUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DatasetChangesMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DatasetDescriptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DatasetLabelDescriptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DatasetLabelStatsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DatasetMetadataUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DatasetSourceMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DatasetStatsUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DeleteCollectionRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DeleteCollectionResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DeleteDatasetRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DeleteDatasetResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DeleteFacesRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DeleteFacesResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DeleteProjectRequestMarshaller.pas"/>
@@ -399,6 +438,8 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DeleteStreamProcessorResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DescribeCollectionRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DescribeCollectionResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DescribeDatasetRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DescribeDatasetResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DescribeProjectVersionsRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DescribeProjectVersionsResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DescribeProjectsRequestMarshaller.pas"/>
@@ -419,6 +460,9 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DetectTextRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DetectTextResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DetectionFilterMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DistributeDatasetEntriesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DistributeDatasetEntriesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.DistributeDatasetMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.EmotionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.EquipmentDetectionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.EvaluationResultUnmarshaller.pas"/>
@@ -472,13 +516,19 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.KinesisDataStreamMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.KinesisDataStreamUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.KinesisVideoStreamMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.KinesisVideoStreamStartSelectorMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.KinesisVideoStreamUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.KnownGenderUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.LabelDetectionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.LabelUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.LandmarkUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.LimitExceededExceptionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListCollectionsRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListCollectionsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListDatasetEntriesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListDatasetEntriesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListDatasetLabelsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListDatasetLabelsResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListFacesRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListFacesResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ListStreamProcessorsRequestMarshaller.pas"/>
@@ -495,6 +545,7 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.PersonDetailUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.PersonDetectionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.PersonMatchUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.PointMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.PointUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.PoseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ProjectDescriptionUnmarshaller.pas"/>
@@ -507,10 +558,13 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.RecognizeCelebritiesRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.RecognizeCelebritiesResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.RegionOfInterestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.RegionOfInterestUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ResourceAlreadyExistsExceptionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ResourceInUseExceptionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ResourceNotFoundExceptionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ResourceNotReadyExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.S3DestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.S3DestinationUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.S3ObjectMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.S3ObjectUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.SearchFacesByImageRequestMarshaller.pas"/>
@@ -550,10 +604,17 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StopProjectVersionResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StopStreamProcessorRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StopStreamProcessorResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessingStartSelectorMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessingStopSelectorMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorDataSharingPreferenceMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorDataSharingPreferenceUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorInputMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorInputUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorNotificationChannelMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorNotificationChannelUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorOutputMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorOutputUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorSettingsForUpdateMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorSettingsMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorSettingsUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.StreamProcessorUnmarshaller.pas"/>
@@ -574,20 +635,24 @@
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.UnindexedFaceUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.UntagResourceRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.UntagResourceResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.UpdateDatasetEntriesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.UpdateDatasetEntriesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.UpdateStreamProcessorRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.UpdateStreamProcessorResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.ValidationDataUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.VideoMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.VideoMetadataUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\Transform\AWS.Rekognition.Transform.VideoTooLargeExceptionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\Rekognition\Base\AWS.Rekognition.pas"/>
-		<BuildConfiguration Include="Release">
-			<Key>Cfg_2</Key>
-			<CfgParent>Base</CfgParent>
-		</BuildConfiguration>
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>
 		<BuildConfiguration Include="Debug">
 			<Key>Cfg_1</Key>
+			<CfgParent>Base</CfgParent>
+		</BuildConfiguration>
+		<BuildConfiguration Include="Release">
+			<Key>Cfg_2</Key>
 			<CfgParent>Base</CfgParent>
 		</BuildConfiguration>
 	</ItemGroup>
@@ -601,16 +666,6 @@
 				</Source>
 			</Delphi.Personality>
 			<Deployment Version="3">
-				<DeployFile LocalName="$(BDS)\Redist\OSX32\bplrtl270.dylib" Configuration="Debug" Class="DependencyPackage">
-					<Platform Name="OSX32">
-						<Overwrite>true</Overwrite>
-					</Platform>
-				</DeployFile>
-				<DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
-					<Platform Name="OSX32">
-						<Overwrite>true</Overwrite>
-					</Platform>
-				</DeployFile>
 				<DeployFile LocalName="$(BDS)\Redist\iossimulator\libcgunwind.1.0.dylib" Class="DependencyModule">
 					<Platform Name="iOSSimulator">
 						<Overwrite>true</Overwrite>
@@ -621,15 +676,14 @@
 						<Overwrite>true</Overwrite>
 					</Platform>
 				</DeployFile>
-				<DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\21.0\Bpl\OSX32\bplEmpty.dylib" Configuration="Debug" Class="ProjectOutput">
+				<DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
 					<Platform Name="OSX32">
-						<RemoteName>bplEmpty.dylib</RemoteName>
 						<Overwrite>true</Overwrite>
 					</Platform>
 				</DeployFile>
-				<DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\21.0\Bpl\OSX32\bplEmpty.dylib.rsm" Configuration="Debug" Class="DebugSymbols">
-					<Platform Name="OSX32">
-						<RemoteName>bplEmpty.dylib.rsm</RemoteName>
+				<DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\22.0\Bpl\Empty.bpl" Configuration="Debug" Class="ProjectOutput">
+					<Platform Name="Win32">
+						<RemoteName>Empty.bpl</RemoteName>
 						<Overwrite>true</Overwrite>
 					</Platform>
 				</DeployFile>
@@ -641,14 +695,14 @@
 						<Operation>0</Operation>
 					</Platform>
 				</DeployClass>
-				<DeployClass Name="AndroidClassesDexFile">
+				<DeployClass Name="AndroidClasses">
 					<Platform Name="Android">
 						<RemoteDir>classes</RemoteDir>
-						<Operation>1</Operation>
+						<Operation>64</Operation>
 					</Platform>
 					<Platform Name="Android64">
 						<RemoteDir>classes</RemoteDir>
-						<Operation>1</Operation>
+						<Operation>64</Operation>
 					</Platform>
 				</DeployClass>
 				<DeployClass Name="AndroidFileProvider">
@@ -939,6 +993,10 @@
 						<Operation>1</Operation>
 						<Extensions>.framework</Extensions>
 					</Platform>
+					<Platform Name="OSXARM64">
+						<Operation>1</Operation>
+						<Extensions>.framework</Extensions>
+					</Platform>
 					<Platform Name="Win32">
 						<Operation>0</Operation>
 					</Platform>
@@ -949,6 +1007,10 @@
 						<Extensions>.dylib</Extensions>
 					</Platform>
 					<Platform Name="OSX64">
+						<Operation>1</Operation>
+						<Extensions>.dylib</Extensions>
+					</Platform>
+					<Platform Name="OSXARM64">
 						<Operation>1</Operation>
 						<Extensions>.dylib</Extensions>
 					</Platform>
@@ -978,6 +1040,10 @@
 						<Operation>1</Operation>
 						<Extensions>.dylib</Extensions>
 					</Platform>
+					<Platform Name="OSXARM64">
+						<Operation>1</Operation>
+						<Extensions>.dylib</Extensions>
+					</Platform>
 					<Platform Name="Win32">
 						<Operation>0</Operation>
 						<Extensions>.bpl</Extensions>
@@ -1003,6 +1069,9 @@
 						<Operation>0</Operation>
 					</Platform>
 					<Platform Name="OSX64">
+						<Operation>0</Operation>
+					</Platform>
+					<Platform Name="OSXARM64">
 						<Operation>0</Operation>
 					</Platform>
 					<Platform Name="Win32">
@@ -1035,105 +1104,6 @@
 						<Operation>1</Operation>
 					</Platform>
 				</DeployClass>
-				<DeployClass Name="iPad_Launch1024x768">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch1536x2048">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch1668">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch1668x2388">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch2048x1536">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch2048x2732">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch2224">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch2388x1668">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch2732x2048">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
 				<DeployClass Name="iPad_Launch2x">
 					<Platform Name="iOSDevice64">
 						<RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
@@ -1141,17 +1111,6 @@
 					</Platform>
 					<Platform Name="iOSSimulator">
 						<RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPad_Launch768x1024">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
 						<Operation>1</Operation>
 					</Platform>
 				</DeployClass>
@@ -1215,105 +1174,6 @@
 						<Operation>1</Operation>
 					</Platform>
 				</DeployClass>
-				<DeployClass Name="iPhone_Launch1125">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch1136x640">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch1242">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch1242x2688">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch1334">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch1792">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch2208">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch2436">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch2688x1242">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
 				<DeployClass Name="iPhone_Launch2x">
 					<Platform Name="iOSDevice64">
 						<RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
@@ -1324,17 +1184,6 @@
 						<Operation>1</Operation>
 					</Platform>
 				</DeployClass>
-				<DeployClass Name="iPhone_Launch320">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
 				<DeployClass Name="iPhone_Launch3x">
 					<Platform Name="iOSDevice64">
 						<RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
@@ -1342,50 +1191,6 @@
 					</Platform>
 					<Platform Name="iOSSimulator">
 						<RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch640">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch640x1136">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch750">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
-						<Operation>1</Operation>
-					</Platform>
-				</DeployClass>
-				<DeployClass Name="iPhone_Launch828">
-					<Platform Name="iOSDevice32">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSDevice64">
-						<Operation>1</Operation>
-					</Platform>
-					<Platform Name="iOSSimulator">
 						<Operation>1</Operation>
 					</Platform>
 				</DeployClass>
@@ -1487,7 +1292,6 @@
 						<Operation>1</Operation>
 					</Platform>
 				</DeployClass>
-				<DeployClass Name="ProjectiOSDeviceResourceRules"/>
 				<DeployClass Name="ProjectiOSEntitlements"/>
 				<DeployClass Name="ProjectiOSInfoPList"/>
 				<DeployClass Name="ProjectiOSLaunchScreen"/>
@@ -1511,6 +1315,10 @@
 						<Operation>1</Operation>
 					</Platform>
 					<Platform Name="OSX64">
+						<RemoteDir>Contents\Resources</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="OSXARM64">
 						<RemoteDir>Contents\Resources</RemoteDir>
 						<Operation>1</Operation>
 					</Platform>
@@ -1540,6 +1348,9 @@
 						<Operation>1</Operation>
 					</Platform>
 					<Platform Name="OSX64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="OSXARM64">
 						<Operation>1</Operation>
 					</Platform>
 					<Platform Name="Win32">
@@ -1580,24 +1391,25 @@
 						<Operation>1</Operation>
 					</Platform>
 				</DeployClass>
-				<ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
-				<ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-				<ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
-				<ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
-				<ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
-				<ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
 				<ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
-				<ProjectRoot Platform="OSX64" Name="$(PROJECTNAME)"/>
-				<ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
 				<ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+				<ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+				<ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+				<ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="OSX64" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
 			</Deployment>
 			<Platforms>
 				<Platform value="Android">True</Platform>
 				<Platform value="Android64">True</Platform>
 				<Platform value="iOSDevice64">True</Platform>
-				<Platform value="iOSSimulator">True</Platform>
 				<Platform value="Linux64">True</Platform>
 				<Platform value="OSX64">True</Platform>
+				<Platform value="OSXARM64">False</Platform>
 				<Platform value="Win32">True</Platform>
 				<Platform value="Win64">True</Platform>
 			</Platforms>

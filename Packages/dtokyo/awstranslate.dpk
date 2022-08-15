@@ -1,0 +1,163 @@
+package awstranslate;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Amazon Translate'}
+{$LIBSUFFIX '250'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  awscore;
+
+contains
+  AWS.Translate.Client in '..\..\Source\Services\Translate\Base\AWS.Translate.Client.pas',
+  AWS.Translate.ClientIntf in '..\..\Source\Services\Translate\Base\AWS.Translate.ClientIntf.pas',
+  AWS.Translate.Config in '..\..\Source\Services\Translate\Base\AWS.Translate.Config.pas',
+  AWS.Translate.Enums in '..\..\Source\Services\Translate\Base\AWS.Translate.Enums.pas',
+  AWS.Translate.Exception in '..\..\Source\Services\Translate\Base\AWS.Translate.Exception.pas',
+  AWS.Translate.Metadata in '..\..\Source\Services\Translate\Base\AWS.Translate.Metadata.pas',
+  AWS.Translate.Model.AppliedTerminology in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.AppliedTerminology.pas',
+  AWS.Translate.Model.ConcurrentModificationException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ConcurrentModificationException.pas',
+  AWS.Translate.Model.ConflictException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ConflictException.pas',
+  AWS.Translate.Model.CreateParallelDataRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.CreateParallelDataRequest.pas',
+  AWS.Translate.Model.CreateParallelDataResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.CreateParallelDataResponse.pas',
+  AWS.Translate.Model.DeleteParallelDataRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.DeleteParallelDataRequest.pas',
+  AWS.Translate.Model.DeleteParallelDataResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.DeleteParallelDataResponse.pas',
+  AWS.Translate.Model.DeleteTerminologyRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.DeleteTerminologyRequest.pas',
+  AWS.Translate.Model.DeleteTerminologyResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.DeleteTerminologyResponse.pas',
+  AWS.Translate.Model.DescribeTextTranslationJobRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.DescribeTextTranslationJobRequest.pas',
+  AWS.Translate.Model.DescribeTextTranslationJobResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.DescribeTextTranslationJobResponse.pas',
+  AWS.Translate.Model.DetectedLanguageLowConfidenceException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.DetectedLanguageLowConfidenceException.pas',
+  AWS.Translate.Model.EncryptionKey in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.EncryptionKey.pas',
+  AWS.Translate.Model.GetParallelDataRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.GetParallelDataRequest.pas',
+  AWS.Translate.Model.GetParallelDataResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.GetParallelDataResponse.pas',
+  AWS.Translate.Model.GetTerminologyRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.GetTerminologyRequest.pas',
+  AWS.Translate.Model.GetTerminologyResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.GetTerminologyResponse.pas',
+  AWS.Translate.Model.ImportTerminologyRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ImportTerminologyRequest.pas',
+  AWS.Translate.Model.ImportTerminologyResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ImportTerminologyResponse.pas',
+  AWS.Translate.Model.InputDataConfig in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.InputDataConfig.pas',
+  AWS.Translate.Model.InternalServerException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.InternalServerException.pas',
+  AWS.Translate.Model.InvalidFilterException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.InvalidFilterException.pas',
+  AWS.Translate.Model.InvalidParameterValueException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.InvalidParameterValueException.pas',
+  AWS.Translate.Model.InvalidRequestException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.InvalidRequestException.pas',
+  AWS.Translate.Model.JobDetails in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.JobDetails.pas',
+  AWS.Translate.Model.LimitExceededException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.LimitExceededException.pas',
+  AWS.Translate.Model.ListParallelDataRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ListParallelDataRequest.pas',
+  AWS.Translate.Model.ListParallelDataResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ListParallelDataResponse.pas',
+  AWS.Translate.Model.ListTerminologiesRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ListTerminologiesRequest.pas',
+  AWS.Translate.Model.ListTerminologiesResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ListTerminologiesResponse.pas',
+  AWS.Translate.Model.ListTextTranslationJobsRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ListTextTranslationJobsRequest.pas',
+  AWS.Translate.Model.ListTextTranslationJobsResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ListTextTranslationJobsResponse.pas',
+  AWS.Translate.Model.OutputDataConfig in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.OutputDataConfig.pas',
+  AWS.Translate.Model.ParallelDataConfig in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ParallelDataConfig.pas',
+  AWS.Translate.Model.ParallelDataDataLocation in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ParallelDataDataLocation.pas',
+  AWS.Translate.Model.ParallelDataProperties in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ParallelDataProperties.pas',
+  AWS.Translate.Model.Request in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.Request.pas',
+  AWS.Translate.Model.ResourceNotFoundException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ResourceNotFoundException.pas',
+  AWS.Translate.Model.ServiceUnavailableException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.ServiceUnavailableException.pas',
+  AWS.Translate.Model.StartTextTranslationJobRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.StartTextTranslationJobRequest.pas',
+  AWS.Translate.Model.StartTextTranslationJobResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.StartTextTranslationJobResponse.pas',
+  AWS.Translate.Model.StopTextTranslationJobRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.StopTextTranslationJobRequest.pas',
+  AWS.Translate.Model.StopTextTranslationJobResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.StopTextTranslationJobResponse.pas',
+  AWS.Translate.Model.Term in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.Term.pas',
+  AWS.Translate.Model.TerminologyData in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TerminologyData.pas',
+  AWS.Translate.Model.TerminologyDataLocation in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TerminologyDataLocation.pas',
+  AWS.Translate.Model.TerminologyProperties in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TerminologyProperties.pas',
+  AWS.Translate.Model.TextSizeLimitExceededException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TextSizeLimitExceededException.pas',
+  AWS.Translate.Model.TextTranslationJobFilter in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TextTranslationJobFilter.pas',
+  AWS.Translate.Model.TextTranslationJobProperties in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TextTranslationJobProperties.pas',
+  AWS.Translate.Model.TooManyRequestsException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TooManyRequestsException.pas',
+  AWS.Translate.Model.TranslateTextRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TranslateTextRequest.pas',
+  AWS.Translate.Model.TranslateTextResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TranslateTextResponse.pas',
+  AWS.Translate.Model.TranslationSettings in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.TranslationSettings.pas',
+  AWS.Translate.Model.UnsupportedLanguagePairException in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.UnsupportedLanguagePairException.pas',
+  AWS.Translate.Model.UpdateParallelDataRequest in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.UpdateParallelDataRequest.pas',
+  AWS.Translate.Model.UpdateParallelDataResponse in '..\..\Source\Services\Translate\Base\Model\AWS.Translate.Model.UpdateParallelDataResponse.pas',
+  AWS.Translate.Transform.AppliedTerminologyUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.AppliedTerminologyUnmarshaller.pas',
+  AWS.Translate.Transform.ConcurrentModificationExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ConcurrentModificationExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.ConflictExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ConflictExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.CreateParallelDataRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.CreateParallelDataRequestMarshaller.pas',
+  AWS.Translate.Transform.CreateParallelDataResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.CreateParallelDataResponseUnmarshaller.pas',
+  AWS.Translate.Transform.DeleteParallelDataRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.DeleteParallelDataRequestMarshaller.pas',
+  AWS.Translate.Transform.DeleteParallelDataResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.DeleteParallelDataResponseUnmarshaller.pas',
+  AWS.Translate.Transform.DeleteTerminologyRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.DeleteTerminologyRequestMarshaller.pas',
+  AWS.Translate.Transform.DeleteTerminologyResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.DeleteTerminologyResponseUnmarshaller.pas',
+  AWS.Translate.Transform.DescribeTextTranslationJobRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.DescribeTextTranslationJobRequestMarshaller.pas',
+  AWS.Translate.Transform.DescribeTextTranslationJobResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.DescribeTextTranslationJobResponseUnmarshaller.pas',
+  AWS.Translate.Transform.DetectedLanguageLowConfidenceExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.DetectedLanguageLowConfidenceExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.EncryptionKeyMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.EncryptionKeyMarshaller.pas',
+  AWS.Translate.Transform.EncryptionKeyUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.EncryptionKeyUnmarshaller.pas',
+  AWS.Translate.Transform.GetParallelDataRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.GetParallelDataRequestMarshaller.pas',
+  AWS.Translate.Transform.GetParallelDataResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.GetParallelDataResponseUnmarshaller.pas',
+  AWS.Translate.Transform.GetTerminologyRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.GetTerminologyRequestMarshaller.pas',
+  AWS.Translate.Transform.GetTerminologyResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.GetTerminologyResponseUnmarshaller.pas',
+  AWS.Translate.Transform.ImportTerminologyRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ImportTerminologyRequestMarshaller.pas',
+  AWS.Translate.Transform.ImportTerminologyResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ImportTerminologyResponseUnmarshaller.pas',
+  AWS.Translate.Transform.InputDataConfigMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.InputDataConfigMarshaller.pas',
+  AWS.Translate.Transform.InputDataConfigUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.InputDataConfigUnmarshaller.pas',
+  AWS.Translate.Transform.InternalServerExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.InternalServerExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.InvalidFilterExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.InvalidFilterExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.InvalidParameterValueExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.InvalidParameterValueExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.InvalidRequestExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.InvalidRequestExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.JobDetailsUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.JobDetailsUnmarshaller.pas',
+  AWS.Translate.Transform.LimitExceededExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.LimitExceededExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.ListParallelDataRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ListParallelDataRequestMarshaller.pas',
+  AWS.Translate.Transform.ListParallelDataResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ListParallelDataResponseUnmarshaller.pas',
+  AWS.Translate.Transform.ListTerminologiesRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ListTerminologiesRequestMarshaller.pas',
+  AWS.Translate.Transform.ListTerminologiesResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ListTerminologiesResponseUnmarshaller.pas',
+  AWS.Translate.Transform.ListTextTranslationJobsRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ListTextTranslationJobsRequestMarshaller.pas',
+  AWS.Translate.Transform.ListTextTranslationJobsResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ListTextTranslationJobsResponseUnmarshaller.pas',
+  AWS.Translate.Transform.OutputDataConfigMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.OutputDataConfigMarshaller.pas',
+  AWS.Translate.Transform.OutputDataConfigUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.OutputDataConfigUnmarshaller.pas',
+  AWS.Translate.Transform.ParallelDataConfigMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ParallelDataConfigMarshaller.pas',
+  AWS.Translate.Transform.ParallelDataConfigUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ParallelDataConfigUnmarshaller.pas',
+  AWS.Translate.Transform.ParallelDataDataLocationUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ParallelDataDataLocationUnmarshaller.pas',
+  AWS.Translate.Transform.ParallelDataPropertiesUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ParallelDataPropertiesUnmarshaller.pas',
+  AWS.Translate.Transform.ResourceNotFoundExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ResourceNotFoundExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.ServiceUnavailableExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.ServiceUnavailableExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.StartTextTranslationJobRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.StartTextTranslationJobRequestMarshaller.pas',
+  AWS.Translate.Transform.StartTextTranslationJobResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.StartTextTranslationJobResponseUnmarshaller.pas',
+  AWS.Translate.Transform.StopTextTranslationJobRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.StopTextTranslationJobRequestMarshaller.pas',
+  AWS.Translate.Transform.StopTextTranslationJobResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.StopTextTranslationJobResponseUnmarshaller.pas',
+  AWS.Translate.Transform.TermUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TermUnmarshaller.pas',
+  AWS.Translate.Transform.TerminologyDataLocationUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TerminologyDataLocationUnmarshaller.pas',
+  AWS.Translate.Transform.TerminologyDataMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TerminologyDataMarshaller.pas',
+  AWS.Translate.Transform.TerminologyPropertiesUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TerminologyPropertiesUnmarshaller.pas',
+  AWS.Translate.Transform.TextSizeLimitExceededExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TextSizeLimitExceededExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.TextTranslationJobFilterMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TextTranslationJobFilterMarshaller.pas',
+  AWS.Translate.Transform.TextTranslationJobPropertiesUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TextTranslationJobPropertiesUnmarshaller.pas',
+  AWS.Translate.Transform.TooManyRequestsExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TooManyRequestsExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.TranslateTextRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TranslateTextRequestMarshaller.pas',
+  AWS.Translate.Transform.TranslateTextResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TranslateTextResponseUnmarshaller.pas',
+  AWS.Translate.Transform.TranslationSettingsMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TranslationSettingsMarshaller.pas',
+  AWS.Translate.Transform.TranslationSettingsUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.TranslationSettingsUnmarshaller.pas',
+  AWS.Translate.Transform.UnsupportedLanguagePairExceptionUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.UnsupportedLanguagePairExceptionUnmarshaller.pas',
+  AWS.Translate.Transform.UpdateParallelDataRequestMarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.UpdateParallelDataRequestMarshaller.pas',
+  AWS.Translate.Transform.UpdateParallelDataResponseUnmarshaller in '..\..\Source\Services\Translate\Base\Transform\AWS.Translate.Transform.UpdateParallelDataResponseUnmarshaller.pas',
+  AWS.Translate in '..\..\Source\Services\Translate\Base\AWS.Translate.pas';
+
+end.

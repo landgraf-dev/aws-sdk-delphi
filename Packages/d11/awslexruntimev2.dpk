@@ -5,7 +5,7 @@ package awslexruntimev2;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO OFF}
+{$DEBUGINFO ON}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -26,7 +26,7 @@ package awslexruntimev2;
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'Amazon Lex Runtime V2'}
-{$LIBSUFFIX AUTO}
+{$LIBSUFFIX '280'}
 {$RUNONLY}
 {$IMPLICITBUILD OFF}
 
@@ -66,6 +66,9 @@ contains
   AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse.pas',
   AWS.LexRuntimeV2.Model.Request in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Request.pas',
   AWS.LexRuntimeV2.Model.ResourceNotFoundException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ResourceNotFoundException.pas',
+  AWS.LexRuntimeV2.Model.RuntimeHintDetails in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHintDetails.pas',
+  AWS.LexRuntimeV2.Model.RuntimeHintValue in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHintValue.pas',
+  AWS.LexRuntimeV2.Model.RuntimeHints in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHints.pas',
   AWS.LexRuntimeV2.Model.SentimentResponse in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SentimentResponse.pas',
   AWS.LexRuntimeV2.Model.SentimentScore in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SentimentScore.pas',
   AWS.LexRuntimeV2.Model.SessionState in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SessionState.pas',
@@ -105,6 +108,12 @@ contains
   AWS.LexRuntimeV2.Transform.RecognizeUtteranceRequestMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RecognizeUtteranceRequestMarshaller.pas',
   AWS.LexRuntimeV2.Transform.RecognizeUtteranceResponseUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RecognizeUtteranceResponseUnmarshaller.pas',
   AWS.LexRuntimeV2.Transform.ResourceNotFoundExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ResourceNotFoundExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintDetailsMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintDetailsMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintDetailsUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintDetailsUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintValueMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintValueMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintValueUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintValueUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintsMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintsMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintsUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintsUnmarshaller.pas',
   AWS.LexRuntimeV2.Transform.SentimentResponseUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SentimentResponseUnmarshaller.pas',
   AWS.LexRuntimeV2.Transform.SentimentScoreUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SentimentScoreUnmarshaller.pas',
   AWS.LexRuntimeV2.Transform.SessionStateMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SessionStateMarshaller.pas',

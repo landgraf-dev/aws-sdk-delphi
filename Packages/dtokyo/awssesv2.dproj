@@ -1,0 +1,1078 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<ProjectGuid>{FA15F19C-A377-407D-BA2F-B3F4FF7C4C86}</ProjectGuid>
+		<MainSource>awssesv2.dpk</MainSource>
+		<ProjectVersion>18.2</ProjectVersion>
+		<FrameworkType>None</FrameworkType>
+		<Base>True</Base>
+		<Config Condition="'$(Config)'==''">Debug</Config>
+		<Platform Condition="'$(Platform)'==''">Win32</Platform>
+		<TargetedPlatforms>169183</TargetedPlatforms>
+		<AppType>Package</AppType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Android' and '$(Base)'=='true') or '$(Base_Android)'!=''">
+		<Base_Android>true</Base_Android>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSDevice32' and '$(Base)'=='true') or '$(Base_iOSDevice32)'!=''">
+		<Base_iOSDevice32>true</Base_iOSDevice32>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Base)'=='true') or '$(Base_iOSDevice64)'!=''">
+		<Base_iOSDevice64>true</Base_iOSDevice64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSSimulator' and '$(Base)'=='true') or '$(Base_iOSSimulator)'!=''">
+		<Base_iOSSimulator>true</Base_iOSSimulator>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='OSX32' and '$(Base)'=='true') or '$(Base_OSX32)'!=''">
+		<Base_OSX32>true</Base_OSX32>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+		<Base_Win32>true</Base_Win32>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+		<Base_Win64>true</Base_Win64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+		<Cfg_1>true</Cfg_1>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+		<Cfg_1_Win32>true</Cfg_1_Win32>
+		<CfgParent>Cfg_1</CfgParent>
+		<Cfg_1>true</Cfg_1>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+		<Cfg_2>true</Cfg_2>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base)'!=''">
+		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+		<DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+		<DCC_E>false</DCC_E>
+		<DCC_N>false</DCC_N>
+		<DCC_S>false</DCC_S>
+		<DCC_F>false</DCC_F>
+		<DCC_K>false</DCC_K>
+		<GenDll>true</GenDll>
+		<GenPackage>true</GenPackage>
+		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+		<SanitizedProjectName>awssesv2</SanitizedProjectName>
+		<DCC_Description>Amazon Simple Email Service</DCC_Description>
+		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
+		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
+		<DllSuffix>250</DllSuffix>
+		<DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
+		<DCC_DcpOutput>.\$(Platform)\$(Config)</DCC_DcpOutput>
+		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
+		<DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Android)'!=''">
+		<EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;fmx.dex.jar;google-analytics-v2.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar;google-play-services.dex.jar</EnabledSysJars>
+		<VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_iOSDevice32)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;CFBundleResourceSpecification=ResourceRules.plist;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;FMLocalNotificationPermission=false;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSCameraUsageDescription=The reason for accessing the camera</VerInfo_Keys>
+		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_iOSDevice64)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;CFBundleResourceSpecification=ResourceRules.plist;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;FMLocalNotificationPermission=false;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSCameraUsageDescription=The reason for accessing the camera</VerInfo_Keys>
+		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_iOSSimulator)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;CFBundleResourceSpecification=ResourceRules.plist;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;FMLocalNotificationPermission=false;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSCameraUsageDescription=The reason for accessing the camera</VerInfo_Keys>
+		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_OSX32)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleVersion=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSContactsUsageDescription=The reason for accessing the contacts</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Win32)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		<VerInfo_Locale>1033</VerInfo_Locale>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Win64)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		<VerInfo_Locale>1033</VerInfo_Locale>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_1)'!=''">
+		<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		<DCC_DebugDCUs>true</DCC_DebugDCUs>
+		<DCC_Optimize>false</DCC_Optimize>
+		<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+		<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+		<DCC_RemoteDebug>true</DCC_RemoteDebug>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+		<DCC_RemoteDebug>false</DCC_RemoteDebug>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_2)'!=''">
+		<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+		<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+		<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+		<DCC_DebugInformation>0</DCC_DebugInformation>
+	</PropertyGroup>
+	<ItemGroup>
+		<DelphiCompile Include="$(MainSource)">
+			<MainSource>MainSource</MainSource>
+		</DelphiCompile>
+		<DCCReference Include="awscore.dcp"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\AWS.SESv2.Client.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\AWS.SESv2.ClientIntf.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\AWS.SESv2.Config.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\AWS.SESv2.Enums.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\AWS.SESv2.Exception.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\AWS.SESv2.Metadata.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.AccountDetails.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.AccountSuspendedException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.AlreadyExistsException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.BadRequestException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.BlacklistEntry.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Body.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.BulkEmailContent.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.BulkEmailEntry.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.BulkEmailEntryResult.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CloudWatchDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CloudWatchDimensionConfiguration.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ConcurrentModificationException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ConflictException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Contact.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ContactList.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ContactListDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Content.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateConfigurationSetEventDestinationRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateConfigurationSetEventDestinationResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateConfigurationSetRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateConfigurationSetResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateContactListRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateContactListResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateContactRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateContactResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateCustomVerificationEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateCustomVerificationEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateDedicatedIpPoolRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateDedicatedIpPoolResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateDeliverabilityTestReportRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateDeliverabilityTestReportResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateEmailIdentityPolicyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateEmailIdentityPolicyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateEmailIdentityRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateEmailIdentityResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateImportJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CreateImportJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.CustomVerificationEmailTemplateMetadata.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DailyVolume.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DedicatedIp.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteConfigurationSetEventDestinationRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteConfigurationSetEventDestinationResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteConfigurationSetRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteConfigurationSetResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteContactListRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteContactListResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteContactRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteContactResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteCustomVerificationEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteCustomVerificationEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteDedicatedIpPoolRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteDedicatedIpPoolResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteEmailIdentityPolicyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteEmailIdentityPolicyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteEmailIdentityRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteEmailIdentityResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteSuppressedDestinationRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeleteSuppressedDestinationResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeliverabilityTestReport.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DeliveryOptions.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Destination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DkimAttributes.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DkimSigningAttributes.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DomainDeliverabilityCampaign.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DomainDeliverabilityTrackingOption.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.DomainIspPlacement.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.EmailContent.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.EmailTemplateContent.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.EmailTemplateMetadata.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.EventDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.EventDestinationDefinition.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.FailureInfo.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetAccountRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetAccountResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetBlacklistReportsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetBlacklistReportsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetConfigurationSetEventDestinationsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetConfigurationSetEventDestinationsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetConfigurationSetRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetConfigurationSetResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetContactListRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetContactListResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetContactRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetContactResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetCustomVerificationEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetCustomVerificationEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDedicatedIpRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDedicatedIpResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDedicatedIpsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDedicatedIpsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDeliverabilityDashboardOptionsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDeliverabilityDashboardOptionsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDeliverabilityTestReportRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDeliverabilityTestReportResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDomainDeliverabilityCampaignRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDomainDeliverabilityCampaignResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDomainStatisticsReportRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetDomainStatisticsReportResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetEmailIdentityPoliciesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetEmailIdentityPoliciesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetEmailIdentityRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetEmailIdentityResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetImportJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetImportJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetSuppressedDestinationRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.GetSuppressedDestinationResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.IdentityInfo.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ImportDataSource.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ImportDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ImportJobSummary.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.InboxPlacementTrackingOption.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.InvalidNextTokenException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.IspPlacement.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.KinesisFirehoseDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.LimitExceededException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListConfigurationSetsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListConfigurationSetsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListContactListsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListContactListsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListContactsFilter.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListContactsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListContactsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListCustomVerificationEmailTemplatesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListCustomVerificationEmailTemplatesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListDedicatedIpPoolsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListDedicatedIpPoolsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListDeliverabilityTestReportsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListDeliverabilityTestReportsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListDomainDeliverabilityCampaignsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListDomainDeliverabilityCampaignsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListEmailIdentitiesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListEmailIdentitiesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListEmailTemplatesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListEmailTemplatesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListImportJobsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListImportJobsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListManagementOptions.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListSuppressedDestinationsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListSuppressedDestinationsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListTagsForResourceRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ListTagsForResourceResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.MailFromAttributes.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.MailFromDomainNotVerifiedException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Message.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.MessageRejectedException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.MessageTag.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.NotFoundException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.OverallVolume.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PinpointDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PlacementStatistics.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutAccountDedicatedIpWarmupAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutAccountDedicatedIpWarmupAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutAccountDetailsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutAccountDetailsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutAccountSendingAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutAccountSendingAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutAccountSuppressionAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutAccountSuppressionAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetDeliveryOptionsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetDeliveryOptionsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetReputationOptionsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetReputationOptionsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetSendingOptionsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetSendingOptionsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetSuppressionOptionsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetSuppressionOptionsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetTrackingOptionsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutConfigurationSetTrackingOptionsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutDedicatedIpInPoolRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutDedicatedIpInPoolResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutDedicatedIpWarmupAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutDedicatedIpWarmupAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutDeliverabilityDashboardOptionRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutDeliverabilityDashboardOptionResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityConfigurationSetAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityConfigurationSetAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityDkimAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityDkimAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityDkimSigningAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityDkimSigningAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityFeedbackAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityFeedbackAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityMailFromAttributesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutEmailIdentityMailFromAttributesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutSuppressedDestinationRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.PutSuppressedDestinationResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.RawMessage.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ReplacementEmailContent.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ReplacementTemplate.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ReputationOptions.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Request.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.ReviewDetails.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendBulkEmailRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendBulkEmailResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendCustomVerificationEmailRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendCustomVerificationEmailResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendEmailRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendEmailResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendQuota.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendingOptions.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SendingPausedException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SnsDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SuppressedDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SuppressedDestinationAttributes.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SuppressedDestinationSummary.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SuppressionAttributes.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SuppressionListDestination.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.SuppressionOptions.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Tag.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.TagResourceRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.TagResourceResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Template.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.TestRenderEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.TestRenderEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.TooManyRequestsException.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.Topic.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.TopicFilter.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.TopicPreference.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.TrackingOptions.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UntagResourceRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UntagResourceResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateConfigurationSetEventDestinationRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateConfigurationSetEventDestinationResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateContactListRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateContactListResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateContactRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateContactResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateCustomVerificationEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateCustomVerificationEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateEmailIdentityPolicyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateEmailIdentityPolicyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateEmailTemplateRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.UpdateEmailTemplateResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Model\AWS.SESv2.Model.VolumeStatistics.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.AccountDetailsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.AccountSuspendedExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.AlreadyExistsExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.BadRequestExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.BlacklistEntryUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.BodyMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.BulkEmailContentMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.BulkEmailEntryMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.BulkEmailEntryResultUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CloudWatchDestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CloudWatchDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CloudWatchDimensionConfigurationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CloudWatchDimensionConfigurationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ConcurrentModificationExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ConflictExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ContactListDestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ContactListDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ContactListUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ContactUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ContentMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateConfigurationSetEventDestinationRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateConfigurationSetEventDestinationResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateConfigurationSetRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateConfigurationSetResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateContactListRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateContactListResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateContactRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateContactResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateCustomVerificationEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateCustomVerificationEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateDedicatedIpPoolRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateDedicatedIpPoolResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateDeliverabilityTestReportRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateDeliverabilityTestReportResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateEmailIdentityPolicyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateEmailIdentityPolicyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateEmailIdentityRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateEmailIdentityResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateImportJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CreateImportJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.CustomVerificationEmailTemplateMetadataUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DailyVolumeUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DedicatedIpUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteConfigurationSetEventDestinationRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteConfigurationSetEventDestinationResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteConfigurationSetRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteConfigurationSetResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteContactListRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteContactListResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteContactRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteContactResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteCustomVerificationEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteCustomVerificationEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteDedicatedIpPoolRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteDedicatedIpPoolResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteEmailIdentityPolicyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteEmailIdentityPolicyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteEmailIdentityRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteEmailIdentityResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteSuppressedDestinationRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeleteSuppressedDestinationResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeliverabilityTestReportUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeliveryOptionsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DeliveryOptionsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DkimAttributesUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DkimSigningAttributesMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DomainDeliverabilityCampaignUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DomainDeliverabilityTrackingOptionMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DomainDeliverabilityTrackingOptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.DomainIspPlacementUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.EmailContentMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.EmailTemplateContentMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.EmailTemplateContentUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.EmailTemplateMetadataUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.EventDestinationDefinitionMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.EventDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.FailureInfoUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetAccountRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetAccountResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetBlacklistReportsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetBlacklistReportsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetConfigurationSetEventDestinationsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetConfigurationSetEventDestinationsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetConfigurationSetRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetConfigurationSetResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetContactListRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetContactListResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetContactRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetContactResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetCustomVerificationEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetCustomVerificationEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDedicatedIpRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDedicatedIpResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDedicatedIpsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDedicatedIpsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDeliverabilityDashboardOptionsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDeliverabilityDashboardOptionsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDeliverabilityTestReportRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDeliverabilityTestReportResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDomainDeliverabilityCampaignRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDomainDeliverabilityCampaignResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDomainStatisticsReportRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetDomainStatisticsReportResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetEmailIdentityPoliciesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetEmailIdentityPoliciesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetEmailIdentityRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetEmailIdentityResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetImportJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetImportJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetSuppressedDestinationRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.GetSuppressedDestinationResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.IdentityInfoUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ImportDataSourceMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ImportDataSourceUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ImportDestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ImportDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ImportJobSummaryUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.InboxPlacementTrackingOptionMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.InboxPlacementTrackingOptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.InvalidNextTokenExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.IspPlacementUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.KinesisFirehoseDestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.KinesisFirehoseDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.LimitExceededExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListConfigurationSetsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListConfigurationSetsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListContactListsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListContactListsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListContactsFilterMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListContactsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListContactsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListCustomVerificationEmailTemplatesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListCustomVerificationEmailTemplatesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListDedicatedIpPoolsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListDedicatedIpPoolsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListDeliverabilityTestReportsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListDeliverabilityTestReportsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListDomainDeliverabilityCampaignsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListDomainDeliverabilityCampaignsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListEmailIdentitiesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListEmailIdentitiesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListEmailTemplatesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListEmailTemplatesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListImportJobsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListImportJobsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListManagementOptionsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListSuppressedDestinationsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListSuppressedDestinationsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListTagsForResourceRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ListTagsForResourceResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.MailFromAttributesUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.MailFromDomainNotVerifiedExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.MessageMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.MessageRejectedExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.MessageTagMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.NotFoundExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.OverallVolumeUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PinpointDestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PinpointDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PlacementStatisticsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutAccountDedicatedIpWarmupAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutAccountDedicatedIpWarmupAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutAccountDetailsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutAccountDetailsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutAccountSendingAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutAccountSendingAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutAccountSuppressionAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutAccountSuppressionAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetDeliveryOptionsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetDeliveryOptionsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetReputationOptionsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetReputationOptionsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetSendingOptionsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetSendingOptionsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetSuppressionOptionsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetSuppressionOptionsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetTrackingOptionsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutConfigurationSetTrackingOptionsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutDedicatedIpInPoolRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutDedicatedIpInPoolResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutDedicatedIpWarmupAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutDedicatedIpWarmupAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutDeliverabilityDashboardOptionRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutDeliverabilityDashboardOptionResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityConfigurationSetAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityConfigurationSetAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityDkimAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityDkimAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityDkimSigningAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityDkimSigningAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityFeedbackAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityFeedbackAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityMailFromAttributesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutEmailIdentityMailFromAttributesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutSuppressedDestinationRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.PutSuppressedDestinationResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.RawMessageMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ReplacementEmailContentMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ReplacementTemplateMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ReputationOptionsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ReputationOptionsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.ReviewDetailsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendBulkEmailRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendBulkEmailResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendCustomVerificationEmailRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendCustomVerificationEmailResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendEmailRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendEmailResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendQuotaUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendingOptionsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendingOptionsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SendingPausedExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SnsDestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SnsDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SuppressedDestinationAttributesUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SuppressedDestinationSummaryUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SuppressedDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SuppressionAttributesUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SuppressionListDestinationMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SuppressionListDestinationUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SuppressionOptionsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.SuppressionOptionsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TagMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TagResourceRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TagResourceResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TagUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TemplateMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TestRenderEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TestRenderEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TooManyRequestsExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TopicFilterMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TopicMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TopicPreferenceMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TopicPreferenceUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TopicUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TrackingOptionsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.TrackingOptionsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UntagResourceRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UntagResourceResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateConfigurationSetEventDestinationRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateConfigurationSetEventDestinationResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateContactListRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateContactListResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateContactRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateContactResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateCustomVerificationEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateCustomVerificationEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateEmailIdentityPolicyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateEmailIdentityPolicyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateEmailTemplateRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.UpdateEmailTemplateResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\Transform\AWS.SESv2.Transform.VolumeStatisticsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\SimpleEmailV2\Base\AWS.SESv2.pas"/>
+		<BuildConfiguration Include="Release">
+			<Key>Cfg_2</Key>
+			<CfgParent>Base</CfgParent>
+		</BuildConfiguration>
+		<BuildConfiguration Include="Base">
+			<Key>Base</Key>
+		</BuildConfiguration>
+		<BuildConfiguration Include="Debug">
+			<Key>Cfg_1</Key>
+			<CfgParent>Base</CfgParent>
+		</BuildConfiguration>
+	</ItemGroup>
+	<ProjectExtensions>
+		<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+		<Borland.ProjectType>Package</Borland.ProjectType>
+		<BorlandProject>
+			<Delphi.Personality>
+				<Source>
+					<Source Name="MainSource">awssesv2.dpk</Source>
+				</Source>
+			</Delphi.Personality>
+			<Deployment Version="3">
+				<DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
+					<Platform Name="OSX32">
+						<Overwrite>true</Overwrite>
+					</Platform>
+				</DeployFile>
+				<DeployFile LocalName="$(BDS)\Redist\iossimulator\libcgunwind.1.0.dylib" Class="DependencyModule">
+					<Platform Name="iOSSimulator">
+						<Overwrite>true</Overwrite>
+					</Platform>
+				</DeployFile>
+				<DeployFile LocalName="$(BDS)\Redist\iossimulator\libPCRE.dylib" Class="DependencyModule">
+					<Platform Name="iOSSimulator">
+						<Overwrite>true</Overwrite>
+					</Platform>
+				</DeployFile>
+				<DeployFile LocalName="$(BDS)\Redist\osx32\libcgsqlite3.dylib" Class="DependencyModule">
+					<Platform Name="OSX32">
+						<Overwrite>true</Overwrite>
+					</Platform>
+				</DeployFile>
+				<DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\Empty.bpl" Configuration="Debug" Class="ProjectOutput">
+					<Platform Name="Win32">
+						<RemoteName>Empty.bpl</RemoteName>
+						<Overwrite>true</Overwrite>
+					</Platform>
+				</DeployFile>
+				<DeployClass Name="AdditionalDebugSymbols">
+					<Platform Name="OSX32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="Win32">
+						<RemoteDir>Contents\MacOS</RemoteDir>
+						<Operation>0</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="AndroidClassesDexFile">
+					<Platform Name="Android">
+						<RemoteDir>classes</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="AndroidGDBServer">
+					<Platform Name="Android">
+						<RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="AndroidLibnativeArmeabiFile">
+					<Platform Name="Android">
+						<RemoteDir>library\lib\armeabi</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="AndroidLibnativeMipsFile">
+					<Platform Name="Android">
+						<RemoteDir>library\lib\mips</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="AndroidServiceOutput">
+					<Platform Name="Android">
+						<RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="AndroidSplashImageDef">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="AndroidSplashStyles">
+					<Platform Name="Android">
+						<RemoteDir>res\values</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_DefaultAppIcon">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_LauncherIcon144">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-xxhdpi</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_LauncherIcon36">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-ldpi</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_LauncherIcon48">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-mdpi</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_LauncherIcon72">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-hdpi</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_LauncherIcon96">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-xhdpi</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_SplashImage426">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-small</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_SplashImage470">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-normal</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_SplashImage640">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-large</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="Android_SplashImage960">
+					<Platform Name="Android">
+						<RemoteDir>res\drawable-xlarge</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="DebugSymbols">
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="OSX32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="Win32">
+						<Operation>0</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="DependencyFramework">
+					<Platform Name="OSX32">
+						<Operation>1</Operation>
+						<Extensions>.framework</Extensions>
+					</Platform>
+					<Platform Name="Win32">
+						<Operation>0</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="DependencyModule">
+					<Platform Name="OSX32">
+						<Operation>1</Operation>
+						<Extensions>.dylib</Extensions>
+					</Platform>
+					<Platform Name="Win32">
+						<Operation>0</Operation>
+						<Extensions>.dll;.bpl</Extensions>
+					</Platform>
+				</DeployClass>
+				<DeployClass Required="true" Name="DependencyPackage">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+						<Extensions>.dylib</Extensions>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+						<Extensions>.dylib</Extensions>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+						<Extensions>.dylib</Extensions>
+					</Platform>
+					<Platform Name="OSX32">
+						<Operation>1</Operation>
+						<Extensions>.dylib</Extensions>
+					</Platform>
+					<Platform Name="Win32">
+						<Operation>0</Operation>
+						<Extensions>.bpl</Extensions>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="File">
+					<Platform Name="Android">
+						<Operation>0</Operation>
+					</Platform>
+					<Platform Name="iOSDevice32">
+						<Operation>0</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>0</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>0</Operation>
+					</Platform>
+					<Platform Name="OSX32">
+						<Operation>0</Operation>
+					</Platform>
+					<Platform Name="Win32">
+						<Operation>0</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="iPad_Launch1024">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="iPad_Launch1536">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="iPad_Launch2048">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="iPad_Launch768">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="iPhone_Launch320">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="iPhone_Launch640">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="iPhone_Launch640x1136">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="ProjectAndroidManifest">
+					<Platform Name="Android">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="ProjectiOSDeviceDebug">
+					<Platform Name="iOSDevice32">
+						<RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="ProjectiOSDeviceResourceRules"/>
+				<DeployClass Name="ProjectiOSEntitlements"/>
+				<DeployClass Name="ProjectiOSInfoPList"/>
+				<DeployClass Name="ProjectiOSResource">
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="ProjectOSXEntitlements"/>
+				<DeployClass Name="ProjectOSXInfoPList"/>
+				<DeployClass Name="ProjectOSXResource">
+					<Platform Name="OSX32">
+						<RemoteDir>Contents\Resources</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Required="true" Name="ProjectOutput">
+					<Platform Name="Android">
+						<RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSDevice64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="iOSSimulator">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="Linux64">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="OSX32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="Win32">
+						<Operation>0</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="ProjectUWPManifest">
+					<Platform Name="Win32">
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="Win64">
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="UWP_DelphiLogo150">
+					<Platform Name="Win32">
+						<RemoteDir>Assets</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="Win64">
+						<RemoteDir>Assets</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<DeployClass Name="UWP_DelphiLogo44">
+					<Platform Name="Win32">
+						<RemoteDir>Assets</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+					<Platform Name="Win64">
+						<RemoteDir>Assets</RemoteDir>
+						<Operation>1</Operation>
+					</Platform>
+				</DeployClass>
+				<ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+				<ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+				<ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+				<ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+			</Deployment>
+			<Platforms>
+				<Platform value="Android">True</Platform>
+				<Platform value="iOSDevice32">True</Platform>
+				<Platform value="iOSDevice64">True</Platform>
+				<Platform value="iOSSimulator">True</Platform>
+				<Platform value="Linux64">True</Platform>
+				<Platform value="OSX32">True</Platform>
+				<Platform value="Win32">True</Platform>
+				<Platform value="Win64">True</Platform>
+			</Platforms>
+		</BorlandProject>
+		<ProjectFileVersion>12</ProjectFileVersion>
+	</ProjectExtensions>
+	<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+	<Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+	<Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>

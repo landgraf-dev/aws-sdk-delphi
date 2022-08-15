@@ -1,0 +1,465 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<ProjectGuid>{0A41EB47-FDD3-4830-9B26-EB4FCF282279}</ProjectGuid>
+		<MainSource>awstranscribe.dpk</MainSource>
+		<ProjectVersion>18.8</ProjectVersion>
+		<FrameworkType>None</FrameworkType>
+		<Base>True</Base>
+		<Config Condition="'$(Config)'==''">Debug</Config>
+		<Platform Condition="'$(Platform)'==''">Win32</Platform>
+		<TargetedPlatforms>169183</TargetedPlatforms>
+		<AppType>Package</AppType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Android' and '$(Base)'=='true') or '$(Base_Android)'!=''">
+		<Base_Android>true</Base_Android>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Android64' and '$(Base)'=='true') or '$(Base_Android64)'!=''">
+		<Base_Android64>true</Base_Android64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSDevice32' and '$(Base)'=='true') or '$(Base_iOSDevice32)'!=''">
+		<Base_iOSDevice32>true</Base_iOSDevice32>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Base)'=='true') or '$(Base_iOSDevice64)'!=''">
+		<Base_iOSDevice64>true</Base_iOSDevice64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSSimulator' and '$(Base)'=='true') or '$(Base_iOSSimulator)'!=''">
+		<Base_iOSSimulator>true</Base_iOSSimulator>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='OSX32' and '$(Base)'=='true') or '$(Base_OSX32)'!=''">
+		<Base_OSX32>true</Base_OSX32>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='OSX64' and '$(Base)'=='true') or '$(Base_OSX64)'!=''">
+		<Base_OSX64>true</Base_OSX64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+		<Base_Win32>true</Base_Win32>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+		<Base_Win64>true</Base_Win64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+		<Cfg_1>true</Cfg_1>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+		<Cfg_1_Win32>true</Cfg_1_Win32>
+		<CfgParent>Cfg_1</CfgParent>
+		<Cfg_1>true</Cfg_1>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+		<Cfg_2>true</Cfg_2>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base)'!=''">
+		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+		<DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+		<DCC_E>false</DCC_E>
+		<DCC_N>false</DCC_N>
+		<DCC_S>false</DCC_S>
+		<DCC_F>false</DCC_F>
+		<DCC_K>false</DCC_K>
+		<GenDll>true</GenDll>
+		<GenPackage>true</GenPackage>
+		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+		<SanitizedProjectName>awstranscribe</SanitizedProjectName>
+		<DCC_Description>Amazon Transcribe Service</DCC_Description>
+		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
+		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
+		<DllSuffix>260</DllSuffix>
+		<DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
+		<DCC_DcpOutput>.\$(Platform)\$(Config)</DCC_DcpOutput>
+		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
+		<DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Android)'!=''">
+		<EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
+		<VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Android64)'!=''">
+		<EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
+		<VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_iOSDevice32)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;CFBundleResourceSpecification=ResourceRules.plist;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;FMLocalNotificationPermission=false;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false</VerInfo_Keys>
+		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_iOSDevice64)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;CFBundleResourceSpecification=ResourceRules.plist;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;FMLocalNotificationPermission=false;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false</VerInfo_Keys>
+		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_iOSSimulator)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;CFBundleResourceSpecification=ResourceRules.plist;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;FMLocalNotificationPermission=false;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false</VerInfo_Keys>
+		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_OSX32)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities;NSLocationUsageDescription=The reason for accessing the location information of the user;NSContactsUsageDescription=The reason for accessing the contacts</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_OSX64)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities;NSLocationUsageDescription=The reason for accessing the location information of the user;NSContactsUsageDescription=The reason for accessing the contacts</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Win32)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		<VerInfo_Locale>1033</VerInfo_Locale>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Win64)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		<VerInfo_Locale>1033</VerInfo_Locale>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_1)'!=''">
+		<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		<DCC_DebugDCUs>true</DCC_DebugDCUs>
+		<DCC_Optimize>false</DCC_Optimize>
+		<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+		<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+		<DCC_RemoteDebug>true</DCC_RemoteDebug>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+		<DCC_RemoteDebug>false</DCC_RemoteDebug>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_2)'!=''">
+		<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+		<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+		<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+		<DCC_DebugInformation>0</DCC_DebugInformation>
+	</PropertyGroup>
+	<ItemGroup>
+		<DelphiCompile Include="$(MainSource)">
+			<MainSource>MainSource</MainSource>
+		</DelphiCompile>
+		<DCCReference Include="awscore.dcp"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\AWS.Transcribe.Client.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\AWS.Transcribe.ClientIntf.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\AWS.Transcribe.Config.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\AWS.Transcribe.Enums.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\AWS.Transcribe.Exception.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\AWS.Transcribe.Metadata.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.AbsoluteTimeRange.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.BadRequestException.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CallAnalyticsJob.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CallAnalyticsJobSettings.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CallAnalyticsJobSummary.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CategoryProperties.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ChannelDefinition.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ConflictException.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ContentRedaction.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateCallAnalyticsCategoryRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateCallAnalyticsCategoryResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateLanguageModelRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateLanguageModelResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateMedicalVocabularyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateMedicalVocabularyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateVocabularyFilterRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateVocabularyFilterResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateVocabularyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.CreateVocabularyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteCallAnalyticsCategoryRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteCallAnalyticsCategoryResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteCallAnalyticsJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteCallAnalyticsJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteLanguageModelRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteLanguageModelResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteMedicalTranscriptionJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteMedicalTranscriptionJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteMedicalVocabularyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteMedicalVocabularyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteTranscriptionJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteTranscriptionJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteVocabularyFilterRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteVocabularyFilterResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteVocabularyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DeleteVocabularyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DescribeLanguageModelRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.DescribeLanguageModelResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetCallAnalyticsCategoryRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetCallAnalyticsCategoryResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetCallAnalyticsJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetCallAnalyticsJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetMedicalTranscriptionJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetMedicalTranscriptionJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetMedicalVocabularyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetMedicalVocabularyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetTranscriptionJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetTranscriptionJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetVocabularyFilterRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetVocabularyFilterResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetVocabularyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.GetVocabularyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.InputDataConfig.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.InternalFailureException.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.InterruptionFilter.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.JobExecutionSettings.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.LanguageIdSettings.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.LanguageModel.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.LimitExceededException.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListCallAnalyticsCategoriesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListCallAnalyticsCategoriesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListCallAnalyticsJobsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListCallAnalyticsJobsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListLanguageModelsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListLanguageModelsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListMedicalTranscriptionJobsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListMedicalTranscriptionJobsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListMedicalVocabulariesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListMedicalVocabulariesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListTagsForResourceRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListTagsForResourceResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListTranscriptionJobsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListTranscriptionJobsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListVocabulariesRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListVocabulariesResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListVocabularyFiltersRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ListVocabularyFiltersResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.Media.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.MedicalTranscript.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.MedicalTranscriptionJob.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.MedicalTranscriptionJobSummary.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.MedicalTranscriptionSetting.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.ModelSettings.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.NonTalkTimeFilter.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.NotFoundException.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.RelativeTimeRange.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.Request.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.Rule.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.SentimentFilter.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.Settings.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.StartCallAnalyticsJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.StartCallAnalyticsJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.StartMedicalTranscriptionJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.StartMedicalTranscriptionJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.StartTranscriptionJobRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.StartTranscriptionJobResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.Subtitles.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.SubtitlesOutput.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.Tag.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.TagResourceRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.TagResourceResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.Transcript.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.TranscriptFilter.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.TranscriptionJob.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.TranscriptionJobSummary.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UntagResourceRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UntagResourceResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UpdateCallAnalyticsCategoryRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UpdateCallAnalyticsCategoryResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UpdateMedicalVocabularyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UpdateMedicalVocabularyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UpdateVocabularyFilterRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UpdateVocabularyFilterResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UpdateVocabularyRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.UpdateVocabularyResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.VocabularyFilterInfo.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Model\AWS.Transcribe.Model.VocabularyInfo.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.AbsoluteTimeRangeMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.AbsoluteTimeRangeUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.BadRequestExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CallAnalyticsJobSettingsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CallAnalyticsJobSettingsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CallAnalyticsJobSummaryUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CallAnalyticsJobUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CategoryPropertiesUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ChannelDefinitionMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ChannelDefinitionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ConflictExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ContentRedactionMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ContentRedactionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateCallAnalyticsCategoryRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateCallAnalyticsCategoryResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateLanguageModelRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateLanguageModelResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateMedicalVocabularyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateMedicalVocabularyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateVocabularyFilterRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateVocabularyFilterResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateVocabularyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.CreateVocabularyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteCallAnalyticsCategoryRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteCallAnalyticsCategoryResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteCallAnalyticsJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteCallAnalyticsJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteLanguageModelRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteLanguageModelResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteMedicalTranscriptionJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteMedicalTranscriptionJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteMedicalVocabularyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteMedicalVocabularyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteTranscriptionJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteTranscriptionJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteVocabularyFilterRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteVocabularyFilterResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteVocabularyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DeleteVocabularyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DescribeLanguageModelRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.DescribeLanguageModelResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetCallAnalyticsCategoryRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetCallAnalyticsCategoryResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetCallAnalyticsJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetCallAnalyticsJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetMedicalTranscriptionJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetMedicalTranscriptionJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetMedicalVocabularyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetMedicalVocabularyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetTranscriptionJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetTranscriptionJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetVocabularyFilterRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetVocabularyFilterResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetVocabularyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.GetVocabularyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.InputDataConfigMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.InputDataConfigUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.InternalFailureExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.InterruptionFilterMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.InterruptionFilterUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.JobExecutionSettingsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.JobExecutionSettingsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.LanguageIdSettingsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.LanguageIdSettingsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.LanguageModelUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.LimitExceededExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListCallAnalyticsCategoriesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListCallAnalyticsCategoriesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListCallAnalyticsJobsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListCallAnalyticsJobsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListLanguageModelsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListLanguageModelsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListMedicalTranscriptionJobsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListMedicalTranscriptionJobsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListMedicalVocabulariesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListMedicalVocabulariesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListTagsForResourceRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListTagsForResourceResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListTranscriptionJobsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListTranscriptionJobsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListVocabulariesRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListVocabulariesResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListVocabularyFiltersRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ListVocabularyFiltersResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.MediaMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.MediaUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.MedicalTranscriptUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.MedicalTranscriptionJobSummaryUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.MedicalTranscriptionJobUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.MedicalTranscriptionSettingMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.MedicalTranscriptionSettingUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ModelSettingsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.ModelSettingsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.NonTalkTimeFilterMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.NonTalkTimeFilterUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.NotFoundExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.RelativeTimeRangeMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.RelativeTimeRangeUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.RuleMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.RuleUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.SentimentFilterMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.SentimentFilterUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.SettingsMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.SettingsUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.StartCallAnalyticsJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.StartCallAnalyticsJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.StartMedicalTranscriptionJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.StartMedicalTranscriptionJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.StartTranscriptionJobRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.StartTranscriptionJobResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.SubtitlesMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.SubtitlesOutputUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TagMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TagResourceRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TagResourceResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TagUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TranscriptFilterMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TranscriptFilterUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TranscriptUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TranscriptionJobSummaryUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.TranscriptionJobUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UntagResourceRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UntagResourceResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UpdateCallAnalyticsCategoryRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UpdateCallAnalyticsCategoryResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UpdateMedicalVocabularyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UpdateMedicalVocabularyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UpdateVocabularyFilterRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UpdateVocabularyFilterResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UpdateVocabularyRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.UpdateVocabularyResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.VocabularyFilterInfoUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\Transform\AWS.Transcribe.Transform.VocabularyInfoUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\TranscribeService\Base\AWS.Transcribe.pas"/>
+		<BuildConfiguration Include="Release">
+			<Key>Cfg_2</Key>
+			<CfgParent>Base</CfgParent>
+		</BuildConfiguration>
+		<BuildConfiguration Include="Base">
+			<Key>Base</Key>
+		</BuildConfiguration>
+		<BuildConfiguration Include="Debug">
+			<Key>Cfg_1</Key>
+			<CfgParent>Base</CfgParent>
+		</BuildConfiguration>
+	</ItemGroup>
+	<ProjectExtensions>
+		<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+		<Borland.ProjectType>Package</Borland.ProjectType>
+		<BorlandProject>
+			<Delphi.Personality>
+				<Source>
+					<Source Name="MainSource">awstranscribe.dpk</Source>
+				</Source>
+			</Delphi.Personality>
+			<Deployment Version="3"/>
+			<Platforms>
+				<Platform value="Android">True</Platform>
+				<Platform value="Android64">True</Platform>
+				<Platform value="iOSDevice32">True</Platform>
+				<Platform value="iOSDevice64">True</Platform>
+				<Platform value="iOSSimulator">True</Platform>
+				<Platform value="Linux64">True</Platform>
+				<Platform value="OSX32">True</Platform>
+				<Platform value="OSX64">True</Platform>
+				<Platform value="Win32">True</Platform>
+				<Platform value="Win64">True</Platform>
+			</Platforms>
+		</BorlandProject>
+		<ProjectFileVersion>12</ProjectFileVersion>
+	</ProjectExtensions>
+	<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+	<Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+	<Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>

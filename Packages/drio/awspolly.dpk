@@ -1,0 +1,135 @@
+package awspolly;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Amazon Polly'}
+{$LIBSUFFIX '260'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  awscore;
+
+contains
+  AWS.Polly.Client in '..\..\Source\Services\Polly\Base\AWS.Polly.Client.pas',
+  AWS.Polly.ClientIntf in '..\..\Source\Services\Polly\Base\AWS.Polly.ClientIntf.pas',
+  AWS.Polly.Config in '..\..\Source\Services\Polly\Base\AWS.Polly.Config.pas',
+  AWS.Polly.Enums in '..\..\Source\Services\Polly\Base\AWS.Polly.Enums.pas',
+  AWS.Polly.Exception in '..\..\Source\Services\Polly\Base\AWS.Polly.Exception.pas',
+  AWS.Polly.Metadata in '..\..\Source\Services\Polly\Base\AWS.Polly.Metadata.pas',
+  AWS.Polly.Model.DeleteLexiconRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.DeleteLexiconRequest.pas',
+  AWS.Polly.Model.DeleteLexiconResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.DeleteLexiconResponse.pas',
+  AWS.Polly.Model.DescribeVoicesRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.DescribeVoicesRequest.pas',
+  AWS.Polly.Model.DescribeVoicesResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.DescribeVoicesResponse.pas',
+  AWS.Polly.Model.EngineNotSupportedException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.EngineNotSupportedException.pas',
+  AWS.Polly.Model.GetLexiconRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.GetLexiconRequest.pas',
+  AWS.Polly.Model.GetLexiconResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.GetLexiconResponse.pas',
+  AWS.Polly.Model.GetSpeechSynthesisTaskRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.GetSpeechSynthesisTaskRequest.pas',
+  AWS.Polly.Model.GetSpeechSynthesisTaskResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.GetSpeechSynthesisTaskResponse.pas',
+  AWS.Polly.Model.InvalidLexiconException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.InvalidLexiconException.pas',
+  AWS.Polly.Model.InvalidNextTokenException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.InvalidNextTokenException.pas',
+  AWS.Polly.Model.InvalidS3BucketException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.InvalidS3BucketException.pas',
+  AWS.Polly.Model.InvalidS3KeyException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.InvalidS3KeyException.pas',
+  AWS.Polly.Model.InvalidSampleRateException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.InvalidSampleRateException.pas',
+  AWS.Polly.Model.InvalidSnsTopicArnException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.InvalidSnsTopicArnException.pas',
+  AWS.Polly.Model.InvalidSsmlException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.InvalidSsmlException.pas',
+  AWS.Polly.Model.InvalidTaskIdException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.InvalidTaskIdException.pas',
+  AWS.Polly.Model.LanguageNotSupportedException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.LanguageNotSupportedException.pas',
+  AWS.Polly.Model.Lexicon in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.Lexicon.pas',
+  AWS.Polly.Model.LexiconAttributes in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.LexiconAttributes.pas',
+  AWS.Polly.Model.LexiconDescription in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.LexiconDescription.pas',
+  AWS.Polly.Model.LexiconNotFoundException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.LexiconNotFoundException.pas',
+  AWS.Polly.Model.LexiconSizeExceededException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.LexiconSizeExceededException.pas',
+  AWS.Polly.Model.ListLexiconsRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.ListLexiconsRequest.pas',
+  AWS.Polly.Model.ListLexiconsResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.ListLexiconsResponse.pas',
+  AWS.Polly.Model.ListSpeechSynthesisTasksRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.ListSpeechSynthesisTasksRequest.pas',
+  AWS.Polly.Model.ListSpeechSynthesisTasksResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.ListSpeechSynthesisTasksResponse.pas',
+  AWS.Polly.Model.MarksNotSupportedForFormatException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.MarksNotSupportedForFormatException.pas',
+  AWS.Polly.Model.MaxLexemeLengthExceededException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.MaxLexemeLengthExceededException.pas',
+  AWS.Polly.Model.MaxLexiconsNumberExceededException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.MaxLexiconsNumberExceededException.pas',
+  AWS.Polly.Model.PutLexiconRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.PutLexiconRequest.pas',
+  AWS.Polly.Model.PutLexiconResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.PutLexiconResponse.pas',
+  AWS.Polly.Model.Request in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.Request.pas',
+  AWS.Polly.Model.ServiceFailureException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.ServiceFailureException.pas',
+  AWS.Polly.Model.SsmlMarksNotSupportedForTextTypeException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.SsmlMarksNotSupportedForTextTypeException.pas',
+  AWS.Polly.Model.StartSpeechSynthesisTaskRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.StartSpeechSynthesisTaskRequest.pas',
+  AWS.Polly.Model.StartSpeechSynthesisTaskResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.StartSpeechSynthesisTaskResponse.pas',
+  AWS.Polly.Model.SynthesisTask in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.SynthesisTask.pas',
+  AWS.Polly.Model.SynthesisTaskNotFoundException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.SynthesisTaskNotFoundException.pas',
+  AWS.Polly.Model.SynthesizeSpeechRequest in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.SynthesizeSpeechRequest.pas',
+  AWS.Polly.Model.SynthesizeSpeechResponse in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.SynthesizeSpeechResponse.pas',
+  AWS.Polly.Model.TextLengthExceededException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.TextLengthExceededException.pas',
+  AWS.Polly.Model.UnsupportedPlsAlphabetException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.UnsupportedPlsAlphabetException.pas',
+  AWS.Polly.Model.UnsupportedPlsLanguageException in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.UnsupportedPlsLanguageException.pas',
+  AWS.Polly.Model.Voice in '..\..\Source\Services\Polly\Base\Model\AWS.Polly.Model.Voice.pas',
+  AWS.Polly.Transform.DeleteLexiconRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.DeleteLexiconRequestMarshaller.pas',
+  AWS.Polly.Transform.DeleteLexiconResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.DeleteLexiconResponseUnmarshaller.pas',
+  AWS.Polly.Transform.DescribeVoicesRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.DescribeVoicesRequestMarshaller.pas',
+  AWS.Polly.Transform.DescribeVoicesResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.DescribeVoicesResponseUnmarshaller.pas',
+  AWS.Polly.Transform.EngineNotSupportedExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.EngineNotSupportedExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.GetLexiconRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.GetLexiconRequestMarshaller.pas',
+  AWS.Polly.Transform.GetLexiconResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.GetLexiconResponseUnmarshaller.pas',
+  AWS.Polly.Transform.GetSpeechSynthesisTaskRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.GetSpeechSynthesisTaskRequestMarshaller.pas',
+  AWS.Polly.Transform.GetSpeechSynthesisTaskResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.GetSpeechSynthesisTaskResponseUnmarshaller.pas',
+  AWS.Polly.Transform.InvalidLexiconExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.InvalidLexiconExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.InvalidNextTokenExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.InvalidNextTokenExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.InvalidS3BucketExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.InvalidS3BucketExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.InvalidS3KeyExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.InvalidS3KeyExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.InvalidSampleRateExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.InvalidSampleRateExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.InvalidSnsTopicArnExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.InvalidSnsTopicArnExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.InvalidSsmlExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.InvalidSsmlExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.InvalidTaskIdExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.InvalidTaskIdExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.LanguageNotSupportedExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.LanguageNotSupportedExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.LexiconAttributesUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.LexiconAttributesUnmarshaller.pas',
+  AWS.Polly.Transform.LexiconDescriptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.LexiconDescriptionUnmarshaller.pas',
+  AWS.Polly.Transform.LexiconNotFoundExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.LexiconNotFoundExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.LexiconSizeExceededExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.LexiconSizeExceededExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.LexiconUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.LexiconUnmarshaller.pas',
+  AWS.Polly.Transform.ListLexiconsRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.ListLexiconsRequestMarshaller.pas',
+  AWS.Polly.Transform.ListLexiconsResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.ListLexiconsResponseUnmarshaller.pas',
+  AWS.Polly.Transform.ListSpeechSynthesisTasksRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.ListSpeechSynthesisTasksRequestMarshaller.pas',
+  AWS.Polly.Transform.ListSpeechSynthesisTasksResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.ListSpeechSynthesisTasksResponseUnmarshaller.pas',
+  AWS.Polly.Transform.MarksNotSupportedForFormatExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.MarksNotSupportedForFormatExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.MaxLexemeLengthExceededExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.MaxLexemeLengthExceededExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.MaxLexiconsNumberExceededExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.MaxLexiconsNumberExceededExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.PutLexiconRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.PutLexiconRequestMarshaller.pas',
+  AWS.Polly.Transform.PutLexiconResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.PutLexiconResponseUnmarshaller.pas',
+  AWS.Polly.Transform.ServiceFailureExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.ServiceFailureExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.SsmlMarksNotSupportedForTextTypeExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.SsmlMarksNotSupportedForTextTypeExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.StartSpeechSynthesisTaskRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.StartSpeechSynthesisTaskRequestMarshaller.pas',
+  AWS.Polly.Transform.StartSpeechSynthesisTaskResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.StartSpeechSynthesisTaskResponseUnmarshaller.pas',
+  AWS.Polly.Transform.SynthesisTaskNotFoundExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.SynthesisTaskNotFoundExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.SynthesisTaskUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.SynthesisTaskUnmarshaller.pas',
+  AWS.Polly.Transform.SynthesizeSpeechRequestMarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.SynthesizeSpeechRequestMarshaller.pas',
+  AWS.Polly.Transform.SynthesizeSpeechResponseUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.SynthesizeSpeechResponseUnmarshaller.pas',
+  AWS.Polly.Transform.TextLengthExceededExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.TextLengthExceededExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.UnsupportedPlsAlphabetExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.UnsupportedPlsAlphabetExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.UnsupportedPlsLanguageExceptionUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.UnsupportedPlsLanguageExceptionUnmarshaller.pas',
+  AWS.Polly.Transform.VoiceUnmarshaller in '..\..\Source\Services\Polly\Base\Transform\AWS.Polly.Transform.VoiceUnmarshaller.pas',
+  AWS.Polly in '..\..\Source\Services\Polly\Base\AWS.Polly.pas',
+  AWS.Polly.SynthesizeSpeechUtil in '..\..\Source\Services\Polly\Custom\AWS.Polly.SynthesizeSpeechUtil.pas';
+
+end.

@@ -1,12 +1,9 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{3738839D-9D14-462D-87B6-72C4FB6F1A29}</ProjectGuid>
+        <ProjectGuid>{E6CC7999-8BB0-4FAF-9B77-339F9C86C513}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
         <Projects Include="awscore.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="awssqs.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="awsses.dproj">
@@ -15,10 +12,16 @@
         <Projects Include="awssesv2.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="awspolly.dproj">
+        <Projects Include="awssns.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="awssns.dproj">
+        <Projects Include="awssqs.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awstextract.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awstranscribe.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="awstranslate.dproj">
@@ -28,6 +31,12 @@
             <Dependencies/>
         </Projects>
         <Projects Include="awslexruntimev2.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awspolly.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="awsrekognition.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -47,15 +56,6 @@
     <Target Name="awscore:Make">
         <MSBuild Projects="awscore.dproj" Targets="Make"/>
     </Target>
-    <Target Name="awssqs">
-        <MSBuild Projects="awssqs.dproj"/>
-    </Target>
-    <Target Name="awssqs:Clean">
-        <MSBuild Projects="awssqs.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="awssqs:Make">
-        <MSBuild Projects="awssqs.dproj" Targets="Make"/>
-    </Target>
     <Target Name="awsses">
         <MSBuild Projects="awsses.dproj"/>
     </Target>
@@ -74,15 +74,6 @@
     <Target Name="awssesv2:Make">
         <MSBuild Projects="awssesv2.dproj" Targets="Make"/>
     </Target>
-    <Target Name="awspolly">
-        <MSBuild Projects="awspolly.dproj"/>
-    </Target>
-    <Target Name="awspolly:Clean">
-        <MSBuild Projects="awspolly.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="awspolly:Make">
-        <MSBuild Projects="awspolly.dproj" Targets="Make"/>
-    </Target>
     <Target Name="awssns">
         <MSBuild Projects="awssns.dproj"/>
     </Target>
@@ -91,6 +82,33 @@
     </Target>
     <Target Name="awssns:Make">
         <MSBuild Projects="awssns.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awssqs">
+        <MSBuild Projects="awssqs.dproj"/>
+    </Target>
+    <Target Name="awssqs:Clean">
+        <MSBuild Projects="awssqs.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awssqs:Make">
+        <MSBuild Projects="awssqs.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awstextract">
+        <MSBuild Projects="awstextract.dproj"/>
+    </Target>
+    <Target Name="awstextract:Clean">
+        <MSBuild Projects="awstextract.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awstextract:Make">
+        <MSBuild Projects="awstextract.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awstranscribe">
+        <MSBuild Projects="awstranscribe.dproj"/>
+    </Target>
+    <Target Name="awstranscribe:Clean">
+        <MSBuild Projects="awstranscribe.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awstranscribe:Make">
+        <MSBuild Projects="awstranscribe.dproj" Targets="Make"/>
     </Target>
     <Target Name="awstranslate">
         <MSBuild Projects="awstranslate.dproj"/>
@@ -119,14 +137,32 @@
     <Target Name="awslexruntimev2:Make">
         <MSBuild Projects="awslexruntimev2.dproj" Targets="Make"/>
     </Target>
+    <Target Name="awspolly">
+        <MSBuild Projects="awspolly.dproj"/>
+    </Target>
+    <Target Name="awspolly:Clean">
+        <MSBuild Projects="awspolly.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awspolly:Make">
+        <MSBuild Projects="awspolly.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="awsrekognition">
+        <MSBuild Projects="awsrekognition.dproj"/>
+    </Target>
+    <Target Name="awsrekognition:Clean">
+        <MSBuild Projects="awsrekognition.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="awsrekognition:Make">
+        <MSBuild Projects="awsrekognition.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="awscore;awssqs;awsses;awssesv2;awspolly;awssns;awstranslate;awslexruntimeservice;awslexruntimev2"/>
+        <CallTarget Targets="awscore;awsses;awssesv2;awssns;awssqs;awstextract;awstranscribe;awstranslate;awslexruntimeservice;awslexruntimev2;awspolly;awsrekognition"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="awscore:Clean;awssqs:Clean;awsses:Clean;awssesv2:Clean;awspolly:Clean;awssns:Clean;awstranslate:Clean;awslexruntimeservice:Clean;awslexruntimev2:Clean"/>
+        <CallTarget Targets="awscore:Clean;awsses:Clean;awssesv2:Clean;awssns:Clean;awssqs:Clean;awstextract:Clean;awstranscribe:Clean;awstranslate:Clean;awslexruntimeservice:Clean;awslexruntimev2:Clean;awspolly:Clean;awsrekognition:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="awscore:Make;awssqs:Make;awsses:Make;awssesv2:Make;awspolly:Make;awssns:Make;awstranslate:Make;awslexruntimeservice:Make;awslexruntimev2:Make"/>
+        <CallTarget Targets="awscore:Make;awsses:Make;awssesv2:Make;awssns:Make;awssqs:Make;awstextract:Make;awstranscribe:Make;awstranslate:Make;awslexruntimeservice:Make;awslexruntimev2:Make;awspolly:Make;awsrekognition:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

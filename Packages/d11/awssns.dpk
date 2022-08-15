@@ -5,7 +5,7 @@ package awssns;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO OFF}
+{$DEBUGINFO ON}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -26,7 +26,7 @@ package awssns;
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'Amazon Simple Notification Service'}
-{$LIBSUFFIX AUTO}
+{$LIBSUFFIX '280'}
 {$RUNONLY}
 {$IMPLICITBUILD OFF}
 
@@ -43,6 +43,9 @@ contains
   AWS.SNS.Model.AddPermissionRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.AddPermissionRequest.pas',
   AWS.SNS.Model.AddPermissionResponse in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.AddPermissionResponse.pas',
   AWS.SNS.Model.AuthorizationErrorException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.AuthorizationErrorException.pas',
+  AWS.SNS.Model.BatchEntryIdsNotDistinctException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.BatchEntryIdsNotDistinctException.pas',
+  AWS.SNS.Model.BatchRequestTooLongException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.BatchRequestTooLongException.pas',
+  AWS.SNS.Model.BatchResultErrorEntry in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.BatchResultErrorEntry.pas',
   AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutRequest.pas',
   AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutResponse in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.CheckIfPhoneNumberIsOptedOutResponse.pas',
   AWS.SNS.Model.ConcurrentAccessException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.ConcurrentAccessException.pas',
@@ -64,6 +67,7 @@ contains
   AWS.SNS.Model.DeleteSMSSandboxPhoneNumberResponse in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.DeleteSMSSandboxPhoneNumberResponse.pas',
   AWS.SNS.Model.DeleteTopicRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.DeleteTopicRequest.pas',
   AWS.SNS.Model.DeleteTopicResponse in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.DeleteTopicResponse.pas',
+  AWS.SNS.Model.EmptyBatchRequestException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.EmptyBatchRequestException.pas',
   AWS.SNS.Model.Endpoint in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.Endpoint.pas',
   AWS.SNS.Model.EndpointDisabledException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.EndpointDisabledException.pas',
   AWS.SNS.Model.FilterPolicyLimitExceededException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.FilterPolicyLimitExceededException.pas',
@@ -80,6 +84,7 @@ contains
   AWS.SNS.Model.GetTopicAttributesRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.GetTopicAttributesRequest.pas',
   AWS.SNS.Model.GetTopicAttributesResponse in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.GetTopicAttributesResponse.pas',
   AWS.SNS.Model.InternalErrorException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InternalErrorException.pas',
+  AWS.SNS.Model.InvalidBatchEntryIdException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InvalidBatchEntryIdException.pas',
   AWS.SNS.Model.InvalidParameterException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InvalidParameterException.pas',
   AWS.SNS.Model.InvalidParameterValueException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InvalidParameterValueException.pas',
   AWS.SNS.Model.InvalidSecurityException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.InvalidSecurityException.pas',
@@ -115,6 +120,10 @@ contains
   AWS.SNS.Model.PhoneNumberInformation in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PhoneNumberInformation.pas',
   AWS.SNS.Model.PlatformApplication in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PlatformApplication.pas',
   AWS.SNS.Model.PlatformApplicationDisabledException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PlatformApplicationDisabledException.pas',
+  AWS.SNS.Model.PublishBatchRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishBatchRequest.pas',
+  AWS.SNS.Model.PublishBatchRequestEntry in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishBatchRequestEntry.pas',
+  AWS.SNS.Model.PublishBatchResponse in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishBatchResponse.pas',
+  AWS.SNS.Model.PublishBatchResultEntry in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishBatchResultEntry.pas',
   AWS.SNS.Model.PublishRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishRequest.pas',
   AWS.SNS.Model.PublishResponse in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.PublishResponse.pas',
   AWS.SNS.Model.RemovePermissionRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.RemovePermissionRequest.pas',
@@ -143,6 +152,7 @@ contains
   AWS.SNS.Model.TagResourceRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.TagResourceRequest.pas',
   AWS.SNS.Model.TagResourceResponse in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.TagResourceResponse.pas',
   AWS.SNS.Model.ThrottledException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.ThrottledException.pas',
+  AWS.SNS.Model.TooManyEntriesInBatchRequestException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.TooManyEntriesInBatchRequestException.pas',
   AWS.SNS.Model.Topic in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.Topic.pas',
   AWS.SNS.Model.TopicLimitExceededException in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.TopicLimitExceededException.pas',
   AWS.SNS.Model.UnsubscribeRequest in '..\..\Source\Services\SimpleNotificationService\Base\Model\AWS.SNS.Model.UnsubscribeRequest.pas',
@@ -157,6 +167,9 @@ contains
   AWS.SNS.Transform.AddPermissionRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.AddPermissionRequestMarshaller.pas',
   AWS.SNS.Transform.AddPermissionResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.AddPermissionResponseUnmarshaller.pas',
   AWS.SNS.Transform.AuthorizationErrorExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.AuthorizationErrorExceptionUnmarshaller.pas',
+  AWS.SNS.Transform.BatchEntryIdsNotDistinctExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.BatchEntryIdsNotDistinctExceptionUnmarshaller.pas',
+  AWS.SNS.Transform.BatchRequestTooLongExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.BatchRequestTooLongExceptionUnmarshaller.pas',
+  AWS.SNS.Transform.BatchResultErrorEntryUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.BatchResultErrorEntryUnmarshaller.pas',
   AWS.SNS.Transform.CheckIfPhoneNumberIsOptedOutRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.CheckIfPhoneNumberIsOptedOutRequestMarshaller.pas',
   AWS.SNS.Transform.CheckIfPhoneNumberIsOptedOutResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.CheckIfPhoneNumberIsOptedOutResponseUnmarshaller.pas',
   AWS.SNS.Transform.ConcurrentAccessExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.ConcurrentAccessExceptionUnmarshaller.pas',
@@ -178,6 +191,7 @@ contains
   AWS.SNS.Transform.DeleteSMSSandboxPhoneNumberResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.DeleteSMSSandboxPhoneNumberResponseUnmarshaller.pas',
   AWS.SNS.Transform.DeleteTopicRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.DeleteTopicRequestMarshaller.pas',
   AWS.SNS.Transform.DeleteTopicResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.DeleteTopicResponseUnmarshaller.pas',
+  AWS.SNS.Transform.EmptyBatchRequestExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.EmptyBatchRequestExceptionUnmarshaller.pas',
   AWS.SNS.Transform.EndpointDisabledExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.EndpointDisabledExceptionUnmarshaller.pas',
   AWS.SNS.Transform.EndpointUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.EndpointUnmarshaller.pas',
   AWS.SNS.Transform.FilterPolicyLimitExceededExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.FilterPolicyLimitExceededExceptionUnmarshaller.pas',
@@ -194,6 +208,7 @@ contains
   AWS.SNS.Transform.GetTopicAttributesRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.GetTopicAttributesRequestMarshaller.pas',
   AWS.SNS.Transform.GetTopicAttributesResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.GetTopicAttributesResponseUnmarshaller.pas',
   AWS.SNS.Transform.InternalErrorExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InternalErrorExceptionUnmarshaller.pas',
+  AWS.SNS.Transform.InvalidBatchEntryIdExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InvalidBatchEntryIdExceptionUnmarshaller.pas',
   AWS.SNS.Transform.InvalidParameterExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InvalidParameterExceptionUnmarshaller.pas',
   AWS.SNS.Transform.InvalidParameterValueExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InvalidParameterValueExceptionUnmarshaller.pas',
   AWS.SNS.Transform.InvalidSecurityExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.InvalidSecurityExceptionUnmarshaller.pas',
@@ -228,6 +243,9 @@ contains
   AWS.SNS.Transform.PhoneNumberInformationUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PhoneNumberInformationUnmarshaller.pas',
   AWS.SNS.Transform.PlatformApplicationDisabledExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PlatformApplicationDisabledExceptionUnmarshaller.pas',
   AWS.SNS.Transform.PlatformApplicationUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PlatformApplicationUnmarshaller.pas',
+  AWS.SNS.Transform.PublishBatchRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishBatchRequestMarshaller.pas',
+  AWS.SNS.Transform.PublishBatchResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishBatchResponseUnmarshaller.pas',
+  AWS.SNS.Transform.PublishBatchResultEntryUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishBatchResultEntryUnmarshaller.pas',
   AWS.SNS.Transform.PublishRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishRequestMarshaller.pas',
   AWS.SNS.Transform.PublishResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.PublishResponseUnmarshaller.pas',
   AWS.SNS.Transform.RemovePermissionRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.RemovePermissionRequestMarshaller.pas',
@@ -255,6 +273,7 @@ contains
   AWS.SNS.Transform.TagResourceResponseUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TagResourceResponseUnmarshaller.pas',
   AWS.SNS.Transform.TagUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TagUnmarshaller.pas',
   AWS.SNS.Transform.ThrottledExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.ThrottledExceptionUnmarshaller.pas',
+  AWS.SNS.Transform.TooManyEntriesInBatchRequestExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TooManyEntriesInBatchRequestExceptionUnmarshaller.pas',
   AWS.SNS.Transform.TopicLimitExceededExceptionUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TopicLimitExceededExceptionUnmarshaller.pas',
   AWS.SNS.Transform.TopicUnmarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.TopicUnmarshaller.pas',
   AWS.SNS.Transform.UnsubscribeRequestMarshaller in '..\..\Source\Services\SimpleNotificationService\Base\Transform\AWS.SNS.Transform.UnsubscribeRequestMarshaller.pas',
