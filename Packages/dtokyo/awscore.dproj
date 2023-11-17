@@ -1,13 +1,13 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<ProjectGuid>{382EE802-DEB6-4416-8C34-A8C9CFEA8990}</ProjectGuid>
-		<MainSource>awslexruntimeservice.dpk</MainSource>
+		<ProjectGuid>{83012E98-9626-4564-9AA6-FF0B5EA37BD8}</ProjectGuid>
+		<MainSource>awscore.dpk</MainSource>
 		<ProjectVersion>18.2</ProjectVersion>
 		<FrameworkType>None</FrameworkType>
 		<Base>True</Base>
 		<Config Condition="'$(Config)'==''">Debug</Config>
 		<Platform Condition="'$(Platform)'==''">Win32</Platform>
-		<TargetedPlatforms>1247</TargetedPlatforms>
+		<TargetedPlatforms>1</TargetedPlatforms>
 		<AppType>Package</AppType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -74,17 +74,18 @@
 		<DCC_K>false</DCC_K>
 		<GenDll>true</GenDll>
 		<GenPackage>true</GenPackage>
-		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-		<SanitizedProjectName>awslexruntimeservice</SanitizedProjectName>
-		<DCC_Description>Amazon Lex Runtime Service</DCC_Description>
+		<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
+		<DCC_CBuilderOutput>All</DCC_CBuilderOutput>
+		<SanitizedProjectName>awscore</SanitizedProjectName>
+		<DCC_Description>Amazon Web Services SDK - Core Package</DCC_Description>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
 		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
 		<DllSuffix>250</DllSuffix>
+		<DCC_BplOutput>.\$(Platform)\$(Config)</DCC_BplOutput>
 		<DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
 		<DCC_DcpOutput>.\$(Platform)\$(Config)</DCC_DcpOutput>
 		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
 		<DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
-		<DCC_BplOutput>.\$(Platform)\$(Config)</DCC_BplOutput>
 		<BRCC_OutputDir>.\$(Platform)\$(Config)</BRCC_OutputDir>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">
@@ -116,6 +117,7 @@
 		<BT_BuildType>Debug</BT_BuildType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Win32)'!=''">
+		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
@@ -148,81 +150,67 @@
 		<DelphiCompile Include="$(MainSource)">
 			<MainSource>MainSource</MainSource>
 		</DelphiCompile>
-		<DCCReference Include="awscore.dcp"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\AWS.LexRuntimeService.Client.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\AWS.LexRuntimeService.ClientIntf.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\AWS.LexRuntimeService.Config.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\AWS.LexRuntimeService.Enums.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\AWS.LexRuntimeService.Exception.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\AWS.LexRuntimeService.Metadata.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.ActiveContext.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.ActiveContextTimeToLive.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.BadGatewayException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.BadRequestException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.Button.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.ConflictException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.DeleteSessionRequest.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.DeleteSessionResponse.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.DependencyFailedException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.DialogAction.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.GenericAttachment.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.GetSessionRequest.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.GetSessionResponse.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.IntentConfidence.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.IntentSummary.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.InternalFailureException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.LimitExceededException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.LoopDetectedException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.NotAcceptableException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.NotFoundException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.PostContentRequest.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.PostContentResponse.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.PostTextRequest.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.PostTextResponse.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.PredictedIntent.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.PutSessionRequest.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.PutSessionResponse.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.Request.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.RequestTimeoutException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.ResponseCard.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.SentimentResponse.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Model\AWS.LexRuntimeService.Model.UnsupportedMediaTypeException.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.ActiveContextMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.ActiveContextTimeToLiveMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.ActiveContextTimeToLiveUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.ActiveContextUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.BadGatewayExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.BadRequestExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.ButtonUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.ConflictExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.DeleteSessionRequestMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.DeleteSessionResponseUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.DependencyFailedExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.DialogActionMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.DialogActionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.GenericAttachmentUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.GetSessionRequestMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.GetSessionResponseUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.IntentConfidenceUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.IntentSummaryMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.IntentSummaryUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.InternalFailureExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.LimitExceededExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.LoopDetectedExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.NotAcceptableExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.NotFoundExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.PostContentRequestMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.PostContentResponseUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.PostTextRequestMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.PostTextResponseUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.PredictedIntentUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.PutSessionRequestMarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.PutSessionResponseUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.RequestTimeoutExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.ResponseCardUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.SentimentResponseUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\Transform\AWS.LexRuntimeService.Transform.UnsupportedMediaTypeExceptionUnmarshaller.pas"/>
-		<DCCReference Include="..\..\Source\Services\Lex\Base\AWS.LexRuntimeService.pas"/>
+		<DCCReference Include="rtl.dcp"/>
+		<DCCReference Include="dbrtl.dcp"/>
+		<DCCReference Include="tmsbcl.dcp"/>
+		<DCCReference Include="sparkle.dcp"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Auth.NullSigner.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Auth.Signer.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Configs.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.DefaultRequest.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.ErrorResponse.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.HttpErrorResponseExceptionHandler.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.InvokeOptions.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.IRegionEndpoint.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.ParameterCollection.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.ParameterDictionary.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.PipelineHandler.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.RegionEndpointV3.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.RegionFinder.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.Request.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.RuntimePipeline.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.SDKUtils.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.ServiceMetadata.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.StringUtils.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.WebResponseData.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.CredentialsRetriever.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.EndpointResolver.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.ErrorHandler.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.HttpHandler.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.Marshaller.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.Signer.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.Unmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.RegionEndpoint.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.AWSRegion.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Client.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ClientConfig.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Contexts.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Credentials.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ExceptionHandler.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Exceptions.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.HttpRequestMessageFactory.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.IHttpRequestFactory.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Model.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.SDKUtils.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Transform.ErrorResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Transform.IErrorResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Transform.RequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Transform.ResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Transform.SimpleTypeUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Transform.UnmarshallerContext.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Util.Crypto.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.RegionEndpoints.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Auth.Policy.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Auth.Statement.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Auth.Resource.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Auth.Condition.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Auth.Principal.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Auth.ActionIdentifier.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Transform.JsonUnmarshallerContext.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Util.Streams.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Util.Collections.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Transform.JsonErrorResponseUnmarshaller.pas"/>
 		<BuildConfiguration Include="Release">
 			<Key>Cfg_2</Key>
 			<CfgParent>Base</CfgParent>
@@ -241,7 +229,7 @@
 		<BorlandProject>
 			<Delphi.Personality>
 				<Source>
-					<Source Name="MainSource">awslexruntimeservice.dpk</Source>
+					<Source Name="MainSource">awscore.dpk</Source>
 				</Source>
 			</Delphi.Personality>
 			<Deployment Version="3">
@@ -630,14 +618,14 @@
 				<ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
 			</Deployment>
 			<Platforms>
-				<Platform value="Android">True</Platform>
-				<Platform value="iOSDevice32">True</Platform>
-				<Platform value="iOSDevice64">True</Platform>
-				<Platform value="iOSSimulator">True</Platform>
-				<Platform value="Linux64">True</Platform>
-				<Platform value="OSX32">True</Platform>
+				<Platform value="Android">False</Platform>
+				<Platform value="iOSDevice32">False</Platform>
+				<Platform value="iOSDevice64">False</Platform>
+				<Platform value="iOSSimulator">False</Platform>
+				<Platform value="Linux64">False</Platform>
+				<Platform value="OSX32">False</Platform>
 				<Platform value="Win32">True</Platform>
-				<Platform value="Win64">True</Platform>
+				<Platform value="Win64">False</Platform>
 			</Platforms>
 		</BorlandProject>
 		<ProjectFileVersion>12</ProjectFileVersion>

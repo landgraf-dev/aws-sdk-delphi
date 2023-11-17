@@ -7,7 +7,7 @@
 		<Base>True</Base>
 		<Config Condition="'$(Config)'==''">Debug</Config>
 		<Platform Condition="'$(Platform)'==''">Win32</Platform>
-		<TargetedPlatforms>169183</TargetedPlatforms>
+		<TargetedPlatforms>1247</TargetedPlatforms>
 		<AppType>Package</AppType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -84,6 +84,8 @@
 		<DCC_DcpOutput>.\$(Platform)\$(Config)</DCC_DcpOutput>
 		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
 		<DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
+		<DCC_BplOutput>.\$(Platform)\$(Config)</DCC_BplOutput>
+		<BRCC_OutputDir>.\$(Platform)\$(Config)</BRCC_OutputDir>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">
 		<EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;fmx.dex.jar;google-analytics-v2.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar;google-play-services.dex.jar</EnabledSysJars>

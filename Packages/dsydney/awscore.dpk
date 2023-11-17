@@ -27,6 +27,8 @@ package awscore;
 {$ENDIF IMPLICITBUILDING}
 {$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Web Services SDK - Core Package'}
+{$LIBSUFFIX '270'}
 
 requires
   rtl,

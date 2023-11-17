@@ -25,10 +25,10 @@ package awscore;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Web Services SDK - Core Package'}
-{$LIBSUFFIX AUTO}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Web Services SDK - Core Package'}
+{$RUNONLY}
+{$LIBSUFFIX '260'}
 
 requires
   rtl,

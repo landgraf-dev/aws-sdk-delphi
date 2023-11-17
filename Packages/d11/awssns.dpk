@@ -26,7 +26,7 @@ package awssns;
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'Amazon Simple Notification Service'}
-{$LIBSUFFIX '280'}
+{$LIBSUFFIX AUTO}
 {$RUNONLY}
 {$IMPLICITBUILD OFF}
 
