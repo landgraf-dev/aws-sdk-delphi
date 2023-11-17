@@ -1,0 +1,129 @@
+package awslexruntimev2;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Lex Runtime V2'}
+{$RUNONLY}
+{$LIBSUFFIX AUTO}
+
+requires
+  awscore;
+
+contains
+  AWS.LexRuntimeV2.Client in '..\..\Source\Services\LexRuntimeV2\Base\AWS.LexRuntimeV2.Client.pas',
+  AWS.LexRuntimeV2.ClientIntf in '..\..\Source\Services\LexRuntimeV2\Base\AWS.LexRuntimeV2.ClientIntf.pas',
+  AWS.LexRuntimeV2.Config in '..\..\Source\Services\LexRuntimeV2\Base\AWS.LexRuntimeV2.Config.pas',
+  AWS.LexRuntimeV2.Enums in '..\..\Source\Services\LexRuntimeV2\Base\AWS.LexRuntimeV2.Enums.pas',
+  AWS.LexRuntimeV2.Exception in '..\..\Source\Services\LexRuntimeV2\Base\AWS.LexRuntimeV2.Exception.pas',
+  AWS.LexRuntimeV2.Metadata in '..\..\Source\Services\LexRuntimeV2\Base\AWS.LexRuntimeV2.Metadata.pas',
+  AWS.LexRuntimeV2.Model.AccessDeniedException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.AccessDeniedException.pas',
+  AWS.LexRuntimeV2.Model.ActiveContext in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ActiveContext.pas',
+  AWS.LexRuntimeV2.Model.ActiveContextTimeToLive in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ActiveContextTimeToLive.pas',
+  AWS.LexRuntimeV2.Model.BadGatewayException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.BadGatewayException.pas',
+  AWS.LexRuntimeV2.Model.Button in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Button.pas',
+  AWS.LexRuntimeV2.Model.ConfidenceScore in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ConfidenceScore.pas',
+  AWS.LexRuntimeV2.Model.ConflictException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ConflictException.pas',
+  AWS.LexRuntimeV2.Model.DeleteSessionRequest in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.DeleteSessionRequest.pas',
+  AWS.LexRuntimeV2.Model.DeleteSessionResponse in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.DeleteSessionResponse.pas',
+  AWS.LexRuntimeV2.Model.DependencyFailedException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.DependencyFailedException.pas',
+  AWS.LexRuntimeV2.Model.DialogAction in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.DialogAction.pas',
+  AWS.LexRuntimeV2.Model.GetSessionRequest in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.GetSessionRequest.pas',
+  AWS.LexRuntimeV2.Model.GetSessionResponse in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.GetSessionResponse.pas',
+  AWS.LexRuntimeV2.Model.ImageResponseCard in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ImageResponseCard.pas',
+  AWS.LexRuntimeV2.Model.Intent in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Intent.pas',
+  AWS.LexRuntimeV2.Model.InternalServerException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.InternalServerException.pas',
+  AWS.LexRuntimeV2.Model.Interpretation in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Interpretation.pas',
+  AWS.LexRuntimeV2.Model.Message in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Message.pas',
+  AWS.LexRuntimeV2.Model.PutSessionRequest in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.PutSessionRequest.pas',
+  AWS.LexRuntimeV2.Model.PutSessionResponse in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.PutSessionResponse.pas',
+  AWS.LexRuntimeV2.Model.RecognizeTextRequest in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RecognizeTextRequest.pas',
+  AWS.LexRuntimeV2.Model.RecognizeTextResponse in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RecognizeTextResponse.pas',
+  AWS.LexRuntimeV2.Model.RecognizeUtteranceRequest in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RecognizeUtteranceRequest.pas',
+  AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse.pas',
+  AWS.LexRuntimeV2.Model.Request in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Request.pas',
+  AWS.LexRuntimeV2.Model.ResourceNotFoundException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ResourceNotFoundException.pas',
+  AWS.LexRuntimeV2.Model.RuntimeHintDetails in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHintDetails.pas',
+  AWS.LexRuntimeV2.Model.RuntimeHintValue in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHintValue.pas',
+  AWS.LexRuntimeV2.Model.RuntimeHints in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.RuntimeHints.pas',
+  AWS.LexRuntimeV2.Model.SentimentResponse in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SentimentResponse.pas',
+  AWS.LexRuntimeV2.Model.SentimentScore in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SentimentScore.pas',
+  AWS.LexRuntimeV2.Model.SessionState in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.SessionState.pas',
+  AWS.LexRuntimeV2.Model.Slot in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Slot.pas',
+  AWS.LexRuntimeV2.Model.ThrottlingException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ThrottlingException.pas',
+  AWS.LexRuntimeV2.Model.ValidationException in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.ValidationException.pas',
+  AWS.LexRuntimeV2.Model.Value in '..\..\Source\Services\LexRuntimeV2\Base\Model\AWS.LexRuntimeV2.Model.Value.pas',
+  AWS.LexRuntimeV2.Transform.AccessDeniedExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.AccessDeniedExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ActiveContextMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ActiveContextMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ActiveContextTimeToLiveMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ActiveContextTimeToLiveMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ActiveContextTimeToLiveUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ActiveContextTimeToLiveUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ActiveContextUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ActiveContextUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.BadGatewayExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.BadGatewayExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ButtonMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ButtonMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ButtonUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ButtonUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ConfidenceScoreUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ConfidenceScoreUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ConflictExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ConflictExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.DeleteSessionRequestMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.DeleteSessionRequestMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.DeleteSessionResponseUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.DeleteSessionResponseUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.DependencyFailedExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.DependencyFailedExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.DialogActionMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.DialogActionMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.DialogActionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.DialogActionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.GetSessionRequestMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.GetSessionRequestMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.GetSessionResponseUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.GetSessionResponseUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ImageResponseCardMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ImageResponseCardMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ImageResponseCardUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ImageResponseCardUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.IntentMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.IntentMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.IntentUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.IntentUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.InternalServerExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.InternalServerExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.InterpretationUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.InterpretationUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.MessageMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.MessageMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.MessageUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.MessageUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.PutSessionRequestMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.PutSessionRequestMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.PutSessionResponseUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.PutSessionResponseUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RecognizeTextRequestMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RecognizeTextRequestMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RecognizeTextResponseUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RecognizeTextResponseUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RecognizeUtteranceRequestMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RecognizeUtteranceRequestMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RecognizeUtteranceResponseUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RecognizeUtteranceResponseUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ResourceNotFoundExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ResourceNotFoundExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintDetailsMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintDetailsMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintDetailsUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintDetailsUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintValueMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintValueMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintValueUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintValueUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintsMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintsMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.RuntimeHintsUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.RuntimeHintsUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.SentimentResponseUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SentimentResponseUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.SentimentScoreUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SentimentScoreUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.SessionStateMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SessionStateMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.SessionStateUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SessionStateUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.SlotMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SlotMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.SlotUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.SlotUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ThrottlingExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ThrottlingExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ValidationExceptionUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ValidationExceptionUnmarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ValueMarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ValueMarshaller.pas',
+  AWS.LexRuntimeV2.Transform.ValueUnmarshaller in '..\..\Source\Services\LexRuntimeV2\Base\Transform\AWS.LexRuntimeV2.Transform.ValueUnmarshaller.pas',
+  AWS.LexRuntimeV2 in '..\..\Source\Services\LexRuntimeV2\Base\AWS.LexRuntimeV2.pas';
+
+end.
