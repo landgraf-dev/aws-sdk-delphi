@@ -5,7 +5,7 @@ package awssesv2;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -25,10 +25,10 @@ package awssesv2;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Simple Email Service'}
-{$LIBSUFFIX '270'}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Simple Email Service'}
+{$RUNONLY}
+{$LIBSUFFIX '270'}
 
 requires
   awscore;
@@ -542,3 +542,4 @@ contains
   AWS.SESv2 in '..\..\Source\Services\SimpleEmailV2\Base\AWS.SESv2.pas';
 
 end.
+

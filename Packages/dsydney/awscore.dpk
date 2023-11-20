@@ -25,9 +25,9 @@ package awscore;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
 {$DESCRIPTION 'Amazon Web Services SDK - Core Package'}
+{$RUNONLY}
 {$LIBSUFFIX '270'}
 
 requires
@@ -96,3 +96,4 @@ contains
   AWS.Transform.JsonErrorResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.JsonErrorResponseUnmarshaller.pas';
 
 end.
+

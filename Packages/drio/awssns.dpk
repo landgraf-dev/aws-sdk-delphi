@@ -5,7 +5,7 @@ package awssns;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -25,10 +25,10 @@ package awssns;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Simple Notification Service'}
-{$LIBSUFFIX '260'}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Simple Notification Service'}
+{$RUNONLY}
+{$LIBSUFFIX '260'}
 
 requires
   awscore;

@@ -7,7 +7,7 @@
 		<Base>True</Base>
 		<Config Condition="'$(Config)'==''">Debug</Config>
 		<Platform Condition="'$(Platform)'==''">Win32</Platform>
-		<TargetedPlatforms>169107</TargetedPlatforms>
+		<TargetedPlatforms>693395</TargetedPlatforms>
 		<AppType>Package</AppType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -258,7 +258,7 @@
 				<Platform value="Android">True</Platform>
 				<Platform value="Android64">True</Platform>
 				<Platform value="iOSDevice64">True</Platform>
-				<Platform value="iOSSimARM64">False</Platform>
+				<Platform value="iOSSimARM64">True</Platform>
 				<Platform value="Linux64">True</Platform>
 				<Platform value="OSX64">True</Platform>
 				<Platform value="OSXARM64">True</Platform>

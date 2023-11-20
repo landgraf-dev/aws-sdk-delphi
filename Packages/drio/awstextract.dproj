@@ -90,11 +90,11 @@
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
 		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
 		<DllSuffix>260</DllSuffix>
+		<DCC_BplOutput>.\$(Platform)\$(Config)</DCC_BplOutput>
 		<DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
 		<DCC_DcpOutput>.\$(Platform)\$(Config)</DCC_DcpOutput>
 		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
 		<DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
-		<DCC_BplOutput>.\$(Platform)\$(Config)</DCC_BplOutput>
 		<BRCC_OutputDir>.\$(Platform)\$(Config)</BRCC_OutputDir>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">

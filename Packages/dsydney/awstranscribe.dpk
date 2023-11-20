@@ -5,7 +5,7 @@ package awstranscribe;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -25,10 +25,10 @@ package awstranscribe;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Transcribe Service'}
-{$LIBSUFFIX '270'}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Transcribe Service'}
+{$RUNONLY}
+{$LIBSUFFIX '270'}
 
 requires
   awscore;
@@ -292,3 +292,4 @@ contains
   AWS.Transcribe in '..\..\Source\Services\TranscribeService\Base\AWS.Transcribe.pas';
 
 end.
+

@@ -5,7 +5,7 @@ package awsrekognition;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -25,10 +25,10 @@ package awsrekognition;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Rekognition'}
-{$LIBSUFFIX '270'}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Rekognition'}
+{$RUNONLY}
+{$LIBSUFFIX '270'}
 
 requires
   awscore;
@@ -543,3 +543,4 @@ contains
   AWS.Rekognition in '..\..\Source\Services\Rekognition\Base\AWS.Rekognition.pas';
 
 end.
+

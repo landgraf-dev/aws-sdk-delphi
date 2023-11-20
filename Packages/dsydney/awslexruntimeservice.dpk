@@ -5,7 +5,7 @@ package awslexruntimeservice;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -25,10 +25,10 @@ package awslexruntimeservice;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Lex Runtime Service'}
-{$LIBSUFFIX '270'}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Lex Runtime Service'}
+{$RUNONLY}
+{$LIBSUFFIX '270'}
 
 requires
   awscore;
@@ -110,3 +110,4 @@ contains
   AWS.LexRuntimeService in '..\..\Source\Services\Lex\Base\AWS.LexRuntimeService.pas';
 
 end.
+

@@ -5,7 +5,7 @@ package awstextract;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -25,10 +25,10 @@ package awstextract;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Textract'}
-{$LIBSUFFIX '270'}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Textract'}
+{$RUNONLY}
+{$LIBSUFFIX '270'}
 
 requires
   awscore;
@@ -167,3 +167,4 @@ contains
   AWS.Textract in '..\..\Source\Services\Textract\Base\AWS.Textract.pas';
 
 end.
+
