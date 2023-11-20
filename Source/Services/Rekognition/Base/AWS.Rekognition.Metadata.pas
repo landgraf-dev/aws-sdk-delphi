@@ -6,9 +6,9 @@ uses
   AWS.Internal.ServiceMetadata;
 
 type
-  TAmazonRekognitionMetadata = class(TInterfacedObject, IServiceMetadata)
-  public
-    function GetServiceId: string;
+  TAmazonRekognitionMetadata = class(TServiceMetadata)
+  strict protected
+    function GetServiceId: string; override;
   end;
   
 implementation

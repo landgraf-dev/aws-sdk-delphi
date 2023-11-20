@@ -6,9 +6,9 @@ uses
   AWS.Internal.ServiceMetadata;
 
 type
-  TAmazonSimpleEmailServiceV2Metadata = class(TInterfacedObject, IServiceMetadata)
-  public
-    function GetServiceId: string;
+  TAmazonSimpleEmailServiceV2Metadata = class(TServiceMetadata)
+  strict protected
+    function GetServiceId: string; override;
   end;
   
 implementation

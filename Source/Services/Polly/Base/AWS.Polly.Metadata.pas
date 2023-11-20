@@ -6,9 +6,9 @@ uses
   AWS.Internal.ServiceMetadata;
 
 type
-  TAmazonPollyMetadata = class(TInterfacedObject, IServiceMetadata)
-  public
-    function GetServiceId: string;
+  TAmazonPollyMetadata = class(TServiceMetadata)
+  strict protected
+    function GetServiceId: string; override;
   end;
   
 implementation

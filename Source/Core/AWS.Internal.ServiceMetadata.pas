@@ -22,9 +22,9 @@ type
   TServiceMetadata = class(TInterfacedObject, IServiceMetadata)
   strict private
     FOperationNameMapping: TDictionary<string, string>;
-    function GetServiceId: string;
     function GetOperationNameMapping: TDictionary<string, string>;
   strict protected
+    function GetServiceId: string; virtual;
     procedure FillOperationNameMapping(Mapping: TDictionary<string, string>); virtual;
   public
     destructor Destroy; override;
