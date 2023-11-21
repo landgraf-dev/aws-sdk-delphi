@@ -4,6 +4,7 @@ interface
 
 uses
   System.Generics.Collections, System.Generics.Defaults, System.Classes, System.SysUtils,
+  AWS.Internal.Auth.AWS4SigningResult,
   AWS.Internal.Request,
   AWS.Internal.ParameterCollection,
   AWS.Internal.ParameterDictionary,
@@ -43,7 +44,9 @@ type
     FUseChunkEncoding: Boolean;
     FContentStreamHash: string;
     FSuppress404Exceptions: Boolean;
+    FAWS4SignerResult: TAWS4SigningResult;
     FOriginalStreamPosition: Int64;
+    FCanonicalResourcePrefix: string;
   strict private
     function GetRequestName: string;
     function GetServiceName: string;
@@ -89,9 +92,12 @@ type
     procedure SetUseChunkEncoding(const Value: Boolean);
     function GetOriginalStreamPosition: Int64;
     procedure SetOriginalStreamPosition(const Value: Int64);
-  private
     function GetSuppress404Exceptions: Boolean;
     procedure SetSuppress404Exceptions(const Value: Boolean);
+    function GetAWS4SignerResult: TAWS4SigningResult;
+    procedure SetAWS4SignerResult(const Value: TAWS4SigningResult);
+    function GetCanonicalResourcePrefix: string;
+    procedure SetCanonicalResourcePrefix(const Value: string);
   public
     constructor Create(ARequest: TAmazonWebServiceRequest; AServiceName: string); reintroduce;
     destructor Destroy; override;
@@ -126,7 +132,9 @@ type
     property AuthenticationRegion: string read GetAuthenticationRegion write SetAuthenticationRegion;
     property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
     property Suppress404Exceptions: Boolean read GetSuppress404Exceptions write SetSuppress404Exceptions;
+    property AWS4SignerResult: TAWS4SigningResult read GetAWS4SignerResult write SetAWS4SignerResult;
     property OriginalStreamPosition: Int64 read GetOriginalStreamPosition write SetOriginalStreamPosition;
+    property CanonicalResourcePrefix: string read GetCanonicalResourcePrefix write SetCanonicalResourcePrefix;
   end;
 
 implementation
@@ -218,9 +226,19 @@ begin
   Result := FAuthenticationRegion;
 end;
 
+function TDefaultRequest.GetAWS4SignerResult: TAWS4SigningResult;
+begin
+  Result := FAWS4SignerResult;
+end;
+
 function TDefaultRequest.GetCanonicalResource: string;
 begin
   Result := FCanonicalResource;
+end;
+
+function TDefaultRequest.GetCanonicalResourcePrefix: string;
+begin
+  Result := FCanonicalResourcePrefix;
 end;
 
 function TDefaultRequest.GetContent: TArray<Byte>;
@@ -380,9 +398,19 @@ begin
   FAuthenticationRegion := Value;
 end;
 
+procedure TDefaultRequest.SetAWS4SignerResult(const Value: TAWS4SigningResult);
+begin
+  FAWS4SignerResult := Value;
+end;
+
 procedure TDefaultRequest.SetCanonicalResource(const Value: string);
 begin
   FCanonicalResource := Value;
+end;
+
+procedure TDefaultRequest.SetCanonicalResourcePrefix(const Value: string);
+begin
+  FCanonicalResourcePrefix := Value;
 end;
 
 procedure TDefaultRequest.SetContent(const Value: TArray<Byte>);

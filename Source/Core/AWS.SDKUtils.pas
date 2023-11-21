@@ -5,7 +5,7 @@ unit AWS.SDKUtils;
 interface
 
 uses
-  System.Generics.Collections, System.Classes, System.IniFiles, System.SysUtils, System.StrUtils,
+  System.Generics.Collections, System.Classes, System.IniFiles, System.SysUtils, System.StrUtils, System.DateUtils,
   Sparkle.Uri,
   AWS.Internal.ParameterCollection,
   AWS.Internal.IRegionEndpoint,
@@ -45,6 +45,7 @@ type
     const ISO8601DateFormat = 'yyyy-mm-dd"T"hh:nn:ss.zzz"Z"';
     const DefaultBufferSize = 8192;
     const UrlEncodedContent = 'application/x-www-form-urlencoded; charset=utf-8';
+    const RFC822DateFormat = 'ddd, dd MMM yyyy HH:mm:ss "GMT"';
   strict private
     class var FUserAgent: string;
   public
@@ -152,6 +153,30 @@ type
     /// <returns>The response as a string.</returns>
     class function ExecuteHttpRequest(const AUri, ARequestType, AContent: string;
       ATimeoutMS: Integer; AHeaders: THttpHeaders): string; static;
+
+    /// <summary>
+    /// Formats the current date as ISO 8601 timestamp
+    /// </summary>
+    /// <returns>An ISO 8601 formatted string representation
+    /// of the current date and time
+    /// </returns>
+    class function FormattedCurrentTimestampRFC822: string;
+
+    /// <summary>
+    /// Gets the RFC822 formatted timestamp that is minutesFromNow
+    /// in the future.
+    /// </summary>
+    /// <param name="minutesFromNow">The number of minutes from the current instant
+    /// for which the timestamp is needed.</param>
+    /// <returns>The ISO8601 formatted future timestamp.</returns>
+    class function GetFormattedTimestampRFC822(MinutesFromNow: Integer): string;
+
+    /// <summary>
+    /// Returns DateTime.UtcNow + ManualClockCorrection when
+    /// <seealso cref="TAWSConfigs.ManualClockCorrection"/> is set.
+    /// This value should be used instead of DateTime.UtcNow to factor in manual clock correction
+    /// </summary>
+    class function CorrectedUtcNow: TDateTime;
   end;
 
   THeaderKeys = class
@@ -248,8 +273,9 @@ implementation
 
 uses
   Sparkle.Utils,
-  AWS.Internal.RegionFinder,
   Sparkle.Http.Client,
+  AWS.Configs,
+  AWS.Internal.RegionFinder,
   AWS.Internal.SDKUtils,
   AWS.Runtime.HttpRequestMessageFactory;
 
@@ -409,6 +435,14 @@ begin
   Result := Result + Copy(AData, Start, Index - Start + 1);
 end;
 
+class function TAWSSDKUtils.CorrectedUtcNow: TDateTime;
+begin
+  var localNow := TAWSConfigs.UtcNowSource();
+  if TAWSConfigs.ManualClockCorrection.HasValue then
+    localNow := localNow + TAWSConfigs.ManualClockCorrection.Value;
+  Result := localNow;
+end;
+
 class constructor TAWSSDKUtils.Create;
 begin
   FUserAgent := TInternalSDKUtils.BuildUserAgentString('');
@@ -495,6 +529,17 @@ begin
   finally
     Client.Free;
   end;
+end;
+
+class function TAWSSDKUtils.FormattedCurrentTimestampRFC822: string;
+begin
+  Result := GetFormattedTimestampRFC822(0);
+end;
+
+class function TAWSSDKUtils.GetFormattedTimestampRFC822(MinutesFromNow: Integer): string;
+begin
+  var dateTime := IncMinute(TAWSSDKUtils.CorrectedUtcNow, minutesFromNow);
+  Result := FormatDateTime(TAWSSDKUtils.RFC822DateFormat, dateTime);
 end;
 
 class function TAWSSDKUtils.GetParametersAsString(AParameterCollection: TParameterCollection): string;

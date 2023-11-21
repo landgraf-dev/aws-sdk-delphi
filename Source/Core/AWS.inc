@@ -45,6 +45,14 @@
   {$DEFINE DELPHITOKYO_LVL}
 {$IFEND}
 
+{$IF CompilerVersion >= 35}
+  {$DEFINE DELPHI11_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 36}
+  {$DEFINE DELPHI12_LVL}
+{$IFEND}
+
 {$IFDEF NEXTGEN}
   {$ZEROBASEDSTRINGS OFF}
 {$ENDIF}

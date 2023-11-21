@@ -1,6 +1,12 @@
 unit AWS.Configs;
 
+{$I AWS.inc}
+
 interface
+
+uses
+  System.SysUtils, System.DateUtils, System.TimeSpan, Bcl.Types.Nullable,
+  AWS.Runtime.CorrectClockSkew;
 
 type
   TResponseLoggingOption = (Never, OnError, Always);
@@ -43,11 +49,15 @@ type
   public const
     AWSProfileNameKey = 'AWSProfileName';
     AWSProfilesLocationKey = 'AWSProfilesLocation';
+    class var UtcNowSource: TFunc<TDateTime>;
   private
     class function GetAWSProfilesLocation: string; static;
     class function GetAWSProfileName: string; static;
     class procedure SetAWSProfileName(const Value: string); static;
     class function GetLoggingConfig: TLoggingConfig; static;
+    class function GetUtcNow: TDateTime;
+    class function GetManualClockCorrection: Nullable<TTimeSpan>; static;
+    class procedure SetManualClockCorrection(const Value: Nullable<TTimeSpan>); static;
   public
     class constructor Create;
     class destructor Destroy;
@@ -55,6 +65,7 @@ type
     class property AWSProfilesLocation: string read GetAWSProfilesLocation;
     class property AWSProfileName: string read GetAWSProfileName write SetAWSProfileName;
     class property LoggingConfig: TLoggingConfig read GetLoggingConfig;
+    class property ManualClockCorrection: Nullable<TTimeSpan> read GetManualClockCorrection write SetManualClockCorrection;
   end;
 
 implementation
@@ -65,6 +76,7 @@ class constructor TAWSConfigs.Create;
 begin
   InitFields;
   FRootConfig := TRootConfig.Create;
+  UtcNowSource := GetUtcNow;
 end;
 
 class destructor TAWSConfigs.Destroy;
@@ -93,6 +105,20 @@ begin
   Result := FRootConfig.Logging;
 end;
 
+class function TAWSConfigs.GetManualClockCorrection: Nullable<TTimeSpan>;
+begin
+  Result := TCorrectClockSkew.GlobalClockCorrection;
+end;
+
+class function TAWSConfigs.GetUtcNow: TDateTime;
+begin
+{$IFDEF DELPHI11_LVL}
+  Result := TDateTime.NowUTC;
+{$ELSE}
+  Result := TTimeZone.Local.ToUniversalTime(Now);
+{$ENDIF}
+end;
+
 class procedure TAWSConfigs.InitFields;
 begin
   FAWSProfileName := GetConfig(AWSProfileNameKey);
@@ -102,6 +128,11 @@ end;
 class procedure TAWSConfigs.SetAWSProfileName(const Value: string);
 begin
   FRootConfig.ProfileName := Value;
+end;
+
+class procedure TAWSConfigs.SetManualClockCorrection(const Value: Nullable<TTimeSpan>);
+begin
+  TCorrectClockSkew.GlobalClockCorrection := Value;
 end;
 
 { TRootConfig }

@@ -4,15 +4,18 @@ interface
 
 uses
   System.Classes, System.SysUtils,
+  Bcl.Utils,
   AWS.SDKUtils;
 
 type
   ICryptoUtil = interface
+    function HashAsString(const AData: TArray<Byte>): string;
     function ComputeSHA256Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function ComputeSHA256Hash(AStream: TStream): TArray<Byte>; overload;
     function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>;
     function HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;
-    function HashAsString(const AData: TArray<Byte>): string;
+    function HMACSign(const AData, AKey: string; AAlgorithmName: TSigningAlgorithm): string; overload;
+    function HMACSign(const AData: TArray<Byte>; const AKey: string; AAlgorithmName: TSigningAlgorithm): string; overload;
   end;
 
   TCryptoUtilFactory = class
@@ -30,6 +33,8 @@ type
     function ComputeSHA256Hash(AStream: TStream): TArray<Byte>; overload;
     function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;
+    function HMACSign(const AData, AKey: string; AAlgorithmName: TSigningAlgorithm): string; overload;
+    function HMACSign(const AData: TArray<Byte>; const AKey: string; AAlgorithmName: TSigningAlgorithm): string; overload;
   end;
 
 implementation
@@ -80,6 +85,31 @@ begin
   Result := THash.DigestAsString(AData);
 end;
 
+function TCryptoUtil.HMACSign(const AData, AKey: string; AAlgorithmName: TSigningAlgorithm): string;
+begin
+  var binaryData := TEncoding.UTF8.GetBytes(AData);
+  Result := HMACSign(binaryData, AKey, AAlgorithmName);
+end;
+
+function TCryptoUtil.HMACSign(const AData: TArray<Byte>; const AKey: string; AAlgorithmName: TSigningAlgorithm): string;
+begin
+  if AKey = '' then
+    raise EArgumentNilException.Create('Please specify a Secret Signing Key.');
+  if Length(AData) = 0 then
+    raise EArgumentNilException.Create('Please specify data to sign.');
+
+  var bytes: TArray<Byte>;
+  case AAlgorithmName of
+    TSigningAlgorithm.HmacSHA1:
+      bytes := THashSHA1.GetHMACAsBytes(AData, TEncoding.UTF8.GetBytes(AKey));
+    TSigningAlgorithm.HmacSHA256:
+      bytes := THashSHA2.GetHMACAsBytes(AData, TEncoding.UTF8.GetBytes(AKey), SHA256);
+  else
+    raise EInvalidDataException.Create('Unsupported signing algorithm');
+  end;
+  Result := TBclUtils.EncodeBase64(bytes);
+end;
+
 function TCryptoUtil.HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;
 begin
   if Length(AKey) = 0 then
@@ -95,7 +125,6 @@ begin
   else
     raise EInvalidDataException.Create('Unsupported signing algorithm');
   end;
-
 end;
 
 end.
