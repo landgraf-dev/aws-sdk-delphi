@@ -47,6 +47,7 @@ type
     FAWS4SignerResult: TAWS4SigningResult;
     FOriginalStreamPosition: Int64;
     FCanonicalResourcePrefix: string;
+    FHostPrefix: string;
   strict private
     function GetRequestName: string;
     function GetServiceName: string;
@@ -98,6 +99,8 @@ type
     procedure SetAWS4SignerResult(const Value: TAWS4SigningResult);
     function GetCanonicalResourcePrefix: string;
     procedure SetCanonicalResourcePrefix(const Value: string);
+    function GetHostPrefix: string;
+    procedure SetHostPrefix(const Value: string);
   public
     constructor Create(ARequest: TAmazonWebServiceRequest; AServiceName: string); reintroduce;
     destructor Destroy; override;
@@ -135,6 +138,7 @@ type
     property AWS4SignerResult: TAWS4SigningResult read GetAWS4SignerResult write SetAWS4SignerResult;
     property OriginalStreamPosition: Int64 read GetOriginalStreamPosition write SetOriginalStreamPosition;
     property CanonicalResourcePrefix: string read GetCanonicalResourcePrefix write SetCanonicalResourcePrefix;
+    property HostPrefix: string read GetHostPrefix write SetHostPrefix;
   end;
 
 implementation
@@ -275,6 +279,11 @@ function TDefaultRequest.GetHeaderValue(const AHeaderName: string): string;
 begin
   if not Headers.TryGetValue(AHeaderName, Result) then
     Result := '';
+end;
+
+function TDefaultRequest.GetHostPrefix: string;
+begin
+  Result := FHostPrefix;
 end;
 
 function TDefaultRequest.GetHttpMethod: string;
@@ -450,6 +459,11 @@ end;
 procedure TDefaultRequest.SetEndpoint(const Value: IUri);
 begin
   FEndpoint := Value;
+end;
+
+procedure TDefaultRequest.SetHostPrefix(const Value: string);
+begin
+  FHostPrefix := Value;
 end;
 
 procedure TDefaultRequest.SetHttpMethod(const Value: string);

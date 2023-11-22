@@ -7,7 +7,7 @@ uses
   AWS.Runtime.Exceptions;
 
 type
-  TArn = class
+  TArn = record
   private
     FAccountId: string;
     FService: string;
@@ -22,7 +22,14 @@ type
    /// </summary>
    /// <param name="arn"></param>
    /// <returns></returns>
-   class function IsArn(const Arn: string): Boolean;
+   class function IsArn(const Arn: string): Boolean; static;
+
+    /// <summary>
+    /// Parses the string into an ARN object.
+    /// </summary>
+    /// <param name="arnString">String to parse into an Arn.</param>
+    /// <returns>The Arn object created from the passed in string.</returns>
+   class function Parse(const ArnString: string): TArn; static;
 
     /// <summary>
     /// Gets and sets the partition associated with the ARN (e.g.: 'aws').
@@ -57,6 +64,42 @@ implementation
 class function TArn.IsArn(const Arn: string): Boolean;
 begin
   Result := (Arn <> '') and Arn.StartsWith('arn:');
+end;
+
+class function TArn.Parse(const ArnString: string): TArn;
+begin
+  if ArnString = '' then
+    raise EArgumentNilException.Create('ArnString');
+
+
+  var malformedErrorMessage := 'ARN is in incorrect format. ARN format is: arn:<partition>:<service>:<region>:<account-id>:<resource>';
+
+  var tokens := ArnString.Split([':'], 6);
+  if Length(tokens) <> 6 then
+    raise EArgumentException.Create(malformedErrorMessage);
+
+  if tokens[0] <> 'arn' then
+    raise EArgumentException.Create(malformedErrorMessage);
+
+  var partition := tokens[1];
+  if string.IsNullOrEmpty(partition) then
+    raise EArgumentException.Create('Malformed ARN - no partition specified');
+
+  var service := tokens[2];
+  if string.IsNullOrEmpty(service) then
+    raise EArgumentException.Create('Malformed ARN - no service specified');
+
+  var region := tokens[3];
+  var accountId := tokens[4];
+  var resource := tokens[5];
+  if string.IsNullOrEmpty(resource) then
+    raise EArgumentException.Create('Malformed ARN - no resource specified');
+
+  Result.Partition := partition;
+  Result.Service := service;
+  Result.Region := region;
+  Result.AccountId := accountId;
+  Result.Resource := resource;
 end;
 
 procedure TArn.SetAccountId(const Value: string);

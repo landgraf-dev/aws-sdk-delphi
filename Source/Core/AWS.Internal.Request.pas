@@ -62,6 +62,8 @@ type
     procedure SetOriginalStreamPosition(const Value: Int64);
     function GetCanonicalResourcePrefix: string;
     procedure SetCanonicalResourcePrefix(const Value: string);
+    function GetHostPrefix: string;
+    procedure SetHostPrefix(const Value: string);
 
     function MayContainRequestBody: Boolean;
     function HasRequestBody: Boolean;
@@ -108,6 +110,11 @@ type
     /// this field.
     /// </summary>
     property CanonicalResourcePrefix: string read GetCanonicalResourcePrefix write SetCanonicalResourcePrefix;
+
+    /// <summary>
+    /// Host prefix value to prepend to the endpoint for this request, if any.
+    /// </summary>
+    property HostPrefix: string read GetHostPrefix write SetHostPrefix;
   end;
 
 implementation
