@@ -9,10 +9,14 @@ uses
   AWS.S3Control.Model.CreateAccessPointRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.Arn, 
+  AWS.S3Control.Internal.S3ArnUtils, 
   AWS.S3Control.Exception, 
   AWS.Internal.StringUtils, 
   System.Classes, 
-  Bcl.Xml.Writer;
+  Bcl.Xml.Writer, 
+  System.SysUtils, 
+  AWS.SDKUtils, 
+  AWS.Internal.Util.HostPrefixUtils;
 
 type
   ICreateAccessPointRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -43,7 +47,7 @@ begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3Control');
   Request.HttpMethod := 'PUT';
   if TArn.IsArn(PublicRequest.Bucket) then
-    PublicRequest.AccountId := TS3ArnUtils.GetAccountidBaseOnArn(PublicRequest.AccountId, TArn.Parse(PublicRequest.Bucket).AccountId);
+    PublicRequest.AccountId := TS3ArnUtils.GetAccountidBasedOnArn(PublicRequest.AccountId, TArn.Parse(PublicRequest.Bucket).AccountId);
   if PublicRequest.IsSetAccountId then
     Request.Headers.Add('x-amz-account-id', PublicRequest.AccountId);
   if not PublicRequest.IsSetName then
@@ -82,13 +86,13 @@ begin
     Request.Content := Copy(XmlStream.Bytes, 0, XmlStream.Size);
     Request.Headers['Content-Type'] := 'application/xml';
     var content := TEncoding.UTF8.GetString(Request.Content);
-    Request.Headers[Amazon.Util.HeaderKeys.XAmzApiVersion] := '2018-08-20';
+    Request.Headers[THeaderKeys.XAmzApiVersion] := '2018-08-20';
   finally
     XmlStream.Free;
   end;
   var hostPrefixLabels_AccountId := TStringUtils.Fromstring(PublicRequest.AccountId);
   if not THostPrefixUtils.IsValidLabelValue(hostPrefixLabels_AccountId) then
-    raise AmazonS3ControlException.CreateFmt('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
+    raise EAmazonS3ControlException.Create('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
   Request.HostPrefix := 'AccountId.';
   Result := Request;
 end;

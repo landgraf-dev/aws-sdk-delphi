@@ -7,7 +7,8 @@ uses
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.S3Control.Model.GetPublicAccessBlockRequest, 
-  AWS.Internal.DefaultRequest;
+  AWS.Internal.DefaultRequest, 
+  AWS.Internal.Util.HostPrefixUtils;
 
 type
   IGetPublicAccessBlockRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -42,7 +43,7 @@ begin
   Request.ResourcePath := '/v20180820/configuration/publicAccessBlock';
   var hostPrefixLabels_AccountId := TStringUtils.Fromstring(PublicRequest.AccountId);
   if not THostPrefixUtils.IsValidLabelValue(hostPrefixLabels_AccountId) then
-    raise AmazonS3ControlException.CreateFmt('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
+    raise EAmazonS3ControlException.Create('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
   Request.HostPrefix := 'AccountId.';
   Result := Request;
 end;

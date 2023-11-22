@@ -8,7 +8,8 @@ uses
   AWS.Runtime.Model, 
   AWS.S3Control.Model.ListRegionalBucketsRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.Internal.StringUtils;
+  AWS.Internal.StringUtils, 
+  AWS.Internal.Util.HostPrefixUtils;
 
 type
   IListRegionalBucketsRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -50,7 +51,7 @@ begin
   Request.UseQueryString := True;
   var hostPrefixLabels_AccountId := TStringUtils.Fromstring(PublicRequest.AccountId);
   if not THostPrefixUtils.IsValidLabelValue(hostPrefixLabels_AccountId) then
-    raise AmazonS3ControlException.CreateFmt('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
+    raise EAmazonS3ControlException.Create('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
   Request.HostPrefix := 'AccountId.';
   Result := Request;
 end;

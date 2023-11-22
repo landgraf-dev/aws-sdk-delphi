@@ -9,7 +9,8 @@ uses
   AWS.S3Control.Model.DeleteStorageLensConfigurationRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.S3Control.Exception, 
-  AWS.Internal.StringUtils;
+  AWS.Internal.StringUtils, 
+  AWS.Internal.Util.HostPrefixUtils;
 
 type
   IDeleteStorageLensConfigurationRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -47,7 +48,7 @@ begin
   Request.ResourcePath := '/v20180820/storagelens/{storagelensid}';
   var hostPrefixLabels_AccountId := TStringUtils.Fromstring(PublicRequest.AccountId);
   if not THostPrefixUtils.IsValidLabelValue(hostPrefixLabels_AccountId) then
-    raise AmazonS3ControlException.CreateFmt('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
+    raise EAmazonS3ControlException.Create('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
   Request.HostPrefix := 'AccountId.';
   Result := Request;
 end;

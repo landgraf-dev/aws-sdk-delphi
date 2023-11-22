@@ -12,6 +12,7 @@ uses
   AWS.Internal.StringUtils, 
   System.Classes, 
   Bcl.Xml.Writer, 
+  System.SysUtils, 
   AWS.SDKUtils;
 
 type
@@ -74,7 +75,7 @@ begin
     var content := TEncoding.UTF8.GetString(Request.Content);
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
     ARequest.Headers[THeaderKeys.ContentMD5Header] := checksum;
-    Request.Headers[Amazon.Util.HeaderKeys.XAmzApiVersion] := '2018-08-20';
+    Request.Headers[THeaderKeys.XAmzApiVersion] := '2018-08-20';
   finally
     XmlStream.Free;
   end;

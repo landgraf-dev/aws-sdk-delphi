@@ -9,7 +9,9 @@ uses
   AWS.S3Control.Model.ListAccessPointsRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.Arn, 
-  AWS.Internal.StringUtils;
+  AWS.S3Control.Internal.S3ArnUtils, 
+  AWS.Internal.StringUtils, 
+  AWS.Internal.Util.HostPrefixUtils;
 
 type
   IListAccessPointsRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -40,7 +42,7 @@ begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3Control');
   Request.HttpMethod := 'GET';
   if TArn.IsArn(PublicRequest.Bucket) then
-    PublicRequest.AccountId := TS3ArnUtils.GetAccountidBaseOnArn(PublicRequest.AccountId, TArn.Parse(PublicRequest.Bucket).AccountId);
+    PublicRequest.AccountId := TS3ArnUtils.GetAccountidBasedOnArn(PublicRequest.AccountId, TArn.Parse(PublicRequest.Bucket).AccountId);
   if PublicRequest.IsSetAccountId then
     Request.Headers.Add('x-amz-account-id', PublicRequest.AccountId);
   if PublicRequest.IsSetBucket then
@@ -53,7 +55,7 @@ begin
   Request.UseQueryString := True;
   var hostPrefixLabels_AccountId := TStringUtils.Fromstring(PublicRequest.AccountId);
   if not THostPrefixUtils.IsValidLabelValue(hostPrefixLabels_AccountId) then
-    raise AmazonS3ControlException.CreateFmt('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
+    raise EAmazonS3ControlException.Create('AccountId can only contain alphanumeric characters and dashes and must be between 1 and 63 characters long.');
   Request.HostPrefix := 'AccountId.';
   Result := Request;
 end;
