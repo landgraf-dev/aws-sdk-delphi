@@ -11,8 +11,6 @@ uses
   AWS.SDKUtils,
   AWS.Util.Crypto;
 
-implementation
-
 type
   TRegionDetectionUpdater = reference to procedure(Request: IRequest);
 
@@ -38,6 +36,8 @@ type
     procedure Sign(ARequest: IRequest; AClientConfig: IClientConfig; const AAWSAccessKeyId, AAWSSecretAccessKey: string); override;
     function Protocol: TClientProtocol; override;
   end;
+
+implementation
 
 { TS3Signer }
 

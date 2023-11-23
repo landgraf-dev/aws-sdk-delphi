@@ -177,6 +177,20 @@ type
     function Unmarshall(AContext: TJsonUnmarshallerContext): TDictionary<TKey, TValue>;
   end;
 
+  TDictionaryUnmarshaller<TKey, TValue;
+    TKeyUnmarshaller: IUnmarshaller<TKey, TXmlUnmarshallerContext>;
+    TValueUnmarshaller: IUnmarshaller<TValue, TXmlUnmarshallerContext>>
+    = class(TInterfacedObject, IUnmarshaller<TDictionary<TKey, TValue>, TXmlUnmarshallerContext>)
+  strict private
+    FKVUnmarshaller: TKeyValueUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>;
+  public
+    class function New(AKeyUnmarshaller: TKeyUnmarshaller;
+      AValueUnmarshaller: TValueUnmarshaller): IUnmarshaller<TDictionary<TKey, TValue>, TXmlUnmarshallerContext>;
+  public
+    constructor Create(AKeyUnmarshaller: TKeyUnmarshaller; AValueUnmarshaller: TValueUnmarshaller);
+    function Unmarshall(AContext: TXmlUnmarshallerContext): TDictionary<TKey, TValue>;
+  end;
+
   TJsonObjectDictionaryUnmarshaller<TKey; TValue: class;
     TKeyUnmarshaller: IUnmarshaller<TKey, TJsonUnmarshallerContext>;
     TValueUnmarshaller: IUnmarshaller<TValue, TJsonUnmarshallerContext>>
@@ -189,6 +203,20 @@ type
   public
     constructor Create(AKeyUnmarshaller: TKeyUnmarshaller; AValueUnmarshaller: TValueUnmarshaller);
     function Unmarshall(AContext: TJsonUnmarshallerContext): TObjectDictionary<TKey, TValue>;
+  end;
+
+  TObjectDictionaryUnmarshaller<TKey; TValue: class;
+    TKeyUnmarshaller: IUnmarshaller<TKey, TXmlUnmarshallerContext>;
+    TValueUnmarshaller: IUnmarshaller<TValue, TXmlUnmarshallerContext>>
+    = class(TInterfacedObject, IUnmarshaller<TObjectDictionary<TKey, TValue>, TXmlUnmarshallerContext>)
+  strict private
+    FKVUnmarshaller: TKeyValueUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>;
+  public
+    class function New(AKeyUnmarshaller: TKeyUnmarshaller;
+      AValueUnmarshaller: TValueUnmarshaller): IUnmarshaller<TObjectDictionary<TKey, TValue>, TXmlUnmarshallerContext>;
+  public
+    constructor Create(AKeyUnmarshaller: TKeyUnmarshaller; AValueUnmarshaller: TValueUnmarshaller);
+    function Unmarshall(AContext: TXmlUnmarshallerContext): TObjectDictionary<TKey, TValue>;
   end;
 
   IMemoryStreamUnmarshaller = IUnmarshaller<TMemoryStream, TXmlUnmarshallerContext>;
@@ -709,6 +737,47 @@ begin
   end;
 end;
 
+{ TDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller> }
+
+constructor TDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.Create(AKeyUnmarshaller: TKeyUnmarshaller;
+  AValueUnmarshaller: TValueUnmarshaller);
+begin
+  inherited Create;
+  FKVUnmarshaller := TKeyValueUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>
+    .Create(AKeyUnmarshaller, AValueUnmarshaller);
+end;
+
+class function TDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.New(AKeyUnmarshaller: TKeyUnmarshaller;
+  AValueUnmarshaller: TValueUnmarshaller): IUnmarshaller<TDictionary<TKey, TValue>, TXmlUnmarshallerContext>;
+begin
+  Result := TDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>
+    .Create(AKeyUnmarshaller, AValueUnmarshaller);
+end;
+
+function TDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.Unmarshall(
+  AContext: TXmlUnmarshallerContext): TDictionary<TKey, TValue>;
+begin
+  var originalDepth := AContext.CurrentDepth;
+//  var targetDepth := originalDepth + 1;
+
+  // If a dictionary is present in the response, use AlwaysSendDictionary,
+  // so if the response was empty, reusing the object in the request we will
+  // end up sending the same empty collection back.
+  Result := TAlwaysSendDictionary<TKey, TValue>.Create;
+  try
+    while AContext.Read() do
+    begin
+      if AContext.IsEndElement and (AContext.CurrentDepth < originalDepth) then
+        Break;
+      var Item := FKVUnmarshaller.Unmarshall(AContext);
+      Result.Add(item.Key, item.Value);
+    end;
+  except
+    Result.Free;
+    raise;
+  end;
+end;
+
 { TJsonObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller> }
 
 constructor TJsonObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.Create(
@@ -747,6 +816,47 @@ begin
       Result.Add(Item.Key, Item.Value);
     end;
     AContext.Read;
+  except
+    Result.Free;
+    raise;
+  end;
+end;
+
+{ TObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller> }
+
+constructor TObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.Create(
+  AKeyUnmarshaller: TKeyUnmarshaller; AValueUnmarshaller: TValueUnmarshaller);
+begin
+  FKVUnmarshaller := TKeyValueUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>
+    .Create(AKeyUnmarshaller, AValueUnmarshaller);
+end;
+
+class function TObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.New(
+  AKeyUnmarshaller: TKeyUnmarshaller;
+  AValueUnmarshaller: TValueUnmarshaller): IUnmarshaller<TObjectDictionary<TKey, TValue>, TXmlUnmarshallerContext>;
+begin
+  Result := TObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>
+    .Create(AKeyUnmarshaller, AValueUnmarshaller);
+end;
+
+function TObjectDictionaryUnmarshaller<TKey, TValue, TKeyUnmarshaller, TValueUnmarshaller>.Unmarshall(
+  AContext: TXmlUnmarshallerContext): TObjectDictionary<TKey, TValue>;
+begin
+  var originalDepth := AContext.CurrentDepth;
+//  var targetDepth := originalDepth + 1;
+
+  // If a dictionary is present in the response, use AlwaysSendDictionary,
+  // so if the response was empty, reusing the object in the request we will
+  // end up sending the same empty collection back.
+  Result := TAlwaysSendObjectDictionary<TKey, TValue>.Create([doOwnsValues]);
+  try
+    while AContext.Read() do
+    begin
+      if AContext.IsEndElement and (AContext.CurrentDepth < originalDepth) then
+        Break;
+      var Item := FKVUnmarshaller.Unmarshall(AContext);
+      Result.Add(item.Key, item.Value);
+    end;
   except
     Result.Free;
     raise;
