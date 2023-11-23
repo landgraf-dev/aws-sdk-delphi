@@ -4,7 +4,8 @@ interface
 
 uses
   AWS.Runtime.ClientConfig, 
-  AWS.Internal.SDKUtils;
+  AWS.Internal.SDKUtils, 
+  Bcl.Types.Nullable;
 
 type
   TAmazonS3ControlConfig = class(TClientConfig)
@@ -13,6 +14,7 @@ type
   private
     class constructor Create;
   strict protected
+    FUseArnRegion: NullableBoolean;
     procedure Init; override;
     function GetServiceVersion: string; override;
     function GetRegionEndpointServiceName: string; override;

@@ -50,6 +50,7 @@ type
     FKeepPublicAccessBlockConfiguration: Boolean;
     FVpcConfiguration: TVpcConfiguration;
     FKeepVpcConfiguration: Boolean;
+    FOutpostId: string;
     function GetAccountId: string;
     procedure SetAccountId(const Value: string);
     function GetBucket: string;
@@ -80,6 +81,7 @@ type
     property KeepPublicAccessBlockConfiguration: Boolean read GetKeepPublicAccessBlockConfiguration write SetKeepPublicAccessBlockConfiguration;
     property VpcConfiguration: TVpcConfiguration read GetVpcConfiguration write SetVpcConfiguration;
     property KeepVpcConfiguration: Boolean read GetKeepVpcConfiguration write SetKeepVpcConfiguration;
+    property OutpostId: string read FOutpostId write FOutpostId;
   end;
   
 implementation

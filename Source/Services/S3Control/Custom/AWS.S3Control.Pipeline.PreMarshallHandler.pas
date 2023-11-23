@@ -9,6 +9,7 @@ uses
   AWS.Internal.Request,
   AWS.S3Control.Model.CreateAccessPointRequest,
   AWS.S3Control.Internal.S3ArnUtils,
+  AWS.S3Control.Internal.S3OutpostResource,
   AWS.S3Control.Internal.S3Resource;
 
 type
@@ -55,9 +56,10 @@ begin
 
     if s3Resource <> nil then
     begin
-      createAccessPointRequest.OutpostId = ((S3OutpostResource)s3Resource).OutpostId;
-      createAccessPointRequest.Bucket = s3Resource.Name;
-      createAccessPointRequest.AccountId = createAccessPointRequest.AccountId ?? arn.AccountId;
+      createAccessPointRequest.OutpostId := (s3Resource as TS3OutpostResource).OutpostId;
+      createAccessPointRequest.Bucket := s3Resource.Name;
+      if createAccessPointRequest.AccountId = '' then
+        createAccessPointRequest.AccountId := arn.AccountId;
     end;
   end;
 end;

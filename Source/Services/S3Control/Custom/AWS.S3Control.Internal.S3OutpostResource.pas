@@ -9,11 +9,14 @@ uses
   AWS.RegionEndpoint,
   AWS.Runtime.Exceptions,
   AWS.S3Control.Config,
+  AWS.S3Control.ConfigExtension,
   AWS.S3Control.Internal.S3Resource,
   AWS.SDKUtils;
 
 type
   TS3OutpostResource = class(TInterfacedObject, IS3Resource)
+  strict private const
+    S3OutpostsService = 's3-outposts';
   strict private
     FArn: TArn;
     FType: TS3ResourceType;
@@ -21,6 +24,7 @@ type
     FKey: string;
     FOutpostId: string;
     function GetTypeString(InCaps, HasSpaces: Boolean): string;
+    class function IsValidOutpostId(const OutpostId: string): Boolean; static;
   strict private
     function GetType: TS3ResourceType;
     procedure SetType(const Value: TS3ResourceType);
@@ -31,8 +35,8 @@ type
     function GetFullResourceName: string;
   private
     procedure SetOutpostId(const Value: string);
-
   public
+    constructor Create(const AArn: TArn); reintroduce;
     procedure ValidateArnWithClientConfig(AConfig: IClientConfig; ARegion: IRegionEndpointEx);
     function GetEndpoint(AConfig: IClientConfig): IUri;
     property &Type: TS3ResourceType read GetType write SetType;
@@ -45,6 +49,12 @@ type
 implementation
 
 { TS3OutpostResource }
+
+constructor TS3OutpostResource.Create(const AArn: TArn);
+begin
+  inherited Create;
+  FArn := AArn;
+end;
 
 function TS3OutpostResource.GetEndpoint(AConfig: IClientConfig): IUri;
 begin
@@ -63,7 +73,7 @@ begin
 
   Result := TUri.Create(
     Format('%s://s3-outposts.%s.%s',
-      [scheme, region, AConfig.RegionEndpoint.PartitionDnsSuffix]);
+      [scheme, region, AConfig.RegionEndpoint.PartitionDnsSuffix]));
 end;
 
 function TS3OutpostResource.GetFullResourceName: string;
@@ -117,6 +127,15 @@ begin
   end;
 end;
 
+class function TS3OutpostResource.IsValidOutpostId(const OutpostId: string): Boolean;
+begin
+  for var C in OutpostId do
+    if not C.IsLetterOrDigit and (C <> '-') then
+      Exit(False);
+
+  Result := (Length(OutpostId) <= 63) and (Length(OutpostId) >= 1);
+end;
+
 procedure TS3OutpostResource.SetKey(const Value: string);
 begin
   FKey := Value;
@@ -138,7 +157,7 @@ end;
 
 procedure TS3OutpostResource.SetOutpostId(const Value: string);
 begin
-  if not TS3ArnUtils.IsValidOutpostId(Value) then
+  if not TS3OutpostResource.IsValidOutpostId(Value) then
     raise EAmazonClientException.CreateFmt('Invalid outpost ID: %s. ID must contain only alphanumeric characters and dashes', [Value]);
 
   FOutpostId := Value;
@@ -151,39 +170,30 @@ end;
 
 procedure TS3OutpostResource.ValidateArnWithClientConfig(AConfig: IClientConfig; ARegion: IRegionEndpointEx);
 begin
-            var s3Config = config as AmazonS3ControlConfig;
-            var accessPointOrBucketString = GetTypeString(false, true);
-            var capitalizedAccessPointOrBucketString = GetTypeString(true, true);
-            if (!_arn.Service.Equals(S3ArnUtils.S3OutpostsService))
-            {
-                throw new AmazonClientException("Invalid ARN, not S3 Outposts ARN");
-            }
-            if (s3Config.UseDualstackEndpoint)
-            {
-                throw new AmazonClientException($"Invalid configuration Outpost {capitalizedAccessPointOrBucketString}s do not support dualstack");
-            }
-            if (string.IsNullOrEmpty(_arn.AccountId))
-            {
-                throw new AmazonClientException($"Account ID is missing in {capitalizedAccessPointOrBucketString} ARN");
-            }
-            if (string.IsNullOrEmpty(_arn.Region))
-            {
-                throw new AmazonClientException($"AWS region is missing in {capitalizedAccessPointOrBucketString} ARN");
-            }
-            if (s3Config.RegionEndpoint != null && !string.Equals(region.PartitionName, _arn.Partition))
-            {
-                throw new AmazonClientException($"Invalid configuration, cross partition Outpost {capitalizedAccessPointOrBucketString} ARN");
-            }
-            if ((s3Config.UseArnRegion && _arn.Region.StartsWith("fips-"))
-                || (!s3Config.UseArnRegion && region.SystemName.StartsWith("fips-")))
-            {
-                throw new AmazonClientException($"Invalid configuration Outpost {capitalizedAccessPointOrBucketString}s do not support Fips- regions");
-            }
-            if (!s3Config.UseArnRegion
-                && !string.Equals(_arn.Region, region.SystemName, StringComparison.Ordinal))
-            {
-                throw new AmazonClientException($"Invalid configuration, cross region Outpost {capitalizedAccessPointOrBucketString} ARN");
-            }
+  var s3Config := AConfig as TAmazonS3ControlConfig;
+  var accessPointOrBucketString := GetTypeString(False, True);
+  var capitalizedAccessPointOrBucketString := GetTypeString(True, True);
+  if not FArn.Service.Equals(S3OutpostsService) then
+    raise EAmazonClientException.Create('Invalid ARN, not S3 Outposts ARN');
+
+  if s3Config.UseDualstackEndpoint then
+    raise EAmazonClientException.CreateFmt('Invalid configuration Outpost %ss do not support dualstack', [capitalizedAccessPointOrBucketString]);
+
+  if string.IsNullOrEmpty(FArn.AccountId) then
+    raise EAmazonClientException.CreateFmt('Account ID is missing in %s ARN', [capitalizedAccessPointOrBucketString]);
+
+  if string.IsNullOrEmpty(FArn.Region) then
+    raise EAmazonClientException.CreateFmt('AWS region is missing in %s ARN', [capitalizedAccessPointOrBucketString]);
+
+  if (s3Config.RegionEndpoint <> nil) and not string.Equals(ARegion.PartitionName, FArn.Partition) then
+    raise EAmazonClientException.CreateFmt('Invalid configuration, cross partition Outpost %s ARN', [capitalizedAccessPointOrBucketString]);
+
+  if (s3Config.UseArnRegion and FArn.Region.StartsWith('fips-')) or
+     (not s3Config.UseArnRegion and ARegion.SystemName.StartsWith('fips-')) then
+    raise EAmazonClientException.CreateFmt('Invalid configuration Outpost %ss do not support Fips- regions', [capitalizedAccessPointOrBucketString]);
+
+  if not s3Config.UseArnRegion and not string.Equals(FArn.Region, ARegion.SystemName) then
+    raise EAmazonClientException.CreateFmt('Invalid configuration, cross region Outpost %s ARN', [capitalizedAccessPointOrBucketString]);
 end;
 
 end.

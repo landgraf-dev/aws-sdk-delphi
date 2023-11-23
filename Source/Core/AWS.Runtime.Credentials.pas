@@ -7,6 +7,7 @@ interface
 uses
   System.Generics.Collections, System.SysUtils, System.Classes,
   Bcl.Logging,
+  Bcl.Types.Nullable,
   AWS.SDKUtils,
   AWS.RegionEndpoint,
   Sparkle.Sys.Timer;
@@ -279,6 +280,7 @@ type
     FName: string;
     FOptions: TCredentialProfileOptions;
     FRegion: IRegionEndpointEx;
+    FS3UseArnRegion: NullableBoolean;
     function GetProfileType: TCredentialProfileType;
   private
     function GetAWSCredentials(AProfileSource: ICredentialProfileSource; ANonCallBackOnly: Boolean): IAWSCredentials;
@@ -287,8 +289,21 @@ type
     constructor Create;
     destructor Destroy; override;
     property Name: string read FName;
+
+    /// <summary>
+    /// The options to be used to create AWSCredentials.
+    /// </summary>
     property Options: TCredentialProfileOptions read FOptions;
+
+    /// <summary>
+    /// The region to be used with this CredentialProfile
+    /// </summary>
     property Region: IRegionEndpointEx read FRegion write FRegion;
+
+    /// <summary>
+    /// If true the region identified in the S3 access point arn will be used when making requests.
+    /// </summary>
+    property S3UseArnRegion: NullableBoolean read FS3UseArnRegion write FS3UseArnRegion;
   end;
 
   ICredentialProfileStore = interface(ICredentialProfileSource)

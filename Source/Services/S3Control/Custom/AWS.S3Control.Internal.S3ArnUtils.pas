@@ -3,7 +3,7 @@ unit AWS.S3Control.Internal.S3ArnUtils;
 interface
 
 uses
-  System.SysUtils,
+  System.SysUtils, System.Character, System.TypInfo,
   AWS.Arn,
   AWS.Runtime.Exceptions,
   AWS.S3Control.Internal.S3Resource,
@@ -83,13 +83,16 @@ begin
   if (Length(parts) < 4) or (not string.Equals(parts[2], 'accesspoint') and not string.Equals(parts[2], 'bucket')) then
     raise EAmazonClientException.Create('Invalid ARN, outpost resource format is incorrect');
 
-  Result := TS3OutpostResource.Create(arn)
-  {
-      OutpostId = parts[1],
-      Type = (S3ResourceType)Enum.Parse(typeof(S3ResourceType), parts[2], true),
-      Name = parts[3],
-      Key = parts.Length > 4 ? parts[4] : null
-  };
+  Result := TS3OutpostResource.Create(Arn);
+  (Result as TS3OutpostResource).OutpostId := parts[1];
+
+  var enum := GetEnumValue(TypeInfo(TS3ResourceType), parts[2]);
+  if enum = -1 then
+    raise EArgumentException.Create('Invalid TS3ResourceType value: ' + parts[2]);
+  Result.&Type := TS3ResourceType(enum);
+  Result.Name := parts[3];
+  if Length(parts) > 4 then
+    Result.Key := parts[4];
 end;
 
 end.
