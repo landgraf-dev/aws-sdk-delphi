@@ -6,19 +6,17 @@ interface
 
 uses
   System.Generics.Collections, System.Classes, System.IniFiles, System.SysUtils, System.StrUtils, System.DateUtils,
+  Bcl.Utils,
+  Sparkle.Http.Headers,
   Sparkle.Uri,
+  AWS.Enums,
   AWS.Internal.ParameterCollection,
   AWS.Internal.IRegionEndpoint,
-  Sparkle.Http.Headers;
+  AWS.Util.Crypto;
 
 type
   IUri = Sparkle.Uri.IUri;
   TUri = Sparkle.Uri.TUri;
-
-  /// <summary>
-  /// The valid hashing algorithm supported by the sdk for request signing.
-  /// </summary>
-  TSigningAlgorithm = (HmacSHA1, HmacSHA256);
 
   TProfileIniFile = class(TMemIniFile)
   strict private
@@ -177,6 +175,19 @@ type
     /// This value should be used instead of DateTime.UtcNow to factor in manual clock correction
     /// </summary>
     class function CorrectedUtcNow: TDateTime;
+
+    /// <summary>
+    /// Generates an MD5 Digest for the string-based content
+    /// </summary>
+    /// <param name="content">The content for which the MD5 Digest needs
+    /// to be computed.
+    /// </param>
+    /// <param name="fBase64Encode">Whether the returned checksum should be
+    /// base64 encoded.
+    /// </param>
+    /// <returns>A string representation of the hash with or w/o base64 encoding
+    /// </returns>
+    class function GenerateChecksumForContent(const Content: string; Base64Encode: Boolean): string; static;
   end;
 
   THeaderKeys = class
@@ -534,6 +545,18 @@ end;
 class function TAWSSDKUtils.FormattedCurrentTimestampRFC822: string;
 begin
   Result := GetFormattedTimestampRFC822(0);
+end;
+
+class function TAWSSDKUtils.GenerateChecksumForContent(const Content: string; Base64Encode: Boolean): string;
+begin
+  // Convert the input string to a byte array and compute the hash.
+  var hashed := TCryptoUtilFactory.CryptoInstance.ComputeMD5Hash(TEncoding.UTF8.GetBytes(Content));
+
+ if Base64Encode then
+   // Convert the hash to a Base64 Encoded string and return it
+   Result := TBclUtils.EncodeBase64(hashed)
+ else
+   Result := TCryptoUtilFactory.CryptoInstance.HashAsString(hashed, True);
 end;
 
 class function TAWSSDKUtils.GetFormattedTimestampRFC822(MinutesFromNow: Integer): string;

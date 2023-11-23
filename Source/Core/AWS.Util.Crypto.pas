@@ -4,12 +4,12 @@ interface
 
 uses
   System.Classes, System.SysUtils,
-  Bcl.Utils,
-  AWS.SDKUtils;
+  AWS.Enums,
+  Bcl.Utils;
 
 type
   ICryptoUtil = interface
-    function HashAsString(const AData: TArray<Byte>): string;
+    function HashAsString(const AData: TArray<Byte>; AsUpperCase: Boolean = False): string;
     function ComputeSHA256Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function ComputeSHA256Hash(AStream: TStream): TArray<Byte>; overload;
     function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>;
@@ -28,7 +28,7 @@ type
 
   TCryptoUtil = class(TInterfacedObject, ICryptoUtil)
   public
-    function HashAsString(const AData: TArray<Byte>): string;
+    function HashAsString(const AData: TArray<Byte>; AsUpperCase: Boolean = False): string;
     function ComputeSHA256Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function ComputeSHA256Hash(AStream: TStream): TArray<Byte>; overload;
     function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
@@ -80,9 +80,11 @@ begin
   Result := THashSHA2.GetHashBytes(AStream, SHA256);
 end;
 
-function TCryptoUtil.HashAsString(const AData: TArray<Byte>): string;
+function TCryptoUtil.HashAsString(const AData: TArray<Byte>; AsUpperCase: Boolean = False): string;
 begin
   Result := THash.DigestAsString(AData);
+  if AsUpperCase then
+    Result := UpperCase(Result);
 end;
 
 function TCryptoUtil.HMACSign(const AData, AKey: string; AAlgorithmName: TSigningAlgorithm): string;

@@ -8,11 +8,12 @@ uses
   System.Generics.Defaults, System.Generics.Collections, System.SysUtils, System.StrUtils,
   System.DateUtils,
   Bcl.Collections,
-  AWS.Runtime.ClientConfig,
+  AWS.Enums,
   AWS.Internal.Auth.AWS4SigningResult,
   AWS.Internal.Request,
-  AWS.SDKUtils,
-  AWS.RegionEndpoint;
+  AWS.RegionEndpoint,
+  AWS.Runtime.ClientConfig,
+  AWS.SDKUtils;
 
 type
   TClientProtocol = (Unknown, QueryStringProtocol, RestProtocol);

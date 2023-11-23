@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  AWS.Enums,
   AWS.SDKUtils;
 
 type

@@ -6,6 +6,7 @@ interface
 
 uses
   AWS.RegionEndpoint,
+  AWS.Enums,
   AWS.SDKUtils,
   Bcl.Types.Nullable;
 

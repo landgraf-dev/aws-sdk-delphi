@@ -72,7 +72,6 @@ type
   strict protected
     function XmlReader: TXmlReader;
     property Stream: TStream read FStream;
-    property AllowEmptyElementLookup: HashSet<string> read FAllowEmptyElementLookup;
   public
     function CurrentPath: string; override;
     function CurrentDepth: Integer; override;
@@ -82,6 +81,7 @@ type
     function IsEndElement: Boolean; override;
     function IsStartOfDocument: Boolean; override;
     function IsAttribute: Boolean;
+    property AllowEmptyElementLookup: HashSet<string> read FAllowEmptyElementLookup;
   public
     constructor Create(AResponseStream: TStream; AMaintainResponseBody: Boolean;
       AResponseData: IWebResponseData; AIsException: Boolean = false); reintroduce;
