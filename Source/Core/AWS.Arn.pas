@@ -20,16 +20,24 @@ type
    /// Returns true if the string appears to be an ARN by seeing if the string starts with "arn:". This method
    /// doesn't guarantee the string is a valid ARN. To validate the string call TryParse.
    /// </summary>
-   /// <param name="arn"></param>
+   /// <param name="Arn"></param>
    /// <returns></returns>
    class function IsArn(const Arn: string): Boolean; static;
 
     /// <summary>
     /// Parses the string into an ARN object.
     /// </summary>
-    /// <param name="arnString">String to parse into an Arn.</param>
+    /// <param name="ArnString">String to parse into an Arn.</param>
     /// <returns>The Arn object created from the passed in string.</returns>
    class function Parse(const ArnString: string): TArn; static;
+
+    /// <summary>
+    /// Parses the string into an ARN object.
+    /// </summary>
+    /// <param name="ArnString">String to parse into an ARN.</param>
+    /// <param name="Arn">The out parameter for the ARN object created by TryParse.</param>
+    /// <returns>True if the string was parsed into an ARN object.</returns>
+   class function TryParse(const ArnString: string; var Arn: TArn): Boolean; static;
 
     /// <summary>
     /// Gets and sets the partition associated with the ARN (e.g.: 'aws').
@@ -116,6 +124,18 @@ begin
     end;
     FAccountId := Value;
   end;
+end;
+
+class function TArn.TryParse(const ArnString: string; var Arn: TArn): Boolean;
+begin
+  try
+    if IsArn(ArnString) then
+      Arn := Parse(ArnString);
+    Exit(True);
+  except
+  end;
+  Arn := Default(TArn);
+  Result := False;
 end;
 
 end.
