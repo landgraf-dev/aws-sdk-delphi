@@ -8,6 +8,8 @@ uses
   AWS.Runtime.Model, 
   AWS.S3Control.Model.DeletePublicAccessBlockRequest, 
   AWS.Internal.DefaultRequest, 
+  AWS.Internal.StringUtils, 
+  AWS.S3Control.Exception, 
   AWS.Internal.Util.HostPrefixUtils;
 
 type

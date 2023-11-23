@@ -11,6 +11,7 @@ uses
   AWS.Arn, 
   AWS.S3Control.Internal.S3ArnUtils, 
   AWS.Internal.StringUtils, 
+  AWS.S3Control.Exception, 
   AWS.Internal.Util.HostPrefixUtils;
 
 type

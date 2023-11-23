@@ -3,6 +3,7 @@ unit AWS.S3Control.Transform.IdempotencyExceptionUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3Control.Model.IdempotencyException, 
@@ -27,7 +28,7 @@ implementation
 
 function TIdempotencyExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): EIdempotencyException;
 begin
-  raise ENotImplemented.Create;
+  raise ENotImplemented.Create('TIdempotencyExceptionUnmarshaller.Unmarshall');
 end;
 
 function TIdempotencyExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): EIdempotencyException;

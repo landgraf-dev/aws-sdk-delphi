@@ -3,6 +3,7 @@ unit AWS.S3Control.Transform.JobStatusExceptionUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3Control.Model.JobStatusException, 
@@ -27,7 +28,7 @@ implementation
 
 function TJobStatusExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): EJobStatusException;
 begin
-  raise ENotImplemented.Create;
+  raise ENotImplemented.Create('TJobStatusExceptionUnmarshaller.Unmarshall');
 end;
 
 function TJobStatusExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): EJobStatusException;

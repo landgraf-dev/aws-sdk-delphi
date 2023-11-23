@@ -3,6 +3,7 @@ unit AWS.S3Control.Transform.NotFoundExceptionUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3Control.Model.NotFoundException, 
@@ -27,7 +28,7 @@ implementation
 
 function TNotFoundExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): ENotFoundException;
 begin
-  raise ENotImplemented.Create;
+  raise ENotImplemented.Create('TNotFoundExceptionUnmarshaller.Unmarshall');
 end;
 
 function TNotFoundExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): ENotFoundException;

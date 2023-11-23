@@ -3,6 +3,7 @@ unit AWS.S3Control.Transform.BucketAlreadyExistsExceptionUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3Control.Model.BucketAlreadyExistsException, 
@@ -27,7 +28,7 @@ implementation
 
 function TBucketAlreadyExistsExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): EBucketAlreadyExistsException;
 begin
-  raise ENotImplemented.Create;
+  raise ENotImplemented.Create('TBucketAlreadyExistsExceptionUnmarshaller.Unmarshall');
 end;
 
 function TBucketAlreadyExistsExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): EBucketAlreadyExistsException;

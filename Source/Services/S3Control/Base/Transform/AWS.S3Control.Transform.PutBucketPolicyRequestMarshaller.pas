@@ -10,8 +10,8 @@ uses
   AWS.Internal.DefaultRequest, 
   AWS.Arn, 
   AWS.S3Control.Internal.S3ArnUtils, 
-  AWS.S3Control.Exception, 
   AWS.Internal.StringUtils, 
+  AWS.S3Control.Exception, 
   System.Classes, 
   Bcl.Xml.Writer, 
   System.SysUtils, 
@@ -69,7 +69,7 @@ begin
     Request.Headers['Content-Type'] := 'application/xml';
     var content := TEncoding.UTF8.GetString(Request.Content);
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
-    ARequest.Headers[THeaderKeys.ContentMD5Header] := checksum;
+    Request.Headers[THeaderKeys.ContentMD5Header] := checksum;
     Request.Headers[THeaderKeys.XAmzApiVersion] := '2018-08-20';
   finally
     XmlStream.Free;

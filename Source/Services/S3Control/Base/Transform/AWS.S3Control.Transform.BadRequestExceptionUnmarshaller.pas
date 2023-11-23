@@ -3,6 +3,7 @@ unit AWS.S3Control.Transform.BadRequestExceptionUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3Control.Model.BadRequestException, 
@@ -27,7 +28,7 @@ implementation
 
 function TBadRequestExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): EBadRequestException;
 begin
-  raise ENotImplemented.Create;
+  raise ENotImplemented.Create('TBadRequestExceptionUnmarshaller.Unmarshall');
 end;
 
 function TBadRequestExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): EBadRequestException;

@@ -3,6 +3,7 @@ unit AWS.S3Control.Transform.BucketAlreadyOwnedByYouExceptionUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3Control.Model.BucketAlreadyOwnedByYouException, 
@@ -27,7 +28,7 @@ implementation
 
 function TBucketAlreadyOwnedByYouExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): EBucketAlreadyOwnedByYouException;
 begin
-  raise ENotImplemented.Create;
+  raise ENotImplemented.Create('TBucketAlreadyOwnedByYouExceptionUnmarshaller.Unmarshall');
 end;
 
 function TBucketAlreadyOwnedByYouExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): EBucketAlreadyOwnedByYouException;

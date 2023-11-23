@@ -8,8 +8,8 @@ uses
   AWS.Runtime.Model, 
   AWS.S3Control.Model.CreateBucketRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.S3Control.Exception, 
   AWS.Internal.StringUtils, 
+  AWS.S3Control.Exception, 
   System.Classes, 
   Bcl.Xml.Writer, 
   System.SysUtils, 
@@ -44,7 +44,7 @@ begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3Control');
   Request.HttpMethod := 'PUT';
   if PublicRequest.IsSetACL then
-    Request.Headers.Add('x-amz-acl', PublicRequest.ACL);
+    Request.Headers.Add('x-amz-acl', PublicRequest.ACL.Value);
   if PublicRequest.IsSetGrantFullControl then
     Request.Headers.Add('x-amz-grant-full-control', PublicRequest.GrantFullControl);
   if PublicRequest.IsSetGrantRead then
@@ -74,7 +74,7 @@ begin
     Request.Headers['Content-Type'] := 'application/xml';
     var content := TEncoding.UTF8.GetString(Request.Content);
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
-    ARequest.Headers[THeaderKeys.ContentMD5Header] := checksum;
+    Request.Headers[THeaderKeys.ContentMD5Header] := checksum;
     Request.Headers[THeaderKeys.XAmzApiVersion] := '2018-08-20';
   finally
     XmlStream.Free;

@@ -9,6 +9,7 @@ uses
   AWS.S3Control.Model.ListJobsRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.Internal.StringUtils, 
+  AWS.S3Control.Exception, 
   AWS.Internal.Util.HostPrefixUtils;
 
 type

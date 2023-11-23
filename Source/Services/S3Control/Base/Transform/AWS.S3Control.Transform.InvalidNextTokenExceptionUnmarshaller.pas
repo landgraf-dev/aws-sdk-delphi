@@ -3,6 +3,7 @@ unit AWS.S3Control.Transform.InvalidNextTokenExceptionUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3Control.Model.InvalidNextTokenException, 
@@ -27,7 +28,7 @@ implementation
 
 function TInvalidNextTokenExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): EInvalidNextTokenException;
 begin
-  raise ENotImplemented.Create;
+  raise ENotImplemented.Create('TInvalidNextTokenExceptionUnmarshaller.Unmarshall');
 end;
 
 function TInvalidNextTokenExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): EInvalidNextTokenException;

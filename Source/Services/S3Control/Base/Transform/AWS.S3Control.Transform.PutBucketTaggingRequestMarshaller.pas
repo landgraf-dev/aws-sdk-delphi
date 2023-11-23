@@ -65,7 +65,7 @@ begin
     Request.Headers['Content-Type'] := 'application/xml';
     var content := TEncoding.UTF8.GetString(Request.Content);
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
-    ARequest.Headers[THeaderKeys.ContentMD5Header] := checksum;
+    Request.Headers[THeaderKeys.ContentMD5Header] := checksum;
     Request.Headers[THeaderKeys.XAmzApiVersion] := '2018-08-20';
   finally
     XmlStream.Free;

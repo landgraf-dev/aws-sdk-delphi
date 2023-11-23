@@ -11,7 +11,9 @@ uses
   System.Classes, 
   Bcl.Xml.Writer, 
   System.SysUtils, 
+  AWS.Internal.StringUtils, 
   AWS.SDKUtils, 
+  AWS.S3Control.Exception, 
   AWS.Internal.Util.HostPrefixUtils;
 
 type

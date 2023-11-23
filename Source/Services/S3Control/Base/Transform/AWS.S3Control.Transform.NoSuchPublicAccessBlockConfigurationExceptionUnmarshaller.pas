@@ -3,6 +3,7 @@ unit AWS.S3Control.Transform.NoSuchPublicAccessBlockConfigurationExceptionUnmars
 interface
 
 uses
+  System.SysUtils, 
   AWS.Transform.IErrorResponseUnmarshaller, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3Control.Model.NoSuchPublicAccessBlockConfigurationException, 
@@ -27,7 +28,7 @@ implementation
 
 function TNoSuchPublicAccessBlockConfigurationExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): ENoSuchPublicAccessBlockConfigurationException;
 begin
-  raise ENotImplemented.Create;
+  raise ENotImplemented.Create('TNoSuchPublicAccessBlockConfigurationExceptionUnmarshaller.Unmarshall');
 end;
 
 function TNoSuchPublicAccessBlockConfigurationExceptionUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext; AErrorResponse: TErrorResponse): ENoSuchPublicAccessBlockConfigurationException;
