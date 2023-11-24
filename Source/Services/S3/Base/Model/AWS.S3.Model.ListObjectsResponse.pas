@@ -7,7 +7,7 @@ uses
   Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.S3.Model.CommonPrefix, 
-  AWS.S3.Model.Object, 
+  AWS.S3.Model.ObjectTypes, 
   AWS.S3.Enums;
 
 type

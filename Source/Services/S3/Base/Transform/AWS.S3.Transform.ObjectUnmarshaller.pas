@@ -3,7 +3,7 @@ unit AWS.S3.Transform.ObjectUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.Object, 
+  AWS.S3.Model.ObjectTypes, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Internal.Request, 

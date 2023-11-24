@@ -1,4 +1,4 @@
-unit AWS.S3.Model.Object;
+unit AWS.S3.Model.ObjectTypes;
 
 interface
 

@@ -90,8 +90,8 @@ uses
   AWS.S3.Model.MetricsConfiguration, 
   AWS.S3.Model.MetricsFilter, 
   AWS.S3.Model.NoSuchBucketException, 
-  AWS.S3.Model.Object, 
   AWS.S3.Model.ObjectNotInActiveTierErrorException, 
+  AWS.S3.Model.ObjectTypes, 
   AWS.S3.Model.ObjectVersion, 
   AWS.S3.Model.OutputSerialization, 
   AWS.S3.Model.Owner, 
@@ -199,7 +199,7 @@ type
   IMetricsAndOperator = AWS.S3.Model.MetricsAndOperator.IMetricsAndOperator;
   IMetricsConfiguration = AWS.S3.Model.MetricsConfiguration.IMetricsConfiguration;
   IMetricsFilter = AWS.S3.Model.MetricsFilter.IMetricsFilter;
-  IObject = AWS.S3.Model.Object.IObject;
+  IObject = AWS.S3.Model.ObjectTypes.IObject;
   IObjectVersion = AWS.S3.Model.ObjectVersion.IObjectVersion;
   IOutputSerialization = AWS.S3.Model.OutputSerialization.IOutputSerialization;
   IOwner = AWS.S3.Model.Owner.IOwner;
@@ -331,7 +331,7 @@ type
   TMetricsStatus = AWS.S3.Enums.TMetricsStatus;
   TMFADelete = AWS.S3.Enums.TMFADelete;
   TMFADeleteStatus = AWS.S3.Enums.TMFADeleteStatus;
-  TObject = AWS.S3.Model.Object.TObject;
+  TObject = AWS.S3.Model.ObjectTypes.TObject;
   TObjectCannedACL = AWS.S3.Enums.TObjectCannedACL;
   TObjectLockEnabled = AWS.S3.Enums.TObjectLockEnabled;
   TObjectLockLegalHoldStatus = AWS.S3.Enums.TObjectLockLegalHoldStatus;

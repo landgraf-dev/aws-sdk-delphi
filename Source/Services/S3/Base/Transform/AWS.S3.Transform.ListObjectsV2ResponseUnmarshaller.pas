@@ -10,7 +10,7 @@ uses
   AWS.S3.Transform.CommonPrefixUnmarshaller, 
   AWS.S3.Model.CommonPrefix, 
   AWS.S3.Transform.ObjectUnmarshaller, 
-  AWS.S3.Model.Object, 
+  AWS.S3.Model.ObjectTypes, 
   AWS.Transform.SimpleTypeUnmarshaller, 
   AWS.Runtime.Exceptions, 
   System.SysUtils, 
