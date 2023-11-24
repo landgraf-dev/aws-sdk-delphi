@@ -93,6 +93,10 @@ contains
   AWS.Transform.JsonUnmarshallerContext in '..\..\Source\Core\AWS.Transform.JsonUnmarshallerContext.pas',
   AWS.Util.Streams in '..\..\Source\Core\AWS.Util.Streams.pas',
   AWS.Util.Collections in '..\..\Source\Core\AWS.Util.Collections.pas',
-  AWS.Transform.JsonErrorResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.JsonErrorResponseUnmarshaller.pas';
+  AWS.Transform.JsonErrorResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.JsonErrorResponseUnmarshaller.pas',
+  AWS.Pipeline.RetryHandler in '..\..\Source\Core\AWS.Pipeline.RetryHandler.pas',
+  AWS.Internal.Auth.AWS4SigningResult in '..\..\Source\Core\AWS.Internal.Auth.AWS4SigningResult.pas',
+  AWS.Enums in '..\..\Source\Core\AWS.Enums.pas',
+  AWS.Runtime.CorrectClockSkew in '..\..\Source\Core\AWS.Runtime.CorrectClockSkew.pas';
 
 end.
