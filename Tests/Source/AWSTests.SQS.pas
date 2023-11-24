@@ -76,7 +76,7 @@ begin
   AttrRequest.QueueUrl := Response.QueueUrl;
   AttrRequest.AttributeNames.Add(TSQSConsts.ATTRIBUTE_ALL);
   AttrResponse := Client.GetQueueAttributes(AttrRequest);
-  CheckEquals(11, AttrResponse.Attributes.Count);
+  CheckEquals(12, AttrResponse.Attributes.Count);
   CheckEquals(StrToInt(DefaultTimeout), StrToInt(AttrResponse.Attributes[TSQSConsts.ATTRIBUTE_VISIBILITY_TIMEOUT]));
   if not AttrResponse.Attributes.TryGetValue(TSQSConsts.ATTRIBUTE_FIFO_QUEUE, FifoQueue) then
     FifoQueue := 'False';
