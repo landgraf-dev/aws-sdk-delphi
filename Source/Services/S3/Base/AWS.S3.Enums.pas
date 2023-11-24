@@ -163,23 +163,23 @@ type
     FValue: string;
   public
     constructor Create(const AValue: string);
-    class function S3ObjectCreated*: TEvent; static;
-    class function S3ObjectCreatedCompleteMultipartUpload: TEvent; static;
-    class function S3ObjectCreatedCopy: TEvent; static;
-    class function S3ObjectCreatedPost: TEvent; static;
-    class function S3ObjectCreatedPut: TEvent; static;
-    class function S3ObjectRemoved*: TEvent; static;
-    class function S3ObjectRemovedDelete: TEvent; static;
-    class function S3ObjectRemovedDeleteMarkerCreated: TEvent; static;
-    class function S3ObjectRestore*: TEvent; static;
-    class function S3ObjectRestoreCompleted: TEvent; static;
-    class function S3ObjectRestorePost: TEvent; static;
-    class function S3ReducedRedundancyLostObject: TEvent; static;
-    class function S3Replication*: TEvent; static;
-    class function S3ReplicationOperationFailedReplication: TEvent; static;
-    class function S3ReplicationOperationMissedThreshold: TEvent; static;
-    class function S3ReplicationOperationNotTracked: TEvent; static;
-    class function S3ReplicationOperationReplicatedAfterThreshold: TEvent; static;
+    class function ObjectCreatedAll: TEvent; static;
+    class function ObjectCreatedCompleteMultipartUpload: TEvent; static;
+    class function ObjectCreatedCopy: TEvent; static;
+    class function ObjectCreatedPost: TEvent; static;
+    class function ObjectCreatedPut: TEvent; static;
+    class function ObjectRemovedAll: TEvent; static;
+    class function ObjectRemovedDelete: TEvent; static;
+    class function ObjectRemovedDeleteMarkerCreated: TEvent; static;
+    class function ObjectRestoreAll: TEvent; static;
+    class function ObjectRestoreCompleted: TEvent; static;
+    class function ObjectRestorePost: TEvent; static;
+    class function ReducedRedundancyLostObject: TEvent; static;
+    class function ReplicationAll: TEvent; static;
+    class function ReplicationOperationFailedReplication: TEvent; static;
+    class function ReplicationOperationMissedThreshold: TEvent; static;
+    class function ReplicationOperationNotTracked: TEvent; static;
+    class function ReplicationOperationReplicatedAfterThreshold: TEvent; static;
     class operator Equal(a: TEvent; b: TEvent): Boolean;
     class operator NotEqual(a: TEvent; b: TEvent): Boolean;
     class operator Implicit(a: string): TEvent;
@@ -1243,87 +1243,87 @@ begin
   FValue := AValue;
 end;
 
-class function TEvent.S3ObjectCreated*: TEvent;
+class function TEvent.ObjectCreatedAll: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectCreated:*');
 end;
 
-class function TEvent.S3ObjectCreatedCompleteMultipartUpload: TEvent;
+class function TEvent.ObjectCreatedCompleteMultipartUpload: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectCreated:CompleteMultipartUpload');
 end;
 
-class function TEvent.S3ObjectCreatedCopy: TEvent;
+class function TEvent.ObjectCreatedCopy: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectCreated:Copy');
 end;
 
-class function TEvent.S3ObjectCreatedPost: TEvent;
+class function TEvent.ObjectCreatedPost: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectCreated:Post');
 end;
 
-class function TEvent.S3ObjectCreatedPut: TEvent;
+class function TEvent.ObjectCreatedPut: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectCreated:Put');
 end;
 
-class function TEvent.S3ObjectRemoved*: TEvent;
+class function TEvent.ObjectRemovedAll: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectRemoved:*');
 end;
 
-class function TEvent.S3ObjectRemovedDelete: TEvent;
+class function TEvent.ObjectRemovedDelete: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectRemoved:Delete');
 end;
 
-class function TEvent.S3ObjectRemovedDeleteMarkerCreated: TEvent;
+class function TEvent.ObjectRemovedDeleteMarkerCreated: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectRemoved:DeleteMarkerCreated');
 end;
 
-class function TEvent.S3ObjectRestore*: TEvent;
+class function TEvent.ObjectRestoreAll: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectRestore:*');
 end;
 
-class function TEvent.S3ObjectRestoreCompleted: TEvent;
+class function TEvent.ObjectRestoreCompleted: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectRestore:Completed');
 end;
 
-class function TEvent.S3ObjectRestorePost: TEvent;
+class function TEvent.ObjectRestorePost: TEvent;
 begin
   Result := TEvent.Create('s3:ObjectRestore:Post');
 end;
 
-class function TEvent.S3ReducedRedundancyLostObject: TEvent;
+class function TEvent.ReducedRedundancyLostObject: TEvent;
 begin
   Result := TEvent.Create('s3:ReducedRedundancyLostObject');
 end;
 
-class function TEvent.S3Replication*: TEvent;
+class function TEvent.ReplicationAll: TEvent;
 begin
   Result := TEvent.Create('s3:Replication:*');
 end;
 
-class function TEvent.S3ReplicationOperationFailedReplication: TEvent;
+class function TEvent.ReplicationOperationFailedReplication: TEvent;
 begin
   Result := TEvent.Create('s3:Replication:OperationFailedReplication');
 end;
 
-class function TEvent.S3ReplicationOperationMissedThreshold: TEvent;
+class function TEvent.ReplicationOperationMissedThreshold: TEvent;
 begin
   Result := TEvent.Create('s3:Replication:OperationMissedThreshold');
 end;
 
-class function TEvent.S3ReplicationOperationNotTracked: TEvent;
+class function TEvent.ReplicationOperationNotTracked: TEvent;
 begin
   Result := TEvent.Create('s3:Replication:OperationNotTracked');
 end;
 
-class function TEvent.S3ReplicationOperationReplicatedAfterThreshold: TEvent;
+class function TEvent.ReplicationOperationReplicatedAfterThreshold: TEvent;
 begin
   Result := TEvent.Create('s3:Replication:OperationReplicatedAfterThreshold');
 end;

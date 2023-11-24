@@ -3,6 +3,7 @@ unit AWS.S3.Transform.SelectObjectContentRequestMarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
@@ -12,7 +13,6 @@ uses
   AWS.Internal.StringUtils, 
   System.Classes, 
   Bcl.Xml.Writer, 
-  System.SysUtils, 
   AWS.SDKUtils;
 
 type
@@ -140,8 +140,8 @@ begin
       if PublicRequest.ScanRange <> nil then
       begin
         XmlWriter.WriteStartElement('ScanRange', 'http://s3.amazonaws.com/doc/2006-03-01/');
-        if PublicRequest.ScanRange.IsSetEnd then
-          XmlWriter.WriteElementString('End', 'http://s3.amazonaws.com/doc/2006-03-01/', TStringUtils.FromInt64(PublicRequest.ScanRange.End));
+        if PublicRequest.ScanRange.IsSet&End then
+          XmlWriter.WriteElementString('End', 'http://s3.amazonaws.com/doc/2006-03-01/', TStringUtils.FromInt64(PublicRequest.ScanRange.&End));
         if PublicRequest.ScanRange.IsSetStart then
           XmlWriter.WriteElementString('Start', 'http://s3.amazonaws.com/doc/2006-03-01/', TStringUtils.FromInt64(PublicRequest.ScanRange.Start));
         XmlWriter.WriteEndElement;

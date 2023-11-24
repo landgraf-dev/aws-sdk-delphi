@@ -16,7 +16,7 @@ type
     function Obj: TScanRange;
     function IsSetEnd: Boolean;
     function IsSetStart: Boolean;
-    property End: Int64 read GetEnd write SetEnd;
+    property &End: Int64 read GetEnd write SetEnd;
     property Start: Int64 read GetStart write SetStart;
   end;
   
@@ -33,7 +33,7 @@ type
   public
     function IsSetEnd: Boolean;
     function IsSetStart: Boolean;
-    property End: Int64 read GetEnd write SetEnd;
+    property &End: Int64 read GetEnd write SetEnd;
     property Start: Int64 read GetStart write SetStart;
   end;
   

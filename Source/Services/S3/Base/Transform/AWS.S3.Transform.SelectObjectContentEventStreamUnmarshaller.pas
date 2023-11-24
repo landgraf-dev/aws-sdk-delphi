@@ -53,7 +53,7 @@ begin
         if AContext.TestExpression('End', TargetDepth) then
         begin
           var Unmarshaller := TEndEventUnmarshaller.Instance;
-          UnmarshalledObject.End := Unmarshaller.Unmarshall(AContext);
+          UnmarshalledObject.&End := Unmarshaller.Unmarshall(AContext);
           Continue;
         end;
         if AContext.TestExpression('Progress', TargetDepth) then

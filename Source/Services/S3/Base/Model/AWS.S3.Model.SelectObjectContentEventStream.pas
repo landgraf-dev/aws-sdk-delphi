@@ -41,7 +41,7 @@ type
     function IsSetStats: Boolean;
     property Cont: TContinuationEvent read GetCont write SetCont;
     property KeepCont: Boolean read GetKeepCont write SetKeepCont;
-    property End: TEndEvent read GetEnd write SetEnd;
+    property &End: TEndEvent read GetEnd write SetEnd;
     property KeepEnd: Boolean read GetKeepEnd write SetKeepEnd;
     property Progress: TProgressEvent read GetProgress write SetProgress;
     property KeepProgress: Boolean read GetKeepProgress write SetKeepProgress;
@@ -94,7 +94,7 @@ type
     function IsSetStats: Boolean;
     property Cont: TContinuationEvent read GetCont write SetCont;
     property KeepCont: Boolean read GetKeepCont write SetKeepCont;
-    property End: TEndEvent read GetEnd write SetEnd;
+    property &End: TEndEvent read GetEnd write SetEnd;
     property KeepEnd: Boolean read GetKeepEnd write SetKeepEnd;
     property Progress: TProgressEvent read GetProgress write SetProgress;
     property KeepProgress: Boolean read GetKeepProgress write SetKeepProgress;
@@ -113,7 +113,7 @@ begin
   Stats := nil;
   Records := nil;
   Progress := nil;
-  End := nil;
+  &End := nil;
   Cont := nil;
   inherited;
 end;
