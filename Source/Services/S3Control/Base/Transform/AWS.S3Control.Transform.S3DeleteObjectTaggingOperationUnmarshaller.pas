@@ -27,15 +27,11 @@ implementation
 function TS3DeleteObjectTaggingOperationUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): TS3DeleteObjectTaggingOperation;
 var
   OriginalDepth: Integer;
-  TargetDepth: Integer;
   UnmarshalledObject: TS3DeleteObjectTaggingOperation;
 begin
   UnmarshalledObject := TS3DeleteObjectTaggingOperation.Create;
   try
     OriginalDepth := AContext.CurrentDepth;
-    TargetDepth := OriginalDepth + 1;
-    if AContext.IsStartOfDocument then
-      Inc(TargetDepth, 2);
     while AContext.Read do
       if AContext.IsStartElement or AContext.IsAttribute then
       begin

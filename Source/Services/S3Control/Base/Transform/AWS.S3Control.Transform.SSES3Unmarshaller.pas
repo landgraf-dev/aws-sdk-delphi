@@ -27,15 +27,11 @@ implementation
 function TSSES3Unmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): TSSES3;
 var
   OriginalDepth: Integer;
-  TargetDepth: Integer;
   UnmarshalledObject: TSSES3;
 begin
   UnmarshalledObject := TSSES3.Create;
   try
     OriginalDepth := AContext.CurrentDepth;
-    TargetDepth := OriginalDepth + 1;
-    if AContext.IsStartOfDocument then
-      Inc(TargetDepth, 2);
     while AContext.Read do
       if AContext.IsStartElement or AContext.IsAttribute then
       begin
