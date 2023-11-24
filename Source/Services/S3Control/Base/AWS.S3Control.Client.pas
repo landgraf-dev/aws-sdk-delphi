@@ -375,10 +375,10 @@ end;
 
 procedure TAmazonS3ControlClient.CustomizeRuntimePipeline(Pipeline: TRuntimePipeline);
 begin
-  Pipeline.AddHandlerBefore<TMarshaller>(TAmazonS3ControlPreMarshallHandler.Create());
-  Pipeline.AddHandlerAfter<TMarshaller>(TAmazonS3ControlPostMarshallHandler.Create());
-  Pipeline.AddHandlerBefore<TUnmarshaller>(TAmazonS3ControlPostUnmarshallHandler.Create());
-  Pipeline.AddHandlerAfter<TErrorCallbackHandler>(TAmazonS3ControlExceptionHandler.Create());
+  Pipeline.AddHandlerBefore<TMarshaller>(TAmazonS3ControlPreMarshallHandler.Create);
+  Pipeline.AddHandlerAfter<TMarshaller>(TAmazonS3ControlPostMarshallHandler.Create);
+  Pipeline.AddHandlerBefore<TUnmarshaller>(TAmazonS3ControlPostUnmarshallHandler.Create);
+  Pipeline.AddHandlerAfter<TErrorCallbackHandler>(TAmazonS3ControlExceptionHandler.Create);
 end;
 
 function TAmazonS3ControlClient.CreateAccessPoint(Request: ICreateAccessPointRequest): ICreateAccessPointResponse;
