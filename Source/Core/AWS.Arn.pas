@@ -39,6 +39,8 @@ type
     /// <returns>True if the string was parsed into an ARN object.</returns>
    class function TryParse(const ArnString: string; var Arn: TArn): Boolean; static;
 
+   function ToString: string;
+
     /// <summary>
     /// Gets and sets the partition associated with the ARN (e.g.: 'aws').
     /// </summary>
@@ -124,6 +126,11 @@ begin
     end;
     FAccountId := Value;
   end;
+end;
+
+function TArn.ToString: string;
+begin
+  Result := 'arn:' + Self.Partition + ':' + Self.Service + ':' + Self.Region + ':' + Self.AccountId + ':' + Self.Resource;
 end;
 
 class function TArn.TryParse(const ArnString: string; var Arn: TArn): Boolean;

@@ -15,7 +15,7 @@ uses
 
 type
   TS3OutpostResource = class(TInterfacedObject, IS3Resource)
-  strict private const
+  public const
     S3OutpostsService = 's3-outposts';
   strict private
     FArn: TArn;
@@ -24,6 +24,7 @@ type
     FKey: string;
     FOutpostId: string;
     function GetTypeString(InCaps, HasSpaces: Boolean): string;
+  public
     class function IsValidOutpostId(const OutpostId: string): Boolean; static;
   strict private
     function GetType: TS3ResourceType;

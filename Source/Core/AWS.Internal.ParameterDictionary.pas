@@ -11,6 +11,7 @@ type
     function GetItems(const Key: string): string;
     procedure SetItems(const Key: string; const Value: string);
     function GetKeys: TArray<string>;
+    function GetValues: TArray<string>;
 
     function Count: Integer;
     procedure Add(const Key, Value: string);
@@ -18,6 +19,7 @@ type
     procedure Remove(const Key: string);
     property Items[const Key: string]: string read GetItems write SetItems; default;
     property Keys: TArray<string> read GetKeys;
+    property Values: TArray<string> read GetValues;
   end;
 
   TParameterDictionaryFacade = class(TInterfacedObject, IParameterDictionary)
@@ -26,6 +28,7 @@ type
     function GetItems(const Key: string): string;
     procedure SetItems(const Key: string; const Value: string);
     function GetKeys: TArray<string>;
+    function GetValues: TArray<string>;
     class function ParameterValueToString(PV: TParameterValue): string; static;
     class procedure UpdateParameterValue(PV: TParameterValue; const ANewValue: string); static;
   public
@@ -76,6 +79,13 @@ begin
   SetLength(Result, FParameterCollection.Count);
   for var I := 0 to FParameterCollection.Count - 1 do
     Result[I] := FParameterCollection.Keys[I];
+end;
+
+function TParameterDictionaryFacade.GetValues: TArray<string>;
+begin
+  SetLength(Result, FParameterCollection.Count);
+  for var I := 0 to FParameterCollection.Count - 1 do
+    Result[I] := ParameterValueToString(FParameterCollection.Values[I]);
 end;
 
 class function TParameterDictionaryFacade.ParameterValueToString(PV: TParameterValue): string;
