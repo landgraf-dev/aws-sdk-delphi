@@ -92,7 +92,7 @@ begin
         if PublicRequest.InputSerialization.JSON <> nil then
         begin
           XmlWriter.WriteStartElement('JSON', 'http://s3.amazonaws.com/doc/2006-03-01/');
-          if PublicRequest.InputSerialization.JSON.IsSet&Type then
+          if PublicRequest.InputSerialization.JSON.IsSetType then
             XmlWriter.WriteElementString('Type', 'http://s3.amazonaws.com/doc/2006-03-01/', PublicRequest.InputSerialization.JSON.&Type.Value);
           XmlWriter.WriteEndElement;
         end;
@@ -140,7 +140,7 @@ begin
       if PublicRequest.ScanRange <> nil then
       begin
         XmlWriter.WriteStartElement('ScanRange', 'http://s3.amazonaws.com/doc/2006-03-01/');
-        if PublicRequest.ScanRange.IsSet&End then
+        if PublicRequest.ScanRange.IsSetEnd then
           XmlWriter.WriteElementString('End', 'http://s3.amazonaws.com/doc/2006-03-01/', TStringUtils.FromInt64(PublicRequest.ScanRange.&End));
         if PublicRequest.ScanRange.IsSetStart then
           XmlWriter.WriteElementString('Start', 'http://s3.amazonaws.com/doc/2006-03-01/', TStringUtils.FromInt64(PublicRequest.ScanRange.Start));
