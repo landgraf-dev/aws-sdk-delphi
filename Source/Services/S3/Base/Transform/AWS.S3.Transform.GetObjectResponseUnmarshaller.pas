@@ -8,11 +8,12 @@ uses
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
+  System.Classes, 
+  AWS.SDKUtils, 
   AWS.S3.Internal.S3Transforms, 
   AWS.Runtime.Exceptions, 
   AWS.Internal.ErrorResponse, 
   AWS.Transform.ErrorResponseUnmarshaller, 
-  System.Classes, 
   AWS.S3.Transform.InvalidObjectStateExceptionUnmarshaller, 
   AWS.S3.Transform.NoSuchKeyExceptionUnmarshaller, 
   AWS.S3.Exception;
@@ -40,7 +41,10 @@ var
 begin
   Response := TGetObjectResponse.Create;
   try
-    Implement;
+    var ms := TBytesStream.Create;
+    Response.Body := ms;
+    Response.KeepBody := False;
+    TAWSSDKUtils.CopyStream(AContext.Stream, ms);
     if AContext.ResponseData.IsHeaderPresent('accept-ranges') then
       Response.AcceptRanges := AContext.ResponseData.GetHeaderValue('accept-ranges');
     if AContext.ResponseData.IsHeaderPresent('x-amz-server-side-encryption-bucket-key-enabled') then

@@ -71,7 +71,6 @@ type
     class function StackToPath(AStack: TStack<string>): string;
   strict protected
     function XmlReader: TXmlReader;
-    property Stream: TStream read FStream;
   public
     function CurrentPath: string; override;
     function CurrentDepth: Integer; override;
@@ -86,6 +85,7 @@ type
     constructor Create(AResponseStream: TStream; AMaintainResponseBody: Boolean;
       AResponseData: IWebResponseData; AIsException: Boolean = false); reintroduce;
     destructor Destroy; override;
+    property Stream: TStream read FStream;
   end;
 
 implementation

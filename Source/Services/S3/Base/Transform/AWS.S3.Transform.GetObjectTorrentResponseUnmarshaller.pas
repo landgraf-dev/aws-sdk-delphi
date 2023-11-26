@@ -7,11 +7,12 @@ uses
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
+  System.Classes, 
+  AWS.SDKUtils, 
   AWS.Runtime.Exceptions, 
   System.SysUtils, 
   AWS.Internal.ErrorResponse, 
   AWS.Transform.ErrorResponseUnmarshaller, 
-  System.Classes, 
   AWS.S3.Exception;
 
 type
@@ -37,7 +38,10 @@ var
 begin
   Response := TGetObjectTorrentResponse.Create;
   try
-    Implement;
+    var ms := TBytesStream.Create;
+    Response.Body := ms;
+    Response.KeepBody := False;
+    TAWSSDKUtils.CopyStream(AContext.Stream, ms);
     if AContext.ResponseData.IsHeaderPresent('x-amz-request-charged') then
       Response.RequestCharged := AContext.ResponseData.GetHeaderValue('x-amz-request-charged');
     Result := Response;

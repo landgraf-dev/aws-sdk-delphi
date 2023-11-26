@@ -50,6 +50,9 @@ type
     // Functions for internal use
     class constructor Create;
     class function GetParametersAsString(AParameterCollection: TParameterCollection): string;
+
+    class procedure CopyStream(Source, Dest: TStream); overload; static;
+    class procedure CopyStream(Source, Dest: TStream; const BufferSize: Integer); overload; static;
   public
     class function ResolveResourcePath(const AResourcePath: string;
       APathResources: TDictionary<string, string>): string;
@@ -444,6 +447,24 @@ begin
       Inc(Index);
   end;
   Result := Result + Copy(AData, Start, Index - Start + 1);
+end;
+
+class procedure TAWSSDKUtils.CopyStream(Source, Dest: TStream; const BufferSize: Integer);
+var
+  Buffer: TArray<Byte>;
+  BytesRead: Integer;
+begin
+  SetLength(Buffer, BufferSize);
+  repeat
+    BytesRead := Source.Read(Buffer[0], BufferSize);
+    if BytesRead = 0 then Exit;
+    Dest.Write(Buffer[0], BytesRead);
+  until False;
+end;
+
+class procedure TAWSSDKUtils.CopyStream(Source, Dest: TStream);
+begin
+  CopyStream(Source, Dest, DefaultBufferSize);
 end;
 
 class function TAWSSDKUtils.CorrectedUtcNow: TDateTime;
