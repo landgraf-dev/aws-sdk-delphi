@@ -3,12 +3,13 @@ unit AWS.S3.Transform.GetBucketPolicyResponseUnmarshaller;
 interface
 
 uses
+  System.SysUtils, 
   AWS.S3.Model.GetBucketPolicyResponse, 
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
+  AWS.SDKUtils, 
   AWS.Runtime.Exceptions, 
-  System.SysUtils, 
   AWS.Internal.ErrorResponse, 
   AWS.Transform.ErrorResponseUnmarshaller, 
   System.Classes, 
@@ -37,7 +38,9 @@ var
 begin
   Response := TGetBucketPolicyResponse.Create;
   try
-    Implement;
+    Response.Policy := TAWSSDKUtils.StreamToString(AContext.Stream);
+    if Response.Policy.StartsWith('<?xml', True) then
+      Response.Policy := '';
     Result := Response;
     Response := nil;
   finally

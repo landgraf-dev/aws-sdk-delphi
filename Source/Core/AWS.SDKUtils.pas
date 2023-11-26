@@ -53,6 +53,7 @@ type
 
     class procedure CopyStream(Source, Dest: TStream); overload; static;
     class procedure CopyStream(Source, Dest: TStream; const BufferSize: Integer); overload; static;
+    class function StreamToString(Source: TStream; Encoding: TEncoding = nil): string; static;
   public
     class function ResolveResourcePath(const AResourcePath: string;
       APathResources: TDictionary<string, string>): string;
@@ -658,6 +659,18 @@ begin
     Result := ResolvedSegments.ToArray;
   finally
     ResolvedSegments.Free;
+  end;
+end;
+
+class function TAWSSDKUtils.StreamToString(Source: TStream; Encoding: TEncoding): string;
+begin
+  if Encoding = nil then
+    Encoding := TEncoding.UTF8;
+  var Reader := TStreamReader.Create(Source, Encoding, False);
+  try
+    Result := Reader.ReadToEnd;
+  finally
+    Reader.Free;
   end;
 end;
 
