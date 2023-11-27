@@ -54,6 +54,7 @@ type
     class procedure CopyStream(Source, Dest: TStream); overload; static;
     class procedure CopyStream(Source, Dest: TStream; const BufferSize: Integer); overload; static;
     class function StreamToString(Source: TStream; Encoding: TEncoding = nil): string; static;
+    class function GetExtension(const Path: string): string;
   public
     class function ResolveResourcePath(const AResourcePath: string;
       APathResources: TDictionary<string, string>): string;
@@ -579,6 +580,30 @@ begin
    Result := TBclUtils.EncodeBase64(hashed)
  else
    Result := TCryptoUtilFactory.CryptoInstance.HashAsString(hashed, True);
+end;
+
+class function TAWSSDKUtils.GetExtension(const Path: string): string;
+begin
+  if Path = '' then Exit('');
+  var length := Path.Length;
+  var index := length - 1;
+
+  while index >= 0 do
+  begin
+    var ch := path.Chars[index];
+    if ch = '.' then
+    begin
+      if index <> length - 1 then
+        Exit(path.Substring(index, length - index))
+      else
+        Exit('');
+    end
+    else
+    if (ch = '\') or (ch = '/') or (ch = ':') then
+      Break;
+    Dec(index);
+  end;
+  Result := '';
 end;
 
 class function TAWSSDKUtils.GetFormattedTimestampRFC822(MinutesFromNow: Integer): string;

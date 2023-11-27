@@ -186,6 +186,9 @@ type
     FStorageClass: Nullable<TStorageClass>;
     FTagging: Nullable<string>;
     FWebsiteRedirectLocation: Nullable<string>;
+    FFilePath: string;
+    FContentBody: string;
+    FAutoResetStreamPosition: Boolean;
     function GetACL: TObjectCannedACL;
     procedure SetACL(const Value: TObjectCannedACL);
     function GetBody: TBytesStream;
@@ -325,6 +328,11 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property Tagging: string read GetTagging write SetTagging;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property FilePath: string read FFilePath write FFilePath;
+    property ContentBody: string read FContentBody write FContentBody;
+    property AutoResetStreamPosition: Boolean read FAutoResetStreamPosition write FAutoResetStreamPosition;
+    property InputStream: TBytesStream read GetBody write SetBody;
+    property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
   end;
   
 implementation
