@@ -4,19 +4,26 @@ interface
 
 uses
   AWS.Runtime.ClientConfig, 
-  AWS.Internal.SDKUtils;
+  AWS.Internal.SDKUtils, 
+  Bcl.Types.Nullable;
 
 type
   TAmazonS3Config = class(TClientConfig)
   strict private
     class var FUserAgent: string;
   private
+    FForcePathStyle: Boolean;
+    FUseAccelerateEndpoint: Boolean;
     class constructor Create;
   strict protected
+    FUseArnRegion: NullableBoolean;
     procedure Init; override;
     function GetServiceVersion: string; override;
     function GetRegionEndpointServiceName: string; override;
     function GetUserAgent: string; override;
+  public
+    property ForcePathStyle: Boolean read FForcePathStyle write FForcePathStyle;
+    property UseAccelerateEndpoint: Boolean read FUseAccelerateEndpoint write FUseAccelerateEndpoint;
   end;
   
 implementation

@@ -15,15 +15,15 @@ type
     procedure PreInvoke(AExecutionContext: TExecutionContext);
   public
     procedure InvokeSync(AExecutionContext: TExecutionContext); override;
-    function DetermineEndpoint(ARequestContext: TRequestContext): IUri; overload;
-    function DetermineEndpoint(AConfig: IClientConfig; ARequest: IRequest): IUri; overload;
+    class function DetermineEndpoint(ARequestContext: TRequestContext): IUri; overload;
+    class function DetermineEndpoint(AConfig: IClientConfig; ARequest: IRequest): IUri; overload;
   end;
 
 implementation
 
 { TEndpointResolver }
 
-function TEndpointResolver.DetermineEndpoint(AConfig: IClientConfig; ARequest: IRequest): IUri;
+class function TEndpointResolver.DetermineEndpoint(AConfig: IClientConfig; ARequest: IRequest): IUri;
 var
   Endpoint: IUri;
 begin
@@ -39,7 +39,7 @@ begin
   Result := Endpoint;
 end;
 
-function TEndpointResolver.DetermineEndpoint(ARequestContext: TRequestContext): IUri;
+class function TEndpointResolver.DetermineEndpoint(ARequestContext: TRequestContext): IUri;
 begin
   Result := DetermineEndpoint(ARequestContext.ClientConfig, ARequestContext.Request);
 end;

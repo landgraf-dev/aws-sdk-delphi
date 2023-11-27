@@ -688,6 +688,8 @@ type
     property Value: string read FValue;
   end;
   
+  TServerSideEncryptionMethod = TServerSideEncryption;
+  
   TSseKmsEncryptedObjectsStatus = record
   strict private
     FValue: string;
