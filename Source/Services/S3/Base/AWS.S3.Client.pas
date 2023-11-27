@@ -13,7 +13,7 @@ uses
   AWS.Internal.ServiceMetadata, 
   AWS.S3.Metadata, 
   AWS.Auth.Signer, 
-  AWS.S3.Internal.S3Signer,
+  AWS.S3.Internal.S3Signer, 
   AWS.Internal.RuntimePipeline, 
   AWS.Pipeline.Marshaller, 
   AWS.S3.Pipeline.PreMarshallHandler, 

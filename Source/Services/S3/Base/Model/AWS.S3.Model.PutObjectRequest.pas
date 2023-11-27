@@ -15,8 +15,8 @@ type
   IPutObjectRequest = interface
     function GetACL: TObjectCannedACL;
     procedure SetACL(const Value: TObjectCannedACL);
-    function GetBody: TBytesStream;
-    procedure SetBody(const Value: TBytesStream);
+    function GetBody: TStream;
+    procedure SetBody(const Value: TStream);
     function GetKeepBody: Boolean;
     procedure SetKeepBody(const Value: Boolean);
     function GetBucketKeyEnabled: Boolean;
@@ -115,7 +115,7 @@ type
     function IsSetTagging: Boolean;
     function IsSetWebsiteRedirectLocation: Boolean;
     property ACL: TObjectCannedACL read GetACL write SetACL;
-    property Body: TBytesStream read GetBody write SetBody;
+    property Body: TStream read GetBody write SetBody;
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
     property BucketName: string read GetBucketName write SetBucketName;
@@ -153,7 +153,7 @@ type
   TPutObjectRequest = class(TAmazonS3Request, IPutObjectRequest)
   strict private
     FACL: Nullable<TObjectCannedACL>;
-    FBody: TBytesStream;
+    FBody: TStream;
     FKeepBody: Boolean;
     FBucketKeyEnabled: Nullable<Boolean>;
     FBucketName: Nullable<string>;
@@ -191,8 +191,8 @@ type
     FAutoResetStreamPosition: Boolean;
     function GetACL: TObjectCannedACL;
     procedure SetACL(const Value: TObjectCannedACL);
-    function GetBody: TBytesStream;
-    procedure SetBody(const Value: TBytesStream);
+    function GetBody: TStream;
+    procedure SetBody(const Value: TStream);
     function GetKeepBody: Boolean;
     procedure SetKeepBody(const Value: Boolean);
     function GetBucketKeyEnabled: Boolean;
@@ -295,7 +295,7 @@ type
     function IsSetTagging: Boolean;
     function IsSetWebsiteRedirectLocation: Boolean;
     property ACL: TObjectCannedACL read GetACL write SetACL;
-    property Body: TBytesStream read GetBody write SetBody;
+    property Body: TStream read GetBody write SetBody;
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
     property BucketName: string read GetBucketName write SetBucketName;
@@ -331,7 +331,7 @@ type
     property FilePath: string read FFilePath write FFilePath;
     property ContentBody: string read FContentBody write FContentBody;
     property AutoResetStreamPosition: Boolean read FAutoResetStreamPosition write FAutoResetStreamPosition;
-    property InputStream: TBytesStream read GetBody write SetBody;
+    property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
   end;
   
@@ -372,12 +372,12 @@ begin
   Result := FACL.HasValue;
 end;
 
-function TPutObjectRequest.GetBody: TBytesStream;
+function TPutObjectRequest.GetBody: TStream;
 begin
   Result := FBody;
 end;
 
-procedure TPutObjectRequest.SetBody(const Value: TBytesStream);
+procedure TPutObjectRequest.SetBody(const Value: TStream);
 begin
   if FBody <> Value then
   begin
