@@ -12,8 +12,8 @@ type
   TUploadPartRequest = class;
   
   IUploadPartRequest = interface
-    function GetBody: TBytesStream;
-    procedure SetBody(const Value: TBytesStream);
+    function GetBody: TStream;
+    procedure SetBody(const Value: TStream);
     function GetKeepBody: Boolean;
     procedure SetKeepBody(const Value: Boolean);
     function GetBucketName: string;
@@ -38,6 +38,10 @@ type
     procedure SetSSECustomerKeyMD5(const Value: string);
     function GetUploadId: string;
     procedure SetUploadId(const Value: string);
+    function GetFilePath: string;
+    procedure SetFilePath(const Value: string);
+    function GetFilePosition: Integer;
+    procedure SetFilePosition(const Value: Integer);
     function Obj: TUploadPartRequest;
     function IsSetBody: Boolean;
     function IsSetBucketName: Boolean;
@@ -51,7 +55,7 @@ type
     function IsSetSSECustomerKey: Boolean;
     function IsSetSSECustomerKeyMD5: Boolean;
     function IsSetUploadId: Boolean;
-    property Body: TBytesStream read GetBody write SetBody;
+    property Body: TStream read GetBody write SetBody;
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketName: string read GetBucketName write SetBucketName;
     property ContentLength: Int64 read GetContentLength write SetContentLength;
@@ -64,11 +68,15 @@ type
     property SSECustomerKey: string read GetSSECustomerKey write SetSSECustomerKey;
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property UploadId: string read GetUploadId write SetUploadId;
+    property FilePath: string read GetFilePath write SetFilePath;
+    property FilePosition: Integer read GetFilePosition write SetFilePosition;
+    property InputStream: TStream read GetBody write SetBody;
+    property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
   end;
   
   TUploadPartRequest = class(TAmazonS3Request, IUploadPartRequest)
   strict private
-    FBody: TBytesStream;
+    FBody: TStream;
     FKeepBody: Boolean;
     FBucketName: Nullable<string>;
     FContentLength: Nullable<Int64>;
@@ -81,8 +89,10 @@ type
     FSSECustomerKey: Nullable<string>;
     FSSECustomerKeyMD5: Nullable<string>;
     FUploadId: Nullable<string>;
-    function GetBody: TBytesStream;
-    procedure SetBody(const Value: TBytesStream);
+    FFilePath: string;
+    FFilePosition: Integer;
+    function GetBody: TStream;
+    procedure SetBody(const Value: TStream);
     function GetKeepBody: Boolean;
     procedure SetKeepBody(const Value: Boolean);
     function GetBucketName: string;
@@ -107,6 +117,10 @@ type
     procedure SetSSECustomerKeyMD5(const Value: string);
     function GetUploadId: string;
     procedure SetUploadId(const Value: string);
+    function GetFilePath: string;
+    procedure SetFilePath(const Value: string);
+    function GetFilePosition: Integer;
+    procedure SetFilePosition(const Value: Integer);
   strict protected
     function Obj: TUploadPartRequest;
   public
@@ -123,7 +137,7 @@ type
     function IsSetSSECustomerKey: Boolean;
     function IsSetSSECustomerKeyMD5: Boolean;
     function IsSetUploadId: Boolean;
-    property Body: TBytesStream read GetBody write SetBody;
+    property Body: TStream read GetBody write SetBody;
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketName: string read GetBucketName write SetBucketName;
     property ContentLength: Int64 read GetContentLength write SetContentLength;
@@ -136,6 +150,10 @@ type
     property SSECustomerKey: string read GetSSECustomerKey write SetSSECustomerKey;
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property UploadId: string read GetUploadId write SetUploadId;
+    property FilePath: string read GetFilePath write SetFilePath;
+    property FilePosition: Integer read GetFilePosition write SetFilePosition;
+    property InputStream: TStream read GetBody write SetBody;
+    property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
   end;
   
 implementation
@@ -153,12 +171,12 @@ begin
   Result := Self;
 end;
 
-function TUploadPartRequest.GetBody: TBytesStream;
+function TUploadPartRequest.GetBody: TStream;
 begin
   Result := FBody;
 end;
 
-procedure TUploadPartRequest.SetBody(const Value: TBytesStream);
+procedure TUploadPartRequest.SetBody(const Value: TStream);
 begin
   if FBody <> Value then
   begin
@@ -346,6 +364,26 @@ end;
 function TUploadPartRequest.IsSetUploadId: Boolean;
 begin
   Result := FUploadId.HasValue;
+end;
+
+function TUploadPartRequest.GetFilePath: string;
+begin
+  Result := FFilePath;
+end;
+
+procedure TUploadPartRequest.SetFilePath(const Value: string);
+begin
+  FFilePath := Value;
+end;
+
+function TUploadPartRequest.GetFilePosition: Integer;
+begin
+  Result := FFilePosition;
+end;
+
+procedure TUploadPartRequest.SetFilePosition(const Value: Integer);
+begin
+  FFilePosition := Value;
 end;
 
 end.

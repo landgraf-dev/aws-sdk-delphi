@@ -32,6 +32,10 @@ type
     procedure SetGrantWriteACP(const Value: string);
     function GetObjectLockEnabledForBucket: Boolean;
     procedure SetObjectLockEnabledForBucket(const Value: Boolean);
+    function GetUseClientRegion: Boolean;
+    procedure SetUseClientRegion(const Value: Boolean);
+    function GetBucketRegionName: string;
+    procedure SetBucketRegionName(const Value: string);
     function Obj: TPutBucketRequest;
     function IsSetACL: Boolean;
     function IsSetBucketName: Boolean;
@@ -52,6 +56,8 @@ type
     property GrantWrite: string read GetGrantWrite write SetGrantWrite;
     property GrantWriteACP: string read GetGrantWriteACP write SetGrantWriteACP;
     property ObjectLockEnabledForBucket: Boolean read GetObjectLockEnabledForBucket write SetObjectLockEnabledForBucket;
+    property UseClientRegion: Boolean read GetUseClientRegion write SetUseClientRegion;
+    property BucketRegionName: string read GetBucketRegionName write SetBucketRegionName;
   end;
   
   TPutBucketRequest = class(TAmazonS3Request, IPutBucketRequest)
@@ -66,6 +72,8 @@ type
     FGrantWrite: Nullable<string>;
     FGrantWriteACP: Nullable<string>;
     FObjectLockEnabledForBucket: Nullable<Boolean>;
+    FUseClientRegion: Boolean;
+    FBucketRegionName: string;
     function GetACL: TBucketCannedACL;
     procedure SetACL(const Value: TBucketCannedACL);
     function GetBucketName: string;
@@ -86,9 +94,14 @@ type
     procedure SetGrantWriteACP(const Value: string);
     function GetObjectLockEnabledForBucket: Boolean;
     procedure SetObjectLockEnabledForBucket(const Value: Boolean);
+    function GetUseClientRegion: Boolean;
+    procedure SetUseClientRegion(const Value: Boolean);
+    function GetBucketRegionName: string;
+    procedure SetBucketRegionName(const Value: string);
   strict protected
     function Obj: TPutBucketRequest;
   public
+    constructor Create;
     destructor Destroy; override;
     function IsSetACL: Boolean;
     function IsSetBucketName: Boolean;
@@ -109,11 +122,19 @@ type
     property GrantWrite: string read GetGrantWrite write SetGrantWrite;
     property GrantWriteACP: string read GetGrantWriteACP write SetGrantWriteACP;
     property ObjectLockEnabledForBucket: Boolean read GetObjectLockEnabledForBucket write SetObjectLockEnabledForBucket;
+    property UseClientRegion: Boolean read GetUseClientRegion write SetUseClientRegion;
+    property BucketRegionName: string read GetBucketRegionName write SetBucketRegionName;
   end;
   
 implementation
 
 { TPutBucketRequest }
+
+constructor TPutBucketRequest.Create;
+begin
+  inherited;
+  FUseClientRegion := True;
+end;
 
 destructor TPutBucketRequest.Destroy;
 begin
@@ -274,6 +295,26 @@ end;
 function TPutBucketRequest.IsSetObjectLockEnabledForBucket: Boolean;
 begin
   Result := FObjectLockEnabledForBucket.HasValue;
+end;
+
+function TPutBucketRequest.GetUseClientRegion: Boolean;
+begin
+  Result := FUseClientRegion;
+end;
+
+procedure TPutBucketRequest.SetUseClientRegion(const Value: Boolean);
+begin
+  FUseClientRegion := Value;
+end;
+
+function TPutBucketRequest.GetBucketRegionName: string;
+begin
+  Result := FBucketRegionName;
+end;
+
+procedure TPutBucketRequest.SetBucketRegionName(const Value: string);
+begin
+  FBucketRegionName := Value;
 end;
 
 end.

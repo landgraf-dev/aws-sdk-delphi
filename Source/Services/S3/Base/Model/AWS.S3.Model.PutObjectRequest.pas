@@ -81,6 +81,12 @@ type
     procedure SetTagging(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetFilePath: string;
+    procedure SetFilePath(const Value: string);
+    function GetContentBody: string;
+    procedure SetContentBody(const Value: string);
+    function GetAutoResetStreamPosition: Boolean;
+    procedure SetAutoResetStreamPosition(const Value: Boolean);
     function Obj: TPutObjectRequest;
     function IsSetACL: Boolean;
     function IsSetBody: Boolean;
@@ -148,6 +154,11 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property Tagging: string read GetTagging write SetTagging;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property FilePath: string read GetFilePath write SetFilePath;
+    property ContentBody: string read GetContentBody write SetContentBody;
+    property AutoResetStreamPosition: Boolean read GetAutoResetStreamPosition write SetAutoResetStreamPosition;
+    property InputStream: TStream read GetBody write SetBody;
+    property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
   end;
   
   TPutObjectRequest = class(TAmazonS3Request, IPutObjectRequest)
@@ -257,6 +268,12 @@ type
     procedure SetTagging(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetFilePath: string;
+    procedure SetFilePath(const Value: string);
+    function GetContentBody: string;
+    procedure SetContentBody(const Value: string);
+    function GetAutoResetStreamPosition: Boolean;
+    procedure SetAutoResetStreamPosition(const Value: Boolean);
   strict protected
     function Obj: TPutObjectRequest;
   public
@@ -328,9 +345,9 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property Tagging: string read GetTagging write SetTagging;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
-    property FilePath: string read FFilePath write FFilePath;
-    property ContentBody: string read FContentBody write FContentBody;
-    property AutoResetStreamPosition: Boolean read FAutoResetStreamPosition write FAutoResetStreamPosition;
+    property FilePath: string read GetFilePath write SetFilePath;
+    property ContentBody: string read GetContentBody write SetContentBody;
+    property AutoResetStreamPosition: Boolean read GetAutoResetStreamPosition write SetAutoResetStreamPosition;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
   end;
@@ -865,6 +882,36 @@ end;
 function TPutObjectRequest.IsSetWebsiteRedirectLocation: Boolean;
 begin
   Result := FWebsiteRedirectLocation.HasValue;
+end;
+
+function TPutObjectRequest.GetFilePath: string;
+begin
+  Result := FFilePath;
+end;
+
+procedure TPutObjectRequest.SetFilePath(const Value: string);
+begin
+  FFilePath := Value;
+end;
+
+function TPutObjectRequest.GetContentBody: string;
+begin
+  Result := FContentBody;
+end;
+
+procedure TPutObjectRequest.SetContentBody(const Value: string);
+begin
+  FContentBody := Value;
+end;
+
+function TPutObjectRequest.GetAutoResetStreamPosition: Boolean;
+begin
+  Result := FAutoResetStreamPosition;
+end;
+
+procedure TPutObjectRequest.SetAutoResetStreamPosition(const Value: Boolean);
+begin
+  FAutoResetStreamPosition := Value;
 end;
 
 end.
