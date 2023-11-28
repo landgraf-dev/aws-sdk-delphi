@@ -5,7 +5,8 @@ interface
 uses
   Bcl.Types.Nullable, 
   AWS.S3.Model.Request, 
-  AWS.S3.Enums;
+  AWS.S3.Enums, 
+  AWS.S3.Model.ByteRange;
 
 type
   TGetObjectRequest = class;
@@ -51,6 +52,10 @@ type
     procedure SetSSECustomerKeyMD5(const Value: string);
     function GetVersionId: string;
     procedure SetVersionId(const Value: string);
+    function GetByteRange: TByteRange;
+    procedure SetByteRange(const Value: TByteRange);
+    function GetKeepByteRange: Boolean;
+    procedure SetKeepByteRange(const Value: Boolean);
     function Obj: TGetObjectRequest;
     function IsSetBucketName: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
@@ -92,6 +97,7 @@ type
     property SSECustomerKey: string read GetSSECustomerKey write SetSSECustomerKey;
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property VersionId: string read GetVersionId write SetVersionId;
+    property ByteRange: TByteRange read GetByteRange write SetByteRange;
   end;
   
   TGetObjectRequest = class(TAmazonS3Request, IGetObjectRequest)
@@ -116,6 +122,8 @@ type
     FSSECustomerKey: Nullable<string>;
     FSSECustomerKeyMD5: Nullable<string>;
     FVersionId: Nullable<string>;
+    FByteRange: TByteRange;
+    FKeepByteRange: Boolean;
     function GetBucketName: string;
     procedure SetBucketName(const Value: string);
     function GetExpectedBucketOwner: string;
@@ -156,9 +164,14 @@ type
     procedure SetSSECustomerKeyMD5(const Value: string);
     function GetVersionId: string;
     procedure SetVersionId(const Value: string);
+    function GetByteRange: TByteRange;
+    procedure SetByteRange(const Value: TByteRange);
+    function GetKeepByteRange: Boolean;
+    procedure SetKeepByteRange(const Value: Boolean);
   strict protected
     function Obj: TGetObjectRequest;
   public
+    destructor Destroy; override;
     function IsSetBucketName: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
     function IsSetIfMatch: Boolean;
@@ -199,11 +212,19 @@ type
     property SSECustomerKey: string read GetSSECustomerKey write SetSSECustomerKey;
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property VersionId: string read GetVersionId write SetVersionId;
+    property ByteRange: TByteRange read GetByteRange write SetByteRange;
+    property KeepByteRange: Boolean read GetKeepByteRange write SetKeepByteRange;
   end;
   
 implementation
 
 { TGetObjectRequest }
+
+destructor TGetObjectRequest.Destroy;
+begin
+  ByteRange := nil;
+  inherited;
+end;
 
 function TGetObjectRequest.Obj: TGetObjectRequest;
 begin
@@ -508,6 +529,31 @@ end;
 function TGetObjectRequest.IsSetVersionId: Boolean;
 begin
   Result := FVersionId.HasValue;
+end;
+
+function TGetObjectRequest.GetByteRange: TByteRange;
+begin
+  Result := FByteRange;
+end;
+
+procedure TGetObjectRequest.SetByteRange(const Value: TByteRange);
+begin
+  if FByteRange <> Value then
+  begin
+    if not KeepByteRange then
+      FByteRange.Free;
+    FByteRange := Value;
+  end;
+end;
+
+function TGetObjectRequest.GetKeepByteRange: Boolean;
+begin
+  Result := FKeepByteRange;
+end;
+
+procedure TGetObjectRequest.SetKeepByteRange(const Value: Boolean);
+begin
+  FKeepByteRange := Value;
 end;
 
 end.

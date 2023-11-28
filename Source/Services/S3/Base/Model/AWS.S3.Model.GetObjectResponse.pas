@@ -81,6 +81,10 @@ type
     procedure SetVersionId(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetBucketName: string;
+    procedure SetBucketName(const Value: string);
+    function GetKey: string;
+    procedure SetKey(const Value: string);
     function Obj: TGetObjectResponse;
     function IsSetAcceptRanges: Boolean;
     function IsSetBody: Boolean;
@@ -148,6 +152,8 @@ type
     property TagCount: Integer read GetTagCount write SetTagCount;
     property VersionId: string read GetVersionId write SetVersionId;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property BucketName: string read GetBucketName write SetBucketName;
+    property Key: string read GetKey write SetKey;
   end;
   
   TGetObjectResponse = class(TAmazonWebServiceResponse, IGetObjectResponse)
@@ -186,6 +192,8 @@ type
     FTagCount: Nullable<Integer>;
     FVersionId: Nullable<string>;
     FWebsiteRedirectLocation: Nullable<string>;
+    FBucketName: string;
+    FKey: string;
     function GetAcceptRanges: string;
     procedure SetAcceptRanges(const Value: string);
     function GetBody: TBytesStream;
@@ -254,6 +262,10 @@ type
     procedure SetVersionId(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetBucketName: string;
+    procedure SetBucketName(const Value: string);
+    function GetKey: string;
+    procedure SetKey(const Value: string);
   strict protected
     function Obj: TGetObjectResponse;
   public
@@ -325,6 +337,8 @@ type
     property TagCount: Integer read GetTagCount write SetTagCount;
     property VersionId: string read GetVersionId write SetVersionId;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property BucketName: string read GetBucketName write SetBucketName;
+    property Key: string read GetKey write SetKey;
   end;
   
 implementation
@@ -857,6 +871,26 @@ end;
 function TGetObjectResponse.IsSetWebsiteRedirectLocation: Boolean;
 begin
   Result := FWebsiteRedirectLocation.HasValue;
+end;
+
+function TGetObjectResponse.GetBucketName: string;
+begin
+  Result := FBucketName;
+end;
+
+procedure TGetObjectResponse.SetBucketName(const Value: string);
+begin
+  FBucketName := Value;
+end;
+
+function TGetObjectResponse.GetKey: string;
+begin
+  Result := FKey;
+end;
+
+procedure TGetObjectResponse.SetKey(const Value: string);
+begin
+  FKey := Value;
 end;
 
 end.
