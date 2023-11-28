@@ -10,7 +10,7 @@ type
   TAmazonS3Metadata = class(TServiceMetadata)
   strict protected
     function GetServiceId: string; override;
-    procedure FillOperationNameMapping(Mapping: TDictionary<string, string>);
+    procedure FillOperationNameMapping(Mapping: TDictionary<string, string>); override;
   end;
   
 implementation

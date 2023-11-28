@@ -92,7 +92,6 @@ begin
 
   if response is TCopyPartResponse then
   begin
-    var copyPartResponse := response as TCopyPartResponse;
     {$MESSAGE WARN 'Todo: set part number'}
   end;
 
