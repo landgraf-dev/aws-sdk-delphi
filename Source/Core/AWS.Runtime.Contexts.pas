@@ -33,6 +33,7 @@ type
     function GetSigner: TAbstractAWSSigner;
   public
     constructor Create(AEnableMetrics: Boolean; AClientSigner: TAbstractAWSSigner);
+    function RequestName: string;
     property Request: IRequest read FRequest write FRequest;
     property ClientConfig: IClientConfig read FClientConfig write FClientConfig;
     property ServiceMetadata: IServiceMetadata read FServiceMetadata write FServiceMetadata;
@@ -106,6 +107,14 @@ begin
     Result := FClientSigner
   else
     Result := RequestSigner;
+end;
+
+function TRequestContext.RequestName: string;
+begin
+  if OriginalRequest <> nil then
+    Result := Copy(OriginalRequest.ClassName, 2)
+  else
+    Result := 'Unknown';
 end;
 
 { TResponseContext }

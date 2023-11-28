@@ -73,6 +73,13 @@ type
     function GetHeaderValue(const AHeaderName: string): string;
     function ComputeContentStreamHash: string;
 
+    /// <summary>
+    /// Checks if the request stream can be rewinded.
+    /// </summary>
+    /// <returns>Returns true if the request stream can be rewinded ,
+    /// else false.</returns>
+    function IsRequestStreamRewindable: Boolean;
+
     property RequestName: string read GetRequestName;
     property ServiceName: string read GetServiceName;
     property Endpoint: IUri read GetEndpoint write SetEndpoint;

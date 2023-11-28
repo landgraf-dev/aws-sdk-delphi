@@ -108,6 +108,8 @@ type
     function HasRequestBody: Boolean;
     function HasRequestData: Boolean;
     function ComputeContentStreamHash: string;
+    function IsRequestStreamRewindable: Boolean;
+
     procedure AddSubResource(const ASubResource: string; const AValue: string = '');
     procedure AddPathResource(const AKey, AValue: string);
     function GetHeaderValue(const AHeaderName: string): string;
@@ -390,6 +392,23 @@ begin
     Result := True
   else
     Result := Parameters.Count > 0;
+end;
+
+function TDefaultRequest.IsRequestStreamRewindable: Boolean;
+begin
+  var stream := ContentStream;
+
+  // Retries may not be possible with a stream
+  if stream <> nil then
+  begin
+    // Pull out the underlying non-wrapper stream
+    stream := TWrapperStream.GetNonWrapperBaseStream(stream);
+
+    // Retry is possible if stream is seekable
+    Exit(CanSeek(stream));
+  end;
+
+  Result := True;
 end;
 
 function TDefaultRequest.MayContainRequestBody: Boolean;
