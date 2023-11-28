@@ -13,7 +13,8 @@ type
     function GetPartitionName: string;
     function GetPartitionDnsSuffix: string;
 
-    function GetEndpointForService(const AServiceName: string; ADualStack: Boolean): IEndpoint;
+    function GetEndpointForService(const AServiceName: string; ADualStack: Boolean): IEndpoint; overload;
+    function GetEndpointForService(const AServiceName: string): IEndpoint; overload;
     property SystemName: string read GetSystemName;
     property DisplayName: string read GetDisplayName;
     property PartitionName: string read GetPartitionName;
@@ -45,7 +46,8 @@ type
     function InternedRegionEndpoint: IRegionEndpoint;
   public
     constructor Create(const ASystemName, ADisplayName: string);
-    function GetEndpointForService(const AServiceName: string; ADualStack: Boolean): IEndpoint;
+    function GetEndpointForService(const AServiceName: string; ADualStack: Boolean): IEndpoint; overload;
+    function GetEndpointForService(const AServiceName: string): IEndpoint; overload;
     property SystemName: string read GetSystemName;
     property DisplayName: string read GetDisplayName;
     property PartitionName: string read GetPartitionName;
@@ -110,6 +112,11 @@ begin
   finally
     TMonitor.Exit(FHashBySystemName);
   end;
+end;
+
+function TRegionEndpoint.GetEndpointForService(const AServiceName: string): IEndpoint;
+begin
+  Result := GetEndpointForService(AServiceName, False);
 end;
 
 function TRegionEndpoint.GetEndpointForService(const AServiceName: string; ADualStack: Boolean): IEndpoint;

@@ -13,7 +13,7 @@ uses
 
 type
   TAmazonS3KmsHandler = class(TPipelineHandler)
-  strict private
+  public
     class procedure EvaluateIfSigV4Required(Request: IRequest); static;
   strict protected
     procedure PreInvoke(AExecutionContext: TExecutionContext);

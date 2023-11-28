@@ -12,6 +12,7 @@ type
   TSigner = class(TPipelineHandler)
   strict private
     class function ShouldSign(ARequestContext: TRequestContext): Boolean; static;
+  public
     class procedure SignRequest(ARequestContext: TRequestContext); static;
   strict protected
     procedure PreInvoke(AExecutionContext: TExecutionContext);

@@ -29,7 +29,8 @@ type
     FKey: string;
     FRegion: IRegionEndpointEx;
   public
-    constructor Create(const Uri: IUri);
+    constructor Create(const Uri: IUri); overload;
+    constructor Create(const Uri: string); overload;
     property IsPathStyle: Boolean read FIsPathStyle;
     property Bucket: string read FBucket;
     property Key: string read FKey;
@@ -155,6 +156,11 @@ begin
         end;
       end;
   end;
+end;
+
+constructor TAmazonS3Uri.Create(const Uri: string);
+begin
+  Create(TUri.Create(Uri));
 end;
 
 class function TAmazonS3Uri.Decode(const S: string; FirstPercent: Integer): string;
