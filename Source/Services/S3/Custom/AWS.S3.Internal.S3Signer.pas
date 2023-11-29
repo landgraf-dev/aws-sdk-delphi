@@ -18,6 +18,7 @@ type
     procedure RegionDetectionUpdater(Request: IRequest);
   public
     constructor Create;
+    destructor Destroy; override;
     procedure Sign(ARequest: IRequest; AClientConfig: IClientConfig; const AAWSAccessKeyId, AAWSSecretAccessKey: string); override;
     function Protocol: TClientProtocol; override;
   end;
@@ -29,6 +30,12 @@ implementation
 constructor TInternalS3Signer.Create;
 begin
   FS3Signer := TS3Signer.Create(TAWSConfigsS3.UseSignatureVersion4, RegionDetectionUpdater);
+end;
+
+destructor TInternalS3Signer.Destroy;
+begin
+  FS3Signer.Free;
+  inherited;
 end;
 
 function TInternalS3Signer.Protocol: TClientProtocol;
