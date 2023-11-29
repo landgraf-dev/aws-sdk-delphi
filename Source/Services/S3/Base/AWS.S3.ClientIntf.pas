@@ -187,6 +187,7 @@ uses
 
 type
   IAmazonS3 = interface(IAmazonService)
+    ['{1489907F-4BAD-42A7-83E9-A7CB74CC5631}']
     function AbortMultipartUpload(const ABucketName: string; const AKey: string; const AUploadId: string): IAbortMultipartUploadResponse; overload;
     function AbortMultipartUpload(Request: IAbortMultipartUploadRequest): IAbortMultipartUploadResponse; overload;
     function CompleteMultipartUpload(Request: ICompleteMultipartUploadRequest): ICompleteMultipartUploadResponse; overload;
