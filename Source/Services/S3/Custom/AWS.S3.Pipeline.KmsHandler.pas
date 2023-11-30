@@ -27,11 +27,15 @@ implementation
 
 class procedure TAmazonS3KmsHandler.EvaluateIfSigV4Required(Request: IRequest);
 begin
-  var amazonS3Uri: TAmazonS3Uri;
-  if (Request is TGetObjectRequest) and TAmazonS3Uri.TryParseAmazonS3Uri(Request.Endpoint, amazonS3Uri) then
-  begin
-    if (amazonS3Uri.Region = nil) or (amazonS3Uri.Region.SystemName <> TRegionEndpoints.USEast1.SystemName) then
-      Request.UseSigV4 := True;
+  var amazonS3Uri: TAmazonS3Uri := nil;
+  try
+    if (Request is TGetObjectRequest) and TAmazonS3Uri.TryParseAmazonS3Uri(Request.Endpoint, amazonS3Uri) then
+    begin
+      if (amazonS3Uri.Region = nil) or (amazonS3Uri.Region.SystemName <> TRegionEndpoints.USEast1.SystemName) then
+        Request.UseSigV4 := True;
+    end;
+  finally
+    amazonS3Uri.Free;
   end;
 end;
 

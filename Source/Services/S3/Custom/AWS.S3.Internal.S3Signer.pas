@@ -47,15 +47,20 @@ procedure TInternalS3Signer.RegionDetectionUpdater(Request: IRequest);
 var
   s3Uri: TAmazonS3Uri;
 begin
-  if TAmazonS3Uri.TryParseAmazonS3Uri(Request.Endpoint, s3Uri) then
-  begin
-    if s3Uri.Bucket <> '' then
+  s3Uri := nil;
+  try
+    if TAmazonS3Uri.TryParseAmazonS3Uri(Request.Endpoint, s3Uri) then
     begin
-      var cachedRegion: IRegionEndpointEx;
-      {TODO: support this later}
-//      if TBucketRegionDetector.BucketRegionCache.TryGetValue(s3Uri.Bucket, cachedRegion) then
-//        Request.AlternateEndpoint := cachedRegion;
+      if s3Uri.Bucket <> '' then
+      begin
+        var cachedRegion: IRegionEndpointEx;
+        {TODO: support this later}
+  //      if TBucketRegionDetector.BucketRegionCache.TryGetValue(s3Uri.Bucket, cachedRegion) then
+  //        Request.AlternateEndpoint := cachedRegion;
+      end;
     end;
+  finally
+    s3Uri.Free;
   end;
 end;
 
