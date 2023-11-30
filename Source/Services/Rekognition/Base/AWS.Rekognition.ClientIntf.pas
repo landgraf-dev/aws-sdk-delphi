@@ -125,6 +125,7 @@ uses
 
 type
   IAmazonRekognition = interface(IAmazonService)
+    ['{5A9CBF3F-FCD2-40A4-AE55-2C1EACE8C8C5}']
     function CompareFaces(Request: ICompareFacesRequest): ICompareFacesResponse; overload;
     function CreateCollection(Request: ICreateCollectionRequest): ICreateCollectionResponse; overload;
     function CreateDataset(Request: ICreateDatasetRequest): ICreateDatasetResponse; overload;

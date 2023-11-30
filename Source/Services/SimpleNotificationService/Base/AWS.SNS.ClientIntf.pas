@@ -88,6 +88,7 @@ uses
 
 type
   IAmazonSimpleNotificationService = interface(IAmazonService)
+    ['{02CF30E5-15CF-4AED-A800-68E94B2AE3D5}']
     function AddPermission(const ATopicArn: string; const ALabel: string; const AAWSAccountId: TList<string>; const AActionName: TList<string>): IAddPermissionResponse; overload;
     function AddPermission(Request: IAddPermissionRequest): IAddPermissionResponse; overload;
     function CheckIfPhoneNumberIsOptedOut(Request: ICheckIfPhoneNumberIsOptedOutRequest): ICheckIfPhoneNumberIsOptedOutResponse; overload;

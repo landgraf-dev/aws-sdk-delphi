@@ -51,6 +51,7 @@ uses
 
 type
   IAmazonSQS = interface(IAmazonService)
+    ['{D92AD4A8-B87B-4969-B723-4E3303D08659}']
     function AddPermission(const AQueueUrl: string; const ALabel: string; const AAWSAccountIds: TList<string>; const AActions: TList<string>): IAddPermissionResponse; overload;
     function AddPermission(Request: IAddPermissionRequest): IAddPermissionResponse; overload;
     function ChangeMessageVisibility(const AQueueUrl: string; const AReceiptHandle: string; const AVisibilityTimeout: Integer): IChangeMessageVisibilityResponse; overload;

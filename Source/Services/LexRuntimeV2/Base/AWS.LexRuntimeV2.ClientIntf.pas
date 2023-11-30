@@ -17,6 +17,7 @@ uses
 
 type
   IAmazonLexRuntimeV2 = interface(IAmazonService)
+    ['{91E1ADB3-0CE8-4ACB-A4F3-515682ACF1B8}']
     function DeleteSession(Request: IDeleteSessionRequest): IDeleteSessionResponse; overload;
     function GetSession(Request: IGetSessionRequest): IGetSessionResponse; overload;
     function PutSession(Request: IPutSessionRequest): IPutSessionResponse; overload;

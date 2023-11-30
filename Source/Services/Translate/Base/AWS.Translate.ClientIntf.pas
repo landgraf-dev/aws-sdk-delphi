@@ -35,6 +35,7 @@ uses
 
 type
   IAmazonTranslate = interface(IAmazonService)
+    ['{44AC2CBD-D602-440B-BDFF-0939A5FCC51B}']
     function CreateParallelData(Request: ICreateParallelDataRequest): ICreateParallelDataResponse; overload;
     function DeleteParallelData(Request: IDeleteParallelDataRequest): IDeleteParallelDataResponse; overload;
     function DeleteTerminology(Request: IDeleteTerminologyRequest): IDeleteTerminologyResponse; overload;

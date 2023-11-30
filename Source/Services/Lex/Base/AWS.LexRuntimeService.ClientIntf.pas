@@ -17,6 +17,7 @@ uses
 
 type
   IAmazonLex = interface(IAmazonService)
+    ['{152AD843-5566-4022-9384-EDEC0BCC5422}']
     function DeleteSession(Request: IDeleteSessionRequest): IDeleteSessionResponse; overload;
     function GetSession(Request: IGetSessionRequest): IGetSessionResponse; overload;
     function PostContent(Request: IPostContentRequest): IPostContentResponse; overload;

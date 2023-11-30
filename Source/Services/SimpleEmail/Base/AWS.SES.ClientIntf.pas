@@ -149,6 +149,7 @@ uses
 
 type
   IAmazonSimpleEmailService = interface(IAmazonService)
+    ['{7E25D08A-2CDD-4C6F-B2E0-B8395E627A61}']
     function CloneReceiptRuleSet(Request: ICloneReceiptRuleSetRequest): ICloneReceiptRuleSetResponse; overload;
     function CreateConfigurationSet(Request: ICreateConfigurationSetRequest): ICreateConfigurationSetResponse; overload;
     function CreateConfigurationSetEventDestination(Request: ICreateConfigurationSetEventDestinationRequest): ICreateConfigurationSetEventDestinationResponse; overload;

@@ -27,6 +27,7 @@ uses
 
 type
   IAmazonTextract = interface(IAmazonService)
+    ['{ADE5DC55-02E1-4EA4-AF13-59F65976BC03}']
     function AnalyzeDocument(Request: IAnalyzeDocumentRequest): IAnalyzeDocumentResponse; overload;
     function AnalyzeExpense(Request: IAnalyzeExpenseRequest): IAnalyzeExpenseResponse; overload;
     function AnalyzeID(Request: IAnalyzeIDRequest): IAnalyzeIDResponse; overload;

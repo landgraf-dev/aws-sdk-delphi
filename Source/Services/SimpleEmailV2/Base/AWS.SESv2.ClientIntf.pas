@@ -169,6 +169,7 @@ uses
 
 type
   IAmazonSimpleEmailServiceV2 = interface(IAmazonService)
+    ['{7A280F3C-4AA5-4B78-A937-EC5E9425724D}']
     function CreateConfigurationSet(Request: ICreateConfigurationSetRequest): ICreateConfigurationSetResponse; overload;
     function CreateConfigurationSetEventDestination(Request: ICreateConfigurationSetEventDestinationRequest): ICreateConfigurationSetEventDestinationResponse; overload;
     function CreateContact(Request: ICreateContactRequest): ICreateContactResponse; overload;

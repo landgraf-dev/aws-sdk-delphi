@@ -85,6 +85,7 @@ uses
 
 type
   IAmazonTranscribeService = interface(IAmazonService)
+    ['{BAC307E3-B81A-4172-92CF-E79E0F374515}']
     function CreateCallAnalyticsCategory(Request: ICreateCallAnalyticsCategoryRequest): ICreateCallAnalyticsCategoryResponse; overload;
     function CreateLanguageModel(Request: ICreateLanguageModelRequest): ICreateLanguageModelResponse; overload;
     function CreateMedicalVocabulary(Request: ICreateMedicalVocabularyRequest): ICreateMedicalVocabularyResponse; overload;

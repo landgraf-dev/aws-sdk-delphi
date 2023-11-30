@@ -25,6 +25,7 @@ uses
 
 type
   IAmazonPolly = interface(IAmazonService)
+    ['{4FD2849F-A11C-4EC0-B374-F08194978E7D}']
     function DeleteLexicon(Request: IDeleteLexiconRequest): IDeleteLexiconResponse; overload;
     function DescribeVoices(Request: IDescribeVoicesRequest): IDescribeVoicesResponse; overload;
     function GetLexicon(Request: IGetLexiconRequest): IGetLexiconResponse; overload;
