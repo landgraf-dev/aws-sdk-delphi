@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<ProjectGuid>{3BDB4F15-073C-487E-8363-6AD04BF63A54}</ProjectGuid>
+		<ProjectGuid>{FE4EC49A-AC6D-41E2-AC13-10EE7268F3DE}</ProjectGuid>
 		<MainSource>awss3.dpk</MainSource>
 		<ProjectVersion>18.8</ProjectVersion>
 		<FrameworkType/>
