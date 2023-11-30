@@ -3,8 +3,8 @@ unit AWS.Polly.Model.LexiconDescription;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Polly.Model.LexiconAttributes;
+  AWS.Polly.Model.LexiconAttributes, 
+  AWS.Nullable;
 
 type
   TLexiconDescription = class;

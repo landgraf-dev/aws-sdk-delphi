@@ -4,10 +4,10 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.Rekognition.Model.CompareFacesMatch, 
   AWS.Rekognition.Model.ComparedSourceImageFace, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums, 
   AWS.Rekognition.Model.ComparedFace;
 

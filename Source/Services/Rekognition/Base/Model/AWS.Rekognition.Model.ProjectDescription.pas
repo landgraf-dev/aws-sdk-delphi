@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.ProjectDescription;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.DatasetMetadata, 
   AWS.Rekognition.Enums;
 

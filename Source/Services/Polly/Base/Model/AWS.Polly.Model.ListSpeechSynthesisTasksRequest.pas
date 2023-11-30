@@ -3,8 +3,8 @@ unit AWS.Polly.Model.ListSpeechSynthesisTasksRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Polly.Model.Request, 
+  AWS.Nullable, 
   AWS.Polly.Enums;
 
 type

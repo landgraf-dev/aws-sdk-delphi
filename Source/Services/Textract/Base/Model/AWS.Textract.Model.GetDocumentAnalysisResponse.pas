@@ -3,9 +3,9 @@ unit AWS.Textract.Model.GetDocumentAnalysisResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Textract.Model.Block, 
   AWS.Textract.Model.DocumentMetadata, 
   AWS.Textract.Enums, 

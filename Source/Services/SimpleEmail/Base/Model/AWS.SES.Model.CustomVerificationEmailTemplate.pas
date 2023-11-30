@@ -3,7 +3,7 @@ unit AWS.SES.Model.CustomVerificationEmailTemplate;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TCustomVerificationEmailTemplate = class;

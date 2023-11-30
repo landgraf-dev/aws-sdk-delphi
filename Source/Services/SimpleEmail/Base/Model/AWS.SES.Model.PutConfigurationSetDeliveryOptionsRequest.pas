@@ -3,8 +3,8 @@ unit AWS.SES.Model.PutConfigurationSetDeliveryOptionsRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.SES.Model.Request, 
+  AWS.Nullable, 
   AWS.SES.Model.DeliveryOptions;
 
 type

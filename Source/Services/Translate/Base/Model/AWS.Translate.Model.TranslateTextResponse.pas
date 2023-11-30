@@ -4,10 +4,10 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.Translate.Model.TranslationSettings, 
-  AWS.Translate.Model.AppliedTerminology;
+  AWS.Translate.Model.AppliedTerminology, 
+  AWS.Nullable;
 
 type
   TTranslateTextResponse = class;

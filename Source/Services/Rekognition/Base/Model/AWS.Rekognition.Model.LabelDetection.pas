@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.LabelDetection;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.LabelTypes;
+  AWS.Rekognition.Model.LabelTypes, 
+  AWS.Nullable;
 
 type
   TLabelDetection = class;

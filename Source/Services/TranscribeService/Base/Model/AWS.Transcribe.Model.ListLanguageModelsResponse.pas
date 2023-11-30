@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.Transcribe.Model.LanguageModel;
+  AWS.Transcribe.Model.LanguageModel, 
+  AWS.Nullable;
 
 type
   TListLanguageModelsResponse = class;

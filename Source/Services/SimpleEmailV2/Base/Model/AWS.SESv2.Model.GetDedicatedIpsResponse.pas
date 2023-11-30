@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.SESv2.Model.DedicatedIp;
+  AWS.SESv2.Model.DedicatedIp, 
+  AWS.Nullable;
 
 type
   TGetDedicatedIpsResponse = class;

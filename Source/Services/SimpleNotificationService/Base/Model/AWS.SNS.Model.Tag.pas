@@ -3,7 +3,7 @@ unit AWS.SNS.Model.Tag;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TTag = class;

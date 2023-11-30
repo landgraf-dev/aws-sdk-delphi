@@ -3,8 +3,8 @@ unit AWS.LexRuntimeV2.Model.Value;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  System.Generics.Collections;
+  System.Generics.Collections, 
+  AWS.Nullable;
 
 type
   TValue = class;

@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.EvaluationResult;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Summary;
 
 type

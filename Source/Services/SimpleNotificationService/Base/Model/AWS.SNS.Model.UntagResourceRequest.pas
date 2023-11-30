@@ -3,9 +3,9 @@ unit AWS.SNS.Model.UntagResourceRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.SNS.Model.Request;
+  AWS.SNS.Model.Request, 
+  AWS.Nullable;
 
 type
   TUntagResourceRequest = class;

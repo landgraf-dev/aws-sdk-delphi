@@ -3,8 +3,8 @@ unit AWS.SNS.Model.MessageAttributeValue;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  System.Classes;
+  System.Classes, 
+  AWS.Nullable;
 
 type
   TMessageAttributeValue = class;

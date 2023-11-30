@@ -4,8 +4,8 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.Asset;
+  AWS.Rekognition.Model.Asset, 
+  AWS.Nullable;
 
 type
   TTestingData = class;

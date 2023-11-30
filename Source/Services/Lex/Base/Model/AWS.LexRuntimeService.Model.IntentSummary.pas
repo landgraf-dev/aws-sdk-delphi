@@ -3,8 +3,8 @@ unit AWS.LexRuntimeService.Model.IntentSummary;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.LexRuntimeService.Enums;
 
 type

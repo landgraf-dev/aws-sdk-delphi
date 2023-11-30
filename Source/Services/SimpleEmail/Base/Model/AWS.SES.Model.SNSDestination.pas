@@ -3,7 +3,7 @@ unit AWS.SES.Model.SNSDestination;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TSNSDestination = class;

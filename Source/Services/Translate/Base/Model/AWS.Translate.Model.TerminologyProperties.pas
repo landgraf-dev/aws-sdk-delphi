@@ -3,8 +3,8 @@ unit AWS.Translate.Model.TerminologyProperties;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Translate.Enums, 
   AWS.Translate.Model.EncryptionKey;
 

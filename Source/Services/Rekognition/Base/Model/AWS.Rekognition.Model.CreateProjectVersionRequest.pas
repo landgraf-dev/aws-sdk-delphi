@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.CreateProjectVersionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.OutputConfig, 
   AWS.Rekognition.Model.TestingData, 
   AWS.Rekognition.Model.TrainingData;

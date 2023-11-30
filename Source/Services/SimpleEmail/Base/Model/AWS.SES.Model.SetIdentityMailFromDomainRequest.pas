@@ -3,8 +3,8 @@ unit AWS.SES.Model.SetIdentityMailFromDomainRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.SES.Model.Request, 
+  AWS.Nullable, 
   AWS.SES.Enums;
 
 type

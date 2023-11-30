@@ -3,8 +3,8 @@ unit AWS.LexRuntimeService.Model.PredictedIntent;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.LexRuntimeService.Model.IntentConfidence;
 
 type

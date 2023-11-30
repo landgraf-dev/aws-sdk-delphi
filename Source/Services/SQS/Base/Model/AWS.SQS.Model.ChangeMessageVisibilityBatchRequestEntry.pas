@@ -3,7 +3,7 @@ unit AWS.SQS.Model.ChangeMessageVisibilityBatchRequestEntry;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TChangeMessageVisibilityBatchRequestEntry = class;

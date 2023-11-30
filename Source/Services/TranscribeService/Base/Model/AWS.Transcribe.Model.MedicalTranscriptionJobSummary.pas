@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.MedicalTranscriptionJobSummary;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums;
 
 type

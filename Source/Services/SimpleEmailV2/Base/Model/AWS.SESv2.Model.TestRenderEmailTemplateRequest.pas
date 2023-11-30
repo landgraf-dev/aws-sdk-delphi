@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.TestRenderEmailTemplateRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SESv2.Model.Request;
+  AWS.SESv2.Model.Request, 
+  AWS.Nullable;
 
 type
   TTestRenderEmailTemplateRequest = class;

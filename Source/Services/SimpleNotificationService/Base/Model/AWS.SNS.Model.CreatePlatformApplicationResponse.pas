@@ -3,8 +3,8 @@ unit AWS.SNS.Model.CreatePlatformApplicationResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TCreatePlatformApplicationResponse = class;

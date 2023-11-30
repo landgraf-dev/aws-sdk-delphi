@@ -4,10 +4,10 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.Rekognition.Model.HumanLoopActivationOutput, 
-  AWS.Rekognition.Model.ModerationLabel;
+  AWS.Rekognition.Model.ModerationLabel, 
+  AWS.Nullable;
 
 type
   TDetectModerationLabelsResponse = class;

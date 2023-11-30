@@ -3,9 +3,9 @@ unit AWS.LexRuntimeV2.Model.RecognizeUtteranceResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  System.Classes;
+  System.Classes, 
+  AWS.Nullable;
 
 type
   TRecognizeUtteranceResponse = class;

@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.SQS.Model.Request, 
-  AWS.SQS.Model.SendMessageBatchRequestEntry;
+  AWS.SQS.Model.SendMessageBatchRequestEntry, 
+  AWS.Nullable;
 
 type
   TSendMessageBatchRequest = class;

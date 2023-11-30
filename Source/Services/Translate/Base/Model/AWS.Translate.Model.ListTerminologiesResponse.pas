@@ -3,9 +3,9 @@ unit AWS.Translate.Model.ListTerminologiesResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Translate.Model.TerminologyProperties;
 
 type

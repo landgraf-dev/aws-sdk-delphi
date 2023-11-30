@@ -3,8 +3,8 @@ unit AWS.LexRuntimeService.Model.ResponseCard;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.LexRuntimeService.Enums, 
   AWS.LexRuntimeService.Model.GenericAttachment;
 

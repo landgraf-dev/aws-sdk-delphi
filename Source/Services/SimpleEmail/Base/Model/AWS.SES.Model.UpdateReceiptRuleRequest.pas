@@ -3,9 +3,9 @@ unit AWS.SES.Model.UpdateReceiptRuleRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.SES.Model.Request, 
-  AWS.SES.Model.ReceiptRule;
+  AWS.SES.Model.ReceiptRule, 
+  AWS.Nullable;
 
 type
   TUpdateReceiptRuleRequest = class;

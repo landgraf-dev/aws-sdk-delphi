@@ -3,7 +3,7 @@ unit AWS.SNS.Model.Topic;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TTopic = class;

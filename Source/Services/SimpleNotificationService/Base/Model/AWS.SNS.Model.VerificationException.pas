@@ -3,8 +3,8 @@ unit AWS.SNS.Model.VerificationException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SNS.Exception;
+  AWS.SNS.Exception, 
+  AWS.Nullable;
 
 type
   EVerificationException = class(EAmazonSimpleNotificationServiceException)

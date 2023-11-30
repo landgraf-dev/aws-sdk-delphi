@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.GetFaceSearchResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums, 
   AWS.Rekognition.Model.PersonMatch, 
   AWS.Rekognition.Model.VideoMetadata;

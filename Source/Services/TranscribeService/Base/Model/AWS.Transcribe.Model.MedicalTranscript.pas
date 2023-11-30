@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.MedicalTranscript;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TMedicalTranscript = class;

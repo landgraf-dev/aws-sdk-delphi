@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.StartSegmentDetectionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.StartSegmentDetectionFilters, 
   AWS.Rekognition.Model.NotificationChannel, 
   AWS.Rekognition.Model.Video;

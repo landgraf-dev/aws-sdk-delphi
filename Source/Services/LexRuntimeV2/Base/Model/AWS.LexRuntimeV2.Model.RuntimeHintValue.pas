@@ -3,7 +3,7 @@ unit AWS.LexRuntimeV2.Model.RuntimeHintValue;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TRuntimeHintValue = class;

@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.ModelSettings;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TModelSettings = class;

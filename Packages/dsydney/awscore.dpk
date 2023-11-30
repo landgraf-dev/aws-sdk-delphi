@@ -105,7 +105,8 @@ contains
   AWS.Pipeline.RedirectHandler in '..\..\Source\Core\AWS.Pipeline.RedirectHandler.pas',
   AWS.Runtime.ExceptionEvent in '..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas',
   AWS.Runtime.RetryPolicy in '..\..\Source\Core\AWS.Runtime.RetryPolicy.pas',
-  AWS.Internal.DefaultRetryPolicy in '..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas';
+  AWS.Internal.DefaultRetryPolicy in '..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas',
+  AWS.Nullable in '..\..\Source\Core\AWS.Nullable.pas';
 
 end.
 

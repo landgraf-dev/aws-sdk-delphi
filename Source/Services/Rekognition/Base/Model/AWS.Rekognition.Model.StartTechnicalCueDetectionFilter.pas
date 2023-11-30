@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.StartTechnicalCueDetectionFilter;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.BlackFrame;
+  AWS.Rekognition.Model.BlackFrame, 
+  AWS.Nullable;
 
 type
   TStartTechnicalCueDetectionFilter = class;

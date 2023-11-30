@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.PersonDetection;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.PersonDetail;
+  AWS.Rekognition.Model.PersonDetail, 
+  AWS.Nullable;
 
 type
   TPersonDetection = class;

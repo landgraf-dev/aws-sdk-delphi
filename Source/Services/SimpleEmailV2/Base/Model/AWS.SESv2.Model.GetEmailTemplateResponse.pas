@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.GetEmailTemplateResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.SESv2.Model.EmailTemplateContent;
+  AWS.SESv2.Model.EmailTemplateContent, 
+  AWS.Nullable;
 
 type
   TGetEmailTemplateResponse = class;

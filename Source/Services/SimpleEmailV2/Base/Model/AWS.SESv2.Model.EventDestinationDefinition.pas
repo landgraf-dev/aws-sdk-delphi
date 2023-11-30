@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.EventDestinationDefinition;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.SESv2.Model.CloudWatchDestination, 
+  AWS.Nullable, 
   AWS.SESv2.Model.KinesisFirehoseDestination, 
   AWS.SESv2.Model.PinpointDestination, 
   AWS.SESv2.Model.SnsDestination;

@@ -3,9 +3,9 @@ unit AWS.Polly.Model.ListSpeechSynthesisTasksResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Polly.Model.SynthesisTask;
 
 type

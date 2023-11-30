@@ -3,11 +3,11 @@ unit AWS.Rekognition.Model.FaceDetail;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Rekognition.Model.AgeRange, 
   AWS.Rekognition.Model.Beard, 
   AWS.Rekognition.Model.BoundingBox, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Emotion, 
   AWS.Rekognition.Model.Eyeglasses, 
   AWS.Rekognition.Model.EyeOpen, 

@@ -3,7 +3,7 @@ unit AWS.SES.Model.AddHeaderAction;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TAddHeaderAction = class;

@@ -4,8 +4,8 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
-  AWS.SES.Model.Request;
+  AWS.SES.Model.Request, 
+  AWS.Nullable;
 
 type
   TReorderReceiptRuleSetRequest = class;

@@ -3,8 +3,8 @@ unit AWS.SES.Model.AlreadyExistsException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Exception;
+  AWS.SES.Exception, 
+  AWS.Nullable;
 
 type
   EAlreadyExistsException = class(EAmazonSimpleEmailServiceException)

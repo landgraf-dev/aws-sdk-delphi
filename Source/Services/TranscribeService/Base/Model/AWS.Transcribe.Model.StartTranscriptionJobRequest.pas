@@ -3,10 +3,10 @@ unit AWS.Transcribe.Model.StartTranscriptionJobRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Transcribe.Model.Request, 
   AWS.Transcribe.Model.ContentRedaction, 
+  AWS.Nullable, 
   AWS.Transcribe.Model.JobExecutionSettings, 
   AWS.Transcribe.Enums, 
   AWS.Transcribe.Model.LanguageIdSettings, 

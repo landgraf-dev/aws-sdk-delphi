@@ -3,7 +3,7 @@ unit AWS.SES.Model.TemplateMetadata;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TTemplateMetadata = class;

@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.ContentModerationDetection;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.ModerationLabel;
+  AWS.Rekognition.Model.ModerationLabel, 
+  AWS.Nullable;
 
 type
   TContentModerationDetection = class;

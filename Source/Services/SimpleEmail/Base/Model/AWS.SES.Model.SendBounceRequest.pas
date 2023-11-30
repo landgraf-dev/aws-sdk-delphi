@@ -3,9 +3,9 @@ unit AWS.SES.Model.SendBounceRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.SES.Model.Request, 
+  AWS.Nullable, 
   AWS.SES.Model.BouncedRecipientInfo, 
   AWS.SES.Model.MessageDsn;
 

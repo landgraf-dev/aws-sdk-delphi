@@ -3,8 +3,8 @@ unit AWS.LexRuntimeService.Model.LimitExceededException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.LexRuntimeService.Exception;
+  AWS.LexRuntimeService.Exception, 
+  AWS.Nullable;
 
 type
   ELimitExceededException = class(EAmazonLexException)

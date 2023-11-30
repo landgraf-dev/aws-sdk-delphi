@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.ProjectVersionDescription;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.EvaluationResult, 
   AWS.Rekognition.Model.GroundTruthManifest, 
   AWS.Rekognition.Model.OutputConfig, 

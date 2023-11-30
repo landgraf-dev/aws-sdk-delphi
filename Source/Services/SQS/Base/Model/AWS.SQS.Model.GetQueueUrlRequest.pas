@@ -3,8 +3,8 @@ unit AWS.SQS.Model.GetQueueUrlRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SQS.Model.Request;
+  AWS.SQS.Model.Request, 
+  AWS.Nullable;
 
 type
   TGetQueueUrlRequest = class;

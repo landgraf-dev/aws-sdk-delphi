@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.GetEmailIdentityResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SESv2.Model.DkimAttributes, 
   AWS.SESv2.Enums, 
   AWS.SESv2.Model.MailFromAttributes, 

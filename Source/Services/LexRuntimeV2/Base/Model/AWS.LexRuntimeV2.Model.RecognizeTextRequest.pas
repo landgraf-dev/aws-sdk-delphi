@@ -3,9 +3,9 @@ unit AWS.LexRuntimeV2.Model.RecognizeTextRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.LexRuntimeV2.Model.Request, 
+  AWS.Nullable, 
   AWS.LexRuntimeV2.Model.SessionState;
 
 type

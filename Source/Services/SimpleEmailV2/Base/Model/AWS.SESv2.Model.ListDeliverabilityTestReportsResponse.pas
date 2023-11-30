@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.SESv2.Model.DeliverabilityTestReport;
+  AWS.SESv2.Model.DeliverabilityTestReport, 
+  AWS.Nullable;
 
 type
   TListDeliverabilityTestReportsResponse = class;

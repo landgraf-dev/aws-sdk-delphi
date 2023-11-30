@@ -3,8 +3,8 @@ unit AWS.SNS.Model.GetSMSSandboxAccountStatusResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TGetSMSSandboxAccountStatusResponse = class;

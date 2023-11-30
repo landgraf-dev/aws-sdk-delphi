@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.DomainDeliverabilityCampaign;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  System.Generics.Collections;
+  System.Generics.Collections, 
+  AWS.Nullable;
 
 type
   TDomainDeliverabilityCampaign = class;

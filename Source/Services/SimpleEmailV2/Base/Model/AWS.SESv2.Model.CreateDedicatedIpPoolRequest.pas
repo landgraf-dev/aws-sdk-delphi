@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.CreateDedicatedIpPoolRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.SESv2.Model.Request, 
+  AWS.Nullable, 
   AWS.SESv2.Model.Tag;
 
 type

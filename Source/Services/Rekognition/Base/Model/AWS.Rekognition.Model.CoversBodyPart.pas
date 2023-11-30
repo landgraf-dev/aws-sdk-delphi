@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.CoversBodyPart;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TCoversBodyPart = class;

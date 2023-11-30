@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.Face;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.BoundingBox;
+  AWS.Rekognition.Model.BoundingBox, 
+  AWS.Nullable;
 
 type
   TFace = class;

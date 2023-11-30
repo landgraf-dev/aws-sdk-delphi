@@ -4,8 +4,8 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.SNS.Model.Request, 
+  AWS.Nullable, 
   AWS.SNS.Model.Tag;
 
 type

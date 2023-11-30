@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.GetContentModerationRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums;
 
 type

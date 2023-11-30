@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.ImageQuality;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TImageQuality = class;

@@ -3,9 +3,9 @@ unit AWS.Translate.Model.ListParallelDataResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Translate.Model.ParallelDataProperties;
 
 type

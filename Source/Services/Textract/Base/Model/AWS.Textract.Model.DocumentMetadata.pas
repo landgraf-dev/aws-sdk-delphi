@@ -3,7 +3,7 @@ unit AWS.Textract.Model.DocumentMetadata;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TDocumentMetadata = class;

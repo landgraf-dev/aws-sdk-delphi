@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.GetVocabularyRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Transcribe.Model.Request;
+  AWS.Transcribe.Model.Request, 
+  AWS.Nullable;
 
 type
   TGetVocabularyRequest = class;

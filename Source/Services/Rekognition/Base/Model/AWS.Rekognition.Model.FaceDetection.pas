@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.FaceDetection;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.FaceDetail;
+  AWS.Rekognition.Model.FaceDetail, 
+  AWS.Nullable;
 
 type
   TFaceDetection = class;

@@ -3,8 +3,8 @@ unit AWS.Translate.Model.ImportTerminologyRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Translate.Model.Request, 
+  AWS.Nullable, 
   AWS.Translate.Model.EncryptionKey, 
   AWS.Translate.Enums, 
   AWS.Translate.Model.TerminologyData;

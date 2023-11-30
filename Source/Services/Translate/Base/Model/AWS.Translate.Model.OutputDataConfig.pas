@@ -3,8 +3,8 @@ unit AWS.Translate.Model.OutputDataConfig;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Translate.Model.EncryptionKey;
+  AWS.Translate.Model.EncryptionKey, 
+  AWS.Nullable;
 
 type
   TOutputDataConfig = class;

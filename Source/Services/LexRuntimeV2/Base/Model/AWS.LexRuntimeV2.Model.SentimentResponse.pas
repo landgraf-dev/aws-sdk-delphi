@@ -3,7 +3,7 @@ unit AWS.LexRuntimeV2.Model.SentimentResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.LexRuntimeV2.Enums, 
   AWS.LexRuntimeV2.Model.SentimentScore;
 

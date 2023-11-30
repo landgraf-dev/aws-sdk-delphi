@@ -3,8 +3,8 @@ unit AWS.SQS.Model.SendMessageBatchRequestEntry;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.SQS.Model.MessageAttributeValue, 
   AWS.SQS.Model.MessageSystemAttributeValue;
 

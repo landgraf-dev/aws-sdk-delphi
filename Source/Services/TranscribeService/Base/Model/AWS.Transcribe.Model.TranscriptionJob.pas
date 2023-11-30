@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.TranscriptionJob;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Transcribe.Model.ContentRedaction, 
   AWS.Transcribe.Model.JobExecutionSettings, 
   AWS.Transcribe.Enums, 

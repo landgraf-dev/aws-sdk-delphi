@@ -3,8 +3,8 @@ unit AWS.SNS.Model.ListPhoneNumbersOptedOutRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SNS.Model.Request;
+  AWS.SNS.Model.Request, 
+  AWS.Nullable;
 
 type
   TListPhoneNumbersOptedOutRequest = class;

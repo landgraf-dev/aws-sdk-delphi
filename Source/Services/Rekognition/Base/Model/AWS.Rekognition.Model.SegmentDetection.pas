@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.SegmentDetection;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.ShotSegment, 
   AWS.Rekognition.Model.TechnicalCueSegment, 
   AWS.Rekognition.Enums;

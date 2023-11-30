@@ -4,8 +4,8 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
-  AWS.LexRuntimeV2.Model.Button;
+  AWS.LexRuntimeV2.Model.Button, 
+  AWS.Nullable;
 
 type
   TImageResponseCard = class;

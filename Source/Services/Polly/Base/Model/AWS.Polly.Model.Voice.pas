@@ -4,7 +4,7 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Polly.Enums;
 
 type

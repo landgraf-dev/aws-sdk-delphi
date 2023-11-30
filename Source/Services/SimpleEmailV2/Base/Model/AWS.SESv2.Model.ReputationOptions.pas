@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.ReputationOptions;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TReputationOptions = class;

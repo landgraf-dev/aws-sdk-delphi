@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.DomainIspPlacement;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TDomainIspPlacement = class;

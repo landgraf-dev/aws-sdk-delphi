@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.GetMedicalVocabularyRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Transcribe.Model.Request;
+  AWS.Transcribe.Model.Request, 
+  AWS.Nullable;
 
 type
   TGetMedicalVocabularyRequest = class;

@@ -4,8 +4,8 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
-  System.Classes;
+  System.Classes, 
+  AWS.Nullable;
 
 type
   TMessageAttributeValue = class;

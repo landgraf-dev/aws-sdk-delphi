@@ -3,9 +3,9 @@ unit AWS.SES.Model.MessageDsn;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   System.DateUtils, 
+  AWS.Nullable, 
   AWS.SES.Model.ExtensionField;
 
 type

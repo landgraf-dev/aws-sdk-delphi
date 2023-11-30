@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.Eyeglasses;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TEyeglasses = class;

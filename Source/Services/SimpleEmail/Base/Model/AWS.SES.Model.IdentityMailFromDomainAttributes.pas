@@ -3,7 +3,7 @@ unit AWS.SES.Model.IdentityMailFromDomainAttributes;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.SES.Enums;
 
 type

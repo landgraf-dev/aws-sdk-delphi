@@ -3,7 +3,7 @@ unit AWS.SQS.Model.BatchResultErrorEntry;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TBatchResultErrorEntry = class;

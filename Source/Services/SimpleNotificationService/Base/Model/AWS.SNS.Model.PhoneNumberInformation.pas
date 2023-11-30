@@ -3,8 +3,8 @@ unit AWS.SNS.Model.PhoneNumberInformation;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.SNS.Enums;
 
 type

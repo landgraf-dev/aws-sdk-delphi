@@ -3,9 +3,9 @@ unit AWS.Textract.Model.StartDocumentAnalysisRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Textract.Model.Request, 
+  AWS.Nullable, 
   AWS.Textract.Model.DocumentLocation, 
   AWS.Textract.Model.NotificationChannel, 
   AWS.Textract.Model.OutputConfig, 

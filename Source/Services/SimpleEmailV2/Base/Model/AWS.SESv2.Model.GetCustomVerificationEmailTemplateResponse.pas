@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.GetCustomVerificationEmailTemplateResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TGetCustomVerificationEmailTemplateResponse = class;

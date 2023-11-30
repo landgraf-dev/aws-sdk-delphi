@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.UpdateDatasetEntriesRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
-  AWS.Rekognition.Model.DatasetChanges;
+  AWS.Rekognition.Model.DatasetChanges, 
+  AWS.Nullable;
 
 type
   TUpdateDatasetEntriesRequest = class;

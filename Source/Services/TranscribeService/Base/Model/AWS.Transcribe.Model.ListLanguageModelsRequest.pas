@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.ListLanguageModelsRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Transcribe.Model.Request, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums;
 
 type

@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.InterruptionFilter;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Transcribe.Model.AbsoluteTimeRange, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums, 
   AWS.Transcribe.Model.RelativeTimeRange;
 

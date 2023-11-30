@@ -3,8 +3,8 @@ unit AWS.SES.Model.DeleteReceiptRuleSetRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Model.Request;
+  AWS.SES.Model.Request, 
+  AWS.Nullable;
 
 type
   TDeleteReceiptRuleSetRequest = class;

@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.ModerationLabel;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TModerationLabel = class;

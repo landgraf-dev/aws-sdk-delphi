@@ -3,8 +3,8 @@ unit AWS.SNS.Model.SetTopicAttributesRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SNS.Model.Request;
+  AWS.SNS.Model.Request, 
+  AWS.Nullable;
 
 type
   TSetTopicAttributesRequest = class;

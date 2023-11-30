@@ -3,8 +3,8 @@ unit AWS.SES.Model.RuleDoesNotExistException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Exception;
+  AWS.SES.Exception, 
+  AWS.Nullable;
 
 type
   ERuleDoesNotExistException = class(EAmazonSimpleEmailServiceException)

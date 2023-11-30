@@ -3,8 +3,8 @@ unit AWS.Textract.Model.Query;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  System.Generics.Collections;
+  System.Generics.Collections, 
+  AWS.Nullable;
 
 type
   TQuery = class;

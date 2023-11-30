@@ -3,8 +3,8 @@ unit AWS.Textract.Model.HumanLoopConfig;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Textract.Model.HumanLoopDataAttributes;
+  AWS.Textract.Model.HumanLoopDataAttributes, 
+  AWS.Nullable;
 
 type
   THumanLoopConfig = class;

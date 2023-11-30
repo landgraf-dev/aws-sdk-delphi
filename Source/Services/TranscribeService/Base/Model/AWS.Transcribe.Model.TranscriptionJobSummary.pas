@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.TranscriptionJobSummary;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Transcribe.Model.ContentRedaction, 
   AWS.Transcribe.Enums, 
   AWS.Transcribe.Model.ModelSettings;

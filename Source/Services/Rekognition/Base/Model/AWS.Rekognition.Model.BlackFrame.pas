@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.BlackFrame;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TBlackFrame = class;

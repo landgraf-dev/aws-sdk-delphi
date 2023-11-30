@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.PutConfigurationSetSuppressionOptionsRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.SESv2.Model.Request;
+  AWS.SESv2.Model.Request, 
+  AWS.Nullable;
 
 type
   TPutConfigurationSetSuppressionOptionsRequest = class;

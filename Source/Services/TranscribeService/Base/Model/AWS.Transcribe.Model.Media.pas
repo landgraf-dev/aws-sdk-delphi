@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.Media;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TMedia = class;

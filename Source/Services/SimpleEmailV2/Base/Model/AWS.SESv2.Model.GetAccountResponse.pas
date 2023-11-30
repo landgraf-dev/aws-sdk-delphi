@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.GetAccountResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SESv2.Model.AccountDetails, 
   AWS.SESv2.Model.SendQuota, 
   AWS.SESv2.Model.SuppressionAttributes;

@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.GetDeliverabilityDashboardOptionsResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SESv2.Enums, 
   AWS.SESv2.Model.DomainDeliverabilityTrackingOption;
 

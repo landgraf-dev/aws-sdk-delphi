@@ -3,8 +3,8 @@ unit AWS.SES.Model.EventDestinationDoesNotExistException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Exception;
+  AWS.SES.Exception, 
+  AWS.Nullable;
 
 type
   EEventDestinationDoesNotExistException = class(EAmazonSimpleEmailServiceException)

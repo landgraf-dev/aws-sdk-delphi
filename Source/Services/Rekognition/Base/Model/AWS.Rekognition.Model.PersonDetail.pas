@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.PersonDetail;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.BoundingBox, 
-  AWS.Rekognition.Model.FaceDetail;
+  AWS.Rekognition.Model.FaceDetail, 
+  AWS.Nullable;
 
 type
   TPersonDetail = class;

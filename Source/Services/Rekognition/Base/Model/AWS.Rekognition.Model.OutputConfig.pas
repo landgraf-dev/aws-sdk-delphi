@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.OutputConfig;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TOutputConfig = class;

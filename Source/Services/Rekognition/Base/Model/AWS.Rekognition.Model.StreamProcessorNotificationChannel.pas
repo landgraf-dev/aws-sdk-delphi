@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.StreamProcessorNotificationChannel;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TStreamProcessorNotificationChannel = class;

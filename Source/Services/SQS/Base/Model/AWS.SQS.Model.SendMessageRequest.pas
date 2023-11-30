@@ -3,9 +3,9 @@ unit AWS.SQS.Model.SendMessageRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.SQS.Model.Request, 
+  AWS.Nullable, 
   AWS.SQS.Model.MessageAttributeValue, 
   AWS.SQS.Model.MessageSystemAttributeValue;
 

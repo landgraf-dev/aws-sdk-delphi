@@ -3,7 +3,7 @@ unit AWS.SES.Model.ConfigurationSet;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TConfigurationSet = class;

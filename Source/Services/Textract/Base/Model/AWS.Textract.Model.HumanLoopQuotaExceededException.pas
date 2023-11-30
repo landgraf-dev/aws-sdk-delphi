@@ -3,8 +3,8 @@ unit AWS.Textract.Model.HumanLoopQuotaExceededException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Textract.Exception;
+  AWS.Textract.Exception, 
+  AWS.Nullable;
 
 type
   EHumanLoopQuotaExceededException = class(EAmazonTextractException)

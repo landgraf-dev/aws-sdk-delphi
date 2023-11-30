@@ -3,10 +3,10 @@ unit AWS.Rekognition.Model.GetCelebrityInfoResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
-  AWS.Rekognition.Model.KnownGender;
+  AWS.Rekognition.Model.KnownGender, 
+  AWS.Nullable;
 
 type
   TGetCelebrityInfoResponse = class;

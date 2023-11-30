@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.SESv2.Model.Request, 
   AWS.SESv2.Model.BulkEmailEntry, 
+  AWS.Nullable, 
   AWS.SESv2.Model.BulkEmailContent, 
   AWS.SESv2.Model.MessageTag;
 

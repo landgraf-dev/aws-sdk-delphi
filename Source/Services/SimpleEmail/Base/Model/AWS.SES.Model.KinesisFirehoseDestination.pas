@@ -3,7 +3,7 @@ unit AWS.SES.Model.KinesisFirehoseDestination;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TKinesisFirehoseDestination = class;

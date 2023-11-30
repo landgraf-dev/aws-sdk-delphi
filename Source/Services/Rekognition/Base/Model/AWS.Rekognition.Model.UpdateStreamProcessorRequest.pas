@@ -3,10 +3,10 @@ unit AWS.Rekognition.Model.UpdateStreamProcessorRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Rekognition.Model.Request, 
   AWS.Rekognition.Model.StreamProcessorDataSharingPreference, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.RegionOfInterest, 
   AWS.Rekognition.Model.StreamProcessorSettingsForUpdate;
 

@@ -3,8 +3,8 @@ unit AWS.SQS.Model.ListQueueTagsRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SQS.Model.Request;
+  AWS.SQS.Model.Request, 
+  AWS.Nullable;
 
 type
   TListQueueTagsRequest = class;

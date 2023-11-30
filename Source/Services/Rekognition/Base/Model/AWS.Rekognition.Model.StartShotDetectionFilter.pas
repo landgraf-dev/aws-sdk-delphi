@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.StartShotDetectionFilter;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TStartShotDetectionFilter = class;

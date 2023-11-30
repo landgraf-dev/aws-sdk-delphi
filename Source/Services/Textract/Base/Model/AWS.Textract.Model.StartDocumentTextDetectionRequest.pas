@@ -3,8 +3,8 @@ unit AWS.Textract.Model.StartDocumentTextDetectionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Textract.Model.Request, 
+  AWS.Nullable, 
   AWS.Textract.Model.DocumentLocation, 
   AWS.Textract.Model.NotificationChannel, 
   AWS.Textract.Model.OutputConfig;

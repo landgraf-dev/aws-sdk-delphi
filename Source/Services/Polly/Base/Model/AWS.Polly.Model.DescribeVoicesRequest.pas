@@ -3,8 +3,8 @@ unit AWS.Polly.Model.DescribeVoicesRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Polly.Model.Request, 
+  AWS.Nullable, 
   AWS.Polly.Enums;
 
 type

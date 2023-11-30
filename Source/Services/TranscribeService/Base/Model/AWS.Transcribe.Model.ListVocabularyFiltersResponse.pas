@@ -3,9 +3,9 @@ unit AWS.Transcribe.Model.ListVocabularyFiltersResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Transcribe.Model.VocabularyFilterInfo;
 
 type

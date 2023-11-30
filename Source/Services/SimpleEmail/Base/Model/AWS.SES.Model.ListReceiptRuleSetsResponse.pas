@@ -3,9 +3,9 @@ unit AWS.SES.Model.ListReceiptRuleSetsResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SES.Model.ReceiptRuleSetMetadata;
 
 type

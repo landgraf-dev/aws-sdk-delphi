@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.LanguageIdSettings;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TLanguageIdSettings = class;

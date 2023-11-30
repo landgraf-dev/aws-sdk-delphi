@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.GetPersonTrackingResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums, 
   AWS.Rekognition.Model.PersonDetection, 
   AWS.Rekognition.Model.VideoMetadata;

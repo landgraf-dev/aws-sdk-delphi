@@ -3,9 +3,9 @@ unit AWS.SNS.Model.ListSubscriptionsByTopicResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SNS.Model.Subscription;
 
 type

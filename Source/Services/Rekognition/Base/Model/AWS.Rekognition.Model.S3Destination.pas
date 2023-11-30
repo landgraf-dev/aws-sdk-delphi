@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.S3Destination;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TS3Destination = class;

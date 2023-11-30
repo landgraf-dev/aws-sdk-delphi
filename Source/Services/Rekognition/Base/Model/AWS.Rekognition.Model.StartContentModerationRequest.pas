@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.StartContentModerationRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.NotificationChannel, 
   AWS.Rekognition.Model.Video;
 

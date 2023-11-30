@@ -3,8 +3,8 @@ unit AWS.Textract.Model.GetDocumentAnalysisRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Textract.Model.Request;
+  AWS.Textract.Model.Request, 
+  AWS.Nullable;
 
 type
   TGetDocumentAnalysisRequest = class;

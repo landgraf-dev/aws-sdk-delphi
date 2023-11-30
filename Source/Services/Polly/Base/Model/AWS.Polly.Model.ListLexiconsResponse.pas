@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.Polly.Model.LexiconDescription;
+  AWS.Polly.Model.LexiconDescription, 
+  AWS.Nullable;
 
 type
   TListLexiconsResponse = class;

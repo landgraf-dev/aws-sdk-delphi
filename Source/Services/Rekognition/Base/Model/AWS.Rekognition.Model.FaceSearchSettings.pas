@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.FaceSearchSettings;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TFaceSearchSettings = class;

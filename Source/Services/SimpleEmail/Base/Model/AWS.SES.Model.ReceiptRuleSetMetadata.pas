@@ -3,7 +3,7 @@ unit AWS.SES.Model.ReceiptRuleSetMetadata;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TReceiptRuleSetMetadata = class;

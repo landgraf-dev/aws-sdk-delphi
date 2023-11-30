@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.StartStreamProcessorRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.StreamProcessingStartSelector, 
   AWS.Rekognition.Model.StreamProcessingStopSelector;
 

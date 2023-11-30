@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.Point;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TPoint = class;

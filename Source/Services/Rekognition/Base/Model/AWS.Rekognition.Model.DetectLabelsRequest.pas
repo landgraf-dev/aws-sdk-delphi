@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.DetectLabelsRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
-  AWS.Rekognition.Model.Image;
+  AWS.Rekognition.Model.Image, 
+  AWS.Nullable;
 
 type
   TDetectLabelsRequest = class;

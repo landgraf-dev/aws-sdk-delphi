@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.PlacementStatistics;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TPlacementStatistics = class;

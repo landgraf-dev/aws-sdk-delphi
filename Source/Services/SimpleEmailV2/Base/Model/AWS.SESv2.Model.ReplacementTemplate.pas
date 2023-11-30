@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.ReplacementTemplate;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TReplacementTemplate = class;

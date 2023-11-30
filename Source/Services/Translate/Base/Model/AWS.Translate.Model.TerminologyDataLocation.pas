@@ -3,7 +3,7 @@ unit AWS.Translate.Model.TerminologyDataLocation;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TTerminologyDataLocation = class;

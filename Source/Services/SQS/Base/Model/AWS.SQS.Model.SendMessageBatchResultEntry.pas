@@ -3,7 +3,7 @@ unit AWS.SQS.Model.SendMessageBatchResultEntry;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TSendMessageBatchResultEntry = class;

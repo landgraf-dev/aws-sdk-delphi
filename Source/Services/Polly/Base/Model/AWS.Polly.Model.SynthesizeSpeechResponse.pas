@@ -3,9 +3,9 @@ unit AWS.Polly.Model.SynthesizeSpeechResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  System.Classes;
+  System.Classes, 
+  AWS.Nullable;
 
 type
   TSynthesizeSpeechResponse = class;

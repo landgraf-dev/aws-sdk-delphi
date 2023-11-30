@@ -3,8 +3,8 @@ unit AWS.Textract.Model.Block;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Textract.Enums, 
   AWS.Textract.Model.Geometry, 
   AWS.Textract.Model.Query, 

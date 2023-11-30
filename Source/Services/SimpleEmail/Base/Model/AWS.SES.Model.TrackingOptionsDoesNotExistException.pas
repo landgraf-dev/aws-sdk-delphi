@@ -3,8 +3,8 @@ unit AWS.SES.Model.TrackingOptionsDoesNotExistException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Exception;
+  AWS.SES.Exception, 
+  AWS.Nullable;
 
 type
   ETrackingOptionsDoesNotExistException = class(EAmazonSimpleEmailServiceException)

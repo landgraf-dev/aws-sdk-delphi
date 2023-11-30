@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.ListMedicalVocabulariesRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Transcribe.Model.Request, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums;
 
 type

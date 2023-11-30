@@ -3,9 +3,9 @@ unit AWS.LexRuntimeV2.Model.PutSessionResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  System.Classes;
+  System.Classes, 
+  AWS.Nullable;
 
 type
   TPutSessionResponse = class;

@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.Celebrity;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Rekognition.Model.ComparedFace, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.KnownGender;
 
 type

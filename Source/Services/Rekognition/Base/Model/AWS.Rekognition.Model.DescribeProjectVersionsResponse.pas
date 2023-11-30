@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.DescribeProjectVersionsResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.ProjectVersionDescription;
 
 type

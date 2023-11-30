@@ -3,7 +3,7 @@ unit AWS.SES.Model.WorkmailAction;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TWorkmailAction = class;

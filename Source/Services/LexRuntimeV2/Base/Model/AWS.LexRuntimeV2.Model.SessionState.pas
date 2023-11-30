@@ -4,10 +4,10 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.LexRuntimeV2.Model.ActiveContext, 
   AWS.LexRuntimeV2.Model.DialogAction, 
   AWS.LexRuntimeV2.Model.Intent, 
+  AWS.Nullable, 
   AWS.LexRuntimeV2.Model.RuntimeHints;
 
 type

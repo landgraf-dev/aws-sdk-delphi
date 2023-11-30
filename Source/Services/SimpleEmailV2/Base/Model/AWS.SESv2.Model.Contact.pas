@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.Contact;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.SESv2.Model.TopicPreference;
 
 type

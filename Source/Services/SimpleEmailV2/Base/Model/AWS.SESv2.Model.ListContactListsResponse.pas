@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.SESv2.Model.ContactList;
+  AWS.SESv2.Model.ContactList, 
+  AWS.Nullable;
 
 type
   TListContactListsResponse = class;

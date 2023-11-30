@@ -3,9 +3,9 @@ unit AWS.Transcribe.Model.ListTagsForResourceResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Transcribe.Model.Tag;
 
 type

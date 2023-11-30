@@ -3,8 +3,8 @@ unit AWS.Translate.Model.GetTerminologyRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Translate.Model.Request, 
+  AWS.Nullable, 
   AWS.Translate.Enums;
 
 type

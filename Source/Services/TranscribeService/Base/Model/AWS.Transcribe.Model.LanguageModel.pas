@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.LanguageModel;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums, 
   AWS.Transcribe.Model.InputDataConfig;
 

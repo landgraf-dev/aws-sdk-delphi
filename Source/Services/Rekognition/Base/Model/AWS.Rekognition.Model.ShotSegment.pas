@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.ShotSegment;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TShotSegment = class;

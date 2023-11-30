@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.StopProjectVersionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.Request;
+  AWS.Rekognition.Model.Request, 
+  AWS.Nullable;
 
 type
   TStopProjectVersionRequest = class;

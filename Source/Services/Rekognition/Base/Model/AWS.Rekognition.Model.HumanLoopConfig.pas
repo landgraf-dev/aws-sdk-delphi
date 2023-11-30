@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.HumanLoopConfig;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.HumanLoopDataAttributes;
+  AWS.Rekognition.Model.HumanLoopDataAttributes, 
+  AWS.Nullable;
 
 type
   THumanLoopConfig = class;

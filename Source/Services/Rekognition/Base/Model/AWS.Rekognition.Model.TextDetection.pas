@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.TextDetection;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Geometry, 
   AWS.Rekognition.Enums;
 

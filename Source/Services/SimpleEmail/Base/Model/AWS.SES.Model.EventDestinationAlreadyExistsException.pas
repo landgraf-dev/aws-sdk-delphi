@@ -3,8 +3,8 @@ unit AWS.SES.Model.EventDestinationAlreadyExistsException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Exception;
+  AWS.SES.Exception, 
+  AWS.Nullable;
 
 type
   EEventDestinationAlreadyExistsException = class(EAmazonSimpleEmailServiceException)

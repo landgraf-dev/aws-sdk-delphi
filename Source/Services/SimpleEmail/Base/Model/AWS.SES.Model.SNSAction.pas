@@ -3,7 +3,7 @@ unit AWS.SES.Model.SNSAction;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.SES.Enums;
 
 type

@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.ProtectiveEquipmentBodyPart, 
-  AWS.Rekognition.Model.BoundingBox;
+  AWS.Rekognition.Model.BoundingBox, 
+  AWS.Nullable;
 
 type
   TProtectiveEquipmentPerson = class;

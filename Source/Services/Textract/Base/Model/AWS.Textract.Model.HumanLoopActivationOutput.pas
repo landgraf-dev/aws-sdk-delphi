@@ -3,8 +3,8 @@ unit AWS.Textract.Model.HumanLoopActivationOutput;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  System.Generics.Collections;
+  System.Generics.Collections, 
+  AWS.Nullable;
 
 type
   THumanLoopActivationOutput = class;

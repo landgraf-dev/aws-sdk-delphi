@@ -3,8 +3,8 @@ unit AWS.Textract.Model.ExpenseField;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Textract.Model.ExpenseDetection, 
+  AWS.Nullable, 
   AWS.Textract.Model.ExpenseType;
 
 type

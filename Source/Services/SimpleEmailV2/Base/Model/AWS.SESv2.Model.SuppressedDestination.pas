@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.SuppressedDestination;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.SESv2.Model.SuppressedDestinationAttributes, 
+  AWS.Nullable, 
   AWS.SESv2.Enums;
 
 type

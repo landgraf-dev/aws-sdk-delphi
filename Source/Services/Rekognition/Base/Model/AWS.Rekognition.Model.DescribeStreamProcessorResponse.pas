@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.DescribeStreamProcessorResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.StreamProcessorDataSharingPreference, 
   AWS.Rekognition.Model.StreamProcessorInput, 
   AWS.Rekognition.Model.StreamProcessorNotificationChannel, 

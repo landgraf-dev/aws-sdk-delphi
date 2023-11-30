@@ -4,10 +4,10 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.SESv2.Model.DeliverabilityTestReport, 
   AWS.SESv2.Model.IspPlacement, 
+  AWS.Nullable, 
   AWS.SESv2.Model.PlacementStatistics, 
   AWS.SESv2.Model.Tag;
 

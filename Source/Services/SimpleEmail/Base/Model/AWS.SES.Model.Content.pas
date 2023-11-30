@@ -3,7 +3,7 @@ unit AWS.SES.Model.Content;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TContent = class;

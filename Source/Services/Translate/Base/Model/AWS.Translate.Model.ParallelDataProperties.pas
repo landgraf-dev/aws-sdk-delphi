@@ -3,8 +3,8 @@ unit AWS.Translate.Model.ParallelDataProperties;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Translate.Model.EncryptionKey, 
   AWS.Translate.Enums, 
   AWS.Translate.Model.ParallelDataConfig;

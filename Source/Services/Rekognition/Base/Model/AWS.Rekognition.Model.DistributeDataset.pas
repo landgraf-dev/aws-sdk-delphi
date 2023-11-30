@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.DistributeDataset;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TDistributeDataset = class;

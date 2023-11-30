@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.DetectionFilter;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TDetectionFilter = class;

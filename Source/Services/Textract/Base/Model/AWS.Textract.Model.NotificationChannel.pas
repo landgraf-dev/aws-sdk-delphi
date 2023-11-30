@@ -3,7 +3,7 @@ unit AWS.Textract.Model.NotificationChannel;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TNotificationChannel = class;

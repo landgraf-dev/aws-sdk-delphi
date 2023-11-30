@@ -3,7 +3,7 @@ unit AWS.LexRuntimeService.Model.SentimentResponse;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TSentimentResponse = class;

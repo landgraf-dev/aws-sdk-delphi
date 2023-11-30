@@ -3,9 +3,9 @@ unit AWS.Transcribe.Model.SentimentFilter;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Transcribe.Model.AbsoluteTimeRange, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums, 
   AWS.Transcribe.Model.RelativeTimeRange;
 

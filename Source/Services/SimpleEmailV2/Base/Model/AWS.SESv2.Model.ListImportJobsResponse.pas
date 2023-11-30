@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.SESv2.Model.ImportJobSummary;
+  AWS.SESv2.Model.ImportJobSummary, 
+  AWS.Nullable;
 
 type
   TListImportJobsResponse = class;

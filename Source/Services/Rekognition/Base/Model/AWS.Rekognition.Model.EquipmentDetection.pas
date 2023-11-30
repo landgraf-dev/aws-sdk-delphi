@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.EquipmentDetection;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.BoundingBox, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.CoversBodyPart, 
   AWS.Rekognition.Enums;
 

@@ -3,8 +3,8 @@ unit AWS.Translate.Model.UnsupportedLanguagePairException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Translate.Exception;
+  AWS.Translate.Exception, 
+  AWS.Nullable;
 
 type
   EUnsupportedLanguagePairException = class(EAmazonTranslateException)

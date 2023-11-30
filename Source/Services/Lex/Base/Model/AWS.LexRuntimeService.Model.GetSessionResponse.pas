@@ -4,11 +4,11 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.LexRuntimeService.Model.ActiveContext, 
   AWS.LexRuntimeService.Model.DialogAction, 
-  AWS.LexRuntimeService.Model.IntentSummary;
+  AWS.LexRuntimeService.Model.IntentSummary, 
+  AWS.Nullable;
 
 type
   TGetSessionResponse = class;

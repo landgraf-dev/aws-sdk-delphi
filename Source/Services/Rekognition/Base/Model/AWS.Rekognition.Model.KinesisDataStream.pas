@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.KinesisDataStream;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TKinesisDataStream = class;

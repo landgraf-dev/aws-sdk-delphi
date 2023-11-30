@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.S3Object;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TS3Object = class;

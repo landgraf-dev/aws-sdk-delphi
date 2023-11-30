@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.SendEmailRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.SESv2.Model.Request, 
+  AWS.Nullable, 
   AWS.SESv2.Model.EmailContent, 
   AWS.SESv2.Model.Destination, 
   AWS.SESv2.Model.MessageTag, 

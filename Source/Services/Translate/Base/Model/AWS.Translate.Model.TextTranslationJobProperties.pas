@@ -3,8 +3,8 @@ unit AWS.Translate.Model.TextTranslationJobProperties;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Translate.Model.InputDataConfig, 
   AWS.Translate.Model.JobDetails, 
   AWS.Translate.Enums, 

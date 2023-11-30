@@ -3,8 +3,8 @@ unit AWS.Polly.Model.SynthesisTask;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Polly.Enums;
 
 type

@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.EyeOpen;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TEyeOpen = class;

@@ -3,9 +3,9 @@ unit AWS.Polly.Model.DescribeVoicesResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Polly.Model.Voice;
 
 type

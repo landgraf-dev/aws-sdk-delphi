@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.SearchFacesByImageRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Image, 
   AWS.Rekognition.Enums;
 

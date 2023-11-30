@@ -3,8 +3,8 @@ unit AWS.Textract.Model.StartExpenseAnalysisResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TStartExpenseAnalysisResponse = class;

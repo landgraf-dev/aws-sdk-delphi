@@ -3,8 +3,8 @@ unit AWS.SQS.Model.CreateQueueResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TCreateQueueResponse = class;

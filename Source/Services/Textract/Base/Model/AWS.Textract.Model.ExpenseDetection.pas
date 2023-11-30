@@ -3,7 +3,7 @@ unit AWS.Textract.Model.ExpenseDetection;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Textract.Model.Geometry;
 
 type

@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.CreateProjectRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.Request;
+  AWS.Rekognition.Model.Request, 
+  AWS.Nullable;
 
 type
   TCreateProjectRequest = class;

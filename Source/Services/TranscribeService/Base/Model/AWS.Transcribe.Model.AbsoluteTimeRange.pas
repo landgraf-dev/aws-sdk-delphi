@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.AbsoluteTimeRange;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TAbsoluteTimeRange = class;

@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.DeleteVocabularyRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Transcribe.Model.Request;
+  AWS.Transcribe.Model.Request, 
+  AWS.Nullable;
 
 type
   TDeleteVocabularyRequest = class;

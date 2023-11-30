@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.ImportJobSummary;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.SESv2.Model.ImportDestination, 
   AWS.SESv2.Enums;
 

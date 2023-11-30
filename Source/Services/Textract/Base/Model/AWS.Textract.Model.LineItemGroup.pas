@@ -3,8 +3,8 @@ unit AWS.Textract.Model.LineItemGroup;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Textract.Model.LineItemFields;
 
 type

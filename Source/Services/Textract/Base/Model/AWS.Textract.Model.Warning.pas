@@ -3,8 +3,8 @@ unit AWS.Textract.Model.Warning;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  System.Generics.Collections;
+  System.Generics.Collections, 
+  AWS.Nullable;
 
 type
   TWarning = class;

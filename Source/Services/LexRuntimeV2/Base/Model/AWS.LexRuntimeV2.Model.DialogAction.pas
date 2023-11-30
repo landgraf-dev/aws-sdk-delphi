@@ -3,7 +3,7 @@ unit AWS.LexRuntimeV2.Model.DialogAction;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.LexRuntimeV2.Enums;
 
 type

@@ -3,7 +3,7 @@ unit AWS.LexRuntimeV2.Model.Button;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TButton = class;

@@ -3,9 +3,9 @@ unit AWS.Transcribe.Model.UpdateVocabularyRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Transcribe.Model.Request, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums;
 
 type

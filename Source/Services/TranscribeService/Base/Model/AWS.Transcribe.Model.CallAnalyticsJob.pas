@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.CallAnalyticsJob;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums, 
   AWS.Transcribe.Model.ChannelDefinition, 
   AWS.Transcribe.Model.Media, 

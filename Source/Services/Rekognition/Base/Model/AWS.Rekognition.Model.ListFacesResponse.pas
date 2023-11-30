@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.ListFacesResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Face;
 
 type

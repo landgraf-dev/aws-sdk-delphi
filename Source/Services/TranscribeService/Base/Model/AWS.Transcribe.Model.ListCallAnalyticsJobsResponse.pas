@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.Transcribe.Model.CallAnalyticsJobSummary, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums;
 
 type

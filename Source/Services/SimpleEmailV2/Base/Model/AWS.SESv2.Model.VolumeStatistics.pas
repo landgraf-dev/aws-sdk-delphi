@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.VolumeStatistics;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TVolumeStatistics = class;

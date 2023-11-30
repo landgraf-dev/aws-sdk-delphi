@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.ComparedFace;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Rekognition.Model.BoundingBox, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Emotion, 
   AWS.Rekognition.Model.Landmark, 
   AWS.Rekognition.Model.Pose, 

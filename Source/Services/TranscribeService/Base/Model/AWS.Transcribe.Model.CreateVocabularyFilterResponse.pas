@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.CreateVocabularyFilterResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Transcribe.Enums;
 
 type

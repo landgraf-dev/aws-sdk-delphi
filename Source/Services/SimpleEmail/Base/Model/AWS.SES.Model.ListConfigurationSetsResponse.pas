@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.SES.Model.ConfigurationSet;
+  AWS.SES.Model.ConfigurationSet, 
+  AWS.Nullable;
 
 type
   TListConfigurationSetsResponse = class;

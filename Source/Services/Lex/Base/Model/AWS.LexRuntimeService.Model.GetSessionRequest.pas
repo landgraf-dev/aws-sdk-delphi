@@ -3,8 +3,8 @@ unit AWS.LexRuntimeService.Model.GetSessionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.LexRuntimeService.Model.Request;
+  AWS.LexRuntimeService.Model.Request, 
+  AWS.Nullable;
 
 type
   TGetSessionRequest = class;

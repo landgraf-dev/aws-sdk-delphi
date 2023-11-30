@@ -3,8 +3,8 @@ unit AWS.LexRuntimeService.Model.DeleteSessionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.LexRuntimeService.Model.Request;
+  AWS.LexRuntimeService.Model.Request, 
+  AWS.Nullable;
 
 type
   TDeleteSessionRequest = class;

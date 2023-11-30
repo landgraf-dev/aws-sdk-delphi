@@ -3,7 +3,7 @@ unit AWS.Textract.Model.NormalizedValue;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Textract.Enums;
 
 type

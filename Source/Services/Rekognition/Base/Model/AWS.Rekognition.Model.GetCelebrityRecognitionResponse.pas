@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.Rekognition.Model.CelebrityRecognition, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums, 
   AWS.Rekognition.Model.VideoMetadata;
 

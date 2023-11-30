@@ -3,9 +3,9 @@ unit AWS.Transcribe.Model.UpdateVocabularyFilterRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.Transcribe.Model.Request;
+  AWS.Transcribe.Model.Request, 
+  AWS.Nullable;
 
 type
   TUpdateVocabularyFilterRequest = class;

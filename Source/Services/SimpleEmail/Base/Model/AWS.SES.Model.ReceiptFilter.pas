@@ -3,8 +3,8 @@ unit AWS.SES.Model.ReceiptFilter;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Model.ReceiptIpFilter;
+  AWS.SES.Model.ReceiptIpFilter, 
+  AWS.Nullable;
 
 type
   TReceiptFilter = class;

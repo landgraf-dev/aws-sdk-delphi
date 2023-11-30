@@ -3,9 +3,9 @@ unit AWS.SES.Model.RecipientDsnFields;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   System.DateUtils, 
+  AWS.Nullable, 
   AWS.SES.Enums, 
   AWS.SES.Model.ExtensionField;
 

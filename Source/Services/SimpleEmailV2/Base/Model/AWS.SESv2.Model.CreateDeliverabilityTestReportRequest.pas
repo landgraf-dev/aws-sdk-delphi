@@ -3,10 +3,10 @@ unit AWS.SESv2.Model.CreateDeliverabilityTestReportRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.SESv2.Model.Request, 
   AWS.SESv2.Model.EmailContent, 
+  AWS.Nullable, 
   AWS.SESv2.Model.Tag;
 
 type

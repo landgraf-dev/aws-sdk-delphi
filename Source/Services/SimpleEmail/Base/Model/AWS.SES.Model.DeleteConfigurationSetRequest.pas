@@ -3,8 +3,8 @@ unit AWS.SES.Model.DeleteConfigurationSetRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Model.Request;
+  AWS.SES.Model.Request, 
+  AWS.Nullable;
 
 type
   TDeleteConfigurationSetRequest = class;

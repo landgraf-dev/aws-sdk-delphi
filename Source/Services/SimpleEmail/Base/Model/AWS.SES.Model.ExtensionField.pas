@@ -3,7 +3,7 @@ unit AWS.SES.Model.ExtensionField;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TExtensionField = class;

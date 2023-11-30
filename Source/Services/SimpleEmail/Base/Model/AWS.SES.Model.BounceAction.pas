@@ -3,7 +3,7 @@ unit AWS.SES.Model.BounceAction;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TBounceAction = class;

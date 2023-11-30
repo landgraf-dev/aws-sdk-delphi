@@ -3,7 +3,7 @@ unit AWS.SNS.Model.SMSSandboxPhoneNumber;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.SNS.Enums;
 
 type

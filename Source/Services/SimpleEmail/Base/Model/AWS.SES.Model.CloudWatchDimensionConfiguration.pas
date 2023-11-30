@@ -3,7 +3,7 @@ unit AWS.SES.Model.CloudWatchDimensionConfiguration;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.SES.Enums;
 
 type

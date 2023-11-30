@@ -3,8 +3,8 @@ unit AWS.LexRuntimeV2.Model.RecognizeUtteranceRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.LexRuntimeV2.Model.Request, 
+  AWS.Nullable, 
   System.Classes, 
   AWS.Auth.Signer;
 

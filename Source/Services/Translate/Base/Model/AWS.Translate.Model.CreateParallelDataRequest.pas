@@ -3,8 +3,8 @@ unit AWS.Translate.Model.CreateParallelDataRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Translate.Model.Request, 
+  AWS.Nullable, 
   AWS.Translate.Model.EncryptionKey, 
   AWS.Translate.Model.ParallelDataConfig;
 

@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.CreateEmailIdentityResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.SESv2.Model.DkimAttributes, 
+  AWS.Nullable, 
   AWS.SESv2.Enums;
 
 type

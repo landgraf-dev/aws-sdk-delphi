@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.CategoryProperties;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Transcribe.Model.Rule;
 
 type

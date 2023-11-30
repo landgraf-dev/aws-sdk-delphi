@@ -3,7 +3,7 @@ unit AWS.SES.Model.IdentityNotificationAttributes;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TIdentityNotificationAttributes = class;

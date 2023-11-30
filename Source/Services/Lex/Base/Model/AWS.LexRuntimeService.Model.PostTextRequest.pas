@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.LexRuntimeService.Model.Request, 
-  AWS.LexRuntimeService.Model.ActiveContext;
+  AWS.LexRuntimeService.Model.ActiveContext, 
+  AWS.Nullable;
 
 type
   TPostTextRequest = class;

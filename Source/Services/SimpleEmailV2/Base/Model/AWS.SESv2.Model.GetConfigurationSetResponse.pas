@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.GetConfigurationSetResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SESv2.Model.DeliveryOptions, 
   AWS.SESv2.Model.ReputationOptions, 
   AWS.SESv2.Model.SendingOptions, 

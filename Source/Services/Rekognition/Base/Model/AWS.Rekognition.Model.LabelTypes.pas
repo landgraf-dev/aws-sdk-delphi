@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.LabelTypes;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Instance, 
   AWS.Rekognition.Model.Parent;
 

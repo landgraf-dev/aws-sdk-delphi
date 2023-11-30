@@ -3,7 +3,7 @@ unit AWS.Translate.Model.ParallelDataConfig;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Translate.Enums;
 
 type

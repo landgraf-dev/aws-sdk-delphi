@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.ContactList;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TContactList = class;

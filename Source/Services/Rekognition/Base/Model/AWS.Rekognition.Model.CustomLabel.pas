@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.CustomLabel;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Geometry;
 
 type

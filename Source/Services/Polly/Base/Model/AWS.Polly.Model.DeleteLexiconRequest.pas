@@ -3,8 +3,8 @@ unit AWS.Polly.Model.DeleteLexiconRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Polly.Model.Request;
+  AWS.Polly.Model.Request, 
+  AWS.Nullable;
 
 type
   TDeleteLexiconRequest = class;

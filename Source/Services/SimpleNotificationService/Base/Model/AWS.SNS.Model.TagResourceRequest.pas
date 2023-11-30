@@ -3,9 +3,9 @@ unit AWS.SNS.Model.TagResourceRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.SNS.Model.Request, 
+  AWS.Nullable, 
   AWS.SNS.Model.Tag;
 
 type

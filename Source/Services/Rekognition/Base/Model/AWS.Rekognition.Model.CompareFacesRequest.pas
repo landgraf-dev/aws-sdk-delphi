@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.CompareFacesRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums, 
   AWS.Rekognition.Model.Image;
 

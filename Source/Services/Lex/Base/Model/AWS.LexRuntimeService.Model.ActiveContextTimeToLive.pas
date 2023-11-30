@@ -3,7 +3,7 @@ unit AWS.LexRuntimeService.Model.ActiveContextTimeToLive;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TActiveContextTimeToLive = class;

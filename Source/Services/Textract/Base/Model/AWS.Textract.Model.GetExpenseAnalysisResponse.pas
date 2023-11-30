@@ -3,9 +3,9 @@ unit AWS.Textract.Model.GetExpenseAnalysisResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Textract.Model.DocumentMetadata, 
   AWS.Textract.Model.ExpenseDocument, 
   AWS.Textract.Enums, 

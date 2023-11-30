@@ -3,9 +3,9 @@ unit AWS.SQS.Model.ListQueuesResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TListQueuesResponse = class;

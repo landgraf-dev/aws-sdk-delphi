@@ -3,7 +3,7 @@ unit AWS.Textract.Model.AnalyzeIDDetections;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Textract.Model.NormalizedValue;
 
 type

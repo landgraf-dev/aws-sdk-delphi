@@ -3,8 +3,8 @@ unit AWS.SES.Model.InvalidS3ConfigurationException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Exception;
+  AWS.SES.Exception, 
+  AWS.Nullable;
 
 type
   EInvalidS3ConfigurationException = class(EAmazonSimpleEmailServiceException)

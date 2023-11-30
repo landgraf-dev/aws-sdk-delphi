@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.SNS.Model.Request, 
-  AWS.SNS.Model.PublishBatchRequestEntry;
+  AWS.SNS.Model.PublishBatchRequestEntry, 
+  AWS.Nullable;
 
 type
   TPublishBatchRequest = class;

@@ -3,10 +3,10 @@ unit AWS.Translate.Model.TranslateTextRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Translate.Model.Request, 
-  AWS.Translate.Model.TranslationSettings;
+  AWS.Translate.Model.TranslationSettings, 
+  AWS.Nullable;
 
 type
   TTranslateTextRequest = class;

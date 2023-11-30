@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.BoundingBox;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TBoundingBox = class;

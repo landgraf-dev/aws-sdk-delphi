@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.GetTextDetectionResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums, 
   AWS.Rekognition.Model.TextDetectionResult, 
   AWS.Rekognition.Model.VideoMetadata;

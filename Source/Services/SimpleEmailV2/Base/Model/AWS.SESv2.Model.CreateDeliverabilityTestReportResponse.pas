@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.CreateDeliverabilityTestReportResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SESv2.Enums;
 
 type

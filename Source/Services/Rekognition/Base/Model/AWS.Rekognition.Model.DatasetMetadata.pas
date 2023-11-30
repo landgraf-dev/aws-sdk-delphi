@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.DatasetMetadata;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums;
 
 type

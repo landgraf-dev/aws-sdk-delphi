@@ -3,8 +3,8 @@ unit AWS.SES.Model.IdentityDkimAttributes;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.SES.Enums;
 
 type

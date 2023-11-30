@@ -3,8 +3,8 @@ unit AWS.Translate.Model.StartTextTranslationJobResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Translate.Enums;
 
 type

@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.GetImportJobResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SESv2.Model.FailureInfo, 
   AWS.SESv2.Model.ImportDataSource, 
   AWS.SESv2.Model.ImportDestination, 

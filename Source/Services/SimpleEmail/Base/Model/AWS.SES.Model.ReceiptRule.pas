@@ -4,8 +4,8 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.SES.Model.ReceiptAction, 
+  AWS.Nullable, 
   AWS.SES.Enums;
 
 type

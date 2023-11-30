@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.PinpointDestination;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TPinpointDestination = class;

@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.Rekognition.Model.DatasetLabelDescription;
+  AWS.Rekognition.Model.DatasetLabelDescription, 
+  AWS.Nullable;
 
 type
   TListDatasetLabelsResponse = class;

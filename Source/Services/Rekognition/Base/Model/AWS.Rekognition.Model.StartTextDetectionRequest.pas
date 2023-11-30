@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.StartTextDetectionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.StartTextDetectionFilters, 
   AWS.Rekognition.Model.NotificationChannel, 
   AWS.Rekognition.Model.Video;

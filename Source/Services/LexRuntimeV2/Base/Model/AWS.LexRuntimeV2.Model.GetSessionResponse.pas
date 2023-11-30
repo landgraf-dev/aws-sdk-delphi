@@ -4,10 +4,10 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.LexRuntimeV2.Model.Interpretation, 
   AWS.LexRuntimeV2.Model.Message, 
+  AWS.Nullable, 
   AWS.LexRuntimeV2.Model.SessionState;
 
 type

@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.SES.Model.Destination, 
-  AWS.SES.Model.MessageTag;
+  AWS.SES.Model.MessageTag, 
+  AWS.Nullable;
 
 type
   TBulkEmailDestination = class;

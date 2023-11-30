@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.HumanLoopQuotaExceededException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Exception;
+  AWS.Rekognition.Exception, 
+  AWS.Nullable;
 
 type
   EHumanLoopQuotaExceededException = class(EAmazonRekognitionException)

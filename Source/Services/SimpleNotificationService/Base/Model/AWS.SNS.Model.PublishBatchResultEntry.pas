@@ -3,7 +3,7 @@ unit AWS.SNS.Model.PublishBatchResultEntry;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TPublishBatchResultEntry = class;

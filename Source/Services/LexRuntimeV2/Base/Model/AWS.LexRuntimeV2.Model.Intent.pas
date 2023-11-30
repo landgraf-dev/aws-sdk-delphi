@@ -3,8 +3,8 @@ unit AWS.LexRuntimeV2.Model.Intent;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.LexRuntimeV2.Enums, 
   AWS.LexRuntimeV2.Model.Slot;
 

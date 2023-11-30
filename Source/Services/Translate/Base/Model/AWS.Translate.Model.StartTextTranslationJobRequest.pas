@@ -3,9 +3,9 @@ unit AWS.Translate.Model.StartTextTranslationJobRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Translate.Model.Request, 
+  AWS.Nullable, 
   AWS.Translate.Model.InputDataConfig, 
   AWS.Translate.Model.OutputDataConfig, 
   AWS.Translate.Model.TranslationSettings;

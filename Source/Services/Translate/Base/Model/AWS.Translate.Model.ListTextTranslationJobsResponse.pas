@@ -3,9 +3,9 @@ unit AWS.Translate.Model.ListTextTranslationJobsResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Translate.Model.TextTranslationJobProperties;
 
 type

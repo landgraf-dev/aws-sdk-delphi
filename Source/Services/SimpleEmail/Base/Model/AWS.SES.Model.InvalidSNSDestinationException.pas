@@ -3,8 +3,8 @@ unit AWS.SES.Model.InvalidSNSDestinationException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Exception;
+  AWS.SES.Exception, 
+  AWS.Nullable;
 
 type
   EInvalidSNSDestinationException = class(EAmazonSimpleEmailServiceException)

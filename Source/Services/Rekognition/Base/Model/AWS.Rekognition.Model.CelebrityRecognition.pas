@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.CelebrityRecognition;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.CelebrityDetail;
+  AWS.Rekognition.Model.CelebrityDetail, 
+  AWS.Nullable;
 
 type
   TCelebrityRecognition = class;

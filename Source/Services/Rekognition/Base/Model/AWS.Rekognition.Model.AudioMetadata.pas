@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.AudioMetadata;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TAudioMetadata = class;

@@ -3,7 +3,7 @@ unit AWS.SES.Model.MessageTag;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TMessageTag = class;

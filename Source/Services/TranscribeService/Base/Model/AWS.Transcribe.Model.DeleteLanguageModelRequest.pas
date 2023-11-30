@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.DeleteLanguageModelRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Transcribe.Model.Request;
+  AWS.Transcribe.Model.Request, 
+  AWS.Nullable;
 
 type
   TDeleteLanguageModelRequest = class;

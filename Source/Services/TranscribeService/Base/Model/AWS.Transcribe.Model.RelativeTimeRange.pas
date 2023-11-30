@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.RelativeTimeRange;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TRelativeTimeRange = class;

@@ -3,9 +3,9 @@ unit AWS.SES.Model.SendBulkTemplatedEmailRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.SES.Model.Request, 
+  AWS.Nullable, 
   AWS.SES.Model.MessageTag, 
   AWS.SES.Model.BulkEmailDestination;
 

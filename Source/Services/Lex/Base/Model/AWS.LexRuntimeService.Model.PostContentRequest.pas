@@ -3,8 +3,8 @@ unit AWS.LexRuntimeService.Model.PostContentRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.LexRuntimeService.Model.Request, 
+  AWS.Nullable, 
   System.Classes, 
   AWS.Auth.Signer;
 

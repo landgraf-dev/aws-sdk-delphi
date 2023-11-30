@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.Textract.Model.Block, 
+  AWS.Nullable, 
   AWS.Textract.Model.DocumentMetadata, 
   AWS.Textract.Enums, 
   AWS.Textract.Model.Warning;

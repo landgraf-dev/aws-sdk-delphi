@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.DatasetSource;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.GroundTruthManifest;
 
 type

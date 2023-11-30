@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.Beard;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TBeard = class;

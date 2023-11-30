@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.ListContactsFilter;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.SESv2.Enums, 
   AWS.SESv2.Model.TopicFilter;
 

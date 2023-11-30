@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.Transcribe.Model.CategoryProperties;
+  AWS.Transcribe.Model.CategoryProperties, 
+  AWS.Nullable;
 
 type
   TListCallAnalyticsCategoriesResponse = class;

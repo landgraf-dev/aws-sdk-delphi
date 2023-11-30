@@ -3,9 +3,9 @@ unit AWS.SQS.Model.TagQueueRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.SQS.Model.Request;
+  AWS.SQS.Model.Request, 
+  AWS.Nullable;
 
 type
   TTagQueueRequest = class;

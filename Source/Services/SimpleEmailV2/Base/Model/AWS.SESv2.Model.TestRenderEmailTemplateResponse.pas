@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.TestRenderEmailTemplateResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TTestRenderEmailTemplateResponse = class;

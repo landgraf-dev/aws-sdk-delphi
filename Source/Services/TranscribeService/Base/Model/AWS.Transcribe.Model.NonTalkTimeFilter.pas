@@ -3,8 +3,8 @@ unit AWS.Transcribe.Model.NonTalkTimeFilter;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Transcribe.Model.AbsoluteTimeRange, 
+  AWS.Nullable, 
   AWS.Transcribe.Model.RelativeTimeRange;
 
 type

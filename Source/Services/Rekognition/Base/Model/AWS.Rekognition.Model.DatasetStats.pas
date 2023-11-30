@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.DatasetStats;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TDatasetStats = class;

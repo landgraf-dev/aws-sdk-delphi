@@ -3,7 +3,7 @@ unit AWS.Rekognition.Model.StreamProcessingStopSelector;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TStreamProcessingStopSelector = class;

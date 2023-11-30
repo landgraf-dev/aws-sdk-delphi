@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.SES.Model.CustomVerificationEmailTemplate;
+  AWS.SES.Model.CustomVerificationEmailTemplate, 
+  AWS.Nullable;
 
 type
   TListCustomVerificationEmailTemplatesResponse = class;

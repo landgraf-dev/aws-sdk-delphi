@@ -3,7 +3,7 @@ unit AWS.Polly.Model.LexiconAttributes;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Polly.Enums;
 
 type

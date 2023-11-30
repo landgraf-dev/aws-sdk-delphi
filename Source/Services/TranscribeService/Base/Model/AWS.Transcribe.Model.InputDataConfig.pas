@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.InputDataConfig;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TInputDataConfig = class;

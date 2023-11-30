@@ -3,8 +3,8 @@ unit AWS.Translate.Model.DetectedLanguageLowConfidenceException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Translate.Exception;
+  AWS.Translate.Exception, 
+  AWS.Nullable;
 
 type
   EDetectedLanguageLowConfidenceException = class(EAmazonTranslateException)

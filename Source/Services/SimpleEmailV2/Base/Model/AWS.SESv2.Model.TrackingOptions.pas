@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.TrackingOptions;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TTrackingOptions = class;

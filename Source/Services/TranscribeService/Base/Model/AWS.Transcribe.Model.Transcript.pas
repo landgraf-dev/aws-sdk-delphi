@@ -3,7 +3,7 @@ unit AWS.Transcribe.Model.Transcript;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TTranscript = class;

@@ -3,7 +3,7 @@ unit AWS.SES.Model.S3Action;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TS3Action = class;

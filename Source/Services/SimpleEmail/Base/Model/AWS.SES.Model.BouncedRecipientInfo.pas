@@ -3,7 +3,7 @@ unit AWS.SES.Model.BouncedRecipientInfo;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.SES.Enums, 
   AWS.SES.Model.RecipientDsnFields;
 

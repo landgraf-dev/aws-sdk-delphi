@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.BlacklistEntry;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TBlacklistEntry = class;

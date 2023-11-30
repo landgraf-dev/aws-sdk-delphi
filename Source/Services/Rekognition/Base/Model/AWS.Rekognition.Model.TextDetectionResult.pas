@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.TextDetectionResult;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.TextDetection;
+  AWS.Rekognition.Model.TextDetection, 
+  AWS.Nullable;
 
 type
   TTextDetectionResult = class;

@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.UpdateEmailTemplateRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.SESv2.Model.Request, 
-  AWS.SESv2.Model.EmailTemplateContent;
+  AWS.SESv2.Model.EmailTemplateContent, 
+  AWS.Nullable;
 
 type
   TUpdateEmailTemplateRequest = class;

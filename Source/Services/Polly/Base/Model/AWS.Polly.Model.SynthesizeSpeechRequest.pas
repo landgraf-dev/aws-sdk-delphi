@@ -3,9 +3,9 @@ unit AWS.Polly.Model.SynthesizeSpeechRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Polly.Model.Request, 
+  AWS.Nullable, 
   AWS.Polly.Enums;
 
 type

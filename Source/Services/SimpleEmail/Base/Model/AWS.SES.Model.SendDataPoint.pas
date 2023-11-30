@@ -3,7 +3,7 @@ unit AWS.SES.Model.SendDataPoint;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TSendDataPoint = class;

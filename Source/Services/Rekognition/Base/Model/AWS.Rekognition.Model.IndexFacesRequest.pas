@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.IndexFacesRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.Image, 
   AWS.Rekognition.Enums;
 

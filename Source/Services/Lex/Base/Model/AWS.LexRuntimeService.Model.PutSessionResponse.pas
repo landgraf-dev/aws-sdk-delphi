@@ -3,8 +3,8 @@ unit AWS.LexRuntimeService.Model.PutSessionResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   System.Classes, 
   AWS.LexRuntimeService.Enums;
 

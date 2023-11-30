@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.StartLabelDetectionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
+  AWS.Nullable, 
   AWS.Rekognition.Model.NotificationChannel, 
   AWS.Rekognition.Model.Video;
 

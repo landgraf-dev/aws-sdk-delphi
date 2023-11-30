@@ -3,7 +3,7 @@ unit AWS.SNS.Model.Subscription;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TSubscription = class;

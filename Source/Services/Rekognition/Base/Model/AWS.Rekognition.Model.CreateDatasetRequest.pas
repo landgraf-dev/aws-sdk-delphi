@@ -3,9 +3,9 @@ unit AWS.Rekognition.Model.CreateDatasetRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.Request, 
   AWS.Rekognition.Model.DatasetSource, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums;
 
 type

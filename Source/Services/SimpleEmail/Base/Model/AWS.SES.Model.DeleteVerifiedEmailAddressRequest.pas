@@ -3,8 +3,8 @@ unit AWS.SES.Model.DeleteVerifiedEmailAddressRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Model.Request;
+  AWS.SES.Model.Request, 
+  AWS.Nullable;
 
 type
   TDeleteVerifiedEmailAddressRequest = class;

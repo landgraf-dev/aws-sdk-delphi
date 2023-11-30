@@ -3,7 +3,7 @@ unit AWS.Translate.Model.JobDetails;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TJobDetails = class;

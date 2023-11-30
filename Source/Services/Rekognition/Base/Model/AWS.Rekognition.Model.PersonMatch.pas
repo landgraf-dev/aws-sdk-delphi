@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Rekognition.Model.FaceMatch, 
-  AWS.Rekognition.Model.PersonDetail;
+  AWS.Rekognition.Model.PersonDetail, 
+  AWS.Nullable;
 
 type
   TPersonMatch = class;

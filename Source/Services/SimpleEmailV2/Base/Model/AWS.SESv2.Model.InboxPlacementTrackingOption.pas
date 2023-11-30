@@ -3,8 +3,8 @@ unit AWS.SESv2.Model.InboxPlacementTrackingOption;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  System.Generics.Collections;
+  System.Generics.Collections, 
+  AWS.Nullable;
 
 type
   TInboxPlacementTrackingOption = class;

@@ -3,7 +3,7 @@ unit AWS.Translate.Model.Term;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TTerm = class;

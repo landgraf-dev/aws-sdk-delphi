@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.DeleteProjectVersionResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.Rekognition.Enums;
 
 type

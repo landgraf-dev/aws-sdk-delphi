@@ -3,7 +3,7 @@ unit AWS.Textract.Model.ExpenseType;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TExpenseType = class;

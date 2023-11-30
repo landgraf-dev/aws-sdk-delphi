@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.Rekognition.Model.TextDetection;
+  AWS.Rekognition.Model.TextDetection, 
+  AWS.Nullable;
 
 type
   TDetectTextResponse = class;

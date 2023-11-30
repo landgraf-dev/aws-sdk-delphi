@@ -3,8 +3,8 @@ unit AWS.SES.Model.InvalidCloudWatchDestinationException;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.SES.Exception;
+  AWS.SES.Exception, 
+  AWS.Nullable;
 
 type
   EInvalidCloudWatchDestinationException = class(EAmazonSimpleEmailServiceException)

@@ -3,9 +3,9 @@ unit AWS.SESv2.Model.ListSuppressedDestinationsResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.SESv2.Model.SuppressedDestinationSummary;
 
 type

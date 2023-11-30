@@ -3,7 +3,7 @@ unit AWS.SESv2.Model.SendQuota;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TSendQuota = class;

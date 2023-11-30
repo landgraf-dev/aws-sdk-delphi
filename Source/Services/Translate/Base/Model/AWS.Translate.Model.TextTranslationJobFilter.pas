@@ -3,7 +3,7 @@ unit AWS.Translate.Model.TextTranslationJobFilter;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.Translate.Enums;
 
 type

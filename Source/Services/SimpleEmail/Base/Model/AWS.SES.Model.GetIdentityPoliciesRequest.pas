@@ -3,9 +3,9 @@ unit AWS.SES.Model.GetIdentityPoliciesRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.SES.Model.Request;
+  AWS.SES.Model.Request, 
+  AWS.Nullable;
 
 type
   TGetIdentityPoliciesRequest = class;

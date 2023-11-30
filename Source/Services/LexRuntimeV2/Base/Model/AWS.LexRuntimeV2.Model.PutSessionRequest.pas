@@ -3,9 +3,9 @@ unit AWS.LexRuntimeV2.Model.PutSessionRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.LexRuntimeV2.Model.Request, 
+  AWS.Nullable, 
   AWS.LexRuntimeV2.Model.Message, 
   AWS.LexRuntimeV2.Model.SessionState;
 

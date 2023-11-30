@@ -3,8 +3,8 @@ unit AWS.Translate.Model.AppliedTerminology;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.Translate.Model.Term;
 
 type

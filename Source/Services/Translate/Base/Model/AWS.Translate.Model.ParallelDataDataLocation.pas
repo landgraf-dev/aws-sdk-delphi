@@ -3,7 +3,7 @@ unit AWS.Translate.Model.ParallelDataDataLocation;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TParallelDataDataLocation = class;

@@ -3,8 +3,8 @@ unit AWS.SES.Model.CreateConfigurationSetEventDestinationRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.SES.Model.Request, 
+  AWS.Nullable, 
   AWS.SES.Model.EventDestination;
 
 type

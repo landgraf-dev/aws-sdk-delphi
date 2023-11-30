@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.CompareFacesMatch;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Rekognition.Model.ComparedFace;
+  AWS.Rekognition.Model.ComparedFace, 
+  AWS.Nullable;
 
 type
   TCompareFacesMatch = class;

@@ -3,8 +3,8 @@ unit AWS.Rekognition.Model.StartLabelDetectionResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TStartLabelDetectionResponse = class;

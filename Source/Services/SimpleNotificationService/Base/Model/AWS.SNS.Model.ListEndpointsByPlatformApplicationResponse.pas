@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.SNS.Model.Endpoint;
+  AWS.SNS.Model.Endpoint, 
+  AWS.Nullable;
 
 type
   TListEndpointsByPlatformApplicationResponse = class;

@@ -4,10 +4,10 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
   AWS.LexRuntimeService.Model.ActiveContext, 
   AWS.LexRuntimeService.Model.PredictedIntent, 
+  AWS.Nullable, 
   AWS.LexRuntimeService.Enums, 
   AWS.LexRuntimeService.Model.IntentConfidence, 
   AWS.LexRuntimeService.Model.ResponseCard, 

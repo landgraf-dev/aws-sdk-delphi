@@ -3,7 +3,7 @@ unit AWS.LexRuntimeV2.Model.ConfidenceScore;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TConfidenceScore = class;
