@@ -38,12 +38,12 @@ var
 begin
   Response := TAbortMultipartUploadResponse.Create;
   try
+    Result := Response;
     if AContext.ResponseData.IsHeaderPresent('x-amz-request-charged') then
       Response.RequestCharged := AContext.ResponseData.GetHeaderValue('x-amz-request-charged');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

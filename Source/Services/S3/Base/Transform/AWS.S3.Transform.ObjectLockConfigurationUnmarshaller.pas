@@ -34,6 +34,7 @@ var
 begin
   UnmarshalledObject := TObjectLockConfiguration.Create;
   try
+    Result := UnmarshalledObject;
     OriginalDepth := AContext.CurrentDepth;
     TargetDepth := OriginalDepth + 1;
     if AContext.IsStartOfDocument then
@@ -57,10 +58,9 @@ begin
       else
         if AContext.IsEndElement and (AContext.CurrentDepth < OriginalDepth) then
           Exit(UnmarshalledObject);
-    Result := UnmarshalledObject;
-    UnmarshalledObject := nil;
-  finally
+  except
     UnmarshalledObject.Free;
+    raise;
   end;
 end;
 

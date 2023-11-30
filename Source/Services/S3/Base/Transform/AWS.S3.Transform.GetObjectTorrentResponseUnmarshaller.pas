@@ -38,16 +38,16 @@ var
 begin
   Response := TGetObjectTorrentResponse.Create;
   try
+    Result := Response;
     var ms := TBytesStream.Create;
     Response.Body := ms;
     Response.KeepBody := False;
     TAWSSDKUtils.CopyStream(AContext.Stream, ms);
     if AContext.ResponseData.IsHeaderPresent('x-amz-request-charged') then
       Response.RequestCharged := AContext.ResponseData.GetHeaderValue('x-amz-request-charged');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

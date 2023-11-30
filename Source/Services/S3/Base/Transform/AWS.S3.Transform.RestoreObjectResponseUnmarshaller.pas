@@ -38,14 +38,14 @@ var
 begin
   Response := TRestoreObjectResponse.Create;
   try
+    Result := Response;
     if AContext.ResponseData.IsHeaderPresent('x-amz-request-charged') then
       Response.RequestCharged := AContext.ResponseData.GetHeaderValue('x-amz-request-charged');
     if AContext.ResponseData.IsHeaderPresent('x-amz-restore-output-path') then
       Response.RestoreOutputPath := AContext.ResponseData.GetHeaderValue('x-amz-restore-output-path');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

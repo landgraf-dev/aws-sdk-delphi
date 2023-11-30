@@ -40,6 +40,7 @@ var
 begin
   Response := TInitiateMultipartUploadResponse.Create;
   try
+    Result := Response;
     UnmarshallResult(AContext, Response);
     if AContext.ResponseData.IsHeaderPresent('x-amz-abort-date') then
       Response.AbortDate := TS3Transforms.ToDateTime(AContext.ResponseData.GetHeaderValue('x-amz-abort-date'));
@@ -59,10 +60,9 @@ begin
       Response.SSEKMSKeyId := AContext.ResponseData.GetHeaderValue('x-amz-server-side-encryption-aws-kms-key-id');
     if AContext.ResponseData.IsHeaderPresent('x-amz-server-side-encryption') then
       Response.ServerSideEncryption := AContext.ResponseData.GetHeaderValue('x-amz-server-side-encryption');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

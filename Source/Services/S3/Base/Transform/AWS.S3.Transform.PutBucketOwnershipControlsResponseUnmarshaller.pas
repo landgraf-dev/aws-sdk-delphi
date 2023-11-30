@@ -38,9 +38,9 @@ begin
   Response := TPutBucketOwnershipControlsResponse.Create;
   try
     Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

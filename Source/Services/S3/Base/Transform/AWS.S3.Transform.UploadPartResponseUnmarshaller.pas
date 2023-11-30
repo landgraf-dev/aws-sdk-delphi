@@ -37,6 +37,7 @@ var
 begin
   Response := TUploadPartResponse.Create;
   try
+    Result := Response;
     if AContext.ResponseData.IsHeaderPresent('x-amz-server-side-encryption-bucket-key-enabled') then
       Response.BucketKeyEnabled := StrToBool(AContext.ResponseData.GetHeaderValue('x-amz-server-side-encryption-bucket-key-enabled'));
     if AContext.ResponseData.IsHeaderPresent('ETag') then
@@ -51,10 +52,9 @@ begin
       Response.SSEKMSKeyId := AContext.ResponseData.GetHeaderValue('x-amz-server-side-encryption-aws-kms-key-id');
     if AContext.ResponseData.IsHeaderPresent('x-amz-server-side-encryption') then
       Response.ServerSideEncryption := AContext.ResponseData.GetHeaderValue('x-amz-server-side-encryption');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

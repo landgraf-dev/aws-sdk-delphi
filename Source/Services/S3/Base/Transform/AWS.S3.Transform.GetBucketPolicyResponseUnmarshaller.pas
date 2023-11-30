@@ -38,13 +38,13 @@ var
 begin
   Response := TGetBucketPolicyResponse.Create;
   try
+    Result := Response;
     Response.Policy := TAWSSDKUtils.StreamToString(AContext.Stream);
     if Response.Policy.StartsWith('<?xml', True) then
       Response.Policy := '';
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

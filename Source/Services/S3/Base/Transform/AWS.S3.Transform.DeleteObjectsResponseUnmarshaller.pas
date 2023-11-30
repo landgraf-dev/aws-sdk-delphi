@@ -42,13 +42,13 @@ var
 begin
   Response := TDeleteObjectsResponse.Create;
   try
+    Result := Response;
     UnmarshallResult(AContext, Response);
     if AContext.ResponseData.IsHeaderPresent('x-amz-request-charged') then
       Response.RequestCharged := AContext.ResponseData.GetHeaderValue('x-amz-request-charged');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

@@ -39,13 +39,13 @@ var
 begin
   Response := TSelectObjectContentResponse.Create;
   try
+    Result := Response;
     AContext.AllowEmptyElementLookup.Add('Cont');
     AContext.AllowEmptyElementLookup.Add('End');
     UnmarshallResult(AContext, Response);
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

@@ -40,13 +40,13 @@ var
 begin
   Response := TGetObjectTaggingResponse.Create;
   try
+    Result := Response;
     UnmarshallResult(AContext, Response);
     if AContext.ResponseData.IsHeaderPresent('x-amz-version-id') then
       Response.VersionId := AContext.ResponseData.GetHeaderValue('x-amz-version-id');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

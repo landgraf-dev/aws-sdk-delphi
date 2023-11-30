@@ -39,12 +39,12 @@ var
 begin
   Response := TPutBucketResponse.Create;
   try
+    Result := Response;
     if AContext.ResponseData.IsHeaderPresent('Location') then
       Response.Location := AContext.ResponseData.GetHeaderValue('Location');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

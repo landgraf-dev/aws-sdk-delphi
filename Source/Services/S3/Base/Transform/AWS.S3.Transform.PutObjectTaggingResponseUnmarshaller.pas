@@ -37,12 +37,12 @@ var
 begin
   Response := TPutObjectTaggingResponse.Create;
   try
+    Result := Response;
     if AContext.ResponseData.IsHeaderPresent('x-amz-version-id') then
       Response.VersionId := AContext.ResponseData.GetHeaderValue('x-amz-version-id');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

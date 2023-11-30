@@ -31,6 +31,7 @@ var
 begin
   UnmarshalledObject := TEndEvent.Create;
   try
+    Result := UnmarshalledObject;
     OriginalDepth := AContext.CurrentDepth;
     while AContext.Read do
       if AContext.IsStartElement or AContext.IsAttribute then
@@ -39,10 +40,9 @@ begin
       else
         if AContext.IsEndElement and (AContext.CurrentDepth < OriginalDepth) then
           Exit(UnmarshalledObject);
-    Result := UnmarshalledObject;
-    UnmarshalledObject := nil;
-  finally
+  except
     UnmarshalledObject.Free;
+    raise;
   end;
 end;
 

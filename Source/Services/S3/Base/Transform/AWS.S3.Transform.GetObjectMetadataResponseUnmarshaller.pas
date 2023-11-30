@@ -39,6 +39,7 @@ var
 begin
   Response := TGetObjectMetadataResponse.Create;
   try
+    Result := Response;
     if AContext.ResponseData.IsHeaderPresent('accept-ranges') then
       Response.AcceptRanges := AContext.ResponseData.GetHeaderValue('accept-ranges');
     if AContext.ResponseData.IsHeaderPresent('x-amz-archive-status') then
@@ -97,10 +98,9 @@ begin
       Response.VersionId := AContext.ResponseData.GetHeaderValue('x-amz-version-id');
     if AContext.ResponseData.IsHeaderPresent('x-amz-website-redirect-location') then
       Response.WebsiteRedirectLocation := AContext.ResponseData.GetHeaderValue('x-amz-website-redirect-location');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

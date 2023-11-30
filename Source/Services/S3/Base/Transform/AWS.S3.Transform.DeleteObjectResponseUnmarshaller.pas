@@ -37,16 +37,16 @@ var
 begin
   Response := TDeleteObjectResponse.Create;
   try
+    Result := Response;
     if AContext.ResponseData.IsHeaderPresent('x-amz-delete-marker') then
       Response.DeleteMarker := StrToBool(AContext.ResponseData.GetHeaderValue('x-amz-delete-marker'));
     if AContext.ResponseData.IsHeaderPresent('x-amz-request-charged') then
       Response.RequestCharged := AContext.ResponseData.GetHeaderValue('x-amz-request-charged');
     if AContext.ResponseData.IsHeaderPresent('x-amz-version-id') then
       Response.VersionId := AContext.ResponseData.GetHeaderValue('x-amz-version-id');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

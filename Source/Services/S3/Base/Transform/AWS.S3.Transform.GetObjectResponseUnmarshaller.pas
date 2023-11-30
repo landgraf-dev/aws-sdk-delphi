@@ -41,6 +41,7 @@ var
 begin
   Response := TGetObjectResponse.Create;
   try
+    Result := Response;
     var ms := TBytesStream.Create;
     Response.Body := ms;
     Response.KeepBody := False;
@@ -105,10 +106,9 @@ begin
       Response.VersionId := AContext.ResponseData.GetHeaderValue('x-amz-version-id');
     if AContext.ResponseData.IsHeaderPresent('x-amz-website-redirect-location') then
       Response.WebsiteRedirectLocation := AContext.ResponseData.GetHeaderValue('x-amz-website-redirect-location');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 
