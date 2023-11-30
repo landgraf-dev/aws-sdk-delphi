@@ -246,7 +246,7 @@ begin
       FRegionDetector(ARequest);
 
     var signingResult := aws4Signer.SignRequest(ARequest, AClientConfig, {metrics, }AAwsAccessKeyId, AAwsSecretAccessKey);
-    ARequest.Headers[THeaderKeys.AuthorizationHeader] := signingResult.ForAuthorizationHeader;
+    ARequest.Headers.AddOrSetValue(THeaderKeys.AuthorizationHeader, signingResult.ForAuthorizationHeader);
     if ARequest.UseChunkEncoding then
       ARequest.AWS4SignerResult := signingResult;
   end
@@ -256,13 +256,13 @@ end;
 
 class procedure TS3Signer.SignRequest(ARequest: IRequest; const AAwsAccessKeyId, AAwsSecretAccessKey: string);
 begin
-  ARequest.Headers[THeaderKeys.XAmzDateHeader] := TAWSSDKUtils.FormattedCurrentTimestampRFC822;
+  ARequest.Headers.AddOrSetValue(THeaderKeys.XAmzDateHeader, TAWSSDKUtils.FormattedCurrentTimestampRFC822);
 
   var stringToSign := BuildStringToSign(ARequest);
 //  metrics.AddProperty(Metric.StringToSign, stringToSign);
   var auth := TCryptoUtilFactory.CryptoInstance.HMACSign(stringToSign, AAwsSecretAccessKey, TSigningAlgorithm.HmacSHA1);
   var authorization := 'AWS ' + AAwsAccessKeyId + ':' + auth;
-  ARequest.Headers[THeaderKeys.AuthorizationHeader] := authorization;
+  ARequest.Headers.AddOrSetValue(THeaderKeys.AuthorizationHeader, authorization);
 end;
 
 end.

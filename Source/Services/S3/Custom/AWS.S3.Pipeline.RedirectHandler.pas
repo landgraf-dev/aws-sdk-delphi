@@ -28,7 +28,7 @@ begin
   if request.UseChunkEncoding then
   begin
     if request.Headers.ContainsKey(THeaderKeys.XAmzDecodedContentLengthHeader) then
-      request.Headers[THeaderKeys.ContentLengthHeader] := request.Headers[THeaderKeys.XAmzDecodedContentLengthHeader];
+      request.Headers.AddOrSetValue(THeaderKeys.ContentLengthHeader, request.Headers[THeaderKeys.XAmzDecodedContentLengthHeader]);
   end;
 
   if request.Headers.ContainsKey(THeaderKeys.HostHeader) then
