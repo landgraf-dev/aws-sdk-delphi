@@ -230,6 +230,8 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Util.Streams.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.RedirectHandler.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.RetryPolicy.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas"/>
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>

@@ -619,6 +619,8 @@ contains
   AWS.S3.Internal.S3Signer in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Signer.pas',
   AWS.S3.Internal.S3Transforms in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Transforms.pas',
   AWS.S3.Model.ByteRange in '..\..\Source\Services\S3\Custom\AWS.S3.Model.ByteRange.pas',
+  AWS.S3.Model.DeleteObjectsException in '..\..\Source\Services\S3\Custom\AWS.S3.Model.DeleteObjectsException.pas',
+  AWS.S3.Model.KeyVersion in '..\..\Source\Services\S3\Custom\AWS.S3.Model.KeyVersion.pas',
   AWS.S3.Pipeline.ExceptionHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ExceptionHandler.pas',
   AWS.S3.Pipeline.KmsHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.KmsHandler.pas',
   AWS.S3.Pipeline.PostMarshallHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PostMarshallHandler.pas',

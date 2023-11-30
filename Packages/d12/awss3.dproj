@@ -3,7 +3,7 @@
 		<ProjectGuid>{6F3D0F4B-2BC4-45E1-B382-293ECC2B7C95}</ProjectGuid>
 		<MainSource>awss3.dpk</MainSource>
 		<ProjectVersion>20.1</ProjectVersion>
-		<FrameworkType/>
+		<FrameworkType>None</FrameworkType>
 		<Base>True</Base>
 		<Config Condition="'$(Config)'==''">Debug</Config>
 		<Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -742,6 +742,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Signer.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Transforms.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.ByteRange.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.DeleteObjectsException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.KeyVersion.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ExceptionHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.KmsHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PostMarshallHandler.pas"/>

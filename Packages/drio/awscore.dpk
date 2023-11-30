@@ -103,6 +103,8 @@ contains
   AWS.Util.EC2InstanceMetadata in '..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas',
   AWS.Util.Streams in '..\..\Source\Core\AWS.Util.Streams.pas',
   AWS.Pipeline.RedirectHandler in '..\..\Source\Core\AWS.Pipeline.RedirectHandler.pas',
-  AWS.Runtime.ExceptionEvent in '..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas';
+  AWS.Runtime.ExceptionEvent in '..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas',
+  AWS.Runtime.RetryPolicy in '..\..\Source\Core\AWS.Runtime.RetryPolicy.pas',
+  AWS.Internal.DefaultRetryPolicy in '..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas';
 
 end.
