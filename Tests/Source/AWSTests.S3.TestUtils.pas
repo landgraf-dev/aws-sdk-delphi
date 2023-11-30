@@ -3,23 +3,38 @@ unit AWSTests.S3.TestUtils;
 interface
 
 uses
-  System.SysUtils, System.DateUtils, TestFramework,
+  System.Generics.Collections, System.SysUtils, System.DateUtils, TestFramework,
+  AWS.Internal.DefaultRetryPolicy,
   AWS.S3,
+  AWS.S3.Model.ObjectIdentifier,
+  AWS.S3.Model.DeleteObjectsException,
   AWSTests.UtilityMethods;
 
 type
+  TS3DeleteBucketWithObjectsOptions = record
+  private
+    FContinueOnError: Boolean;
+    FQuietMode: Boolean;
+  public
+    constructor Create(AContinueOnError, AQuietMode: Boolean);
+    property ContinueOnError: Boolean read FContinueOnError write FContinueOnError;
+    property QuietMode: Boolean read FQuietMode write FQuietMode;
+  end;
+
   TS3TestUtils = class
   private const
     MAX_SPIN_LOOPS = 100;
   public
     class function CreateBucket(S3Client: IAmazonS3): string; static;
     class function CreateBucketWithWait(S3Client: IAmazonS3): string; static;
-    class procedure DeleteS3BucketWithObjects(S3Client: IAmazonS3; const BucketName: string); static;
     class procedure WaitForBucket(S3Client: IAmazonS3; const BucketName: string); overload; static;
     class procedure WaitForBucket(S3Client: IAmazonS3; const BucketName: string; MaxSeconds: Integer); overload; static;
     class function WaitForConsistency<T>(LoadFunction: TFunc<T>): T; static;
   public
     class function DoesS3BucketExistV2(S3Client: IAmazonS3; const BucketName: string): Boolean; static;
+    class procedure DeleteS3BucketWithObjects(S3Client: IAmazonS3; const BucketName: string); overload; static;
+    class procedure DeleteS3BucketWithObjects(S3Client: IAmazonS3; const BucketName: string;
+      const DeleteOptions: TS3DeleteBucketWithObjectsOptions); overload; static;
   end;
 
 implementation
@@ -40,7 +55,87 @@ end;
 
 class procedure TS3TestUtils.DeleteS3BucketWithObjects(S3Client: IAmazonS3; const BucketName: string);
 begin
-  raise Exception.Create('Implement');
+  DeleteS3BucketWithObjects(S3Client, BucketName, TS3DeleteBucketWithObjectsOptions.Create(False, True));
+end;
+
+class procedure TS3TestUtils.DeleteS3BucketWithObjects(S3Client: IAmazonS3; const BucketName: string;
+  const DeleteOptions: TS3DeleteBucketWithObjectsOptions);
+begin
+  var listVersionsRequest: IListVersionsRequest := TListVersionsRequest.Create;
+  listVersionsRequest.BucketName := BucketName;
+  var listVersionsResponse: IListVersionsResponse;
+  repeat
+    // List all the versions of all the objects in the bucket.
+    listVersionsResponse := S3Client.ListVersions(listVersionsRequest);
+
+    if listVersionsResponse.Versions.Count = 0 then
+      Break;
+
+    var keyVersionList := TObjectList<TKeyVersion>.Create;
+    try
+      for var index := 0 to listVersionsResponse.Versions.Count - 1 do
+      begin
+        var keyVersion := TKeyVersion.Create;
+        keyVersionList.Add(keyVersion);
+        keyVersion.Key := listVersionsResponse.Versions[index].Key;
+        keyVersion.VersionId := listVersionsResponse.Versions[index].VersionId;
+      end;
+      try
+        // Delete the current set of objects.
+        var deleteObjectsRequest: IDeleteObjectsRequest := TDeleteObjectsRequest.Create;
+        deleteObjectsRequest.BucketName := BucketName;
+        deleteObjectsRequest.Objects := keyVersionList;
+        deleteObjectsRequest.Quiet := DeleteOptions.QuietMode;
+        var deleteObjectsResponse := S3Client.DeleteObjects(deleteObjectsRequest);
+
+//        if not deleteOptions.QuietMode then
+//        begin
+//           If quiet mode is not set, update the client with list of deleted objects.
+//          InvokeS3DeleteBucketWithObjectsUpdateCallback(UpdateCallback,
+//            TS3DeleteBucketWithObjectsUpdate.Create(deleteObjectsResponse.DeletedObjects));
+//        end;
+      except
+        on DeleteObjectsException: EDeleteObjectsException do
+        begin
+          if DeleteOptions.ContinueOnError then
+          begin
+            // Continue the delete operation if an error was encountered.
+            // Update the client with the list of objects that were deleted and the
+            // list of objects on which the delete failed.
+//            InvokeS3DeleteBucketWithObjectsUpdateCallback(UpdateCallback,
+//              TS3DeleteBucketWithObjectsUpdate.Create(
+//                DeleteObjectsException.Response.DeletedObjects,
+//                DeleteObjectsException.Response.DeleteError);
+          end
+          else
+            // Re-throw the exception if an error was encountered.
+            raise;
+        end;
+      end;
+    finally
+      keyVersionList.Free;
+    end;
+
+    // Set the markers to get next set of objects from the bucket.
+    listVersionsRequest.KeyMarker := listVersionsResponse.NextKeyMarker;
+    listVersionsRequest.VersionIdMarker := listVersionsResponse.NextVersionIdMarker;
+  until listVersionsResponse.IsTruncated;
+
+  var maxRetries := 10;
+  for var retries := 1 to maxRetries do
+  begin
+    try
+      // Bucket is empty, delete the bucket.
+      S3Client.DeleteBucket(BucketName);
+      Break;
+    except
+      on E: EAmazonS3Exception do
+        if (E.StatusCode <> 409) or (retries = maxRetries) then
+          raise
+        else
+          TDefaultRetryPolicy.WaitBeforeRetry(retries, 5000);
+    end;
+  end;
 end;
 
 class function TS3TestUtils.DoesS3BucketExistV2(S3Client: IAmazonS3; const BucketName: string): Boolean;
@@ -131,6 +226,14 @@ end;
 class procedure TS3TestUtils.WaitForBucket(S3Client: IAmazonS3; const BucketName: string);
 begin
   WaitForBucket(S3Client, BucketName, 30);
+end;
+
+{ TS3DeleteBucketWithObjectsOptions }
+
+constructor TS3DeleteBucketWithObjectsOptions.Create(AContinueOnError, AQuietMode: Boolean);
+begin
+  FContinueOnError := AContinueOnError;
+  FQuietMode := AQuietMode;
 end;
 
 end.

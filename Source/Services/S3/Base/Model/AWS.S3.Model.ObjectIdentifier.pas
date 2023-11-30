@@ -37,6 +37,8 @@ type
     property VersionId: string read GetVersionId write SetVersionId;
   end;
   
+  TKeyVersion = TObjectIdentifier;
+  
 implementation
 
 { TObjectIdentifier }

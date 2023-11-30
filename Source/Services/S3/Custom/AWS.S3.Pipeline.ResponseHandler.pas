@@ -11,6 +11,7 @@ uses
   AWS.SDKUtils,
   AWS.S3.ClientExtensions,
   AWS.S3.Model.CopyPartResponse,
+  AWS.S3.Model.DeleteObjectsException,
   AWS.S3.Model.GetObjectResponse,
   AWS.S3.Model.GetObjectRequest,
   AWS.S3.Model.DeleteObjectsResponse,
@@ -72,7 +73,9 @@ begin
 
   if response is TDeleteObjectsResponse then
   begin
-    {$MESSAGE WARN 'Todo: fill the deleted errors'}
+    var deleteObjectsResponse := response as TDeleteObjectsResponse;
+    if (deleteObjectsResponse.DeleteErrors <> nil) and (deleteObjectsResponse.DeleteErrors.Count > 0) then
+      raise EDeleteObjectsException.Create(deleteObjectsResponse);
   end;
 
   if response is TPutObjectResponse then

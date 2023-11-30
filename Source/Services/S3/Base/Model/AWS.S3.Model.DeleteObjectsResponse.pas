@@ -33,6 +33,10 @@ type
     property Errors: TObjectList<TError> read GetErrors write SetErrors;
     property KeepErrors: Boolean read GetKeepErrors write SetKeepErrors;
     property RequestCharged: TRequestCharged read GetRequestCharged write SetRequestCharged;
+    property DeletedObjects: TObjectList<TDeletedObject> read GetDeleted write SetDeleted;
+    property KeepDeletedObjects: Boolean read GetKeepDeleted write SetKeepDeleted;
+    property DeleteErrors: TObjectList<TError> read GetErrors write SetErrors;
+    property KeepDeleteErrors: Boolean read GetKeepErrors write SetKeepErrors;
   end;
   
   TDeleteObjectsResponse = class(TAmazonWebServiceResponse, IDeleteObjectsResponse)
@@ -65,6 +69,10 @@ type
     property Errors: TObjectList<TError> read GetErrors write SetErrors;
     property KeepErrors: Boolean read GetKeepErrors write SetKeepErrors;
     property RequestCharged: TRequestCharged read GetRequestCharged write SetRequestCharged;
+    property DeletedObjects: TObjectList<TDeletedObject> read GetDeleted write SetDeleted;
+    property KeepDeletedObjects: Boolean read GetKeepDeleted write SetKeepDeleted;
+    property DeleteErrors: TObjectList<TError> read GetErrors write SetErrors;
+    property KeepDeleteErrors: Boolean read GetKeepErrors write SetKeepErrors;
   end;
   
 implementation

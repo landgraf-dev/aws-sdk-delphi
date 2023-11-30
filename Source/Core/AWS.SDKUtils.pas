@@ -55,6 +55,7 @@ type
     class procedure CopyStream(Source, Dest: TStream; const BufferSize: Integer); overload; static;
     class function StreamToString(Source: TStream; Encoding: TEncoding = nil): string; static;
     class function GetExtension(const Path: string): string;
+    class procedure Sleep(MS: Integer); static;
   public
     class function ResolveResourcePath(const AResourcePath: string;
       APathResources: TDictionary<string, string>): string;
@@ -652,6 +653,11 @@ begin
   else
     Result := JoinResourcePathSegments(
       SplitResourcePathIntoSegments(AResourcePath, APathResources), True);
+end;
+
+class procedure TAWSSDKUtils.Sleep(MS: Integer);
+begin
+  System.SysUtils.Sleep(MS);
 end;
 
 class function TAWSSDKUtils.SplitResourcePathIntoSegments(const AResourcePath: string;
