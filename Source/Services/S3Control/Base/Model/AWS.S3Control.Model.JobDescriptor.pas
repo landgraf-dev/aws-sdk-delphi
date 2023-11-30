@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.JobDescriptor;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.S3Control.Model.JobFailure, 
   AWS.S3Control.Model.JobManifest, 
   AWS.S3Control.Model.JobOperation, 

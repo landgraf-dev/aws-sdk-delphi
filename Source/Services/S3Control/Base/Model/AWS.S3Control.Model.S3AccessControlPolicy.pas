@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.S3AccessControlPolicy;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.S3Control.Model.S3AccessControlList, 
+  AWS.Nullable, 
   AWS.S3Control.Enums;
 
 type

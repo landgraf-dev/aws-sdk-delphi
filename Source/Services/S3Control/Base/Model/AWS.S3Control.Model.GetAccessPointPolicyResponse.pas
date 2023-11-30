@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.GetAccessPointPolicyResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TGetAccessPointPolicyResponse = class;

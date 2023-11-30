@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.SSEKMS;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TSSEKMS = class;

@@ -43,11 +43,11 @@ var
 begin
   Response := TCreateJobResponse.Create;
   try
-    UnmarshallResult(AContext, Response);
     Result := Response;
-    Response := nil;
-  finally
+    UnmarshallResult(AContext, Response);
+  except
     Response.Free;
+    raise;
   end;
 end;
 

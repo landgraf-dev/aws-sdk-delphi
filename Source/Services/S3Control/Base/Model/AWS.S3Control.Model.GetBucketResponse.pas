@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.GetBucketResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.Runtime.Model;
+  AWS.Runtime.Model, 
+  AWS.Nullable;
 
 type
   TGetBucketResponse = class;

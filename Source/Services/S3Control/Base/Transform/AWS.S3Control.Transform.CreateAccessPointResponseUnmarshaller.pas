@@ -39,13 +39,13 @@ var
 begin
   Response := TCreateAccessPointResponse.Create;
   try
+    Result := Response;
     if AContext.ResponseData.IsSuccessStatusCode and (AContext.ResponseData.ContentLength = 0) then
       Exit(Response);
     UnmarshallResult(AContext, Response);
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

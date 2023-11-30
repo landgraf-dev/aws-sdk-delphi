@@ -39,12 +39,12 @@ var
 begin
   Response := TGetStorageLensConfigurationResponse.Create;
   try
+    Result := Response;
     AContext.AllowEmptyElementLookup.Add('SSE-S3');
     UnmarshallResult(AContext, Response);
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

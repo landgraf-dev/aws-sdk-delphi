@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.S3Grant;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.S3Control.Model.S3Grantee, 
+  AWS.Nullable, 
   AWS.S3Control.Enums;
 
 type

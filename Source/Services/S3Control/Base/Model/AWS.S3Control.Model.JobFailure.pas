@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.JobFailure;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TJobFailure = class;

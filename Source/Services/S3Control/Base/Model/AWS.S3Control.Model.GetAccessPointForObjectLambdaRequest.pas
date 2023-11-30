@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.GetAccessPointForObjectLambdaRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.S3Control.Model.Request;
+  AWS.S3Control.Model.Request, 
+  AWS.Nullable;
 
 type
   TGetAccessPointForObjectLambdaRequest = class;

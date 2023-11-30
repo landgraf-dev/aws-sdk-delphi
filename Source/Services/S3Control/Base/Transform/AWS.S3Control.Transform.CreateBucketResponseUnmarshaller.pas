@@ -41,13 +41,13 @@ var
 begin
   Response := TCreateBucketResponse.Create;
   try
+    Result := Response;
     UnmarshallResult(AContext, Response);
     if AContext.ResponseData.IsHeaderPresent('Location') then
       Response.Location := AContext.ResponseData.GetHeaderValue('Location');
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

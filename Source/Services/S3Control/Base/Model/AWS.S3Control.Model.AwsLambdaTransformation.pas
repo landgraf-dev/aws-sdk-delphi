@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.AwsLambdaTransformation;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TAwsLambdaTransformation = class;

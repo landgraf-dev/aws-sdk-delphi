@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.PublicAccessBlockConfiguration;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TPublicAccessBlockConfiguration = class;

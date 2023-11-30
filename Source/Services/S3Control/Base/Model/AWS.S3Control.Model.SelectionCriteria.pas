@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.SelectionCriteria;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TSelectionCriteria = class;

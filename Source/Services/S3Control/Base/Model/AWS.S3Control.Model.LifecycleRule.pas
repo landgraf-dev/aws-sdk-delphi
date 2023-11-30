@@ -3,11 +3,11 @@ unit AWS.S3Control.Model.LifecycleRule;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.S3Control.Model.AbortIncompleteMultipartUpload, 
   AWS.S3Control.Model.LifecycleExpiration, 
   AWS.S3Control.Model.LifecycleRuleFilter, 
+  AWS.Nullable, 
   AWS.S3Control.Model.NoncurrentVersionExpiration, 
   AWS.S3Control.Model.NoncurrentVersionTransition, 
   AWS.S3Control.Enums, 

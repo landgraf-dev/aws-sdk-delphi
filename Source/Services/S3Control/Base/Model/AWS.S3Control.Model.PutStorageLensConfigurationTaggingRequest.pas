@@ -3,9 +3,9 @@ unit AWS.S3Control.Model.PutStorageLensConfigurationTaggingRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.S3Control.Model.Request, 
+  AWS.Nullable, 
   AWS.S3Control.Model.StorageLensTag;
 
 type

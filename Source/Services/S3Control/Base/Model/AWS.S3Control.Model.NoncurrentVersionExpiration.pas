@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.NoncurrentVersionExpiration;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TNoncurrentVersionExpiration = class;

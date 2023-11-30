@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.S3InitiateRestoreObjectOperation;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.S3Control.Enums;
 
 type

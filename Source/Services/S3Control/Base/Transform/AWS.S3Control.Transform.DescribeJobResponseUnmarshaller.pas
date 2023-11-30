@@ -43,12 +43,12 @@ var
 begin
   Response := TDescribeJobResponse.Create;
   try
+    Result := Response;
     AContext.AllowEmptyElementLookup.Add('S3DeleteObjectTagging');
     UnmarshallResult(AContext, Response);
-    Result := Response;
-    Response := nil;
-  finally
+  except
     Response.Free;
+    raise;
   end;
 end;
 

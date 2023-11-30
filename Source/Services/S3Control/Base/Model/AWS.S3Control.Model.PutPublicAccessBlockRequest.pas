@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.PutPublicAccessBlockRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.S3Control.Model.Request, 
+  AWS.Nullable, 
   AWS.S3Control.Model.PublicAccessBlockConfiguration;
 
 type

@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.S3SetObjectRetentionOperation;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.S3Control.Model.S3Retention;
 
 type

@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.AccessPoint;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.S3Control.Enums, 
   AWS.S3Control.Model.VpcConfiguration;
 

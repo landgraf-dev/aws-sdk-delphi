@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.DeleteStorageLensConfigurationRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
-  AWS.S3Control.Model.Request;
+  AWS.S3Control.Model.Request, 
+  AWS.Nullable;
 
 type
   TDeleteStorageLensConfigurationRequest = class;

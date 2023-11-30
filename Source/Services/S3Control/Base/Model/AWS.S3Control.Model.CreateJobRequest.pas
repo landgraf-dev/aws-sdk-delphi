@@ -3,9 +3,9 @@ unit AWS.S3Control.Model.CreateJobRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.S3Control.Model.Request, 
+  AWS.Nullable, 
   AWS.S3Control.Model.JobManifest, 
   AWS.S3Control.Model.JobOperation, 
   AWS.S3Control.Model.JobReport, 

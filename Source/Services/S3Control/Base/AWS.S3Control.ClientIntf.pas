@@ -105,6 +105,7 @@ uses
 
 type
   IAmazonS3Control = interface(IAmazonService)
+    ['{145C441B-69AC-4AC1-8F61-8808C5498645}']
     function CreateAccessPoint(Request: ICreateAccessPointRequest): ICreateAccessPointResponse; overload;
     function CreateAccessPointForObjectLambda(Request: ICreateAccessPointForObjectLambdaRequest): ICreateAccessPointForObjectLambdaResponse; overload;
     function CreateBucket(Request: ICreateBucketRequest): ICreateBucketResponse; overload;

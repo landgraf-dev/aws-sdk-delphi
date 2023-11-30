@@ -5,7 +5,7 @@ interface
 uses
   AWS.Runtime.ClientConfig, 
   AWS.Internal.SDKUtils, 
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TAmazonS3ControlConfig = class(TClientConfig)

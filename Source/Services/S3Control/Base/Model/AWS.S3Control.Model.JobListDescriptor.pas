@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.JobListDescriptor;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.S3Control.Enums, 
   AWS.S3Control.Model.JobProgressSummary;
 

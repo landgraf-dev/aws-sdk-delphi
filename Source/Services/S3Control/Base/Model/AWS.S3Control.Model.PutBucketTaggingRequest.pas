@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.PutBucketTaggingRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.S3Control.Model.Request, 
+  AWS.Nullable, 
   AWS.S3Control.Model.Tagging;
 
 type

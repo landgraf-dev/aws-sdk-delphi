@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.RegionalBucket;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TRegionalBucket = class;

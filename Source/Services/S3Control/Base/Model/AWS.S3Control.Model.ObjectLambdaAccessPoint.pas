@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.ObjectLambdaAccessPoint;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TObjectLambdaAccessPoint = class;

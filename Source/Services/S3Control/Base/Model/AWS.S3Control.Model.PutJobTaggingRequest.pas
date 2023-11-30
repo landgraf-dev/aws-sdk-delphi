@@ -3,9 +3,9 @@ unit AWS.S3Control.Model.PutJobTaggingRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
   AWS.S3Control.Model.Request, 
+  AWS.Nullable, 
   AWS.S3Control.Model.S3Tag;
 
 type

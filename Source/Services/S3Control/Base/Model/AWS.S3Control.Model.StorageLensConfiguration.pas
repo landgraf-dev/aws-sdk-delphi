@@ -3,11 +3,11 @@ unit AWS.S3Control.Model.StorageLensConfiguration;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.S3Control.Model.AccountLevel, 
   AWS.S3Control.Model.StorageLensAwsOrg, 
   AWS.S3Control.Model.StorageLensDataExport, 
   AWS.S3Control.Model.Exclude, 
+  AWS.Nullable, 
   AWS.S3Control.Model.Include;
 
 type

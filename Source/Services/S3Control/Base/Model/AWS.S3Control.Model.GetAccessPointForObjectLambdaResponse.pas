@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.GetAccessPointForObjectLambdaResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.S3Control.Model.PublicAccessBlockConfiguration;
 
 type

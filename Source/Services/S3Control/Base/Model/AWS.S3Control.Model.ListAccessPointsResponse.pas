@@ -4,9 +4,9 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
-  AWS.S3Control.Model.AccessPoint;
+  AWS.S3Control.Model.AccessPoint, 
+  AWS.Nullable;
 
 type
   TListAccessPointsResponse = class;

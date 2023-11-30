@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.S3ObjectMetadata;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
+  AWS.Nullable, 
   AWS.S3Control.Enums;
 
 type

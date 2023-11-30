@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.LifecycleRuleFilter;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.S3Control.Model.LifecycleRuleAndOperator, 
+  AWS.Nullable, 
   AWS.S3Control.Model.S3Tag;
 
 type

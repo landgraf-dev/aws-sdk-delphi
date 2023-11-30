@@ -4,8 +4,8 @@ interface
 
 uses
   System.Generics.Collections, 
-  Bcl.Types.Nullable, 
   AWS.S3Control.Model.S3Grant, 
+  AWS.Nullable, 
   AWS.S3Control.Enums, 
   AWS.S3Control.Model.S3ObjectMetadata, 
   AWS.S3Control.Model.S3Tag;

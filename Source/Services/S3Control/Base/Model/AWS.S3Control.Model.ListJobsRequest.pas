@@ -3,9 +3,9 @@ unit AWS.S3Control.Model.ListJobsRequest;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   System.Generics.Collections, 
-  AWS.S3Control.Model.Request;
+  AWS.S3Control.Model.Request, 
+  AWS.Nullable;
 
 type
   TListJobsRequest = class;

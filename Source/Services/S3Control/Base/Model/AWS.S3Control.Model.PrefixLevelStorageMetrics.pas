@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.PrefixLevelStorageMetrics;
 interface
 
 uses
-  Bcl.Types.Nullable, 
+  AWS.Nullable, 
   AWS.S3Control.Model.SelectionCriteria;
 
 type

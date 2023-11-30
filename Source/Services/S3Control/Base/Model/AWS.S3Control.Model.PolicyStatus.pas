@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.PolicyStatus;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TPolicyStatus = class;

@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.StorageLensTag;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TStorageLensTag = class;

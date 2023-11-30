@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.ListStorageLensConfigurationEntry;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TListStorageLensConfigurationEntry = class;

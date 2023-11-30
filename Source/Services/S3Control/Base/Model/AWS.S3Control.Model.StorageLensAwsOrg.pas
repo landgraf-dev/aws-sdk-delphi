@@ -3,7 +3,7 @@ unit AWS.S3Control.Model.StorageLensAwsOrg;
 interface
 
 uses
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   TStorageLensAwsOrg = class;

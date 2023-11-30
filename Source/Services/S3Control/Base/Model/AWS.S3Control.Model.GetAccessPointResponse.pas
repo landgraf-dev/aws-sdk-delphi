@@ -3,8 +3,8 @@ unit AWS.S3Control.Model.GetAccessPointResponse;
 interface
 
 uses
-  Bcl.Types.Nullable, 
   AWS.Runtime.Model, 
+  AWS.Nullable, 
   AWS.S3Control.Enums, 
   AWS.S3Control.Model.PublicAccessBlockConfiguration, 
   AWS.S3Control.Model.VpcConfiguration;
