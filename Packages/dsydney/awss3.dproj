@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<ProjectGuid>{48EA5A2D-30A6-4CC9-BD0A-038AB9817B37}</ProjectGuid>
+		<ProjectGuid>{ADD42679-6FA7-44F3-B852-60D3C236B9E3}</ProjectGuid>
 		<MainSource>awss3.dpk</MainSource>
 		<ProjectVersion>19.2</ProjectVersion>
 		<FrameworkType/>
@@ -727,13 +727,23 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.WriteGetObjectResponseRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.WriteGetObjectResponseResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.pas"/>
-		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.InternalS3Signer.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ArnExtensions.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ClientExtensions.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ConfigExtension.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.AWSConfigsS3.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Signer.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Transforms.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.ByteRange.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ExceptionHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.KmsHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PostMarshallHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PreMarshallHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.RedirectHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ResponseHandler.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.S3OutpostResource.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Uri.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Util.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.S3Constants.pas"/>
 		<BuildConfiguration Include="Release">
 			<Key>Cfg_2</Key>
 			<CfgParent>Base</CfgParent>

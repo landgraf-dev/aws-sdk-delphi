@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<ProjectGuid>{D4C2E177-A38E-4882-8529-6740D6B92CD4}</ProjectGuid>
+		<ProjectGuid>{ECD13FC5-53D2-4D2A-BC8C-DA9A81CDB0C8}</ProjectGuid>
 		<MainSource>awsses.dpk</MainSource>
 		<ProjectVersion>18.2</ProjectVersion>
 		<FrameworkType>None</FrameworkType>
@@ -74,7 +74,7 @@
 		<DCC_K>false</DCC_K>
 		<GenDll>true</GenDll>
 		<GenPackage>true</GenPackage>
-		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+		<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
 		<SanitizedProjectName>awsses</SanitizedProjectName>
 		<DCC_Description>Amazon Simple Email Service</DCC_Description>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
@@ -116,12 +116,14 @@
 		<BT_BuildType>Debug</BT_BuildType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Win32)'!=''">
+		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
 		<VerInfo_Locale>1033</VerInfo_Locale>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Win64)'!=''">
+		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>

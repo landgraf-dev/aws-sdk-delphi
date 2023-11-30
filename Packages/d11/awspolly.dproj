@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<ProjectGuid>{37DEF67C-2DE2-439B-B5B3-C0370B4C2942}</ProjectGuid>
+		<ProjectGuid>{B9067990-617B-4CBF-A32E-FBC714698B93}</ProjectGuid>
 		<MainSource>awspolly.dpk</MainSource>
 		<ProjectVersion>19.5</ProjectVersion>
 		<FrameworkType>None</FrameworkType>
@@ -79,7 +79,7 @@
 		<DCC_K>false</DCC_K>
 		<GenDll>true</GenDll>
 		<GenPackage>true</GenPackage>
-		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+		<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
 		<SanitizedProjectName>awspolly</SanitizedProjectName>
 		<DCC_Description>Amazon Polly</DCC_Description>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
@@ -143,12 +143,14 @@
 		<BT_BuildType>Debug</BT_BuildType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Win32)'!=''">
+		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
 		<VerInfo_Locale>1033</VerInfo_Locale>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Win64)'!=''">
+		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>

@@ -612,12 +612,22 @@ contains
   AWS.S3.Transform.WriteGetObjectResponseRequestMarshaller in '..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.WriteGetObjectResponseRequestMarshaller.pas',
   AWS.S3.Transform.WriteGetObjectResponseResponseUnmarshaller in '..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.WriteGetObjectResponseResponseUnmarshaller.pas',
   AWS.S3 in '..\..\Source\Services\S3\Base\AWS.S3.pas',
-  AWS.S3.InternalS3Signer in '..\..\Source\Services\S3\Custom\AWS.S3.InternalS3Signer.pas',
+  AWS.S3.ArnExtensions in '..\..\Source\Services\S3\Custom\AWS.S3.ArnExtensions.pas',
+  AWS.S3.ClientExtensions in '..\..\Source\Services\S3\Custom\AWS.S3.ClientExtensions.pas',
+  AWS.S3.ConfigExtension in '..\..\Source\Services\S3\Custom\AWS.S3.ConfigExtension.pas',
+  AWS.S3.Internal.AWSConfigsS3 in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.AWSConfigsS3.pas',
+  AWS.S3.Internal.S3Signer in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Signer.pas',
+  AWS.S3.Internal.S3Transforms in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Transforms.pas',
+  AWS.S3.Model.ByteRange in '..\..\Source\Services\S3\Custom\AWS.S3.Model.ByteRange.pas',
   AWS.S3.Pipeline.ExceptionHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ExceptionHandler.pas',
   AWS.S3.Pipeline.KmsHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.KmsHandler.pas',
   AWS.S3.Pipeline.PostMarshallHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PostMarshallHandler.pas',
   AWS.S3.Pipeline.PreMarshallHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PreMarshallHandler.pas',
   AWS.S3.Pipeline.RedirectHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.RedirectHandler.pas',
-  AWS.S3.Pipeline.ResponseHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ResponseHandler.pas';
+  AWS.S3.Pipeline.ResponseHandler in '..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ResponseHandler.pas',
+  AWS.S3.S3OutpostResource in '..\..\Source\Services\S3\Custom\AWS.S3.S3OutpostResource.pas',
+  AWS.S3.Util.AmazonS3Uri in '..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Uri.pas',
+  AWS.S3.Util.AmazonS3Util in '..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Util.pas',
+  AWS.S3.Util.S3Constants in '..\..\Source\Services\S3\Custom\AWS.S3.Util.S3Constants.pas';
 
 end.
