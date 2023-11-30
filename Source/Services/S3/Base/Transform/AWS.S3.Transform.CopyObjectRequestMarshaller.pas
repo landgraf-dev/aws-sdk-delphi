@@ -125,9 +125,9 @@ begin
       XmlWriter.Free;
     end;
     Request.Content := Copy(XmlStream.Bytes, 0, XmlStream.Size);
-    Request.Headers['Content-Type'] := 'application/xml';
+    Request.Headers.AddOrSetValue('Content-Type', 'application/xml');
     var content := TEncoding.UTF8.GetString(Request.Content);
-    Request.Headers[THeaderKeys.XAmzApiVersion] := '2006-03-01';
+    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
   finally
     XmlStream.Free;
   end;

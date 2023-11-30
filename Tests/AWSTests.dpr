@@ -27,7 +27,8 @@ uses
   AWSTests.Polly in 'Source\AWSTests.Polly.pas',
   AWSTests.S3Control.PublicAccessBlockTests in 'Source\AWSTests.S3Control.PublicAccessBlockTests.pas',
   AWSTests.S3.GetObjectTests in 'Source\AWSTests.S3.GetObjectTests.pas',
-  AWSTests.S3.TestUtils in 'Source\AWSTests.S3.TestUtils.pas';
+  AWSTests.S3.TestUtils in 'Source\AWSTests.S3.TestUtils.pas',
+  AWSTests.UtilityMethods in 'Source\AWSTests.UtilityMethods.pas';
 
 {$R *.RES}
 
