@@ -10,7 +10,7 @@ interface
 
 uses
   System.SyncObjs, System.SysUtils, System.TimeSpan,
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   /// <summary>

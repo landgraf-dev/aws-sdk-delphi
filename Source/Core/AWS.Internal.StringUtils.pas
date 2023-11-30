@@ -3,8 +3,8 @@ unit AWS.Internal.StringUtils;
 interface
 
 uses
-  Bcl.Types.Nullable, System.SysUtils, System.DateUtils,
-  System.Classes;
+  System.SysUtils, System.DateUtils, System.Classes,
+  AWS.Nullable;
 
 type
   TStringUtils = class

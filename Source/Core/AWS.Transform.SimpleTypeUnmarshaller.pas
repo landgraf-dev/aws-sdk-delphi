@@ -7,7 +7,7 @@ uses
   AWS.Transform.ResponseUnmarshaller,
   AWS.Transform.UnmarshallerContext,
   AWS.Runtime.Model,
-  Bcl.Types.Nullable,
+  AWS.Nullable,
   AWS.Transform.JsonUnmarshallerContext;
 
 type

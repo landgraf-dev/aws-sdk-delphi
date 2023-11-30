@@ -8,7 +8,7 @@ uses
   AWS.RegionEndpoint,
   AWS.Enums,
   AWS.SDKUtils,
-  Bcl.Types.Nullable;
+  AWS.Nullable;
 
 type
   /// <summary>

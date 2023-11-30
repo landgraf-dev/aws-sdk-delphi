@@ -7,7 +7,7 @@ interface
 uses
   System.Classes, System.SysUtils, System.Generics.Collections, System.TypInfo,
   Bcl.Json.Reader,
-  Bcl.Types.Nullable,
+  AWS.Nullable,
   AWS.Transform.UnmarshallerContext,
   AWS.Internal.WebResponseData;
 

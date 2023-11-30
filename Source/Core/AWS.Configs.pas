@@ -5,7 +5,8 @@ unit AWS.Configs;
 interface
 
 uses
-  System.SysUtils, System.DateUtils, System.TimeSpan, Bcl.Types.Nullable,
+  System.SysUtils, System.DateUtils, System.TimeSpan,
+  AWS.Nullable,
   AWS.Runtime.CorrectClockSkew;
 
 type

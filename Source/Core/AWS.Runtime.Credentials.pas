@@ -7,7 +7,7 @@ interface
 uses
   System.Generics.Collections, System.SysUtils, System.Classes,
   Bcl.Logging,
-  Bcl.Types.Nullable,
+  AWS.Nullable,
   AWS.SDKUtils,
   AWS.RegionEndpoint,
   Sparkle.Sys.Timer;
