@@ -46,6 +46,7 @@ type
     const RFC822DateFormat = 'ddd, dd MMM yyyy HH:mm:ss "GMT"';
   strict private
     class var FUserAgent: string;
+    class var FRFC822FormatSettings: TFormatSettings;
   public
     // Functions for internal use
     class constructor Create;
@@ -56,6 +57,8 @@ type
     class function StreamToString(Source: TStream; Encoding: TEncoding = nil): string; static;
     class function GetExtension(const Path: string): string;
     class procedure Sleep(MS: Integer); static;
+    class function TryRfc822ToDateTime(const S: string; var D: TDateTime): Boolean; static;
+    class function Rfc822ToDateTime(const S: string): TDateTime; static;
   public
     class function ResolveResourcePath(const AResourcePath: string;
       APathResources: TDictionary<string, string>): string;
@@ -481,6 +484,8 @@ end;
 class constructor TAWSSDKUtils.Create;
 begin
   FUserAgent := TInternalSDKUtils.BuildUserAgentString('');
+  FRFC822FormatSettings := TFormatSettings.Create;
+  FRFC822FormatSettings.ShortDateFormat := 'dd mmm yyyy';
 end;
 
 class function TAWSSDKUtils.DetermineRegion(AUrl: string): string;
@@ -655,6 +660,12 @@ begin
       SplitResourcePathIntoSegments(AResourcePath, APathResources), True);
 end;
 
+class function TAWSSDKUtils.Rfc822ToDateTime(const S: string): TDateTime;
+begin
+  if not TryRfc822ToDateTime(S, Result) then
+    raise EConvertError.CreateFmt('Invalid RFC822 date format: "%s"', [S]);
+end;
+
 class procedure TAWSSDKUtils.Sleep(MS: Integer);
 begin
   System.SysUtils.Sleep(MS);
@@ -729,6 +740,17 @@ begin
     Result[I * 2 + 1] := Chr(B2H[AData[I] shr 4]);
     Result[I * 2 + 2] := Chr(B2H[AData[I] and $0F]);
   end;
+end;
+
+class function TAWSSDKUtils.TryRfc822ToDateTime(const S: string; var D: TDateTime): Boolean;
+begin
+  var Len := Length(S);
+  if Len <> 29 then Exit(False);
+  if S[4] <> ',' then Exit(False);
+  if not S.EndsWith(' GMT') then Exit(False);
+  Result := TryStrToDateTime(Copy(S, 5, 20), D, FRFC822FormatSettings);
+  if Result then
+    D := TTimeZone.Local.ToLocalTime(D);
 end;
 
 class function TAWSSDKUtils.UrlEncode(const AData: string; APath: Boolean): string;
