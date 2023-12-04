@@ -5,7 +5,6 @@ interface
 uses
   System.Classes, 
   System.SysUtils, 
-  Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
@@ -14,6 +13,7 @@ uses
   AWS.SDKUtils, 
   AWS.SESv2.Exception, 
   AWS.Internal.StringUtils, 
+  AWS.Json.Writer, 
   AWS.SESv2.Transform.EmailTemplateContentMarshaller;
 
 type

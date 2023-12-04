@@ -5,13 +5,13 @@ interface
 uses
   System.Classes, 
   System.SysUtils, 
-  Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.SESv2.Model.PutAccountSuppressionAttributesRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Json.Writer;
 
 type
   IPutAccountSuppressionAttributesRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;

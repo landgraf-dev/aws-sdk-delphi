@@ -23,8 +23,12 @@
   {$DEFINE DELPHIXE3_LVL}
 {$IFEND}
 
-{$IF CompilerVersion >= 25}
+{$IF CompilerVersion >= 23}
   {$DEFINE DELPHIXE4_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 25}
+  {$DEFINE DELPHIXE2_LVL}
 {$IFEND}
 
 {$IF CompilerVersion >= 26}

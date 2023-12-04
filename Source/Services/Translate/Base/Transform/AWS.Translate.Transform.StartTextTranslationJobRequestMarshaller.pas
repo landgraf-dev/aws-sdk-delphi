@@ -5,13 +5,13 @@ interface
 uses
   System.Classes, 
   System.SysUtils, 
-  Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.Translate.Model.StartTextTranslationJobRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
+  AWS.Json.Writer, 
   AWS.Translate.Transform.InputDataConfigMarshaller, 
   AWS.Translate.Transform.OutputDataConfigMarshaller, 
   AWS.Translate.Transform.TranslationSettingsMarshaller;

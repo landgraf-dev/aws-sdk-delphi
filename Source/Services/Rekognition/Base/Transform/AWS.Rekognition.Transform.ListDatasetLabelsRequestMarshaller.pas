@@ -5,13 +5,13 @@ interface
 uses
   System.Classes, 
   System.SysUtils, 
-  Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.Rekognition.Model.ListDatasetLabelsRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.SDKUtils;
+  AWS.SDKUtils, 
+  AWS.Json.Writer;
 
 type
   IListDatasetLabelsRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;

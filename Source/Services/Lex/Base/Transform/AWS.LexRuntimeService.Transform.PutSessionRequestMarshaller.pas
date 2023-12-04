@@ -5,7 +5,6 @@ interface
 uses
   System.Classes, 
   System.SysUtils, 
-  Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
@@ -14,6 +13,7 @@ uses
   AWS.SDKUtils, 
   AWS.LexRuntimeService.Exception, 
   AWS.Internal.StringUtils, 
+  AWS.Json.Writer, 
   AWS.LexRuntimeService.Transform.ActiveContextMarshaller, 
   AWS.LexRuntimeService.Transform.DialogActionMarshaller, 
   AWS.LexRuntimeService.Transform.IntentSummaryMarshaller;

@@ -3,7 +3,7 @@ unit AWS.Transform.RequestMarshaller;
 interface
 
 uses
-  Bcl.Json.Writer,
+  AWS.Json.Writer,
   AWS.Internal.Request;
 
 type

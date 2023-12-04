@@ -46,7 +46,7 @@ implementation
 uses
   Bcl.Json.Classes,
   Bcl.Json,
-  Bcl.Json.Writer;
+  AWS.Json.Writer;
 
 type
   TJsonDocumentFields = class

@@ -5,13 +5,13 @@ interface
 uses
   System.Classes, 
   System.SysUtils, 
-  Bcl.Json.Writer, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.Textract.Model.AnalyzeDocumentRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.SDKUtils, 
+  AWS.Json.Writer, 
   AWS.Textract.Transform.DocumentMarshaller, 
   AWS.Textract.Transform.HumanLoopConfigMarshaller, 
   AWS.Textract.Transform.QueriesConfigMarshaller;
