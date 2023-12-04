@@ -6,7 +6,6 @@ uses
   System.Classes, 
   System.SysUtils, 
   AWS.Util.Streams, 
-  Bcl.Utils, 
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
@@ -74,13 +73,13 @@ begin
   if PublicRequest.IsSetAccept then
     Request.Headers.Add('Accept', PublicRequest.Accept);
   if PublicRequest.IsSetActiveContexts then
-    Request.Headers.Add('x-amz-lex-active-contexts', TBclUtils.EncodeBase64(TEncoding.UTF8.GetBytes(PublicRequest.ActiveContexts)));
+    Request.Headers.Add('x-amz-lex-active-contexts', TAWSSDKUtils.EncodeBase64(TEncoding.UTF8.GetBytes(PublicRequest.ActiveContexts)));
   if PublicRequest.IsSetContentType then
     Request.Headers.Add('Content-Type', PublicRequest.ContentType);
   if PublicRequest.IsSetRequestAttributes then
-    Request.Headers.Add('x-amz-lex-request-attributes', TBclUtils.EncodeBase64(TEncoding.UTF8.GetBytes(PublicRequest.RequestAttributes)));
+    Request.Headers.Add('x-amz-lex-request-attributes', TAWSSDKUtils.EncodeBase64(TEncoding.UTF8.GetBytes(PublicRequest.RequestAttributes)));
   if PublicRequest.IsSetSessionAttributes then
-    Request.Headers.Add('x-amz-lex-session-attributes', TBclUtils.EncodeBase64(TEncoding.UTF8.GetBytes(PublicRequest.SessionAttributes)));
+    Request.Headers.Add('x-amz-lex-session-attributes', TAWSSDKUtils.EncodeBase64(TEncoding.UTF8.GetBytes(PublicRequest.SessionAttributes)));
   Result := Request;
 end;
 

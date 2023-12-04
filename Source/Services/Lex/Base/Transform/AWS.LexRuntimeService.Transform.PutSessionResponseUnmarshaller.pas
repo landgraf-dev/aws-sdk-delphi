@@ -3,12 +3,12 @@ unit AWS.LexRuntimeService.Transform.PutSessionResponseUnmarshaller;
 interface
 
 uses
-  Bcl.Utils, 
   System.SysUtils, 
   AWS.LexRuntimeService.Model.PutSessionResponse, 
   AWS.Transform.ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.JsonUnmarshallerContext, 
+  AWS.SDKUtils, 
   AWS.Runtime.Exceptions, 
   AWS.Internal.ErrorResponse, 
   AWS.Transform.JsonErrorResponseUnmarshaller, 
@@ -50,7 +50,7 @@ begin
     Response.KeepAudioStream := True;
     if AContext.ResponseData.IsHeaderPresent('x-amz-lex-active-contexts') then
     begin
-      var HeaderBytes := TBclUtils.DecodeBase64(AContext.ResponseData.GetHeaderValue('x-amz-lex-active-contexts'));
+      var HeaderBytes := TAWSSDKUtils.DecodeBase64(AContext.ResponseData.GetHeaderValue('x-amz-lex-active-contexts'));
       Response.ActiveContexts := TEncoding.UTF8.GetString(HeaderBytes);
     end;
     if AContext.ResponseData.IsHeaderPresent('Content-Type') then
@@ -67,7 +67,7 @@ begin
       Response.MessageFormat := AContext.ResponseData.GetHeaderValue('x-amz-lex-message-format');
     if AContext.ResponseData.IsHeaderPresent('x-amz-lex-session-attributes') then
     begin
-      var HeaderBytes := TBclUtils.DecodeBase64(AContext.ResponseData.GetHeaderValue('x-amz-lex-session-attributes'));
+      var HeaderBytes := TAWSSDKUtils.DecodeBase64(AContext.ResponseData.GetHeaderValue('x-amz-lex-session-attributes'));
       Response.SessionAttributes := TEncoding.UTF8.GetString(HeaderBytes);
     end;
     if AContext.ResponseData.IsHeaderPresent('x-amz-lex-session-id') then
@@ -76,7 +76,7 @@ begin
       Response.SlotToElicit := AContext.ResponseData.GetHeaderValue('x-amz-lex-slot-to-elicit');
     if AContext.ResponseData.IsHeaderPresent('x-amz-lex-slots') then
     begin
-      var HeaderBytes := TBclUtils.DecodeBase64(AContext.ResponseData.GetHeaderValue('x-amz-lex-slots'));
+      var HeaderBytes := TAWSSDKUtils.DecodeBase64(AContext.ResponseData.GetHeaderValue('x-amz-lex-slots'));
       Response.Slots := TEncoding.UTF8.GetString(HeaderBytes);
     end;
     Result := Response;
