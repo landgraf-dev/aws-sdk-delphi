@@ -9,11 +9,87 @@ uses
   AWS.S3.Enums, 
   AWS.S3.Exception, 
   AWS.S3.Metadata, 
-  AWS.S3.Model.Request;
+  AWS.S3.Model.BucketAlreadyExistsException, 
+  AWS.S3.Model.BucketAlreadyOwnedByYouException, 
+  AWS.S3.Model.CommonPrefix, 
+  AWS.S3.Model.CreateBucketConfiguration, 
+  AWS.S3.Model.DeleteBucketRequest, 
+  AWS.S3.Model.DeleteBucketResponse, 
+  AWS.S3.Model.DeletedObject, 
+  AWS.S3.Model.DeleteMarkerEntry, 
+  AWS.S3.Model.DeleteObjectRequest, 
+  AWS.S3.Model.DeleteObjectResponse, 
+  AWS.S3.Model.DeleteObjectsRequest, 
+  AWS.S3.Model.DeleteObjectsResponse, 
+  AWS.S3.Model.Error, 
+  AWS.S3.Model.GetACLRequest, 
+  AWS.S3.Model.GetACLResponse, 
+  AWS.S3.Model.GetObjectRequest, 
+  AWS.S3.Model.GetObjectResponse, 
+  AWS.S3.Model.Grant, 
+  AWS.S3.Model.Grantee, 
+  AWS.S3.Model.InitiateMultipartUploadRequest, 
+  AWS.S3.Model.InitiateMultipartUploadResponse, 
+  AWS.S3.Model.InvalidObjectStateException, 
+  AWS.S3.Model.ListObjectsRequest, 
+  AWS.S3.Model.ListObjectsResponse, 
+  AWS.S3.Model.ListVersionsRequest, 
+  AWS.S3.Model.ListVersionsResponse, 
+  AWS.S3.Model.NoSuchBucketException, 
+  AWS.S3.Model.NoSuchKeyException, 
+  AWS.S3.Model.ObjectIdentifier, 
+  AWS.S3.Model.ObjectTypes, 
+  AWS.S3.Model.ObjectVersion, 
+  AWS.S3.Model.Owner, 
+  AWS.S3.Model.PutBucketRequest, 
+  AWS.S3.Model.PutBucketResponse, 
+  AWS.S3.Model.PutObjectRequest, 
+  AWS.S3.Model.PutObjectResponse, 
+  AWS.S3.Model.Request, 
+  AWS.S3.Model.UploadPartRequest, 
+  AWS.S3.Model.UploadPartResponse;
 
 type
   EAmazonS3Exception = AWS.S3.Exception.EAmazonS3Exception;
+  EBucketAlreadyExistsException = AWS.S3.Model.BucketAlreadyExistsException.EBucketAlreadyExistsException;
+  EBucketAlreadyOwnedByYouException = AWS.S3.Model.BucketAlreadyOwnedByYouException.EBucketAlreadyOwnedByYouException;
+  EInvalidObjectStateException = AWS.S3.Model.InvalidObjectStateException.EInvalidObjectStateException;
+  ENoSuchBucketException = AWS.S3.Model.NoSuchBucketException.ENoSuchBucketException;
+  ENoSuchKeyException = AWS.S3.Model.NoSuchKeyException.ENoSuchKeyException;
   IAmazonS3 = AWS.S3.ClientIntf.IAmazonS3;
+  ICommonPrefix = AWS.S3.Model.CommonPrefix.ICommonPrefix;
+  ICreateBucketConfiguration = AWS.S3.Model.CreateBucketConfiguration.ICreateBucketConfiguration;
+  IDeleteBucketRequest = AWS.S3.Model.DeleteBucketRequest.IDeleteBucketRequest;
+  IDeleteBucketResponse = AWS.S3.Model.DeleteBucketResponse.IDeleteBucketResponse;
+  IDeletedObject = AWS.S3.Model.DeletedObject.IDeletedObject;
+  IDeleteMarkerEntry = AWS.S3.Model.DeleteMarkerEntry.IDeleteMarkerEntry;
+  IDeleteObjectRequest = AWS.S3.Model.DeleteObjectRequest.IDeleteObjectRequest;
+  IDeleteObjectResponse = AWS.S3.Model.DeleteObjectResponse.IDeleteObjectResponse;
+  IDeleteObjectsRequest = AWS.S3.Model.DeleteObjectsRequest.IDeleteObjectsRequest;
+  IDeleteObjectsResponse = AWS.S3.Model.DeleteObjectsResponse.IDeleteObjectsResponse;
+  IError = AWS.S3.Model.Error.IError;
+  IGetACLRequest = AWS.S3.Model.GetACLRequest.IGetACLRequest;
+  IGetACLResponse = AWS.S3.Model.GetACLResponse.IGetACLResponse;
+  IGetObjectRequest = AWS.S3.Model.GetObjectRequest.IGetObjectRequest;
+  IGetObjectResponse = AWS.S3.Model.GetObjectResponse.IGetObjectResponse;
+  IGrant = AWS.S3.Model.Grant.IGrant;
+  IGrantee = AWS.S3.Model.Grantee.IGrantee;
+  IInitiateMultipartUploadRequest = AWS.S3.Model.InitiateMultipartUploadRequest.IInitiateMultipartUploadRequest;
+  IInitiateMultipartUploadResponse = AWS.S3.Model.InitiateMultipartUploadResponse.IInitiateMultipartUploadResponse;
+  IListObjectsRequest = AWS.S3.Model.ListObjectsRequest.IListObjectsRequest;
+  IListObjectsResponse = AWS.S3.Model.ListObjectsResponse.IListObjectsResponse;
+  IListVersionsRequest = AWS.S3.Model.ListVersionsRequest.IListVersionsRequest;
+  IListVersionsResponse = AWS.S3.Model.ListVersionsResponse.IListVersionsResponse;
+  IObject = AWS.S3.Model.ObjectTypes.IObject;
+  IObjectIdentifier = AWS.S3.Model.ObjectIdentifier.IObjectIdentifier;
+  IObjectVersion = AWS.S3.Model.ObjectVersion.IObjectVersion;
+  IOwner = AWS.S3.Model.Owner.IOwner;
+  IPutBucketRequest = AWS.S3.Model.PutBucketRequest.IPutBucketRequest;
+  IPutBucketResponse = AWS.S3.Model.PutBucketResponse.IPutBucketResponse;
+  IPutObjectRequest = AWS.S3.Model.PutObjectRequest.IPutObjectRequest;
+  IPutObjectResponse = AWS.S3.Model.PutObjectResponse.IPutObjectResponse;
+  IUploadPartRequest = AWS.S3.Model.UploadPartRequest.IUploadPartRequest;
+  IUploadPartResponse = AWS.S3.Model.UploadPartResponse.IUploadPartResponse;
   TAmazonS3Client = AWS.S3.Client.TAmazonS3Client;
   TAmazonS3Config = AWS.S3.Config.TAmazonS3Config;
   TAmazonS3Metadata = AWS.S3.Metadata.TAmazonS3Metadata;
@@ -25,15 +101,34 @@ type
   TBucketLocationConstraint = AWS.S3.Enums.TBucketLocationConstraint;
   TBucketLogsPermission = AWS.S3.Enums.TBucketLogsPermission;
   TBucketVersioningStatus = AWS.S3.Enums.TBucketVersioningStatus;
+  TCommonPrefix = AWS.S3.Model.CommonPrefix.TCommonPrefix;
   TCompressionType = AWS.S3.Enums.TCompressionType;
+  TCreateBucketConfiguration = AWS.S3.Model.CreateBucketConfiguration.TCreateBucketConfiguration;
+  TDeleteBucketRequest = AWS.S3.Model.DeleteBucketRequest.TDeleteBucketRequest;
+  TDeleteBucketResponse = AWS.S3.Model.DeleteBucketResponse.TDeleteBucketResponse;
+  TDeletedObject = AWS.S3.Model.DeletedObject.TDeletedObject;
+  TDeleteMarkerEntry = AWS.S3.Model.DeleteMarkerEntry.TDeleteMarkerEntry;
   TDeleteMarkerReplicationStatus = AWS.S3.Enums.TDeleteMarkerReplicationStatus;
+  TDeleteObjectRequest = AWS.S3.Model.DeleteObjectRequest.TDeleteObjectRequest;
+  TDeleteObjectResponse = AWS.S3.Model.DeleteObjectResponse.TDeleteObjectResponse;
+  TDeleteObjectsRequest = AWS.S3.Model.DeleteObjectsRequest.TDeleteObjectsRequest;
+  TDeleteObjectsResponse = AWS.S3.Model.DeleteObjectsResponse.TDeleteObjectsResponse;
   TEncodingType = AWS.S3.Enums.TEncodingType;
+  TError = AWS.S3.Model.Error.TError;
   TEvent = AWS.S3.Enums.TEvent;
   TExistingObjectReplicationStatus = AWS.S3.Enums.TExistingObjectReplicationStatus;
   TExpirationStatus = AWS.S3.Enums.TExpirationStatus;
   TExpressionType = AWS.S3.Enums.TExpressionType;
   TFileHeaderInfo = AWS.S3.Enums.TFileHeaderInfo;
   TFilterRuleName = AWS.S3.Enums.TFilterRuleName;
+  TGetACLRequest = AWS.S3.Model.GetACLRequest.TGetACLRequest;
+  TGetACLResponse = AWS.S3.Model.GetACLResponse.TGetACLResponse;
+  TGetObjectRequest = AWS.S3.Model.GetObjectRequest.TGetObjectRequest;
+  TGetObjectResponse = AWS.S3.Model.GetObjectResponse.TGetObjectResponse;
+  TGrant = AWS.S3.Model.Grant.TGrant;
+  TGrantee = AWS.S3.Model.Grantee.TGrantee;
+  TInitiateMultipartUploadRequest = AWS.S3.Model.InitiateMultipartUploadRequest.TInitiateMultipartUploadRequest;
+  TInitiateMultipartUploadResponse = AWS.S3.Model.InitiateMultipartUploadResponse.TInitiateMultipartUploadResponse;
   TIntelligentTieringAccessTier = AWS.S3.Enums.TIntelligentTieringAccessTier;
   TIntelligentTieringStatus = AWS.S3.Enums.TIntelligentTieringStatus;
   TInventoryFormat = AWS.S3.Enums.TInventoryFormat;
@@ -41,22 +136,35 @@ type
   TInventoryIncludedObjectVersions = AWS.S3.Enums.TInventoryIncludedObjectVersions;
   TInventoryOptionalField = AWS.S3.Enums.TInventoryOptionalField;
   TJSONType = AWS.S3.Enums.TJSONType;
+  TKeyVersion = AWS.S3.Model.ObjectIdentifier.TKeyVersion;
+  TListObjectsRequest = AWS.S3.Model.ListObjectsRequest.TListObjectsRequest;
+  TListObjectsResponse = AWS.S3.Model.ListObjectsResponse.TListObjectsResponse;
+  TListVersionsRequest = AWS.S3.Model.ListVersionsRequest.TListVersionsRequest;
+  TListVersionsResponse = AWS.S3.Model.ListVersionsResponse.TListVersionsResponse;
   TMetadataDirective = AWS.S3.Enums.TMetadataDirective;
   TMetricsStatus = AWS.S3.Enums.TMetricsStatus;
   TMFADelete = AWS.S3.Enums.TMFADelete;
   TMFADeleteStatus = AWS.S3.Enums.TMFADeleteStatus;
+  TObject = AWS.S3.Model.ObjectTypes.TObject;
   TObjectCannedACL = AWS.S3.Enums.TObjectCannedACL;
+  TObjectIdentifier = AWS.S3.Model.ObjectIdentifier.TObjectIdentifier;
   TObjectLockEnabled = AWS.S3.Enums.TObjectLockEnabled;
   TObjectLockLegalHoldStatus = AWS.S3.Enums.TObjectLockLegalHoldStatus;
   TObjectLockMode = AWS.S3.Enums.TObjectLockMode;
   TObjectLockRetentionMode = AWS.S3.Enums.TObjectLockRetentionMode;
   TObjectOwnership = AWS.S3.Enums.TObjectOwnership;
   TObjectStorageClass = AWS.S3.Enums.TObjectStorageClass;
+  TObjectVersion = AWS.S3.Model.ObjectVersion.TObjectVersion;
   TObjectVersionStorageClass = AWS.S3.Enums.TObjectVersionStorageClass;
+  TOwner = AWS.S3.Model.Owner.TOwner;
   TOwnerOverride = AWS.S3.Enums.TOwnerOverride;
   TPayer = AWS.S3.Enums.TPayer;
   TPermission = AWS.S3.Enums.TPermission;
   TProtocol = AWS.S3.Enums.TProtocol;
+  TPutBucketRequest = AWS.S3.Model.PutBucketRequest.TPutBucketRequest;
+  TPutBucketResponse = AWS.S3.Model.PutBucketResponse.TPutBucketResponse;
+  TPutObjectRequest = AWS.S3.Model.PutObjectRequest.TPutObjectRequest;
+  TPutObjectResponse = AWS.S3.Model.PutObjectResponse.TPutObjectResponse;
   TQuoteFields = AWS.S3.Enums.TQuoteFields;
   TReplicaModificationsStatus = AWS.S3.Enums.TReplicaModificationsStatus;
   TReplicationRuleStatus = AWS.S3.Enums.TReplicationRuleStatus;
@@ -73,6 +181,8 @@ type
   TTier = AWS.S3.Enums.TTier;
   TTransitionStorageClass = AWS.S3.Enums.TTransitionStorageClass;
   TType = AWS.S3.Enums.TType;
+  TUploadPartRequest = AWS.S3.Model.UploadPartRequest.TUploadPartRequest;
+  TUploadPartResponse = AWS.S3.Model.UploadPartResponse.TUploadPartResponse;
   
 implementation
 

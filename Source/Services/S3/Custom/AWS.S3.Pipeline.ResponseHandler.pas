@@ -10,7 +10,7 @@ uses
   AWS.Runtime.Model,
   AWS.SDKUtils,
   AWS.S3.ClientExtensions,
-  AWS.S3.Model.CopyPartResponse,
+//  AWS.S3.Model.CopyPartResponse,
   AWS.S3.Model.DeleteObjectsException,
   AWS.S3.Model.GetObjectResponse,
   AWS.S3.Model.GetObjectRequest,
@@ -93,10 +93,10 @@ begin
     {$MESSAGE WARN 'Todo: check the input hash stream'}
   end;
 
-  if response is TCopyPartResponse then
-  begin
-    {$MESSAGE WARN 'Todo: set part number'}
-  end;
+  {$MESSAGE WARN 'Todo: set part number'}
+//  if response is TCopyPartResponse then
+//  begin
+//  end;
 
   TAmazonS3ClientExtensions.CleanupRequest(Request.OriginalRequest as TAmazonWebServiceRequest);
 end;

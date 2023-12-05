@@ -6,6 +6,21 @@
 		<Projects Include="awscore.dproj">
 			<Dependencies/>
 		</Projects>
+		<Projects Include="awslexruntimeservice.dproj">
+			<Dependencies>awscore.dproj</Dependencies>
+		</Projects>
+		<Projects Include="awslexruntimev2.dproj">
+			<Dependencies>awscore.dproj</Dependencies>
+		</Projects>
+		<Projects Include="awspolly.dproj">
+			<Dependencies>awscore.dproj</Dependencies>
+		</Projects>
+		<Projects Include="awsrekognition.dproj">
+			<Dependencies>awscore.dproj</Dependencies>
+		</Projects>
+		<Projects Include="awss3.dproj">
+			<Dependencies>awscore.dproj</Dependencies>
+		</Projects>
 		<Projects Include="awsses.dproj">
 			<Dependencies>awscore.dproj</Dependencies>
 		</Projects>
@@ -27,24 +42,6 @@
 		<Projects Include="awstranslate.dproj">
 			<Dependencies>awscore.dproj</Dependencies>
 		</Projects>
-		<Projects Include="awslexruntimeservice.dproj">
-			<Dependencies>awscore.dproj</Dependencies>
-		</Projects>
-		<Projects Include="awslexruntimev2.dproj">
-			<Dependencies>awscore.dproj</Dependencies>
-		</Projects>
-		<Projects Include="awspolly.dproj">
-			<Dependencies>awscore.dproj</Dependencies>
-		</Projects>
-		<Projects Include="awsrekognition.dproj">
-			<Dependencies>awscore.dproj</Dependencies>
-		</Projects>
-		<Projects Include="awss3.dproj">
-			<Dependencies>awscore.dproj</Dependencies>
-		</Projects>
-		<Projects Include="awss3control.dproj">
-			<Dependencies>awscore.dproj</Dependencies>
-		</Projects>
 	</ItemGroup>
 	<ProjectExtensions>
 		<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -61,6 +58,51 @@
 	</Target>
 	<Target Name="awscore:Make">
 		<MSBuild Projects="awscore.dproj" Targets="Make"/>
+	</Target>
+	<Target Name="awslexruntimeservice" DependsOnTargets="awscore">
+		<MSBuild Projects="awslexruntimeservice.dproj"/>
+	</Target>
+	<Target Name="awslexruntimeservice:Clean" DependsOnTargets="awscore:Clean">
+		<MSBuild Projects="awslexruntimeservice.dproj" Targets="Clean"/>
+	</Target>
+	<Target Name="awslexruntimeservice:Make" DependsOnTargets="awscore:Make">
+		<MSBuild Projects="awslexruntimeservice.dproj" Targets="Make"/>
+	</Target>
+	<Target Name="awslexruntimev2" DependsOnTargets="awscore">
+		<MSBuild Projects="awslexruntimev2.dproj"/>
+	</Target>
+	<Target Name="awslexruntimev2:Clean" DependsOnTargets="awscore:Clean">
+		<MSBuild Projects="awslexruntimev2.dproj" Targets="Clean"/>
+	</Target>
+	<Target Name="awslexruntimev2:Make" DependsOnTargets="awscore:Make">
+		<MSBuild Projects="awslexruntimev2.dproj" Targets="Make"/>
+	</Target>
+	<Target Name="awspolly" DependsOnTargets="awscore">
+		<MSBuild Projects="awspolly.dproj"/>
+	</Target>
+	<Target Name="awspolly:Clean" DependsOnTargets="awscore:Clean">
+		<MSBuild Projects="awspolly.dproj" Targets="Clean"/>
+	</Target>
+	<Target Name="awspolly:Make" DependsOnTargets="awscore:Make">
+		<MSBuild Projects="awspolly.dproj" Targets="Make"/>
+	</Target>
+	<Target Name="awsrekognition" DependsOnTargets="awscore">
+		<MSBuild Projects="awsrekognition.dproj"/>
+	</Target>
+	<Target Name="awsrekognition:Clean" DependsOnTargets="awscore:Clean">
+		<MSBuild Projects="awsrekognition.dproj" Targets="Clean"/>
+	</Target>
+	<Target Name="awsrekognition:Make" DependsOnTargets="awscore:Make">
+		<MSBuild Projects="awsrekognition.dproj" Targets="Make"/>
+	</Target>
+	<Target Name="awss3" DependsOnTargets="awscore">
+		<MSBuild Projects="awss3.dproj"/>
+	</Target>
+	<Target Name="awss3:Clean" DependsOnTargets="awscore:Clean">
+		<MSBuild Projects="awss3.dproj" Targets="Clean"/>
+	</Target>
+	<Target Name="awss3:Make" DependsOnTargets="awscore:Make">
+		<MSBuild Projects="awss3.dproj" Targets="Make"/>
 	</Target>
 	<Target Name="awsses" DependsOnTargets="awscore">
 		<MSBuild Projects="awsses.dproj"/>
@@ -125,68 +167,14 @@
 	<Target Name="awstranslate:Make" DependsOnTargets="awscore:Make">
 		<MSBuild Projects="awstranslate.dproj" Targets="Make"/>
 	</Target>
-	<Target Name="awslexruntimeservice" DependsOnTargets="awscore">
-		<MSBuild Projects="awslexruntimeservice.dproj"/>
-	</Target>
-	<Target Name="awslexruntimeservice:Clean" DependsOnTargets="awscore:Clean">
-		<MSBuild Projects="awslexruntimeservice.dproj" Targets="Clean"/>
-	</Target>
-	<Target Name="awslexruntimeservice:Make" DependsOnTargets="awscore:Make">
-		<MSBuild Projects="awslexruntimeservice.dproj" Targets="Make"/>
-	</Target>
-	<Target Name="awslexruntimev2" DependsOnTargets="awscore">
-		<MSBuild Projects="awslexruntimev2.dproj"/>
-	</Target>
-	<Target Name="awslexruntimev2:Clean" DependsOnTargets="awscore:Clean">
-		<MSBuild Projects="awslexruntimev2.dproj" Targets="Clean"/>
-	</Target>
-	<Target Name="awslexruntimev2:Make" DependsOnTargets="awscore:Make">
-		<MSBuild Projects="awslexruntimev2.dproj" Targets="Make"/>
-	</Target>
-	<Target Name="awspolly" DependsOnTargets="awscore">
-		<MSBuild Projects="awspolly.dproj"/>
-	</Target>
-	<Target Name="awspolly:Clean" DependsOnTargets="awscore:Clean">
-		<MSBuild Projects="awspolly.dproj" Targets="Clean"/>
-	</Target>
-	<Target Name="awspolly:Make" DependsOnTargets="awscore:Make">
-		<MSBuild Projects="awspolly.dproj" Targets="Make"/>
-	</Target>
-	<Target Name="awsrekognition" DependsOnTargets="awscore">
-		<MSBuild Projects="awsrekognition.dproj"/>
-	</Target>
-	<Target Name="awsrekognition:Clean" DependsOnTargets="awscore:Clean">
-		<MSBuild Projects="awsrekognition.dproj" Targets="Clean"/>
-	</Target>
-	<Target Name="awsrekognition:Make" DependsOnTargets="awscore:Make">
-		<MSBuild Projects="awsrekognition.dproj" Targets="Make"/>
-	</Target>
-	<Target Name="awss3" DependsOnTargets="awscore">
-		<MSBuild Projects="awss3.dproj"/>
-	</Target>
-	<Target Name="awss3:Clean" DependsOnTargets="awscore:Clean">
-		<MSBuild Projects="awss3.dproj" Targets="Clean"/>
-	</Target>
-	<Target Name="awss3:Make" DependsOnTargets="awscore:Make">
-		<MSBuild Projects="awss3.dproj" Targets="Make"/>
-	</Target>
-	<Target Name="awss3control" DependsOnTargets="awscore">
-		<MSBuild Projects="awss3control.dproj"/>
-	</Target>
-	<Target Name="awss3control:Clean" DependsOnTargets="awscore:Clean">
-		<MSBuild Projects="awss3control.dproj" Targets="Clean"/>
-	</Target>
-	<Target Name="awss3control:Make" DependsOnTargets="awscore:Make">
-		<MSBuild Projects="awss3control.dproj" Targets="Make"/>
-	</Target>
 	<Target Name="Build">
-		<CallTarget Targets="awscore;awsses;awssesv2;awssns;awssqs;awstextract;awstranscribe;awstranslate;awslexruntimeservice;awslexruntimev2;awspolly;awsrekognition;awss3;awss3control"/>
+		<CallTarget Targets="awscore;awslexruntimeservice;awslexruntimev2;awspolly;awsrekognition;awss3;awsses;awssesv2;awssns;awssqs;awstextract;awstranscribe;awstranslate"/>
 	</Target>
 	<Target Name="Clean">
-		<CallTarget Targets="awscore:Clean;awsses:Clean;awssesv2:Clean;awssns:Clean;awssqs:Clean;awstextract:Clean;awstranscribe:Clean;awstranslate:Clean;awslexruntimeservice:Clean;awslexruntimev2:Clean;awspolly:Clean;awsrekognition:Clean;awss3:Clean;awss3control:Clean"/>
+		<CallTarget Targets="awscore:Clean;awslexruntimeservice:Clean;awslexruntimev2:Clean;awspolly:Clean;awsrekognition:Clean;awss3:Clean;awsses:Clean;awssesv2:Clean;awssns:Clean;awssqs:Clean;awstextract:Clean;awstranscribe:Clean;awstranslate:Clean"/>
 	</Target>
 	<Target Name="Make">
-		<CallTarget Targets="awscore:Make;awsses:Make;awssesv2:Make;awssns:Make;awssqs:Make;awstextract:Make;awstranscribe:Make;awstranslate:Make;awslexruntimeservice:Make;awslexruntimev2:Make;awspolly:Make;awsrekognition:Make;awss3:Make;awss3control:Make"/>
+		<CallTarget Targets="awscore:Make;awslexruntimeservice:Make;awslexruntimev2:Make;awspolly:Make;awsrekognition:Make;awss3:Make;awsses:Make;awssesv2:Make;awssns:Make;awssqs:Make;awstextract:Make;awstranscribe:Make;awstranslate:Make"/>
 	</Target>
 	<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

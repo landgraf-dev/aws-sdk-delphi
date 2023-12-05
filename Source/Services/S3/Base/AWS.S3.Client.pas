@@ -25,7 +25,52 @@ uses
   AWS.Pipeline.ErrorCallbackHandler, 
   AWS.S3.Pipeline.ExceptionHandler, 
   AWS.S3.Pipeline.RedirectHandler, 
-  AWS.Pipeline.RetryHandler;
+  AWS.Pipeline.RetryHandler, 
+  AWS.S3.Model.DeleteBucketResponse, 
+  AWS.S3.Model.DeleteBucketRequest, 
+  AWS.Internal.InvokeOptions, 
+  AWS.S3.Transform.DeleteBucketRequestMarshaller, 
+  AWS.S3.Transform.DeleteBucketResponseUnmarshaller, 
+  AWS.S3.Model.DeleteObjectResponse, 
+  AWS.S3.Model.DeleteObjectRequest, 
+  AWS.S3.Transform.DeleteObjectRequestMarshaller, 
+  AWS.S3.Transform.DeleteObjectResponseUnmarshaller, 
+  AWS.S3.Model.DeleteObjectsResponse, 
+  AWS.S3.Model.DeleteObjectsRequest, 
+  AWS.S3.Transform.DeleteObjectsRequestMarshaller, 
+  AWS.S3.Transform.DeleteObjectsResponseUnmarshaller, 
+  AWS.S3.Model.GetACLResponse, 
+  AWS.S3.Model.GetACLRequest, 
+  AWS.S3.Transform.GetACLRequestMarshaller, 
+  AWS.S3.Transform.GetACLResponseUnmarshaller, 
+  AWS.S3.Model.GetObjectResponse, 
+  AWS.S3.Model.GetObjectRequest, 
+  AWS.S3.Transform.GetObjectRequestMarshaller, 
+  AWS.S3.Transform.GetObjectResponseUnmarshaller, 
+  AWS.S3.Model.InitiateMultipartUploadResponse, 
+  AWS.S3.Model.InitiateMultipartUploadRequest, 
+  AWS.S3.Transform.InitiateMultipartUploadRequestMarshaller, 
+  AWS.S3.Transform.InitiateMultipartUploadResponseUnmarshaller, 
+  AWS.S3.Model.ListObjectsResponse, 
+  AWS.S3.Model.ListObjectsRequest, 
+  AWS.S3.Transform.ListObjectsRequestMarshaller, 
+  AWS.S3.Transform.ListObjectsResponseUnmarshaller, 
+  AWS.S3.Model.ListVersionsResponse, 
+  AWS.S3.Model.ListVersionsRequest, 
+  AWS.S3.Transform.ListVersionsRequestMarshaller, 
+  AWS.S3.Transform.ListVersionsResponseUnmarshaller, 
+  AWS.S3.Model.PutBucketResponse, 
+  AWS.S3.Model.PutBucketRequest, 
+  AWS.S3.Transform.PutBucketRequestMarshaller, 
+  AWS.S3.Transform.PutBucketResponseUnmarshaller, 
+  AWS.S3.Model.PutObjectResponse, 
+  AWS.S3.Model.PutObjectRequest, 
+  AWS.S3.Transform.PutObjectRequestMarshaller, 
+  AWS.S3.Transform.PutObjectResponseUnmarshaller, 
+  AWS.S3.Model.UploadPartResponse, 
+  AWS.S3.Model.UploadPartRequest, 
+  AWS.S3.Transform.UploadPartRequestMarshaller, 
+  AWS.S3.Transform.UploadPartResponseUnmarshaller;
 
 type
   TAmazonS3Client = class(TAmazonServiceClient, IAmazonS3)
@@ -50,6 +95,29 @@ type
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string); reintroduce; overload;
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string; Region: IRegionEndpointEx); reintroduce; overload;
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string; Config: IClientConfig); reintroduce; overload;
+    function DeleteBucket(const ABucketName: string): IDeleteBucketResponse; overload;
+    function DeleteBucket(Request: IDeleteBucketRequest): IDeleteBucketResponse; overload;
+    function DeleteObject(const ABucketName: string; const AKey: string): IDeleteObjectResponse; overload;
+    function DeleteObject(const ABucketName: string; const AKey: string; const AVersionId: string): IDeleteObjectResponse; overload;
+    function DeleteObject(Request: IDeleteObjectRequest): IDeleteObjectResponse; overload;
+    function DeleteObjects(Request: IDeleteObjectsRequest): IDeleteObjectsResponse; overload;
+    function GetACL(const ABucketName: string): IGetACLResponse; overload;
+    function GetACL(Request: IGetACLRequest): IGetACLResponse; overload;
+    function GetObject(const ABucketName: string; const AKey: string): IGetObjectResponse; overload;
+    function GetObject(const ABucketName: string; const AKey: string; const AVersionId: string): IGetObjectResponse; overload;
+    function GetObject(Request: IGetObjectRequest): IGetObjectResponse; overload;
+    function InitiateMultipartUpload(const ABucketName: string; const AKey: string): IInitiateMultipartUploadResponse; overload;
+    function InitiateMultipartUpload(Request: IInitiateMultipartUploadRequest): IInitiateMultipartUploadResponse; overload;
+    function ListObjects(const ABucketName: string): IListObjectsResponse; overload;
+    function ListObjects(const ABucketName: string; const APrefix: string): IListObjectsResponse; overload;
+    function ListObjects(Request: IListObjectsRequest): IListObjectsResponse; overload;
+    function ListVersions(const ABucketName: string): IListVersionsResponse; overload;
+    function ListVersions(const ABucketName: string; const APrefix: string): IListVersionsResponse; overload;
+    function ListVersions(Request: IListVersionsRequest): IListVersionsResponse; overload;
+    function PutBucket(const ABucketName: string): IPutBucketResponse; overload;
+    function PutBucket(Request: IPutBucketRequest): IPutBucketResponse; overload;
+    function PutObject(Request: IPutObjectRequest): IPutObjectResponse; overload;
+    function UploadPart(Request: IUploadPartRequest): IUploadPartResponse; overload;
   end;
   
 implementation
@@ -139,12 +207,277 @@ begin
   Pipeline.AddHandlerBefore<TUnmarshaller>(TAmazonS3ResponseHandler.Create());
   Pipeline.AddHandlerAfter<TErrorCallbackHandler>(TAmazonS3ExceptionHandler.Create());
   Pipeline.AddHandlerAfter<TUnmarshaller>(TAmazonS3RedirectHandler.Create());
-  if this.Config.RetryMode == RequestRetryMode.Legacy then
-    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3RetryPolicy(this.Config)));
-  if this.Config.RetryMode == RequestRetryMode.Standard then
-    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3StandardRetryPolicy(this.Config)));
-  if this.Config.RetryMode == RequestRetryMode.Adaptive then
-    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3AdaptiveRetryPolicy(this.Config)));
+end;
+
+function TAmazonS3Client.DeleteBucket(const ABucketName: string): IDeleteBucketResponse;
+var
+  Request: IDeleteBucketRequest;
+begin
+  Request := TDeleteBucketRequest.Create;
+  Request.BucketName := ABucketName;
+  Result := DeleteBucket(Request);
+end;
+
+function TAmazonS3Client.DeleteBucket(Request: IDeleteBucketRequest): IDeleteBucketResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TDeleteBucketRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TDeleteBucketResponseUnmarshaller.Instance;
+    Result := Invoke<TDeleteBucketResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.DeleteObject(const ABucketName: string; const AKey: string): IDeleteObjectResponse;
+var
+  Request: IDeleteObjectRequest;
+begin
+  Request := TDeleteObjectRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Key := AKey;
+  Result := DeleteObject(Request);
+end;
+
+function TAmazonS3Client.DeleteObject(const ABucketName: string; const AKey: string; const AVersionId: string): IDeleteObjectResponse;
+var
+  Request: IDeleteObjectRequest;
+begin
+  Request := TDeleteObjectRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Key := AKey;
+  Request.VersionId := AVersionId;
+  Result := DeleteObject(Request);
+end;
+
+function TAmazonS3Client.DeleteObject(Request: IDeleteObjectRequest): IDeleteObjectResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TDeleteObjectRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TDeleteObjectResponseUnmarshaller.Instance;
+    Result := Invoke<TDeleteObjectResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.DeleteObjects(Request: IDeleteObjectsRequest): IDeleteObjectsResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TDeleteObjectsRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TDeleteObjectsResponseUnmarshaller.Instance;
+    Result := Invoke<TDeleteObjectsResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.GetACL(const ABucketName: string): IGetACLResponse;
+var
+  Request: IGetACLRequest;
+begin
+  Request := TGetACLRequest.Create;
+  Request.BucketName := ABucketName;
+  Result := GetACL(Request);
+end;
+
+function TAmazonS3Client.GetACL(Request: IGetACLRequest): IGetACLResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TGetACLRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TGetACLResponseUnmarshaller.Instance;
+    Result := Invoke<TGetACLResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.GetObject(const ABucketName: string; const AKey: string): IGetObjectResponse;
+var
+  Request: IGetObjectRequest;
+begin
+  Request := TGetObjectRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Key := AKey;
+  Result := GetObject(Request);
+end;
+
+function TAmazonS3Client.GetObject(const ABucketName: string; const AKey: string; const AVersionId: string): IGetObjectResponse;
+var
+  Request: IGetObjectRequest;
+begin
+  Request := TGetObjectRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Key := AKey;
+  Request.VersionId := AVersionId;
+  Result := GetObject(Request);
+end;
+
+function TAmazonS3Client.GetObject(Request: IGetObjectRequest): IGetObjectResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TGetObjectRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TGetObjectResponseUnmarshaller.Instance;
+    Result := Invoke<TGetObjectResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.InitiateMultipartUpload(const ABucketName: string; const AKey: string): IInitiateMultipartUploadResponse;
+var
+  Request: IInitiateMultipartUploadRequest;
+begin
+  Request := TInitiateMultipartUploadRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Key := AKey;
+  Result := InitiateMultipartUpload(Request);
+end;
+
+function TAmazonS3Client.InitiateMultipartUpload(Request: IInitiateMultipartUploadRequest): IInitiateMultipartUploadResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TInitiateMultipartUploadRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TInitiateMultipartUploadResponseUnmarshaller.Instance;
+    Result := Invoke<TInitiateMultipartUploadResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.ListObjects(const ABucketName: string): IListObjectsResponse;
+var
+  Request: IListObjectsRequest;
+begin
+  Request := TListObjectsRequest.Create;
+  Request.BucketName := ABucketName;
+  Result := ListObjects(Request);
+end;
+
+function TAmazonS3Client.ListObjects(const ABucketName: string; const APrefix: string): IListObjectsResponse;
+var
+  Request: IListObjectsRequest;
+begin
+  Request := TListObjectsRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Prefix := APrefix;
+  Result := ListObjects(Request);
+end;
+
+function TAmazonS3Client.ListObjects(Request: IListObjectsRequest): IListObjectsResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TListObjectsRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TListObjectsResponseUnmarshaller.Instance;
+    Result := Invoke<TListObjectsResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.ListVersions(const ABucketName: string): IListVersionsResponse;
+var
+  Request: IListVersionsRequest;
+begin
+  Request := TListVersionsRequest.Create;
+  Request.BucketName := ABucketName;
+  Result := ListVersions(Request);
+end;
+
+function TAmazonS3Client.ListVersions(const ABucketName: string; const APrefix: string): IListVersionsResponse;
+var
+  Request: IListVersionsRequest;
+begin
+  Request := TListVersionsRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Prefix := APrefix;
+  Result := ListVersions(Request);
+end;
+
+function TAmazonS3Client.ListVersions(Request: IListVersionsRequest): IListVersionsResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TListVersionsRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TListVersionsResponseUnmarshaller.Instance;
+    Result := Invoke<TListVersionsResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.PutBucket(const ABucketName: string): IPutBucketResponse;
+var
+  Request: IPutBucketRequest;
+begin
+  Request := TPutBucketRequest.Create;
+  Request.BucketName := ABucketName;
+  Result := PutBucket(Request);
+end;
+
+function TAmazonS3Client.PutBucket(Request: IPutBucketRequest): IPutBucketResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TPutBucketRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TPutBucketResponseUnmarshaller.Instance;
+    Result := Invoke<TPutBucketResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.PutObject(Request: IPutObjectRequest): IPutObjectResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TPutObjectRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TPutObjectResponseUnmarshaller.Instance;
+    Result := Invoke<TPutObjectResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.UploadPart(Request: IUploadPartRequest): IUploadPartResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TUploadPartRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TUploadPartResponseUnmarshaller.Instance;
+    Result := Invoke<TUploadPartResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
 end;
 
 end.

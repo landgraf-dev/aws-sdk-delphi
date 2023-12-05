@@ -10,7 +10,6 @@ uses
   AWS.RegionEndpoints,
   AWS.S3,
   AWS.S3.Model.ByteRange,
-  AWS.S3.Util.AmazonS3Util,
   AWSTests.S3.TestUtils;
 
 type

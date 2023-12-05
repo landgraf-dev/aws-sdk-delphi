@@ -6,7 +6,6 @@ uses
   System.Generics.Collections, System.SysUtils, System.DateUtils, TestFramework,
   AWS.Internal.DefaultRetryPolicy,
   AWS.S3,
-  AWS.S3.Model.ObjectIdentifier,
   AWS.S3.Model.DeleteObjectsException,
   AWSTests.UtilityMethods;
 
