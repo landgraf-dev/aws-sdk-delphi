@@ -13,7 +13,7 @@ uses
   AWS.S3Control.Exception, 
   AWS.Internal.StringUtils, 
   System.Classes, 
-  Bcl.Xml.Writer, 
+  AWS.Xml.Writer, 
   System.SysUtils, 
   AWS.SDKUtils, 
   AWS.Internal.Util.HostPrefixUtils;

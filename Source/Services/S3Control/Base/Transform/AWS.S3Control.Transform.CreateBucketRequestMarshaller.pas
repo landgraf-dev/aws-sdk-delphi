@@ -11,7 +11,7 @@ uses
   AWS.Internal.StringUtils, 
   AWS.S3Control.Exception, 
   System.Classes, 
-  Bcl.Xml.Writer, 
+  AWS.Xml.Writer, 
   System.SysUtils, 
   AWS.SDKUtils;
 

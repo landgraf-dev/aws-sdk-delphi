@@ -9,7 +9,7 @@ uses
   AWS.S3Control.Model.PutPublicAccessBlockRequest, 
   AWS.Internal.DefaultRequest, 
   System.Classes, 
-  Bcl.Xml.Writer, 
+  AWS.Xml.Writer, 
   System.SysUtils, 
   AWS.Internal.StringUtils, 
   AWS.SDKUtils, 
