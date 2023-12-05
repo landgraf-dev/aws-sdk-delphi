@@ -106,6 +106,12 @@ contains
   AWS.Runtime.ExceptionEvent in '..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas',
   AWS.Runtime.RetryPolicy in '..\..\Source\Core\AWS.Runtime.RetryPolicy.pas',
   AWS.Internal.DefaultRetryPolicy in '..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas',
-  AWS.Nullable in '..\..\Source\Core\AWS.Nullable.pas';
+  AWS.Nullable in '..\..\Source\Core\AWS.Nullable.pas',
+  AWS.Json.Reader in '..\..\Source\Core\AWS.Json.Reader.pas',
+  AWS.Json.StreamReader in '..\..\Source\Core\AWS.Json.StreamReader.pas',
+  AWS.Json.StringReader in '..\..\Source\Core\AWS.Json.StringReader.pas',
+  AWS.Json.Writer in '..\..\Source\Core\AWS.Json.Writer.pas',
+  AWS.Xml.Base in '..\..\Source\Core\AWS.Xml.Base.pas',
+  AWS.Xml.Writer in '..\..\Source\Core\AWS.Xml.Writer.pas';
 
 end.

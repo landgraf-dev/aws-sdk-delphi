@@ -224,6 +224,12 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.RetryPolicy.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Nullable.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.Reader.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.StreamReader.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.StringReader.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.Writer.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Xml.Base.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Xml.Writer.pas"/>
 		<BuildConfiguration Include="Release">
 			<Key>Cfg_2</Key>
 			<CfgParent>Base</CfgParent>
