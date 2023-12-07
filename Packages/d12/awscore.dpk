@@ -25,10 +25,10 @@ package awscore;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$IMPLICITBUILD OFF}
 {$DESCRIPTION 'Amazon Web Services SDK - Core Package'}
-{$RUNONLY}
 {$LIBSUFFIX AUTO}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
 
 requires
   rtl,
@@ -112,6 +112,8 @@ contains
   AWS.Json.StringReader in '..\..\Source\Core\AWS.Json.StringReader.pas',
   AWS.Json.Writer in '..\..\Source\Core\AWS.Json.Writer.pas',
   AWS.Xml.Base in '..\..\Source\Core\AWS.Xml.Base.pas',
-  AWS.Xml.Writer in '..\..\Source\Core\AWS.Xml.Writer.pas';
+  AWS.Xml.Writer in '..\..\Source\Core\AWS.Xml.Writer.pas',
+  AWS.Internal.Util.HashStream in '..\..\Source\Core\AWS.Internal.Util.HashStream.pas',
+  AWS.Internal.Util.ChunkedUploadWrapperStream in '..\..\Source\Core\AWS.Internal.Util.ChunkedUploadWrapperStream.pas';
 
 end.

@@ -11,6 +11,7 @@ uses
   AWS.Enums,
   AWS.Internal.Auth.AWS4SigningResult,
   AWS.Internal.Request,
+  AWS.Internal.Util.ChunkedUploadWrapperStream,
   AWS.RegionEndpoint,
   AWS.Runtime.ClientConfig,
   AWS.SDKUtils;
@@ -524,8 +525,25 @@ begin
 
   // otherwise continue to calculate the hash and set it in the headers before returning
   if ARequest.UseChunkEncoding then
-    {TODO: Support chunk encoding}
-    raise EInvalidOpException.Create('ChunkEncoding not yet supported.')
+  begin
+    ComputedContentHash := TAWS4SignerConsts.StreamingBodySha256;
+    if ARequest.Headers.ContainsKey(THeaderKeys.ContentLengthHeader) then
+    begin
+      // substitute the originally declared content length with the true size of
+      // the data we'll upload, which is inflated with chunk metadata
+      ARequest.Headers.AddOrSetValue(THeaderKeys.XAmzDecodedContentLengthHeader, ARequest.Headers[THeaderKeys.ContentLengthHeader]);
+      var originalContentLength := StrToInt64(ARequest.Headers[THeaderKeys.ContentLengthHeader]);
+      ARequest.Headers.AddOrSetValue(THeaderKeys.ContentLengthHeader,
+        IntToStr(TChunkedUploadWrapperStream.ComputeChunkedContentLength(originalContentLength)));
+    end;
+
+    if ARequest.Headers.ContainsKey(THeaderKeys.ContentEncodingHeader) then
+    begin
+      var originalEncoding := ARequest.Headers[THeaderKeys.ContentEncodingHeader];
+      if not originalEncoding.Contains(TAWS4SignerConsts.AWSChunkedEncoding) then
+        ARequest.Headers.AddOrSetValue(THeaderKeys.ContentEncodingHeader, originalEncoding + ', ' + TAWS4SignerConsts.AWSChunkedEncoding);
+    end;
+  end
   else
   begin
     if ARequest.ContentStream <> nil then

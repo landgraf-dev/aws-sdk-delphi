@@ -1,4 +1,4 @@
-unit AWS.Util.HashStream;
+unit AWS.Internal.Util.HashStream;
 
 interface
 
