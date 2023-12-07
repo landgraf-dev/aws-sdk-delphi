@@ -3,7 +3,8 @@ unit AWS.S3.Util.AmazonS3Util;
 interface
 
 uses
-  System.Generics.Collections, System.Generics.Defaults;
+  System.Generics.Collections, System.Generics.Defaults, System.Classes,
+  AWS.SDKUtils;
 
 type
   TAmazonS3Util = class
@@ -14,6 +15,7 @@ type
     class destructor Destroy;
   public
     class function MimeTypeFromExtension(const Ext: string): string; static;
+    class function GenerateMD5ChecksumForStream(Stream: TStream): string; static;
   end;
 
 implementation
@@ -200,6 +202,11 @@ end;
 class destructor TAmazonS3Util.Destroy;
 begin
   FExtensionToMime.Free;
+end;
+
+class function TAmazonS3Util.GenerateMD5ChecksumForStream(Stream: TStream): string;
+begin
+  Result := TAWSSDKUtils.GenerateMD5ChecksumForStream(Stream);
 end;
 
 class function TAmazonS3Util.MimeTypeFromExtension(const Ext: string): string;

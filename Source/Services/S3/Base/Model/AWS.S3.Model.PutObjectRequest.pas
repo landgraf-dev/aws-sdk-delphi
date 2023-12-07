@@ -87,6 +87,14 @@ type
     procedure SetContentBody(const Value: string);
     function GetAutoResetStreamPosition: Boolean;
     procedure SetAutoResetStreamPosition(const Value: Boolean);
+    function GetDisablePayloadSigning: Boolean;
+    procedure SetDisablePayloadSigning(const Value: Boolean);
+    function GetUseChunkEncoding: Boolean;
+    procedure SetUseChunkEncoding(const Value: Boolean);
+    function GetCalculateContentMD5Header: Boolean;
+    procedure SetCalculateContentMD5Header(const Value: Boolean);
+    function GetDisableMD5Stream: NullableBoolean;
+    procedure SetDisableMD5Stream(const Value: NullableBoolean);
     function Obj: TPutObjectRequest;
     function IsSetACL: Boolean;
     function IsSetBody: Boolean;
@@ -157,8 +165,15 @@ type
     property FilePath: string read GetFilePath write SetFilePath;
     property ContentBody: string read GetContentBody write SetContentBody;
     property AutoResetStreamPosition: Boolean read GetAutoResetStreamPosition write SetAutoResetStreamPosition;
+    property DisablePayloadSigning: Boolean read GetDisablePayloadSigning write SetDisablePayloadSigning;
+    property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
+    property CalculateContentMD5Header: Boolean read GetCalculateContentMD5Header write SetCalculateContentMD5Header;
+    property DisableMD5Stream: NullableBoolean read GetDisableMD5Stream write SetDisableMD5Stream;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
+    property IsSetInputStream: Boolean read IsSetBody;
+    property MD5Digest: string read GetContentMD5 write SetContentMD5;
+    property IsSetMD5Digest: Boolean read IsSetContentMD5;
   end;
   
   TPutObjectRequest = class(TAmazonS3Request, IPutObjectRequest)
@@ -200,6 +215,10 @@ type
     FFilePath: string;
     FContentBody: string;
     FAutoResetStreamPosition: Boolean;
+    FDisablePayloadSigning: Boolean;
+    FUseChunkEncoding: Boolean;
+    FCalculateContentMD5Header: Boolean;
+    FDisableMD5Stream: NullableBoolean;
     function GetACL: TObjectCannedACL;
     procedure SetACL(const Value: TObjectCannedACL);
     function GetBody: TStream;
@@ -274,6 +293,14 @@ type
     procedure SetContentBody(const Value: string);
     function GetAutoResetStreamPosition: Boolean;
     procedure SetAutoResetStreamPosition(const Value: Boolean);
+    function GetDisablePayloadSigning: Boolean;
+    procedure SetDisablePayloadSigning(const Value: Boolean);
+    function GetUseChunkEncoding: Boolean;
+    procedure SetUseChunkEncoding(const Value: Boolean);
+    function GetCalculateContentMD5Header: Boolean;
+    procedure SetCalculateContentMD5Header(const Value: Boolean);
+    function GetDisableMD5Stream: NullableBoolean;
+    procedure SetDisableMD5Stream(const Value: NullableBoolean);
   strict protected
     function Obj: TPutObjectRequest;
   public
@@ -348,8 +375,15 @@ type
     property FilePath: string read GetFilePath write SetFilePath;
     property ContentBody: string read GetContentBody write SetContentBody;
     property AutoResetStreamPosition: Boolean read GetAutoResetStreamPosition write SetAutoResetStreamPosition;
+    property DisablePayloadSigning: Boolean read GetDisablePayloadSigning write SetDisablePayloadSigning;
+    property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
+    property CalculateContentMD5Header: Boolean read GetCalculateContentMD5Header write SetCalculateContentMD5Header;
+    property DisableMD5Stream: NullableBoolean read GetDisableMD5Stream write SetDisableMD5Stream;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
+    property IsSetInputStream: Boolean read IsSetBody;
+    property MD5Digest: string read GetContentMD5 write SetContentMD5;
+    property IsSetMD5Digest: Boolean read IsSetContentMD5;
   end;
   
 implementation
@@ -360,6 +394,7 @@ constructor TPutObjectRequest.Create;
 begin
   inherited;
   FMetadata := TDictionary<string, string>.Create;
+  FUseChunkEncoding := True;
 end;
 
 destructor TPutObjectRequest.Destroy;
@@ -912,6 +947,46 @@ end;
 procedure TPutObjectRequest.SetAutoResetStreamPosition(const Value: Boolean);
 begin
   FAutoResetStreamPosition := Value;
+end;
+
+function TPutObjectRequest.GetDisablePayloadSigning: Boolean;
+begin
+  Result := FDisablePayloadSigning;
+end;
+
+procedure TPutObjectRequest.SetDisablePayloadSigning(const Value: Boolean);
+begin
+  FDisablePayloadSigning := Value;
+end;
+
+function TPutObjectRequest.GetUseChunkEncoding: Boolean;
+begin
+  Result := FUseChunkEncoding;
+end;
+
+procedure TPutObjectRequest.SetUseChunkEncoding(const Value: Boolean);
+begin
+  FUseChunkEncoding := Value;
+end;
+
+function TPutObjectRequest.GetCalculateContentMD5Header: Boolean;
+begin
+  Result := FCalculateContentMD5Header;
+end;
+
+procedure TPutObjectRequest.SetCalculateContentMD5Header(const Value: Boolean);
+begin
+  FCalculateContentMD5Header := Value;
+end;
+
+function TPutObjectRequest.GetDisableMD5Stream: NullableBoolean;
+begin
+  Result := FDisableMD5Stream;
+end;
+
+procedure TPutObjectRequest.SetDisableMD5Stream(const Value: NullableBoolean);
+begin
+  FDisableMD5Stream := Value;
 end;
 
 end.

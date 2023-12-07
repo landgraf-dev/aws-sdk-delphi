@@ -12,7 +12,8 @@ uses
   AWS.Enums,
   AWS.Internal.ParameterCollection,
   AWS.Internal.IRegionEndpoint,
-  AWS.Util.Crypto;
+  AWS.Util.Crypto,
+  AWS.Util.Streams;
 
 type
   IUri = Sparkle.Uri.IUri;
@@ -201,6 +202,15 @@ type
     /// <returns>A string representation of the hash with or w/o base64 encoding
     /// </returns>
     class function GenerateChecksumForContent(const Content: string; Base64Encode: Boolean): string; static;
+
+    /// <summary>
+    /// Generates an MD5 Digest for the stream specified
+    /// </summary>
+    /// <param name="Input">The Stream for which the MD5 Digest needs
+    /// to be computed.</param>
+    /// <returns>A string representation of the hash with base64 encoding
+    /// </returns>
+    class function GenerateMD5ChecksumForStream(Input: TStream): string; static;
   end;
 
   THeaderKeys = class
@@ -659,6 +669,23 @@ begin
    Result := TBclUtils.EncodeBase64(hashed)
  else
    Result := TCryptoUtilFactory.CryptoInstance.HashAsString(hashed, True);
+end;
+
+class function TAWSSDKUtils.GenerateMD5ChecksumForStream(Input: TStream): string;
+begin
+//  string hash = null;
+
+  if not CanSeek(Input) then
+    raise EInvalidOpException.Create('Input stream must be seekable');
+
+  // Use an MD5 instance to compute the hash for the stream
+  var hashed := TCryptoUtilFactory.CryptoInstance.ComputeMD5Hash(Input);
+
+  // Convert the hash to a Base64 Encoded string and return it
+  Result := TBclUtils.EncodeBase64(hashed);
+
+  // Now that the hash has been generated, reset the stream to its origin so that the stream's data can be processed
+  Input.Position := 0;
 end;
 
 class function TAWSSDKUtils.GetExtension(const Path: string): string;

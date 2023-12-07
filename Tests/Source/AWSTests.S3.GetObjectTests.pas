@@ -23,9 +23,6 @@ type
   end;
 
   TGetObjectTests = class(TAWSTestBase<TAmazonS3Client, IAmazonS3>)
-//  public
-//    procedure SetUp; override;
-//    procedure TearDown; override;
   published
     procedure TestRangedGetWithStartAndEnd;
     procedure TestRangedGetWithByteRange;

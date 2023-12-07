@@ -12,7 +12,8 @@ type
     function HashAsString(const AData: TArray<Byte>; AsUpperCase: Boolean = False): string;
     function ComputeSHA256Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function ComputeSHA256Hash(AStream: TStream): TArray<Byte>; overload;
-    function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>;
+    function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
+    function ComputeMD5Hash(Input: TStream): TArray<Byte>; overload;
     function HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;
     function HMACSign(const AData, AKey: string; AAlgorithmName: TSigningAlgorithm): string; overload;
     function HMACSign(const AData: TArray<Byte>; const AKey: string; AAlgorithmName: TSigningAlgorithm): string; overload;
@@ -32,6 +33,7 @@ type
     function ComputeSHA256Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
     function ComputeSHA256Hash(AStream: TStream): TArray<Byte>; overload;
     function ComputeMD5Hash(const AData: TArray<Byte>): TArray<Byte>; overload;
+    function ComputeMD5Hash(Input: TStream): TArray<Byte>; overload;
     function HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;
     function HMACSign(const AData, AKey: string; AAlgorithmName: TSigningAlgorithm): string; overload;
     function HMACSign(const AData: TArray<Byte>; const AKey: string; AAlgorithmName: TSigningAlgorithm): string; overload;
@@ -73,6 +75,11 @@ begin
   Hash := THashMD5.Create;
   Hash.Update(AData);
   Result := Hash.HashAsBytes;
+end;
+
+function TCryptoUtil.ComputeMD5Hash(Input: TStream): TArray<Byte>;
+begin
+  Result := THashMD5.GetHashBytes(Input);
 end;
 
 function TCryptoUtil.ComputeSHA256Hash(AStream: TStream): TArray<Byte>;

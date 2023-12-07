@@ -205,7 +205,7 @@ begin
   FServiceName := AServiceName;
   FOriginalRequest := ARequest;
   FRequestName := Copy(FOriginalRequest.ClassName, 2);
-  FOwnsContentStream := True;
+//  FOwnsContentStream := True;
   UseSigV4 := ARequest.UseSigV4;
 
   FParametersCollection := TParameterCollection.Create;

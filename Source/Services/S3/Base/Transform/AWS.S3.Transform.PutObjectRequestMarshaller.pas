@@ -3,14 +3,18 @@ unit AWS.S3.Transform.PutObjectRequestMarshaller;
 interface
 
 uses
-  System.SysUtils, 
-  AWS.Internal.Request, 
-  AWS.Transform.RequestMarshaller, 
-  AWS.Runtime.Model, 
-  AWS.S3.Model.PutObjectRequest, 
-  AWS.Internal.DefaultRequest, 
-  AWS.Internal.StringUtils, 
-  AWS.S3.Exception;
+  System.SysUtils, System.Classes,
+  AWS.Internal.DefaultRequest,
+  AWS.Internal.Request,
+  AWS.Internal.StringUtils,
+  AWS.Transform.RequestMarshaller,
+  AWS.Runtime.Model,
+  AWS.SDKUtils,
+  AWS.Util.HashStream,
+  AWS.S3.Model.PutObjectRequest,
+  AWS.S3.Exception,
+  AWS.S3.Internal.AWSConfigsS3,
+  AWS.S3.Util.AmazonS3Util;
 
 type
   IPutObjectRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -19,6 +23,7 @@ type
   strict private
     class var FInstance: IPutObjectRequestMarshaller;
     class constructor Create;
+    class function GetStreamWithLength(BaseStream: TStream; HintLength: Int64): TStream; static;
   public
     function Marshall(AInput: TAmazonWebServiceRequest): IRequest; overload;
     function Marshall(PublicRequest: TPutObjectRequest): IRequest; overload;
@@ -103,12 +108,63 @@ begin
     raise EAmazonS3Exception.Create('Request object does not have required field Key set');
   Request.AddPathResource('{Key+}', TStringUtils.Fromstring(PublicRequest.Key.TrimLeft(['/'])));
   Request.ResourcePath := '/{Bucket}/{Key+}';
+
+  if PublicRequest.InputStream <> nil then
+  begin
+    // Wrap the stream in a stream that has a length
+    var streamWithLength := GetStreamWithLength(PublicRequest.InputStream, PublicRequest.ContentLength);
+    try
+      if (streamWithLength.Size > 0) and not PublicRequest.DisablePayloadSigning then
+        Request.UseChunkEncoding := PublicRequest.UseChunkEncoding;
+      var length := streamWithLength.Size - streamWithLength.Position;
+      if not Request.Headers.ContainsKey(THeaderKeys.ContentLengthHeader) then
+        Request.Headers.AddOrSetValue(THeaderKeys.ContentLengthHeader, IntToStr(length));
+
+      Request.DisablePayloadSigning := PublicRequest.DisablePayloadSigning;
+
+      // Calculate Content-MD5 if not already set
+      if not PublicRequest.IsSetMD5Digest and PublicRequest.CalculateContentMD5Header then
+      begin
+        var md5 := TAmazonS3Util.GenerateMD5ChecksumForStream(PublicRequest.InputStream);
+
+        if md5 <> '' then
+          Request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, md5);
+      end;
+
+      var DisableMD5 := TAWSConfigsS3.DisableMD5Stream;
+      if PublicRequest.DisableMD5Stream.HasValue then
+        DisableMD5 := PublicRequest.DisableMD5Stream.HasValue;
+
+      var OwnsOriginalStream := not PublicRequest.KeepInputStream;
+      if not DisableMD5 then
+      begin
+        // Wrap input stream in MD5Stream
+        var hashStream := TMD5Stream.Create(streamWithLength, [], length, OwnsOriginalStream);
+        PublicRequest.KeepInputStream := True;
+        PublicRequest.InputStream := hashStream;
+        PublicRequest.KeepInputStream := False;
+      end;
+    except
+      raise;
+    end;
+  end;
+
+  Request.ContentStream := PublicRequest.InputStream;
+  Request.OwnsContentStream := False;
+  if not Request.Headers.ContainsKey(THeaderKeys.ContentTypeHeader) then
+    Request.Headers.Add(THeaderKeys.ContentTypeHeader, 'text/plain');
+
   Result := Request;
 end;
 
 class constructor TPutObjectRequestMarshaller.Create;
 begin
   FInstance := TPutObjectRequestMarshaller.Create;
+end;
+
+class function TPutObjectRequestMarshaller.GetStreamWithLength(BaseStream: TStream; HintLength: Int64): TStream;
+begin
+  Result := BaseStream;
 end;
 
 class function TPutObjectRequestMarshaller.Instance: IPutObjectRequestMarshaller;
