@@ -3,10 +3,11 @@ unit AWS.Pipeline.HttpHandler;
 interface
 
 uses
-  System.SysUtils,
+  System.SysUtils, System.Classes,
   Sparkle.Http.Engine,
   AWS.Internal.PipelineHandler,
   AWS.Internal.Request,
+  AWS.Internal.Util.ChunkedUploadWrapperStream,
   AWS.Runtime.Contexts,
   AWS.Runtime.HttpRequestMessageFactory,
   AWS.Runtime.IHttpRequestFactory,
@@ -18,6 +19,7 @@ type
     FRequestFactory: IHttpRequestFactory;
     FCallbackSender: TObject;
     procedure WriteContentToRequestBody(AHttpRequest: IWebHttpRequest; ARequestContext: TRequestContext);
+    class function GetInputStream(RequestContext: TRequestContext; OriginalStream: TStream; WrappedRequest: IRequest): TStream; static;
   strict protected
     function CreateWebRequest(ARequestContext: TRequestContext): IWebHttpRequest; virtual;
   public
@@ -75,6 +77,19 @@ begin
   Result := HttpRequest;
 end;
 
+class function TSparkleHttpHandler.GetInputStream(RequestContext: TRequestContext; OriginalStream: TStream;
+  WrappedRequest: IRequest): TStream;
+begin
+  var requestHasConfigForChunkStream := WrappedRequest.UseChunkEncoding and (WrappedRequest.AWS4SignerResult <> nil);
+  var hasTransferEncodingHeader := WrappedRequest.Headers.ContainsKey(THeaderKeys.TransferEncodingHeader);
+  var isTransferEncodingHeaderChunked := hasTransferEncodingHeader and (WrappedRequest.Headers[THeaderKeys.TransferEncodingHeader] = 'chunked');
+  if requestHasConfigForChunkStream or isTransferEncodingHeaderChunked then
+    Result := TChunkedUploadWrapperStream.Create(OriginalStream,
+      RequestContext.ClientConfig.BufferSize, WrappedRequest.AWS4SignerResult, True)
+  else
+    Result := OriginalStream;
+end;
+
 procedure TSparkleHttpHandler.InvokeSync(AExecutionContext: TExecutionContext);
 var
   HttpRequest: IWebHttpRequest;
@@ -100,8 +115,29 @@ begin
   if Length(WrappedRequest.Content) > 0 then
     AHttpRequest.WriteToRequestBody(WrappedRequest.Content, ARequestContext.Request.Headers)
   else
-  if WrappedRequest.ContentStream <> nil then
-    AHttpRequest.WriteToRequestBody(WrappedRequest.ContentStream, ARequestContext.Request.Headers);
+  begin
+    var originalStream: TStream := nil;
+    var inputStream: TStream := nil;
+    try
+      if WrappedRequest.ContentStream = nil then
+      begin
+        originalStream := TBytesStream.Create;
+  //      originalStream.Write(WrappedRequest.Content, Length(WrappedRequest.Content));
+  //      originalStream.Position := 0;
+      end
+      else
+        originalStream := wrappedRequest.ContentStream;
+
+      {TODO: add code for progress callback}
+      inputStream := GetInputStream(ARequestContext, originalStream, WrappedRequest);
+      AHttpRequest.WriteToRequestBody(inputStream, ARequestContext.Request.Headers);
+    finally
+      if inputStream <> WrappedRequest.ContentStream then
+        inputStream.Free;
+      if (originalStream <> WrappedRequest.ContentStream) and (originalStream <> inputStream) then
+        originalStream.Free;
+    end;
+  end;
 end;
 
 end.

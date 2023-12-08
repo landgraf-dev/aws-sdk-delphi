@@ -246,9 +246,16 @@ begin
       FRegionDetector(ARequest);
 
     var signingResult := aws4Signer.SignRequest(ARequest, AClientConfig, {metrics, }AAwsAccessKeyId, AAwsSecretAccessKey);
-    ARequest.Headers.AddOrSetValue(THeaderKeys.AuthorizationHeader, signingResult.ForAuthorizationHeader);
-    if ARequest.UseChunkEncoding then
-      ARequest.AWS4SignerResult := signingResult;
+    try
+      ARequest.Headers.AddOrSetValue(THeaderKeys.AuthorizationHeader, signingResult.ForAuthorizationHeader);
+      if ARequest.UseChunkEncoding then
+      begin
+        ARequest.AWS4SignerResult := signingResult;
+        signingResult := nil;
+      end;
+    finally
+      signingResult.Free;
+    end;
   end
   else
     SignRequest(ARequest, {metrics, } AAwsAccessKeyId, AAwsSecretAccessKey);

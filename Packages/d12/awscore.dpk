@@ -49,7 +49,7 @@ contains
   AWS.Auth.Statement in '..\..\Source\Core\AWS.Auth.Statement.pas',
   AWS.Configs in '..\..\Source\Core\AWS.Configs.pas',
   AWS.Enums in '..\..\Source\Core\AWS.Enums.pas',
-  AWS.Internal.Auth.AWS4SigningResult in '..\..\Source\Core\AWS.Internal.Auth.AWS4SigningResult.pas',
+  AWS.Internal.Auth.AWS4SignerHelper in '..\..\Source\Core\AWS.Internal.Auth.AWS4SignerHelper.pas',
   AWS.Internal.DefaultRequest in '..\..\Source\Core\AWS.Internal.DefaultRequest.pas',
   AWS.Internal.ErrorResponse in '..\..\Source\Core\AWS.Internal.ErrorResponse.pas',
   AWS.Internal.HttpErrorResponseExceptionHandler in '..\..\Source\Core\AWS.Internal.HttpErrorResponseExceptionHandler.pas',

@@ -4,7 +4,7 @@ interface
 
 uses
   System.Generics.Collections, System.Generics.Defaults, System.Classes, System.SysUtils,
-  AWS.Internal.Auth.AWS4SigningResult,
+  AWS.Internal.Auth.AWS4SignerHelper,
   AWS.Internal.Request,
   AWS.Internal.ParameterCollection,
   AWS.Internal.ParameterDictionary,
@@ -219,6 +219,7 @@ begin
   FPathResources.Free;
   FParametersCollection.Free;
   ContentStream := nil;
+  AWS4SignerResult := nil;
   inherited;
 end;
 
@@ -428,7 +429,11 @@ end;
 
 procedure TDefaultRequest.SetAWS4SignerResult(const Value: TAWS4SigningResult);
 begin
-  FAWS4SignerResult := Value;
+  if FAWS4SignerResult <> Value then
+  begin
+    FAWS4SignerResult.Free;
+    FAWS4SignerResult := Value;
+  end;
 end;
 
 procedure TDefaultRequest.SetCanonicalResource(const Value: string);

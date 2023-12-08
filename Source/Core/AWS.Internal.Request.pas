@@ -4,7 +4,7 @@ interface
 
 uses
   System.Generics.Collections, System.Classes,
-  AWS.Internal.Auth.AWS4SigningResult,
+  AWS.Internal.Auth.AWS4SignerHelper,
   AWS.Internal.ParameterCollection,
   AWS.Internal.ParameterDictionary,
   AWS.SDKUtils,

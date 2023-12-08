@@ -10,7 +10,7 @@ uses
   AWS.Transform.RequestMarshaller,
   AWS.Runtime.Model,
   AWS.SDKUtils,
-  AWS.Util.HashStream,
+  AWS.Internal.Util.HashStream,
   AWS.S3.Model.PutObjectRequest,
   AWS.S3.Exception,
   AWS.S3.Internal.AWSConfigsS3,

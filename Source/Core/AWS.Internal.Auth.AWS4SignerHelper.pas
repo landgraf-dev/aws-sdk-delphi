@@ -1,11 +1,12 @@
-unit AWS.Internal.Auth.AWS4SigningResult;
+unit AWS.Internal.Auth.AWS4SignerHelper;
 
 interface
 
 uses
   System.SysUtils,
   AWS.Enums,
-  AWS.SDKUtils;
+  AWS.SDKUtils,
+  AWS.Util.Crypto;
 
 type
   TAWS4SignerConsts = class
@@ -34,7 +35,15 @@ type
     XAmzExpires = 'X-Amz-Expires';
   end;
 
-  TAWS4SigningResult = record
+  TAWS4SignerUtils = class
+  public
+    class function ComputeHash(const AData: string): TArray<Byte>; overload; static;
+    class function ComputeHash(const AData: TArray<Byte>): TArray<Byte>; overload; static;
+    class function SignBlob(const Key: TArray<Byte>; const Data: string): TArray<Byte>; overload; static;
+    class function SignBlob(const Key, Data: TArray<Byte>): TArray<Byte>; overload; static;
+  end;
+
+  TAWS4SigningResult = class
   strict private
     FAAwsAccessKeyId: string;
     FOriginalDateTime: TDateTime;
@@ -122,6 +131,28 @@ end;
 function TAWS4SigningResult.SigningKey: TArray<Byte>;
 begin
   Result := FSigningKey;
+end;
+
+{ TAWS4SignerUtils }
+
+class function TAWS4SignerUtils.ComputeHash(const AData: TArray<Byte>): TArray<Byte>;
+begin
+  Result := TCryptoUtilFactory.CryptoInstance.ComputeSHA256Hash(AData);
+end;
+
+class function TAWS4SignerUtils.SignBlob(const Key, Data: TArray<Byte>): TArray<Byte>;
+begin
+  Result := TCryptoUtilFactory.CryptoInstance.HMACSignBinary(Data, Key, TAWS4SignerConsts.SignerAlgorithm);
+end;
+
+class function TAWS4SignerUtils.SignBlob(const Key: TArray<Byte>; const Data: string): TArray<Byte>;
+begin
+  Result := SignBlob(Key, TEncoding.UTF8.GetBytes(Data));
+end;
+
+class function TAWS4SignerUtils.ComputeHash(const AData: string): TArray<Byte>;
+begin
+  Result := ComputeHash(TEncoding.UTF8.GetBytes(AData));
 end;
 
 end.

@@ -102,9 +102,13 @@ begin
   // Create presigned URL and assign it
   SigningResult := TAWS4PreSignedUrlSigner.SignRequest(Request, nil,
     ImmutableCredentials.AccessKey, ImmutableCredentials.SecretKey, PollyServiceName, ARegion.SystemName);
+  try
 
-  {TODO: Review use of AbsoluteUri, ComposeUrl returnign IUri instead of string}
-  Result := TAmazonServiceClient.ComposeUrl(Request) + '&' + SigningResult.ForQueryParameters;
+    {TODO: Review use of AbsoluteUri, ComposeUrl returnign IUri instead of string}
+    Result := TAmazonServiceClient.ComposeUrl(Request) + '&' + SigningResult.ForQueryParameters;
+  finally
+    SigningResult.Free;
+  end;
 end;
 
 end.

@@ -9,12 +9,13 @@ uses
   System.DateUtils,
   Bcl.Collections,
   AWS.Enums,
-  AWS.Internal.Auth.AWS4SigningResult,
+  AWS.Internal.Auth.AWS4SignerHelper,
   AWS.Internal.Request,
   AWS.Internal.Util.ChunkedUploadWrapperStream,
   AWS.RegionEndpoint,
   AWS.Runtime.ClientConfig,
-  AWS.SDKUtils;
+  AWS.SDKUtils,
+  AWS.Util.Crypto;
 
 type
   TClientProtocol = (Unknown, QueryStringProtocol, RestProtocol);
@@ -182,7 +183,6 @@ implementation
 
 uses
   AWS.Runtime.Exceptions,
-  AWS.Util.Crypto,
   AWS.Internal.IRegionEndpoint;
 
 { TAWS4Signer }
@@ -326,7 +326,7 @@ end;
 
 class function TAWS4Signer.ComputeHash(const AData: TArray<Byte>): TArray<Byte>;
 begin
-  Result := TCryptoUtilFactory.CryptoInstance.ComputeSHA256Hash(AData);
+  Result := TAWS4SignerUtils.ComputeHash(AData);
 end;
 
 class function TAWS4Signer.ComputeKeyedHash(AAlgorithm: TSigningAlgorithm; const AKey,
@@ -337,7 +337,7 @@ end;
 
 class function TAWS4Signer.ComputeHash(const AData: string): TArray<Byte>;
 begin
-  Result := ComputeHash(TEncoding.UTF8.GetBytes(AData));
+  Result := TAWS4SignerUtils.ComputeHash(AData);
 end;
 
 class function TAWS4Signer.ComputeSignature(const AAWSAccessKey, AAWSSecretAccessKey, ARegion: string;
@@ -569,7 +569,11 @@ var
   SigningResult: TAWS4SigningResult;
 begin
   SigningResult := SignRequest(ARequest, AClientConfig, AAWSAccessKeyId, AAWSSecretAccessKey);
-  ARequest.Headers.AddOrSetValue(THeaderKeys.AuthorizationHeader, SigningResult.ForAuthorizationHeader);
+  try
+    ARequest.Headers.AddOrSetValue(THeaderKeys.AuthorizationHeader, SigningResult.ForAuthorizationHeader);
+  finally
+    SigningResult.Free;
+  end;
 end;
 
 function TAWS4Signer.SignRequest(ARequest: IRequest; AClientConfig: IClientConfig; const AAWSAccessKeyId,
