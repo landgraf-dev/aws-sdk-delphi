@@ -1,0 +1,2 @@
+Landgraf AWS SDK for Delphi: 0.7
+2021-09-03

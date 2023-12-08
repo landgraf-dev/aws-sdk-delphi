@@ -1,0 +1,27 @@
+minimum required tmsbuild version: 1.0
+
+application:
+  id: landgraf.aws.sdk
+  name: Landgraf AWS SDK for Delphi
+  version file: version.txt
+
+supported frameworks:
+  rtl:
+    ide since: delphitokyo
+    platforms: 
+      - win32intel
+  
+packages:
+  - awscore: [runtime, rtl]
+  - awsses: [runtime, rtl]
+  - awssesv2: [runtime, rtl]
+  - awssns: [runtime, rtl]
+  - awssqs: [runtime, rtl]
+  - awstextract: [runtime, rtl]
+  - awstranscribe: [runtime, rtl]
+  - awstranslate: [runtime, rtl]
+  - awslexruntimeservice: [runtime, rtl]
+  - awslexruntimev2: [runtime, rtl]
+  - awsrekognition: [runtime, rtl]
+  - awss3: [runtime, rtl]
+
