@@ -541,6 +541,7 @@ begin
     begin
       if not TryStrToDateTime(Text, ParsedDate, FFormatSettings) then
         ParsedDate := TBclUtils.ISOToDateTime(Text, TTimeZoneMode.AsLocal);
+      Result := ParsedDate;
     end;
 end;
 
