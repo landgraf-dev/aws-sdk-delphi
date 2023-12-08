@@ -46,7 +46,7 @@ uses
   AWS.Runtime.Model,
   Sparkle.Uri,
   AWS.Auth.Signer,
-  AWS.Internal.Auth.AWS4SigningResult,
+  AWS.Internal.Auth.AWS4SignerHelper,
   AWS.Runtime.Client;
 
 { TSynthesizeSpeechUtil }
