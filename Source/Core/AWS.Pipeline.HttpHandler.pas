@@ -85,7 +85,7 @@ begin
   var isTransferEncodingHeaderChunked := hasTransferEncodingHeader and (WrappedRequest.Headers[THeaderKeys.TransferEncodingHeader] = 'chunked');
   if requestHasConfigForChunkStream or isTransferEncodingHeaderChunked then
     Result := TChunkedUploadWrapperStream.Create(OriginalStream,
-      RequestContext.ClientConfig.BufferSize, WrappedRequest.AWS4SignerResult, True)
+      RequestContext.ClientConfig.BufferSize, WrappedRequest.AWS4SignerResult, False)
   else
     Result := OriginalStream;
 end;
@@ -126,7 +126,7 @@ begin
   //      originalStream.Position := 0;
       end
       else
-        originalStream := wrappedRequest.ContentStream;
+        originalStream := WrappedRequest.ContentStream;
 
       {TODO: add code for progress callback}
       inputStream := GetInputStream(ARequestContext, originalStream, WrappedRequest);
