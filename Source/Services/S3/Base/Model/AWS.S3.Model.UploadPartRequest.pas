@@ -72,6 +72,7 @@ type
     property FilePosition: Integer read GetFilePosition write SetFilePosition;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
+    property IsSetInputStream: Boolean read IsSetBody;
   end;
   
   TUploadPartRequest = class(TAmazonS3Request, IUploadPartRequest)
@@ -154,6 +155,7 @@ type
     property FilePosition: Integer read GetFilePosition write SetFilePosition;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
+    property IsSetInputStream: Boolean read IsSetBody;
   end;
   
 implementation

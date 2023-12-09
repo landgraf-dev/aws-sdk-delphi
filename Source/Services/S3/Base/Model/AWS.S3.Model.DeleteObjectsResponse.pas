@@ -35,8 +35,10 @@ type
     property RequestCharged: TRequestCharged read GetRequestCharged write SetRequestCharged;
     property DeletedObjects: TObjectList<TDeletedObject> read GetDeleted write SetDeleted;
     property KeepDeletedObjects: Boolean read GetKeepDeleted write SetKeepDeleted;
+    property IsSetDeletedObjects: Boolean read IsSetDeleted;
     property DeleteErrors: TObjectList<TError> read GetErrors write SetErrors;
     property KeepDeleteErrors: Boolean read GetKeepErrors write SetKeepErrors;
+    property IsSetDeleteErrors: Boolean read IsSetErrors;
   end;
   
   TDeleteObjectsResponse = class(TAmazonWebServiceResponse, IDeleteObjectsResponse)
@@ -71,8 +73,10 @@ type
     property RequestCharged: TRequestCharged read GetRequestCharged write SetRequestCharged;
     property DeletedObjects: TObjectList<TDeletedObject> read GetDeleted write SetDeleted;
     property KeepDeletedObjects: Boolean read GetKeepDeleted write SetKeepDeleted;
+    property IsSetDeletedObjects: Boolean read IsSetDeleted;
     property DeleteErrors: TObjectList<TError> read GetErrors write SetErrors;
     property KeepDeleteErrors: Boolean read GetKeepErrors write SetKeepErrors;
+    property IsSetDeleteErrors: Boolean read IsSetErrors;
   end;
   
 implementation

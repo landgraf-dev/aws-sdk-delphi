@@ -154,8 +154,9 @@ type
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
     property BucketName: string read GetBucketName write SetBucketName;
     property Key: string read GetKey write SetKey;
-    property ResponseStream: TBytesStream read GetBody write SetBody;
+    property ResponseStream: TStream read GetBody write SetBody;
     property KeepResponseStream: Boolean read GetKeepBody write SetKeepBody;
+    property IsSetResponseStream: Boolean read IsSetBody;
   end;
   
   TGetObjectResponse = class(TAmazonWebServiceResponse, IGetObjectResponse)
@@ -341,8 +342,9 @@ type
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
     property BucketName: string read GetBucketName write SetBucketName;
     property Key: string read GetKey write SetKey;
-    property ResponseStream: TBytesStream read GetBody write SetBody;
+    property ResponseStream: TStream read GetBody write SetBody;
     property KeepResponseStream: Boolean read GetKeepBody write SetKeepBody;
+    property IsSetResponseStream: Boolean read IsSetBody;
   end;
   
 implementation
