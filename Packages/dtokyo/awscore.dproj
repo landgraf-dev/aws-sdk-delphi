@@ -166,7 +166,7 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Auth.Statement.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Configs.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Enums.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Internal.Auth.AWS4SigningResult.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.Auth.AWS4SignerHelper.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.DefaultRequest.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.ErrorResponse.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.HttpErrorResponseExceptionHandler.pas"/>
@@ -230,6 +230,8 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Json.Writer.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Base.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Writer.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.HashStream.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.ChunkedUploadWrapperStream.pas"/>
 		<BuildConfiguration Include="Release">
 			<Key>Cfg_2</Key>
 			<CfgParent>Base</CfgParent>

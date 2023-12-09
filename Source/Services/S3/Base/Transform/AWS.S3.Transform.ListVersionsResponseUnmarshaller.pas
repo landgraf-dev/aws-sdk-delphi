@@ -65,13 +65,13 @@ begin
   while AContext.Read do
     if AContext.IsStartElement or AContext.IsAttribute then
     begin
-      if AContext.TestExpression('member', TargetDepth) then
+      if AContext.TestExpression('CommonPrefixes', TargetDepth) then
       begin
         var Unmarshaller := TCommonPrefixUnmarshaller.Instance;
         AResponse.CommonPrefixes.Add(Unmarshaller.Unmarshall(AContext));
         Continue;
       end;
-      if AContext.TestExpression('member', TargetDepth) then
+      if AContext.TestExpression('DeleteMarker', TargetDepth) then
       begin
         var Unmarshaller := TDeleteMarkerEntryUnmarshaller.Instance;
         AResponse.DeleteMarkers.Add(Unmarshaller.Unmarshall(AContext));
@@ -137,7 +137,7 @@ begin
         AResponse.VersionIdMarker := Unmarshaller.Unmarshall(AContext);
         Continue;
       end;
-      if AContext.TestExpression('member', TargetDepth) then
+      if AContext.TestExpression('Version', TargetDepth) then
       begin
         var Unmarshaller := TObjectVersionUnmarshaller.Instance;
         AResponse.Versions.Add(Unmarshaller.Unmarshall(AContext));

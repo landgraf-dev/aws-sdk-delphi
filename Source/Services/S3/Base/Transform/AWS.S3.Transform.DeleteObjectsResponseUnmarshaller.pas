@@ -64,13 +64,13 @@ begin
   while AContext.Read do
     if AContext.IsStartElement or AContext.IsAttribute then
     begin
-      if AContext.TestExpression('member', TargetDepth) then
+      if AContext.TestExpression('Deleted', TargetDepth) then
       begin
         var Unmarshaller := TDeletedObjectUnmarshaller.Instance;
         AResponse.Deleted.Add(Unmarshaller.Unmarshall(AContext));
         Continue;
       end;
-      if AContext.TestExpression('member', TargetDepth) then
+      if AContext.TestExpression('Error', TargetDepth) then
       begin
         var Unmarshaller := TErrorUnmarshaller.Instance;
         AResponse.Errors.Add(Unmarshaller.Unmarshall(AContext));
