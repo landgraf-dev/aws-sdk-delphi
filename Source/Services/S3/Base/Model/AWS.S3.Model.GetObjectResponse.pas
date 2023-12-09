@@ -15,8 +15,8 @@ type
   IGetObjectResponse = interface(IAmazonWebServiceResponse)
     function GetAcceptRanges: string;
     procedure SetAcceptRanges(const Value: string);
-    function GetBody: TBytesStream;
-    procedure SetBody(const Value: TBytesStream);
+    function GetBody: TStream;
+    procedure SetBody(const Value: TStream);
     function GetKeepBody: Boolean;
     procedure SetKeepBody(const Value: Boolean);
     function GetBucketKeyEnabled: Boolean;
@@ -119,7 +119,7 @@ type
     function IsSetVersionId: Boolean;
     function IsSetWebsiteRedirectLocation: Boolean;
     property AcceptRanges: string read GetAcceptRanges write SetAcceptRanges;
-    property Body: TBytesStream read GetBody write SetBody;
+    property Body: TStream read GetBody write SetBody;
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
     property CacheControl: string read GetCacheControl write SetCacheControl;
@@ -161,7 +161,7 @@ type
   TGetObjectResponse = class(TAmazonWebServiceResponse, IGetObjectResponse)
   strict private
     FAcceptRanges: Nullable<string>;
-    FBody: TBytesStream;
+    FBody: TStream;
     FKeepBody: Boolean;
     FBucketKeyEnabled: Nullable<Boolean>;
     FCacheControl: Nullable<string>;
@@ -198,8 +198,8 @@ type
     FKey: string;
     function GetAcceptRanges: string;
     procedure SetAcceptRanges(const Value: string);
-    function GetBody: TBytesStream;
-    procedure SetBody(const Value: TBytesStream);
+    function GetBody: TStream;
+    procedure SetBody(const Value: TStream);
     function GetKeepBody: Boolean;
     procedure SetKeepBody(const Value: Boolean);
     function GetBucketKeyEnabled: Boolean;
@@ -306,7 +306,7 @@ type
     function IsSetVersionId: Boolean;
     function IsSetWebsiteRedirectLocation: Boolean;
     property AcceptRanges: string read GetAcceptRanges write SetAcceptRanges;
-    property Body: TBytesStream read GetBody write SetBody;
+    property Body: TStream read GetBody write SetBody;
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
     property CacheControl: string read GetCacheControl write SetCacheControl;
@@ -382,12 +382,12 @@ begin
   Result := FAcceptRanges.HasValue;
 end;
 
-function TGetObjectResponse.GetBody: TBytesStream;
+function TGetObjectResponse.GetBody: TStream;
 begin
   Result := FBody;
 end;
 
-procedure TGetObjectResponse.SetBody(const Value: TBytesStream);
+procedure TGetObjectResponse.SetBody(const Value: TStream);
 begin
   if FBody <> Value then
   begin

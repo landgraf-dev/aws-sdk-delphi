@@ -19,7 +19,6 @@ implementation
 class function TS3Transforms.ToDateTime(const Value: string): TDateTime;
 begin
   Result := TAWSSDKUtils.Rfc822ToDateTime(Value);
-  Result := TTimeZone.Local.ToUniversalTime(Result);
 end;
 
 end.
