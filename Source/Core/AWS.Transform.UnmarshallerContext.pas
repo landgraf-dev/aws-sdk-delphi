@@ -56,6 +56,7 @@ type
   TXmlUnmarshallerContext = class(TUnmarshallerContext)
   strict private
     FStream: TStream;
+    FResponseStream: TStream;
     FAllowEmptyElementLookup: HashSet<string>;
     FXmlReader: TXmlReader;
     FStackString: string;
@@ -85,6 +86,7 @@ type
     constructor Create(AResponseStream: TStream; AMaintainResponseBody: Boolean;
       AResponseData: IWebResponseData; AIsException: Boolean = false); reintroduce;
     destructor Destroy; override;
+    function ExtractStream: TStream;
     property Stream: TStream read FStream;
   end;
 
@@ -189,6 +191,7 @@ var
   SizeLimit: Integer;
 begin
   inherited Create;
+  FResponseStream := AResponseStream;
   SizeLimit := TAWSConfigs.LoggingConfig.LogResponsesSizeLimit;
   if IsException then
     SetWrappingStream(TCachingWrapperStream.Create(AResponseStream, False, SizeLimit, MaxInt))
@@ -224,6 +227,11 @@ begin
   FXmlReader.Free;
   FStack.Free;
   inherited;
+end;
+
+function TXmlUnmarshallerContext.ExtractStream: TStream;
+begin
+  Result := FResponseStream;
 end;
 
 function TXmlUnmarshallerContext.IsAttribute: Boolean;
