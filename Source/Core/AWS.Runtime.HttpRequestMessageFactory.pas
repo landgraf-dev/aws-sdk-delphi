@@ -51,7 +51,7 @@ type
     procedure ConfigureRequest(ARequestContext: TRequestContext);
     procedure SetRequestHeaders(AHeaders: TDictionary<string, string>);
     procedure WriteToRequestBody(const Content: TArray<Byte>; AHeaders: TDictionary<string, string>); overload;
-    procedure WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>); overload;
+    procedure WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>; AOwnsStream: Boolean); overload;
     function GetResponse: IWebResponseData;
     property Method: string read GetMethod write SetMethod;
     property RequestUri: string read GetRequestUri;
@@ -215,9 +215,10 @@ begin
     FRequest.Headers.SetValue(THeaderKeys.Expires, ContentHeaders[THeaderKeys.Expires]);
 end;
 
-procedure THttpWebRequestMessage.WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>);
+procedure THttpWebRequestMessage.WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>; AOwnsStream: Boolean);
 begin
   FRequest.ContentStream := Stream;
+  FRequest.OwnsContentStream := AOwnsStream;
   if (Stream is TChunkedUploadWrapperStream) and TChunkedUploadWrapperStream(Stream).HasLength then
     FRequest.Headers.SetValue(THeaderKeys.ContentLengthHeader, IntToStr(Stream.Size));
   WriteContentHeaders(AHeaders);

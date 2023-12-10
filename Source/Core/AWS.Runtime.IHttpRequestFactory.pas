@@ -12,7 +12,7 @@ type
     procedure ConfigureRequest(ARequestContext: TRequestContext);
     procedure SetRequestHeaders(AHeaders: TDictionary<string, string>);
     procedure WriteToRequestBody(const Content: TArray<Byte>; AHeaders: TDictionary<string, string>); overload;
-    procedure WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>); overload;
+    procedure WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>; AOwsStream: Boolean); overload;
     function GetResponse: IWebResponseData;
     function GetMethod: string;
     procedure SetMethod(const Value: string);

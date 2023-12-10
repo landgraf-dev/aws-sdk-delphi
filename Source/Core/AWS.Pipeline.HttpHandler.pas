@@ -130,10 +130,8 @@ begin
 
       {TODO: add code for progress callback}
       inputStream := GetInputStream(ARequestContext, originalStream, WrappedRequest);
-      AHttpRequest.WriteToRequestBody(inputStream, ARequestContext.Request.Headers);
+      AHttpRequest.WriteToRequestBody(inputStream, ARequestContext.Request.Headers, inputStream <> WrappedRequest.ContentStream);
     finally
-      if inputStream <> WrappedRequest.ContentStream then
-        inputStream.Free;
       if (originalStream <> WrappedRequest.ContentStream) and (originalStream <> inputStream) then
         originalStream.Free;
     end;
