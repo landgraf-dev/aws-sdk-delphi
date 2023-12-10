@@ -65,12 +65,32 @@ begin
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
     try
+      var regionCode := '';
+      if PublicRequest.BucketRegionName <> '' then
+      begin
+        if PublicRequest.BucketRegionName = 'eu-west-1' then
+          regionCode := 'EU'
+        else
+        if PublicRequest.BucketRegionName <> 'us-east-1' then
+          regionCode := PublicRequest.BucketRegionName;
+      end;
+
+      if regionCode <> '' then
+      begin
+        XmlWriter.WriteStartElement('CreateBucketConfiguration', '');
+        XmlWriter.WriteElementString('LocationConstraint', '', regionCode);
+        XmlWriter.WriteEndElement;
+      end;
     finally
       XmlWriter.Free;
     end;
     Request.Content := Copy(XmlStream.Bytes, 0, XmlStream.Size);
     Request.Headers.AddOrSetValue('Content-Type', 'application/xml');
     var content := TEncoding.UTF8.GetString(Request.Content);
+
+    var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, True);
+    request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
+
     Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
   finally
     XmlStream.Free;

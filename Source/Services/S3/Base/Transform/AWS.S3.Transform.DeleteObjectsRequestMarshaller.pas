@@ -84,7 +84,7 @@ begin
     var content := TEncoding.UTF8.GetString(Request.Content);
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
     Request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
-//    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
+    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
   finally
     XmlStream.Free;
   end;
