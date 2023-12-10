@@ -26,6 +26,7 @@ type
     FOriginalRequest: TAmazonWebServiceRequest;
     FContent: TArray<Byte>;
     FContentStream: TStream;
+    FIsSetContent: Boolean;
     FOwnsContentStream: Boolean;
     FHttpMethod: string;
     FUseQueryString: Boolean;
@@ -109,6 +110,7 @@ type
     function HasRequestData: Boolean;
     function ComputeContentStreamHash: string;
     function IsRequestStreamRewindable: Boolean;
+    function IsSetContent: Boolean;
 
     procedure AddSubResource(const ASubResource: string; const AValue: string = '');
     procedure AddPathResource(const AKey, AValue: string);
@@ -389,7 +391,7 @@ end;
 
 function TDefaultRequest.HasRequestData: Boolean;
 begin
-  if (ContentStream <> nil) or (Length(Content) > 0) then
+  if (ContentStream <> nil) or IsSetContent then
     Result := True
   else
     Result := Parameters.Count > 0;
@@ -410,6 +412,11 @@ begin
   end;
 
   Result := True;
+end;
+
+function TDefaultRequest.IsSetContent: Boolean;
+begin
+  Result := FIsSetContent;
 end;
 
 function TDefaultRequest.MayContainRequestBody: Boolean;
@@ -449,6 +456,7 @@ end;
 procedure TDefaultRequest.SetContent(const Value: TArray<Byte>);
 begin
   FContent := Value;
+  FIsSetContent := True;
 end;
 
 procedure TDefaultRequest.SetContentStream(const Value: TStream);

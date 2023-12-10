@@ -55,20 +55,24 @@ begin
   HttpRequest.Method := Request.HttpMethod;
   if Request.MayContainRequestBody then
   begin
+    var ContentIsSet := Request.IsSetContent;
     Content := Request.Content;
-    if Request.SetContentFromParameters or ((Length(Content) = 0) and (Request.ContentStream = nil)) then
+    if Request.SetContentFromParameters or (not ContentIsSet and (Request.ContentStream = nil)) then
     begin
       if not Request.UseQueryString then
       begin
         Content := TEncoding.UTF8.GetBytes(TAWSSDKUtils.GetParametersAsString(Request.ParameterCollection));
         Request.Content := Content;
+        ContentIsSet := True;
         Request.SetContentFromParameters := True;
       end
       else
+      begin
         Request.Content := nil;
+      end;
     end;
 
-    if Length(Content) > 0 then
+    if ContentIsSet then
       Request.Headers.AddOrSetValue(THeaderKeys.ContentLengthHeader, IntToStr(Length(Content)))
     else
     if (Request.ContentStream <> nil) and not Request.Headers.ContainsKey(THeaderKeys.ContentLengthHeader) then

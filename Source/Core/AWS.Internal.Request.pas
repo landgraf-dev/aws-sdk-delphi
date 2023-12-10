@@ -72,6 +72,7 @@ type
     procedure AddPathResource(const AKey, AValue: string);
     function GetHeaderValue(const AHeaderName: string): string;
     function ComputeContentStreamHash: string;
+    function IsSetContent: Boolean;
 
     /// <summary>
     /// Checks if the request stream can be rewinded.

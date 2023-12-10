@@ -463,7 +463,7 @@ class function TAWS4Signer.GetRequestPayloadBytes(ARequest: IRequest): TArray<By
 var
   Content: string;
 begin
-  if Length(ARequest.Content) > 0 then
+  if ARequest.IsSetContent then
     Result := ARequest.Content
   else
   begin
