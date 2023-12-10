@@ -52,6 +52,8 @@ begin
     Request.Headers.Add('If-Unmodified-Since', TStringUtils.FromDateTimeToRFC822(PublicRequest.IfUnmodifiedSince));
   if PublicRequest.IsSetRange then
     Request.Headers.Add('Range', PublicRequest.Range);
+  if PublicRequest.ByteRange <> nil then
+    Request.Headers.Add('Range', PublicRequest.ByteRange.FormattedByteRange);
   if PublicRequest.IsSetRequestPayer then
     Request.Headers.Add('x-amz-request-payer', PublicRequest.RequestPayer.Value);
   if PublicRequest.IsSetSSECustomerAlgorithm then
@@ -67,7 +69,7 @@ begin
     raise EAmazonS3Exception.Create('Request object does not have required field Key set');
   Request.AddPathResource('{Key+}', TStringUtils.Fromstring(PublicRequest.Key.TrimLeft(['/'])));
   if PublicRequest.IsSetPartNumber then
-    Request.Parameters.Add('partNumber', TStringUtils.FromInteger(PublicRequest.PartNumber));
+    Request.AddSubResource('partNumber', TStringUtils.FromInteger(PublicRequest.PartNumber));
   if PublicRequest.IsSetResponseCacheControl then
     Request.Parameters.Add('response-cache-control', TStringUtils.Fromstring(PublicRequest.ResponseCacheControl));
   if PublicRequest.IsSetResponseContentDisposition then
@@ -81,7 +83,7 @@ begin
   if PublicRequest.IsSetResponseExpires then
     Request.Parameters.Add('response-expires', TStringUtils.FromDateTimeToRFC822(PublicRequest.ResponseExpires));
   if PublicRequest.IsSetVersionId then
-    Request.Parameters.Add('versionId', TStringUtils.Fromstring(PublicRequest.VersionId));
+    Request.AddSubResource('versionId', TStringUtils.Fromstring(PublicRequest.VersionId));
   Request.ResourcePath := '/{Bucket}/{Key+}';
   Request.UseQueryString := True;
   Result := Request;

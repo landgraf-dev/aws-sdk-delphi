@@ -84,6 +84,7 @@ begin
         var deleteObjectsRequest: IDeleteObjectsRequest := TDeleteObjectsRequest.Create;
         deleteObjectsRequest.BucketName := BucketName;
         deleteObjectsRequest.Objects := keyVersionList;
+        deleteObjectsRequest.KeepObjects := True;
         deleteObjectsRequest.Quiet := DeleteOptions.QuietMode;
         var deleteObjectsResponse := S3Client.DeleteObjects(deleteObjectsRequest);
 
