@@ -4,6 +4,7 @@ interface
 
 uses
   System.Generics.Collections, System.SysUtils, System.Classes,
+  AWS.Internal.Util.ChunkedUploadWrapperStream,
   AWS.Runtime.Contexts,
   AWS.Runtime.ClientConfig,
   AWS.Runtime.IHttpRequestFactory,
@@ -43,6 +44,7 @@ type
     function GetMethod: string;
     procedure SetMethod(const Value: string);
     function GetRequestUri: string;
+    procedure WriteContentHeaders(ContentHeaders: TDictionary<string, string>);
   public
     constructor Create(AHttpClient: THttpClient; ARequestUri: string; AConfig: IClientConfig);
     destructor Destroy; override;
@@ -191,23 +193,40 @@ begin
   end;
 end;
 
-procedure THttpWebRequestMessage.WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>);
-var
-  BytesStream: TBytesStream;
+procedure THttpWebRequestMessage.WriteContentHeaders(ContentHeaders: TDictionary<string, string>);
 begin
-  BytesStream := TBytesStream.Create;
-  try
-    BytesStream.CopyFrom(Stream);
-    BytesStream.Size := Stream.Size;
-    WriteToRequestBody(BytesStream.Bytes, AHeaders);
-  finally
-    BytesStream.Free;
-  end;
+  var ContentType := '';
+  ContentHeaders.TryGetValue(THeaderKeys.ContentTypeHeader, ContentType);
+  FRequest.Headers.SetValue(THeaderKeys.ContentTypeHeader, ContentType);
+
+  if ContentHeaders.ContainsKey(THeaderKeys.ContentRangeHeader) then
+    FRequest.Headers.SetValue(THeaderKeys.ContentRangeHeader, ContentHeaders[THeaderKeys.ContentRangeHeader]);
+
+  if ContentHeaders.ContainsKey(THeaderKeys.ContentMD5Header) then
+    FRequest.Headers.SetValue(THeaderKeys.ContentMD5Header, ContentHeaders[THeaderKeys.ContentMD5Header]);
+
+  if ContentHeaders.ContainsKey(THeaderKeys.ContentEncodingHeader) then
+    FRequest.Headers.SetValue(THeaderKeys.ContentEncodingHeader, ContentHeaders[THeaderKeys.ContentEncodingHeader]);
+
+  if ContentHeaders.ContainsKey(THeaderKeys.ContentDispositionHeader) then
+    FRequest.Headers.SetValue(THeaderKeys.ContentDispositionHeader, ContentHeaders[THeaderKeys.ContentDispositionHeader]);
+
+  if ContentHeaders.ContainsKey(THeaderKeys.Expires) then
+    FRequest.Headers.SetValue(THeaderKeys.Expires, ContentHeaders[THeaderKeys.Expires]);
+end;
+
+procedure THttpWebRequestMessage.WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>);
+begin
+  FRequest.ContentStream := Stream;
+  if (Stream is TChunkedUploadWrapperStream) and TChunkedUploadWrapperStream(Stream).HasLength then
+    FRequest.Headers.SetValue(THeaderKeys.ContentLengthHeader, IntToStr(Stream.Size));
+  WriteContentHeaders(AHeaders);
 end;
 
 procedure THttpWebRequestMessage.WriteToRequestBody(const Content: TArray<Byte>; AHeaders: TDictionary<string, string>);
 begin
   FRequest.SetContent(Content);
+  WriteContentHeaders(AHeaders);
 end;
 
 { THttpClientResponseData }

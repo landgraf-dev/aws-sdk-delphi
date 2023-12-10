@@ -50,6 +50,7 @@ type
     constructor Create(AStream: TStream; AWrappedStreamBufferSize: Integer; AHeaderSigningResult: TAWS4SigningResult;
       AOwnsStream: Boolean); reintroduce;
     function CanSeek: Boolean; override;
+    function HasLength: Boolean; override;
   end;
 
 implementation
@@ -242,6 +243,11 @@ begin
     Result := 0
   else
     Result := ComputeChunkedContentLength(BaseStream.Size);
+end;
+
+function TChunkedUploadWrapperStream.HasLength: Boolean;
+begin
+  Result := FHeaderSigningResult <> nil;
 end;
 
 function TChunkedUploadWrapperStream.Read(var Buffer; Count: Longint): Longint;

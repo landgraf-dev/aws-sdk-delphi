@@ -30,6 +30,7 @@ type
     constructor Create(ABaseStream: TStream; AOwnsStream: Boolean);
     destructor Destroy; override;
     function CanSeek: Boolean; virtual;
+    function HasLength: Boolean; virtual;
     function SearchWrappedStream(ACondition: TFunc<TStream, Boolean>): TStream; overload;
     function GetNonWrapperBaseStream: TStream; overload;
     class function SearchWrappedStream(AStream: TStream; ACondition: TFunc<TStream, Boolean>): TStream; overload; static;
@@ -134,6 +135,11 @@ end;
 function TWrapperStream.GetSize: Int64;
 begin
   Result := TInternalStream(BaseStream).GetSize;
+end;
+
+function TWrapperStream.HasLength: Boolean;
+begin
+  Result := True;
 end;
 
 function TWrapperStream.Read(var Buffer; Count: Longint): Longint;
