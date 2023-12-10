@@ -60,6 +60,22 @@ begin
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
     try
+      XmlWriter.WriteStartElement('Delete', '');
+      var PublicRequestObjects := PublicRequest.Objects;
+      if (PublicRequestObjects <> nil) and (PublicRequestObjects.Count > 0) then
+      begin
+        XmlWriter.WriteStartElement('Object', '');
+        for var PublicRequestObjectsValue in PublicRequestObjects do
+          if PublicRequestObjectsValue <> nil then
+          begin
+            if PublicRequestObjectsValue.IsSetKey then
+              XmlWriter.WriteElementString('Key', '', TStringUtils.Fromstring(PublicRequestObjectsValue.Key));
+            if PublicRequestObjectsValue.IsSetVersionId then
+              XmlWriter.WriteElementString('VersionId', '', TStringUtils.Fromstring(PublicRequestObjectsValue.VersionId));
+          end;
+        XmlWriter.WriteEndElement;
+      end;
+      XmlWriter.WriteEndElement;
     finally
       XmlWriter.Free;
     end;
@@ -68,7 +84,7 @@ begin
     var content := TEncoding.UTF8.GetString(Request.Content);
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
     Request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
-    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
+//    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
   finally
     XmlStream.Free;
   end;
