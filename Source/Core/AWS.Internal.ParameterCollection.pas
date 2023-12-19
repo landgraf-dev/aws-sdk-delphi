@@ -4,7 +4,7 @@ interface
 
 uses
   System.Generics.Collections,
-  Bcl.Collections;
+  AWS.Lib.Collections;
 
 type
   TParameterValue = class abstract

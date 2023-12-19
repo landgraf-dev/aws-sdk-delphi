@@ -7,11 +7,11 @@ interface
 uses
   System.Generics.Defaults, System.Generics.Collections, System.SysUtils, System.StrUtils,
   System.DateUtils,
-  Bcl.Collections,
   AWS.Enums,
   AWS.Internal.Auth.AWS4SignerHelper,
   AWS.Internal.Request,
   AWS.Internal.Util.ChunkedUploadWrapperStream,
+  AWS.Lib.Collections,
   AWS.RegionEndpoint,
   AWS.Runtime.ClientConfig,
   AWS.SDKUtils,

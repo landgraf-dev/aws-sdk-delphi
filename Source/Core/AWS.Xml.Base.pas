@@ -2,7 +2,7 @@ unit AWS.Xml.Base;
 {$INCLUDE AWS.inc}
 {$INLINE ON}
 interface
-uses Classes, SysUtils, Generics.Collections, Bcl.Collections;
+uses Classes, SysUtils, Generics.Collections, AWS.Lib.Collections;
 
 type
   TNamespaceAndLevel = class //making it a record would make it slower, paradoxically, because record must be finalized as it has strings.
