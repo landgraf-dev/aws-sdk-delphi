@@ -6,7 +6,7 @@ interface
 
 uses
   System.Generics.Collections, System.SysUtils, System.StrUtils,
-  Bcl.Logging,
+  AWS.Lib.Logging,
   AWS.Runtime.Model,
   AWS.Runtime.Credentials,
   AWS.Internal.ServiceMetadata,

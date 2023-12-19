@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils,
-  Bcl.Logging,
+  AWS.Lib.Logging,
   AWS.Runtime.Contexts,
   AWS.Internal.PipelineHandler;
 

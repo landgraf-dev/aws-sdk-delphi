@@ -116,6 +116,7 @@ contains
   AWS.Internal.Util.HashStream in '..\..\Source\Core\AWS.Internal.Util.HashStream.pas',
   AWS.Internal.Util.ChunkedUploadWrapperStream in '..\..\Source\Core\AWS.Internal.Util.ChunkedUploadWrapperStream.pas',
   AWS.Lib.Collections in '..\..\Source\Core\AWS.Lib.Collections.pas',
-  AWS.Lib.MicroDictionary in '..\..\Source\Core\AWS.Lib.MicroDictionary.pas';
+  AWS.Lib.MicroDictionary in '..\..\Source\Core\AWS.Lib.MicroDictionary.pas',
+  AWS.Lib.Logging in '..\..\Source\Core\AWS.Lib.Logging.pas';
 
 end.

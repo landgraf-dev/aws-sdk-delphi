@@ -4,7 +4,7 @@ interface
 
 uses
   System.Generics.Collections, System.SysUtils,
-  Bcl.Logging,
+  AWS.Lib.Logging,
   AWS.Runtime.Credentials,
   AWS.RegionEndpoint;
 

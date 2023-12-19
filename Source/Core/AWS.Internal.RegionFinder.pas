@@ -6,7 +6,7 @@ interface
 
 uses
   System.Generics.Collections, System.SysUtils, System.StrUtils,
-  Bcl.Logging,
+  AWS.Lib.Logging,
   AWS.Internal.IRegionEndpoint;
 
 type

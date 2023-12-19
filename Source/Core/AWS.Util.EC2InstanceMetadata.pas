@@ -71,7 +71,7 @@ type
 implementation
 
 uses
-  Bcl.Logging,
+  AWS.Lib.Logging,
   Bcl.Json,
   Bcl.Json.Classes,
   AWS.SDKUtils;

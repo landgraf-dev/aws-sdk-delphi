@@ -3,8 +3,8 @@ unit AWS.Pipeline.RedirectHandler;
 interface
 
 uses
-  Bcl.Logging,
   System.SysUtils,
+  AWS.Lib.Logging,
   AWS.Internal.PipelineHandler,
   AWS.Internal.WebResponseData,
   AWS.Runtime.Contexts,
