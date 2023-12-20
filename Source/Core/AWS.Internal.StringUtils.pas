@@ -31,7 +31,6 @@ type
 implementation
 
 uses
-  Bcl.Utils,
   AWS.SDKUtils;
 
 { TStringUtils }
@@ -87,7 +86,7 @@ end;
 
 class function TStringUtils.FromTBytesStream(const Value: TBytesStream): string;
 begin
-  Result := TBclUtils.EncodeBase64(Copy(Value.Bytes, 0, Value.Size));
+  Result := TAWSSDKUtils.EncodeBase64(Copy(Value.Bytes, 0, Value.Size));
 end;
 
 //class function TStringUtils.FromTMemoryStream(const Value: TMemoryStream): string;

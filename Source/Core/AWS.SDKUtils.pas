@@ -6,12 +6,12 @@ interface
 
 uses
   System.Generics.Collections, System.Classes, System.IniFiles, System.SysUtils, System.StrUtils, System.DateUtils,
-  Bcl.Utils,
   Sparkle.Http.Headers,
   Sparkle.Uri,
   AWS.Enums,
   AWS.Internal.ParameterCollection,
   AWS.Internal.IRegionEndpoint,
+  AWS.Lib.Utils,
   AWS.Util.Crypto,
   AWS.Util.Streams;
 
@@ -48,8 +48,6 @@ type
   strict private
     class var FUserAgent: string;
     class var FRFC822FormatSettings: TFormatSettings;
-    class function InternalEncodeBase64(const Input: TBytes;
-      EncodeTable: TBase64EncodeTable; Padding: Boolean): string;
   public
     // Functions for internal use
     class constructor Create;
@@ -508,57 +506,8 @@ type
   end;
 
 class function TAWSSDKUtils.DecodeBase64(const Input: string): TArray<Byte>;
-var
-  StrLen: Integer;
-const
-  DecodeTable: array[#0..#127] of Integer = (
-    61, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
-    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
-    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 62, 64, 62, 64, 63,
-    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 64, 64, 64, 64, 64, 64,
-    64,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
-    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 64, 64, 64, 64, 63,
-    64, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 64, 64, 64, 64, 64);
-
-  function DecodePacket(Idx: Integer; var nChars: Integer): TPacket;
-  begin
-    Result.a[0] := (DecodeTable[Input[Idx + 0]] shl 2) or
-      (DecodeTable[Input[Idx + 1]] shr 4);
-    NChars := 1;
-    if (Idx + 2 <= StrLen) and (Input[Idx + 2] <> '=') then
-    begin
-      Inc(NChars);
-      Result.a[1] := ((DecodeTable[Input[Idx + 1]] shl 4) or (DecodeTable[Input[Idx + 2]] shr 2)) and $FF;
-    end;
-    if (Idx + 3 <= StrLen) and (Input[Idx + 3] <> '=') then
-    begin
-      Inc(NChars);
-      Result.a[2] := ((DecodeTable[Input[Idx + 2]] shl 6) or DecodeTable[Input[Idx + 3]]) and $FF;
-    end;
-  end;
-
-var
-  I, J, K: Integer;
-  Packet: TPacket;
-  Len: integer;
 begin
-  SetLength(Result, ((Length(Input) + 2) div 4) * 3);
-  StrLen := Length(Input);
-  Len := 0;
-  for I := 1 to (StrLen + 2) div 4 do
-  begin
-    Packet := DecodePacket((I - 1) * 4 + 1, J);
-    K := 0;
-    while J > 0 do
-    begin
-      Result[Len] := Packet.a[K];
-      Inc(Len);
-      Inc(K);
-      Dec(J);
-    end;
-  end;
-  SetLength(Result, Len);
+  Result := AWS.Lib.Utils.DecodeBase64(Input);
 end;
 
 class function TAWSSDKUtils.DetermineRegion(AUrl: string): string;
@@ -603,13 +552,8 @@ begin
 end;
 
 class function TAWSSDKUtils.EncodeBase64(const Input: TArray<Byte>): string;
-const
-  EncodeTable: TBase64EncodeTable =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-    'abcdefghijklmnopqrstuvwxyz' +
-    '0123456789+/';
 begin
-  Result := InternalEncodeBase64(Input, EncodeTable, True);
+  Result := AWS.Lib.Utils.EncodeBase64(Input);
 end;
 
 class function TAWSSDKUtils.ExecuteHttpRequest(const AUri, ARequestType, AContent: string; ATimeoutMS: Integer;
@@ -666,7 +610,7 @@ begin
 
  if Base64Encode then
    // Convert the hash to a Base64 Encoded string and return it
-   Result := TBclUtils.EncodeBase64(hashed)
+   Result := TAWSSDKUtils.EncodeBase64(hashed)
  else
    Result := TCryptoUtilFactory.CryptoInstance.HashAsString(hashed, True);
 end;
@@ -682,7 +626,7 @@ begin
   var hashed := TCryptoUtilFactory.CryptoInstance.ComputeMD5Hash(Input);
 
   // Convert the hash to a Base64 Encoded string and return it
-  Result := TBclUtils.EncodeBase64(hashed);
+  Result := TAWSSDKUtils.EncodeBase64(hashed);
 
   // Now that the hash has been generated, reset the stream to its origin so that the stream's data can be processed
   Input.Position := 0;
@@ -732,70 +676,6 @@ begin
   if Data <> '' then
     Delete(Data, Length(Data), 1);
   Result := Data;
-end;
-
-class function TAWSSDKUtils.InternalEncodeBase64(const Input: TBytes; EncodeTable: TBase64EncodeTable; Padding: Boolean): string;
-var
-  Output: string;
-
-  procedure EncodePacket(const Packet: TPacket; NumChars: Integer; Idx: Integer);
-  begin
-    Output[Idx + 0] := EnCodeTable[Packet.a[0] shr 2];
-    Output[Idx + 1] := EnCodeTable[((Packet.a[0] shl 4) or (Packet.a[1] shr 4)) and $0000003f];
-
-    if NumChars < 2 then
-      Output[Idx + 2] := '='
-    else
-      Output[Idx + 2] := EnCodeTable[((Packet.a[1] shl 2) or (Packet.a[2] shr 6)) and $0000003f];
-
-    if NumChars < 3 then
-      Output[Idx + 3] := '='
-    else
-      Output[Idx + 3] := EnCodeTable[Packet.a[2] and $0000003f];
-  end;
-
-var
-  I, K, J: Integer;
-  Packet: TPacket;
-begin
-  Output := '';
-  I := (Length(Input) div 3) * 4;
-  if Length(Input) mod 3 > 0 then Inc(I, 4);
-  SetLength(Output, I);
-  J := 1;
-  for I := 1 to Length(Input) div 3 do
-  begin
-    Packet.a[0] := Input[(I - 1) * 3];
-    Packet.a[1] := Input[(I - 1) * 3 + 1];
-    Packet.a[2] := Input[(I - 1) * 3 + 2];
-    Packet.a[3] := 0;
-    EncodePacket(Packet, 3, J);
-    Inc(J, 4);
-  end;
-  K := 0;
-
-  Packet.a[0] := 0;
-  Packet.a[1] := 0;
-  Packet.a[2] := 0;
-  Packet.a[3] := 0;
-
-  for I := Length(Input) - (Length(Input) mod 3) + 1 to Length(Input) do
-  begin
-    Packet.a[K] := Byte(Input[I - 1]);
-    Inc(K);
-    if I = Length(Input) then
-      EncodePacket(Packet, Length(Input) mod 3, J);
-  end;
-
-  if not Padding and (Length(Output) >= 2) then
-  begin
-    if Output[Length(Output) - 1] = '=' then
-      SetLength(Output, Length(Output) - 2)
-    else
-    if Output[Length(Output)] = '=' then
-      SetLength(Output, Length(Output) - 1);
-  end;
-  Result := Output;
 end;
 
 class function TAWSSDKUtils.JoinResourcePathSegments(APathSegments: TArray<string>; APath: Boolean): string;

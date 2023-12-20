@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Generics.Collections, System.Classes, System.DateUtils,
+  AWS.Lib.Utils,
   AWS.Transform.ResponseUnmarshaller,
   AWS.Transform.UnmarshallerContext,
   AWS.Runtime.Model,
@@ -254,7 +255,6 @@ type
 implementation
 
 uses
-  Bcl.Utils,
   AWS.SDKUtils,
   AWS.Util.Collections;
 
@@ -393,7 +393,7 @@ function TMemoryStreamUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext)
 var
   Bytes: TArray<Byte>;
 begin
-  Bytes := TBclUtils.DecodeBase64(AContext.ReadText);
+  Bytes := TAWSSDKUtils.DecodeBase64(AContext.ReadText);
   Result := TMemoryStream.Create;
   try
     Result.Write(Bytes[0], Length(Bytes));
@@ -484,7 +484,7 @@ end;
 
 function TBytesStreamUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): TBytesStream;
 begin
-  Result := TBytesStream.Create(TBclUtils.DecodeBase64(AContext.ReadText));
+  Result := TBytesStream.Create(TAWSSDKUtils.DecodeBase64(AContext.ReadText));
 end;
 
 { TDateTimeUnmarshaller }
@@ -540,7 +540,7 @@ begin
     else
     begin
       if not TryStrToDateTime(Text, ParsedDate, FFormatSettings) then
-        ParsedDate := TBclUtils.ISOToDateTime(Text, TTimeZoneMode.AsLocal);
+        ParsedDate := AWS.Lib.Utils.ISOToDateTime(Text);
       Result := ParsedDate;
     end;
 end;

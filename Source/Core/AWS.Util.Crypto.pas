@@ -4,8 +4,8 @@ interface
 
 uses
   System.Classes, System.SysUtils,
-  AWS.Enums,
-  Bcl.Utils;
+  AWS.Lib.Utils,
+  AWS.Enums;
 
 type
   ICryptoUtil = interface
@@ -116,7 +116,7 @@ begin
   else
     raise EInvalidDataException.Create('Unsupported signing algorithm');
   end;
-  Result := TBclUtils.EncodeBase64(bytes);
+  Result := AWS.Lib.Utils.EncodeBase64(bytes);
 end;
 
 function TCryptoUtil.HMACSignBinary(const AData, AKey: TArray<Byte>; AAlgorithmName: TSigningAlgorithm): TArray<Byte>;
