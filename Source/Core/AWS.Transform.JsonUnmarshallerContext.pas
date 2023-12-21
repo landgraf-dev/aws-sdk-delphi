@@ -6,13 +6,13 @@ interface
 
 uses
   System.Classes, System.SysUtils, System.Generics.Collections, System.TypInfo,
-  Bcl.Json.Reader,
+  AWS.Json.Reader,
   AWS.Nullable,
   AWS.Transform.UnmarshallerContext,
   AWS.Internal.WebResponseData;
 
 type
-  TJsonToken = Bcl.Json.Reader.TJsonToken;
+  TJsonToken = AWS.Json.Reader.TJsonToken;
 
   TPathSegmentType = (Value, Delimiter);
 

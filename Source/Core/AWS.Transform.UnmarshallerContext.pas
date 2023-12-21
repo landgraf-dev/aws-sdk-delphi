@@ -6,7 +6,7 @@ interface
 
 uses
   System.Generics.Collections, System.SysUtils, System.Classes, System.StrUtils,
-  Bcl.Xml.Reader,
+  AWS.Xml.Reader,
   AWS.Internal.WebResponseData,
   AWS.Lib.Collections,
   AWS.Util.Streams;

@@ -119,6 +119,9 @@ contains
   AWS.Lib.MicroDictionary in '..\..\Source\Core\AWS.Lib.MicroDictionary.pas',
   AWS.Lib.Logging in '..\..\Source\Core\AWS.Lib.Logging.pas',
   AWS.Lib.Utils in '..\..\Source\Core\AWS.Lib.Utils.pas',
-  AWS.Json.Utils in '..\..\Source\Core\AWS.Json.Utils.pas';
+  AWS.Json.Utils in '..\..\Source\Core\AWS.Json.Utils.pas',
+  AWS.Xml.Reader in '..\..\Source\Core\AWS.Xml.Reader.pas',
+  AWS.Lib.Micro in '..\..\Source\Core\AWS.Lib.Micro.pas',
+  AWS.Lib.Encoding in '..\..\Source\Core\AWS.Lib.Encoding.pas';
 
 end.
