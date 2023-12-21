@@ -3,12 +3,13 @@ unit AWS.Auth.Policy;
 interface
 
 uses
-  System.Generics.Collections, System.SysUtils, System.Classes, System.TypInfo,
+  System.Generics.Collections, System.SysUtils, System.Classes, System.TypInfo, System.JSON,
   AWS.Auth.Statement,
   AWS.Auth.Resource,
   AWS.Auth.Condition,
   AWS.Auth.Principal,
-  AWS.Auth.ActionIdentifier;
+  AWS.Auth.ActionIdentifier,
+  AWS.Json.Writer;
 
 type
   TPolicy = class
@@ -43,11 +44,6 @@ type
 
 implementation
 
-uses
-  Bcl.Json.Classes,
-  Bcl.Json,
-  AWS.Json.Writer;
-
 type
   TJsonDocumentFields = class
   public const
@@ -65,13 +61,13 @@ type
 
   TJsonPolicyReader = class
   strict private
-    class function ConvertStatement(StatementElement: TJElement): TStatement;
-    class procedure ConvertActions(Statement: TStatement; JStatement: TJObject);
-    class procedure ConvertResources(Statement: TStatement; JStatement: TJObject);
-    class procedure ConvertConditions(Statement: TStatement; JStatement: TJObject);
-    class procedure ConvertPrincipals(Statement: TStatement; JStatement: TJObject);
-    class procedure ConvertConditionRecord(Statement: TStatement; JCondition: TJObject);
-    class procedure ConvertPrincipalRecord(Statement: TStatement; JPrincipal: TJObject);
+    class function ConvertStatement(StatementElement: TJSONValue): TStatement;
+    class procedure ConvertActions(Statement: TStatement; JStatement: TJSONObject);
+    class procedure ConvertResources(Statement: TStatement; JStatement: TJSONObject);
+    class procedure ConvertConditions(Statement: TStatement; JStatement: TJSONObject);
+    class procedure ConvertPrincipals(Statement: TStatement; JStatement: TJSONObject);
+    class procedure ConvertConditionRecord(Statement: TStatement; JCondition: TJSONObject);
+    class procedure ConvertPrincipalRecord(Statement: TStatement; JPrincipal: TJSONObject);
   public
     class function ReadJsonStringToPolicy(const JsonString: string): TPolicy; static;
   end;
@@ -93,167 +89,166 @@ type
 
 { TJsonPolicyReader }
 
-class procedure TJsonPolicyReader.ConvertActions(Statement: TStatement; JStatement: TJObject);
+class procedure TJsonPolicyReader.ConvertActions(Statement: TStatement; JStatement: TJSONObject);
 var
-  JActions: TJElement;
-  JActionValue: TJElement;
+  JActions: TJSONValue;
+  JActionValue: TJSONValue;
 begin
-  JActions := JStatement[TJsonDocumentFields.ACTION];
+  JActions := JStatement.Values[TJsonDocumentFields.ACTION];
   if JActions = nil then
     Exit;
 
-  if JActions.IsString then
-    Statement.Actions.Add(TActionIdentifier.Create(JActions.AsString))
+  if JActions is TJSONString then
+    Statement.Actions.Add(TActionIdentifier.Create(TJSONString(JActions).Value))
   else
-  if JActions.IsArray then
+  if JActions is TJSONArray then
   begin
-    for JActionValue in JActions.AsArray do
-      if JActionValue.IsString then
-        Statement.Actions.Add(TActionIdentifier.Create(JActionValue.AsString));
+    for JActionValue in TJSONArray(JActions) do
+      if JActionValue is TJSONString then
+        Statement.Actions.Add(TActionIdentifier.Create(TJSONString(JActionValue).Value));
   end;
 end;
 
-class procedure TJsonPolicyReader.ConvertConditionRecord(Statement: TStatement; JCondition: TJObject);
+class procedure TJsonPolicyReader.ConvertConditionRecord(Statement: TStatement; JCondition: TJSONObject);
 var
   Condition: TCondition;
-  Kvp1: TJMember;
-  Kvp2: TJMember;
+  Kvp1: TJSONPair;
+  Kvp2: TJSONPair;
   JType: string;
-  JValue: TJElement;
-  Comparisons: TJElement;
+  JValue: TJSONValue;
+  Comparisons: TJSONValue;
 begin
   for Kvp1 in JCondition do
   begin
-    JType := Kvp1.Name;
-    Comparisons := Kvp1.Value;
-    if Comparisons.IsObject then
-      for Kvp2 in Comparisons.AsObject do
+    JType := Kvp1.JsonString.Value;
+    Comparisons := Kvp1.JsonValue;
+    if Comparisons is TJSONObject then
+      for Kvp2 in TJSONObject(Comparisons) do
       begin
         Condition := TCondition.Create;
         Statement.Conditions.Add(Condition);
         Condition.ConditionType := JType;
-        Condition.ConditionKey := Kvp2.Name;
-        if Kvp2.Value.IsString then
-          Condition.Values.Add(Kvp2.Value.AsString)
+        Condition.ConditionKey := Kvp2.JSONString.Value;
+        if Kvp2.JsonValue is TJSONString then
+          Condition.Values.Add(TJSONString(Kvp2.JsonValue).Value)
         else
-        if Kvp2.Value.IsArray then
-          for JValue in Kvp2.Value.AsArray do
-            if JValue.IsString then
-              Condition.Values.Add(JValue.AsString);
+        if Kvp2.JsonValue is TJSONArray then
+          for JValue in TJSONArray(Kvp2.JsonValue) do
+            if JValue is TJSONString then
+              Condition.Values.Add(TJSONString(JValue).Value);
       end;
   end;
 end;
 
-class procedure TJsonPolicyReader.ConvertConditions(Statement: TStatement; JStatement: TJObject);
+class procedure TJsonPolicyReader.ConvertConditions(Statement: TStatement; JStatement: TJSONObject);
 var
-  JConditions: TJElement;
-  JConditionValue: TJElement;
+  JConditions: TJSONValue;
+  JConditionValue: TJSONValue;
 begin
-  JConditions := JStatement[TJsonDocumentFields.CONDITION];
+  JConditions := JStatement.Values[TJsonDocumentFields.CONDITION];
   if JConditions = nil then
     Exit;
 
-  if JConditions.IsObject then
-    ConvertConditionRecord(Statement, JConditions.AsObject)
+  if JConditions is TJSONObject then
+    ConvertConditionRecord(Statement, TJSONObject(JConditions))
   else
-  if JConditions.IsArray then
+  if JConditions is TJSONArray then
   begin
-    for JConditionValue in JConditions.AsArray do
-      if JConditionValue.IsObject then
-        ConvertConditionRecord(Statement, JConditionValue.AsObject);
+    for JConditionValue in TJSONArray(JConditions) do
+      if JConditionValue is TJSONObject then
+        ConvertConditionRecord(Statement, TJSONObject(JConditionValue));
   end;
 end;
 
-class procedure TJsonPolicyReader.ConvertPrincipalRecord(Statement: TStatement; JPrincipal: TJObject);
+class procedure TJsonPolicyReader.ConvertPrincipalRecord(Statement: TStatement; JPrincipal: TJSONObject);
 var
-  Kvp: TJMember;
-  Tok: TJElement;
+  Kvp: TJSONPair;
+  Tok: TJSONValue;
 begin
   for Kvp in JPrincipal do
   begin
-    if Kvp.Value.IsArray then
+    if Kvp.JsonValue is TJSONArray then
     begin
-      for Tok in Kvp.Value.AsArray do
-        if Tok.IsString then
+      for Tok in TJSONArray(Kvp.JsonValue) do
+        if Tok is TJSONString then
           // Don't strip '-' and assume the policy being deserialized is already valid.
-          Statement.Principals.Add(TPrincipal.Create(Kvp.Name, Tok.AsString, False));
+          Statement.Principals.Add(TPrincipal.Create(Kvp.JsonString.Value, TJSONString(Tok).Value, False));
     end
     else
-    if Kvp.Value.IsString then
+    if Kvp.JsonValue is TJSONString then
     begin
       // Don't strip '-' and assume the policy being deserialized is already valid.
-      Statement.Principals.Add(TPrincipal.Create(Kvp.Name, Kvp.Value.AsString, False));
+      Statement.Principals.Add(TPrincipal.Create(Kvp.JsonString.Value, TJSONString(Kvp.JsonValue).Value, False));
     end;
   end;
 end;
 
-class procedure TJsonPolicyReader.ConvertPrincipals(Statement: TStatement; JStatement: TJObject);
+class procedure TJsonPolicyReader.ConvertPrincipals(Statement: TStatement; JStatement: TJSONObject);
 var
-  JPrincipals: TJElement;
-  JPrincipalValue: TJElement;
+  JPrincipals: TJSONValue;
+  JPrincipalValue: TJSONValue;
 begin
-  JPrincipals := JStatement[TJsonDocumentFields.PRINCIPAL];
+  JPrincipals := JStatement.Values[TJsonDocumentFields.PRINCIPAL];
   if JPrincipals = nil then
     Exit;
 
-  if JPrincipals.IsObject then
-    ConvertPrincipalRecord(Statement, JPrincipals.AsObject)
+  if JPrincipals is TJSONObject then
+    ConvertPrincipalRecord(Statement, TJSONObject(JPrincipals))
   else
-  if JPrincipals.IsArray then
+  if JPrincipals is TJSONArray then
   begin
-    for JPrincipalValue in JPrincipals.AsArray do
-      if JPrincipalValue.IsObject then
-        ConvertPrincipalRecord(Statement, JPrincipalValue.AsObject);
+    for JPrincipalValue in TJSONArray(JPrincipals) do
+      if JPrincipalValue is TJSONObject then
+        ConvertPrincipalRecord(Statement, TJSONObject(JPrincipalValue));
   end
   else
-  if JPrincipals.IsString and (JPrincipals.AsString = '*') then
+  if (JPrincipals is TJSONString) and (TJSONString(JPrincipals).Value = '*') then
     Statement.Principals.Add(TPrincipal.Create(TPrincipal.ANONYMOUS_PROVIDER, '*'));
 end;
 
-class procedure TJsonPolicyReader.ConvertResources(Statement: TStatement; JStatement: TJObject);
+class procedure TJsonPolicyReader.ConvertResources(Statement: TStatement; JStatement: TJSONObject);
 var
-  JResources: TJElement;
-  JResourceValue: TJElement;
+  JResources: TJSONValue;
+  JResourceValue: TJSONValue;
 begin
-  JResources := JStatement[TJsonDocumentFields.RESOURCE];
+  JResources := JStatement.Values[TJsonDocumentFields.RESOURCE];
   if JResources = nil then
     Exit;
 
-  if JResources.IsString then
-    Statement.Resources.Add(TResource.Create(JResources.AsString))
+  if JResources is TJSONString then
+    Statement.Resources.Add(TResource.Create(TJSONString(JResources).Value))
   else
-  if JResources.IsArray then
+  if JResources is TJSONArray then
   begin
-    for JResourceValue in JResources.AsArray do
-      if JResourceValue.IsString then
-        Statement.Resources.Add(TResource.Create(JResourceValue.AsString));
+    for JResourceValue in TJSONArray(JResources) do
+      if JResourceValue is TJSONString then
+        Statement.Resources.Add(TResource.Create(TJSONString(JResourceValue).Value));
   end;
 end;
 
-class function TJsonPolicyReader.ConvertStatement(StatementElement: TJElement): TStatement;
+class function TJsonPolicyReader.ConvertStatement(StatementElement: TJSONValue): TStatement;
 var
-  JStatement: TJObject;
+  JStatement: TJSONObject;
   JEffect: string;
   Statement: TStatement;
 begin
-  if not StatementElement.IsObject then Exit(nil);
-  JStatement := StatementElement.AsObject;
+  if not (StatementElement is TJSONObject) then Exit(nil);
+  JStatement := TJSONObject(StatementElement);
 
-  if (JStatement[TJsonDocumentFields.STATEMENT_EFFECT] = nil)
-    or not JStatement[TJsonDocumentFields.STATEMENT_EFFECT].IsString then
+  if (JStatement.Values[TJsonDocumentFields.STATEMENT_EFFECT] = nil)
+    or not (JStatement.Values[TJsonDocumentFields.STATEMENT_EFFECT] is TJSONString) then
       Exit(nil);
 
-
-  JEffect := JStatement[TJsonDocumentFields.STATEMENT_EFFECT].AsString;
+  JEffect := TJSONString(JStatement.Values[TJsonDocumentFields.STATEMENT_EFFECT]).Value;
   if JEffect = TJsonDocumentFields.EFFECT_VALUE_ALLOW then
     Statement := TStatement.Create(TStatementEffect.Allow)
   else
     Statement := TStatement.Create(TStatementEffect.Deny);
 
   try
-    if (JStatement[TJsonDocumentFields.STATEMENT_ID] <> nil)
-      and (JStatement[TJsonDocumentFields.STATEMENT_ID].IsString) then
-        Statement.Id := JStatement[TJsonDocumentFields.STATEMENT_ID].AsString;
+    if (JStatement.Values[TJsonDocumentFields.STATEMENT_ID] <> nil)
+      and (JStatement.Values[TJsonDocumentFields.STATEMENT_ID] is TJSONString) then
+        Statement.Id := TJSONString(JStatement.Values[TJsonDocumentFields.STATEMENT_ID]).Value;
 
     ConvertActions(Statement, JStatement);
     ConvertResources(Statement, JStatement);
@@ -270,19 +265,19 @@ end;
 class function TJsonPolicyReader.ReadJsonStringToPolicy(const JsonString: string): TPolicy;
 var
   Policy: TPolicy;
-  JPolicy: TJObject;
+  JPolicy: TJSONObject;
   Statement: TStatement;
-  JStatement: TJElement;
+  JStatement: TJSONValue;
 begin
   Policy := TPolicy.Create;
   try
-    JPolicy := TJson.Deserialize<TJObject>(JsonString);
+    JPolicy := TJSONObject.ParseJSONValue(JsonString) as TJSONObject;
     try
-      if (JPolicy[TJsonDocumentFields.POLICY_ID] <> nil) and (JPolicy[TJsonDocumentFields.POLICY_ID].IsString) then
-        Policy.Id := JPolicy[TJsonDocumentFields.POLICY_ID].AsString;
+      if (JPolicy.Values[TJsonDocumentFields.POLICY_ID] <> nil) and (JPolicy.Values[TJsonDocumentFields.POLICY_ID] is TJSONString) then
+        Policy.Id := TJSONString(JPolicy.Values[TJsonDocumentFields.POLICY_ID]).Value;
 
-      if (JPolicy[TJsonDocumentFields.STATEMENT] <> nil) and (JPolicy[TJsonDocumentFields.STATEMENT].IsArray) then
-        for JStatement in JPolicy[TJsonDocumentFields.STATEMENT].AsArray do
+      if (JPolicy.Values[TJsonDocumentFields.STATEMENT] <> nil) and (JPolicy.Values[TJsonDocumentFields.STATEMENT] is TJSONArray) then
+        for JStatement in TJSONArray(JPolicy.Values[TJsonDocumentFields.STATEMENT]) do
         begin
           Statement := ConvertStatement(JStatement);
           if Statement <> nil then

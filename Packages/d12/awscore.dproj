@@ -244,6 +244,8 @@
         <DCCReference Include="..\..\Source\Core\AWS.Lib.Collections.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Lib.MicroDictionary.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Lib.Logging.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Lib.Utils.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Json.Utils.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

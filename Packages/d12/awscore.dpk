@@ -117,6 +117,8 @@ contains
   AWS.Internal.Util.ChunkedUploadWrapperStream in '..\..\Source\Core\AWS.Internal.Util.ChunkedUploadWrapperStream.pas',
   AWS.Lib.Collections in '..\..\Source\Core\AWS.Lib.Collections.pas',
   AWS.Lib.MicroDictionary in '..\..\Source\Core\AWS.Lib.MicroDictionary.pas',
-  AWS.Lib.Logging in '..\..\Source\Core\AWS.Lib.Logging.pas';
+  AWS.Lib.Logging in '..\..\Source\Core\AWS.Lib.Logging.pas',
+  AWS.Lib.Utils in '..\..\Source\Core\AWS.Lib.Utils.pas',
+  AWS.Json.Utils in '..\..\Source\Core\AWS.Json.Utils.pas';
 
 end.

@@ -4,7 +4,10 @@ interface
 
 uses
   System.Generics.Collections,
-  AWS.Internal.ParameterCollection;
+  AWS.Internal.ParameterCollection,
+  AWS.Json.Utils,
+  AWS.Runtime.Exceptions;
+
 
 type
   IParameterDictionary = interface
@@ -41,10 +44,6 @@ type
   end;
 
 implementation
-
-uses
-  AWS.Runtime.Exceptions,
-  Bcl.Json;
 
 { TParameterDictionaryFacade }
 
@@ -94,7 +93,7 @@ begin
     Result := TStringParameterValue(PV).Value
   else
   if PV is TStringListParameterValue then
-    Result := TJson.Serialize(TStringListParameterValue(PV).Value)
+    Result := JsonSerialize(TStringListParameterValue(PV).Value)
   else
     raise EAmazonClientException.Create('Unexpected parameter value type ' + PV.ClassName);
 end;
@@ -120,7 +119,7 @@ begin
     TStringParameterValue(PV).Value := ANewValue
   else
   if PV is TStringListParameterValue then
-    TStringListParameterValue(PV).Value := TJson.Deserialize<TList<string>>(ANewValue)
+    TStringListParameterValue(PV).Value := JsonDeserialize_ListString(ANewValue)
   else
     raise EAmazonClientException.Create('Unexpected parameter value type ' + PV.ClassName);
 end;
