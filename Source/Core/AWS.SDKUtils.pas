@@ -6,10 +6,10 @@ interface
 
 uses
   System.Generics.Collections, System.Classes, System.IniFiles, System.SysUtils, System.StrUtils, System.DateUtils,
-  Sparkle.Http.Headers,
   AWS.Enums,
   AWS.Internal.ParameterCollection,
   AWS.Internal.IRegionEndpoint,
+  AWS.Lib.HttpHeaders,
   AWS.Lib.Uri,
   AWS.Lib.Utils,
   AWS.Util.Crypto,

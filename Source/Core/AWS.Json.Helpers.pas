@@ -314,7 +314,11 @@ begin
     else begin
       if pair.JsonValue.Value = '0000-00-00T00:00:00.000Z' then begin
         pairName := pair.JsonString.Value;
+{$IFDEF AUTOREFCOUNT}
         AJsonObject.RemovePair(pairName).DisposeOf;
+{$ElSE}
+        AJsonObject.RemovePair(pairName).Free;
+{$ENDIF}
         AJsonObject.AddPair(pairName, TJSONNull.Create);
       end;
     end;

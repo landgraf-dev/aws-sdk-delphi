@@ -4,8 +4,8 @@ interface
 
 uses
   System.SysUtils, System.Generics.Collections, System.Math, System.StrUtils, System.Classes, System.JSON, REST.Json.Types,
-  Sparkle.Http.Headers,
   AWS.Json.Helpers,
+  AWS.Lib.HttpHeaders,
   AWS.Lib.Logging,
   AWS.RegionEndpoint,
   AWS.SDKUtils;
