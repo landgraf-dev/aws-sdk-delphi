@@ -163,6 +163,7 @@
         <DCCReference Include="dbrtl.dcp"/>
         <DCCReference Include="tmsbcl.dcp"/>
         <DCCReference Include="sparkle.dcp"/>
+        <DCCReference Include="RESTComponents.dcp"/>
         <DCCReference Include="..\..\Source\Core\AWS.Arn.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Auth.ActionIdentifier.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Auth.Condition.pas"/>
@@ -249,6 +250,7 @@
         <DCCReference Include="..\..\Source\Core\AWS.Xml.Reader.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Lib.Micro.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Lib.Encoding.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Json.Helpers.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

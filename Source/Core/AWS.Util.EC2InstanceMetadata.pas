@@ -3,23 +3,40 @@ unit AWS.Util.EC2InstanceMetadata;
 interface
 
 uses
-  System.SysUtils, System.Generics.Collections, System.Math, System.StrUtils, System.Classes,
-  Bcl.Json.Attributes, Bcl.Json.Converters,
+  System.SysUtils, System.Generics.Collections, System.Math, System.StrUtils, System.Classes, System.JSON, REST.Json.Types,
   Sparkle.Http.Headers,
-  AWS.RegionEndpoint;
+  AWS.Json.Helpers,
+  AWS.Lib.Logging,
+  AWS.RegionEndpoint,
+  AWS.SDKUtils;
 
 type
   TIAMSecurityCredentialMetadata = class
   private
+    [JsonName('Code')]
     FCode: string;
+
+    [JsonName('Message')]
     FMessage: string;
-    [JsonConverter(TJsonLocalDateTimeConverter)]
+
+    [JsonUTCDate]
+    [JsonName('LastUpdated')]
     FLastUpdated: TDateTime;
+
+    [JsonName('Type')]
     FType: string;
+
+    [JsonName('AccessKeyId')]
     FAccessKeyId: string;
+
+    [JsonName('SecretAccessKey')]
     FSecretAccessKey: string;
+
+    [JsonName('Token')]
     FToken: string;
-    [JsonConverter(TJsonLocalDateTimeConverter)]
+
+    [JsonUTCDate]
+    [JsonName('Expiration')]
     FExpiration: TDateTime;
   public
     property Code: string read FCode write FCode;
@@ -69,12 +86,6 @@ type
   end;
 
 implementation
-
-uses
-  AWS.Lib.Logging,
-  Bcl.Json,
-  Bcl.Json.Classes,
-  AWS.SDKUtils;
 
 { TEC2InstanceMetadata }
 
@@ -297,7 +308,8 @@ begin
     begin
       Json := GetData('/iam/security-credentials/' + item);
       try
-        Cred := TJson.Deserialize<TIAMSecurityCredentialMetadata>(Json);
+        Cred := TConvert.FromJson<TIAMSecurityCredentialMetadata>(Json);
+
         Creds.AddOrSetValue(Item, Cred);
       except
         on E: Exception do
@@ -352,17 +364,17 @@ class function TEC2InstanceMetadata.Region: IRegionEndpointEx;
 var
   Logger: ILogger;
   IdDocument: string;
-  JsonDocument: TJObject;
-  RegionName: TJElement;
+  JsonDocument: TJSONObject;
+  RegionName: TJSONValue;
 begin
   IdDocument := IdentityDocument;
   if IdDocument <> '' then
   try
-    JsonDocument := TJson.Deserialize<TJObject>(IdDocument);
+    JsonDocument := TJSONObject.ParseJSONValue(IdDocument) as TJSONObject;
     try
-      RegionName := JsonDocument['region'];
+      RegionName := JsonDocument.Values['region'];
       if RegionName <> nil then
-        Exit(TRegionEndpoint.GetBySystemName(RegionName.AsString));
+        Exit(TRegionEndpoint.GetBySystemName((RegionName as TJSONString).Value));
     finally
       JsonDocument.Free;
     end;

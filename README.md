@@ -319,6 +319,8 @@ of these tests, charges can occur. To reduce charges occurred by running the tes
 
 Some OpenSSL internal classes were inspired from the Delphi-OpenSSL repository: <https://github.com/lminuti/Delphi-OpenSSL>.
 
+Unit `AWS.Json.Helpers` is based on Uwe Raabe's REST-Json-Helpers: <https://github.com/UweRaabe/REST-JSon-Helpers>.
+
 ## License
 
 AWS SDK for Delphi is [fair-code](http://faircode.io) distributed under [**Apache 2.0 with Commons Clause**](LICENSE) license.
