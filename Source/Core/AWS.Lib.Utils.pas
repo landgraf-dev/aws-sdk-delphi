@@ -14,6 +14,7 @@ uses
   SysUtils, DateUtils, Character;
 
 function PercentEncode(const S: string): string;
+function PercentDecode(const S: string): string;
 procedure AppendQueryParam(var Query: string; const Name, Value: string);
 function EncodeBase64(const Input: TBytes): string;
 function DecodeBase64(const Input: string): TBytes;
@@ -221,6 +222,41 @@ begin
     end;
   end;
   SetLength(Result, L - 1);
+end;
+
+function PercentDecode(const S: string): string;
+
+  function IsHexa(C: Char): boolean;
+  begin
+    Result := ((C >= '0') and (C <= '9'))
+      or ((C >= 'a') and (C <= 'f'))
+      or ((C >= 'A') and (C <= 'F'));
+  end;
+
+var
+  B: TBytes;
+  L: integer;
+  I: integer;
+begin
+  SetLength(B, Length(S));
+  L := 1;
+  I := 0;
+  while L <= Length(S) do
+  begin
+    if (S[L] = '%') and (L + 2 <= Length(S)) and IsHexa(S[L + 1]) and IsHexa(S[L + 2]) then
+    begin
+      B[I] := StrToInt('$' + S[L + 1] + S[L + 2]);
+      Inc(L, 3);
+    end
+    else
+    begin
+      B[I] := Ord(S[L]);
+      Inc(L);
+    end;
+    Inc(I);
+  end;
+  SetLength(B, I);
+  Result := TEncoding.UTF8.GetString(B);
 end;
 
 procedure AppendQueryParam(var Query: string; const Name, Value: string);

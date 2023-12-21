@@ -124,6 +124,7 @@ contains
   AWS.Xml.Reader in '..\..\Source\Core\AWS.Xml.Reader.pas',
   AWS.Lib.Micro in '..\..\Source\Core\AWS.Lib.Micro.pas',
   AWS.Lib.Encoding in '..\..\Source\Core\AWS.Lib.Encoding.pas',
-  AWS.Json.Helpers in '..\..\Source\Core\AWS.Json.Helpers.pas';
+  AWS.Json.Helpers in '..\..\Source\Core\AWS.Json.Helpers.pas',
+  AWS.Lib.Uri in '..\..\Source\Core\AWS.Lib.Uri.pas';
 
 end.

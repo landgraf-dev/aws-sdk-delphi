@@ -7,17 +7,17 @@ interface
 uses
   System.Generics.Collections, System.Classes, System.IniFiles, System.SysUtils, System.StrUtils, System.DateUtils,
   Sparkle.Http.Headers,
-  Sparkle.Uri,
   AWS.Enums,
   AWS.Internal.ParameterCollection,
   AWS.Internal.IRegionEndpoint,
+  AWS.Lib.Uri,
   AWS.Lib.Utils,
   AWS.Util.Crypto,
   AWS.Util.Streams;
 
 type
-  IUri = Sparkle.Uri.IUri;
-  TUri = Sparkle.Uri.TUri;
+  IUri = AWS.Lib.Uri.IUri;
+  TUri = AWS.Lib.Uri.TUri;
 
   TProfileIniFile = class(TMemIniFile)
   strict private
