@@ -1,6 +1,10 @@
-unit AWS.Runtime.HttpRequestMessageFactory;
+unit AWS.Runtime.SparkleHttpRequestMessageFactory;
+
+{$I AWS.inc}
 
 interface
+
+{$IFDEF USE_SPARKLE}
 
 uses
   System.Generics.Collections, System.SysUtils, System.Classes,
@@ -16,7 +20,7 @@ uses
   AWS.Internal.WebResponseData;
 
 type
-  THttpRequestMessageFactory = class(TInterfacedObject, IHttpRequestFactory)
+  TSparkleHttpRequestMessageFactory = class(TInterfacedObject, IHttpRequestFactory)
   strict private
     FClientConfig: IClientConfig;
     class function CreateManagedHttpClient(AClientConfig: IClientConfig): THttpClient;
@@ -26,6 +30,13 @@ type
     function CreateHttpRequest(const ARequestUri: string): IWebHttpRequest;
   end;
 
+{$ENDIF}
+
+implementation
+
+{$IFDEF USE_SPARKLE}
+
+type
   THttpWebRequestMessage = class(TInterfacedObject, IWebHttpRequest)
   strict private
     const ContentHeaderNames: array[0..5] of string = (
@@ -82,17 +93,15 @@ type
     property ResponseBody: IHttpResponseBody read GetResponseBody;
   end;
 
-implementation
+{ TSparkleHttpRequestMessageFactory }
 
-{ THttpRequestMessageFactory }
-
-constructor THttpRequestMessageFactory.Create(AClientConfig: IClientConfig);
+constructor TSparkleHttpRequestMessageFactory.Create(AClientConfig: IClientConfig);
 begin
   inherited Create;
   FClientConfig := AClientConfig;
 end;
 
-class function THttpRequestMessageFactory.CreateHttpClient(AClientConfig: IClientConfig): THttpClient;
+class function TSparkleHttpRequestMessageFactory.CreateHttpClient(AClientConfig: IClientConfig): THttpClient;
 begin
   {TODO: HttpClientFactory in client config}
 //  if FClientConfig.HttpClientFactory = nil then
@@ -101,7 +110,7 @@ begin
 //    Result := FClientConfig.HttpClientFactory.CreateHttpClient(AClientConfig);
 end;
 
-function THttpRequestMessageFactory.CreateHttpRequest(const ARequestUri: string): IWebHttpRequest;
+function TSparkleHttpRequestMessageFactory.CreateHttpRequest(const ARequestUri: string): IWebHttpRequest;
 var
   HttpClient: THttpClient;
 begin
@@ -109,7 +118,7 @@ begin
   Result := THttpWebRequestMessage.Create(HttpClient, ARequestUri, FClientConfig);
 end;
 
-class function THttpRequestMessageFactory.CreateManagedHttpClient(AClientConfig: IClientConfig): THttpClient;
+class function TSparkleHttpRequestMessageFactory.CreateManagedHttpClient(AClientConfig: IClientConfig): THttpClient;
 begin
   {TODO: Several options not implemented, including timeout}
   Result := THttpClient.Create;
@@ -286,5 +295,7 @@ function THttpClientResponseData.OpenResponse: TStream;
 begin
   Result := FResponse.ContentAsStream;
 end;
+
+{$ENDIF}
 
 end.

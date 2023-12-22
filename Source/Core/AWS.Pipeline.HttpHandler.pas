@@ -1,20 +1,20 @@
 unit AWS.Pipeline.HttpHandler;
 
+{$I AWS.inc}
+
 interface
 
 uses
   System.SysUtils, System.Classes,
-  Sparkle.Http.Engine,
   AWS.Internal.PipelineHandler,
   AWS.Internal.Request,
   AWS.Internal.Util.ChunkedUploadWrapperStream,
   AWS.Runtime.Contexts,
-  AWS.Runtime.HttpRequestMessageFactory,
   AWS.Runtime.IHttpRequestFactory,
   AWS.Runtime.Client;
 
 type
-  TSparkleHttpHandler = class(TPipelineHandler)
+  THttpHandler = class(TPipelineHandler)
   strict private
     FRequestFactory: IHttpRequestFactory;
     FCallbackSender: TObject;
@@ -32,16 +32,16 @@ implementation
 uses
   AWS.SDKUtils;
 
-{ TSparkleHttpHandler }
+{ THttpHandler }
 
-constructor TSparkleHttpHandler.Create(ARequestFactory: IHttpRequestFactory; ACallbackSender: TObject);
+constructor THttpHandler.Create(ARequestFactory: IHttpRequestFactory; ACallbackSender: TObject);
 begin
   inherited Create;
   FRequestFactory := ARequestFactory;
   FCallbackSender := ACallbackSender;
 end;
 
-function TSparkleHttpHandler.CreateWebRequest(ARequestContext: TRequestContext): IWebHttpRequest;
+function THttpHandler.CreateWebRequest(ARequestContext: TRequestContext): IWebHttpRequest;
 var
   Request: IRequest;
   HttpRequest: IWebHttpRequest;
@@ -81,7 +81,7 @@ begin
   Result := HttpRequest;
 end;
 
-class function TSparkleHttpHandler.GetInputStream(RequestContext: TRequestContext; OriginalStream: TStream;
+class function THttpHandler.GetInputStream(RequestContext: TRequestContext; OriginalStream: TStream;
   WrappedRequest: IRequest): TStream;
 begin
   var requestHasConfigForChunkStream := WrappedRequest.UseChunkEncoding and (WrappedRequest.AWS4SignerResult <> nil);
@@ -94,7 +94,7 @@ begin
     Result := OriginalStream;
 end;
 
-procedure TSparkleHttpHandler.InvokeSync(AExecutionContext: TExecutionContext);
+procedure THttpHandler.InvokeSync(AExecutionContext: TExecutionContext);
 var
   HttpRequest: IWebHttpRequest;
   WrappedRequest: IRequest;
@@ -110,7 +110,7 @@ begin
   AExecutionContext.ResponseContext.HttpResponse := HttpRequest.GetResponse;
 end;
 
-procedure TSparkleHttpHandler.WriteContentToRequestBody(AHttpRequest: IWebHttpRequest;
+procedure THttpHandler.WriteContentToRequestBody(AHttpRequest: IWebHttpRequest;
   ARequestContext: TRequestContext);
 var
   WrappedRequest: IRequest;

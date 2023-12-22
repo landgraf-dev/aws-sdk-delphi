@@ -83,7 +83,11 @@ implementation
 uses
   AWS.Internal.PipelineHandler,
   AWS.SDKUtils,
+{$IFDEF USE_SPARKLE}
+  AWS.Runtime.SparkleHttpRequestMessageFactory,
+{$ELSE}
   AWS.Runtime.HttpRequestMessageFactory,
+{$ENDIF}
   AWS.Pipeline.HttpHandler,
   AWS.Pipeline.Marshaller,
   AWS.Pipeline.EndpointResolver,
@@ -100,8 +104,11 @@ var
   HttpRequestFactory: IHttpRequestFactory;
   HttpHandler: IPipelineHandler;
 begin
-  HttpRequestFactory := THttpRequestMessageFactory.Create(Config);
-  HttpHandler := TSparkleHttpHandler.Create(HttpRequestFactory, Self);
+{$IFDEF USE_SPARKLE}
+  HttpRequestFactory := TSparkleHttpRequestMessageFactory.Create(Config);
+{$ELSE}
+{$ENDIF}
+  HttpHandler := THttpHandler.Create(HttpRequestFactory, Self);
 
   {TODO: Pre and post events not implemented}
 
