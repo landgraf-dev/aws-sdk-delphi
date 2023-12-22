@@ -4,7 +4,6 @@ interface
 
 uses
   System.SysUtils, System.Character, System.Generics.Collections, System.RegularExpressions,
-  Bcl.Collections,
   AWS.Arn,
   AWS.Internal.PipelineHandler,
   AWS.Internal.Request,
