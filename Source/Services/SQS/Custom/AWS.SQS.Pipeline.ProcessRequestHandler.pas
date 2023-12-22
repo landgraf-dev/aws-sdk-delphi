@@ -4,6 +4,7 @@ interface
 
 uses
   AWS.Internal.PipelineHandler,
+  AWS.Lib.Uri,
   AWS.Runtime.Contexts,
   AWS.Internal.Request;
 
@@ -16,9 +17,6 @@ type
   end;
 
 implementation
-
-uses
-  Sparkle.Uri;
 
 { TProcessRequestHandler }
 

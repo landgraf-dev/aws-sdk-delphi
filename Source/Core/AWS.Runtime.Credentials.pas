@@ -7,10 +7,10 @@ interface
 uses
   System.Generics.Collections, System.SysUtils, System.Classes,
   AWS.Lib.Logging,
+  AWS.Lib.Timer,
   AWS.Nullable,
   AWS.SDKUtils,
-  AWS.RegionEndpoint,
-  Sparkle.Sys.Timer;
+  AWS.RegionEndpoint;
 
 type
   TCredentialProfile = class;
@@ -225,7 +225,7 @@ type
     class function FetchCredentials: IImmutableCredentials; static;
   strict private
     FLogger: ILogger;
-    FCredentialsRetrieverTimer: TSparkleTimer;
+    FCredentialsRetrieverTimer: TAWSTimer;
     FLastRetrievedCredentials: IImmutableCredentials;
     FCredentialsLock: TObject;
     procedure RenewCredentials(Unused: TObject);
@@ -1030,7 +1030,7 @@ begin
   {TODO: Replace this by a ReadWriterLock later}
   FCredentialsLock := TObject.Create;
   FLogger := LogManager.GetLogger(TDefaultInstanceProfileAWSCredentials);
-  FCredentialsRetrieverTimer := TSparkleTimer.Create(RenewCredentials, nil, 1, TTimerType.SingleShot);
+  FCredentialsRetrieverTimer := TAWSTimer.Create(RenewCredentials, nil, 1, TTimerType.SingleShot);
 end;
 
 destructor TDefaultInstanceProfileAWSCredentials.Destroy;

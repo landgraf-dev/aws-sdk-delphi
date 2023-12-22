@@ -246,7 +246,7 @@ begin
 
 end;
 {$ENDIF CPUX86}
-{$INCLUDE BclCompiler.inc}
+{$INCLUDE AWSCompiler.inc}
 
 { TuList<T> }
 constructor TuList<T>.Create;
@@ -273,7 +273,7 @@ begin
   Result := FCount;
   inc(FCount);
 end;
-{$INCLUDE BclCompiler.inc}
+{$INCLUDE AWSCompiler.inc}
 
 procedure TuList<T>.Clear;
 begin

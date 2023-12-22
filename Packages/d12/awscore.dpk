@@ -126,6 +126,7 @@ contains
   AWS.Lib.Encoding in '..\..\Source\Core\AWS.Lib.Encoding.pas',
   AWS.Json.Helpers in '..\..\Source\Core\AWS.Json.Helpers.pas',
   AWS.Lib.Uri in '..\..\Source\Core\AWS.Lib.Uri.pas',
-  AWS.Lib.HttpHeaders in '..\..\Source\Core\AWS.Lib.HttpHeaders.pas';
+  AWS.Lib.HttpHeaders in '..\..\Source\Core\AWS.Lib.HttpHeaders.pas',
+  AWS.Lib.Timer in '..\..\Source\Core\AWS.Lib.Timer.pas';
 
 end.
