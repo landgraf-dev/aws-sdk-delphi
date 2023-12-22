@@ -44,7 +44,7 @@ uses
   AWS.Polly.Transform.SynthesizeSpeechRequestMarshaller,
   AWS.Internal.Request,
   AWS.Runtime.Model,
-  Sparkle.Uri,
+  AWS.Lib.Uri,
   AWS.Auth.Signer,
   AWS.Internal.Auth.AWS4SignerHelper,
   AWS.Runtime.Client;
