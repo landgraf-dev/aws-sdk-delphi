@@ -72,8 +72,6 @@ type
     function GetFragment: string;
     function GetPort: Integer;
   public
-    class function PercentEncode(const S: string): string; deprecated 'Use TSparkleUtils.PercentEncode instead';
-    class function PercentDecode(const S: string): string; deprecated 'Use TSparkleUtils.PercentDecode instead';
     class function HasScheme(S: string): Boolean;
     class procedure ParseHost(const S: string; var Host, Port: string); overload;
     class procedure ParseHost(const S: string; var Host: string; var Port: Integer); overload;
@@ -248,17 +246,6 @@ begin
   Result := ExtractScheme(S) <> ''
 end;
 
-//function TUri.GetPathEncoded: string;
-//var
-//  I: integer;
-//begin
-//  Result := '';
-//  for I := 0 to Length(Segments) - 1 do
-//    Result := Result + '/' + TSparkleUtils.PercentEncode(Segments[I]);
-//  if Path[Length(Path)] = '/' then
-//    Result := Result + '/';
-//end;
-
 function TUri.IsDefaultPort: boolean;
 begin
   Result := (Port = 0)
@@ -369,15 +356,6 @@ begin
     end;
   end;
 
-  // Final processing
-//  LocalScheme := TSparkleUtils.PercentDecode(LocalScheme);
-//  LocalUserInfo := TSparkleUtils.PercentDecode(LocalUserInfo);
-//  LocalHost := TSparkleUtils.PercentDecode(LocalHost);
-//  Val(LocalPortStr, LocalPort, e);
-//  LocalPath := TSparkleUtils.PercentDecode(LocalPath);
-//  LocalQuery := TSparkleUtils.PercentDecode(LocalQuery);
-//  LocalFragment := TSparkleUtils.PercentDecode(LocalFragment);
-
   // Default port
   if LocalPort = 0 then
   begin
@@ -399,16 +377,6 @@ begin
   FQuery := AWS.Lib.Utils.PercentDecode(LocalQuery);
   FOriginalFragment := LocalFragment;
   FFragment := AWS.Lib.Utils.PercentDecode(LocalFragment);
-end;
-
-class function TUri.PercentDecode(const S: string): string;
-begin
-  Result := AWS.Lib.Utils.PercentDecode(S);
-end;
-
-class function TUri.PercentEncode(const S: string): string;
-begin
-  Result := AWS.Lib.Utils.PercentEncode(S);
 end;
 
 { TUriSegmentStack }

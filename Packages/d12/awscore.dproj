@@ -252,6 +252,7 @@
         <DCCReference Include="..\..\Source\Core\AWS.Lib.Encoding.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Json.Helpers.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Lib.Uri.pas"/>
+        <DCCReference Include="..\..\Source\Core\AWS.Lib.HttpHeaders.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
