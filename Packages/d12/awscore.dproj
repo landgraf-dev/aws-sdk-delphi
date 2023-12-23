@@ -161,8 +161,6 @@
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="dbrtl.dcp"/>
-        <DCCReference Include="tmsbcl.dcp"/>
-        <DCCReference Include="sparkle.dcp"/>
         <DCCReference Include="RESTComponents.dcp"/>
         <DCCReference Include="..\..\Source\Core\AWS.Arn.pas"/>
         <DCCReference Include="..\..\Source\Core\AWS.Auth.ActionIdentifier.pas"/>

@@ -5,6 +5,7 @@ interface
 uses
   System.Generics.Collections, System.SysUtils, System.Classes, System.Net.HttpClient,
   AWS.Internal.Util.ChunkedUploadWrapperStream,
+  AWS.Lib.HttpHeaders,
   AWS.Runtime.Contexts,
   AWS.Runtime.ClientConfig,
   AWS.Runtime.IHttpRequestFactory,
@@ -43,6 +44,7 @@ type
     procedure SetMethod(const Value: string);
     function GetRequestUri: string;
     procedure WriteContentHeaders(ContentHeaders: TDictionary<string, string>);
+    procedure CheckRequest;
   public
     constructor Create(AHttpClient: THttpClient; ARequestUri: string; AConfig: IClientConfig);
     destructor Destroy; override;
@@ -54,7 +56,6 @@ type
     property Method: string read GetMethod write SetMethod;
     property RequestUri: string read GetRequestUri;
     property HttpClient: THttpClient read FHttpClient;
-//    property Request: IHttpRequest read FRequest;
   end;
 
   THttpClientResponseData = class(TInterfacedObject, IWebResponseData, IHttpResponseBody)
@@ -115,6 +116,12 @@ end;
 
 { THttpWebRequestMessage }
 
+procedure THttpWebRequestMessage.CheckRequest;
+begin
+  if FRequest = nil then
+    raise EInvalidOpException.Create('Request is nil, method string was not set');
+end;
+
 procedure THttpWebRequestMessage.ConfigureRequest(ARequestContext: TRequestContext);
 begin
 
@@ -125,13 +132,12 @@ begin
   inherited Create;
   FHttpClient := AHttpClient;
   FClientConfig := AConfig;
-  FRequest := FHttpClient.GetRequest('', ARequestUri);
   FRequestUri := ARequestUri;
 end;
 
 destructor THttpWebRequestMessage.Destroy;
 begin
-  if FOwnsSourceStream then
+  if (FRequest <> nil) and FOwnsSourceStream then
     FRequest.SourceStream.Free;
   FHttpClient.Free;
   inherited;
@@ -139,7 +145,10 @@ end;
 
 function THttpWebRequestMessage.GetMethod: string;
 begin
-  Result := FRequest.MethodString;
+  if FRequest <> nil then
+    Result := FRequest.MethodString
+  else
+    Result := '';
 end;
 
 function THttpWebRequestMessage.GetRequestUri: string;
@@ -154,6 +163,7 @@ begin
   // From GetResponseAsync
   if FHttpClient = nil then
     raise EInvalidOpException.Create('The response was already retrieved');
+  CheckRequest;
 
   ResponseMessage := FHttpClient.Execute(FRequest);
   Result := THttpClientResponseData.Create(ResponseMessage, FHttpClient);
@@ -165,7 +175,7 @@ end;
 
 procedure THttpWebRequestMessage.SetMethod(const Value: string);
 begin
-  FRequest.MethodString := Value;
+  FRequest := FHttpClient.GetRequest(Value, FRequestUri);
 end;
 
 procedure THttpWebRequestMessage.SetRequestHeaders(AHeaders: TDictionary<string, string>);
@@ -174,6 +184,7 @@ var
   ContentHeader: string;
   Kvp: TPair<string, string>;
 begin
+  CheckRequest;
   for Kvp in AHeaders do
   begin
     IsContentHeader := False;
@@ -213,6 +224,7 @@ end;
 
 procedure THttpWebRequestMessage.WriteToRequestBody(Stream: TStream; AHeaders: TDictionary<string, string>; AOwnsStream: Boolean);
 begin
+  CheckRequest;
   FRequest.SourceStream := Stream;
   FOwnsSourceStream := AOwnsStream;
   if (Stream is TChunkedUploadWrapperStream) and TChunkedUploadWrapperStream(Stream).HasLength then
@@ -222,6 +234,7 @@ end;
 
 procedure THttpWebRequestMessage.WriteToRequestBody(const Content: TArray<Byte>; AHeaders: TDictionary<string, string>);
 begin
+  CheckRequest;
   FRequest.SourceStream := TBytesStream.Create(Content);
   FOwnsSourceStream := True;
   WriteContentHeaders(AHeaders);

@@ -107,6 +107,7 @@ begin
 {$IFDEF USE_SPARKLE}
   HttpRequestFactory := TSparkleHttpRequestMessageFactory.Create(Config);
 {$ELSE}
+  HttpRequestFactory := THttpRequestMessageFactory.Create(Config);
 {$ENDIF}
   HttpHandler := THttpHandler.Create(HttpRequestFactory, Self);
 

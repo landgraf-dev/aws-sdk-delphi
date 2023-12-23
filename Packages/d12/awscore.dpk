@@ -33,8 +33,6 @@ package awscore;
 requires
   rtl,
   dbrtl,
-  tmsbcl,
-  sparkle,
   RESTComponents;
 
 contains

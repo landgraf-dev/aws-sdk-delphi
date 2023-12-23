@@ -64,6 +64,7 @@ type
     class procedure CopyStream(Source, Dest: TStream); overload; static;
     class procedure CopyStream(Source, Dest: TStream; const BufferSize: Integer); overload; static;
     class function StreamToString(Source: TStream; Encoding: TEncoding = nil): string; static;
+    class function StreamToBytes(Source: TStream): TArray<Byte>; static;
     class function GetExtension(const Path: string): string;
     class procedure Sleep(MS: Integer); static;
     class function TryRfc822ToDateTime(const S: string; var D: TDateTime): Boolean; static;
@@ -613,32 +614,31 @@ var
   Response: IHttpResponse;
   HeaderInfo: THttpHeaderInfo;
 begin
-  Client := THttpRequestMessageFactory.CreateHttpClient(nil);
+  Client := THttpClient.Create;
   try
     // Create the request
     Request := Client.GetRequest(ARequestType, AUri);
+    if ATimeoutMS > 0 then
+    begin
+      Client.ConnectionTimeout := ATimeoutMS;
+      Client.SendTimeout := ATimeoutMS;
+      Client.ResponseTimeout := ATimeoutMS;
+    end;
+    Request.SetHeaderValue(THeaderKeys.UserAgentHeader, FUserAgent);
+    for HeaderInfo in AHeaders.AllHeaders do
+      Request.SetHeaderValue(HeaderInfo.Name, HeaderInfo.Value);
+
+    // Build the request
+    if AContent <> '' then
+      Request.SourceStream := TBytesStream.Create(TEncoding.UTF8.GetBytes(AContent));
+    // Get response
     try
-      if ATimeoutMS > 0 then
-        Request.Timeout := ATimeoutMS;
-      Request.Headers.AddValue(THeaderKeys.UserAgentHeader, FUserAgent);
-      for HeaderInfo in AHeaders.AllHeaders do
-        Request.Headers.AddValue(HeaderInfo.Name, HeaderInfo.Value);
-
-      // Build the request
-      if AContent <> '' then
-        Request.SetContent(TEncoding.UTF8.GetBytes(AContent));
-
-      // Get response
-      Response := Client.Send(Request);
-      try
-        if Response.StatusCode >= 400 then
-          raise EWebException.Create(Request.Uri, Response.StatusCode);
-        Result := TEncoding.UTF8.GetString(Response.ContentAsBytes);
-      finally
-        Response.Free;
-      end;
+      Response := Client.Execute(Request);
+      if Response.StatusCode >= 400 then
+        raise EWebException.Create(AUri, Response.StatusCode);
+      Result := StreamToString(Response.ContentStream);
     finally
-      Request.Free;
+      Request.SourceStream.Free;
     end;
   finally
     Client.Free;
@@ -793,6 +793,19 @@ begin
     Result := ResolvedSegments.ToArray;
   finally
     ResolvedSegments.Free;
+  end;
+end;
+
+class function TAWSSDKUtils.StreamToBytes(Source: TStream): TArray<Byte>;
+var
+  BytesStream: TBytesStream;
+begin
+  BytesStream := TBytesStream.Create;
+  try
+    CopyStream(Source, BytesStream);
+    Result := BytesStream.Bytes;
+  finally
+    BytesStream.Free;
   end;
 end;
 

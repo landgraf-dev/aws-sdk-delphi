@@ -19,7 +19,8 @@ uses
   AWS.Lib.Utils,
   AWS.Nullable,
   AWS.OpenSSL,
-  AWS.Runtime.Exceptions;
+  AWS.Runtime.Exceptions,
+  AWS.SDKUtils;
 
 type
   TMessage = class
@@ -194,7 +195,6 @@ function TMessage.GetX509Certificate: TOpenSSLX509;
 var
   Retries: Integer;
   Client: THttpClient;
-  Response: THttpResponse;
 begin
   TMonitor.Enter(FCertificateCache);
   try
@@ -204,12 +204,13 @@ begin
     begin
       for Retries := 1 to MAX_RETRIES do
         try
+{$IFDEF USE_SPARKLE}
           Client := THttpClient.Create;
           try
-{$IFDEF MSWINDOWS}
+  {$IFDEF MSWINDOWS}
             TWinHttpEngine(Client.Engine).ProxyMode := THttpProxyMode.Auto;
-{$ENDIF}
-            Response := Client.Get(SigningCertURL);
+  {$ENDIF}
+            var Response: THttpResponse := Client.Get(SigningCertURL);
             try
               Result := TOpenSSLX509.LoadFromBytes(Response.ContentAsBytes);
               FCertificateCache.Add(SigningCertURL, Result);
@@ -220,6 +221,17 @@ begin
           finally
             Client.Free;
           end;
+{$ELSE}
+          Client := THttpClient.Create;
+          try
+            var Response := Client.Execute(Client.GetRequest('GET', SigningCertURL));
+            Result := TOpenSSLX509.LoadFromBytes(TAWSSDKUtils.StreamToBytes(Response.ContentStream));
+            FCertificateCache.Add(SigningCertURL, Result);
+            Exit;
+          finally
+            Client.Free;
+          end;
+{$ENDIF}
         except
           on E: Exception do
           begin

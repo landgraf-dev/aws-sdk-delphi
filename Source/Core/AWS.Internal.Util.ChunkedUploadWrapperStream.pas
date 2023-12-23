@@ -276,6 +276,9 @@ begin
     soCurrent:
       if Offset = 0 then
         Exit(FPosition);
+    soEnd:
+      if (Offset = 0) and (FPosition = Size) then
+        Exit(FPosition);
   end;
   raise ENotSupportedException.Create('TChunkedUploadWrapperStream does not support seeking');
 end;
