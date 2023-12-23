@@ -1,7 +1,5 @@
 unit AWS.SNS.Message;
 
-{$I AWS.inc}
-
 interface
 
 uses
