@@ -3,7 +3,7 @@ unit AWSTests.Polly;
 interface
 
 uses
-  System.SysUtils,
+  System.SysUtils, System.Net.HttpClient,
   AWSTests.TestBase,
   TestFramework,
   Bcl.Json,
@@ -31,7 +31,6 @@ type
 implementation
 
 uses
-  Sparkle.Http.Client,
   AWS.Polly.SynthesizeSpeechUtil,
   AWS.Runtime.HttpRequestMessageFactory;
 
@@ -57,18 +56,15 @@ end;
 function TPollyTests.AssertPresignedUrl(const AUrl: string): TArray<Byte>;
 var
   WebClient: THttpClient;
-  Resp: THttpResponse;
+  Resp: IHttpResponse;
 begin
   // download using the PreSigned URL in a totally independent WebClient
-  WebClient := THttpRequestMessageFactory.CreateHttpClient(nil);
+  WebClient := THttpClient.Create;
   try
-    Resp := WebClient.Get(AUrl);
-    try
-      Result := Resp.ContentAsBytes;
-      CheckEquals(200, Resp.StatusCode);
-    finally
-      Resp.Free;
-    end;
+    Resp := WebClient.Execute(WebClient.GetRequest('Get', AUrl));
+    SetLength(Result, Resp.ContentStream.Size);
+    Resp.ContentStream.Read(Result[0], Length(Result));
+    CheckEquals(200, Resp.StatusCode);
   finally
     WebClient.Free;
   end;

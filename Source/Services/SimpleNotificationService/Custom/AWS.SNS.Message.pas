@@ -1,17 +1,25 @@
 unit AWS.SNS.Message;
 
+{$I AWS.inc}
+
 interface
 
 uses
   System.SysUtils, System.StrUtils, System.Generics.Collections, System.Classes, System.Math, System.RegularExpressions,
   System.JSON,
+{$IFDEF USE_SPARKLE}
   Sparkle.Http.Client,
+  {$IFDEF MSWINDOWS}
+  Sparkle.WinHttp.Engine,
+  {$ENDIF}
+{$ELSE}
+  System.Net.HttpClient,
+{$ENDIF}
   AWS.Lib.Uri,
   AWS.Lib.Utils,
   AWS.Nullable,
   AWS.OpenSSL,
-  AWS.Runtime.Exceptions,
-  AWS.Runtime.HttpRequestMessageFactory;
+  AWS.Runtime.Exceptions;
 
 type
   TMessage = class
@@ -196,8 +204,11 @@ begin
     begin
       for Retries := 1 to MAX_RETRIES do
         try
-          Client := THttpRequestMessageFactory.CreateHttpClient(nil);
+          Client := THttpClient.Create;
           try
+{$IFDEF MSWINDOWS}
+            TWinHttpEngine(Client.Engine).ProxyMode := THttpProxyMode.Auto;
+{$ENDIF}
             Response := Client.Get(SigningCertURL);
             try
               Result := TOpenSSLX509.LoadFromBytes(Response.ContentAsBytes);

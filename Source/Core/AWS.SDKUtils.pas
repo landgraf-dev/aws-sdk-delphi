@@ -6,6 +6,14 @@ interface
 
 uses
   System.Generics.Collections, System.Classes, System.IniFiles, System.SysUtils, System.StrUtils, System.DateUtils,
+{$IFDEF USE_SPARKLE}
+  Sparkle.Http.Client,
+  {$IFDEF MSWINDOWS}
+  Sparkle.WinHttp.Engine,
+  {$ENDIF}
+{$ELSE}
+  System.Net.HttpClient,
+{$ENDIF}
   AWS.Enums,
   AWS.Internal.ParameterCollection,
   AWS.Internal.IRegionEndpoint,
@@ -304,12 +312,9 @@ type
 implementation
 
 uses
-  Sparkle.Utils,
-  Sparkle.Http.Client,
   AWS.Configs,
   AWS.Internal.RegionFinder,
-  AWS.Internal.SDKUtils,
-  AWS.Runtime.HttpRequestMessageFactory;
+  AWS.Internal.SDKUtils;
 
 { TProfileIniFile }
 
@@ -558,14 +563,18 @@ end;
 
 class function TAWSSDKUtils.ExecuteHttpRequest(const AUri, ARequestType, AContent: string; ATimeoutMS: Integer;
   AHeaders: THttpHeaders): string;
+{$IFDEF USE_SPARKLE}
 var
   Client: THttpClient;
   Request: THttpRequest;
   Response: THttpResponse;
   HeaderInfo: THttpHeaderInfo;
 begin
-  Client := THttpRequestMessageFactory.CreateHttpClient(nil);
+  Client := THttpClient.Create;
   try
+{$IFDEF MSWINDOWS}
+    TWinHttpEngine(Client.Engine).ProxyMode := THttpProxyMode.Auto;
+{$ENDIF}
     // Create the request
     Request := Client.CreateRequest;
     try
@@ -597,6 +606,45 @@ begin
     Client.Free;
   end;
 end;
+{$ELSE}
+var
+  Client: THttpClient;
+  Request: IHttpRequest;
+  Response: IHttpResponse;
+  HeaderInfo: THttpHeaderInfo;
+begin
+  Client := THttpRequestMessageFactory.CreateHttpClient(nil);
+  try
+    // Create the request
+    Request := Client.GetRequest(ARequestType, AUri);
+    try
+      if ATimeoutMS > 0 then
+        Request.Timeout := ATimeoutMS;
+      Request.Headers.AddValue(THeaderKeys.UserAgentHeader, FUserAgent);
+      for HeaderInfo in AHeaders.AllHeaders do
+        Request.Headers.AddValue(HeaderInfo.Name, HeaderInfo.Value);
+
+      // Build the request
+      if AContent <> '' then
+        Request.SetContent(TEncoding.UTF8.GetBytes(AContent));
+
+      // Get response
+      Response := Client.Send(Request);
+      try
+        if Response.StatusCode >= 400 then
+          raise EWebException.Create(Request.Uri, Response.StatusCode);
+        Result := TEncoding.UTF8.GetString(Response.ContentAsBytes);
+      finally
+        Response.Free;
+      end;
+    finally
+      Request.Free;
+    end;
+  finally
+    Client.Free;
+  end;
+end;
+{$ENDIF}
 
 class function TAWSSDKUtils.FormattedCurrentTimestampRFC822: string;
 begin
@@ -672,7 +720,7 @@ begin
   SortedParameters := AParameterCollection.GetSortedParametersList;
   for Kvp in SortedParameters do
     if Kvp.Value <> '' then
-      Data := Data + Kvp.Key + '=' + TSparkleUtils.PercentEncode(Kvp.Value) + '&';
+      Data := Data + Kvp.Key + '=' + AWS.Lib.Utils.PercentEncode(Kvp.Value) + '&';
   if Data <> '' then
     Delete(Data, Length(Data), 1);
   Result := Data;
@@ -686,7 +734,7 @@ begin
   Result := '';
   for PathSegment in APathSegments do
   begin
-    Segment := TSparkleUtils.PercentEncode(PathSegment);
+    Segment := AWS.Lib.Utils.PercentEncode(PathSegment);
     if APath then
       Segment := StringReplace(Segment, '/', '%2F', [rfReplaceAll]);
     Result := Result + Segment + '/';
@@ -800,7 +848,7 @@ end;
 class function TAWSSDKUtils.UrlEncode(const AData: string; APath: Boolean): string;
 begin
   {TODO: Review if this is enough}
-  Result := TSparkleUtils.PercentEncode(AData);
+  Result := AWS.Lib.Utils.PercentEncode(AData);
 end;
 
 class function TAWSSDKUtils.UrlEncodeSlash(const Value: string): string;
