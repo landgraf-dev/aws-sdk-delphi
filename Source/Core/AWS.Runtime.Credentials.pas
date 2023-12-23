@@ -528,7 +528,7 @@ begin
         [sLineBreak, sLineBreak, I + 1, Length(Errors), sLineBreak, Errors[I]]);
     if Length(Errors) = 0 then
       ErrorMessage := ErrorMessage + sLineBreak + 'No exceptions to report';
-    raise EAmazonServiceException.Create('Unable to find credentials');
+    raise EAmazonServiceException.Create(ErrorMessage);
   end;
 
   Result := FCachedCredentials;
