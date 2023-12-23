@@ -521,6 +521,10 @@ begin
 //    if AFallbackToAnonymous then
 //      Exit(TAnonymousAWSCredentials.Create);
 
+    var ErrorMessage := 'Unable to find credentials';
+    for var I := 0 to Length(Errors) - 1 do
+      ErrorMessage := ErrorMessage + Format('%s%sException %d of %d:%s%s',
+        [sLineBreak, sLineBreak, I + 1, Length(Errors), sLineBreak, Errors[I]]);
     raise EAmazonServiceException.Create('Unable to find credentials');
   end;
 
