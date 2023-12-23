@@ -518,6 +518,7 @@ begin
 
   if FCachedCredentials = nil then
   begin
+    {Todo: review fallback to anonymous}
 //    if AFallbackToAnonymous then
 //      Exit(TAnonymousAWSCredentials.Create);
 
@@ -525,6 +526,8 @@ begin
     for var I := 0 to Length(Errors) - 1 do
       ErrorMessage := ErrorMessage + Format('%s%sException %d of %d:%s%s',
         [sLineBreak, sLineBreak, I + 1, Length(Errors), sLineBreak, Errors[I]]);
+    if Length(Errors) = 0 then
+      ErrorMessage := ErrorMessage + sLineBreak + 'No exceptions to report';
     raise EAmazonServiceException.Create('Unable to find credentials');
   end;
 
