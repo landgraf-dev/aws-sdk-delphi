@@ -385,7 +385,7 @@ begin
       Logger.Error(
         'Error attempting to read region from instance metadata identity document. ' + sLineBreak +
         E.Message + sLineBreak +
-        E.StackTrace);
+        E.StackTrace + sLineBreak + IdDocument);
     end;
   end;
   Result := nil;
