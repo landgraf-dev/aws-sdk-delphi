@@ -383,9 +383,7 @@ begin
     begin
       Logger := LogManager.GetLogger(TEC2InstanceMetadata);
       Logger.Error(
-        'Error attempting to read region from instance metadata identity document. ' + sLineBreak +
-        E.Message + sLineBreak +
-        E.StackTrace + sLineBreak + IdDocument);
+        'Error attempting to read region from instance metadata identity document: ' + E.Message);
     end;
   end;
   Result := nil;

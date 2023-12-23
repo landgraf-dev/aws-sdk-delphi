@@ -804,7 +804,7 @@ begin
   BytesStream := TBytesStream.Create;
   try
     CopyStream(Source, BytesStream);
-    Result := BytesStream.Bytes;
+    Result := Copy(BytesStream.Bytes, 0, BytesStream.Size);
   finally
     BytesStream.Free;
   end;
