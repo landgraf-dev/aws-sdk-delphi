@@ -623,6 +623,7 @@ begin
       Client.ConnectionTimeout := ATimeoutMS;
       Client.SendTimeout := ATimeoutMS;
       Client.ResponseTimeout := ATimeoutMS;
+      Client.SendTimeout := ATimeoutMS;
     end;
     Request.SetHeaderValue(THeaderKeys.UserAgentHeader, FUserAgent);
     for HeaderInfo in AHeaders.AllHeaders do
@@ -636,7 +637,7 @@ begin
       Response := Client.Execute(Request);
       if Response.StatusCode >= 400 then
         raise EWebException.Create(AUri, Response.StatusCode);
-      Result := StreamToString(Response.ContentStream);
+      Result := TEncoding.UTF8.GetString(StreamToBytes(Response.ContentStream));
     finally
       Request.SourceStream.Free;
     end;

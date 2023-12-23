@@ -200,7 +200,7 @@ begin
     {$ENDIF}
     {$IFDEF MSWINDOWS}
     if ATimerType = TTimerType.SingleShot then
-      Period := TimeoutInfinite
+      Period := 0
     else
       Period := AInterval;
     if not CreateTimerQueueTimer(FTimerHandle, 0, WinTimerProc, Self, AInterval, Period, 0) then
