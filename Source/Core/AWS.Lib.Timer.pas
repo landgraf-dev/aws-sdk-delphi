@@ -217,11 +217,15 @@ end;
 
 procedure TAWSTimer<T>.DestroyTimer;
 begin
-  {$IFDEF THREADTIMER}
-  FreeObj(FTimerHandle);
+{$IFDEF THREADTIMER}
+  {$IFDEF AUTOREFCOUNT}
+  FTimerHandle.DisposeOf;
   {$ELSE}
-  HaltTimer;
+  FTimerHandle.Free;
   {$ENDIF}
+{$ELSE}
+  HaltTimer;
+{$ENDIF}
 end;
 
 procedure TAWSTimer<T>.HaltTimer;

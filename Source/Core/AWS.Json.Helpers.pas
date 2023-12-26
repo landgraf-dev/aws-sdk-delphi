@@ -5,6 +5,8 @@ All rights reserved
 }
 unit AWS.Json.Helpers;
 
+{$I AWS.inc}
+
 interface
 
 uses

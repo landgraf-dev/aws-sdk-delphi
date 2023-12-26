@@ -71,3 +71,5 @@ Win32/
 Tests/AWSTests.res
 AndroidManifest.template.xml
 *.dsv
+Debug/
+Release/
