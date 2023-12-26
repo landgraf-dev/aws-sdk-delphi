@@ -178,6 +178,9 @@
 			<MainSource>MainSource</MainSource>
 		</DelphiCompile>
 		<DCCReference Include="awscore.dcp"/>
+		<DCCReference Include="IndySystem.dcp"/>
+		<DCCReference Include="IndyProtocols.dcp"/>
+		<DCCReference Include="IndyCore.dcp"/>
 		<DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\AWS.SNS.Client.pas"/>
 		<DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\AWS.SNS.ClientIntf.pas"/>
 		<DCCReference Include="..\..\Source\Services\SimpleNotificationService\Base\AWS.SNS.Config.pas"/>

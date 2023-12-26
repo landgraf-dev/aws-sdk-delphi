@@ -31,7 +31,10 @@ package awssns;
 {$LIBSUFFIX AUTO}
 
 requires
-  awscore;
+  awscore,
+  IndySystem,
+  IndyProtocols,
+  IndyCore;
 
 contains
   AWS.SNS.Client in '..\..\Source\Services\SimpleNotificationService\Base\AWS.SNS.Client.pas',
