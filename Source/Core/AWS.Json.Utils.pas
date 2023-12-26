@@ -28,7 +28,7 @@ function JsonDeserialize_ListString(const Value: string): TList<string>;
 var
   JArray: TJSONArray;
 begin
-  JArray := TJSONValue.ParseJSONValue(Value) as TJSONArray;
+  JArray := TJSONObject.ParseJSONValue(Value) as TJSONArray;
   try
     Result := TList<string>.Create;
     try

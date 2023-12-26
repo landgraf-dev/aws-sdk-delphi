@@ -53,7 +53,7 @@ begin
   var sb := TStringBuilder.Create(256);
   try
     // Steps 1 and Steps 2 requires all headers to be in lowercase and lexicographically sorted by header name.
-    var Keys := TList<string>.Create(AHeaders.Keys.ToArray);
+    var Keys := TList<string>.Create(AHeaders.Keys);
     try
       Keys.Sort(TComparer<string>.Construct(
         function(const S1, S2: string): Integer

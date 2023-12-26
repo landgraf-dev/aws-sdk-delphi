@@ -423,7 +423,7 @@ begin
       if Endpoint.RegionName = ARegionName then
         Exit(Endpoint);
 
-    PartitionData := (FRoot.Values['partitions'] as TJSONArray)[0] as TJSONObject;
+    PartitionData := (FRoot.Values['partitions'] as TJSONArray).Items[0] as TJSONObject;
     RegionDescription := GetUnknownRegionDescription(ARegionName);
     ServicesData := nil;
     FoundContainingPartition := False;
