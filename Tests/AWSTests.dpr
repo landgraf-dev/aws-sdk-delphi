@@ -25,8 +25,6 @@ uses
   AWSTests.SNS in 'Source\AWSTests.SNS.pas',
   AWSTests.Utils in 'Source\AWSTests.Utils.pas',
   AWSTests.Polly in 'Source\AWSTests.Polly.pas',
-  AWSTests.S3.GetObjectTests in 'Source\AWSTests.S3.GetObjectTests.pas',
-  AWSTests.S3.TestUtils in 'Source\AWSTests.S3.TestUtils.pas',
   AWSTests.UtilityMethods in 'Source\AWSTests.UtilityMethods.pas';
 
 {$R *.RES}

@@ -152,8 +152,7 @@
 		</DelphiCompile>
 		<DCCReference Include="rtl.dcp"/>
 		<DCCReference Include="dbrtl.dcp"/>
-		<DCCReference Include="tmsbcl.dcp"/>
-		<DCCReference Include="sparkle.dcp"/>
+		<DCCReference Include="RESTComponents.dcp"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Arn.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Auth.ActionIdentifier.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Auth.Condition.pas"/>
@@ -168,6 +167,7 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Enums.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.Auth.AWS4SignerHelper.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.DefaultRequest.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.ErrorResponse.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.HttpErrorResponseExceptionHandler.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.InvokeOptions.pas"/>
@@ -182,14 +182,33 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.SDKUtils.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.ServiceMetadata.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.StringUtils.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.ChunkedUploadWrapperStream.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.HashStream.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.HostPrefixUtils.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.WebResponseData.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.Helpers.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.Reader.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.StreamReader.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.StringReader.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.Utils.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Json.Writer.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.Collections.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.Encoding.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.HttpHeaders.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.Logging.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.Micro.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.MicroDictionary.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.Timer.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.Uri.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Lib.Utils.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Nullable.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.CredentialsRetriever.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.EndpointResolver.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.ErrorCallbackHandler.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.ErrorHandler.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.HttpHandler.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.Marshaller.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.RedirectHandler.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.RetryHandler.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.Signer.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.Unmarshaller.pas"/>
@@ -201,11 +220,14 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Contexts.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.CorrectClockSkew.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Credentials.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ExceptionHandler.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Exceptions.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.HttpRequestMessageFactory.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.IHttpRequestFactory.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Model.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.RetryPolicy.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.SparkleHttpRequestMessageFactory.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.SDKUtils.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Transform.ErrorResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Transform.IErrorResponseUnmarshaller.pas"/>
@@ -219,19 +241,12 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Util.Crypto.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Util.Streams.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Pipeline.RedirectHandler.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Runtime.RetryPolicy.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Nullable.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Json.Reader.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Json.StreamReader.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Json.StringReader.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Json.Writer.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Base.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Xml.Reader.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Writer.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.HashStream.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.ChunkedUploadWrapperStream.pas"/>
+		<RcCompile Include="..\..\Resources\AWS.Region.rc">
+			<Form>AWS.Region.res</Form>
+		</RcCompile>
 		<BuildConfiguration Include="Release">
 			<Key>Cfg_2</Key>
 			<CfgParent>Base</CfgParent>

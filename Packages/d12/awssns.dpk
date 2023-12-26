@@ -25,16 +25,13 @@ package awssns;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Simple Notification Service'}
-{$LIBSUFFIX AUTO}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Simple Notification Service'}
+{$RUNONLY}
+{$LIBSUFFIX AUTO}
 
 requires
-  awscore,
-  IndySystem,
-  IndyProtocols,
-  IndyCore;
+  awscore;
 
 contains
   AWS.SNS.Client in '..\..\Source\Services\SimpleNotificationService\Base\AWS.SNS.Client.pas',
