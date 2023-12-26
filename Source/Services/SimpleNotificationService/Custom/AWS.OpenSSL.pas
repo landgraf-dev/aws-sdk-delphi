@@ -190,8 +190,6 @@ begin
   case DigestType of
     TOpenSSLDigestType.MD5:
       Result := EVP_md5;
-    TOpenSSLDigestType.MDC2:
-      Result := EVP_mdc2;
     TOpenSSLDigestType.RIPEMD160:
       Result := EVP_ripemd160;
     TOpenSSLDigestType.SHA1:

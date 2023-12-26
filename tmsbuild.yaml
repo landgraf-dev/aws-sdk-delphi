@@ -9,7 +9,7 @@ supported frameworks:
   rtl:
     ide since: delphitokyo
     platforms: 
-      - win32intel
+      - all
   
 packages:
   - awscore: [runtime, rtl]
@@ -23,5 +23,3 @@ packages:
   - awslexruntimeservice: [runtime, rtl]
   - awslexruntimev2: [runtime, rtl]
   - awsrekognition: [runtime, rtl]
-  - awss3: [runtime, rtl]
-
