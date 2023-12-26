@@ -137,8 +137,10 @@ end;
 
 destructor THttpWebRequestMessage.Destroy;
 begin
+{$IFNDEF AUTOREFCOUNT}
   if (FRequest <> nil) and FOwnsSourceStream then
     FRequest.SourceStream.Free;
+{$ENDIF}
   FHttpClient.Free;
   inherited;
 end;

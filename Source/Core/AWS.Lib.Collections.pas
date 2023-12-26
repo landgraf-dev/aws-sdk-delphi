@@ -189,7 +189,7 @@ destructor TOrderedDictionary<K, V>.Destroy;
 begin
   Clear;
 {$IFDEF AUTOREFCOUNT}
-  FItems..DisposeOf;
+  FItems.DisposeOf;
 {$ELSE}
   FItems.Free;
 {$ENDIF}

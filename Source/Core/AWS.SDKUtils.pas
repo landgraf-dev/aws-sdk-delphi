@@ -640,7 +640,9 @@ begin
         raise EWebException.Create(AUri, Response.StatusCode);
       Result := TEncoding.UTF8.GetString(StreamToBytes(Response.ContentStream));
     finally
+{$IFNDEF AUTOREFCOUNT}
       Request.SourceStream.Free;
+{$ENDIF}
     end;
   finally
     Client.Free;
