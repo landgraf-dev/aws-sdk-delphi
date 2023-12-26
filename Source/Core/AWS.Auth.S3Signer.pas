@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Generics.Collections, System.Generics.Defaults,
+  AWS.Lib.Collections,
   AWS.Auth.Signer,
   AWS.Enums,
   AWS.Internal.Request,

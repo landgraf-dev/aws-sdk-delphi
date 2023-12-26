@@ -85,7 +85,6 @@
 		<GenDll>true</GenDll>
 		<GenPackage>true</GenPackage>
 		<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-		<DCC_CBuilderOutput>All</DCC_CBuilderOutput>
 		<SanitizedProjectName>awscore</SanitizedProjectName>
 		<DCC_Description>Amazon Web Services SDK - Core Package</DCC_Description>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>

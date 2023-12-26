@@ -621,9 +621,10 @@ begin
     if ATimeoutMS > 0 then
     begin
       Client.ConnectionTimeout := ATimeoutMS;
-      Client.SendTimeout := ATimeoutMS;
       Client.ResponseTimeout := ATimeoutMS;
+{$IFDEF DELPHISYDNEY_LVL}
       Client.SendTimeout := ATimeoutMS;
+{$ENDIF}
     end;
     Request.SetHeaderValue(THeaderKeys.UserAgentHeader, FUserAgent);
     for HeaderInfo in AHeaders.AllHeaders do

@@ -54,6 +54,14 @@
   {$DEFINE DELPHITOKYO_LVL}
 {$IFEND}
 
+{$IF CompilerVersion >= 33}
+  {$DEFINE DELPHIRIO_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 34}
+  {$DEFINE DELPHISYDNEY_LVL}
+{$IFEND}
+
 {$IF CompilerVersion >= 35}
   {$DEFINE DELPHI11_LVL}
 {$IFEND}
