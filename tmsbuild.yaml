@@ -7,7 +7,7 @@ application:
 
 supported frameworks:
   rtl:
-    ide since: delphitokyo
+    ide since: delphirio
     platforms: 
       - all
   
