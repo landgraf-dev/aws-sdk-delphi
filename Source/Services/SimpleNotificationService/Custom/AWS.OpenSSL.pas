@@ -74,7 +74,11 @@ var
   ErrMsg, FullMsg: string;
 begin
   ErrCode := ERR_get_error;
+{$IF CompilerVersion >= 34}
   ErrMsg := string(AnsiString(ERR_error_string(ErrCode, nil)));
+{$ELSE}
+  ErrMsg := string(ERR_error_string(ErrCode, nil));
+{$ENDIF}
   if AMessage = '' then
     FullMsg := ErrMsg
   else
