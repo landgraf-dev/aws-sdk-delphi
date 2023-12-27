@@ -19,9 +19,25 @@ This is the list of AWS services currently supported by the SDK. More will be ad
 
 Please use the [GitHub Issues][sdk-issues] page to report problems or request features.
 
+## Supported Delphi versions and platforms
+
+AWS SDK for Delphi supports all recent Delphi versions since Delphi 10.3 Rio (i.e., Delphi 10.4 Sydney, Delphi 11, Delphi 12, etc.) and supports all platforms available in those Delphi versions: Windows, Linux, Android, iOS and macOS.
+
 ## Required libraries
 
-AWS SDK for Delphi requires [TMS Business][tms-business], more specifically [TMS BCL][tms-bcl] (version 1.27 and up) and [TMS Sparkle][tms-sparkle] (version 3.17 and up). Because life is short.
+AWS SDK for Delphi does not require any 3rd party library, it's written in 100% native Delphi code and works on all SKUs of supported Delphi versions.
+
+## Installation
+
+You can install the library performing a manuall installation.
+
+### Manual installation
+
+For each platform you want to install the SDK:
+
+1. Open `AWSPackages.groupproj' project group in your Delphi IDE.
+2. Build all packages for the platform you want to install, in Release mode.
+3. Add the platform output folder to the Delphi platform library path. For example, if you are building for Delphi 12, Win32, add the `<sdk_folder>/packages/d12/Win32/Release` folder to Delphi 12, Win32 library path.
 
 ## Using the SDK
 
