@@ -35,7 +35,7 @@ You can install the library performing a manuall installation.
 
 For each platform you want to install the SDK:
 
-1. Open `AWSPackages.groupproj' project group in your Delphi IDE.
+1. Open `AWSPackages.groupproj` project group in your Delphi IDE.
 2. Build all packages for the platform you want to install, in Release mode.
 3. Add the platform output folder to the Delphi platform library path. For example, if you are building for Delphi 12, Win32, add the `<sdk_folder>/packages/d12/Win32/Release` folder to Delphi 12, Win32 library path.
 
