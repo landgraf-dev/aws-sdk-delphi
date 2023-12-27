@@ -42,7 +42,6 @@ begin
     requestContext.Request.Endpoint := TUri.Create(Format('%s://%s:%d', [uri.Scheme, uri.Host, uri.Port]));
 
   {Todo: Review this}
-  {$MESSAGE WARN 'Review this code as it involves hash stream}
 //  TRetryHandler.PrepareForRetry(AExecutionContext.RequestContext);
 end;
 
