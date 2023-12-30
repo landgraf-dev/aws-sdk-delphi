@@ -22,4 +22,5 @@ packages:
   - awstranslate: [runtime, rtl]
   - awslexruntimeservice: [runtime, rtl]
   - awslexruntimev2: [runtime, rtl]
+  - awspolly: [runtime, rtl]
   - awsrekognition: [runtime, rtl]

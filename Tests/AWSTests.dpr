@@ -15,7 +15,7 @@ program AWSTests;
 {$ENDIF}
 
 uses
-  FastMM4,
+//  FastMM4,
   DUnitTestRunner,
   AWSTests.Cases.Common in 'Source\Common\AWSTests.Cases.Common.pas',
   AWSTests.Cases.Utils in 'Source\Common\AWSTests.Cases.Utils.pas',

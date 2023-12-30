@@ -5,13 +5,13 @@ unit AWSTests.SNS;
 interface
 
 uses
-  System.SysUtils, System.DateUtils, System.Generics.Collections, System.Classes,
+  System.SysUtils, System.DateUtils, System.Generics.Collections, System.Classes, System.JSON,
   AWSTests.TestBase,
+  AWS.Lib.Utils,
   AWS.SNS.Message,
   AWS.SNS,
   AWS.SQS,
-  TestFramework,
-  Bcl.Json.Classes;
+  TestFramework;
 
 type
   TSNSMessageAttributeValue = AWS.SNS.TMessageAttributeValue;
@@ -55,9 +55,7 @@ implementation
 
 uses
   AWS.SNS.Extensions,
-  Bcl.Utils,
   AWSTests.Utils,
-  Bcl.Json,
   AWS.Auth.Policy,
   AWS.SQS.Consts;
 
@@ -182,7 +180,7 @@ begin
   if (Length(MsgBody) > 0) and (MsgBody[1] = '{') then
     Result := Msg.Body
   else
-    Result := TEncoding.UTF8.GetString(TBclUtils.DecodeBase64(Msg.Body));
+    Result := TEncoding.UTF8.GetString(AWS.Lib.Utils.DecodeBase64(Msg.Body));
 end;
 
 function TSNSTests.GetPublishRequest(const TopicArn: string): IPublishRequest;
@@ -427,10 +425,10 @@ var
   MsgResponse: IReceiveMessageResponse;
   Messages: TList<TMessage>;
   Msg: TMessage;
-  Json: TJObject;
-  MessageAttributes: TJObject;
+  Json: TJSONObject;
+  MessageAttributes: TJSONObject;
   Ma: TPair<string, TSNSMessageAttributeValue>;
-  JsonAttribute: TJObject;
+  JsonAttribute: TJSONObject;
   JsonType: string;
   JsonValue: string;
   ReceiveRequest: IReceiveMessageRequest;
@@ -452,25 +450,25 @@ begin
     CheckEquals(1, Messages.Count);
     Msg := Messages[0];
 
-    Json := TJson.Deserialize<TJObject>(GetBodyJson(Msg));
+    Json := TJSONObject.ParseJSONValue(GetBodyJson(Msg)) as TJSONObject;
     try
-      CheckEquals(PublishRequest.Message, Json['Message'].AsString);
-      CheckEquals(PublishRequest.Subject, Json['Subject'].AsString);
-      MessageAttributes := Json['MessageAttributes'].AsObject;
-      CheckEquals(PublishRequest.MessageAttributes.Count, Length(TJObject.keys(MessageAttributes)));
+      CheckEquals(PublishRequest.Message, (Json.Values['Message'] as TJSONString).Value);
+      CheckEquals(PublishRequest.Subject, (Json.Values['Subject'] as TJSONString).Value);
+      MessageAttributes := (Json.Values['MessageAttributes'] as TJSONObject);
+      CheckEquals(PublishRequest.MessageAttributes.Count,  MessageAttributes.Count);
       for Ma in PublishRequest.MessageAttributes do
       begin
-        Check(MessageAttributes.Contains(Ma.Key));
-        JsonAttribute := MessageAttributes[Ma.Key].AsObject;
-        JsonType := JsonAttribute['Type'].AsString;
-        JsonValue := jsonAttribute['Value'].AsString;
+        Check(MessageAttributes.GetValue(Ma.Key) <> nil);
+        JsonAttribute := MessageAttributes.Values[Ma.Key] as TJSONObject;
+        JsonType := (JsonAttribute.Values['Type'] as TJSONString).Value;
+        JsonValue := (jsonAttribute.Values['Value'] as TJSONString).Value;
         CheckNotEquals('', JsonType);
         CheckNotEquals('', JsonValue);
         CheckEquals(Ma.Value.DataType, JsonType);
         if Ma.Value.DataType <> 'Binary' then
           CheckEquals(Ma.Value.StringValue, JsonValue)
         else
-          CheckEquals(TBclUtils.EncodeBase64(Ma.Value.BinaryValue.Bytes), JsonValue);
+          CheckEquals(AWS.Lib.Utils.EncodeBase64(Ma.Value.BinaryValue.Bytes), JsonValue);
       end;
     finally
       Json.Free;
