@@ -24,3 +24,4 @@ packages:
   - awslexruntimev2: [runtime, rtl]
   - awspolly: [runtime, rtl]
   - awsrekognition: [runtime, rtl]
+  - awss3: [runtime, rtl]
