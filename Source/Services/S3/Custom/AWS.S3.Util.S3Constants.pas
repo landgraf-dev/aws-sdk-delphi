@@ -80,6 +80,8 @@ type
     NoSuchWebsiteConfiguration = 'NoSuchWebsiteConfiguration';
     NoSuchLifecycleConfiguration = 'NoSuchLifecycleConfiguration';
     NoSuchCORSConfiguration = 'NoSuchCORSConfiguration';
+
+    S3RequestXmlNamespace = 'http://s3.amazonaws.com/doc/2006-03-01/';
   end;
 
 implementation
