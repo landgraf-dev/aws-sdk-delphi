@@ -19,6 +19,8 @@ type
     class function WaitUntilSuccess<T>(LoadFunction: TFunc<T>; SleepSeconds: Integer = 5; MaxWaitSeconds: Integer = 300): T; overload; static;
     class procedure WaitUntil(MatchFunction: TFunc<Boolean>; Sleeper: IListSleeper; MaxWaitSeconds: Integer = 300); overload; static;
     class procedure WaitUntil(MatchFunction: TFunc<Boolean>; SleepSeconds: Integer = 5; MaxWaitSeconds: Integer = 300); overload; static;
+  public
+    class function GenerateName(const Name: string): string; static;
   end;
 
   TListSleeper = class(TInterfacedObject, IListSleeper)
@@ -57,6 +59,12 @@ begin
   end;
 
   raise Exception.CreateFmt('Wait condition was not satisfied for %d seconds', [MaxWaitSeconds]);
+end;
+
+class function TUtilityMethods.GenerateName(const Name: string): string;
+begin
+  Result := SDK_TEST_PREFIX + '-' + Name + '-' + IntToStr(Random(MaxInt));
+  Result := Result.ToLower.Replace('_', '-');
 end;
 
 class procedure TUtilityMethods.WaitUntil(MatchFunction: TFunc<Boolean>; SleepSeconds, MaxWaitSeconds: Integer);
@@ -110,4 +118,6 @@ begin
   Inc(FAttempt);
 end;
 
+initialization
+  Randomize;
 end.
