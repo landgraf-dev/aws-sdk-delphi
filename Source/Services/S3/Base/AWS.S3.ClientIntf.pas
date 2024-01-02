@@ -26,8 +26,12 @@ uses
   AWS.S3.Model.ListVersionsRequest, 
   AWS.S3.Model.PutBucketResponse, 
   AWS.S3.Model.PutBucketRequest, 
+  AWS.S3.Model.PutBucketOwnershipControlsResponse, 
+  AWS.S3.Model.PutBucketOwnershipControlsRequest, 
   AWS.S3.Model.PutObjectResponse, 
   AWS.S3.Model.PutObjectRequest, 
+  AWS.S3.Model.PutPublicAccessBlockResponse, 
+  AWS.S3.Model.PutPublicAccessBlockRequest, 
   AWS.S3.Model.UploadPartResponse, 
   AWS.S3.Model.UploadPartRequest;
 
@@ -60,7 +64,9 @@ type
     function ListVersions(Request: IListVersionsRequest): IListVersionsResponse; overload;
     function PutBucket(const ABucketName: string): IPutBucketResponse; overload;
     function PutBucket(Request: IPutBucketRequest): IPutBucketResponse; overload;
+    function PutBucketOwnershipControls(Request: IPutBucketOwnershipControlsRequest): IPutBucketOwnershipControlsResponse; overload;
     function PutObject(Request: IPutObjectRequest): IPutObjectResponse; overload;
+    function PutPublicAccessBlock(Request: IPutPublicAccessBlockRequest): IPutPublicAccessBlockResponse; overload;
     function UploadPart(Request: IUploadPartRequest): IUploadPartResponse; overload;
   end;
   
