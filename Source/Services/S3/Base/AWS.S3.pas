@@ -26,6 +26,8 @@ uses
   AWS.S3.Model.GetACLResponse, 
   AWS.S3.Model.GetBucketVersioningRequest, 
   AWS.S3.Model.GetBucketVersioningResponse, 
+  AWS.S3.Model.GetObjectMetadataRequest, 
+  AWS.S3.Model.GetObjectMetadataResponse, 
   AWS.S3.Model.GetObjectRequest, 
   AWS.S3.Model.GetObjectResponse, 
   AWS.S3.Model.Grant, 
@@ -74,6 +76,8 @@ type
   IGetACLResponse = AWS.S3.Model.GetACLResponse.IGetACLResponse;
   IGetBucketVersioningRequest = AWS.S3.Model.GetBucketVersioningRequest.IGetBucketVersioningRequest;
   IGetBucketVersioningResponse = AWS.S3.Model.GetBucketVersioningResponse.IGetBucketVersioningResponse;
+  IGetObjectMetadataRequest = AWS.S3.Model.GetObjectMetadataRequest.IGetObjectMetadataRequest;
+  IGetObjectMetadataResponse = AWS.S3.Model.GetObjectMetadataResponse.IGetObjectMetadataResponse;
   IGetObjectRequest = AWS.S3.Model.GetObjectRequest.IGetObjectRequest;
   IGetObjectResponse = AWS.S3.Model.GetObjectResponse.IGetObjectResponse;
   IGrant = AWS.S3.Model.Grant.IGrant;
@@ -129,6 +133,8 @@ type
   TGetACLResponse = AWS.S3.Model.GetACLResponse.TGetACLResponse;
   TGetBucketVersioningRequest = AWS.S3.Model.GetBucketVersioningRequest.TGetBucketVersioningRequest;
   TGetBucketVersioningResponse = AWS.S3.Model.GetBucketVersioningResponse.TGetBucketVersioningResponse;
+  TGetObjectMetadataRequest = AWS.S3.Model.GetObjectMetadataRequest.TGetObjectMetadataRequest;
+  TGetObjectMetadataResponse = AWS.S3.Model.GetObjectMetadataResponse.TGetObjectMetadataResponse;
   TGetObjectRequest = AWS.S3.Model.GetObjectRequest.TGetObjectRequest;
   TGetObjectResponse = AWS.S3.Model.GetObjectResponse.TGetObjectResponse;
   TGrant = AWS.S3.Model.Grant.TGrant;

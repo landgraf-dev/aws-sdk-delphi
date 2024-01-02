@@ -51,6 +51,10 @@ uses
   AWS.S3.Model.GetObjectRequest, 
   AWS.S3.Transform.GetObjectRequestMarshaller, 
   AWS.S3.Transform.GetObjectResponseUnmarshaller, 
+  AWS.S3.Model.GetObjectMetadataResponse, 
+  AWS.S3.Model.GetObjectMetadataRequest, 
+  AWS.S3.Transform.GetObjectMetadataRequestMarshaller, 
+  AWS.S3.Transform.GetObjectMetadataResponseUnmarshaller, 
   AWS.S3.Model.InitiateMultipartUploadResponse, 
   AWS.S3.Model.InitiateMultipartUploadRequest, 
   AWS.S3.Transform.InitiateMultipartUploadRequestMarshaller, 
@@ -112,6 +116,9 @@ type
     function GetObject(const ABucketName: string; const AKey: string): IGetObjectResponse; overload;
     function GetObject(const ABucketName: string; const AKey: string; const AVersionId: string): IGetObjectResponse; overload;
     function GetObject(Request: IGetObjectRequest): IGetObjectResponse; overload;
+    function GetObjectMetadata(const ABucketName: string; const AKey: string): IGetObjectMetadataResponse; overload;
+    function GetObjectMetadata(const ABucketName: string; const AKey: string; const AVersionId: string): IGetObjectMetadataResponse; overload;
+    function GetObjectMetadata(Request: IGetObjectMetadataRequest): IGetObjectMetadataResponse; overload;
     function InitiateMultipartUpload(const ABucketName: string; const AKey: string): IInitiateMultipartUploadResponse; overload;
     function InitiateMultipartUpload(Request: IInitiateMultipartUploadRequest): IInitiateMultipartUploadResponse; overload;
     function ListObjects(const ABucketName: string): IListObjectsResponse; overload;
@@ -363,6 +370,41 @@ begin
     Options.RequestMarshaller := TGetObjectRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TGetObjectResponseUnmarshaller.Instance;
     Result := Invoke<TGetObjectResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.GetObjectMetadata(const ABucketName: string; const AKey: string): IGetObjectMetadataResponse;
+var
+  Request: IGetObjectMetadataRequest;
+begin
+  Request := TGetObjectMetadataRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Key := AKey;
+  Result := GetObjectMetadata(Request);
+end;
+
+function TAmazonS3Client.GetObjectMetadata(const ABucketName: string; const AKey: string; const AVersionId: string): IGetObjectMetadataResponse;
+var
+  Request: IGetObjectMetadataRequest;
+begin
+  Request := TGetObjectMetadataRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Key := AKey;
+  Request.VersionId := AVersionId;
+  Result := GetObjectMetadata(Request);
+end;
+
+function TAmazonS3Client.GetObjectMetadata(Request: IGetObjectMetadataRequest): IGetObjectMetadataResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TGetObjectMetadataRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TGetObjectMetadataResponseUnmarshaller.Instance;
+    Result := Invoke<TGetObjectMetadataResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;
