@@ -71,10 +71,18 @@ uses
   AWS.S3.Model.PutBucketRequest, 
   AWS.S3.Transform.PutBucketRequestMarshaller, 
   AWS.S3.Transform.PutBucketResponseUnmarshaller, 
+  AWS.S3.Model.PutBucketOwnershipControlsResponse, 
+  AWS.S3.Model.PutBucketOwnershipControlsRequest, 
+  AWS.S3.Transform.PutBucketOwnershipControlsRequestMarshaller, 
+  AWS.S3.Transform.PutBucketOwnershipControlsResponseUnmarshaller, 
   AWS.S3.Model.PutObjectResponse, 
   AWS.S3.Model.PutObjectRequest, 
   AWS.S3.Transform.PutObjectRequestMarshaller, 
   AWS.S3.Transform.PutObjectResponseUnmarshaller, 
+  AWS.S3.Model.PutPublicAccessBlockResponse, 
+  AWS.S3.Model.PutPublicAccessBlockRequest, 
+  AWS.S3.Transform.PutPublicAccessBlockRequestMarshaller, 
+  AWS.S3.Transform.PutPublicAccessBlockResponseUnmarshaller, 
   AWS.S3.Model.UploadPartResponse, 
   AWS.S3.Model.UploadPartRequest, 
   AWS.S3.Transform.UploadPartRequestMarshaller, 
@@ -129,7 +137,9 @@ type
     function ListVersions(Request: IListVersionsRequest): IListVersionsResponse; overload;
     function PutBucket(const ABucketName: string): IPutBucketResponse; overload;
     function PutBucket(Request: IPutBucketRequest): IPutBucketResponse; overload;
+    function PutBucketOwnershipControls(Request: IPutBucketOwnershipControlsRequest): IPutBucketOwnershipControlsResponse; overload;
     function PutObject(Request: IPutObjectRequest): IPutObjectResponse; overload;
+    function PutPublicAccessBlock(Request: IPutPublicAccessBlockRequest): IPutPublicAccessBlockResponse; overload;
     function UploadPart(Request: IUploadPartRequest): IUploadPartResponse; overload;
   end;
   
@@ -220,6 +230,12 @@ begin
   Pipeline.AddHandlerBefore<TUnmarshaller>(TAmazonS3ResponseHandler.Create());
   Pipeline.AddHandlerAfter<TErrorCallbackHandler>(TAmazonS3ExceptionHandler.Create());
   Pipeline.AddHandlerAfter<TUnmarshaller>(TAmazonS3RedirectHandler.Create());
+  if this.Config.RetryMode == RequestRetryMode.Legacy then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3RetryPolicy(this.Config)));
+  if this.Config.RetryMode == RequestRetryMode.Standard then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3StandardRetryPolicy(this.Config)));
+  if this.Config.RetryMode == RequestRetryMode.Adaptive then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3AdaptiveRetryPolicy(this.Config)));
 end;
 
 function TAmazonS3Client.DeleteBucket(const ABucketName: string): IDeleteBucketResponse;
@@ -523,6 +539,20 @@ begin
   end;
 end;
 
+function TAmazonS3Client.PutBucketOwnershipControls(Request: IPutBucketOwnershipControlsRequest): IPutBucketOwnershipControlsResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TPutBucketOwnershipControlsRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TPutBucketOwnershipControlsResponseUnmarshaller.Instance;
+    Result := Invoke<TPutBucketOwnershipControlsResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
 function TAmazonS3Client.PutObject(Request: IPutObjectRequest): IPutObjectResponse;
 var
   Options: TInvokeOptions;
@@ -532,6 +562,20 @@ begin
     Options.RequestMarshaller := TPutObjectRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TPutObjectResponseUnmarshaller.Instance;
     Result := Invoke<TPutObjectResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.PutPublicAccessBlock(Request: IPutPublicAccessBlockRequest): IPutPublicAccessBlockResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TPutPublicAccessBlockRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TPutPublicAccessBlockResponseUnmarshaller.Instance;
+    Result := Invoke<TPutPublicAccessBlockResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;

@@ -45,10 +45,17 @@ uses
   AWS.S3.Model.ObjectTypes, 
   AWS.S3.Model.ObjectVersion, 
   AWS.S3.Model.Owner, 
+  AWS.S3.Model.OwnershipControls, 
+  AWS.S3.Model.OwnershipControlsRule, 
+  AWS.S3.Model.PublicAccessBlockConfiguration, 
+  AWS.S3.Model.PutBucketOwnershipControlsRequest, 
+  AWS.S3.Model.PutBucketOwnershipControlsResponse, 
   AWS.S3.Model.PutBucketRequest, 
   AWS.S3.Model.PutBucketResponse, 
   AWS.S3.Model.PutObjectRequest, 
   AWS.S3.Model.PutObjectResponse, 
+  AWS.S3.Model.PutPublicAccessBlockRequest, 
+  AWS.S3.Model.PutPublicAccessBlockResponse, 
   AWS.S3.Model.Request, 
   AWS.S3.Model.UploadPartRequest, 
   AWS.S3.Model.UploadPartResponse;
@@ -92,10 +99,17 @@ type
   IObjectIdentifier = AWS.S3.Model.ObjectIdentifier.IObjectIdentifier;
   IObjectVersion = AWS.S3.Model.ObjectVersion.IObjectVersion;
   IOwner = AWS.S3.Model.Owner.IOwner;
+  IOwnershipControls = AWS.S3.Model.OwnershipControls.IOwnershipControls;
+  IOwnershipControlsRule = AWS.S3.Model.OwnershipControlsRule.IOwnershipControlsRule;
+  IPublicAccessBlockConfiguration = AWS.S3.Model.PublicAccessBlockConfiguration.IPublicAccessBlockConfiguration;
+  IPutBucketOwnershipControlsRequest = AWS.S3.Model.PutBucketOwnershipControlsRequest.IPutBucketOwnershipControlsRequest;
+  IPutBucketOwnershipControlsResponse = AWS.S3.Model.PutBucketOwnershipControlsResponse.IPutBucketOwnershipControlsResponse;
   IPutBucketRequest = AWS.S3.Model.PutBucketRequest.IPutBucketRequest;
   IPutBucketResponse = AWS.S3.Model.PutBucketResponse.IPutBucketResponse;
   IPutObjectRequest = AWS.S3.Model.PutObjectRequest.IPutObjectRequest;
   IPutObjectResponse = AWS.S3.Model.PutObjectResponse.IPutObjectResponse;
+  IPutPublicAccessBlockRequest = AWS.S3.Model.PutPublicAccessBlockRequest.IPutPublicAccessBlockRequest;
+  IPutPublicAccessBlockResponse = AWS.S3.Model.PutPublicAccessBlockResponse.IPutPublicAccessBlockResponse;
   IUploadPartRequest = AWS.S3.Model.UploadPartRequest.IUploadPartRequest;
   IUploadPartResponse = AWS.S3.Model.UploadPartResponse.IUploadPartResponse;
   TAmazonS3Client = AWS.S3.Client.TAmazonS3Client;
@@ -169,13 +183,20 @@ type
   TObjectVersionStorageClass = AWS.S3.Enums.TObjectVersionStorageClass;
   TOwner = AWS.S3.Model.Owner.TOwner;
   TOwnerOverride = AWS.S3.Enums.TOwnerOverride;
+  TOwnershipControls = AWS.S3.Model.OwnershipControls.TOwnershipControls;
+  TOwnershipControlsRule = AWS.S3.Model.OwnershipControlsRule.TOwnershipControlsRule;
   TPayer = AWS.S3.Enums.TPayer;
   TPermission = AWS.S3.Enums.TPermission;
   TProtocol = AWS.S3.Enums.TProtocol;
+  TPublicAccessBlockConfiguration = AWS.S3.Model.PublicAccessBlockConfiguration.TPublicAccessBlockConfiguration;
+  TPutBucketOwnershipControlsRequest = AWS.S3.Model.PutBucketOwnershipControlsRequest.TPutBucketOwnershipControlsRequest;
+  TPutBucketOwnershipControlsResponse = AWS.S3.Model.PutBucketOwnershipControlsResponse.TPutBucketOwnershipControlsResponse;
   TPutBucketRequest = AWS.S3.Model.PutBucketRequest.TPutBucketRequest;
   TPutBucketResponse = AWS.S3.Model.PutBucketResponse.TPutBucketResponse;
   TPutObjectRequest = AWS.S3.Model.PutObjectRequest.TPutObjectRequest;
   TPutObjectResponse = AWS.S3.Model.PutObjectResponse.TPutObjectResponse;
+  TPutPublicAccessBlockRequest = AWS.S3.Model.PutPublicAccessBlockRequest.TPutPublicAccessBlockRequest;
+  TPutPublicAccessBlockResponse = AWS.S3.Model.PutPublicAccessBlockResponse.TPutPublicAccessBlockResponse;
   TQuoteFields = AWS.S3.Enums.TQuoteFields;
   TReplicaModificationsStatus = AWS.S3.Enums.TReplicaModificationsStatus;
   TReplicationRuleStatus = AWS.S3.Enums.TReplicationRuleStatus;
