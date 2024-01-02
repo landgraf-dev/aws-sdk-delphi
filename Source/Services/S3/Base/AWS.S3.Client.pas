@@ -43,6 +43,10 @@ uses
   AWS.S3.Model.GetACLRequest, 
   AWS.S3.Transform.GetACLRequestMarshaller, 
   AWS.S3.Transform.GetACLResponseUnmarshaller, 
+  AWS.S3.Model.GetBucketVersioningResponse, 
+  AWS.S3.Model.GetBucketVersioningRequest, 
+  AWS.S3.Transform.GetBucketVersioningRequestMarshaller, 
+  AWS.S3.Transform.GetBucketVersioningResponseUnmarshaller, 
   AWS.S3.Model.GetObjectResponse, 
   AWS.S3.Model.GetObjectRequest, 
   AWS.S3.Transform.GetObjectRequestMarshaller, 
@@ -103,6 +107,8 @@ type
     function DeleteObjects(Request: IDeleteObjectsRequest): IDeleteObjectsResponse; overload;
     function GetACL(const ABucketName: string): IGetACLResponse; overload;
     function GetACL(Request: IGetACLRequest): IGetACLResponse; overload;
+    function GetBucketVersioning(const ABucketName: string): IGetBucketVersioningResponse; overload;
+    function GetBucketVersioning(Request: IGetBucketVersioningRequest): IGetBucketVersioningResponse; overload;
     function GetObject(const ABucketName: string; const AKey: string): IGetObjectResponse; overload;
     function GetObject(const ABucketName: string; const AKey: string; const AVersionId: string): IGetObjectResponse; overload;
     function GetObject(Request: IGetObjectRequest): IGetObjectResponse; overload;
@@ -299,6 +305,29 @@ begin
     Options.RequestMarshaller := TGetACLRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TGetACLResponseUnmarshaller.Instance;
     Result := Invoke<TGetACLResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.GetBucketVersioning(const ABucketName: string): IGetBucketVersioningResponse;
+var
+  Request: IGetBucketVersioningRequest;
+begin
+  Request := TGetBucketVersioningRequest.Create;
+  Request.BucketName := ABucketName;
+  Result := GetBucketVersioning(Request);
+end;
+
+function TAmazonS3Client.GetBucketVersioning(Request: IGetBucketVersioningRequest): IGetBucketVersioningResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TGetBucketVersioningRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TGetBucketVersioningResponseUnmarshaller.Instance;
+    Result := Invoke<TGetBucketVersioningResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;

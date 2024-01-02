@@ -24,6 +24,8 @@ uses
   AWS.S3.Model.Error, 
   AWS.S3.Model.GetACLRequest, 
   AWS.S3.Model.GetACLResponse, 
+  AWS.S3.Model.GetBucketVersioningRequest, 
+  AWS.S3.Model.GetBucketVersioningResponse, 
   AWS.S3.Model.GetObjectRequest, 
   AWS.S3.Model.GetObjectResponse, 
   AWS.S3.Model.Grant, 
@@ -70,6 +72,8 @@ type
   IError = AWS.S3.Model.Error.IError;
   IGetACLRequest = AWS.S3.Model.GetACLRequest.IGetACLRequest;
   IGetACLResponse = AWS.S3.Model.GetACLResponse.IGetACLResponse;
+  IGetBucketVersioningRequest = AWS.S3.Model.GetBucketVersioningRequest.IGetBucketVersioningRequest;
+  IGetBucketVersioningResponse = AWS.S3.Model.GetBucketVersioningResponse.IGetBucketVersioningResponse;
   IGetObjectRequest = AWS.S3.Model.GetObjectRequest.IGetObjectRequest;
   IGetObjectResponse = AWS.S3.Model.GetObjectResponse.IGetObjectResponse;
   IGrant = AWS.S3.Model.Grant.IGrant;
@@ -123,6 +127,8 @@ type
   TFilterRuleName = AWS.S3.Enums.TFilterRuleName;
   TGetACLRequest = AWS.S3.Model.GetACLRequest.TGetACLRequest;
   TGetACLResponse = AWS.S3.Model.GetACLResponse.TGetACLResponse;
+  TGetBucketVersioningRequest = AWS.S3.Model.GetBucketVersioningRequest.TGetBucketVersioningRequest;
+  TGetBucketVersioningResponse = AWS.S3.Model.GetBucketVersioningResponse.TGetBucketVersioningResponse;
   TGetObjectRequest = AWS.S3.Model.GetObjectRequest.TGetObjectRequest;
   TGetObjectResponse = AWS.S3.Model.GetObjectResponse.TGetObjectResponse;
   TGrant = AWS.S3.Model.Grant.TGrant;
@@ -145,7 +151,6 @@ type
   TMetricsStatus = AWS.S3.Enums.TMetricsStatus;
   TMFADelete = AWS.S3.Enums.TMFADelete;
   TMFADeleteStatus = AWS.S3.Enums.TMFADeleteStatus;
-  TObject = AWS.S3.Model.ObjectTypes.TObject;
   TObjectCannedACL = AWS.S3.Enums.TObjectCannedACL;
   TObjectIdentifier = AWS.S3.Model.ObjectIdentifier.TObjectIdentifier;
   TObjectLockEnabled = AWS.S3.Enums.TObjectLockEnabled;
@@ -173,6 +178,7 @@ type
   TRequestCharged = AWS.S3.Enums.TRequestCharged;
   TRequestPayer = AWS.S3.Enums.TRequestPayer;
   TRestoreRequestType = AWS.S3.Enums.TRestoreRequestType;
+  TS3Object = AWS.S3.Model.ObjectTypes.TS3Object;
   TServerSideEncryption = AWS.S3.Enums.TServerSideEncryption;
   TSseKmsEncryptedObjectsStatus = AWS.S3.Enums.TSseKmsEncryptedObjectsStatus;
   TStorageClass = AWS.S3.Enums.TStorageClass;

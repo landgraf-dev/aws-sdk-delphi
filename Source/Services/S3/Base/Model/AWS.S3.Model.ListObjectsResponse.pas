@@ -18,8 +18,8 @@ type
     procedure SetCommonPrefixes(const Value: TObjectList<TCommonPrefix>);
     function GetKeepCommonPrefixes: Boolean;
     procedure SetKeepCommonPrefixes(const Value: Boolean);
-    function GetContents: TObjectList<TObject>;
-    procedure SetContents(const Value: TObjectList<TObject>);
+    function GetContents: TObjectList<TS3Object>;
+    procedure SetContents(const Value: TObjectList<TS3Object>);
     function GetKeepContents: Boolean;
     procedure SetKeepContents(const Value: Boolean);
     function GetDelimiter: string;
@@ -51,7 +51,7 @@ type
     function IsSetPrefix: Boolean;
     property CommonPrefixes: TObjectList<TCommonPrefix> read GetCommonPrefixes write SetCommonPrefixes;
     property KeepCommonPrefixes: Boolean read GetKeepCommonPrefixes write SetKeepCommonPrefixes;
-    property Contents: TObjectList<TObject> read GetContents write SetContents;
+    property Contents: TObjectList<TS3Object> read GetContents write SetContents;
     property KeepContents: Boolean read GetKeepContents write SetKeepContents;
     property Delimiter: string read GetDelimiter write SetDelimiter;
     property EncodingType: TEncodingType read GetEncodingType write SetEncodingType;
@@ -67,7 +67,7 @@ type
   strict private
     FCommonPrefixes: TObjectList<TCommonPrefix>;
     FKeepCommonPrefixes: Boolean;
-    FContents: TObjectList<TObject>;
+    FContents: TObjectList<TS3Object>;
     FKeepContents: Boolean;
     FDelimiter: Nullable<string>;
     FEncodingType: Nullable<TEncodingType>;
@@ -81,8 +81,8 @@ type
     procedure SetCommonPrefixes(const Value: TObjectList<TCommonPrefix>);
     function GetKeepCommonPrefixes: Boolean;
     procedure SetKeepCommonPrefixes(const Value: Boolean);
-    function GetContents: TObjectList<TObject>;
-    procedure SetContents(const Value: TObjectList<TObject>);
+    function GetContents: TObjectList<TS3Object>;
+    procedure SetContents(const Value: TObjectList<TS3Object>);
     function GetKeepContents: Boolean;
     procedure SetKeepContents(const Value: Boolean);
     function GetDelimiter: string;
@@ -118,7 +118,7 @@ type
     function IsSetPrefix: Boolean;
     property CommonPrefixes: TObjectList<TCommonPrefix> read GetCommonPrefixes write SetCommonPrefixes;
     property KeepCommonPrefixes: Boolean read GetKeepCommonPrefixes write SetKeepCommonPrefixes;
-    property Contents: TObjectList<TObject> read GetContents write SetContents;
+    property Contents: TObjectList<TS3Object> read GetContents write SetContents;
     property KeepContents: Boolean read GetKeepContents write SetKeepContents;
     property Delimiter: string read GetDelimiter write SetDelimiter;
     property EncodingType: TEncodingType read GetEncodingType write SetEncodingType;
@@ -138,7 +138,7 @@ constructor TListObjectsResponse.Create;
 begin
   inherited;
   FCommonPrefixes := TObjectList<TCommonPrefix>.Create;
-  FContents := TObjectList<TObject>.Create;
+  FContents := TObjectList<TS3Object>.Create;
 end;
 
 destructor TListObjectsResponse.Destroy;
@@ -183,12 +183,12 @@ begin
   Result := (FCommonPrefixes <> nil) and (FCommonPrefixes.Count > 0);
 end;
 
-function TListObjectsResponse.GetContents: TObjectList<TObject>;
+function TListObjectsResponse.GetContents: TObjectList<TS3Object>;
 begin
   Result := FContents;
 end;
 
-procedure TListObjectsResponse.SetContents(const Value: TObjectList<TObject>);
+procedure TListObjectsResponse.SetContents(const Value: TObjectList<TS3Object>);
 begin
   if FContents <> Value then
   begin

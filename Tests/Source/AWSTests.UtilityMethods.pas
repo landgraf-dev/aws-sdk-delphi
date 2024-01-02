@@ -3,7 +3,7 @@ unit AWSTests.UtilityMethods;
 interface
 
 uses
-  System.SysUtils, System.TimeSpan, System.DateUtils, System.Math;
+  System.SysUtils, System.DateUtils, System.Math;
 
 type
   IListSleeper = interface

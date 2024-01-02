@@ -15,7 +15,6 @@ program AWSTests;
 {$ENDIF}
 
 uses
-//  FastMM4,
   DUnitTestRunner,
   AWSTests.Cases.Common in 'Source\Common\AWSTests.Cases.Common.pas',
   AWSTests.Cases.Utils in 'Source\Common\AWSTests.Cases.Utils.pas',
@@ -27,7 +26,8 @@ uses
   AWSTests.Polly in 'Source\AWSTests.Polly.pas',
   AWSTests.UtilityMethods in 'Source\AWSTests.UtilityMethods.pas',
   AWSTests.S3.GetObjectTests in 'Source\AWSTests.S3.GetObjectTests.pas',
-  AWSTests.S3.TestUtils in 'Source\AWSTests.S3.TestUtils.pas';
+  AWSTests.S3.TestUtils in 'Source\AWSTests.S3.TestUtils.pas',
+  AWSTests.S3.Simple.PutObjectTests in 'Source\AWSTests.S3.Simple.PutObjectTests.pas';
 
 {$R *.RES}
 

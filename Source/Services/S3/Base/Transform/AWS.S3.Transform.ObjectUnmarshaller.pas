@@ -11,14 +11,14 @@ uses
   AWS.S3.Transform.OwnerUnmarshaller;
 
 type
-  IObjectUnmarshaller = IUnmarshaller<TObject, TXmlUnmarshallerContext>;
+  IObjectUnmarshaller = IUnmarshaller<TS3Object, TXmlUnmarshallerContext>;
   
-  TObjectUnmarshaller = class(TInterfacedObject, IUnmarshaller<TObject, TXmlUnmarshallerContext>)
+  TObjectUnmarshaller = class(TInterfacedObject, IUnmarshaller<TS3Object, TXmlUnmarshallerContext>)
   strict private
     class var FInstance: IObjectUnmarshaller;
     class constructor Create;
   public
-    function Unmarshall(AContext: TXmlUnmarshallerContext): TObject;
+    function Unmarshall(AContext: TXmlUnmarshallerContext): TS3Object;
     class function Instance: IObjectUnmarshaller; static;
   end;
   
@@ -26,13 +26,13 @@ implementation
 
 { TObjectUnmarshaller }
 
-function TObjectUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): TObject;
+function TObjectUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): TS3Object;
 var
   OriginalDepth: Integer;
   TargetDepth: Integer;
-  UnmarshalledObject: TObject;
+  UnmarshalledObject: TS3Object;
 begin
-  UnmarshalledObject := TObject.Create;
+  UnmarshalledObject := TS3Object.Create;
   try
     Result := UnmarshalledObject;
     OriginalDepth := AContext.CurrentDepth;
