@@ -7,9 +7,11 @@ uses
   TestFramework, TestExtensions,
   AWSTests.TestBase,
   AWSTests.S3.TestUtils,
+  AWSTests.UtilityMethods,
   AWS.Runtime.Model,
   AWS.RegionEndpoints,
   AWS.S3,
+  AWS.S3.Exception,
   AWS.S3.Enums;
 
 type
@@ -25,6 +27,7 @@ type
     procedure TearDown; override;
   published
     procedure SimpleTest;
+    procedure TestHttpErrorResponseUnmarshalling;
   end;
 
 implementation
@@ -79,6 +82,27 @@ begin
   if TFile.Exists(FFilePath) then
     TFile.Delete(FFilePath);
   inherited;
+end;
+
+procedure TPutObjectTests.TestHttpErrorResponseUnmarshalling;
+begin
+  CheckRaise<EAmazonS3Exception>(
+    procedure
+    var
+      Request: IPutObjectRequest;
+    begin
+      Request := TPutObjectRequest.Create;
+      Request.BucketName := TUtilityMethods.GenerateName('NonExistentBucket');
+      Request.Key := '1';
+      Request.ContentBody := 'TestContent';
+      Client.PutObject(Request);
+    end,
+    procedure(E: EAmazonS3Exception)
+    begin
+      var Expected := 'The specified bucket does not exist';
+      var Actual := Copy(E.Message, 1, Length(Expected));
+      CheckEquals(Expected, Actual);
+    end);
 end;
 
 initialization
