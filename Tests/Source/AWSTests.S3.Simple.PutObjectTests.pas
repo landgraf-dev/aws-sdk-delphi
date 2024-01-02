@@ -22,12 +22,16 @@ type
   private
     FBucketName: string;
     FFilePath: string;
+  protected
+    procedure SimplePutObjectTest(UseChunkEncoding: Boolean);
   public
     procedure SetUp; override;
     procedure TearDown; override;
   published
     procedure SimpleTest;
     procedure TestHttpErrorResponseUnmarshalling;
+    procedure SimplePutObjectTest_Chunked;
+    procedure SimplePutObjectTest_NotChunked;
   end;
 
 implementation
@@ -39,7 +43,32 @@ begin
   inherited;
   FFilePath := TPath.Combine(TPath.GetTempPath, 'PutObjectFile.txt');
   TFile.WriteAllText(FFilePath, 'This is some sample text.!!');
-  FBucketName := TS3TestUtils.CreateBucket(Client, 'PutObjectTest');
+  FBucketName := TS3TestUtils.CreateBucket(Client, 'PutObjectTest', True);
+end;
+
+procedure TPutObjectTests.SimplePutObjectTest(UseChunkEncoding: Boolean);
+var
+  request: IPutObjectRequest;
+begin
+  request := TPutObjectRequest.Create;
+  request.BucketName := FBucketName;
+  request.Key := 'contentBodyPut' + IntToStr(Random(MaxInt));
+  request.ContentBody := TestContent;
+  request.ACL := TObjectCannedACL.AuthenticatedRead;
+  request.UseChunkEncoding := useChunkEncoding;
+  var response := Client.PutObject(request);
+  Status(Format('S3 generated ETag: %s', [response.ETag]));
+  Check(response.ETag.Length > 0, 'etag empty');
+end;
+
+procedure TPutObjectTests.SimplePutObjectTest_Chunked;
+begin
+  SimplePutObjectTest(True);
+end;
+
+procedure TPutObjectTests.SimplePutObjectTest_NotChunked;
+begin
+  SimplePutObjectTest(False);
 end;
 
 procedure TPutObjectTests.SimpleTest;
