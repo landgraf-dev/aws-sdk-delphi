@@ -120,6 +120,9 @@ begin
     soCurrent:
       if Offset = 0 then
         Exit(FCurrentPosition);
+    soEnd:
+      if (Offset = 0) and (FCurrentPosition = Size) then
+        Exit(FCurrentPosition);
   end;
   raise ENotSupportedException.Create('THashStream does not support seeking');
 end;
