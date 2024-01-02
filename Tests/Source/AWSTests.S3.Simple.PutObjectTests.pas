@@ -63,8 +63,8 @@ begin
   Check(objects <> nil);
   CheckEquals(count + 1, objects.Count);
 
-//  var metadataResult := Client.GetObjectMetadata(FBucketName, key);
-//  CheckEquals(etag, metadataResult.ETag);
+  var metadataResult := Client.GetObjectMetadata(FBucketName, key);
+  CheckEquals(etag, metadataResult.ETag);
 
   Client.DeleteObject(FBucketName, key);
 
