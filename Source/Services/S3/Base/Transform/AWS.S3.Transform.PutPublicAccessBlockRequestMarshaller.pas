@@ -56,8 +56,19 @@ begin
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
     try
-      XmlWriter.WriteStartElement('PublicAccessBlockConfiguration', '');
-      XmlWriter.WriteEndElement;
+      if PublicRequest.PublicAccessBlockConfiguration <> nil then
+      begin
+        XmlWriter.WriteStartElement('PublicAccessBlockConfiguration', '');
+        if PublicRequest.PublicAccessBlockConfiguration.IsSetBlockPublicAcls then
+          XmlWriter.WriteElementString('BlockPublicAcls', '', TStringUtils.FromBoolean(PublicRequest.PublicAccessBlockConfiguration.BlockPublicAcls));
+        if PublicRequest.PublicAccessBlockConfiguration.IsSetBlockPublicPolicy then
+          XmlWriter.WriteElementString('BlockPublicPolicy', '', TStringUtils.FromBoolean(PublicRequest.PublicAccessBlockConfiguration.BlockPublicPolicy));
+        if PublicRequest.PublicAccessBlockConfiguration.IsSetIgnorePublicAcls then
+          XmlWriter.WriteElementString('IgnorePublicAcls', '', TStringUtils.FromBoolean(PublicRequest.PublicAccessBlockConfiguration.IgnorePublicAcls));
+        if PublicRequest.PublicAccessBlockConfiguration.IsSetRestrictPublicBuckets then
+          XmlWriter.WriteElementString('RestrictPublicBuckets', '', TStringUtils.FromBoolean(PublicRequest.PublicAccessBlockConfiguration.RestrictPublicBuckets));
+        XmlWriter.WriteEndElement;
+      end;
     finally
       XmlWriter.Free;
     end;

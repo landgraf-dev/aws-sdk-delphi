@@ -24,7 +24,7 @@ type
   private const
     MAX_SPIN_LOOPS = 100;
   public
-    class function CreateBucket(S3Client: IAmazonS3; const TestName: string = ''): string; static;
+    class function CreateBucket(S3Client: IAmazonS3; const TestName: string = ''; SetPublicAcls: Boolean = False): string; static;
     class function CreateBucketWithWait(S3Client: IAmazonS3): string; static;
     class procedure WaitForBucket(S3Client: IAmazonS3; const BucketName: string); overload; static;
     class procedure WaitForBucket(S3Client: IAmazonS3; const BucketName: string; MaxSeconds: Integer); overload; static;
@@ -34,13 +34,15 @@ type
     class procedure DeleteS3BucketWithObjects(S3Client: IAmazonS3; const BucketName: string); overload; static;
     class procedure DeleteS3BucketWithObjects(S3Client: IAmazonS3; const BucketName: string;
       const DeleteOptions: TS3DeleteBucketWithObjectsOptions); overload; static;
+
+    class procedure SetPublicBucketACLs(S3Client: IAmazonS3; const BucketName: string); static;
   end;
 
 implementation
 
 { TS3TestUtils }
 
-class function TS3TestUtils.CreateBucket(S3Client: IAmazonS3; const TestName: string = ''): string;
+class function TS3TestUtils.CreateBucket(S3Client: IAmazonS3; const TestName: string = ''; SetPublicAcls: Boolean = False): string;
 begin
   Result := TUtilityMethods.SDK_TEST_PREFIX;
   if TestName <> '' then
@@ -48,6 +50,8 @@ begin
   Result := Result + '-' + IntToStr(DateTimeToMilliseconds(Now));
   Result := LowerCase(Result);
   S3Client.PutBucket(Result);
+  if SetPublicAcls then
+    SetPublicBucketACLs(S3Client, Result);
 end;
 
 class function TS3TestUtils.CreateBucketWithWait(S3Client: IAmazonS3): string;
@@ -159,6 +163,28 @@ begin
     end;
   end;
   Result := True;
+end;
+
+class procedure TS3TestUtils.SetPublicBucketACLs(S3Client: IAmazonS3; const BucketName: string);
+begin
+  begin
+    var request: IPutBucketOwnershipControlsRequest := TPutBucketOwnershipControlsRequest.Create;
+    request.BucketName := BucketName;
+    request.OwnershipControls := TOwnershipControls.Create;
+    request.OwnershipControls.Rules := TObjectList<TOwnershipControlsRule>.Create;
+    var Rule := TOwnershipControlsRule.Create;
+    Rule.ObjectOwnership := TObjectOwnership.BucketOwnerPreferred;
+    request.OwnershipControls.Rules.Add(Rule);
+    S3Client.PutBucketOwnershipControls(request);
+  end;
+
+  begin
+    var request: IPutPublicAccessBlockRequest := TPutPublicAccessBlockRequest.Create;
+    request.BucketName := BucketName;
+    request.PublicAccessBlockConfiguration := TPublicAccessBlockConfiguration.Create;
+    request.PublicAccessBlockConfiguration.BlockPublicAcls := False;
+    S3Client.PutPublicAccessBlock(request);
+  end;
 end;
 
 class procedure TS3TestUtils.WaitForBucket(S3Client: IAmazonS3; const BucketName: string; MaxSeconds: Integer);
