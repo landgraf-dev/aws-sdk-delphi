@@ -24,7 +24,7 @@ type
   private const
     MAX_SPIN_LOOPS = 100;
   public
-    class function CreateBucket(S3Client: IAmazonS3): string; static;
+    class function CreateBucket(S3Client: IAmazonS3; const TestName: string = ''): string; static;
     class function CreateBucketWithWait(S3Client: IAmazonS3): string; static;
     class procedure WaitForBucket(S3Client: IAmazonS3; const BucketName: string); overload; static;
     class procedure WaitForBucket(S3Client: IAmazonS3; const BucketName: string; MaxSeconds: Integer); overload; static;
@@ -40,9 +40,13 @@ implementation
 
 { TS3TestUtils }
 
-class function TS3TestUtils.CreateBucket(S3Client: IAmazonS3): string;
+class function TS3TestUtils.CreateBucket(S3Client: IAmazonS3; const TestName: string = ''): string;
 begin
-  Result := TUtilityMethods.SDK_TEST_PREFIX + IntToStr(DateTimeToMilliseconds(Now));
+  Result := TUtilityMethods.SDK_TEST_PREFIX;
+  if TestName <> '' then
+    Result := Result + '-' + TestName;
+  Result := Result + '-' + IntToStr(DateTimeToMilliseconds(Now));
+  Result := LowerCase(Result);
   S3Client.PutBucket(Result);
 end;
 

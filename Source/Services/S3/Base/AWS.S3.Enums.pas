@@ -116,6 +116,7 @@ type
     class operator Equal(a: TBucketVersioningStatus; b: TBucketVersioningStatus): Boolean;
     class operator NotEqual(a: TBucketVersioningStatus; b: TBucketVersioningStatus): Boolean;
     class operator Implicit(a: string): TBucketVersioningStatus;
+    class function Off: TBucketVersioningStatus; static;
     property Value: string read FValue;
   end;
   
@@ -1140,6 +1141,11 @@ end;
 class operator TBucketVersioningStatus.Implicit(a: string): TBucketVersioningStatus;
 begin
   Result.FValue := a;;
+end;
+
+class function TBucketVersioningStatus.Off: TBucketVersioningStatus;
+begin
+  Result := TBucketVersioningStatus.Create('');
 end;
 
 { TCompressionType }

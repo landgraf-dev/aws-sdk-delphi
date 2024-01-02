@@ -8,7 +8,7 @@ uses
   AWS.S3.Enums;
 
 type
-  TObject = class;
+  TS3Object = class;
   
   IObject = interface
     function GetETag: string;
@@ -25,7 +25,7 @@ type
     procedure SetSize(const Value: Integer);
     function GetStorageClass: TObjectStorageClass;
     procedure SetStorageClass(const Value: TObjectStorageClass);
-    function Obj: TObject;
+    function Obj: TS3Object;
     function IsSetETag: Boolean;
     function IsSetKey: Boolean;
     function IsSetLastModified: Boolean;
@@ -41,7 +41,7 @@ type
     property StorageClass: TObjectStorageClass read GetStorageClass write SetStorageClass;
   end;
   
-  TObject = class
+  TS3Object = class
   strict private
     FETag: Nullable<string>;
     FKey: Nullable<string>;
@@ -65,7 +65,7 @@ type
     function GetStorageClass: TObjectStorageClass;
     procedure SetStorageClass(const Value: TObjectStorageClass);
   strict protected
-    function Obj: TObject;
+    function Obj: TS3Object;
   public
     destructor Destroy; override;
     function IsSetETag: Boolean;
@@ -85,70 +85,70 @@ type
   
 implementation
 
-{ TObject }
+{ TS3Object }
 
-destructor TObject.Destroy;
+destructor TS3Object.Destroy;
 begin
   Owner := nil;
   inherited;
 end;
 
-function TObject.Obj: TObject;
+function TS3Object.Obj: TS3Object;
 begin
   Result := Self;
 end;
 
-function TObject.GetETag: string;
+function TS3Object.GetETag: string;
 begin
   Result := FETag.ValueOrDefault;
 end;
 
-procedure TObject.SetETag(const Value: string);
+procedure TS3Object.SetETag(const Value: string);
 begin
   FETag := Value;
 end;
 
-function TObject.IsSetETag: Boolean;
+function TS3Object.IsSetETag: Boolean;
 begin
   Result := FETag.HasValue;
 end;
 
-function TObject.GetKey: string;
+function TS3Object.GetKey: string;
 begin
   Result := FKey.ValueOrDefault;
 end;
 
-procedure TObject.SetKey(const Value: string);
+procedure TS3Object.SetKey(const Value: string);
 begin
   FKey := Value;
 end;
 
-function TObject.IsSetKey: Boolean;
+function TS3Object.IsSetKey: Boolean;
 begin
   Result := FKey.HasValue;
 end;
 
-function TObject.GetLastModified: TDateTime;
+function TS3Object.GetLastModified: TDateTime;
 begin
   Result := FLastModified.ValueOrDefault;
 end;
 
-procedure TObject.SetLastModified(const Value: TDateTime);
+procedure TS3Object.SetLastModified(const Value: TDateTime);
 begin
   FLastModified := Value;
 end;
 
-function TObject.IsSetLastModified: Boolean;
+function TS3Object.IsSetLastModified: Boolean;
 begin
   Result := FLastModified.HasValue;
 end;
 
-function TObject.GetOwner: TOwner;
+function TS3Object.GetOwner: TOwner;
 begin
   Result := FOwner;
 end;
 
-procedure TObject.SetOwner(const Value: TOwner);
+procedure TS3Object.SetOwner(const Value: TOwner);
 begin
   if FOwner <> Value then
   begin
@@ -158,47 +158,47 @@ begin
   end;
 end;
 
-function TObject.GetKeepOwner: Boolean;
+function TS3Object.GetKeepOwner: Boolean;
 begin
   Result := FKeepOwner;
 end;
 
-procedure TObject.SetKeepOwner(const Value: Boolean);
+procedure TS3Object.SetKeepOwner(const Value: Boolean);
 begin
   FKeepOwner := Value;
 end;
 
-function TObject.IsSetOwner: Boolean;
+function TS3Object.IsSetOwner: Boolean;
 begin
   Result := FOwner <> nil;
 end;
 
-function TObject.GetSize: Integer;
+function TS3Object.GetSize: Integer;
 begin
   Result := FSize.ValueOrDefault;
 end;
 
-procedure TObject.SetSize(const Value: Integer);
+procedure TS3Object.SetSize(const Value: Integer);
 begin
   FSize := Value;
 end;
 
-function TObject.IsSetSize: Boolean;
+function TS3Object.IsSetSize: Boolean;
 begin
   Result := FSize.HasValue;
 end;
 
-function TObject.GetStorageClass: TObjectStorageClass;
+function TS3Object.GetStorageClass: TObjectStorageClass;
 begin
   Result := FStorageClass.ValueOrDefault;
 end;
 
-procedure TObject.SetStorageClass(const Value: TObjectStorageClass);
+procedure TS3Object.SetStorageClass(const Value: TObjectStorageClass);
 begin
   FStorageClass := Value;
 end;
 
-function TObject.IsSetStorageClass: Boolean;
+function TS3Object.IsSetStorageClass: Boolean;
 begin
   Result := FStorageClass.HasValue;
 end;

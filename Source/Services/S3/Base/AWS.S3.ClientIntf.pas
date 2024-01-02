@@ -12,6 +12,8 @@ uses
   AWS.S3.Model.DeleteObjectsRequest, 
   AWS.S3.Model.GetACLResponse, 
   AWS.S3.Model.GetACLRequest, 
+  AWS.S3.Model.GetBucketVersioningResponse, 
+  AWS.S3.Model.GetBucketVersioningRequest, 
   AWS.S3.Model.GetObjectResponse, 
   AWS.S3.Model.GetObjectRequest, 
   AWS.S3.Model.InitiateMultipartUploadResponse, 
@@ -38,6 +40,8 @@ type
     function DeleteObjects(Request: IDeleteObjectsRequest): IDeleteObjectsResponse; overload;
     function GetACL(const ABucketName: string): IGetACLResponse; overload;
     function GetACL(Request: IGetACLRequest): IGetACLResponse; overload;
+    function GetBucketVersioning(const ABucketName: string): IGetBucketVersioningResponse; overload;
+    function GetBucketVersioning(Request: IGetBucketVersioningRequest): IGetBucketVersioningResponse; overload;
     function GetObject(const ABucketName: string; const AKey: string): IGetObjectResponse; overload;
     function GetObject(const ABucketName: string; const AKey: string; const AVersionId: string): IGetObjectResponse; overload;
     function GetObject(Request: IGetObjectRequest): IGetObjectResponse; overload;
