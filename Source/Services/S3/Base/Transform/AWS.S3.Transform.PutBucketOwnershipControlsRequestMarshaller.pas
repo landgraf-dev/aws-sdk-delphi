@@ -3,17 +3,18 @@ unit AWS.S3.Transform.PutBucketOwnershipControlsRequestMarshaller;
 interface
 
 uses
-  AWS.Internal.Request, 
-  AWS.Transform.RequestMarshaller, 
-  AWS.Runtime.Model, 
-  AWS.S3.Model.PutBucketOwnershipControlsRequest, 
-  AWS.Internal.DefaultRequest, 
-  AWS.S3.Exception, 
-  AWS.Internal.StringUtils, 
-  System.Classes, 
-  AWS.Xml.Writer, 
-  System.SysUtils, 
-  AWS.SDKUtils;
+  AWS.Internal.Request,
+  AWS.Transform.RequestMarshaller,
+  AWS.Runtime.Model,
+  AWS.S3.Model.PutBucketOwnershipControlsRequest,
+  AWS.Internal.DefaultRequest,
+  AWS.S3.Exception,
+  AWS.Internal.StringUtils,
+  System.Classes,
+  AWS.Xml.Writer,
+  System.SysUtils,
+  AWS.SDKUtils,
+  AWS.S3.Util.S3Constants;
 
 type
   IPutBucketOwnershipControlsRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -56,22 +57,20 @@ begin
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
     try
-      XmlWriter.WriteStartElement('OwnershipControls', '');
-      var PublicRequestRules := PublicRequest.Rules;
-      if (PublicRequestRules <> nil) and (PublicRequestRules.Count > 0) then
+      var ownershipControls := PublicRequest.OwnershipControls;
+      if ownershipControls <> nil then
       begin
-        XmlWriter.WriteStartElement('Rule', '');
-        for var PublicRequestRulesValue in PublicRequestRules do
-          if PublicRequestRulesValue <> nil then
+        XmlWriter.WriteStartElement('OwnershipControls', TS3Constants.S3RequestXmlNamespace);
+        if ownershipControls.Rules <> nil then
+          for var rule in ownershipControls.Rules do
           begin
-            XmlWriter.WriteStartElement('member', '');
-            if PublicRequestRulesValue.IsSetObjectOwnership then
-              XmlWriter.WriteElementString('ObjectOwnership', '', PublicRequestRulesValue.ObjectOwnership.Value);
+            XmlWriter.WriteStartElement('Rule', '');
+            if rule.IsSetObjectOwnership then
+              XmlWriter.WriteElementString('ObjectOwnership', '', Rule.ObjectOwnership.Value);
             XmlWriter.WriteEndElement;
           end;
         XmlWriter.WriteEndElement;
       end;
-      XmlWriter.WriteEndElement;
     finally
       XmlWriter.Free;
     end;
