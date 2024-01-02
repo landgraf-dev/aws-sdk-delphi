@@ -3,7 +3,7 @@ unit AWSTests.S3.Simple.PutObjectTests;
 interface
 
 uses
-  System.Generics.Collections, System.SysUtils, System.StrUtils, System.Classes, System.IOUtils,
+  System.Generics.Collections, System.SysUtils, System.StrUtils, System.Classes, System.IOUtils, System.DateUtils,
   TestFramework, TestExtensions,
   AWSTests.TestBase,
   AWSTests.S3.TestUtils,
@@ -22,8 +22,16 @@ type
   private
     FBucketName: string;
     FFilePath: string;
+    function CreatePutObjectRequest: IPutObjectRequest;
   protected
     procedure SimplePutObjectTest(UseChunkEncoding: Boolean);
+    procedure SimplePathPutObjectTest(UseChunkEncoding: Boolean);
+    procedure GzipTest(UseChunkEncoding: Boolean);
+    procedure PutObjectWithContentEncoding(UseChunkEncoding: Boolean);
+    procedure PutObjectWithContentEncodingIdentity(UseChunkEncoding: Boolean);
+    procedure PutObjectWithoutContentEncoding(UseChunkEncoding: Boolean);
+
+    function TestPutAndGet(Request: IPutObjectRequest): IGetObjectMetadataResponse;
   public
     procedure SetUp; override;
     procedure TearDown; override;
@@ -32,11 +40,112 @@ type
     procedure TestHttpErrorResponseUnmarshalling;
     procedure SimplePutObjectTest_Chunked;
     procedure SimplePutObjectTest_NotChunked;
+    procedure SimplePathPutObjectTest_Chunked;
+    procedure SimplePathPutObjectTest_NotChunked;
+    procedure GzipTest_Chunked;
+    procedure GzipTest_NotChunked;
+    procedure PutObjectWithContentEncoding_Chunked;
+    procedure PutObjectWithContentEncoding_NotChunked;
+    procedure PutObjectWithContentEncodingIdentity_Chunked;
+    procedure PutObjectWithContentEncodingIdentity_NotChunked;
+    procedure PutObjectWithoutContentEncoding_Chunked;
+    procedure PutObjectWithoutContentEncoding_NotChunked;
   end;
 
 implementation
 
 { TPutObjectTests }
+
+function TPutObjectTests.CreatePutObjectRequest: IPutObjectRequest;
+begin
+  Result := TPutObjectRequest.Create;
+  Result.BucketName := FBucketName;
+  Result.Key := IntToStr(DateTimeToFileDate(Now)) + TestKey;
+  Result.ContentBody := TestContent;
+end;
+
+procedure TPutObjectTests.GzipTest(UseChunkEncoding: Boolean);
+begin
+  var request := CreatePutObjectRequest;
+  request.UseChunkEncoding := UseChunkEncoding;
+  request.ContentEncoding := 'gzip';
+
+  TestPutAndGet(request);
+end;
+
+procedure TPutObjectTests.GzipTest_Chunked;
+begin
+  GzipTest(True);
+end;
+
+procedure TPutObjectTests.GzipTest_NotChunked;
+begin
+  GzipTest(False);
+end;
+
+procedure TPutObjectTests.PutObjectWithContentEncoding(UseChunkEncoding: Boolean);
+begin
+  var request := CreatePutObjectRequest;
+  request.UseChunkEncoding := UseChunkEncoding;
+  request.ContentEncoding := 'gzip';
+  request.ContentDisposition := 'disposition';
+
+  var meta := TestPutAndGet(request);
+  CheckEquals('disposition', meta.ContentDisposition);
+  CheckEquals('gzip', meta.ContentEncoding);
+end;
+
+procedure TPutObjectTests.PutObjectWithContentEncodingIdentity(UseChunkEncoding: Boolean);
+begin
+  var request := CreatePutObjectRequest;
+  request.UseChunkEncoding := UseChunkEncoding;
+  request.ContentEncoding := 'identity';
+  request.ContentDisposition := 'disposition';
+
+  var meta := TestPutAndGet(request);
+  CheckEquals('disposition', meta.ContentDisposition);
+  CheckEquals('identity', meta.ContentEncoding);
+end;
+
+procedure TPutObjectTests.PutObjectWithContentEncodingIdentity_Chunked;
+begin
+  PutObjectWithContentEncodingIdentity(True);
+end;
+
+procedure TPutObjectTests.PutObjectWithContentEncodingIdentity_NotChunked;
+begin
+  PutObjectWithContentEncodingIdentity(False);
+end;
+
+procedure TPutObjectTests.PutObjectWithContentEncoding_Chunked;
+begin
+  PutObjectWithContentEncoding(True);
+end;
+
+procedure TPutObjectTests.PutObjectWithContentEncoding_NotChunked;
+begin
+  PutObjectWithContentEncoding(False);
+end;
+
+procedure TPutObjectTests.PutObjectWithoutContentEncoding(UseChunkEncoding: Boolean);
+begin
+  var request := CreatePutObjectRequest;
+  request.UseChunkEncoding := UseChunkEncoding;
+  request.ContentDisposition := 'disposition';
+  var meta := TestPutAndGet(request);
+  CheckEquals('disposition', meta.ContentDisposition);
+  CheckEquals('', meta.ContentEncoding);
+end;
+
+procedure TPutObjectTests.PutObjectWithoutContentEncoding_Chunked;
+begin
+  PutObjectWithoutContentEncoding(True);
+end;
+
+procedure TPutObjectTests.PutObjectWithoutContentEncoding_NotChunked;
+begin
+  PutObjectWithoutContentEncoding(False);
+end;
 
 procedure TPutObjectTests.SetUp;
 begin
@@ -44,6 +153,30 @@ begin
   FFilePath := TPath.Combine(TPath.GetTempPath, 'PutObjectFile.txt');
   TFile.WriteAllText(FFilePath, 'This is some sample text.!!');
   FBucketName := TS3TestUtils.CreateBucket(Client, 'PutObjectTest', True);
+end;
+
+procedure TPutObjectTests.SimplePathPutObjectTest(UseChunkEncoding: Boolean);
+var
+  request: IPutObjectRequest;
+begin
+  request := TPutObjectRequest.Create;
+  request.BucketName := FBucketName;
+  request.FilePath := FFilePath;
+  request.ACL := TObjectCannedACL.AuthenticatedRead;
+  request.UseChunkEncoding := UseChunkEncoding;
+  var response := Client.PutObject(request);
+  Status(Format('S3 generated ETag: %s', [response.ETag]));
+  Check(response.ETag.Length > 0, 'etag empty');
+end;
+
+procedure TPutObjectTests.SimplePathPutObjectTest_Chunked;
+begin
+  SimplePathPutObjectTest(True);
+end;
+
+procedure TPutObjectTests.SimplePathPutObjectTest_NotChunked;
+begin
+  SimplePathPutObjectTest(False);
 end;
 
 procedure TPutObjectTests.SimplePutObjectTest(UseChunkEncoding: Boolean);
@@ -132,6 +265,22 @@ begin
       var Actual := Copy(E.Message, 1, Length(Expected));
       CheckEquals(Expected, Actual);
     end);
+end;
+
+function TPutObjectTests.TestPutAndGet(Request: IPutObjectRequest): IGetObjectMetadataResponse;
+begin
+  Client.PutObject(Request);
+  var key := Request.Key;
+  var Response := Client.GetObject(FBucketName, key);
+  var Reader := TStreamReader.Create(Response.ResponseStream);
+  try
+    var contents := Reader.ReadToEnd;
+    CheckEquals(TestContent, contents);
+  finally
+    Reader.Free;
+  end;
+
+  Result := Client.GetObjectMetadata(FBucketName, key);
 end;
 
 initialization
