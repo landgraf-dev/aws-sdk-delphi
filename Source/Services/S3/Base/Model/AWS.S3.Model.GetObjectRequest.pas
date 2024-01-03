@@ -98,6 +98,10 @@ type
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property VersionId: string read GetVersionId write SetVersionId;
     property ByteRange: TByteRange read GetByteRange write SetByteRange;
+    property EtagToMatch: string read GetIfMatch write SetIfMatch;
+    property IsSetEtagToMatch: Boolean read IsSetIfMatch;
+    property EtagToNotMatch: string read GetIfNoneMatch write SetIfNoneMatch;
+    property IsSetEtagToNotMatch: Boolean read IsSetIfNoneMatch;
   end;
   
   TGetObjectRequest = class(TAmazonS3Request, IGetObjectRequest)
@@ -214,6 +218,10 @@ type
     property VersionId: string read GetVersionId write SetVersionId;
     property ByteRange: TByteRange read GetByteRange write SetByteRange;
     property KeepByteRange: Boolean read GetKeepByteRange write SetKeepByteRange;
+    property EtagToMatch: string read GetIfMatch write SetIfMatch;
+    property IsSetEtagToMatch: Boolean read IsSetIfMatch;
+    property EtagToNotMatch: string read GetIfNoneMatch write SetIfNoneMatch;
+    property IsSetEtagToNotMatch: Boolean read IsSetIfNoneMatch;
   end;
   
 implementation

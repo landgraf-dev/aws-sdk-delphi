@@ -27,7 +27,8 @@ uses
   AWSTests.UtilityMethods in 'Source\AWSTests.UtilityMethods.pas',
   AWSTests.S3.GetObjectTests in 'Source\AWSTests.S3.GetObjectTests.pas',
   AWSTests.S3.TestUtils in 'Source\AWSTests.S3.TestUtils.pas',
-  AWSTests.S3.Simple.PutObjectTests in 'Source\AWSTests.S3.Simple.PutObjectTests.pas';
+  AWSTests.S3.Simple.PutObjectTests in 'Source\AWSTests.S3.Simple.PutObjectTests.pas',
+  AWSTests.S3.Simple.ServiceClientTests in 'Source\AWSTests.S3.Simple.ServiceClientTests.pas';
 
 {$R *.RES}
 
