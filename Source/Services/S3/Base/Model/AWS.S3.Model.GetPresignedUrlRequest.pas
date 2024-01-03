@@ -3,10 +3,23 @@ unit AWS.S3.Model.GetPresignedUrlRequest;
 interface
 
 uses
-  AWS.Nullable, 
+  AWS.S3.Model.Request,
+  AWS.Nullable,
   AWS.S3.Enums;
 
 type
+  TServerSideEncryptionCustomerMethod = record
+  strict private
+    FValue: string;
+  public
+    constructor Create(const AValue: string);
+    class function AES256: TServerSideEncryptionCustomerMethod; static;
+    class operator Equal(a: TServerSideEncryptionCustomerMethod; b: TServerSideEncryptionCustomerMethod): Boolean;
+    class operator NotEqual(a: TServerSideEncryptionCustomerMethod; b: TServerSideEncryptionCustomerMethod): Boolean;
+    class operator Implicit(a: string): TServerSideEncryptionCustomerMethod;
+    property Value: string read FValue;
+  end;
+
   TGetPreSignedUrlRequest = class;
   
   IGetPreSignedUrlRequest = interface
@@ -28,8 +41,8 @@ type
     procedure SetResponseHeaderOverrides(const Value: TRequestPayer);
     function GetServerSideEncryption: TServerSideEncryption;
     procedure SetServerSideEncryption(const Value: TServerSideEncryption);
-    function GetServerSideEncryptionCustomerMethod: TServerSideEncryption;
-    procedure SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryption);
+    function GetServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod;
+    procedure SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryptionCustomerMethod);
     function GetUploadId: string;
     procedure SetUploadId(const Value: string);
     function GetVerb: TProtocol;
@@ -59,13 +72,13 @@ type
     property RequestPayer: TRequestPayer read GetRequestPayer write SetRequestPayer;
     property ResponseHeaderOverrides: TRequestPayer read GetResponseHeaderOverrides write SetResponseHeaderOverrides;
     property ServerSideEncryption: TServerSideEncryption read GetServerSideEncryption write SetServerSideEncryption;
-    property ServerSideEncryptionCustomerMethod: TServerSideEncryption read GetServerSideEncryptionCustomerMethod write SetServerSideEncryptionCustomerMethod;
+    property ServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod read GetServerSideEncryptionCustomerMethod write SetServerSideEncryptionCustomerMethod;
     property UploadId: string read GetUploadId write SetUploadId;
     property Verb: TProtocol read GetVerb write SetVerb;
     property VersionId: string read GetVersionId write SetVersionId;
   end;
   
-  TGetPreSignedUrlRequest = class
+  TGetPreSignedUrlRequest = class(TAmazonS3Request, IGetPreSignedUrlRequest)
   strict private
     FBucketName: Nullable<string>;
     FContentType: Nullable<string>;
@@ -76,7 +89,7 @@ type
     FRequestPayer: Nullable<TRequestPayer>;
     FResponseHeaderOverrides: Nullable<TRequestPayer>;
     FServerSideEncryption: Nullable<TServerSideEncryption>;
-    FServerSideEncryptionCustomerMethod: Nullable<TServerSideEncryption>;
+    FServerSideEncryptionCustomerMethod: Nullable<TServerSideEncryptionCustomerMethod>;
     FUploadId: Nullable<string>;
     FVerb: Nullable<TProtocol>;
     FVersionId: Nullable<string>;
@@ -98,8 +111,8 @@ type
     procedure SetResponseHeaderOverrides(const Value: TRequestPayer);
     function GetServerSideEncryption: TServerSideEncryption;
     procedure SetServerSideEncryption(const Value: TServerSideEncryption);
-    function GetServerSideEncryptionCustomerMethod: TServerSideEncryption;
-    procedure SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryption);
+    function GetServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod;
+    procedure SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryptionCustomerMethod);
     function GetUploadId: string;
     procedure SetUploadId(const Value: string);
     function GetVerb: TProtocol;
@@ -131,13 +144,40 @@ type
     property RequestPayer: TRequestPayer read GetRequestPayer write SetRequestPayer;
     property ResponseHeaderOverrides: TRequestPayer read GetResponseHeaderOverrides write SetResponseHeaderOverrides;
     property ServerSideEncryption: TServerSideEncryption read GetServerSideEncryption write SetServerSideEncryption;
-    property ServerSideEncryptionCustomerMethod: TServerSideEncryption read GetServerSideEncryptionCustomerMethod write SetServerSideEncryptionCustomerMethod;
+    property ServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod read GetServerSideEncryptionCustomerMethod write SetServerSideEncryptionCustomerMethod;
     property UploadId: string read GetUploadId write SetUploadId;
     property Verb: TProtocol read GetVerb write SetVerb;
     property VersionId: string read GetVersionId write SetVersionId;
   end;
   
 implementation
+
+{ TServerSideEncryptionCustomerMethod }
+
+constructor TServerSideEncryptionCustomerMethod.Create(const AValue: string);
+begin
+  FValue := AValue;
+end;
+
+class function TServerSideEncryptionCustomerMethod.AES256: TServerSideEncryptionCustomerMethod;
+begin
+  Result := TServerSideEncryptionCustomerMethod.Create('AES256');
+end;
+
+class operator TServerSideEncryptionCustomerMethod.Equal(a: TServerSideEncryptionCustomerMethod; b: TServerSideEncryptionCustomerMethod): Boolean;
+begin
+  Result := a.Value = b.Value;
+end;
+
+class operator TServerSideEncryptionCustomerMethod.NotEqual(a: TServerSideEncryptionCustomerMethod; b: TServerSideEncryptionCustomerMethod): Boolean;
+begin
+  Result := a.Value <> b.Value;
+end;
+
+class operator TServerSideEncryptionCustomerMethod.Implicit(a: string): TServerSideEncryptionCustomerMethod;
+begin
+  Result.FValue := a;;
+end;
 
 { TGetPreSignedUrlRequest }
 
@@ -281,12 +321,12 @@ begin
   Result := FServerSideEncryption.HasValue;
 end;
 
-function TGetPreSignedUrlRequest.GetServerSideEncryptionCustomerMethod: TServerSideEncryption;
+function TGetPreSignedUrlRequest.GetServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod;
 begin
   Result := FServerSideEncryptionCustomerMethod.ValueOrDefault;
 end;
 
-procedure TGetPreSignedUrlRequest.SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryption);
+procedure TGetPreSignedUrlRequest.SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryptionCustomerMethod);
 begin
   FServerSideEncryptionCustomerMethod := Value;
 end;
