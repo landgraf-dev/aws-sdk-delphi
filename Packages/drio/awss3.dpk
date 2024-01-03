@@ -61,6 +61,7 @@ contains
   AWS.S3.Model.GetObjectMetadataResponse in '..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetObjectMetadataResponse.pas',
   AWS.S3.Model.GetObjectRequest in '..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetObjectRequest.pas',
   AWS.S3.Model.GetObjectResponse in '..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetObjectResponse.pas',
+  AWS.S3.Model.GetPresignedUrlRequest in '..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetPresignedUrlRequest.pas',
   AWS.S3.Model.Grant in '..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Grant.pas',
   AWS.S3.Model.Grantee in '..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Grantee.pas',
   AWS.S3.Model.InitiateMultipartUploadRequest in '..\..\Source\Services\S3\Base\Model\AWS.S3.Model.InitiateMultipartUploadRequest.pas',

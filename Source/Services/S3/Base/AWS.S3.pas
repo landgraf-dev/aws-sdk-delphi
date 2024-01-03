@@ -30,6 +30,7 @@ uses
   AWS.S3.Model.GetObjectMetadataResponse, 
   AWS.S3.Model.GetObjectRequest, 
   AWS.S3.Model.GetObjectResponse, 
+  AWS.S3.Model.GetPresignedUrlRequest, 
   AWS.S3.Model.Grant, 
   AWS.S3.Model.Grantee, 
   AWS.S3.Model.InitiateMultipartUploadRequest, 
@@ -87,6 +88,7 @@ type
   IGetObjectMetadataResponse = AWS.S3.Model.GetObjectMetadataResponse.IGetObjectMetadataResponse;
   IGetObjectRequest = AWS.S3.Model.GetObjectRequest.IGetObjectRequest;
   IGetObjectResponse = AWS.S3.Model.GetObjectResponse.IGetObjectResponse;
+  IGetPreSignedUrlRequest = AWS.S3.Model.GetPresignedUrlRequest.IGetPreSignedUrlRequest;
   IGrant = AWS.S3.Model.Grant.IGrant;
   IGrantee = AWS.S3.Model.Grantee.IGrantee;
   IInitiateMultipartUploadRequest = AWS.S3.Model.InitiateMultipartUploadRequest.IInitiateMultipartUploadRequest;
@@ -151,6 +153,7 @@ type
   TGetObjectMetadataResponse = AWS.S3.Model.GetObjectMetadataResponse.TGetObjectMetadataResponse;
   TGetObjectRequest = AWS.S3.Model.GetObjectRequest.TGetObjectRequest;
   TGetObjectResponse = AWS.S3.Model.GetObjectResponse.TGetObjectResponse;
+  TGetPreSignedUrlRequest = AWS.S3.Model.GetPresignedUrlRequest.TGetPreSignedUrlRequest;
   TGrant = AWS.S3.Model.Grant.TGrant;
   TGrantee = AWS.S3.Model.Grantee.TGrantee;
   TInitiateMultipartUploadRequest = AWS.S3.Model.InitiateMultipartUploadRequest.TInitiateMultipartUploadRequest;
