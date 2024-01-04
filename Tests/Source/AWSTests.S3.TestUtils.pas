@@ -29,6 +29,7 @@ type
     class procedure WaitForBucket(S3Client: IAmazonS3; const BucketName: string); overload; static;
     class procedure WaitForBucket(S3Client: IAmazonS3; const BucketName: string; MaxSeconds: Integer); overload; static;
     class function WaitForConsistency<T>(LoadFunction: TFunc<T>): T; static;
+    class procedure WaitForObject(S3Client: IAmazonS3; const BucketName, Key: string; MaxSeconds: Integer); overload; static;
   public
     class function DoesS3BucketExistV2(S3Client: IAmazonS3; const BucketName: string): Boolean; static;
     class procedure DeleteS3BucketWithObjects(S3Client: IAmazonS3; const BucketName: string); overload; static;
@@ -250,7 +251,17 @@ begin
   //If we don't have an ok result then spend the normal wait period to wait for eventual consistency.
 //  OutputDebugString(Format('Eventual consistency wait: could not resolve eventual consistency after %d. Waiting normally...', [MAX_SPIN_LOOPS]));
   var lastWaitSeconds := 240; //4 minute wait.
-  Result := TUtilityMethods.WaitUntilSuccess<T>(loadFunction, 5, lastWaitSeconds);                        
+  Result := TUtilityMethods.WaitUntilSuccess<T>(loadFunction, 5, lastWaitSeconds);
+end;
+
+class procedure TS3TestUtils.WaitForObject(S3Client: IAmazonS3; const BucketName, Key: string; MaxSeconds: Integer);
+begin
+  var Sleeper: IListSleeper := TListSleeper.Create;
+  TUtilityMethods.WaitUntilSuccess(
+    procedure
+    begin
+      S3Client.GetObject(BucketName, Key)
+    end, Sleeper, maxSeconds);
 end;
 
 class procedure TS3TestUtils.WaitForBucket(S3Client: IAmazonS3; const BucketName: string);

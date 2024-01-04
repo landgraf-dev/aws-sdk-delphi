@@ -28,7 +28,8 @@ type
     FMillisecondsList: TArray<Integer>;
     FAttempt: Integer;
   public
-    constructor Create(const MillisecondsList: TArray<Integer>);
+    constructor Create(const MillisecondsList: TArray<Integer>); overload;
+    constructor Create; overload;
     procedure Sleep;
   end;
 
@@ -108,6 +109,11 @@ constructor TListSleeper.Create(const MillisecondsList: TArray<Integer>);
 begin
   FAttempt := 0;
   FMillisecondsList := MillisecondsList;
+end;
+
+constructor TListSleeper.Create;
+begin
+  Create([500, 1000, 2000, 5000]);
 end;
 
 procedure TListSleeper.Sleep;
