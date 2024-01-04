@@ -9,6 +9,8 @@ uses
   AWS.S3.Enums, 
   AWS.S3.Exception, 
   AWS.S3.Metadata, 
+  AWS.S3.Model.AbortMultipartUploadRequest, 
+  AWS.S3.Model.AbortMultipartUploadResponse, 
   AWS.S3.Model.BucketAlreadyExistsException, 
   AWS.S3.Model.BucketAlreadyOwnedByYouException, 
   AWS.S3.Model.CommonPrefix, 
@@ -45,6 +47,7 @@ uses
   AWS.S3.Model.ListVersionsResponse, 
   AWS.S3.Model.NoSuchBucketException, 
   AWS.S3.Model.NoSuchKeyException, 
+  AWS.S3.Model.NoSuchUploadException, 
   AWS.S3.Model.ObjectIdentifier, 
   AWS.S3.Model.ObjectTypes, 
   AWS.S3.Model.ObjectVersion, 
@@ -71,6 +74,9 @@ type
   EInvalidObjectStateException = AWS.S3.Model.InvalidObjectStateException.EInvalidObjectStateException;
   ENoSuchBucketException = AWS.S3.Model.NoSuchBucketException.ENoSuchBucketException;
   ENoSuchKeyException = AWS.S3.Model.NoSuchKeyException.ENoSuchKeyException;
+  ENoSuchUploadException = AWS.S3.Model.NoSuchUploadException.ENoSuchUploadException;
+  IAbortMultipartUploadRequest = AWS.S3.Model.AbortMultipartUploadRequest.IAbortMultipartUploadRequest;
+  IAbortMultipartUploadResponse = AWS.S3.Model.AbortMultipartUploadResponse.IAbortMultipartUploadResponse;
   IAmazonS3 = AWS.S3.ClientIntf.IAmazonS3;
   ICommonPrefix = AWS.S3.Model.CommonPrefix.ICommonPrefix;
   ICompletedPart = AWS.S3.Model.CompletedPart.ICompletedPart;
@@ -120,6 +126,8 @@ type
   IPutPublicAccessBlockResponse = AWS.S3.Model.PutPublicAccessBlockResponse.IPutPublicAccessBlockResponse;
   IUploadPartRequest = AWS.S3.Model.UploadPartRequest.IUploadPartRequest;
   IUploadPartResponse = AWS.S3.Model.UploadPartResponse.IUploadPartResponse;
+  TAbortMultipartUploadRequest = AWS.S3.Model.AbortMultipartUploadRequest.TAbortMultipartUploadRequest;
+  TAbortMultipartUploadResponse = AWS.S3.Model.AbortMultipartUploadResponse.TAbortMultipartUploadResponse;
   TAmazonS3Client = AWS.S3.Client.TAmazonS3Client;
   TAmazonS3Config = AWS.S3.Config.TAmazonS3Config;
   TAmazonS3Metadata = AWS.S3.Metadata.TAmazonS3Metadata;

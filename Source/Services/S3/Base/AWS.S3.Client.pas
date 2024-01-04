@@ -28,9 +28,13 @@ uses
   AWS.S3.Pipeline.ExceptionHandler, 
   AWS.S3.Pipeline.RedirectHandler, 
   AWS.Pipeline.RetryHandler, 
+  AWS.S3.Model.AbortMultipartUploadResponse, 
+  AWS.S3.Model.AbortMultipartUploadRequest, 
+  AWS.Internal.InvokeOptions, 
+  AWS.S3.Transform.AbortMultipartUploadRequestMarshaller, 
+  AWS.S3.Transform.AbortMultipartUploadResponseUnmarshaller, 
   AWS.S3.Model.CompleteMultipartUploadResponse, 
   AWS.S3.Model.CompleteMultipartUploadRequest, 
-  AWS.Internal.InvokeOptions, 
   AWS.S3.Transform.CompleteMultipartUploadRequestMarshaller, 
   AWS.S3.Transform.CompleteMultipartUploadResponseUnmarshaller, 
   AWS.S3.Model.DeleteBucketResponse, 
@@ -117,6 +121,8 @@ type
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string); reintroduce; overload;
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string; Region: IRegionEndpointEx); reintroduce; overload;
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string; Config: IClientConfig); reintroduce; overload;
+    function AbortMultipartUpload(const ABucketName: string; const AKey: string; const AUploadId: string): IAbortMultipartUploadResponse; overload;
+    function AbortMultipartUpload(Request: IAbortMultipartUploadRequest): IAbortMultipartUploadResponse; overload;
     function CompleteMultipartUpload(Request: ICompleteMultipartUploadRequest): ICompleteMultipartUploadResponse; overload;
     function DeleteBucket(const ABucketName: string): IDeleteBucketResponse; overload;
     function DeleteBucket(Request: IDeleteBucketRequest): IDeleteBucketResponse; overload;
@@ -238,6 +244,31 @@ begin
   Pipeline.AddHandlerBefore<TUnmarshaller>(TAmazonS3ResponseHandler.Create());
   Pipeline.AddHandlerAfter<TErrorCallbackHandler>(TAmazonS3ExceptionHandler.Create());
   Pipeline.AddHandlerAfter<TUnmarshaller>(TAmazonS3RedirectHandler.Create());
+end;
+
+function TAmazonS3Client.AbortMultipartUpload(const ABucketName: string; const AKey: string; const AUploadId: string): IAbortMultipartUploadResponse;
+var
+  Request: IAbortMultipartUploadRequest;
+begin
+  Request := TAbortMultipartUploadRequest.Create;
+  Request.BucketName := ABucketName;
+  Request.Key := AKey;
+  Request.UploadId := AUploadId;
+  Result := AbortMultipartUpload(Request);
+end;
+
+function TAmazonS3Client.AbortMultipartUpload(Request: IAbortMultipartUploadRequest): IAbortMultipartUploadResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TAbortMultipartUploadRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TAbortMultipartUploadResponseUnmarshaller.Instance;
+    Result := Invoke<TAbortMultipartUploadResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
 end;
 
 function TAmazonS3Client.CompleteMultipartUpload(Request: ICompleteMultipartUploadRequest): ICompleteMultipartUploadResponse;
