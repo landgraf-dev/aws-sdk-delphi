@@ -3,6 +3,8 @@ unit AWS.S3.Client;
 interface
 
 uses
+  AWS.S3.Model.GetPresignedUrlRequest, 
+  AWS.S3.Client.Extensions, 
   AWS.Runtime.Client, 
   AWS.S3.ClientIntf, 
   AWS.S3.Config, 
@@ -141,6 +143,7 @@ type
     function PutObject(Request: IPutObjectRequest): IPutObjectResponse; overload;
     function PutPublicAccessBlock(Request: IPutPublicAccessBlockRequest): IPutPublicAccessBlockResponse; overload;
     function UploadPart(Request: IUploadPartRequest): IUploadPartResponse; overload;
+    function GetPresignedUrl(Request: IGetPresignedUrlRequest): string;
   end;
   
 implementation
@@ -587,6 +590,11 @@ begin
   finally
     Options.Free;
   end;
+end;
+
+function TAmazonS3Client.GetPresignedUrl(Request: IGetPresignedUrlRequest): string;
+begin
+  Result := TAmazonS3ClientExtensions.GetPresignedUrl(Self, Request);
 end;
 
 end.
