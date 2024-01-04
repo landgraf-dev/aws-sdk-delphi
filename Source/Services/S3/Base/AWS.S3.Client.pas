@@ -28,9 +28,13 @@ uses
   AWS.S3.Pipeline.ExceptionHandler, 
   AWS.S3.Pipeline.RedirectHandler, 
   AWS.Pipeline.RetryHandler, 
+  AWS.S3.Model.CompleteMultipartUploadResponse, 
+  AWS.S3.Model.CompleteMultipartUploadRequest, 
+  AWS.Internal.InvokeOptions, 
+  AWS.S3.Transform.CompleteMultipartUploadRequestMarshaller, 
+  AWS.S3.Transform.CompleteMultipartUploadResponseUnmarshaller, 
   AWS.S3.Model.DeleteBucketResponse, 
   AWS.S3.Model.DeleteBucketRequest, 
-  AWS.Internal.InvokeOptions, 
   AWS.S3.Transform.DeleteBucketRequestMarshaller, 
   AWS.S3.Transform.DeleteBucketResponseUnmarshaller, 
   AWS.S3.Model.DeleteObjectResponse, 
@@ -113,6 +117,7 @@ type
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string); reintroduce; overload;
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string; Region: IRegionEndpointEx); reintroduce; overload;
     constructor Create(const AWSAccessKeyId: string; const AWSSecretAccessKey: string; const AWSSessionToken: string; Config: IClientConfig); reintroduce; overload;
+    function CompleteMultipartUpload(Request: ICompleteMultipartUploadRequest): ICompleteMultipartUploadResponse; overload;
     function DeleteBucket(const ABucketName: string): IDeleteBucketResponse; overload;
     function DeleteBucket(Request: IDeleteBucketRequest): IDeleteBucketResponse; overload;
     function DeleteObject(const ABucketName: string; const AKey: string): IDeleteObjectResponse; overload;
@@ -233,6 +238,20 @@ begin
   Pipeline.AddHandlerBefore<TUnmarshaller>(TAmazonS3ResponseHandler.Create());
   Pipeline.AddHandlerAfter<TErrorCallbackHandler>(TAmazonS3ExceptionHandler.Create());
   Pipeline.AddHandlerAfter<TUnmarshaller>(TAmazonS3RedirectHandler.Create());
+end;
+
+function TAmazonS3Client.CompleteMultipartUpload(Request: ICompleteMultipartUploadRequest): ICompleteMultipartUploadResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TCompleteMultipartUploadRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TCompleteMultipartUploadResponseUnmarshaller.Instance;
+    Result := Invoke<TCompleteMultipartUploadResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
 end;
 
 function TAmazonS3Client.DeleteBucket(const ABucketName: string): IDeleteBucketResponse;
