@@ -166,6 +166,7 @@
         <DCCReference Include="Source\AWSTests.S3.TestUtils.pas"/>
         <DCCReference Include="Source\AWSTests.S3.Simple.PutObjectTests.pas"/>
         <DCCReference Include="Source\AWSTests.S3.Simple.ServiceClientTests.pas"/>
+        <DCCReference Include="Source\AWSTests.S3.GeneratePresignedUrlTests.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

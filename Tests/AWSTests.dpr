@@ -28,7 +28,8 @@ uses
   AWSTests.S3.GetObjectTests in 'Source\AWSTests.S3.GetObjectTests.pas',
   AWSTests.S3.TestUtils in 'Source\AWSTests.S3.TestUtils.pas',
   AWSTests.S3.Simple.PutObjectTests in 'Source\AWSTests.S3.Simple.PutObjectTests.pas',
-  AWSTests.S3.Simple.ServiceClientTests in 'Source\AWSTests.S3.Simple.ServiceClientTests.pas';
+  AWSTests.S3.Simple.ServiceClientTests in 'Source\AWSTests.S3.Simple.ServiceClientTests.pas',
+  AWSTests.S3.GeneratePresignedUrlTests in 'Source\AWSTests.S3.GeneratePresignedUrlTests.pas';
 
 {$R *.RES}
 
