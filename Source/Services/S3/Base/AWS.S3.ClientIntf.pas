@@ -5,6 +5,8 @@ interface
 uses
   AWS.S3.Model.GetPresignedUrlRequest, 
   AWS.Runtime.Client, 
+  AWS.S3.Model.CompleteMultipartUploadResponse, 
+  AWS.S3.Model.CompleteMultipartUploadRequest, 
   AWS.S3.Model.DeleteBucketResponse, 
   AWS.S3.Model.DeleteBucketRequest, 
   AWS.S3.Model.DeleteObjectResponse, 
@@ -39,6 +41,7 @@ uses
 type
   IAmazonS3 = interface(IAmazonService)
     ['{1489907F-4BAD-42A7-83E9-A7CB74CC5631}']
+    function CompleteMultipartUpload(Request: ICompleteMultipartUploadRequest): ICompleteMultipartUploadResponse; overload;
     function DeleteBucket(const ABucketName: string): IDeleteBucketResponse; overload;
     function DeleteBucket(Request: IDeleteBucketRequest): IDeleteBucketResponse; overload;
     function DeleteObject(const ABucketName: string; const AKey: string): IDeleteObjectResponse; overload;

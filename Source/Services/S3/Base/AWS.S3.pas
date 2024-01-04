@@ -12,6 +12,9 @@ uses
   AWS.S3.Model.BucketAlreadyExistsException, 
   AWS.S3.Model.BucketAlreadyOwnedByYouException, 
   AWS.S3.Model.CommonPrefix, 
+  AWS.S3.Model.CompletedPart, 
+  AWS.S3.Model.CompleteMultipartUploadRequest, 
+  AWS.S3.Model.CompleteMultipartUploadResponse, 
   AWS.S3.Model.CreateBucketConfiguration, 
   AWS.S3.Model.DeleteBucketRequest, 
   AWS.S3.Model.DeleteBucketResponse, 
@@ -70,6 +73,9 @@ type
   ENoSuchKeyException = AWS.S3.Model.NoSuchKeyException.ENoSuchKeyException;
   IAmazonS3 = AWS.S3.ClientIntf.IAmazonS3;
   ICommonPrefix = AWS.S3.Model.CommonPrefix.ICommonPrefix;
+  ICompletedPart = AWS.S3.Model.CompletedPart.ICompletedPart;
+  ICompleteMultipartUploadRequest = AWS.S3.Model.CompleteMultipartUploadRequest.ICompleteMultipartUploadRequest;
+  ICompleteMultipartUploadResponse = AWS.S3.Model.CompleteMultipartUploadResponse.ICompleteMultipartUploadResponse;
   ICreateBucketConfiguration = AWS.S3.Model.CreateBucketConfiguration.ICreateBucketConfiguration;
   IDeleteBucketRequest = AWS.S3.Model.DeleteBucketRequest.IDeleteBucketRequest;
   IDeleteBucketResponse = AWS.S3.Model.DeleteBucketResponse.IDeleteBucketResponse;
@@ -126,6 +132,9 @@ type
   TBucketLogsPermission = AWS.S3.Enums.TBucketLogsPermission;
   TBucketVersioningStatus = AWS.S3.Enums.TBucketVersioningStatus;
   TCommonPrefix = AWS.S3.Model.CommonPrefix.TCommonPrefix;
+  TCompletedPart = AWS.S3.Model.CompletedPart.TCompletedPart;
+  TCompleteMultipartUploadRequest = AWS.S3.Model.CompleteMultipartUploadRequest.TCompleteMultipartUploadRequest;
+  TCompleteMultipartUploadResponse = AWS.S3.Model.CompleteMultipartUploadResponse.TCompleteMultipartUploadResponse;
   TCompressionType = AWS.S3.Enums.TCompressionType;
   TCreateBucketConfiguration = AWS.S3.Model.CreateBucketConfiguration.TCreateBucketConfiguration;
   TDeleteBucketRequest = AWS.S3.Model.DeleteBucketRequest.TDeleteBucketRequest;

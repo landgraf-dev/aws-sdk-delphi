@@ -166,6 +166,9 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.BucketAlreadyExistsException.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.BucketAlreadyOwnedByYouException.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CommonPrefix.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CompleteMultipartUploadRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CompleteMultipartUploadResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CompletedPart.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CreateBucketConfiguration.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteBucketRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteBucketResponse.pas"/>
@@ -217,6 +220,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketAlreadyExistsExceptionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketAlreadyOwnedByYouExceptionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CommonPrefixUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CompleteMultipartUploadRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CompleteMultipartUploadResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteBucketRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteBucketResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteMarkerEntryUnmarshaller.pas"/>
