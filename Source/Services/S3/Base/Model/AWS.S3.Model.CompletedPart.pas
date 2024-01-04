@@ -37,6 +37,8 @@ type
     property PartNumber: Integer read GetPartNumber write SetPartNumber;
   end;
   
+  TPartETag = TCompletedPart;
+  
 implementation
 
 { TCompletedPart }
