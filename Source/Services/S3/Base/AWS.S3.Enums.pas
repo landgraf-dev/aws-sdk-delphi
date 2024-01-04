@@ -560,18 +560,10 @@ type
     property Value: string read FValue;
   end;
   
-  TProtocol = record
-  strict private
-    FValue: string;
-  public
-    constructor Create(const AValue: string);
-    class function Http: TProtocol; static;
-    class function Https: TProtocol; static;
-    class operator Equal(a: TProtocol; b: TProtocol): Boolean;
-    class operator NotEqual(a: TProtocol; b: TProtocol): Boolean;
-    class operator Implicit(a: string): TProtocol;
-    property Value: string read FValue;
-  end;
+  TProtocol = (
+    Https,
+    Http
+  );
   
   TQuoteFields = record
   strict private
@@ -2329,38 +2321,6 @@ begin
 end;
 
 class operator TPermission.Implicit(a: string): TPermission;
-begin
-  Result.FValue := a;;
-end;
-
-{ TProtocol }
-
-constructor TProtocol.Create(const AValue: string);
-begin
-  FValue := AValue;
-end;
-
-class function TProtocol.Http: TProtocol;
-begin
-  Result := TProtocol.Create('http');
-end;
-
-class function TProtocol.Https: TProtocol;
-begin
-  Result := TProtocol.Create('https');
-end;
-
-class operator TProtocol.Equal(a: TProtocol; b: TProtocol): Boolean;
-begin
-  Result := a.Value = b.Value;
-end;
-
-class operator TProtocol.NotEqual(a: TProtocol; b: TProtocol): Boolean;
-begin
-  Result := a.Value <> b.Value;
-end;
-
-class operator TProtocol.Implicit(a: string): TProtocol;
 begin
   Result.FValue := a;;
 end;
