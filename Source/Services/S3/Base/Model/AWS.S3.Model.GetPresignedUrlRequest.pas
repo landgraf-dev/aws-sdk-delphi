@@ -229,6 +229,7 @@ begin
   FHeaders := THttpHeaders.Create;
   FMetadata := TMetadataCollection.Create;
   FParameters := TParameterCollection.Create;
+  FResponseHeaderOverrides := TResponseHeaderOverrides.Create;
 end;
 
 destructor TGetPreSignedUrlRequest.Destroy;

@@ -103,54 +103,59 @@ begin
 
   irequest.Endpoint := TEndpointResolver.DetermineEndpoint(cl.Config, irequest);
 
-  var requestContext := TRequestContext.Create(True, TNullSigner.Create);
+  var tempSigner := TNullSigner.Create;
   try
-    requestContext.Request := iRequest;
-    requestContext.ClientConfig := cl.Config;
-    var context := TExecutionContext.Create(requestContext, nil);
+    var requestContext := TRequestContext.Create(True, tempSigner);
     try
-      TAmazonS3PostMarshallHandler.ProcessRequestHandlers(context);
+      requestContext.Request := iRequest;
+      requestContext.ClientConfig := cl.Config;
+      var context := TExecutionContext.Create(requestContext, nil);
+      try
+        TAmazonS3PostMarshallHandler.ProcessRequestHandlers(context);
 
-      var authorization: string;
-      if aws4Signing then
-      begin
-        var aws4Signer := TAWS4PreSignedUrlSigner.Create;
-        try
-          var signingResult := aws4Signer.SignRequest(irequest, cl.Config,
-            immutableCredentials.AccessKey, immutableCredentials.SecretKey);
+        var authorization: string;
+        if aws4Signing then
+        begin
+          var aws4Signer := TAWS4PreSignedUrlSigner.Create;
           try
-            authorization := '&' + signingResult.ForQueryParameters;
+            var signingResult := aws4Signer.SignRequest(irequest, cl.Config,
+              immutableCredentials.AccessKey, immutableCredentials.SecretKey);
+            try
+              authorization := '&' + signingResult.ForQueryParameters;
+            finally
+              signingResult.Free;
+            end;
           finally
-            signingResult.Free;
+            aws4Signer.Free;
           end;
-        finally
-          aws4Signer.Free;
-        end;
-      end
-      else
-      begin
-        TInternalS3Signer.SignRequest(irequest, immutableCredentials.AccessKey, immutableCredentials.SecretKey);
-        irequest.Headers.TryGetValue(THeaderKeys.AuthorizationHeader, authorization);
-        authorization := authorization.Substring(authorization.IndexOf(':') + 1);
-        authorization := '&Signature=' + TAmazonS3Util.UrlEncode(authorization, false);
-      end;
-
-      Result := TAmazonServiceClient.ComposeUrl(irequest) + authorization;
-
-      var protocol: TProtocol := DetermineProtocol(Cl.Config);
-      if request.Protocol <> protocol then
-      begin
-        if protocol = TProtocol.Http then
-          Result := Result.Replace('http://', 'https://')
+        end
         else
-        if protocol = TProtocol.Https then
-          Result := Result.Replace('https://', 'http://');
+        begin
+          TInternalS3Signer.SignRequest(irequest, immutableCredentials.AccessKey, immutableCredentials.SecretKey);
+          irequest.Headers.TryGetValue(THeaderKeys.AuthorizationHeader, authorization);
+          authorization := authorization.Substring(authorization.IndexOf(':') + 1);
+          authorization := '&Signature=' + TAmazonS3Util.UrlEncode(authorization, false);
+        end;
+
+        Result := TAmazonServiceClient.ComposeUrl(irequest) + authorization;
+
+        var protocol: TProtocol := DetermineProtocol(Cl.Config);
+        if request.Protocol <> protocol then
+        begin
+          if protocol = TProtocol.Http then
+            Result := Result.Replace('http://', 'https://')
+          else
+          if protocol = TProtocol.Https then
+            Result := Result.Replace('https://', 'http://');
+        end;
+      finally
+        context.Free;
       end;
     finally
-      context.Free;
+      requestContext.Free;
     end;
   finally
-    requestContext.Free;
+    tempSigner.Free;
   end;
 end;
 

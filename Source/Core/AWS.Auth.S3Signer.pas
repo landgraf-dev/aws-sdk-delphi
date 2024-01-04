@@ -84,56 +84,60 @@ begin
   // CanonicalResourcePrefix will hold the bucket name if we switched to virtual host addressing
   // during request preprocessing (where it would have been removed from ResourcePath)
   var sb := TStringBuilder.Create(ARequest.CanonicalResourcePrefix);
-  if not string.IsNullOrEmpty(ARequest.ResourcePath) then
-    sb.Append(TAWSSDKUtils.ResolveResourcePath(ARequest.ResourcePath, ARequest.PathResources))
-  else
-    sb.Append('/');
-
-  // form up the set of all subresources and specific query parameters that must be
-  // included in the canonical resource, then append them ordered by key to the
-  // canonicalization
-  var resourcesToSign := TDictionary<string, string>.Create(TIStringComparer.Ordinal);
   try
-    if ARequest.SubResources.Count > 0 then
-    begin
-      for var subResource in ARequest.SubResources do
-        if not SubResourcesSigningExclusion.Contains(subResource.Key) then
-          resourcesToSign.Add(subResource.Key, subResource.Value);
-    end;
+    if not string.IsNullOrEmpty(ARequest.ResourcePath) then
+      sb.Append(TAWSSDKUtils.ResolveResourcePath(ARequest.ResourcePath, ARequest.PathResources))
+    else
+      sb.Append('/');
 
-    if ARequest.Parameters.Count > 0 then
-    begin
-      var parameters := ARequest.ParameterCollection.GetSortedParametersList();
-      for var parameter in parameters do
-        if (parameter.Value <> '') and SignableParameters.Contains(parameter.Key) then
-          resourcesToSign.Add(parameter.Key, parameter.Value);
-    end;
-
-    var delim := '?';
-    var resources := TList<TPair<string, string>>.Create;
+    // form up the set of all subresources and specific query parameters that must be
+    // included in the canonical resource, then append them ordered by key to the
+    // canonicalization
+    var resourcesToSign := TDictionary<string, string>.Create(TIStringComparer.Ordinal);
     try
-      for var kvp in resourcesToSign do
-        resources.Add(kvp);
-
-      resources.Sort(TComparer<TPair<string,string>>.Construct(
-        function(const S1, S2: TPair<string, string>): Integer
-        begin
-          Result := CompareStr(S1.Key, S2.Key);
-        end));
-
-      for var resourceToSign in resources do
+      if ARequest.SubResources.Count > 0 then
       begin
-        sb.AppendFormat('%s%s', [delim, resourceToSign.Key]);
-        if resourceToSign.Value <> '' then
-          sb.AppendFormat('=%s', [resourceToSign.Value]);
-        delim := '&';
+        for var subResource in ARequest.SubResources do
+          if not SubResourcesSigningExclusion.Contains(subResource.Key) then
+            resourcesToSign.Add(subResource.Key, subResource.Value);
       end;
+
+      if ARequest.Parameters.Count > 0 then
+      begin
+        var parameters := ARequest.ParameterCollection.GetSortedParametersList();
+        for var parameter in parameters do
+          if (parameter.Value <> '') and SignableParameters.Contains(parameter.Key) then
+            resourcesToSign.Add(parameter.Key, parameter.Value);
+      end;
+
+      var delim := '?';
+      var resources := TList<TPair<string, string>>.Create;
+      try
+        for var kvp in resourcesToSign do
+          resources.Add(kvp);
+
+        resources.Sort(TComparer<TPair<string,string>>.Construct(
+          function(const S1, S2: TPair<string, string>): Integer
+          begin
+            Result := CompareStr(S1.Key, S2.Key);
+          end));
+
+        for var resourceToSign in resources do
+        begin
+          sb.AppendFormat('%s%s', [delim, resourceToSign.Key]);
+          if resourceToSign.Value <> '' then
+            sb.AppendFormat('=%s', [resourceToSign.Value]);
+          delim := '&';
+        end;
+      finally
+        resources.Free;
+      end;
+      Result := sb.ToString;
     finally
-      resources.Free;
+      resourcesToSign.Free;
     end;
-    Result := sb.ToString;
   finally
-    resourcesToSign.Free;
+    sb.Free;
   end;
 end;
 
