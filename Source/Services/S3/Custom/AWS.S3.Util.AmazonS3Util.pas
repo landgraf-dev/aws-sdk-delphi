@@ -4,7 +4,11 @@ interface
 
 uses
   System.Generics.Collections, System.Generics.Defaults, System.Classes,
-  AWS.SDKUtils;
+  AWS.Internal.Request,
+  AWS.Lib.Utils,
+  AWS.SDKUtils,
+  AWS.S3.Model.MetadataCollection,
+  AWS.S3.Internal.AWSConfigsS3;
 
 type
   TAmazonS3Util = class
@@ -13,9 +17,14 @@ type
   strict private
     class constructor Create;
     class destructor Destroy;
+  private
+    class function EscapeNonAscii(const Text: string): string; static;
+  public
+    class procedure SetMetadataHeaders(Request: IRequest; Metadata: TMetadataCollection); static;
   public
     class function MimeTypeFromExtension(const Ext: string): string; static;
     class function GenerateMD5ChecksumForStream(Stream: TStream): string; static;
+    class function UrlEncode(const Data: string; Path: Boolean): string; static;
   end;
 
 implementation
@@ -204,6 +213,16 @@ begin
   FExtensionToMime.Free;
 end;
 
+class function TAmazonS3Util.EscapeNonAscii(const Text: string): string;
+begin
+  Result := '';
+  for var C in Text do
+    if Ord(C) > 127 then
+      Result := Result + AWS.Lib.Utils.PercentEncode(C)
+    else
+      Result := Result + C;
+end;
+
 class function TAmazonS3Util.GenerateMD5ChecksumForStream(Stream: TStream): string;
 begin
   Result := TAWSSDKUtils.GenerateMD5ChecksumForStream(Stream);
@@ -213,6 +232,22 @@ class function TAmazonS3Util.MimeTypeFromExtension(const Ext: string): string;
 begin
   if not FExtensionToMime.TryGetValue(ext, Result) then
     Result := 'application/octet-stream';
+end;
+
+class procedure TAmazonS3Util.SetMetadataHeaders(Request: IRequest; Metadata: TMetadataCollection);
+begin
+  for var Name in Metadata.Keys do
+  begin
+    var Value := Metadata[Name];
+    if TAWSConfigsS3.EnableUnicodeEncodingForObjectMetadata then
+      Value := EscapeNonAscii(Value);
+    Request.Headers.AddOrSetValue(Name, Value);
+  end;
+end;
+
+class function TAmazonS3Util.UrlEncode(const Data: string; Path: Boolean): string;
+begin
+  Result := TAWSSDKUtils.UrlEncode(Data, Path);
 end;
 
 end.

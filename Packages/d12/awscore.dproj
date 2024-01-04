@@ -227,7 +227,6 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Client.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ClientConfig.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Contexts.pas"/>
-		<DCCReference Include="..\..\Source\Core\AWS.Runtime.CorrectClockSkew.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.Credentials.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Runtime.ExceptionHandler.pas"/>
