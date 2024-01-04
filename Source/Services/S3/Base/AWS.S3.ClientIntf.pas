@@ -3,6 +3,7 @@ unit AWS.S3.ClientIntf;
 interface
 
 uses
+  AWS.S3.Model.GetPresignedUrlRequest, 
   AWS.Runtime.Client, 
   AWS.S3.Model.DeleteBucketResponse, 
   AWS.S3.Model.DeleteBucketRequest, 
@@ -68,6 +69,7 @@ type
     function PutObject(Request: IPutObjectRequest): IPutObjectResponse; overload;
     function PutPublicAccessBlock(Request: IPutPublicAccessBlockRequest): IPutPublicAccessBlockResponse; overload;
     function UploadPart(Request: IUploadPartRequest): IUploadPartResponse; overload;
+    function GetPresignedUrl(Request: IGetPresignedUrlRequest): string;
   end;
   
 implementation
