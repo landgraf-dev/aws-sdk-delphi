@@ -197,6 +197,7 @@ type
   TOwnerOverride = AWS.S3.Enums.TOwnerOverride;
   TOwnershipControls = AWS.S3.Model.OwnershipControls.TOwnershipControls;
   TOwnershipControlsRule = AWS.S3.Model.OwnershipControlsRule.TOwnershipControlsRule;
+  TPartETag = AWS.S3.Model.CompletedPart.TPartETag;
   TPayer = AWS.S3.Enums.TPayer;
   TPermission = AWS.S3.Enums.TPermission;
   TProtocol = AWS.S3.Enums.TProtocol;

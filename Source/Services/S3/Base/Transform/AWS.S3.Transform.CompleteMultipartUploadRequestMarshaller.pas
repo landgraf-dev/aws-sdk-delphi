@@ -60,27 +60,24 @@ begin
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
     try
-      if PublicRequest.MultipartUpload <> nil then
+      XmlWriter.WriteStartElement('CompleteMultipartUpload', '');
+      var PublicRequestMultipartUploadParts := PublicRequest.Parts;
+      if (PublicRequestMultipartUploadParts <> nil) and (PublicRequestMultipartUploadParts.Count > 0) then
       begin
-        XmlWriter.WriteStartElement('CompleteMultipartUpload', '');
-        var PublicRequestMultipartUploadParts := PublicRequest.MultipartUpload.Parts;
-        if (PublicRequestMultipartUploadParts <> nil) and (PublicRequestMultipartUploadParts.Count > 0) then
-        begin
-          XmlWriter.WriteStartElement('Part', '');
-          for var PublicRequestMultipartUploadPartsValue in PublicRequestMultipartUploadParts do
-            if PublicRequestMultipartUploadPartsValue <> nil then
-            begin
-              XmlWriter.WriteStartElement('member', '');
-              if PublicRequestMultipartUploadPartsValue.IsSetETag then
-                XmlWriter.WriteElementString('ETag', '', TStringUtils.Fromstring(PublicRequestMultipartUploadPartsValue.ETag));
-              if PublicRequestMultipartUploadPartsValue.IsSetPartNumber then
-                XmlWriter.WriteElementString('PartNumber', '', TStringUtils.FromInteger(PublicRequestMultipartUploadPartsValue.PartNumber));
-              XmlWriter.WriteEndElement;
-            end;
-          XmlWriter.WriteEndElement;
-        end;
+        XmlWriter.WriteStartElement('Part', '');
+        for var PublicRequestMultipartUploadPartsValue in PublicRequestMultipartUploadParts do
+          if PublicRequestMultipartUploadPartsValue <> nil then
+          begin
+            XmlWriter.WriteStartElement('member', '');
+            if PublicRequestMultipartUploadPartsValue.IsSetETag then
+              XmlWriter.WriteElementString('ETag', '', TStringUtils.Fromstring(PublicRequestMultipartUploadPartsValue.ETag));
+            if PublicRequestMultipartUploadPartsValue.IsSetPartNumber then
+              XmlWriter.WriteElementString('PartNumber', '', TStringUtils.FromInteger(PublicRequestMultipartUploadPartsValue.PartNumber));
+            XmlWriter.WriteEndElement;
+          end;
         XmlWriter.WriteEndElement;
       end;
+      XmlWriter.WriteEndElement;
     finally
       XmlWriter.Free;
     end;

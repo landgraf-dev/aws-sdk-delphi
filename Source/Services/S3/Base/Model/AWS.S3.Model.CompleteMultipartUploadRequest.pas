@@ -41,6 +41,9 @@ type
     property KeepPartETags: Boolean read GetKeepPartETags write SetKeepPartETags;
     property RequestPayer: TRequestPayer read GetRequestPayer write SetRequestPayer;
     property UploadId: string read GetUploadId write SetUploadId;
+    property Parts: TObjectList<TCompletedPart> read GetPartETags write SetPartETags;
+    property KeepParts: Boolean read GetKeepPartETags write SetKeepPartETags;
+    property IsSetParts: Boolean read IsSetPartETags;
   end;
   
   TCompleteMultipartUploadRequest = class(TAmazonS3Request, ICompleteMultipartUploadRequest)
@@ -84,6 +87,9 @@ type
     property KeepPartETags: Boolean read GetKeepPartETags write SetKeepPartETags;
     property RequestPayer: TRequestPayer read GetRequestPayer write SetRequestPayer;
     property UploadId: string read GetUploadId write SetUploadId;
+    property Parts: TObjectList<TCompletedPart> read GetPartETags write SetPartETags;
+    property KeepParts: Boolean read GetKeepPartETags write SetKeepPartETags;
+    property IsSetParts: Boolean read IsSetPartETags;
   end;
   
 implementation
