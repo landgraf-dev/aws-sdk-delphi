@@ -686,6 +686,7 @@ type
     class operator Equal(a: TServerSideEncryption; b: TServerSideEncryption): Boolean;
     class operator NotEqual(a: TServerSideEncryption; b: TServerSideEncryption): Boolean;
     class operator Implicit(a: string): TServerSideEncryption;
+    class function None: TServerSideEncryption; static;
     property Value: string read FValue;
   end;
   
@@ -791,6 +792,13 @@ type
     class operator Implicit(a: string): TType;
     property Value: string read FValue;
   end;
+  
+  THttpVerb = (
+    Get,
+    Head,
+    Put,
+    Delete
+  );
   
 implementation
 
@@ -2638,6 +2646,11 @@ end;
 class operator TServerSideEncryption.Implicit(a: string): TServerSideEncryption;
 begin
   Result.FValue := a;;
+end;
+
+class function TServerSideEncryption.None: TServerSideEncryption;
+begin
+  Result := TServerSideEncryption.Create('');
 end;
 
 { TSseKmsEncryptedObjectsStatus }

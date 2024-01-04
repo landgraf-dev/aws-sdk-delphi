@@ -278,6 +278,9 @@
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Transforms.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.ByteRange.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.DeleteObjectsException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.MetadataCollection.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.ParameterCollection.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.ResponseHeaderOverrides.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ExceptionHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.KmsHandler.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PostMarshallHandler.pas"/>

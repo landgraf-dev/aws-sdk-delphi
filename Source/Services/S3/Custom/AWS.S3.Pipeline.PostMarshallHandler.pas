@@ -56,8 +56,9 @@ type
     class function IsValidBucketName(const BucketName: string): Boolean; static;
     class function StringContainsAny(const ToCheck: string; const Values: array of string): Boolean; static;
   strict private
-    class procedure ProcessRequestHandlers(AExecutionContext: TExecutionContext); static;
     procedure PreInvoke(AExecutionContext: TExecutionContext);
+  public
+    class procedure ProcessRequestHandlers(AExecutionContext: TExecutionContext); static;
   public
     procedure InvokeSync(AExecutionContext: TExecutionContext); override;
   end;

@@ -20,6 +20,7 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Sign(ARequest: IRequest; AClientConfig: IClientConfig; const AAWSAccessKeyId, AAWSSecretAccessKey: string); override;
+    class procedure SignRequest(ARequest: IRequest; const AAWSAccessKeyId, AAWSSecretAccessKey: string); static;
     function Protocol: TClientProtocol; override;
   end;
 
@@ -68,6 +69,11 @@ procedure TInternalS3Signer.Sign(ARequest: IRequest; AClientConfig: IClientConfi
   AAWSSecretAccessKey: string);
 begin
   FS3Signer.Sign(ARequest, AClientConfig, AAwsAccessKeyId, AAwsSecretAccessKey);
+end;
+
+class procedure TInternalS3Signer.SignRequest(ARequest: IRequest; const AAWSAccessKeyId, AAWSSecretAccessKey: string);
+begin
+  TS3Signer.SignRequest(ARequest, AAWSAccessKeyId, AAWSSecretAccessKey);
 end;
 
 end.

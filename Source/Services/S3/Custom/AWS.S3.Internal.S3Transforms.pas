@@ -10,6 +10,9 @@ type
   TS3Transforms = class
   public
     class function ToDateTime(const Value: string): TDateTime; static;
+    class function ToXmlStringValue(const Value: string): string; static;
+    class function ToStringValue(const Value: string): string; overload; static;
+    class function ToStringValue(const Value: Integer): string; overload; static;
   end;
 
 implementation
@@ -19,6 +22,21 @@ implementation
 class function TS3Transforms.ToDateTime(const Value: string): TDateTime;
 begin
   Result := TAWSSDKUtils.Rfc822ToDateTime(Value);
+end;
+
+class function TS3Transforms.ToStringValue(const Value: string): string;
+begin
+  Result := Value;
+end;
+
+class function TS3Transforms.ToStringValue(const Value: Integer): string;
+begin
+  Result := IntToStr(Value);
+end;
+
+class function TS3Transforms.ToXmlStringValue(const Value: string): string;
+begin
+  Result := Value;
 end;
 
 end.

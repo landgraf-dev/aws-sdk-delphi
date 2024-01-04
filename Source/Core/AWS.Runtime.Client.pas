@@ -45,7 +45,7 @@ type
     procedure BuildRuntimePipeline;
   protected
     procedure ProcessExceptionHandlers(AExecutionContext: TExecutionContext; AException: Exception); virtual;
-  strict protected
+  protected
     procedure Initialize; virtual;
     function Invoke<TResponse: TAmazonWebServiceResponse>(ARequest: TAmazonWebServiceRequest;
       AOptions: TInvokeOptionsBase): TResponse;

@@ -105,6 +105,9 @@ type
   end;
 
   TAWS4PreSignedUrlSigner = class(TAWS4Signer)
+  public const
+    // 7days is the maximum period for presigned url expiry with AWS4
+    MaxAWS4PreSignedUrlExpiry: Int64 = 7 * 24 * 60 * 60;
   private
     class function IsServiceUsingUnsignedPayload(const AService: string): Boolean; static;
   public

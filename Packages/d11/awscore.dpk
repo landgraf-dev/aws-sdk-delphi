@@ -101,7 +101,6 @@ contains
   AWS.Runtime.Client in '..\..\Source\Core\AWS.Runtime.Client.pas',
   AWS.Runtime.ClientConfig in '..\..\Source\Core\AWS.Runtime.ClientConfig.pas',
   AWS.Runtime.Contexts in '..\..\Source\Core\AWS.Runtime.Contexts.pas',
-  AWS.Runtime.CorrectClockSkew in '..\..\Source\Core\AWS.Runtime.CorrectClockSkew.pas',
   AWS.Runtime.Credentials in '..\..\Source\Core\AWS.Runtime.Credentials.pas',
   AWS.Runtime.ExceptionEvent in '..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas',
   AWS.Runtime.ExceptionHandler in '..\..\Source\Core\AWS.Runtime.ExceptionHandler.pas',

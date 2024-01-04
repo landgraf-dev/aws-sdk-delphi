@@ -6,6 +6,7 @@ interface
 
 uses
   AWS.RegionEndpoint,
+  AWS.Configs,
   AWS.Enums,
   AWS.SDKUtils,
   AWS.Nullable;
@@ -43,6 +44,7 @@ type
     function GetUserAgent: string;
 
     function DetermineServiceUrl: string;
+    function CorrectedUtcNow: TDateTime;
     procedure Validate;
 
     property AuthenticationRegion: string read GetAuthenticationRegion;
@@ -119,6 +121,7 @@ type
     constructor Create; overload;
     constructor Create(ARegion: IRegionEndpointEx); overload;
     function DetermineServiceUrl: string; virtual;
+    function CorrectedUtcNow: TDateTime;
     procedure Validate; virtual;
     property AuthenticationServiceName: string read GetAuthenticationServiceName write FAuthenticationServiceName;
     property AuthenticationRegion: string read GetAuthenticationRegion write FAuthenticationRegion;
@@ -155,6 +158,11 @@ constructor TClientConfig.Create;
 begin
   inherited Create;
   Init;
+end;
+
+function TClientConfig.CorrectedUtcNow: TDateTime;
+begin
+  Result := TCorrectClockSkew.GetCorrectedUtcNowForEndpoint(DetermineServiceURL);
 end;
 
 constructor TClientConfig.Create(ARegion: IRegionEndpointEx);

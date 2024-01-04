@@ -4,6 +4,10 @@ interface
 
 uses
   AWS.S3.Model.Request,
+  AWS.S3.Model.MetadataCollection,
+  AWS.S3.Model.ParameterCollection,
+  AWS.S3.Model.ResponseHeaderOverrides,
+  AWS.Lib.HttpHeaders,
   AWS.Nullable,
   AWS.S3.Enums;
 
@@ -37,16 +41,20 @@ type
     procedure SetProtocol(const Value: TProtocol);
     function GetRequestPayer: TRequestPayer;
     procedure SetRequestPayer(const Value: TRequestPayer);
-    function GetResponseHeaderOverrides: TRequestPayer;
-    procedure SetResponseHeaderOverrides(const Value: TRequestPayer);
-    function GetServerSideEncryption: TServerSideEncryption;
-    procedure SetServerSideEncryption(const Value: TServerSideEncryption);
+    function GetResponseHeaderOverrides: TResponseHeaderOverrides;
+    procedure SetResponseHeaderOverrides(const Value: TResponseHeaderOverrides);
+    function GetKeepResponseHeaderOverrides: Boolean;
+    procedure SetKeepResponseHeaderOverrides(const Value: Boolean);
+    function GetServerSideEncryptionMethod: TServerSideEncryptionMethod;
+    procedure SetServerSideEncryptionMethod(const Value: TServerSideEncryptionMethod);
     function GetServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod;
     procedure SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryptionCustomerMethod);
+    function GetServerSideEncryptionKeyManagementServiceKeyId: string;
+    procedure SetServerSideEncryptionKeyManagementServiceKeyId(const Value: string);
     function GetUploadId: string;
     procedure SetUploadId(const Value: string);
-    function GetVerb: TProtocol;
-    procedure SetVerb(const Value: TProtocol);
+    function GetVerb: THttpVerb;
+    procedure SetVerb(const Value: THttpVerb);
     function GetVersionId: string;
     procedure SetVersionId(const Value: string);
     function Obj: TGetPreSignedUrlRequest;
@@ -57,9 +65,9 @@ type
     function IsSetPartNumber: Boolean;
     function IsSetProtocol: Boolean;
     function IsSetRequestPayer: Boolean;
-    function IsSetResponseHeaderOverrides: Boolean;
-    function IsSetServerSideEncryption: Boolean;
+    function IsSetServerSideEncryptionMethod: Boolean;
     function IsSetServerSideEncryptionCustomerMethod: Boolean;
+    function IsSetServerSideEncryptionKeyManagementServiceKeyId: Boolean;
     function IsSetUploadId: Boolean;
     function IsSetVerb: Boolean;
     function IsSetVersionId: Boolean;
@@ -70,14 +78,23 @@ type
     property PartNumber: Integer read GetPartNumber write SetPartNumber;
     property Protocol: TProtocol read GetProtocol write SetProtocol;
     property RequestPayer: TRequestPayer read GetRequestPayer write SetRequestPayer;
-    property ResponseHeaderOverrides: TRequestPayer read GetResponseHeaderOverrides write SetResponseHeaderOverrides;
-    property ServerSideEncryption: TServerSideEncryption read GetServerSideEncryption write SetServerSideEncryption;
+    property ResponseHeaderOverrides: TResponseHeaderOverrides read GetResponseHeaderOverrides write SetResponseHeaderOverrides;
+    property KeepResponseHeaderOverrides: Boolean read GetKeepResponseHeaderOverrides write SetKeepResponseHeaderOverrides;
+    property ServerSideEncryptionMethod: TServerSideEncryptionMethod read GetServerSideEncryptionMethod write SetServerSideEncryptionMethod;
     property ServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod read GetServerSideEncryptionCustomerMethod write SetServerSideEncryptionCustomerMethod;
+    property ServerSideEncryptionKeyManagementServiceKeyId: string read GetServerSideEncryptionKeyManagementServiceKeyId write SetServerSideEncryptionKeyManagementServiceKeyId;
     property UploadId: string read GetUploadId write SetUploadId;
-    property Verb: TProtocol read GetVerb write SetVerb;
+    property Verb: THttpVerb read GetVerb write SetVerb;
     property VersionId: string read GetVersionId write SetVersionId;
+
+    function GetHeaders: THttpHeaders;
+    property Headers: THttpHeaders read GetHeaders;
+    function GetMetadata: TMetadataCollection;
+    property Metadata: TMetadataCollection read GetMetadata;
+    function GetParameters: TParameterCollection;
+    property Parameters: TParameterCollection read GetParameters;
   end;
-  
+
   TGetPreSignedUrlRequest = class(TAmazonS3Request, IGetPreSignedUrlRequest)
   strict private
     FBucketName: Nullable<string>;
@@ -87,12 +104,17 @@ type
     FPartNumber: Nullable<Integer>;
     FProtocol: Nullable<TProtocol>;
     FRequestPayer: Nullable<TRequestPayer>;
-    FResponseHeaderOverrides: Nullable<TRequestPayer>;
-    FServerSideEncryption: Nullable<TServerSideEncryption>;
+    FResponseHeaderOverrides: TResponseHeaderOverrides;
+    FKeepResponseHeaderOverrides: Boolean;
+    FServerSideEncryptionMethod: Nullable<TServerSideEncryptionMethod>;
     FServerSideEncryptionCustomerMethod: Nullable<TServerSideEncryptionCustomerMethod>;
+    FServerSideEncryptionKeyManagementServiceKeyId: Nullable<string>;
     FUploadId: Nullable<string>;
-    FVerb: Nullable<TProtocol>;
+    FVerb: Nullable<THttpVerb>;
     FVersionId: Nullable<string>;
+    FHeaders: THttpHeaders;
+    FMetadata: TMetadataCollection;
+    FParameters: TParameterCollection;
     function GetBucketName: string;
     procedure SetBucketName(const Value: string);
     function GetContentType: string;
@@ -107,21 +129,30 @@ type
     procedure SetProtocol(const Value: TProtocol);
     function GetRequestPayer: TRequestPayer;
     procedure SetRequestPayer(const Value: TRequestPayer);
-    function GetResponseHeaderOverrides: TRequestPayer;
-    procedure SetResponseHeaderOverrides(const Value: TRequestPayer);
-    function GetServerSideEncryption: TServerSideEncryption;
-    procedure SetServerSideEncryption(const Value: TServerSideEncryption);
+    function GetResponseHeaderOverrides: TResponseHeaderOverrides;
+    procedure SetResponseHeaderOverrides(const Value: TResponseHeaderOverrides);
+    function GetKeepResponseHeaderOverrides: Boolean;
+    procedure SetKeepResponseHeaderOverrides(const Value: Boolean);
+    function GetServerSideEncryptionMethod: TServerSideEncryptionMethod;
+    procedure SetServerSideEncryptionMethod(const Value: TServerSideEncryptionMethod);
     function GetServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod;
     procedure SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryptionCustomerMethod);
+    function GetServerSideEncryptionKeyManagementServiceKeyId: string;
+    procedure SetServerSideEncryptionKeyManagementServiceKeyId(const Value: string);
     function GetUploadId: string;
     procedure SetUploadId(const Value: string);
-    function GetVerb: TProtocol;
-    procedure SetVerb(const Value: TProtocol);
+    function GetVerb: THttpVerb;
+    procedure SetVerb(const Value: THttpVerb);
     function GetVersionId: string;
     procedure SetVersionId(const Value: string);
+    function GetHeaders: THttpHeaders;
+    function GetMetadata: TMetadataCollection;
+    function GetParameters: TParameterCollection;
   strict protected
     function Obj: TGetPreSignedUrlRequest;
   public
+    constructor Create;
+    destructor Destroy; override;
     function IsSetBucketName: Boolean;
     function IsSetContentType: Boolean;
     function IsSetExpires: Boolean;
@@ -129,9 +160,9 @@ type
     function IsSetPartNumber: Boolean;
     function IsSetProtocol: Boolean;
     function IsSetRequestPayer: Boolean;
-    function IsSetResponseHeaderOverrides: Boolean;
-    function IsSetServerSideEncryption: Boolean;
+    function IsSetServerSideEncryptionMethod: Boolean;
     function IsSetServerSideEncryptionCustomerMethod: Boolean;
+    function IsSetServerSideEncryptionKeyManagementServiceKeyId: Boolean;
     function IsSetUploadId: Boolean;
     function IsSetVerb: Boolean;
     function IsSetVersionId: Boolean;
@@ -142,14 +173,20 @@ type
     property PartNumber: Integer read GetPartNumber write SetPartNumber;
     property Protocol: TProtocol read GetProtocol write SetProtocol;
     property RequestPayer: TRequestPayer read GetRequestPayer write SetRequestPayer;
-    property ResponseHeaderOverrides: TRequestPayer read GetResponseHeaderOverrides write SetResponseHeaderOverrides;
-    property ServerSideEncryption: TServerSideEncryption read GetServerSideEncryption write SetServerSideEncryption;
+    property ResponseHeaderOverrides: TResponseHeaderOverrides read GetResponseHeaderOverrides write SetResponseHeaderOverrides;
+    property KeepResponseHeaderOverrides: Boolean read GetKeepResponseHeaderOverrides write SetKeepResponseHeaderOverrides;
+    property ServerSideEncryptionMethod: TServerSideEncryptionMethod read GetServerSideEncryptionMethod write SetServerSideEncryptionMethod;
     property ServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod read GetServerSideEncryptionCustomerMethod write SetServerSideEncryptionCustomerMethod;
+    property ServerSideEncryptionKeyManagementServiceKeyId: string read GetServerSideEncryptionKeyManagementServiceKeyId write SetServerSideEncryptionKeyManagementServiceKeyId;
     property UploadId: string read GetUploadId write SetUploadId;
-    property Verb: TProtocol read GetVerb write SetVerb;
+    property Verb: THttpVerb read GetVerb write SetVerb;
     property VersionId: string read GetVersionId write SetVersionId;
+
+    property Headers: THttpHeaders read GetHeaders;
+    property Metadata: TMetadataCollection read GetMetadata;
+    property Parameters: TParameterCollection read GetParameters;
   end;
-  
+
 implementation
 
 { TServerSideEncryptionCustomerMethod }
@@ -176,7 +213,7 @@ end;
 
 class operator TServerSideEncryptionCustomerMethod.Implicit(a: string): TServerSideEncryptionCustomerMethod;
 begin
-  Result.FValue := a;;
+  Result.FValue := a;
 end;
 
 { TGetPreSignedUrlRequest }
@@ -184,6 +221,23 @@ end;
 function TGetPreSignedUrlRequest.Obj: TGetPreSignedUrlRequest;
 begin
   Result := Self;
+end;
+
+constructor TGetPreSignedUrlRequest.Create;
+begin
+  inherited;
+  FHeaders := THttpHeaders.Create;
+  FMetadata := TMetadataCollection.Create;
+  FParameters := TParameterCollection.Create;
+end;
+
+destructor TGetPreSignedUrlRequest.Destroy;
+begin
+  FHeaders.Free;
+  FMetadata.Free;
+  FParameters.Free;
+  ResponseHeaderOverrides := nil;
+  inherited;
 end;
 
 function TGetPreSignedUrlRequest.GetBucketName: string;
@@ -221,6 +275,11 @@ begin
   Result := FExpires.ValueOrDefault;
 end;
 
+function TGetPreSignedUrlRequest.GetHeaders: THttpHeaders;
+begin
+  Result := FHeaders;
+end;
+
 procedure TGetPreSignedUrlRequest.SetExpires(const Value: TDateTime);
 begin
   FExpires := Value;
@@ -231,9 +290,24 @@ begin
   Result := FExpires.HasValue;
 end;
 
+function TGetPreSignedUrlRequest.GetKeepResponseHeaderOverrides: Boolean;
+begin
+  Result := FKeepResponseHeaderOverrides;
+end;
+
 function TGetPreSignedUrlRequest.GetKey: string;
 begin
   Result := FKey.ValueOrDefault;
+end;
+
+function TGetPreSignedUrlRequest.GetMetadata: TMetadataCollection;
+begin
+  Result := FMetadata;
+end;
+
+procedure TGetPreSignedUrlRequest.SetKeepResponseHeaderOverrides(const Value: Boolean);
+begin
+  FKeepResponseHeaderOverrides := Value;
 end;
 
 procedure TGetPreSignedUrlRequest.SetKey(const Value: string);
@@ -244,6 +318,11 @@ end;
 function TGetPreSignedUrlRequest.IsSetKey: Boolean;
 begin
   Result := FKey.HasValue;
+end;
+
+function TGetPreSignedUrlRequest.GetParameters: TParameterCollection;
+begin
+  Result := FParameters;
 end;
 
 function TGetPreSignedUrlRequest.GetPartNumber: Integer;
@@ -291,34 +370,34 @@ begin
   Result := FRequestPayer.HasValue;
 end;
 
-function TGetPreSignedUrlRequest.GetResponseHeaderOverrides: TRequestPayer;
+function TGetPreSignedUrlRequest.GetResponseHeaderOverrides: TResponseHeaderOverrides;
 begin
-  Result := FResponseHeaderOverrides.ValueOrDefault;
+  Result := FResponseHeaderOverrides;
 end;
 
-procedure TGetPreSignedUrlRequest.SetResponseHeaderOverrides(const Value: TRequestPayer);
+procedure TGetPreSignedUrlRequest.SetResponseHeaderOverrides(const Value: TResponseHeaderOverrides);
 begin
-  FResponseHeaderOverrides := Value;
+  if FResponseHeaderOverrides <> Value then
+  begin
+    if not KeepResponseHeaderOverrides then
+      FResponseHeaderOverrides.Free;
+    FResponseHeaderOverrides := Value;
+  end;
 end;
 
-function TGetPreSignedUrlRequest.IsSetResponseHeaderOverrides: Boolean;
+function TGetPreSignedUrlRequest.GetServerSideEncryptionMethod: TServerSideEncryptionMethod;
 begin
-  Result := FResponseHeaderOverrides.HasValue;
+  Result := FServerSideEncryptionMethod.ValueOrDefault;
 end;
 
-function TGetPreSignedUrlRequest.GetServerSideEncryption: TServerSideEncryption;
+procedure TGetPreSignedUrlRequest.SetServerSideEncryptionMethod(const Value: TServerSideEncryptionMethod);
 begin
-  Result := FServerSideEncryption.ValueOrDefault;
+  FServerSideEncryptionMethod := Value;
 end;
 
-procedure TGetPreSignedUrlRequest.SetServerSideEncryption(const Value: TServerSideEncryption);
+function TGetPreSignedUrlRequest.IsSetServerSideEncryptionMethod: Boolean;
 begin
-  FServerSideEncryption := Value;
-end;
-
-function TGetPreSignedUrlRequest.IsSetServerSideEncryption: Boolean;
-begin
-  Result := FServerSideEncryption.HasValue;
+  Result := FServerSideEncryptionMethod.HasValue;
 end;
 
 function TGetPreSignedUrlRequest.GetServerSideEncryptionCustomerMethod: TServerSideEncryptionCustomerMethod;
@@ -326,14 +405,29 @@ begin
   Result := FServerSideEncryptionCustomerMethod.ValueOrDefault;
 end;
 
+function TGetPreSignedUrlRequest.GetServerSideEncryptionKeyManagementServiceKeyId: string;
+begin
+  Result := FServerSideEncryptionKeyManagementServiceKeyId.ValueOrDefault;
+end;
+
 procedure TGetPreSignedUrlRequest.SetServerSideEncryptionCustomerMethod(const Value: TServerSideEncryptionCustomerMethod);
 begin
   FServerSideEncryptionCustomerMethod := Value;
 end;
 
+procedure TGetPreSignedUrlRequest.SetServerSideEncryptionKeyManagementServiceKeyId(const Value: string);
+begin
+  FServerSideEncryptionKeyManagementServiceKeyId := Value;
+end;
+
 function TGetPreSignedUrlRequest.IsSetServerSideEncryptionCustomerMethod: Boolean;
 begin
   Result := FServerSideEncryptionCustomerMethod.HasValue;
+end;
+
+function TGetPreSignedUrlRequest.IsSetServerSideEncryptionKeyManagementServiceKeyId: Boolean;
+begin
+  Result := FServerSideEncryptionKeyManagementServiceKeyId.HasValue;
 end;
 
 function TGetPreSignedUrlRequest.GetUploadId: string;
@@ -351,12 +445,12 @@ begin
   Result := FUploadId.HasValue;
 end;
 
-function TGetPreSignedUrlRequest.GetVerb: TProtocol;
+function TGetPreSignedUrlRequest.GetVerb: THttpVerb;
 begin
   Result := FVerb.ValueOrDefault;
 end;
 
-procedure TGetPreSignedUrlRequest.SetVerb(const Value: TProtocol);
+procedure TGetPreSignedUrlRequest.SetVerb(const Value: THttpVerb);
 begin
   FVerb := Value;
 end;
