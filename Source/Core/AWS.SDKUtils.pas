@@ -53,12 +53,20 @@ type
     const DefaultBufferSize = 8192;
     const UrlEncodedContent = 'application/x-www-form-urlencoded; charset=utf-8';
     const RFC822DateFormat = 'ddd, dd MMM yyyy HH:mm:ss "GMT"';
+
+    const ValidUrlCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~';
+    const ValidUrlCharactersRFC1738 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.';
   strict private
     class var FUserAgent: string;
     class var FRFC822FormatSettings: TFormatSettings;
+    class var FRFCEncodingSchemes: TDictionary<Integer, string>;
+    class var FValidPathCharacters: string;
+  strict private
+    class function DetermineValidPathCharacters: string;
   public
     // Functions for internal use
     class constructor Create;
+    class destructor Destroy;
     class function GetParametersAsString(AParameterCollection: TParameterCollection): string;
 
     class procedure CopyStream(Source, Dest: TStream); overload; static;
@@ -122,7 +130,21 @@ type
     /// <param name="AData">The string to encode</param>
     /// <param name="APath">Whether the string is a URL path or not</param>
     /// <returns>The encoded string</returns>
-    class function UrlEncode(const AData: string; APath: Boolean): string; static;
+    class function UrlEncode(const AData: string; APath: Boolean): string; overload; static;
+
+    /// <summary>
+    /// URL encodes a string per the specified RFC. If the path property is specified,
+    /// the accepted path characters {/+:} are not encoded.
+    /// </summary>
+    /// <param name="RfcNumber">RFC number determing safe characters</param>
+    /// <param name="Data">The string to encode</param>
+    /// <param name="Path">Whether the string is a URL path or not</param>
+    /// <returns>The encoded string</returns>
+    /// <remarks>
+    /// Currently recognised RFC versions are 1738 (Dec '94) and 3986 (Jan '05).
+    /// If the specified RFC is not recognised, 3986 is used by default.
+    /// </remarks>
+    class function UrlEncode(RfcNumber: integer; const Data: string; Path: Boolean): string; overload; static;
 
     /// <summary>
     /// Helper function to format a byte array into string
@@ -504,6 +526,10 @@ begin
   FUserAgent := TInternalSDKUtils.BuildUserAgentString('');
   FRFC822FormatSettings := TFormatSettings.Create;
   FRFC822FormatSettings.ShortDateFormat := 'dd mmm yyyy';
+  FRFCEncodingSchemes := TDictionary<Integer, string>.Create;
+  FRFCEncodingSchemes.Add(3986, ValidUrlCharacters);
+  FRFCEncodingSchemes.Add(1738, ValidUrlCharactersRFC1738);
+  FValidPathCharacters := DetermineValidPathCharacters;
 end;
 
 type
@@ -514,6 +540,11 @@ type
 class function TAWSSDKUtils.DecodeBase64(const Input: string): TArray<Byte>;
 begin
   Result := AWS.Lib.Utils.DecodeBase64(Input);
+end;
+
+class destructor TAWSSDKUtils.Destroy;
+begin
+  FRFCEncodingSchemes.Free;
 end;
 
 class function TAWSSDKUtils.DetermineRegion(AUrl: string): string;
@@ -555,6 +586,20 @@ begin
     Result := 'sqs'
   else
     Result := 'service';
+end;
+
+class function TAWSSDKUtils.DetermineValidPathCharacters: string;
+const
+  BasePathCharacters = '/:''()!*[]$';
+begin
+  Result := BasePathCharacters;
+//  Result := '';
+//  for var C in BasePathCharacters do
+//  begin
+//    var escaped := Uri.EscapeUriString(C);
+//    if (escaped.Length = 1) and (escaped[1] = C) then
+//      Result := Result + C;
+//  end;
 end;
 
 class function TAWSSDKUtils.EncodeBase64(const Input: TArray<Byte>): string;
@@ -864,8 +909,27 @@ end;
 
 class function TAWSSDKUtils.UrlEncode(const AData: string; APath: Boolean): string;
 begin
-  {TODO: Review if this is enough}
-  Result := AWS.Lib.Utils.PercentEncode(AData);
+  Result := UrlEncode(3986, AData, APath);
+end;
+
+class function TAWSSDKUtils.UrlEncode(RfcNumber: integer; const Data: string; Path: Boolean): string;
+begin
+  Result := '';
+  var validChars: string;
+  if not FRFCEncodingSchemes.TryGetValue(RfcNumber, validChars) then
+    validChars := ValidUrlCharacters;
+
+  var unreservedChars := validChars;
+  if Path then
+    unreservedChars := unreservedChars + FValidPathCharacters;
+
+  for var symbol in TEncoding.UTF8.GetBytes(Data) do
+  begin
+    if unreservedChars.IndexOf(Chr(symbol)) <> -1 then
+      Result := Result + Chr(symbol)
+    else
+      Result := Result + '%' + IntToHex(Symbol, 2);
+  end;
 end;
 
 class function TAWSSDKUtils.UrlEncodeSlash(const Value: string): string;

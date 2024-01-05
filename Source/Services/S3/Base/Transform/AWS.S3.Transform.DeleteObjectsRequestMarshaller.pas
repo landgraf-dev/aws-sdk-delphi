@@ -64,8 +64,9 @@ begin
       var PublicRequestObjects := PublicRequest.Objects;
       if (PublicRequestObjects <> nil) and (PublicRequestObjects.Count > 0) then
       begin
-        XmlWriter.WriteStartElement('Object', '');
         for var PublicRequestObjectsValue in PublicRequestObjects do
+        begin
+          XmlWriter.WriteStartElement('Object', '');
           if PublicRequestObjectsValue <> nil then
           begin
             if PublicRequestObjectsValue.IsSetKey then
@@ -73,7 +74,8 @@ begin
             if PublicRequestObjectsValue.IsSetVersionId then
               XmlWriter.WriteElementString('VersionId', '', TStringUtils.Fromstring(PublicRequestObjectsValue.VersionId));
           end;
-        XmlWriter.WriteEndElement;
+          XmlWriter.WriteEndElement;
+        end;
       end;
       XmlWriter.WriteEndElement;
     finally
