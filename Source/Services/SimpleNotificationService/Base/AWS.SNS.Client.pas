@@ -691,7 +691,7 @@ end;
 
 function TAmazonSimpleNotificationServiceClient.ListPlatformApplications: IListPlatformApplicationsResponse;
 begin
-  Result := TListPlatformApplicationsResponse.Create;
+  Result := ListPlatformApplications(IListPlatformApplicationsRequest(TListPlatformApplicationsRequest.Create));
 end;
 
 function TAmazonSimpleNotificationServiceClient.ListPlatformApplications(Request: IListPlatformApplicationsRequest): IListPlatformApplicationsResponse;
@@ -724,7 +724,7 @@ end;
 
 function TAmazonSimpleNotificationServiceClient.ListSubscriptions: IListSubscriptionsResponse;
 begin
-  Result := TListSubscriptionsResponse.Create;
+  Result := ListSubscriptions(IListSubscriptionsRequest(TListSubscriptionsRequest.Create));
 end;
 
 function TAmazonSimpleNotificationServiceClient.ListSubscriptions(const ANextToken: string): IListSubscriptionsResponse;
@@ -799,7 +799,7 @@ end;
 
 function TAmazonSimpleNotificationServiceClient.ListTopics: IListTopicsResponse;
 begin
-  Result := TListTopicsResponse.Create;
+  Result := ListTopics(IListTopicsRequest(TListTopicsRequest.Create));
 end;
 
 function TAmazonSimpleNotificationServiceClient.ListTopics(const ANextToken: string): IListTopicsResponse;

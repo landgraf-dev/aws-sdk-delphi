@@ -913,7 +913,7 @@ end;
 
 function TAmazonSimpleEmailServiceClient.GetSendQuota: IGetSendQuotaResponse;
 begin
-  Result := TGetSendQuotaResponse.Create;
+  Result := GetSendQuota(IGetSendQuotaRequest(TGetSendQuotaRequest.Create));
 end;
 
 function TAmazonSimpleEmailServiceClient.GetSendQuota(Request: IGetSendQuotaRequest): IGetSendQuotaResponse;
@@ -932,7 +932,7 @@ end;
 
 function TAmazonSimpleEmailServiceClient.GetSendStatistics: IGetSendStatisticsResponse;
 begin
-  Result := TGetSendStatisticsResponse.Create;
+  Result := GetSendStatistics(IGetSendStatisticsRequest(TGetSendStatisticsRequest.Create));
 end;
 
 function TAmazonSimpleEmailServiceClient.GetSendStatistics(Request: IGetSendStatisticsRequest): IGetSendStatisticsResponse;
@@ -993,7 +993,7 @@ end;
 
 function TAmazonSimpleEmailServiceClient.ListIdentities: IListIdentitiesResponse;
 begin
-  Result := TListIdentitiesResponse.Create;
+  Result := ListIdentities(IListIdentitiesRequest(TListIdentitiesRequest.Create));
 end;
 
 function TAmazonSimpleEmailServiceClient.ListIdentities(Request: IListIdentitiesRequest): IListIdentitiesResponse;
@@ -1068,7 +1068,7 @@ end;
 
 function TAmazonSimpleEmailServiceClient.ListVerifiedEmailAddresses: IListVerifiedEmailAddressesResponse;
 begin
-  Result := TListVerifiedEmailAddressesResponse.Create;
+  Result := ListVerifiedEmailAddresses(IListVerifiedEmailAddressesRequest(TListVerifiedEmailAddressesRequest.Create));
 end;
 
 function TAmazonSimpleEmailServiceClient.ListVerifiedEmailAddresses(Request: IListVerifiedEmailAddressesRequest): IListVerifiedEmailAddressesResponse;
