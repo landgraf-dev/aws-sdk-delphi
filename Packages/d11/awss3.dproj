@@ -317,6 +317,7 @@
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.S3OutpostResource.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Uri.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Util.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.BucketRegionDetector.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.S3Constants.pas"/>
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>

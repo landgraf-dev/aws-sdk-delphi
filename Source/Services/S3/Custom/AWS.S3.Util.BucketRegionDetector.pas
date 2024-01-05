@@ -13,10 +13,24 @@ type
     AuthorizationHeaderMalformedErrorCode = 'AuthorizationHeaderMalformed';
   private
     class var FBucketRegionCache: TLruCache<string, IRegionEndpointEx>;
+    class constructor Create;
+    class destructor Destroy;
   public
     class property BucketRegionCache: TLruCache<string, IRegionEndpointEx> read FBucketRegionCache;
   end;
 
 implementation
+
+{ TBucketRegionDetector }
+
+class constructor TBucketRegionDetector.Create;
+begin
+  FBucketRegionCache := TLruCache<string, IRegionEndpointEx>.Create(BucketRegionCacheMaxEntries);
+end;
+
+class destructor TBucketRegionDetector.Destroy;
+begin
+  FBucketRegionCache.Free;
+end;
 
 end.

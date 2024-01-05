@@ -244,6 +244,7 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Base.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Reader.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Writer.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.LruCache.pas"/>
 		<RcCompile Include="..\..\Resources\AWS.Region.rc">
 			<Form>AWS.Region.res</Form>
 		</RcCompile>

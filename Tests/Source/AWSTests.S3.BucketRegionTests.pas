@@ -40,12 +40,24 @@ implementation
 
 procedure TBucketRegionTests.BucketRecreatedInDifferentRegion;
 begin
-  Check(False);
+  runner := TBucketRegionTestRunner.Create(False);
+  if runner.TestBucketIsReady then
+  begin
+    Check(False, 'implement');
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.DeleteBucketUsingS3RegionUSEast1Enum;
 begin
-  Check(False);
+  runner := TBucketRegionTestRunner.Create(False);
+  if runner.TestBucketIsReady then
+  begin
+    Check(False, 'implement');
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 function TBucketRegionTests.GetHttpStatusCode(const Url: string): Integer;
@@ -54,32 +66,75 @@ end;
 
 procedure TBucketRegionTests.GetObjectMetedataSessionCredentials;
 begin
-  Check(False);
+  runner := TBucketRegionTestRunner.Create(False);
+  if runner.TestBucketIsReady then
+  begin
+    Check(False, 'implement');
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.GetPreSignedUrlSigV2;
 begin
-  Check(False);
+  runner := TBucketRegionTestRunner.Create(False);
+  if runner.TestBucketIsReady then
+  begin
+    Check(False, 'implement');
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.GetPreSignedUrlSigV4ExplicitlySet;
 begin
-  Check(False);
+  runner := TBucketRegionTestRunner.Create(False);
+  if runner.TestBucketIsReady then
+  begin
+    Check(False, 'implement');
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.GetPreSignedUrlSigV4ImplicitlySet;
 begin
-  Check(False);
+  runner := TBucketRegionTestRunner.Create(False);
+  if runner.TestBucketIsReady then
+  begin
+    Check(False, 'implement');
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.HappyCaseDoesS3BucketExist;
 begin
-  Check(False);
+  runner := TBucketRegionTestRunner.Create(False);
+  if runner.TestBucketIsReady then
+  begin
+    Check(False, 'implement');
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.HappyCaseGetObjectMetedata;
 begin
-  Check(False);
+  // make sure the cache works when it gets the region from a HEAD bucket request
+  runner := TBucketRegionTestRunner.Create(True);
+  if runner.TestBucketIsReady then
+  begin
+    // ensure the object exists then clear the cache
+    runner.USEast1Client.PutObject(runner.PutObjectRequest);
+    TBucketRegionDetector.BucketRegionCache.Clear;
+    runner.USEast1Client.GetObjectMetadata(runner.GetObjectMetadataRequest);
+    var cachedRegion: IRegionEndpointEx;
+    Check(TBucketRegionDetector.BucketRegionCache.TryGetValue(runner.BucketName, cachedRegion));
+    CheckEquals(TRegionEndpoints.USWest1.SystemName, cachedRegion.SystemName);
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.HappyCaseSigV2;
@@ -90,14 +145,26 @@ begin
   begin
     runner.USEast1Client.PutObject(runner.PutObjectRequest);
     var cachedRegion: IRegionEndpointEx;
-    Check(not TBucketRegionDetector.BucketRegionCache.TryGetValue(runner.BucketName, cachedRegion));
-    Check(cachedRegion = nil);
-  end;
+    Check(TBucketRegionDetector.BucketRegionCache.TryGetValue(runner.BucketName, cachedRegion));
+    CheckEquals(TRegionEndpoints.USWest1.SystemName, cachedRegion.SystemName);
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.HappyCaseSigV4;
 begin
-  Check(False);
+  // make sure we're not using the cache with SigV2 requests
+  runner := TBucketRegionTestRunner.Create(True);
+  if runner.TestBucketIsReady then
+  begin
+    runner.USEast1Client.PutObject(runner.PutObjectRequest);
+    var cachedRegion: IRegionEndpointEx;
+    Check(TBucketRegionDetector.BucketRegionCache.TryGetValue(runner.BucketName, cachedRegion));
+    CheckEquals(TRegionEndpoints.USWest1.SystemName, cachedRegion.SystemName);
+  end
+  else
+    Fail('bucket not ready');
 end;
 
 procedure TBucketRegionTests.TearDown;
