@@ -688,9 +688,8 @@ begin
   if not ARequest.Headers.ContainsKey(THeaderKeys.HostHeader) then
   begin
     HostHeader := ARequest.Endpoint.Host;
-    {TODO: Review this}
-//    if not ARequest.Endpoint.IsDefaultPort then
-//      HostHeader := HostHeader + ':' + ARequest.Endpoint.Port;
+    if not ARequest.Endpoint.IsDefaultPort then
+      HostHeader := HostHeader + ':' + IntToStr(ARequest.Endpoint.Port);
     ARequest.Headers.Add(THeaderKeys.HostHeader, HostHeader);
   end;
 

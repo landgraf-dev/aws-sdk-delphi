@@ -51,7 +51,7 @@ type
     /// This is used to determine if the user set UseSignatureVersion4 to true,
     /// or if it's true because the default was changed to true in the SDK.
     /// </summary>
-    class property UseSigV4SetExplicitly: Boolean read FUseSigV4SetExplicitly;
+    class property UseSigV4SetExplicitly: Boolean read FUseSigV4SetExplicitly write FUseSigV4SetExplicitly;
 
     /// <summary>
     /// Escape and unescape S3 metadata for S3 Put/Get object requests.
