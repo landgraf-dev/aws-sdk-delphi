@@ -29,6 +29,7 @@ type
     procedure AssertPreSignedUrl(Client: IAmazonS3; const BucketName: string; Expires: TDateTime; ExpectSigV4Url: Boolean);
     procedure DeleteBucket(Client: IAmazonS3; const BucketName: string);
     procedure AssertSignedUrlParameters(Client: IAmazonS3; const BucketName: string; Expires: TDateTime; ExpectSigV4Url: Boolean);
+    procedure MultipartUploadPresignedUrl_Internal;
   private
     procedure TestPreSignedUrl(Region: IRegionEndpointEx; Expires: TDateTime; UseSigV4: Boolean; ExpectSigV4Url: Boolean);
     procedure TestPreSignedUrlWithSessionToken(Region: IRegionEndpointEx; Expires: TDateTime; UseSigV4: Boolean; ExpectSigV4Url: Boolean);
@@ -39,7 +40,9 @@ type
     procedure EUCentral1Under7Days;
     procedure EUCentral1Over7Days;
     procedure USEastSignedParameters;
-    procedure MultipartUploadPresignedUrl;
+    procedure GeneratePresigned;
+    procedure MultipartUploadPresignedUrlV2;
+    procedure MultipartUploadPresignedUrlV4;
   end;
 
 implementation
@@ -165,7 +168,54 @@ begin
   TestPreSignedUrlWithSessionToken(TRegionEndpoints.EUCentral1, Now.IncDay(7).IncHour(-2), True, True);
 end;
 
-procedure TGeneratePresignedUrlTests.MultipartUploadPresignedUrl;
+procedure TGeneratePresignedUrlTests.GeneratePresigned;
+begin
+  var key := 'multipart';
+  var client: IAmazonS3 := TAmazonS3Client.Create(TRegionEndpoints.USEast1);
+  var bucketName := 'bla';
+  var uploadId := 'jkNGZEc0jy9nEJqt_L1rLb6k4uWNH5MXvF5o5jEnPWm4DKOL6GSGvYIKMtG4wq2G5sr6Ca7N5CiGAPevY5jYKN_2eWURQsv6MmtjmINjlBViJWcZ9LjMtOMH533i_jab';
+  var part := 1;
+  var request: IGetPreSignedUrlRequest := TGetPreSignedUrlRequest.Create;
+  request.BucketName := bucketName;
+  request.Key := key;
+  request.Expires := EncodeDate(2024, 7, 1);
+  request.PartNumber := part;
+  request.UploadId := uploadId;
+  request.Verb := THttpVerb.PUT;
+  request.ContentType := 'text/plain';
+  request.Protocol := TProtocol.HTTPS;
+  var url := client.GetPreSignedURL(request);
+  Status(url);
+end;
+
+procedure TGeneratePresignedUrlTests.MultipartUploadPresignedUrlV2;
+begin
+  var originalUseSigV4 := TAWSConfigsS3.UseSignatureVersion4;
+  var originalExplicit := TAWSConfigsS3.UseSigV4SetExplicitly;
+  try
+    TAWSConfigsS3.UseSignatureVersion4 := False;
+    TAWSConfigsS3.UseSigV4SetExplicitly := False;
+    MultipartUploadPresignedUrl_Internal;
+  finally
+    TAWSConfigsS3.UseSignatureVersion4 := originalUseSigV4;
+    TAWSConfigsS3.UseSigV4SetExplicitly := originalExplicit;
+  end;
+end;
+
+procedure TGeneratePresignedUrlTests.MultipartUploadPresignedUrlV4;
+begin
+  var originalUseSigV4 := TAWSConfigsS3.UseSignatureVersion4;
+  var originalExplicit := TAWSConfigsS3.UseSigV4SetExplicitly;
+  try
+    TAWSConfigsS3.UseSignatureVersion4 := True;
+    MultipartUploadPresignedUrl_Internal;
+  finally
+    TAWSConfigsS3.UseSignatureVersion4 := originalUseSigV4;
+    TAWSConfigsS3.UseSigV4SetExplicitly := originalExplicit;
+  end;
+end;
+
+procedure TGeneratePresignedUrlTests.MultipartUploadPresignedUrl_Internal;
 begin
   var key := 'multipart';
   var client: IAmazonS3 := TAmazonS3Client.Create(TRegionEndpoints.USEast1);
@@ -198,6 +248,9 @@ begin
 
         var wc := THTTPClient.Create;
         try
+          // workaround THTTPClient, it considers ; in query string as a parameter separator, and it shouldn't.
+          // this failes when the pre-signed url has a construction like "X-Amz-SignedHeaders=content-type;host"
+          url := url.Replace(';', '%3B');
           var httpReq := wc.GetRequest('PUT', url);
           httpReq.AddHeader('Content-Length', IntToStr(MegSize * 5));
           httpReq.AddHeader('Content-Type', 'text/plain');
@@ -254,6 +307,7 @@ procedure TGeneratePresignedUrlTests.TestPreSignedUrl(Region: IRegionEndpointEx;
 begin
   var Client: IAmazonS3 := TAmazonS3Client.Create(Region);
   var originalUseSigV4 := TAWSConfigsS3.UseSignatureVersion4;
+  var originalExplicit := TAWSConfigsS3.UseSigV4SetExplicitly;
   var BucketName := '';
   try
     TAWSConfigsS3.UseSignatureVersion4 := true;
@@ -261,6 +315,7 @@ begin
     AssertPreSignedUrl(Client, BucketName, Expires, ExpectSigV4Url);
   finally
     TAWSConfigsS3.UseSignatureVersion4 := originalUseSigV4;
+    TAWSConfigsS3.UseSigV4SetExplicitly := originalExplicit;
     if BucketName <> '' then
       DeleteBucket(Client, BucketName);
   end;
@@ -276,6 +331,7 @@ procedure TGeneratePresignedUrlTests.TestSignedUrlParameters(Region: IRegionEndp
 begin
   var client: IAmazonS3 := TAmazonS3Client.Create(region);
   var originalUseSigV4 := TAWSConfigsS3.UseSignatureVersion4;
+  var originalExplicit := TAWSConfigsS3.UseSigV4SetExplicitly;
   var bucketName := '';
   try
     TAWSConfigsS3.UseSignatureVersion4 := True;
@@ -283,6 +339,7 @@ begin
     AssertSignedUrlParameters(client, bucketName, Expires, True);
   finally
     TAWSConfigsS3.UseSignatureVersion4 := originalUseSigV4;
+    TAWSConfigsS3.UseSigV4SetExplicitly := originalExplicit;
     if bucketName <> '' then
       DeleteBucket(client, bucketName);
   end;
