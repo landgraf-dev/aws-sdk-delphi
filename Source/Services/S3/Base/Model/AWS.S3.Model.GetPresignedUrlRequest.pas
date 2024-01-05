@@ -59,7 +59,6 @@ type
     procedure SetVersionId(const Value: string);
     function Obj: TGetPreSignedUrlRequest;
     function IsSetBucketName: Boolean;
-    function IsSetContentType: Boolean;
     function IsSetExpires: Boolean;
     function IsSetKey: Boolean;
     function IsSetPartNumber: Boolean;
@@ -98,7 +97,6 @@ type
   TGetPreSignedUrlRequest = class(TAmazonS3Request, IGetPreSignedUrlRequest)
   strict private
     FBucketName: Nullable<string>;
-    FContentType: Nullable<string>;
     FExpires: Nullable<TDateTime>;
     FKey: Nullable<string>;
     FPartNumber: Nullable<Integer>;
@@ -154,7 +152,6 @@ type
     constructor Create;
     destructor Destroy; override;
     function IsSetBucketName: Boolean;
-    function IsSetContentType: Boolean;
     function IsSetExpires: Boolean;
     function IsSetKey: Boolean;
     function IsSetPartNumber: Boolean;
@@ -258,17 +255,12 @@ end;
 
 function TGetPreSignedUrlRequest.GetContentType: string;
 begin
-  Result := FContentType.ValueOrDefault;
+  Result := Headers.Get('Content-Type');
 end;
 
 procedure TGetPreSignedUrlRequest.SetContentType(const Value: string);
 begin
-  FContentType := Value;
-end;
-
-function TGetPreSignedUrlRequest.IsSetContentType: Boolean;
-begin
-  Result := FContentType.HasValue;
+  Headers.SetValue('Content-Type', Value);
 end;
 
 function TGetPreSignedUrlRequest.GetExpires: TDateTime;
