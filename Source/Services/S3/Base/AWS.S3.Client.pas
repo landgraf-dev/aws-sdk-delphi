@@ -505,7 +505,7 @@ end;
 
 function TAmazonS3Client.ListBuckets: IListBucketsResponse;
 begin
-  Result := TListBucketsResponse.Create;
+  Result := ListBuckets(IListBucketsRequest(TListBucketsRequest.Create));
 end;
 
 function TAmazonS3Client.ListBuckets(Request: IListBucketsRequest): IListBucketsResponse;
