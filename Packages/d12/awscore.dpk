@@ -25,10 +25,10 @@ package awscore;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$IMPLICITBUILD OFF}
 {$DESCRIPTION 'Amazon Web Services SDK - Core Package'}
-{$RUNONLY}
 {$LIBSUFFIX AUTO}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
 
 requires
   rtl,
@@ -125,6 +125,7 @@ contains
   AWS.Util.Streams in '..\..\Source\Core\AWS.Util.Streams.pas',
   AWS.Xml.Base in '..\..\Source\Core\AWS.Xml.Base.pas',
   AWS.Xml.Reader in '..\..\Source\Core\AWS.Xml.Reader.pas',
-  AWS.Xml.Writer in '..\..\Source\Core\AWS.Xml.Writer.pas';
+  AWS.Xml.Writer in '..\..\Source\Core\AWS.Xml.Writer.pas',
+  AWS.Internal.Util.LruCache in '..\..\Source\Core\AWS.Internal.Util.LruCache.pas';
 
 end.

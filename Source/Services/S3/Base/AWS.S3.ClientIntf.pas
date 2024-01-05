@@ -25,6 +25,8 @@ uses
   AWS.S3.Model.GetObjectMetadataRequest, 
   AWS.S3.Model.InitiateMultipartUploadResponse, 
   AWS.S3.Model.InitiateMultipartUploadRequest, 
+  AWS.S3.Model.ListBucketsResponse, 
+  AWS.S3.Model.ListBucketsRequest, 
   AWS.S3.Model.ListObjectsResponse, 
   AWS.S3.Model.ListObjectsRequest, 
   AWS.S3.Model.ListVersionsResponse, 
@@ -64,6 +66,8 @@ type
     function GetObjectMetadata(Request: IGetObjectMetadataRequest): IGetObjectMetadataResponse; overload;
     function InitiateMultipartUpload(const ABucketName: string; const AKey: string): IInitiateMultipartUploadResponse; overload;
     function InitiateMultipartUpload(Request: IInitiateMultipartUploadRequest): IInitiateMultipartUploadResponse; overload;
+    function ListBuckets: IListBucketsResponse; overload;
+    function ListBuckets(Request: IListBucketsRequest): IListBucketsResponse; overload;
     function ListObjects(const ABucketName: string): IListObjectsResponse; overload;
     function ListObjects(const ABucketName: string; const APrefix: string): IListObjectsResponse; overload;
     function ListObjects(Request: IListObjectsRequest): IListObjectsResponse; overload;

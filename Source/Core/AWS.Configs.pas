@@ -55,6 +55,7 @@ type
   public const
     AWSProfileNameKey = 'AWSProfileName';
     AWSProfilesLocationKey = 'AWSProfilesLocation';
+  public
     class var UtcNowSource: TFunc<TDateTime>;
   private
     class function GetAWSProfilesLocation: string; static;

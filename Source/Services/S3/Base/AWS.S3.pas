@@ -11,6 +11,7 @@ uses
   AWS.S3.Metadata, 
   AWS.S3.Model.AbortMultipartUploadRequest, 
   AWS.S3.Model.AbortMultipartUploadResponse, 
+  AWS.S3.Model.Bucket, 
   AWS.S3.Model.BucketAlreadyExistsException, 
   AWS.S3.Model.BucketAlreadyOwnedByYouException, 
   AWS.S3.Model.CommonPrefix, 
@@ -41,6 +42,8 @@ uses
   AWS.S3.Model.InitiateMultipartUploadRequest, 
   AWS.S3.Model.InitiateMultipartUploadResponse, 
   AWS.S3.Model.InvalidObjectStateException, 
+  AWS.S3.Model.ListBucketsRequest, 
+  AWS.S3.Model.ListBucketsResponse, 
   AWS.S3.Model.ListObjectsRequest, 
   AWS.S3.Model.ListObjectsResponse, 
   AWS.S3.Model.ListVersionsRequest, 
@@ -78,6 +81,7 @@ type
   IAbortMultipartUploadRequest = AWS.S3.Model.AbortMultipartUploadRequest.IAbortMultipartUploadRequest;
   IAbortMultipartUploadResponse = AWS.S3.Model.AbortMultipartUploadResponse.IAbortMultipartUploadResponse;
   IAmazonS3 = AWS.S3.ClientIntf.IAmazonS3;
+  IBucket = AWS.S3.Model.Bucket.IBucket;
   ICommonPrefix = AWS.S3.Model.CommonPrefix.ICommonPrefix;
   ICompletedPart = AWS.S3.Model.CompletedPart.ICompletedPart;
   ICompleteMultipartUploadRequest = AWS.S3.Model.CompleteMultipartUploadRequest.ICompleteMultipartUploadRequest;
@@ -105,6 +109,8 @@ type
   IGrantee = AWS.S3.Model.Grantee.IGrantee;
   IInitiateMultipartUploadRequest = AWS.S3.Model.InitiateMultipartUploadRequest.IInitiateMultipartUploadRequest;
   IInitiateMultipartUploadResponse = AWS.S3.Model.InitiateMultipartUploadResponse.IInitiateMultipartUploadResponse;
+  IListBucketsRequest = AWS.S3.Model.ListBucketsRequest.IListBucketsRequest;
+  IListBucketsResponse = AWS.S3.Model.ListBucketsResponse.IListBucketsResponse;
   IListObjectsRequest = AWS.S3.Model.ListObjectsRequest.IListObjectsRequest;
   IListObjectsResponse = AWS.S3.Model.ListObjectsResponse.IListObjectsResponse;
   IListVersionsRequest = AWS.S3.Model.ListVersionsRequest.IListVersionsRequest;
@@ -134,6 +140,7 @@ type
   TAmazonS3Request = AWS.S3.Model.Request.TAmazonS3Request;
   TAnalyticsS3ExportFileFormat = AWS.S3.Enums.TAnalyticsS3ExportFileFormat;
   TArchiveStatus = AWS.S3.Enums.TArchiveStatus;
+  TBucket = AWS.S3.Model.Bucket.TBucket;
   TBucketAccelerateStatus = AWS.S3.Enums.TBucketAccelerateStatus;
   TBucketCannedACL = AWS.S3.Enums.TBucketCannedACL;
   TBucketLocationConstraint = AWS.S3.Enums.TBucketLocationConstraint;
@@ -183,6 +190,8 @@ type
   TInventoryOptionalField = AWS.S3.Enums.TInventoryOptionalField;
   TJSONType = AWS.S3.Enums.TJSONType;
   TKeyVersion = AWS.S3.Model.ObjectIdentifier.TKeyVersion;
+  TListBucketsRequest = AWS.S3.Model.ListBucketsRequest.TListBucketsRequest;
+  TListBucketsResponse = AWS.S3.Model.ListBucketsResponse.TListBucketsResponse;
   TListObjectsRequest = AWS.S3.Model.ListObjectsRequest.TListObjectsRequest;
   TListObjectsResponse = AWS.S3.Model.ListObjectsResponse.TListObjectsResponse;
   TListVersionsRequest = AWS.S3.Model.ListVersionsRequest.TListVersionsRequest;
