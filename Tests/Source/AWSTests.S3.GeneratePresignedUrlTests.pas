@@ -167,7 +167,86 @@ end;
 
 procedure TGeneratePresignedUrlTests.MultipartUploadPresignedUrl;
 begin
-  Check(False);
+  var key := 'multipart';
+  var client: IAmazonS3 := TAmazonS3Client.Create(TRegionEndpoints.USEast1);
+  var bucketName := CreateBucketAndObject(client);
+  var totalMegs := 15;
+
+  var initRequest: IInitiateMultipartUploadRequest := TInitiateMultipartUploadRequest.Create;
+  initRequest.BucketName := bucketName;
+  initRequest.Key := key;
+  initRequest.ContentType := 'text/plain';
+  var initiateMultipartResponse := client.InitiateMultipartUpload(initRequest);
+
+  var abortedMessage := '';
+  var partETags := TObjectList<TPartETag>.Create;
+  try
+    try
+      var part := 1;
+      while part <= totalMegs div 5 do
+      begin
+        var request: IGetPreSignedUrlRequest := TGetPreSignedUrlRequest.Create;
+        request.BucketName := bucketName;
+        request.Key := key;
+        request.Expires := Now.IncDay(1);
+        request.PartNumber := part;
+        request.UploadId := initiateMultipartResponse.UploadId;
+        request.Verb := THttpVerb.PUT;
+        request.ContentType := 'text/plain';
+        request.Protocol := TProtocol.HTTPS;
+        var url := client.GetPreSignedURL(request);
+
+        var wc := THTTPClient.Create;
+        try
+          var httpReq := wc.GetRequest('PUT', url);
+          httpReq.AddHeader('Content-Length', IntToStr(MegSize * 5));
+          httpReq.AddHeader('Content-Type', 'text/plain');
+
+          var buffer: TBytes;
+          SetLength(buffer, MegSize * 5);
+          for var I := 0 to Length(buffer) - 1 do
+            buffer[I] := Random(256);
+          var dataStream := TBytesStream.Create(buffer);
+          try
+            httpReq.SourceStream := dataStream;
+            var httpResp := wc.Execute(httpReq);
+            Check((httpResp.StatusCode >= 200) and (httpResp.StatusCode < 300), 'returnded status code: ' + IntToStr(httpResp.StatusCode));
+
+            var partETag := TPartETag.Create;
+            partETags.Add(partETag);
+            partETag.PartNumber := part;
+            partETag.ETag := httpResp.HeaderValue['ETag'];
+            Check(partETag.ETag <> '', 'e-tag should not be empty');
+          finally
+            dataStream.Free;
+          end;
+        finally
+          wc.Free;
+        end;
+        Inc(part);
+      end;
+
+      var endRequest: ICompleteMultipartUploadRequest := TCompleteMultipartUploadRequest.Create;
+      endRequest.BucketName := BucketName;
+      endRequest.Key := Key;
+      endRequest.UploadId := initiateMultipartResponse.UploadId;
+      endRequest.PartETags := partETags;
+      endRequest.KeepPartETags := True;
+      client.CompleteMultipartUpload(endRequest);
+    except
+      on E: Exception do
+      begin
+        abortedMessage := E.Message;
+        Client.AbortMultipartUpload(bucketName, key, initiateMultipartResponse.UploadId);
+        raise;
+      end;
+    end;
+  finally
+    partETags.Free;
+    DeleteBucket(client, bucketName);
+    if abortedMessage <> '' then
+      Check(False, abortedMessage);
+  end;
 end;
 
 procedure TGeneratePresignedUrlTests.TestPreSignedUrl(Region: IRegionEndpointEx; Expires: TDateTime; UseSigV4,

@@ -3,10 +3,11 @@ unit AWS.S3.Transform.CompleteMultipartUploadRequestMarshaller;
 interface
 
 uses
-  System.SysUtils, 
-  AWS.Internal.Request, 
+  System.SysUtils, System.Generics.Collections, System.Generics.Defaults,
+  AWS.Internal.Request,
   AWS.Transform.RequestMarshaller, 
-  AWS.Runtime.Model, 
+  AWS.Runtime.Model,
+  AWS.S3.Model.CompletedPart,
   AWS.S3.Model.CompleteMultipartUploadRequest, 
   AWS.Internal.DefaultRequest, 
   AWS.Internal.StringUtils, 
@@ -62,20 +63,26 @@ begin
     try
       XmlWriter.WriteStartElement('CompleteMultipartUpload', '');
       var PublicRequestMultipartUploadParts := PublicRequest.Parts;
+      PublicRequestMultipartUploadParts.Sort(TComparer<TPartETag>.Construct(
+        function(const Left, Right: TPartETag): Integer
+        begin
+          Result := Left.PartNumber - Right.PartNumber;
+        end
+      ));
       if (PublicRequestMultipartUploadParts <> nil) and (PublicRequestMultipartUploadParts.Count > 0) then
       begin
-        XmlWriter.WriteStartElement('Part', '');
         for var PublicRequestMultipartUploadPartsValue in PublicRequestMultipartUploadParts do
+        begin
+          XmlWriter.WriteStartElement('Part', '');
           if PublicRequestMultipartUploadPartsValue <> nil then
           begin
-            XmlWriter.WriteStartElement('member', '');
             if PublicRequestMultipartUploadPartsValue.IsSetETag then
               XmlWriter.WriteElementString('ETag', '', TStringUtils.Fromstring(PublicRequestMultipartUploadPartsValue.ETag));
             if PublicRequestMultipartUploadPartsValue.IsSetPartNumber then
               XmlWriter.WriteElementString('PartNumber', '', TStringUtils.FromInteger(PublicRequestMultipartUploadPartsValue.PartNumber));
-            XmlWriter.WriteEndElement;
           end;
-        XmlWriter.WriteEndElement;
+          XmlWriter.WriteEndElement;
+        end;
       end;
       XmlWriter.WriteEndElement;
     finally
