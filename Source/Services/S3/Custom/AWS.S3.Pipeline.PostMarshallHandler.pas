@@ -125,7 +125,9 @@ begin
     Exit(ResourcePath);
 
   var parts := resourcePath.Split(['/', '?']);
-  var bucketName := parts[0];
+  var bucketName: string := '';
+  if Length(parts) > 0 then
+    bucketName := parts[0];
 
   // Check to see if the bucket name is an arn using a '/' to break up the access point prefix and identifier.
   // If it is then bucketName will currently be missing the resource identifier which is the next token in the split.
