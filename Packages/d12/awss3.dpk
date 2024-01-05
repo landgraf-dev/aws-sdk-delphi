@@ -25,10 +25,10 @@ package awss3;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Amazon Simple Storage Service'}
-{$LIBSUFFIX AUTO}
-{$RUNONLY}
 {$IMPLICITBUILD OFF}
+{$DESCRIPTION 'Amazon Simple Storage Service'}
+{$RUNONLY}
+{$LIBSUFFIX AUTO}
 
 requires
   awscore;
@@ -174,7 +174,7 @@ contains
   AWS.S3.S3OutpostResource in '..\..\Source\Services\S3\Custom\AWS.S3.S3OutpostResource.pas',
   AWS.S3.Util.AmazonS3Uri in '..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Uri.pas',
   AWS.S3.Util.AmazonS3Util in '..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Util.pas',
-  AWS.S3.Util.S3Constants in '..\..\Source\Services\S3\Custom\AWS.S3.Util.S3Constants.pas',
-  AWS.S3.Util.BucketRegionDetector in '..\..\Source\Services\S3\Custom\AWS.S3.Util.BucketRegionDetector.pas';
+  AWS.S3.Util.BucketRegionDetector in '..\..\Source\Services\S3\Custom\AWS.S3.Util.BucketRegionDetector.pas',
+  AWS.S3.Util.S3Constants in '..\..\Source\Services\S3\Custom\AWS.S3.Util.S3Constants.pas';
 
 end.
