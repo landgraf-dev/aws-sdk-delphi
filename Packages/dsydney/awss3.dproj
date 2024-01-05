@@ -157,6 +157,7 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.Metadata.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.AbortMultipartUploadRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.AbortMultipartUploadResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Bucket.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.BucketAlreadyExistsException.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.BucketAlreadyOwnedByYouException.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CommonPrefix.pas"/>
@@ -187,6 +188,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.InitiateMultipartUploadRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.InitiateMultipartUploadResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.InvalidObjectStateException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListBucketsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListBucketsResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListVersionsRequest.pas"/>
@@ -216,6 +219,7 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.AbortMultipartUploadResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketAlreadyExistsExceptionUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketAlreadyOwnedByYouExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CommonPrefixUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CompleteMultipartUploadRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CompleteMultipartUploadResponseUnmarshaller.pas"/>
@@ -241,6 +245,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.InitiateMultipartUploadRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.InitiateMultipartUploadResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.InvalidObjectStateExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListBucketsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListBucketsResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListVersionsRequestMarshaller.pas"/>

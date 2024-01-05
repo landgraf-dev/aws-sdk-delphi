@@ -33,11 +33,13 @@ type
     function GetMaxErrorRetry: Integer;
     function GetReadEntireResponse: Boolean;
     function GetRegionEndpoint: IRegionEndpointEx;
+    procedure SetRegionEndpoint(const Value: IRegionEndpointEx);
     function GetRegionEndpointServiceName: string;
     function GetResignRetries: Boolean;
     function GetServiceURL: string;
     function GetSignatureMethod: TSigningAlgorithm;
     function GetSignatureVersion: string;
+    procedure SetSignatureVersion(const Value: string);
     function GetUseAlternateUserAgentHeader: Boolean;
     function GetUseDualstackEndpoint: Boolean;
     function GetUseHttp: Boolean;
@@ -56,12 +58,12 @@ type
     property LogResponse: Boolean read GetLogResponse;
     property MaxErrorRetry: Integer read GetMaxErrorRetry;
     property ReadEntireResponse: Boolean read GetReadEntireResponse;
-    property RegionEndpoint: IRegionEndpointEx read GetRegionEndpoint;
+    property RegionEndpoint: IRegionEndpointEx read GetRegionEndpoint write SetRegionEndpoint;
     property RegionEndpointServiceName: string read GetRegionEndpointServiceName;
     property ResignRetries: Boolean read GetResignRetries;
     property ServiceURL: string read GetServiceURL;
     property SignatureMethod: TSigningAlgorithm read GetSignatureMethod;
-    property SignatureVersion: string read GetSignatureVersion;
+    property SignatureVersion: string read GetSignatureVersion write SetSignatureVersion;
     property UseAlternateUserAgentHeader: Boolean read GetUseAlternateUserAgentHeader;
     property UseDualstackEndpoint: Boolean read GetUseDualstackEndpoint;
     property UseHttp: Boolean read GetUseHttp;
@@ -108,6 +110,7 @@ type
     function GetSignatureVersion: string;
     function GetSignatureMethod: TSigningAlgorithm;
     function GetUseAlternateUserAgentHeader: Boolean;
+    procedure SetSignatureVersion(const Value: string);
   strict protected
     function GetRegionEndpointServiceName: string; virtual; abstract;
     function GetServiceVersion: string; virtual; abstract;
@@ -139,7 +142,7 @@ type
     property MaxErrorRetry: Integer read GetMaxErrorRetry write SetMaxErrorRetry;
     property IsMaxErrorRetrySet: Boolean read GetIsMaxErrorRetrySet;
     property BufferSize: Integer read GetBufferSize write FBufferSize;
-    property SignatureVersion: string read GetSignatureVersion write FSignatureVersion;
+    property SignatureVersion: string read GetSignatureVersion write SetSignatureVersion;
     property SignatureMethod: TSigningAlgorithm read GetSignatureMethod write FSignatureMethod;
     property UseAlternateUserAgentHeader: Boolean read GetUseAlternateUserAgentHeader write FUseAlternateUserAgentHeader;
     property UserAgent: string read GetUserAgent;
@@ -320,6 +323,11 @@ begin
   FRegionEndpoint := nil;
   FProbeForRegionEndpoint := False;
   FServiceUrl := Value;
+end;
+
+procedure TClientConfig.SetSignatureVersion(const Value: string);
+begin
+  FSignatureVersion := Value;
 end;
 
 procedure TClientConfig.Validate;

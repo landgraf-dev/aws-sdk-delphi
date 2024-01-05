@@ -69,6 +69,10 @@ uses
   AWS.S3.Model.InitiateMultipartUploadRequest, 
   AWS.S3.Transform.InitiateMultipartUploadRequestMarshaller, 
   AWS.S3.Transform.InitiateMultipartUploadResponseUnmarshaller, 
+  AWS.S3.Model.ListBucketsResponse, 
+  AWS.S3.Model.ListBucketsRequest, 
+  AWS.S3.Transform.ListBucketsRequestMarshaller, 
+  AWS.S3.Transform.ListBucketsResponseUnmarshaller, 
   AWS.S3.Model.ListObjectsResponse, 
   AWS.S3.Model.ListObjectsRequest, 
   AWS.S3.Transform.ListObjectsRequestMarshaller, 
@@ -142,6 +146,8 @@ type
     function GetObjectMetadata(Request: IGetObjectMetadataRequest): IGetObjectMetadataResponse; overload;
     function InitiateMultipartUpload(const ABucketName: string; const AKey: string): IInitiateMultipartUploadResponse; overload;
     function InitiateMultipartUpload(Request: IInitiateMultipartUploadRequest): IInitiateMultipartUploadResponse; overload;
+    function ListBuckets: IListBucketsResponse; overload;
+    function ListBuckets(Request: IListBucketsRequest): IListBucketsResponse; overload;
     function ListObjects(const ABucketName: string): IListObjectsResponse; overload;
     function ListObjects(const ABucketName: string; const APrefix: string): IListObjectsResponse; overload;
     function ListObjects(Request: IListObjectsRequest): IListObjectsResponse; overload;
@@ -492,6 +498,25 @@ begin
     Options.RequestMarshaller := TInitiateMultipartUploadRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TInitiateMultipartUploadResponseUnmarshaller.Instance;
     Result := Invoke<TInitiateMultipartUploadResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.ListBuckets: IListBucketsResponse;
+begin
+  Result := TListBucketsResponse.Create;
+end;
+
+function TAmazonS3Client.ListBuckets(Request: IListBucketsRequest): IListBucketsResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TListBucketsRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TListBucketsResponseUnmarshaller.Instance;
+    Result := Invoke<TListBucketsResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;
