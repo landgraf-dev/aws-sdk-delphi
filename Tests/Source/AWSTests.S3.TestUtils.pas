@@ -196,7 +196,7 @@ begin
       //Check if a bucket exists by trying to put an object in it
       var key := Copy(TGuid.NewGuid.ToString, 2, 36) + '_existskey';
 
-      var Request := TPutObjectRequest.Create;
+      var Request: IPutObjectRequest := TPutObjectRequest.Create;
       Request.BucketName := BucketName;
       Request.Key := Key;
       Request.ContentBody := 'exists...';
