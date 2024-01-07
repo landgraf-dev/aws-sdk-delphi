@@ -6,11 +6,13 @@ uses
   System.SysUtils,
   AWS.Internal.PipelineHandler,
   AWS.Internal.WebResponseData,
+  AWS.Internal.Util.HashStream,
   AWS.Runtime.Contexts,
+  AWS.Runtime.Exceptions,
   AWS.Runtime.Model,
   AWS.SDKUtils,
   AWS.S3.ClientExtensions,
-//  AWS.S3.Model.CopyPartResponse,
+  AWS.S3.Model.CopyPartResponse,
   AWS.S3.Model.DeleteObjectsException,
   AWS.S3.Model.GetObjectResponse,
   AWS.S3.Model.GetObjectRequest,
@@ -24,6 +26,8 @@ type
   TAmazonS3ResponseHandler = class(TPipelineHandler)
   strict private
     class procedure ProcessResponseHandlers(AExecutionContext: TExecutionContext); static;
+    class function HasSSEHeaders(WebResponseData: IWebResponseData): Boolean; static;
+    class procedure CompareHashes(const ETag: string; const Hash: TArray<Byte>); static;
   strict protected
     procedure PostInvoke(AExecutionContext: TExecutionContext);
   public
@@ -33,6 +37,30 @@ type
 implementation
 
 { TAmazonS3ResponseHandler }
+
+class procedure TAmazonS3ResponseHandler.CompareHashes(const ETag: string; const Hash: TArray<Byte>);
+begin
+  if string.IsNullOrEmpty(ETag) then
+    Exit;
+
+  // if etag contains '-' character, the file was a multi-upload and we can't
+  // compare the etag to the hash value
+  if Etag.Contains('-') then
+    Exit;
+
+  var LEtag := Etag.Trim(['\', '"']);
+
+  var hexHash := TAWSSDKUtils.BytesToHexString(Hash);
+  if not SameText(LEtag, hexHash) then
+    raise EAmazonClientException.Create('Expected hash not equal to calculated hash');
+end;
+
+class function TAmazonS3ResponseHandler.HasSSEHeaders(WebResponseData: IWebResponseData): Boolean;
+begin
+  var usesCustomerAlgorithm := not string.IsNullOrEmpty(webResponseData.GetHeaderValue(THeaderKeys.XAmzSSECustomerAlgorithmHeader));
+  var usesKmsKeyId := not string.IsNullOrEmpty(webResponseData.GetHeaderValue(THeaderKeys.XAmzServerSideEncryptionAwsKmsKeyIdHeader));
+  Result := usesCustomerAlgorithm or usesKmsKeyId;
+end;
 
 procedure TAmazonS3ResponseHandler.InvokeSync(AExecutionContext: TExecutionContext);
 begin
@@ -50,7 +78,7 @@ begin
   var response := AExecutionContext.ResponseContext.Response;
   var request := AExecutionContext.RequestContext.Request;
   var webResponseData := AExecutionContext.ResponseContext.HttpResponse;
-//  var isSse := HasSSEHeaders(webResponseData);
+  var isSse := HasSSEHeaders(webResponseData);
 
   if response is TGetObjectResponse then
   begin
@@ -62,13 +90,19 @@ begin
     // If ETag is present and is an MD5 hash (not a multi-part upload ETag), and no byte range is specified,
     // wrap the response stream in an MD5Stream.
     // If there is a customer encryption algorithm the etag is not an MD5.
-    {$MESSAGE WARN 'Todo: add a MD5 stream'}
-//    if not string.IsNullOrEmpty(getObjectResponse.ETag)
-//        and not getObjectResponse.ETag.Contains('-')
-//        and not isSse
-//        and (getObjectRequest.ByteRange = nil) then
-//    begin
-//    end;
+    if not string.IsNullOrEmpty(getObjectResponse.ETag)
+        and not getObjectResponse.ETag.Contains('-')
+        and not isSse
+        and (getObjectRequest.ByteRange = nil) then
+    begin
+      var etag := getObjectResponse.ETag.Trim(['\', '"']);
+      var expectedHash := TAWSSDKUtils.HexStringToBytes(etag);
+      var hashStream: THashStream := TMD5Stream.Create(
+        getObjectResponse.ResponseStream, expectedHash, getObjectResponse.ContentLength, not getObjectResponse.KeepBody);
+      getObjectResponse.KeepBody := True;
+      getObjectResponse.ResponseStream := hashStream;
+      getObjectResponse.KeepBody := False;
+    end;
   end;
 
   if response is TDeleteObjectsResponse then
@@ -80,7 +114,25 @@ begin
 
   if response is TPutObjectResponse then
   begin
-    {$MESSAGE WARN 'Todo: check the input hash stream'}
+    var putObjectResponse := response as TPutObjectResponse;
+    var putObjectRequest := request.OriginalRequest as TPutObjectRequest;
+
+    // If InputStream was a HashStream, compare calculated hash to returned etag
+    if putObjectRequest.InputStream is THashStream then
+    begin
+      if putObjectRequest.InputStream is THashstream then
+      begin
+        var hashStream := putObjectRequest.InputStream as THashStream;
+        if (putObjectResponse <> nil) and not isSse then
+        begin
+          // Stream may not have been closed, so force calculation of hash
+          CompareHashes(putObjectResponse.ETag, hashStream.CalculatedHash);
+        end;
+
+        // Set InputStream to its original value
+        putObjectRequest.InputStream := hashStream.GetNonWrapperBaseStream;
+      end;
+    end;
   end;
 
   if response is TListObjectsResponse then

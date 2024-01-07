@@ -16,12 +16,12 @@ uses
   AWS.S3.Config,
   AWS.S3.ConfigExtension,
   AWS.S3.Enums,
-//  AWS.S3.Model.ListBucketsRequest,
+  AWS.S3.Model.ListBucketsRequest,
   AWS.S3.Model.PutBucketRequest,
-  AWS.S3.Model.DeleteBucketRequest;
-//  AWS.S3.Model.CopyObjectRequest,
-//  AWS.S3.Model.CopyPartRequest,
-//  AWS.S3.Model.WriteGetObjectResponseRequest;
+  AWS.S3.Model.DeleteBucketRequest,
+  AWS.S3.Model.CopyObjectRequest,
+  AWS.S3.Model.CopyPartRequest,
+  AWS.S3.Model.WriteGetObjectResponseRequest;
 
 type
   TAmazonS3PostMarshallHandler = class(TPipelineHandler)
@@ -82,13 +82,12 @@ end;
 
 class constructor TAmazonS3PostMarshallHandler.Create;
 begin
-  {$MESSAGE WARN 'Uncomment the lines for the specific request types}
   UnsupportedAccelerateRequestTypes := THashSet<TClass>.Create;
-//  UnsupportedAccelerateRequestTypes.Add(TListBucketsRequest);
+  UnsupportedAccelerateRequestTypes.Add(TListBucketsRequest);
   UnsupportedAccelerateRequestTypes.Add(TPutBucketRequest);
   UnsupportedAccelerateRequestTypes.Add(TDeleteBucketRequest);
-//  UnsupportedAccelerateRequestTypes.Add(TCopyObjectRequest);
-//  UnsupportedAccelerateRequestTypes.Add(TCopyPartRequest);
+  UnsupportedAccelerateRequestTypes.Add(TCopyObjectRequest);
+  UnsupportedAccelerateRequestTypes.Add(TCopyPartRequest);
 
   SseKeyHeaders := THashSet<string>.Create;
   SseKeyHeaders.Add(THeaderKeys.XAmzSSECustomerKeyHeader);
@@ -376,33 +375,32 @@ begin
       end;
     end;
 
-    {$MESSAGE WARN 'Uncomment the following if when TWriteGetObjectResponseRequest is implemented}
-//    if request.OriginalRequest.ClassType = TWriteGetObjectResponseRequest then
-//    begin
-//      if not string.IsNullOrEmpty(config.ServiceURL) then
-//      begin
-//        ub := TEndpointResolver.DetermineEndpoint(s3Config, request);
-//        isHttp := SameText(ub.Scheme, 'http');
-//      end
-//      else
-//      begin
-//        isHttp := s3Config.UseHttp;
-//        var scheme := 'https';
-//        if isHttp then
-//          scheme := 'http';
-//        var region := regionEndpoint.SystemName;
-//        if regionEndpoint.SystemName = 'us-east-1-regional' then
-//          region := 'us-east-1';
-//        var requestRoute := '';
-//        request.Headers.TryGetValue('x-amz-request-route', requestRoute);
-//        ub := TUri.Create(Format('%s://%s.%s.%s.%s',
-//         [scheme, requestRoute, FS3ObjectLambdaServiceName, region, config.RegionEndpoint.PartitionDnsSuffix]));
-//      end;
-//
-//      request.Endpoint := ub;
-//      request.OverrideSigningServiceName := FS3ObjectLambdaServiceName;
-//      request.UseSigV4 := True;
-//    end;
+    if request.OriginalRequest.ClassType = TWriteGetObjectResponseRequest then
+    begin
+      if not string.IsNullOrEmpty(config.ServiceURL) then
+      begin
+        ub := TEndpointResolver.DetermineEndpoint(s3Config, request);
+        isHttp := SameText(ub.Scheme, 'http');
+      end
+      else
+      begin
+        isHttp := s3Config.UseHttp;
+        var scheme := 'https';
+        if isHttp then
+          scheme := 'http';
+        var region := regionEndpoint.SystemName;
+        if regionEndpoint.SystemName = 'us-east-1-regional' then
+          region := 'us-east-1';
+        var requestRoute := '';
+        request.Headers.TryGetValue('x-amz-request-route', requestRoute);
+        ub := TUri.Create(Format('%s://%s.%s.%s.%s',
+         [scheme, requestRoute, FS3ObjectLambdaServiceName, region, config.RegionEndpoint.PartitionDnsSuffix]));
+      end;
+
+      request.Endpoint := ub;
+      request.OverrideSigningServiceName := FS3ObjectLambdaServiceName;
+      request.UseSigV4 := True;
+    end;
 
     if s3Config.UseAccelerateEndpoint then
     begin
