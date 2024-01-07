@@ -240,6 +240,20 @@ type
     /// <returns>A string representation of the hash with base64 encoding
     /// </returns>
     class function GenerateMD5ChecksumForStream(Input: TStream): string; static;
+
+    /// <summary>
+    /// Convert a hex string to bytes
+    /// </summary>
+    /// <param name="Hex">Hexadecimal string</param>
+    /// <returns>Byte array corresponding to the hex string.</returns>
+    class function HexStringToBytes(const Hex: string): TArray<Byte>; static;
+
+    /// <summary>
+    /// Convert bytes to a hex string
+    /// </summary>
+    /// <param name="Value">Bytes to convert.</param>
+    /// <returns>Hexadecimal string representing the byte array.</returns>
+    class function BytesToHexString(const Value: TArray<Byte>): string; static;
   end;
 
   THeaderKeys = class
@@ -458,6 +472,11 @@ begin
 
   {TODO: Logger Debug}
 
+end;
+
+class function TAWSSDKUtils.BytesToHexString(const Value: TArray<Byte>): string;
+begin
+  Result := ToHex(Value, False);
 end;
 
 class function TAWSSDKUtils.CanonicalizeResourcePath(AEndpoint: IUri; const AResourcePath: string): string;
@@ -773,6 +792,23 @@ begin
   if Data <> '' then
     Delete(Data, Length(Data), 1);
   Result := Data;
+end;
+
+class function TAWSSDKUtils.HexStringToBytes(const Hex: string): TArray<Byte>;
+begin
+  if string.IsNullOrEmpty(Hex) or ((Hex.Length mod 2) = 1) then
+    raise EArgumentOutOfRangeException.Create('hex');
+
+  var count := 0;
+  SetLength(Result, Hex.Length div 2);
+  var I := 0;
+  while i < Hex.Length do
+  begin
+    var sub := Hex.Substring(I, 2);
+    Result[Count] := Byte(StrToInt('$' + sub));
+    Inc(count);
+    Inc(I, 2);
+  end;
 end;
 
 class function TAWSSDKUtils.JoinResourcePathSegments(APathSegments: TArray<string>; APath: Boolean): string;

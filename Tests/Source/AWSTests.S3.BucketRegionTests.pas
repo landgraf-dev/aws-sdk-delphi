@@ -18,7 +18,7 @@ type
   TBucketRegionTests = class(TAWSTestBase)
   strict private
     runner: TBucketRegionTestRunner;
-    function GetHttpStatusCode(const Url: string): Integer;
+//    function GetHttpStatusCode(const Url: string): Integer;
   public
     procedure TearDown; override;
   published
@@ -60,9 +60,9 @@ begin
     Fail('bucket not ready');
 end;
 
-function TBucketRegionTests.GetHttpStatusCode(const Url: string): Integer;
-begin
-end;
+//function TBucketRegionTests.GetHttpStatusCode(const Url: string): Integer;
+//begin
+//end;
 
 procedure TBucketRegionTests.GetObjectMetedataSessionCredentials;
 begin
