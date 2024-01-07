@@ -21,6 +21,9 @@ uses
   AWS.S3.Model.CopyObjectRequest, 
   AWS.S3.Model.CopyObjectResponse, 
   AWS.S3.Model.CopyObjectResult, 
+  AWS.S3.Model.CopyPartRequest, 
+  AWS.S3.Model.CopyPartResponse, 
+  AWS.S3.Model.CopyPartResult, 
   AWS.S3.Model.CreateBucketConfiguration, 
   AWS.S3.Model.DeleteBucketRequest, 
   AWS.S3.Model.DeleteBucketResponse, 
@@ -72,7 +75,9 @@ uses
   AWS.S3.Model.PutPublicAccessBlockResponse, 
   AWS.S3.Model.Request, 
   AWS.S3.Model.UploadPartRequest, 
-  AWS.S3.Model.UploadPartResponse;
+  AWS.S3.Model.UploadPartResponse, 
+  AWS.S3.Model.WriteGetObjectResponseRequest, 
+  AWS.S3.Model.WriteGetObjectResponseResponse;
 
 type
   EAmazonS3Exception = AWS.S3.Exception.EAmazonS3Exception;
@@ -94,6 +99,9 @@ type
   ICopyObjectRequest = AWS.S3.Model.CopyObjectRequest.ICopyObjectRequest;
   ICopyObjectResponse = AWS.S3.Model.CopyObjectResponse.ICopyObjectResponse;
   ICopyObjectResult = AWS.S3.Model.CopyObjectResult.ICopyObjectResult;
+  ICopyPartRequest = AWS.S3.Model.CopyPartRequest.ICopyPartRequest;
+  ICopyPartResponse = AWS.S3.Model.CopyPartResponse.ICopyPartResponse;
+  ICopyPartResult = AWS.S3.Model.CopyPartResult.ICopyPartResult;
   ICreateBucketConfiguration = AWS.S3.Model.CreateBucketConfiguration.ICreateBucketConfiguration;
   IDeleteBucketRequest = AWS.S3.Model.DeleteBucketRequest.IDeleteBucketRequest;
   IDeleteBucketResponse = AWS.S3.Model.DeleteBucketResponse.IDeleteBucketResponse;
@@ -140,6 +148,8 @@ type
   IPutPublicAccessBlockResponse = AWS.S3.Model.PutPublicAccessBlockResponse.IPutPublicAccessBlockResponse;
   IUploadPartRequest = AWS.S3.Model.UploadPartRequest.IUploadPartRequest;
   IUploadPartResponse = AWS.S3.Model.UploadPartResponse.IUploadPartResponse;
+  IWriteGetObjectResponseRequest = AWS.S3.Model.WriteGetObjectResponseRequest.IWriteGetObjectResponseRequest;
+  IWriteGetObjectResponseResponse = AWS.S3.Model.WriteGetObjectResponseResponse.IWriteGetObjectResponseResponse;
   TAbortMultipartUploadRequest = AWS.S3.Model.AbortMultipartUploadRequest.TAbortMultipartUploadRequest;
   TAbortMultipartUploadResponse = AWS.S3.Model.AbortMultipartUploadResponse.TAbortMultipartUploadResponse;
   TAmazonS3Client = AWS.S3.Client.TAmazonS3Client;
@@ -162,6 +172,9 @@ type
   TCopyObjectRequest = AWS.S3.Model.CopyObjectRequest.TCopyObjectRequest;
   TCopyObjectResponse = AWS.S3.Model.CopyObjectResponse.TCopyObjectResponse;
   TCopyObjectResult = AWS.S3.Model.CopyObjectResult.TCopyObjectResult;
+  TCopyPartRequest = AWS.S3.Model.CopyPartRequest.TCopyPartRequest;
+  TCopyPartResponse = AWS.S3.Model.CopyPartResponse.TCopyPartResponse;
+  TCopyPartResult = AWS.S3.Model.CopyPartResult.TCopyPartResult;
   TCreateBucketConfiguration = AWS.S3.Model.CreateBucketConfiguration.TCreateBucketConfiguration;
   TDeleteBucketRequest = AWS.S3.Model.DeleteBucketRequest.TDeleteBucketRequest;
   TDeleteBucketResponse = AWS.S3.Model.DeleteBucketResponse.TDeleteBucketResponse;
@@ -257,6 +270,8 @@ type
   TType = AWS.S3.Enums.TType;
   TUploadPartRequest = AWS.S3.Model.UploadPartRequest.TUploadPartRequest;
   TUploadPartResponse = AWS.S3.Model.UploadPartResponse.TUploadPartResponse;
+  TWriteGetObjectResponseRequest = AWS.S3.Model.WriteGetObjectResponseRequest.TWriteGetObjectResponseRequest;
+  TWriteGetObjectResponseResponse = AWS.S3.Model.WriteGetObjectResponseResponse.TWriteGetObjectResponseResponse;
   
 implementation
 

@@ -11,6 +11,8 @@ uses
   AWS.S3.Model.CompleteMultipartUploadRequest, 
   AWS.S3.Model.CopyObjectResponse, 
   AWS.S3.Model.CopyObjectRequest, 
+  AWS.S3.Model.CopyPartResponse, 
+  AWS.S3.Model.CopyPartRequest, 
   AWS.S3.Model.DeleteBucketResponse, 
   AWS.S3.Model.DeleteBucketRequest, 
   AWS.S3.Model.DeleteObjectResponse, 
@@ -42,7 +44,9 @@ uses
   AWS.S3.Model.PutPublicAccessBlockResponse, 
   AWS.S3.Model.PutPublicAccessBlockRequest, 
   AWS.S3.Model.UploadPartResponse, 
-  AWS.S3.Model.UploadPartRequest;
+  AWS.S3.Model.UploadPartRequest, 
+  AWS.S3.Model.WriteGetObjectResponseResponse, 
+  AWS.S3.Model.WriteGetObjectResponseRequest;
 
 type
   IAmazonS3 = interface(IAmazonService)
@@ -53,6 +57,9 @@ type
     function CopyObject(const ASourceBucket: string; const ASourceKey: string; const ADestinationBucket: string; const ADestinationKey: string): ICopyObjectResponse; overload;
     function CopyObject(const ASourceBucket: string; const ASourceKey: string; const ASourceVersionId: string; const ADestinationBucket: string; const ADestinationKey: string): ICopyObjectResponse; overload;
     function CopyObject(Request: ICopyObjectRequest): ICopyObjectResponse; overload;
+    function CopyPart(const ASourceBucket: string; const ASourceKey: string; const ADestinationBucket: string; const ADestinationKey: string; const AUploadId: string): ICopyPartResponse; overload;
+    function CopyPart(const ASourceBucket: string; const ASourceKey: string; const ASourceVersionId: string; const ADestinationBucket: string; const ADestinationKey: string; const AUploadId: string): ICopyPartResponse; overload;
+    function CopyPart(Request: ICopyPartRequest): ICopyPartResponse; overload;
     function DeleteBucket(const ABucketName: string): IDeleteBucketResponse; overload;
     function DeleteBucket(Request: IDeleteBucketRequest): IDeleteBucketResponse; overload;
     function DeleteObject(const ABucketName: string; const AKey: string): IDeleteObjectResponse; overload;
@@ -85,6 +92,7 @@ type
     function PutObject(Request: IPutObjectRequest): IPutObjectResponse; overload;
     function PutPublicAccessBlock(Request: IPutPublicAccessBlockRequest): IPutPublicAccessBlockResponse; overload;
     function UploadPart(Request: IUploadPartRequest): IUploadPartResponse; overload;
+    function WriteGetObjectResponse(Request: IWriteGetObjectResponseRequest): IWriteGetObjectResponseResponse; overload;
     function GetPresignedUrl(Request: IGetPresignedUrlRequest): string;
   end;
   

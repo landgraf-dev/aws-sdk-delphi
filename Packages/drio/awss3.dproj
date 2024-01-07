@@ -185,6 +185,9 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyObjectRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyObjectResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyObjectResult.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyPartRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyPartResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyPartResult.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CreateBucketConfiguration.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteBucketRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteBucketResponse.pas"/>
@@ -237,6 +240,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Request.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.UploadPartRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.UploadPartResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.WriteGetObjectResponseRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.WriteGetObjectResponseResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.AbortMultipartUploadRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.AbortMultipartUploadResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketAlreadyExistsExceptionUnmarshaller.pas"/>
@@ -248,6 +253,9 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyObjectRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyObjectResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyObjectResultUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyPartRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyPartResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyPartResultUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteBucketRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteBucketResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteMarkerEntryUnmarshaller.pas"/>
@@ -293,6 +301,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutPublicAccessBlockResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.UploadPartRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.UploadPartResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.WriteGetObjectResponseRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.WriteGetObjectResponseResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ArnExtensions.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Client.Extensions.pas"/>
