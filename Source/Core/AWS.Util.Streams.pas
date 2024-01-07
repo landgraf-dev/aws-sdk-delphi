@@ -15,7 +15,6 @@ type
     FOwnsStream: Boolean;
   strict protected
     property BaseStream: TStream read FBaseStream;
-    property OwnsStream: Boolean read FOwnsStream write FOwnsStream;
   protected
     { TStream overrides }
     function GetSize: Int64; override;
@@ -33,6 +32,7 @@ type
     function HasLength: Boolean; virtual;
     function SearchWrappedStream(ACondition: TFunc<TStream, Boolean>): TStream; overload;
     function GetNonWrapperBaseStream: TStream; overload;
+    property OwnsStream: Boolean read FOwnsStream write FOwnsStream;
     class function SearchWrappedStream(AStream: TStream; ACondition: TFunc<TStream, Boolean>): TStream; overload; static;
     class function GetNonWrapperBaseStream(AStream: TStream): TStream; overload; static;
   end;
