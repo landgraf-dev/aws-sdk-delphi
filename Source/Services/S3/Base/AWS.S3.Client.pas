@@ -37,6 +37,10 @@ uses
   AWS.S3.Model.CompleteMultipartUploadRequest, 
   AWS.S3.Transform.CompleteMultipartUploadRequestMarshaller, 
   AWS.S3.Transform.CompleteMultipartUploadResponseUnmarshaller, 
+  AWS.S3.Model.CopyObjectResponse, 
+  AWS.S3.Model.CopyObjectRequest, 
+  AWS.S3.Transform.CopyObjectRequestMarshaller, 
+  AWS.S3.Transform.CopyObjectResponseUnmarshaller, 
   AWS.S3.Model.DeleteBucketResponse, 
   AWS.S3.Model.DeleteBucketRequest, 
   AWS.S3.Transform.DeleteBucketRequestMarshaller, 
@@ -128,6 +132,9 @@ type
     function AbortMultipartUpload(const ABucketName: string; const AKey: string; const AUploadId: string): IAbortMultipartUploadResponse; overload;
     function AbortMultipartUpload(Request: IAbortMultipartUploadRequest): IAbortMultipartUploadResponse; overload;
     function CompleteMultipartUpload(Request: ICompleteMultipartUploadRequest): ICompleteMultipartUploadResponse; overload;
+    function CopyObject(const ASourceBucket: string; const ASourceKey: string; const ADestinationBucket: string; const ADestinationKey: string): ICopyObjectResponse; overload;
+    function CopyObject(const ASourceBucket: string; const ASourceKey: string; const ASourceVersionId: string; const ADestinationBucket: string; const ADestinationKey: string): ICopyObjectResponse; overload;
+    function CopyObject(Request: ICopyObjectRequest): ICopyObjectResponse; overload;
     function DeleteBucket(const ABucketName: string): IDeleteBucketResponse; overload;
     function DeleteBucket(Request: IDeleteBucketRequest): IDeleteBucketResponse; overload;
     function DeleteObject(const ABucketName: string; const AKey: string): IDeleteObjectResponse; overload;
@@ -250,6 +257,12 @@ begin
   Pipeline.AddHandlerBefore<TUnmarshaller>(TAmazonS3ResponseHandler.Create());
   Pipeline.AddHandlerAfter<TErrorCallbackHandler>(TAmazonS3ExceptionHandler.Create());
   Pipeline.AddHandlerAfter<TUnmarshaller>(TAmazonS3RedirectHandler.Create());
+  if this.Config.RetryMode == RequestRetryMode.Legacy then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3RetryPolicy(this.Config)));
+  if this.Config.RetryMode == RequestRetryMode.Standard then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3StandardRetryPolicy(this.Config)));
+  if this.Config.RetryMode == RequestRetryMode.Adaptive then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(new Amazon.S3.Internal.AmazonS3AdaptiveRetryPolicy(this.Config)));
 end;
 
 function TAmazonS3Client.AbortMultipartUpload(const ABucketName: string; const AKey: string; const AUploadId: string): IAbortMultipartUploadResponse;
@@ -286,6 +299,45 @@ begin
     Options.RequestMarshaller := TCompleteMultipartUploadRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TCompleteMultipartUploadResponseUnmarshaller.Instance;
     Result := Invoke<TCompleteMultipartUploadResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.CopyObject(const ASourceBucket: string; const ASourceKey: string; const ADestinationBucket: string; const ADestinationKey: string): ICopyObjectResponse;
+var
+  Request: ICopyObjectRequest;
+begin
+  Request := TCopyObjectRequest.Create;
+  Request.SourceBucket := ASourceBucket;
+  Request.SourceKey := ASourceKey;
+  Request.DestinationBucket := ADestinationBucket;
+  Request.DestinationKey := ADestinationKey;
+  Result := CopyObject(Request);
+end;
+
+function TAmazonS3Client.CopyObject(const ASourceBucket: string; const ASourceKey: string; const ASourceVersionId: string; const ADestinationBucket: string; const ADestinationKey: string): ICopyObjectResponse;
+var
+  Request: ICopyObjectRequest;
+begin
+  Request := TCopyObjectRequest.Create;
+  Request.SourceBucket := ASourceBucket;
+  Request.SourceKey := ASourceKey;
+  Request.SourceVersionId := ASourceVersionId;
+  Request.DestinationBucket := ADestinationBucket;
+  Request.DestinationKey := ADestinationKey;
+  Result := CopyObject(Request);
+end;
+
+function TAmazonS3Client.CopyObject(Request: ICopyObjectRequest): ICopyObjectResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TCopyObjectRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TCopyObjectResponseUnmarshaller.Instance;
+    Result := Invoke<TCopyObjectResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;

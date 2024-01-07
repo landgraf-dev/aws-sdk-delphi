@@ -9,6 +9,8 @@ uses
   AWS.S3.Model.AbortMultipartUploadRequest, 
   AWS.S3.Model.CompleteMultipartUploadResponse, 
   AWS.S3.Model.CompleteMultipartUploadRequest, 
+  AWS.S3.Model.CopyObjectResponse, 
+  AWS.S3.Model.CopyObjectRequest, 
   AWS.S3.Model.DeleteBucketResponse, 
   AWS.S3.Model.DeleteBucketRequest, 
   AWS.S3.Model.DeleteObjectResponse, 
@@ -48,6 +50,9 @@ type
     function AbortMultipartUpload(const ABucketName: string; const AKey: string; const AUploadId: string): IAbortMultipartUploadResponse; overload;
     function AbortMultipartUpload(Request: IAbortMultipartUploadRequest): IAbortMultipartUploadResponse; overload;
     function CompleteMultipartUpload(Request: ICompleteMultipartUploadRequest): ICompleteMultipartUploadResponse; overload;
+    function CopyObject(const ASourceBucket: string; const ASourceKey: string; const ADestinationBucket: string; const ADestinationKey: string): ICopyObjectResponse; overload;
+    function CopyObject(const ASourceBucket: string; const ASourceKey: string; const ASourceVersionId: string; const ADestinationBucket: string; const ADestinationKey: string): ICopyObjectResponse; overload;
+    function CopyObject(Request: ICopyObjectRequest): ICopyObjectResponse; overload;
     function DeleteBucket(const ABucketName: string): IDeleteBucketResponse; overload;
     function DeleteBucket(Request: IDeleteBucketRequest): IDeleteBucketResponse; overload;
     function DeleteObject(const ABucketName: string; const AKey: string): IDeleteObjectResponse; overload;
