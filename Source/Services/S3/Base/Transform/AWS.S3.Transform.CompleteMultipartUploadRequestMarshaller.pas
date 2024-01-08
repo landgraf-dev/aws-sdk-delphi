@@ -10,7 +10,8 @@ uses
   AWS.S3.Model.CompletedPart,
   AWS.S3.Model.CompleteMultipartUploadRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.Internal.StringUtils, 
+  AWS.Internal.StringUtils,
+  AWS.S3.Internal.S3Transforms,
   AWS.S3.Exception, 
   System.Classes, 
   AWS.Xml.Writer, 
@@ -43,20 +44,28 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'POST';
-  if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
+
   if PublicRequest.IsSetRequestPayer then
     Request.Headers.Add('x-amz-request-payer', PublicRequest.RequestPayer.Value);
+
+  if PublicRequest.IsSetExpectedBucketOwner then
+    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
+
   if not PublicRequest.IsSetBucketName then
     raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
+
   if not PublicRequest.IsSetKey then
     raise EAmazonS3Exception.Create('Request object does not have required field Key set');
-  Request.AddPathResource('{Key+}', TStringUtils.Fromstring(PublicRequest.Key.TrimLeft(['/'])));
+
+  Request.ResourcePath := Format('/%s/%s',
+    [TS3Transforms.ToStringValue(PublicRequest.BucketName),
+    TS3Transforms.ToStringValue(PublicRequest.Key)]);
+
   if PublicRequest.IsSetUploadId then
-    Request.Parameters.Add('uploadId', TStringUtils.Fromstring(PublicRequest.UploadId));
-  Request.ResourcePath := '/{Bucket}/{Key+}';
+    Request.AddSubResource('uploadId', TS3Transforms.ToStringValue(PublicRequest.UploadId));
+
   var XmlStream := TBytesStream.Create;
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
@@ -88,10 +97,13 @@ begin
     finally
       XmlWriter.Free;
     end;
+
     Request.Content := Copy(XmlStream.Bytes, 0, XmlStream.Size);
     Request.Headers.AddOrSetValue('Content-Type', 'application/xml');
+
     var content := TEncoding.UTF8.GetString(Request.Content);
-    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
+    var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
+    Request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
   finally
     XmlStream.Free;
   end;
