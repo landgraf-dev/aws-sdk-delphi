@@ -8,9 +8,12 @@ uses
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.S3.Model.DeleteObjectRequest, 
-  AWS.Internal.DefaultRequest, 
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Internal.S3Transforms,
+  AWS.Internal.DefaultRequest,
   AWS.Internal.StringUtils, 
-  AWS.S3.Exception;
+  AWS.S3.Exception,
+  AWS.SDKUtils;
 
 type
   IDeleteObjectRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -39,24 +42,31 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'DELETE';
+
   if PublicRequest.IsSetBypassGovernanceRetention then
-    Request.Headers.Add('x-amz-bypass-governance-retention', TStringUtils.FromBoolean(PublicRequest.BypassGovernanceRetention));
+    Request.Headers.Add('x-amz-bypass-governance-retention', TS3Transforms.ToStringValue(PublicRequest.BypassGovernanceRetention));
+  if PublicRequest.IsSetMfa then
+    Request.Headers.Add(THeaderKeys.XAmzMfaHeader, PublicRequest.Mfa);
+
   if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
-  if PublicRequest.IsSetMFA then
-    Request.Headers.Add('x-amz-mfa', PublicRequest.MFA);
-  if PublicRequest.IsSetRequestPayer then
-    Request.Headers.Add('x-amz-request-payer', PublicRequest.RequestPayer.Value);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  if not PublicRequest.IsSetKey then
-    raise EAmazonS3Exception.Create('Request object does not have required field Key set');
-  Request.AddPathResource('{Key+}', TStringUtils.Fromstring(PublicRequest.Key.TrimLeft(['/'])));
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+  if string.IsNullOrEmpty(PublicRequest.Key) then
+    raise EArgumentException.Create('Key is a required property and must be set before making this call');
+
+  Request.ResourcePath := Format('/%s/%s',
+    [TS3Transforms.ToStringValue(PublicRequest.BucketName),
+    TS3Transforms.ToStringValue(PublicRequest.Key)]);
+
   if PublicRequest.IsSetVersionId then
-    Request.Parameters.Add('versionId', TStringUtils.Fromstring(PublicRequest.VersionId));
-  Request.ResourcePath := '/{Bucket}/{Key+}';
+    Request.AddSubResource('versionId', TS3Transforms.ToStringValue(PublicRequest.VersionId));
+  if PublicRequest.IsSetRequestPayer then
+    Request.Headers.Add(TS3Constants.AmzHeaderRequestPayer, TS3Transforms.ToStringValue(PublicRequest.RequestPayer.Value));
+
   Request.UseQueryString := True;
   Result := Request;
 end;
