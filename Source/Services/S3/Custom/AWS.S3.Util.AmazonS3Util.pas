@@ -8,7 +8,8 @@ uses
   AWS.Lib.Utils,
   AWS.SDKUtils,
   AWS.S3.Model.MetadataCollection,
-  AWS.S3.Internal.AWSConfigsS3;
+  AWS.S3.Internal.AWSConfigsS3,
+  AWS.Util.Crypto;
 
 type
   TAmazonS3Util = class
@@ -26,11 +27,20 @@ type
     class function MimeTypeFromExtension(const Ext: string): string; static;
     class function GenerateMD5ChecksumForStream(Stream: TStream): string; static;
     class function UrlEncode(const Data: string; Path: Boolean): string; static;
+    class function ComputeEncodedMD5FromEncodedString(const Base64EncodedString: string): string; static;
   end;
 
 implementation
 
 { TAmazonS3Util }
+
+class function TAmazonS3Util.ComputeEncodedMD5FromEncodedString(const Base64EncodedString: string): string;
+begin
+  var unencodedValue := TAWSSDKUtils.DecodeBase64(Base64EncodedString);
+  var valueMD5 := TCryptoUtilFactory.CryptoInstance.ComputeMD5Hash(unencodedValue);
+  var encodedMD5 := TAWSSDKUtils.EncodeBase64(valueMD5);
+  Result := encodedMD5;
+end;
 
 class constructor TAmazonS3Util.Create;
 begin
