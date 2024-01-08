@@ -140,7 +140,8 @@ end;
 
 procedure TMD5HashingWrapper.AppendBlock(var Buffer; Count: Longint);
 begin
-  FHash.Update(Buffer, Count);
+  if Count > 0 then
+    FHash.Update(Buffer, Count);
 end;
 
 function TMD5HashingWrapper.CalculatedHash: TArray<Byte>;
