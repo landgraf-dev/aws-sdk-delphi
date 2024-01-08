@@ -10,7 +10,10 @@ uses
   AWS.Internal.DefaultRequest, 
   AWS.Internal.StringUtils, 
   AWS.S3.Exception, 
-  System.Classes, 
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Util.AmazonS3Util,
+  AWS.S3.Internal.S3Transforms,
+  System.Classes,
   AWS.Xml.Writer, 
   System.SysUtils, 
   AWS.SDKUtils;
@@ -42,25 +45,35 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'PUT';
+
   if PublicRequest.IsSetACL then
-    Request.Headers.Add('x-amz-acl', PublicRequest.ACL.Value);
-  if PublicRequest.IsSetGrantFullControl then
-    Request.Headers.Add('x-amz-grant-full-control', PublicRequest.GrantFullControl);
-  if PublicRequest.IsSetGrantRead then
-    Request.Headers.Add('x-amz-grant-read', PublicRequest.GrantRead);
-  if PublicRequest.IsSetGrantReadACP then
-    Request.Headers.Add('x-amz-grant-read-acp', PublicRequest.GrantReadACP);
-  if PublicRequest.IsSetGrantWrite then
-    Request.Headers.Add('x-amz-grant-write', PublicRequest.GrantWrite);
-  if PublicRequest.IsSetGrantWriteACP then
-    Request.Headers.Add('x-amz-grant-write-acp', PublicRequest.GrantWriteACP);
+    Request.Headers.Add(THeaderKeys.XAmzAclHeader, PublicRequest.ACL.Value)
+  else
+//  if (PublicRequest.Grants <> nil) and (PublicRequest.Grants.Count > 0) then
+//    ConvertPutWithACLRequest(PublicRequest, Request);
+  begin
+    if PublicRequest.IsSetGrantFullControl then
+      Request.Headers.Add('x-amz-grant-full-control', PublicRequest.GrantFullControl);
+    if PublicRequest.IsSetGrantRead then
+      Request.Headers.Add('x-amz-grant-read', PublicRequest.GrantRead);
+    if PublicRequest.IsSetGrantReadACP then
+      Request.Headers.Add('x-amz-grant-read-acp', PublicRequest.GrantReadACP);
+    if PublicRequest.IsSetGrantWrite then
+      Request.Headers.Add('x-amz-grant-write', PublicRequest.GrantWrite);
+    if PublicRequest.IsSetGrantWriteACP then
+      Request.Headers.Add('x-amz-grant-write-acp', PublicRequest.GrantWriteACP);
+  end;
+
   if PublicRequest.IsSetObjectLockEnabledForBucket then
-    Request.Headers.Add('x-amz-bucket-object-lock-enabled', TStringUtils.FromBoolean(PublicRequest.ObjectLockEnabledForBucket));
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  Request.ResourcePath := '/{Bucket}';
+    Request.Headers.Add('x-amz-bucket-object-lock-enabled', TS3Transforms.ToStringValue(PublicRequest.ObjectLockEnabledForBucket));
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+
+  Request.ResourcePath := '/' + TS3Transforms.ToStringValue(PublicRequest.BucketName);
+
   var XmlStream := TBytesStream.Create;
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
@@ -84,14 +97,13 @@ begin
     finally
       XmlWriter.Free;
     end;
+
     Request.Content := Copy(XmlStream.Bytes, 0, XmlStream.Size);
     Request.Headers.AddOrSetValue('Content-Type', 'application/xml');
     var content := TEncoding.UTF8.GetString(Request.Content);
 
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, True);
-    request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
-
-    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
+    Request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
   finally
     XmlStream.Free;
   end;
