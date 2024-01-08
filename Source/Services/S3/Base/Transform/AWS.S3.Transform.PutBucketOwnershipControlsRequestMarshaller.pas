@@ -9,6 +9,7 @@ uses
   AWS.S3.Model.PutBucketOwnershipControlsRequest,
   AWS.Internal.DefaultRequest,
   AWS.S3.Exception,
+  AWS.S3.Internal.S3Transforms,
   AWS.Internal.StringUtils,
   System.Classes,
   AWS.Xml.Writer,
@@ -43,16 +44,19 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'PUT';
-  Request.AddSubResource('ownershipControls');
-  if PublicRequest.IsSetContentMD5 then
-    Request.Headers.Add('Content-MD5', PublicRequest.ContentMD5);
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+
   if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  Request.ResourcePath := '/{Bucket}';
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+
+  Request.ResourcePath := '/' + TS3Transforms.ToStringValue(PublicRequest.BucketName);
+
+  request.AddSubResource('ownershipControls');
+
   var XmlStream := TBytesStream.Create;
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
@@ -74,14 +78,15 @@ begin
     finally
       XmlWriter.Free;
     end;
+
     Request.Content := Copy(XmlStream.Bytes, 0, XmlStream.Size);
     Request.Headers.AddOrSetValue('Content-Type', 'application/xml');
     var content := TEncoding.UTF8.GetString(Request.Content);
+
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
     if PublicRequest.IsSetContentMD5 then
       checksum := PublicRequest.ContentMD5;
     Request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
-    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
   finally
     XmlStream.Free;
   end;
