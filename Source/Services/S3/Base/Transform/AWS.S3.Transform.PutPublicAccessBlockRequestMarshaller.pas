@@ -10,7 +10,10 @@ uses
   AWS.Internal.DefaultRequest, 
   AWS.S3.Exception, 
   AWS.Internal.StringUtils, 
-  System.Classes, 
+  AWS.S3.Internal.AWSConfigsS3,
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Internal.S3Transforms,
+  System.Classes,
   AWS.Xml.Writer, 
   System.SysUtils, 
   AWS.SDKUtils;
@@ -43,31 +46,37 @@ var
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
   Request.HttpMethod := 'PUT';
-  Request.AddSubResource('publicAccessBlock');
-  if PublicRequest.IsSetContentMD5 then
-    Request.Headers.Add('Content-MD5', PublicRequest.ContentMD5);
+
   if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  Request.ResourcePath := '/{Bucket}';
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+
+  Request.ResourcePath := '/' +TS3Transforms.ToStringValue(PublicRequest.BucketName);
+
+  Request.AddSubResource('publicAccessBlock');
+
   var XmlStream := TBytesStream.Create;
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
     try
       if PublicRequest.PublicAccessBlockConfiguration <> nil then
       begin
-        XmlWriter.WriteStartElement('PublicAccessBlockConfiguration', '');
-        if PublicRequest.PublicAccessBlockConfiguration.IsSetBlockPublicAcls then
-          XmlWriter.WriteElementString('BlockPublicAcls', '', TStringUtils.FromBoolean(PublicRequest.PublicAccessBlockConfiguration.BlockPublicAcls));
-        if PublicRequest.PublicAccessBlockConfiguration.IsSetBlockPublicPolicy then
-          XmlWriter.WriteElementString('BlockPublicPolicy', '', TStringUtils.FromBoolean(PublicRequest.PublicAccessBlockConfiguration.BlockPublicPolicy));
-        if PublicRequest.PublicAccessBlockConfiguration.IsSetIgnorePublicAcls then
-          XmlWriter.WriteElementString('IgnorePublicAcls', '', TStringUtils.FromBoolean(PublicRequest.PublicAccessBlockConfiguration.IgnorePublicAcls));
+        XmlWriter.WriteStartElement('PublicAccessBlockConfiguration', 'http://s3.amazonaws.com/doc/2006-03-01/');
+
         if PublicRequest.PublicAccessBlockConfiguration.IsSetRestrictPublicBuckets then
           XmlWriter.WriteElementString('RestrictPublicBuckets', '', TStringUtils.FromBoolean(PublicRequest.PublicAccessBlockConfiguration.RestrictPublicBuckets));
-        XmlWriter.WriteEndElement;
+        if PublicRequest.PublicAccessBlockConfiguration.IsSetBlockPublicAcls then
+          XmlWriter.WriteElementString('BlockPublicAcls', 'http://s3.amazonaws.com/doc/2006-03-01/', TS3Transforms.ToXmlStringValue(PublicRequest.PublicAccessBlockConfiguration.BlockPublicAcls));
+        if PublicRequest.PublicAccessBlockConfiguration.IsSetIgnorePublicAcls then
+          XmlWriter.WriteElementString('IgnorePublicAcls', 'http://s3.amazonaws.com/doc/2006-03-01/', TS3Transforms.ToXmlStringValue(PublicRequest.PublicAccessBlockConfiguration.IgnorePublicAcls));
+        if PublicRequest.PublicAccessBlockConfiguration.IsSetBlockPublicPolicy then
+          XmlWriter.WriteElementString('BlockPublicPolicy', 'http://s3.amazonaws.com/doc/2006-03-01/', TS3Transforms.ToXmlStringValue(PublicRequest.PublicAccessBlockConfiguration.BlockPublicPolicy));
+        if PublicRequest.PublicAccessBlockConfiguration.IsSetRestrictPublicBuckets then
+          XmlWriter.WriteElementString('RestrictPublicBuckets', 'http://s3.amazonaws.com/doc/2006-03-01/', TS3Transforms.ToXmlStringValue(PublicRequest.PublicAccessBlockConfiguration.RestrictPublicBuckets));
+
+       XmlWriter.WriteEndElement;
       end;
     finally
       XmlWriter.Free;
@@ -75,14 +84,14 @@ begin
     Request.Content := Copy(XmlStream.Bytes, 0, XmlStream.Size);
     Request.Headers.AddOrSetValue('Content-Type', 'application/xml');
     var content := TEncoding.UTF8.GetString(Request.Content);
-    var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
+    var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, True);
     if PublicRequest.IsSetContentMD5 then
       checksum := PublicRequest.ContentMD5;
     Request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
-    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
   finally
     XmlStream.Free;
   end;
+
   Result := Request;
 end;
 

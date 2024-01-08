@@ -10,11 +10,13 @@ type
   TS3Transforms = class
   public
     class function ToDateTime(const Value: string): TDateTime; static;
-    class function ToXmlStringValue(const Value: string): string; static;
     class function ToStringValue(const Value: string): string; overload; static;
     class function ToStringValue(const Value: Integer): string; overload; static;
     class function ToStringValue(const Value: Boolean): string; overload; static;
     class function ToStringValue(const Value: TDateTime; const DateFormat: string = TAWSSDKUtils.RFC822DateFormat): string; overload; static;
+
+    class function ToXmlStringValue(const Value: string): string; overload; static;
+    class function ToXmlStringValue(const Value: Boolean): string; overload; static;
   end;
 
 implementation
@@ -39,6 +41,11 @@ end;
 class function TS3Transforms.ToStringValue(const Value: TDateTime; const DateFormat: string = TAWSSDKUtils.RFC822DateFormat): string;
 begin
   Result := FormatDateTime(DateFormat, TTimeZone.Local.ToUniversalTime(Value));
+end;
+
+class function TS3Transforms.ToXmlStringValue(const Value: Boolean): string;
+begin
+  Result := ToStringValue(Value);
 end;
 
 class function TS3Transforms.ToStringValue(const Value: Boolean): string;
