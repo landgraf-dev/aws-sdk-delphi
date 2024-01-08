@@ -3,18 +3,21 @@ unit AWS.S3.Transform.GetObjectRequestMarshaller;
 interface
 
 uses
-  System.SysUtils, 
-  AWS.Internal.Request, 
-  AWS.Transform.RequestMarshaller, 
-  AWS.Runtime.Model, 
-  AWS.S3.Model.GetObjectRequest, 
-  AWS.Internal.DefaultRequest, 
-  AWS.Internal.StringUtils, 
-  AWS.S3.Exception;
+  System.SysUtils,
+  AWS.Internal.Request,
+  AWS.Transform.RequestMarshaller,
+  AWS.Runtime.Model,
+  AWS.S3.Model.GetObjectRequest,
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Internal.S3Transforms,
+  AWS.Internal.DefaultRequest,
+  AWS.Internal.StringUtils,
+  AWS.S3.Exception,
+  AWS.SDKUtils;
 
 type
   IGetObjectRequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
-  
+
   TGetObjectRequestMarshaller = class(TInterfacedObject, IMarshaller<IRequest, TGetObjectRequest>, IGetObjectRequestMarshaller)
   strict private
     class var FInstance: IGetObjectRequestMarshaller;
@@ -38,38 +41,53 @@ function TGetObjectRequestMarshaller.Marshall(PublicRequest: TGetObjectRequest):
 var
   Request: IRequest;
 begin
+  if string.IsNullOrEmpty(PublicRequest.Key) then
+    raise EArgumentException.Create('Key is a required property and must be set before making this call');
+
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'GET';
-  if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
+
   if PublicRequest.IsSetIfMatch then
-    Request.Headers.Add('If-Match', PublicRequest.IfMatch);
+    Request.Headers.Add(THeaderKeys.IfMatchHeader, TS3Transforms.ToStringValue(PublicRequest.IfMatch));
+
   if PublicRequest.IsSetIfModifiedSince then
-    Request.Headers.Add('If-Modified-Since', TStringUtils.FromDateTimeToRFC822(PublicRequest.IfModifiedSince));
-  if PublicRequest.IsSetIfNoneMatch then
-    Request.Headers.Add('If-None-Match', PublicRequest.IfNoneMatch);
+    Request.Headers.Add(THeaderKeys.IfModifiedSinceHeader, TS3Transforms.ToStringValue(PublicRequest.IfModifiedSince));
+
+  if PublicRequest.IsSetEtagToNotMatch then
+    Request.Headers.Add(THeaderKeys.IfNoneMatchHeader, TS3Transforms.ToStringValue(PublicRequest.EtagToNotMatch));
+
   if PublicRequest.IsSetIfUnmodifiedSince then
-    Request.Headers.Add('If-Unmodified-Since', TStringUtils.FromDateTimeToRFC822(PublicRequest.IfUnmodifiedSince));
-  if PublicRequest.IsSetRange then
-    Request.Headers.Add('Range', PublicRequest.Range);
+    Request.Headers.Add(THeaderKeys.IfUnmodifiedSinceHeader, TS3Transforms.ToStringValue(PublicRequest.IfUnmodifiedSince));
+
   if PublicRequest.ByteRange <> nil then
-    Request.Headers.Add('Range', PublicRequest.ByteRange.FormattedByteRange);
+    Request.Headers.Add(THeaderKeys.RangeHeader, PublicRequest.ByteRange.FormattedByteRange);
+
+//  if PublicRequest.IsSetSSECustomerAlgorithm then
+//    Request.Headers.Add(THeaderKeys.XAmzSSECustomerAlgorithmHeader, PublicRequest.SSECustomerAlgorithm);
+//  if PublicRequest.IsSetSSECustomerKey then
+//  begin
+//    Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyHeader, PublicRequest.SSECustomerKey);
+//    if PublicRequest.IsSetSSECustomerKeyMD5 then
+//      Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyMD5Header, PublicRequest.SSECustomerKeyMD5)
+//    else
+//      Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyMD5Header, TAmazonS3Util.ComputeEncodedMD5FromEncodedString(PublicRequest.SSECustomerKey));
+//  end;
   if PublicRequest.IsSetRequestPayer then
-    Request.Headers.Add('x-amz-request-payer', PublicRequest.RequestPayer.Value);
-  if PublicRequest.IsSetSSECustomerAlgorithm then
-    Request.Headers.Add('x-amz-server-side-encryption-customer-algorithm', PublicRequest.SSECustomerAlgorithm);
-  if PublicRequest.IsSetSSECustomerKey then
-    Request.Headers.Add('x-amz-server-side-encryption-customer-key', PublicRequest.SSECustomerKey);
-  if PublicRequest.IsSetSSECustomerKeyMD5 then
-    Request.Headers.Add('x-amz-server-side-encryption-customer-key-MD5', PublicRequest.SSECustomerKeyMD5);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  if not PublicRequest.IsSetKey then
-    raise EAmazonS3Exception.Create('Request object does not have required field Key set');
-  Request.AddPathResource('{Key+}', TStringUtils.Fromstring(PublicRequest.Key.TrimLeft(['/'])));
-  if PublicRequest.IsSetPartNumber then
-    Request.AddSubResource('partNumber', TStringUtils.FromInteger(PublicRequest.PartNumber));
+    Request.Headers.Add(TS3Constants.AmzHeaderRequestPayer, TS3Transforms.ToStringValue(PublicRequest.RequestPayer.Value));
+
+  if PublicRequest.IsSetExpectedBucketOwner then
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+  if string.IsNullOrEmpty(PublicRequest.Key) then
+    raise EArgumentException.Create('Key is a required property and must be set before making this call');
+
+  Request.ResourcePath := Format('/%s/%s', [
+    TS3Transforms.ToStringValue(PublicRequest.BucketName),
+    TS3Transforms.ToStringValue(PublicRequest.Key)]);
+
   if PublicRequest.IsSetResponseCacheControl then
     Request.Parameters.Add('response-cache-control', TStringUtils.Fromstring(PublicRequest.ResponseCacheControl));
   if PublicRequest.IsSetResponseContentDisposition then
@@ -84,9 +102,16 @@ begin
     Request.Parameters.Add('response-expires', TStringUtils.FromDateTimeToRFC822(PublicRequest.ResponseExpires));
   if PublicRequest.IsSetVersionId then
     Request.AddSubResource('versionId', TStringUtils.Fromstring(PublicRequest.VersionId));
-  Request.ResourcePath := '/{Bucket}/{Key+}';
+  if PublicRequest.IsSetPartNumber then
+    Request.AddSubResource('partNumber', TStringUtils.FromInteger(PublicRequest.PartNumber));
+
   Request.UseQueryString := True;
+
   Result := Request;
+
+  // Extras
+  if PublicRequest.IsSetRange then
+    Request.Headers.Add('Range', PublicRequest.Range);
 end;
 
 class constructor TGetObjectRequestMarshaller.Create;
