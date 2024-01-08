@@ -3,14 +3,16 @@ unit AWS.S3.Transform.DeleteObjectsRequestMarshaller;
 interface
 
 uses
-  AWS.Internal.Request, 
-  AWS.Transform.RequestMarshaller, 
-  AWS.Runtime.Model, 
-  AWS.S3.Model.DeleteObjectsRequest, 
-  AWS.Internal.DefaultRequest, 
-  AWS.Internal.StringUtils, 
-  AWS.S3.Exception, 
-  System.Classes, 
+  AWS.Internal.Request,
+  AWS.Transform.RequestMarshaller,
+  AWS.Runtime.Model,
+  AWS.S3.Model.DeleteObjectsRequest,
+  AWS.Internal.DefaultRequest,
+  AWS.Internal.StringUtils,
+  AWS.S3.Exception,
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Internal.S3Transforms,
+  System.Classes,
   AWS.Xml.Writer, 
   System.SysUtils, 
   AWS.SDKUtils;
@@ -42,20 +44,23 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'POST';
-  Request.AddSubResource('delete');
+
   if PublicRequest.IsSetBypassGovernanceRetention then
-    Request.Headers.Add('x-amz-bypass-governance-retention', TStringUtils.FromBoolean(PublicRequest.BypassGovernanceRetention));
-  if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
-  if PublicRequest.IsSetMFA then
-    Request.Headers.Add('x-amz-mfa', PublicRequest.MFA);
+    Request.Headers.Add('x-amz-bypass-governance-retention', TS3Transforms.ToStringValue(PublicRequest.BypassGovernanceRetention));
+  if PublicRequest.IsSetMfa then
+    Request.Headers.Add(THeaderKeys.XAmzMfaHeader, PublicRequest.Mfa);
   if PublicRequest.IsSetRequestPayer then
-    Request.Headers.Add('x-amz-request-payer', PublicRequest.RequestPayer.Value);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  Request.ResourcePath := '/{Bucket}';
+    Request.Headers.Add(TS3Constants.AmzHeaderRequestPayer, TS3Transforms.ToStringValue(PublicRequest.RequestPayer.Value));
+  if PublicRequest.IsSetExpectedBucketOwner then
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+
+  Request.ResourcePath := '/' + TS3Transforms.ToStringValue(PublicRequest.BucketName);
+  Request.AddSubResource('delete');
+
   var XmlStream := TBytesStream.Create;
   try
     var XmlWriter := TXmlWriter.Create(XmlStream, False, TEncoding.UTF8);
@@ -77,16 +82,18 @@ begin
           XmlWriter.WriteEndElement;
         end;
       end;
+//      if PubliRequest.IsSetQuiet then
+//        XmlWriter.WriteElementString('Quiet', '', TS3Transforms.ToXmlStringValue(PublicRequest.Quiet));
       XmlWriter.WriteEndElement;
     finally
       XmlWriter.Free;
     end;
+
     Request.Content := Copy(XmlStream.Bytes, 0, XmlStream.Size);
     Request.Headers.AddOrSetValue('Content-Type', 'application/xml');
     var content := TEncoding.UTF8.GetString(Request.Content);
     var checksum := TAWSSDKUtils.GenerateChecksumForContent(content, true);
     Request.Headers.AddOrSetValue(THeaderKeys.ContentMD5Header, checksum);
-    Request.Headers.AddOrSetValue(THeaderKeys.XAmzApiVersion, '2006-03-01');
   finally
     XmlStream.Free;
   end;
