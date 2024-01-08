@@ -7,6 +7,9 @@ uses
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.S3.Model.ListBucketsRequest, 
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Util.AmazonS3Util,
+  AWS.S3.Internal.S3Transforms,
   AWS.Internal.DefaultRequest;
 
 type
@@ -38,6 +41,7 @@ begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
   Request.HttpMethod := 'GET';
   Request.ResourcePath := '/';
+  Request.UseQueryString := True;
   Result := Request;
 end;
 
