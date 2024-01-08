@@ -3,11 +3,14 @@ unit AWS.S3.Transform.GetACLRequestMarshaller;
 interface
 
 uses
-  AWS.Internal.Request, 
-  AWS.Transform.RequestMarshaller, 
-  AWS.Runtime.Model, 
-  AWS.S3.Model.GetACLRequest, 
-  AWS.Internal.DefaultRequest, 
+  System.SysUtils,
+  AWS.Internal.Request,
+  AWS.Transform.RequestMarshaller,
+  AWS.Runtime.Model,
+  AWS.S3.Model.GetACLRequest,
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Internal.S3Transforms,
+  AWS.Internal.DefaultRequest,
   AWS.S3.Exception, 
   AWS.Internal.StringUtils;
 
@@ -38,14 +41,30 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'GET';
-  Request.AddSubResource('acl');
+
   if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  Request.ResourcePath := '/{Bucket}';
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, PublicRequest.ExpectedBucketOwner);
+
+  if PublicRequest.IsSetExpectedBucketOwner then
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+
+  //Not checking if Key is null or empty because GetAcl allows to query for both a Bucket or an Object. TODO: deprecate GetACL and create two separate operations
+//  Request.ResourcePath := Format('/%s/%s', [
+//    TS3Transforms.ToStringValue(PublicRequest.BucketName),
+//    TS3Transforms.ToStringValue(PublicRequest.Key)]);
+  Request.ResourcePath := Format('/%s/%s', [
+    TS3Transforms.ToStringValue(PublicRequest.BucketName),
+    TS3Transforms.ToStringValue('')]);
+
+  Request.AddSubResource('acl');
+//  if PublicRequest.IsSetVersionId then
+//    Request.AddSubResource('versionId', TS3Transforms.ToStringValue(PublicRequest.VersionId));
+  Request.UseQueryString := True;
   Result := Request;
 end;
 
