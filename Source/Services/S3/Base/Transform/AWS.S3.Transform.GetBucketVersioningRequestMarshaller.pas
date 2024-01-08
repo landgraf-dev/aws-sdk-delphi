@@ -3,12 +3,15 @@ unit AWS.S3.Transform.GetBucketVersioningRequestMarshaller;
 interface
 
 uses
-  AWS.Internal.Request, 
-  AWS.Transform.RequestMarshaller, 
-  AWS.Runtime.Model, 
-  AWS.S3.Model.GetBucketVersioningRequest, 
-  AWS.Internal.DefaultRequest, 
-  AWS.S3.Exception, 
+  System.SysUtils,
+  AWS.Internal.Request,
+  AWS.Transform.RequestMarshaller,
+  AWS.Runtime.Model,
+  AWS.S3.Model.GetBucketVersioningRequest,
+  AWS.Internal.DefaultRequest,
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Internal.S3Transforms,
+  AWS.S3.Exception,
   AWS.Internal.StringUtils;
 
 type
@@ -38,14 +41,19 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'GET';
-  Request.AddSubResource('versioning');
+
   if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  Request.ResourcePath := '/{Bucket}';
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+
+  Request.ResourcePath := '/' + TS3Transforms.ToStringValue(PublicRequest.BucketName);
+  Request.AddSubResource('versioning');
+  Request.UseQueryString := True;
+
   Result := Request;
 end;
 
