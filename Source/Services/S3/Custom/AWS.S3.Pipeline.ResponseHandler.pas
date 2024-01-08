@@ -20,7 +20,8 @@ uses
   AWS.S3.Model.ListObjectsResponse,
   AWS.S3.Model.PutObjectRequest,
   AWS.S3.Model.PutObjectResponse,
-  AWS.S3.Model.UploadPartRequest;
+  AWS.S3.Model.UploadPartRequest,
+  AWS.S3.Model.UploadPartResponse;
 
 type
   TAmazonS3ResponseHandler = class(TPipelineHandler)
@@ -112,7 +113,7 @@ begin
       raise EDeleteObjectsException.Create(deleteObjectsResponse);
   end;
 
-  if response is TPutObjectResponse then
+  if request.OriginalRequest is TPutObjectRequest then
   begin
     var putObjectResponse := response as TPutObjectResponse;
     var putObjectRequest := request.OriginalRequest as TPutObjectRequest;
@@ -144,7 +145,25 @@ begin
 
   if request.OriginalRequest is TUploadPartRequest then
   begin
-    {$MESSAGE WARN 'Todo: check the input hash stream'}
+    var uploadPartRequest := request.OriginalRequest as TUploadPartRequest;
+    var uploadPartResponse := response as TUploadPartResponse;
+
+    uploadPartResponse.PartNumber := uploadPartRequest.PartNumber;
+
+    // If InputStream was a HashStream, compare calculated hash to returned etag
+    if uploadPartRequest.InputStream is THashStream then
+    begin
+      var hashStream := uploadPartRequest.InputStream as THashStream;
+      if (uploadPartResponse <> nil) and not isSse then
+      begin
+        CompareHashes(uploadPartResponse.ETag, hashStream.CalculatedHash);
+      end;
+
+      // Set InputStream to its original value
+      var OriginalWrappedStream := hashStream.GetNonWrapperBaseStream;
+      hashStream.OwnsStream := False;
+      uploadPartRequest.InputStream := OriginalWrappedStream;
+    end;
   end;
 
   {$MESSAGE WARN 'Todo: set part number'}
