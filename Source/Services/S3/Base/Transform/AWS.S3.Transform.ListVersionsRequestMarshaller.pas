@@ -3,12 +3,16 @@ unit AWS.S3.Transform.ListVersionsRequestMarshaller;
 interface
 
 uses
+  System.SysUtils,
   AWS.Internal.Request, 
   AWS.Transform.RequestMarshaller, 
   AWS.Runtime.Model, 
   AWS.S3.Model.ListVersionsRequest, 
   AWS.Internal.DefaultRequest, 
-  AWS.S3.Exception, 
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Util.AmazonS3Util,
+  AWS.S3.Internal.S3Transforms,
+  AWS.S3.Exception,
   AWS.Internal.StringUtils;
 
 type
@@ -38,27 +42,34 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
+
   Request.HttpMethod := 'GET';
-  Request.AddSubResource('versions');
+
   if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
+
+  Request.ResourcePath := '/' + TS3Transforms.ToStringValue(PublicRequest.BucketName);
+
+  Request.AddSubResource('versions');
+
   if PublicRequest.IsSetDelimiter then
-    Request.Parameters.Add('delimiter', TStringUtils.Fromstring(PublicRequest.Delimiter));
-  if PublicRequest.IsSetEncodingType then
-    Request.Parameters.Add('encoding-type', PublicRequest.EncodingType.Value);
+    Request.Parameters.Add('delimiter', TS3Transforms.ToStringValue(PublicRequest.Delimiter));
   if PublicRequest.IsSetKeyMarker then
-    Request.Parameters.Add('key-marker', TStringUtils.Fromstring(PublicRequest.KeyMarker));
+    Request.Parameters.Add('key-marker', TS3Transforms.ToStringValue(PublicRequest.KeyMarker));
   if PublicRequest.IsSetMaxKeys then
-    Request.Parameters.Add('max-keys', TStringUtils.FromInteger(PublicRequest.MaxKeys));
+    Request.Parameters.Add('max-keys', TS3Transforms.ToStringValue(PublicRequest.MaxKeys));
   if PublicRequest.IsSetPrefix then
-    Request.Parameters.Add('prefix', TStringUtils.Fromstring(PublicRequest.Prefix));
+    Request.Parameters.Add('prefix', TS3Transforms.ToStringValue(PublicRequest.Prefix));
   if PublicRequest.IsSetVersionIdMarker then
-    Request.Parameters.Add('version-id-marker', TStringUtils.Fromstring(PublicRequest.VersionIdMarker));
-  Request.ResourcePath := '/{Bucket}';
+    Request.Parameters.Add('version-id-marker', TS3Transforms.ToStringValue(PublicRequest.VersionIdMarker));
+  if PublicRequest.IsSetEncodingType then
+    Request.Parameters.Add('encoding-type', TS3Transforms.ToStringValue(PublicRequest.EncodingType.Value));
+
   Request.UseQueryString := True;
+
   Result := Request;
 end;
 
