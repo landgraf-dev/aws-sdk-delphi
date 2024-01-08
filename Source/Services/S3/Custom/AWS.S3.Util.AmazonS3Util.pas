@@ -3,7 +3,7 @@ unit AWS.S3.Util.AmazonS3Util;
 interface
 
 uses
-  System.Generics.Collections, System.Generics.Defaults, System.Classes,
+  System.Generics.Collections, System.Generics.Defaults, System.Classes, System.SysUtils,
   AWS.Internal.Request,
   AWS.Lib.Utils,
   AWS.SDKUtils,
@@ -21,6 +21,7 @@ type
     class function EscapeNonAscii(const Text: string): string; static;
   public
     class procedure SetMetadataHeaders(Request: IRequest; Metadata: TMetadataCollection); static;
+    class function RemoveLeadingSlash(const Key: string): string; static;
   public
     class function MimeTypeFromExtension(const Ext: string): string; static;
     class function GenerateMD5ChecksumForStream(Stream: TStream): string; static;
@@ -232,6 +233,14 @@ class function TAmazonS3Util.MimeTypeFromExtension(const Ext: string): string;
 begin
   if not FExtensionToMime.TryGetValue(ext, Result) then
     Result := 'application/octet-stream';
+end;
+
+class function TAmazonS3Util.RemoveLeadingSlash(const Key: string): string;
+begin
+  if Key.StartsWith('/') then
+    Result := Key.Substring(1)
+  else
+    Result := Key;
 end;
 
 class procedure TAmazonS3Util.SetMetadataHeaders(Request: IRequest; Metadata: TMetadataCollection);
