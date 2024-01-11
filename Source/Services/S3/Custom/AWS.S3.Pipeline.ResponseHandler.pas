@@ -148,7 +148,8 @@ begin
     var uploadPartRequest := request.OriginalRequest as TUploadPartRequest;
     var uploadPartResponse := response as TUploadPartResponse;
 
-    uploadPartResponse.PartNumber := uploadPartRequest.PartNumber;
+    {$MESSAGE WARN 'PartNumber'}
+//    uploadPartResponse.PartNumber := uploadPartRequest.PartNumber;
 
     // If InputStream was a HashStream, compare calculated hash to returned etag
     if uploadPartRequest.InputStream is THashStream then

@@ -178,8 +178,6 @@ begin
     Request.Headers.Add('Content-Language', PublicRequest.ContentLanguage);
   if PublicRequest.IsSetContentLength then
     Request.Headers.Add('Content-Length', TStringUtils.FromInt64(PublicRequest.ContentLength));
-  if PublicRequest.IsSetContentMD5 then
-    Request.Headers.Add('Content-MD5', PublicRequest.ContentMD5);
   if PublicRequest.IsSetContentType then
     Request.Headers.Add('Content-Type', PublicRequest.ContentType);
   if PublicRequest.IsSetExpires then
