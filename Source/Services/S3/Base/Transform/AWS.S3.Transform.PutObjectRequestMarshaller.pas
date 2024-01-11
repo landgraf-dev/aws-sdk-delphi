@@ -165,33 +165,32 @@ begin
     Request.Headers.Add(THeaderKeys.ContentTypeHeader, 'text/plain');
 
   Result := Request;
-
-  // =====
-  // Extra-code (headers)
-  if PublicRequest.IsSetCacheControl then
-    Request.Headers.Add('Cache-Control', PublicRequest.CacheControl);
-  if PublicRequest.IsSetContentDisposition then
-    Request.Headers.Add('Content-Disposition', PublicRequest.ContentDisposition);
-  if PublicRequest.IsSetContentEncoding then
-    Request.Headers.Add('Content-Encoding', PublicRequest.ContentEncoding);
-  if PublicRequest.IsSetContentLanguage then
-    Request.Headers.Add('Content-Language', PublicRequest.ContentLanguage);
-  if PublicRequest.IsSetContentLength then
-    Request.Headers.Add('Content-Length', TStringUtils.FromInt64(PublicRequest.ContentLength));
-  if PublicRequest.IsSetContentType then
-    Request.Headers.Add('Content-Type', PublicRequest.ContentType);
-  if PublicRequest.IsSetExpires then
-    Request.Headers.Add('Expires', TStringUtils.FromDateTimeToRFC822(PublicRequest.Expires));
-
-  // Extra-code (grants)
-  if PublicRequest.IsSetGrantFullControl then
-    Request.Headers.Add('x-amz-grant-full-control', PublicRequest.GrantFullControl);
-  if PublicRequest.IsSetGrantRead then
-    Request.Headers.Add('x-amz-grant-read', PublicRequest.GrantRead);
-  if PublicRequest.IsSetGrantReadACP then
-    Request.Headers.Add('x-amz-grant-read-acp', PublicRequest.GrantReadACP);
-  if PublicRequest.IsSetGrantWriteACP then
-    Request.Headers.Add('x-amz-grant-write-acp', PublicRequest.GrantWriteACP);
+//  // =====
+//  // Extra-code (headers)
+//  if PublicRequest.IsSetCacheControl then
+//    Request.Headers.AddOrSetValue('Cache-Control', PublicRequest.CacheControl);
+//  if PublicRequest.IsSetContentDisposition then
+//    Request.Headers.AddOrSetValue('Content-Disposition', PublicRequest.ContentDisposition);
+//  if PublicRequest.IsSetContentEncoding then
+//    Request.Headers.AddOrSetValue('Content-Encoding', PublicRequest.ContentEncoding);
+//  if PublicRequest.IsSetContentLanguage then
+//    Request.Headers.AddOrSetValue('Content-Language', PublicRequest.ContentLanguage);
+//  if PublicRequest.IsSetContentLength then
+//    Request.Headers.AddOrSetValue('Content-Length', TStringUtils.FromInt64(PublicRequest.ContentLength));
+//  if PublicRequest.IsSetContentType then
+//    Request.Headers.AddOrSetValue('Content-Type', PublicRequest.ContentType);
+//  if PublicRequest.IsSetExpires then
+//    Request.Headers.AddOrSetValue('Expires', TStringUtils.FromDateTimeToRFC822(PublicRequest.Expires));
+//
+//  // Extra-code (grants)
+//  if PublicRequest.IsSetGrantFullControl then
+//    Request.Headers.AddOrSetValue('x-amz-grant-full-control', PublicRequest.GrantFullControl);
+//  if PublicRequest.IsSetGrantRead then
+//    Request.Headers.AddOrSetValue('x-amz-grant-read', PublicRequest.GrantRead);
+//  if PublicRequest.IsSetGrantReadACP then
+//    Request.Headers.AddOrSetValue('x-amz-grant-read-acp', PublicRequest.GrantReadACP);
+//  if PublicRequest.IsSetGrantWriteACP then
+//    Request.Headers.AddOrSetValue('x-amz-grant-write-acp', PublicRequest.GrantWriteACP);
 end;
 
 class constructor TPutObjectRequestMarshaller.Create;
