@@ -162,8 +162,6 @@ begin
       PutObjectRequest.ContentType := 'text/plain';
 
     var payload := TEncoding.UTF8.GetBytes(PutObjectRequest.ContentBody);
-    //PutObjectRequest.Headers.AddOrSetValue[AWS4Signer.XAmzContentSha256]
-    //        = AWSSDKUtils.ToHex(AWS4Signer.ComputeHash(payload), true);
     PutObjectRequest.InputStream := TBytesStream.Create(payload);
     PutObjectRequest.KeepInputStream := False;
   end;

@@ -68,7 +68,7 @@ procedure TPutObjectTests.GzipTest(UseChunkEncoding: Boolean);
 begin
   var request := CreatePutObjectRequest;
   request.UseChunkEncoding := UseChunkEncoding;
-  request.ContentEncoding := 'gzip';
+  request.Headers.ContentEncoding := 'gzip';
 
   TestPutAndGet(request);
 end;
@@ -87,8 +87,8 @@ procedure TPutObjectTests.PutObjectWithContentEncoding(UseChunkEncoding: Boolean
 begin
   var request := CreatePutObjectRequest;
   request.UseChunkEncoding := UseChunkEncoding;
-  request.ContentEncoding := 'gzip';
-  request.ContentDisposition := 'disposition';
+  request.Headers.ContentEncoding := 'gzip';
+  request.Headers.ContentDisposition := 'disposition';
 
   var meta := TestPutAndGet(request);
   CheckEquals('disposition', meta.ContentDisposition);
@@ -99,8 +99,8 @@ procedure TPutObjectTests.PutObjectWithContentEncodingIdentity(UseChunkEncoding:
 begin
   var request := CreatePutObjectRequest;
   request.UseChunkEncoding := UseChunkEncoding;
-  request.ContentEncoding := 'identity';
-  request.ContentDisposition := 'disposition';
+  request.Headers.ContentEncoding := 'identity';
+  request.Headers.ContentDisposition := 'disposition';
 
   var meta := TestPutAndGet(request);
   CheckEquals('disposition', meta.ContentDisposition);
@@ -131,7 +131,7 @@ procedure TPutObjectTests.PutObjectWithoutContentEncoding(UseChunkEncoding: Bool
 begin
   var request := CreatePutObjectRequest;
   request.UseChunkEncoding := UseChunkEncoding;
-  request.ContentDisposition := 'disposition';
+  request.Headers.ContentDisposition := 'disposition';
   var meta := TestPutAndGet(request);
   CheckEquals('disposition', meta.ContentDisposition);
   CheckEquals('', meta.ContentEncoding);

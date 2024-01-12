@@ -181,6 +181,7 @@ contains
   AWS.S3.Internal.S3Transforms in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Transforms.pas',
   AWS.S3.Model.ByteRange in '..\..\Source\Services\S3\Custom\AWS.S3.Model.ByteRange.pas',
   AWS.S3.Model.DeleteObjectsException in '..\..\Source\Services\S3\Custom\AWS.S3.Model.DeleteObjectsException.pas',
+  AWS.S3.Model.HeadersCollection in '..\..\Source\Services\S3\Custom\AWS.S3.Model.HeadersCollection.pas',
   AWS.S3.Model.MetadataCollection in '..\..\Source\Services\S3\Custom\AWS.S3.Model.MetadataCollection.pas',
   AWS.S3.Model.ParameterCollection in '..\..\Source\Services\S3\Custom\AWS.S3.Model.ParameterCollection.pas',
   AWS.S3.Model.ResponseHeaderOverrides in '..\..\Source\Services\S3\Custom\AWS.S3.Model.ResponseHeaderOverrides.pas',
