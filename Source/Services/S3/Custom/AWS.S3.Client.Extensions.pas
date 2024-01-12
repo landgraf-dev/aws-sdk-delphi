@@ -179,8 +179,9 @@ begin
   var request: IRequest := TDefaultRequest.Create(GetPreSignedUrlRequest as TAmazonWebServiceRequest, 'AmazonS3');
   request.HttpMethod := VerbNames[getPreSignedUrlRequest.Verb];
 
-  for var header in getPreSignedUrlRequest.Headers.AllHeaders do
-    request.Headers.AddOrSetValue(header.Name, header.Value);
+  var headers := getPreSignedUrlRequest.Headers;
+  for var key in headers.Keys do
+    request.Headers.AddOrSetValue(key, headers[key]);
 
   TAmazonS3Util.SetMetadataHeaders(request, getPreSignedUrlRequest.Metadata);
 
