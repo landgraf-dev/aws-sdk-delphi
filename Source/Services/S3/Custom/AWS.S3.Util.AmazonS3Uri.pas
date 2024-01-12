@@ -160,7 +160,8 @@ end;
 
 constructor TAmazonS3Uri.Create(const Uri: string);
 begin
-  Create(TUri.Create(Uri));
+  var UriIntf: IUri := TUri.Create(Uri);
+  Create(UriIntf);
 end;
 
 class function TAmazonS3Uri.Decode(const S: string; FirstPercent: Integer): string;

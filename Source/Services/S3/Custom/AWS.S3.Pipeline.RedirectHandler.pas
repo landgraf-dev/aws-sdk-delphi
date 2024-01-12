@@ -42,15 +42,19 @@ begin
   TAmazonS3KmsHandler.EvaluateIfSigV4Required(AExecutionContext.RequestContext.Request);
 
   var redirect := TAmazonS3Uri.Create(RedirectedLocation);
-  if TAWSConfigsS3.UseSignatureVersion4 or request.UseSigV4
-    or (redirect.Region.GetEndpointForService('s3').SignatureVersionOverride = '4')
-    or (redirect.Region.GetEndpointForService('s3').SignatureVersionOverride = '') then
-  begin
-    // Resign if sigV4 is enabled, the request explicitly requires SigV4 or if the redirected region mandates sigV4.
-    // resign appropriately for the redirected region, re-instating the user's client
-    // config to original state when done
-    request.AuthenticationRegion := redirect.Region.SystemName;
-    TSigner.SignRequest(AExecutionContext.RequestContext);
+  try
+    if TAWSConfigsS3.UseSignatureVersion4 or request.UseSigV4
+      or (redirect.Region.GetEndpointForService('s3').SignatureVersionOverride = '4')
+      or (redirect.Region.GetEndpointForService('s3').SignatureVersionOverride = '') then
+    begin
+      // Resign if sigV4 is enabled, the request explicitly requires SigV4 or if the redirected region mandates sigV4.
+      // resign appropriately for the redirected region, re-instating the user's client
+      // config to original state when done
+      request.AuthenticationRegion := redirect.Region.SystemName;
+      TSigner.SignRequest(AExecutionContext.RequestContext);
+    end;
+  finally
+    redirect.Free;
   end;
 end;
 
