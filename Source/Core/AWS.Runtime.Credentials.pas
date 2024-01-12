@@ -6,6 +6,7 @@ interface
 
 uses
   System.Generics.Collections, System.SysUtils, System.Classes,
+  AWS.Enums,
   AWS.Lib.Logging,
   AWS.Lib.Timer,
   AWS.Nullable,
@@ -281,6 +282,7 @@ type
     FOptions: TCredentialProfileOptions;
     FRegion: IRegionEndpointEx;
     FS3UseArnRegion: NullableBoolean;
+    FS3RegionalEndpoint: Nullable<TS3UsEast1RegionalEndpointValue>;
     function GetProfileType: TCredentialProfileType;
   private
     function GetAWSCredentials(AProfileSource: ICredentialProfileSource; ANonCallBackOnly: Boolean): IAWSCredentials;
@@ -304,6 +306,8 @@ type
     /// If true the region identified in the S3 access point arn will be used when making requests.
     /// </summary>
     property S3UseArnRegion: NullableBoolean read FS3UseArnRegion write FS3UseArnRegion;
+
+    property S3RegionalEndpoint: Nullable<TS3UsEast1RegionalEndpointValue> read FS3RegionalEndpoint write FS3RegionalEndpoint;
   end;
 
   ICredentialProfileStore = interface(ICredentialProfileSource)

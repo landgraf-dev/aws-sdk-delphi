@@ -44,6 +44,7 @@ type
     function GetUseDualstackEndpoint: Boolean;
     function GetUseHttp: Boolean;
     function GetUserAgent: string;
+    function GetAllowAutoRedirect: Boolean;
 
     function DetermineServiceUrl: string;
     function CorrectedUtcNow: TDateTime;
@@ -68,6 +69,7 @@ type
     property UseDualstackEndpoint: Boolean read GetUseDualstackEndpoint;
     property UseHttp: Boolean read GetUseHttp;
     property UserAgent: string read GetUserAgent;
+    property AllowAutoRedirect: Boolean read GetAllowAutoRedirect;
   end;
 
   TClientConfig = class(TInterfacedObject, IClientConfig)
@@ -89,6 +91,7 @@ type
     FSignatureVersion: string;
     FSignatureMethod: TSigningAlgorithm;
     FUseAlternateUserAgentHeader: Boolean;
+    FAllowAutoRedirect: Boolean;
     function GetLogMetrics: Boolean;
     function GetLogResponse: Boolean;
     function GetUseDualstackEndpoint: Boolean;
@@ -111,6 +114,7 @@ type
     function GetSignatureMethod: TSigningAlgorithm;
     function GetUseAlternateUserAgentHeader: Boolean;
     procedure SetSignatureVersion(const Value: string);
+    function GetAllowAutoRedirect: Boolean;
   strict protected
     function GetRegionEndpointServiceName: string; virtual; abstract;
     function GetServiceVersion: string; virtual; abstract;
@@ -146,6 +150,7 @@ type
     property SignatureMethod: TSigningAlgorithm read GetSignatureMethod write FSignatureMethod;
     property UseAlternateUserAgentHeader: Boolean read GetUseAlternateUserAgentHeader write FUseAlternateUserAgentHeader;
     property UserAgent: string read GetUserAgent;
+    property AllowAutoRedirect: Boolean read GetAllowAutoRedirect write FAllowAutoRedirect;
   end;
 
 implementation
@@ -180,6 +185,11 @@ begin
     Result := ServiceURL
   else
     Result := GetUrl(RegionEndpoint, RegionEndpointServiceName, UseHttp, UseDualstackEndpoint);
+end;
+
+function TClientConfig.GetAllowAutoRedirect: Boolean;
+begin
+  Result := FAllowAutoRedirect;
 end;
 
 function TClientConfig.GetAuthenticationRegion: string;
@@ -304,6 +314,7 @@ begin
   FSignatureVersion := '4';
   FSignatureMethod := TSigningAlgorithm.HmacSHA256;
   FBufferSize := TAWSSDKUtils.DefaultBufferSize;
+  FAllowAutoRedirect := True;
 end;
 
 procedure TClientConfig.SetMaxErrorRetry(const Value: Integer);

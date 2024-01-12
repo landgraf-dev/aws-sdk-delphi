@@ -112,6 +112,7 @@ class function THttpRequestMessageFactory.CreateManagedHttpClient(AClientConfig:
 begin
   {TODO: Several options not implemented, including timeout}
   Result := THttpClient.Create;
+  Result.HandleRedirects := AClientConfig.AllowAutoRedirect;
 end;
 
 { THttpWebRequestMessage }
@@ -168,8 +169,14 @@ begin
   CheckRequest;
 
   ResponseMessage := FHttpClient.Execute(FRequest);
+
   Result := THttpClientResponseData.Create(ResponseMessage, FHttpClient);
   FHttpClient := nil;
+
+  // If AllowAutoRedirect is set to false, HTTP 3xx responses are returned back as response.
+  if not FClientConfig.AllowAutoRedirect and
+    (ResponseMessage.StatusCode >= 300) and (ResponseMessage.StatusCode < 400) then
+    Exit;
 
   if (ResponseMessage.StatusCode < 200) or (ResponseMessage.StatusCode >= 300) then
     raise EHttpErrorResponseException.Create(Result)
