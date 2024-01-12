@@ -8,7 +8,8 @@ uses
   AWS.Nullable, 
   AWS.S3.Enums, 
   System.Classes, 
-  AWS.S3.Model.HeadersCollection;
+  AWS.S3.Model.HeadersCollection, 
+  AWS.S3.Model.MetadataCollection;
 
 type
   TPutObjectRequest = class;
@@ -26,8 +27,6 @@ type
     procedure SetBucketName(const Value: string);
     function GetContentMD5: string;
     procedure SetContentMD5(const Value: string);
-    function GetContentType: string;
-    procedure SetContentType(const Value: string);
     function GetExpectedBucketOwner: string;
     procedure SetExpectedBucketOwner(const Value: string);
     function GetGrantFullControl: string;
@@ -40,8 +39,8 @@ type
     procedure SetGrantWriteACP(const Value: string);
     function GetKey: string;
     procedure SetKey(const Value: string);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus;
@@ -94,7 +93,6 @@ type
     function IsSetBucketKeyEnabled: Boolean;
     function IsSetBucketName: Boolean;
     function IsSetContentMD5: Boolean;
-    function IsSetContentType: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
     function IsSetGrantFullControl: Boolean;
     function IsSetGrantRead: Boolean;
@@ -121,14 +119,13 @@ type
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
     property BucketName: string read GetBucketName write SetBucketName;
     property ContentMD5: string read GetContentMD5 write SetContentMD5;
-    property ContentType: string read GetContentType write SetContentType;
     property ExpectedBucketOwner: string read GetExpectedBucketOwner write SetExpectedBucketOwner;
     property GrantFullControl: string read GetGrantFullControl write SetGrantFullControl;
     property GrantRead: string read GetGrantRead write SetGrantRead;
     property GrantReadACP: string read GetGrantReadACP write SetGrantReadACP;
     property GrantWriteACP: string read GetGrantWriteACP write SetGrantWriteACP;
     property Key: string read GetKey write SetKey;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
     property ObjectLockMode: TObjectLockMode read GetObjectLockMode write SetObjectLockMode;
@@ -166,14 +163,13 @@ type
     FBucketKeyEnabled: Nullable<Boolean>;
     FBucketName: Nullable<string>;
     FContentMD5: Nullable<string>;
-    FContentType: Nullable<string>;
     FExpectedBucketOwner: Nullable<string>;
     FGrantFullControl: Nullable<string>;
     FGrantRead: Nullable<string>;
     FGrantReadACP: Nullable<string>;
     FGrantWriteACP: Nullable<string>;
     FKey: Nullable<string>;
-    FMetadata: TDictionary<string, string>;
+    FMetadata: TMetadataCollection;
     FKeepMetadata: Boolean;
     FObjectLockLegalHoldStatus: Nullable<TObjectLockLegalHoldStatus>;
     FObjectLockMode: Nullable<TObjectLockMode>;
@@ -209,8 +205,6 @@ type
     procedure SetBucketName(const Value: string);
     function GetContentMD5: string;
     procedure SetContentMD5(const Value: string);
-    function GetContentType: string;
-    procedure SetContentType(const Value: string);
     function GetExpectedBucketOwner: string;
     procedure SetExpectedBucketOwner(const Value: string);
     function GetGrantFullControl: string;
@@ -223,8 +217,8 @@ type
     procedure SetGrantWriteACP(const Value: string);
     function GetKey: string;
     procedure SetKey(const Value: string);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus;
@@ -281,7 +275,6 @@ type
     function IsSetBucketKeyEnabled: Boolean;
     function IsSetBucketName: Boolean;
     function IsSetContentMD5: Boolean;
-    function IsSetContentType: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
     function IsSetGrantFullControl: Boolean;
     function IsSetGrantRead: Boolean;
@@ -308,14 +301,13 @@ type
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
     property BucketName: string read GetBucketName write SetBucketName;
     property ContentMD5: string read GetContentMD5 write SetContentMD5;
-    property ContentType: string read GetContentType write SetContentType;
     property ExpectedBucketOwner: string read GetExpectedBucketOwner write SetExpectedBucketOwner;
     property GrantFullControl: string read GetGrantFullControl write SetGrantFullControl;
     property GrantRead: string read GetGrantRead write SetGrantRead;
     property GrantReadACP: string read GetGrantReadACP write SetGrantReadACP;
     property GrantWriteACP: string read GetGrantWriteACP write SetGrantWriteACP;
     property Key: string read GetKey write SetKey;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
     property ObjectLockMode: TObjectLockMode read GetObjectLockMode write SetObjectLockMode;
@@ -353,7 +345,7 @@ implementation
 constructor TPutObjectRequest.Create;
 begin
   inherited;
-  FMetadata := TDictionary<string, string>.Create;
+  FMetadata := TMetadataCollection.Create;
   FUseChunkEncoding := True;
   FHeaders := THeadersCollection.Create;
 end;
@@ -461,21 +453,6 @@ begin
   Result := FContentMD5.HasValue;
 end;
 
-function TPutObjectRequest.GetContentType: string;
-begin
-  Result := FContentType.ValueOrDefault;
-end;
-
-procedure TPutObjectRequest.SetContentType(const Value: string);
-begin
-  FContentType := Value;
-end;
-
-function TPutObjectRequest.IsSetContentType: Boolean;
-begin
-  Result := FContentType.HasValue;
-end;
-
 function TPutObjectRequest.GetExpectedBucketOwner: string;
 begin
   Result := FExpectedBucketOwner.ValueOrDefault;
@@ -566,12 +543,12 @@ begin
   Result := FKey.HasValue;
 end;
 
-function TPutObjectRequest.GetMetadata: TDictionary<string, string>;
+function TPutObjectRequest.GetMetadata: TMetadataCollection;
 begin
   Result := FMetadata;
 end;
 
-procedure TPutObjectRequest.SetMetadata(const Value: TDictionary<string, string>);
+procedure TPutObjectRequest.SetMetadata(const Value: TMetadataCollection);
 begin
   if FMetadata <> Value then
   begin
