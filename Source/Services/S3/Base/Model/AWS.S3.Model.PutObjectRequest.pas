@@ -7,7 +7,8 @@ uses
   AWS.S3.Model.Request, 
   AWS.Nullable, 
   AWS.S3.Enums, 
-  System.Classes;
+  System.Classes, 
+  AWS.S3.Model.HeadersCollection;
 
 type
   TPutObjectRequest = class;
@@ -23,24 +24,12 @@ type
     procedure SetBucketKeyEnabled(const Value: Boolean);
     function GetBucketName: string;
     procedure SetBucketName(const Value: string);
-    function GetCacheControl: string;
-    procedure SetCacheControl(const Value: string);
-    function GetContentDisposition: string;
-    procedure SetContentDisposition(const Value: string);
-    function GetContentEncoding: string;
-    procedure SetContentEncoding(const Value: string);
-    function GetContentLanguage: string;
-    procedure SetContentLanguage(const Value: string);
-    function GetContentLength: Int64;
-    procedure SetContentLength(const Value: Int64);
     function GetContentMD5: string;
     procedure SetContentMD5(const Value: string);
     function GetContentType: string;
     procedure SetContentType(const Value: string);
     function GetExpectedBucketOwner: string;
     procedure SetExpectedBucketOwner(const Value: string);
-    function GetExpires: TDateTime;
-    procedure SetExpires(const Value: TDateTime);
     function GetGrantFullControl: string;
     procedure SetGrantFullControl(const Value: string);
     function GetGrantRead: string;
@@ -95,20 +84,18 @@ type
     procedure SetCalculateContentMD5Header(const Value: Boolean);
     function GetDisableMD5Stream: NullableBoolean;
     procedure SetDisableMD5Stream(const Value: NullableBoolean);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
     function Obj: TPutObjectRequest;
     function IsSetACL: Boolean;
     function IsSetBody: Boolean;
     function IsSetBucketKeyEnabled: Boolean;
     function IsSetBucketName: Boolean;
-    function IsSetCacheControl: Boolean;
-    function IsSetContentDisposition: Boolean;
-    function IsSetContentEncoding: Boolean;
-    function IsSetContentLanguage: Boolean;
-    function IsSetContentLength: Boolean;
     function IsSetContentMD5: Boolean;
     function IsSetContentType: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
-    function IsSetExpires: Boolean;
     function IsSetGrantFullControl: Boolean;
     function IsSetGrantRead: Boolean;
     function IsSetGrantReadACP: Boolean;
@@ -133,15 +120,9 @@ type
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
     property BucketName: string read GetBucketName write SetBucketName;
-    property CacheControl: string read GetCacheControl write SetCacheControl;
-    property ContentDisposition: string read GetContentDisposition write SetContentDisposition;
-    property ContentEncoding: string read GetContentEncoding write SetContentEncoding;
-    property ContentLanguage: string read GetContentLanguage write SetContentLanguage;
-    property ContentLength: Int64 read GetContentLength write SetContentLength;
     property ContentMD5: string read GetContentMD5 write SetContentMD5;
     property ContentType: string read GetContentType write SetContentType;
     property ExpectedBucketOwner: string read GetExpectedBucketOwner write SetExpectedBucketOwner;
-    property Expires: TDateTime read GetExpires write SetExpires;
     property GrantFullControl: string read GetGrantFullControl write SetGrantFullControl;
     property GrantRead: string read GetGrantRead write SetGrantRead;
     property GrantReadACP: string read GetGrantReadACP write SetGrantReadACP;
@@ -169,6 +150,7 @@ type
     property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
     property CalculateContentMD5Header: Boolean read GetCalculateContentMD5Header write SetCalculateContentMD5Header;
     property DisableMD5Stream: NullableBoolean read GetDisableMD5Stream write SetDisableMD5Stream;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
     property IsSetInputStream: Boolean read IsSetBody;
@@ -183,15 +165,9 @@ type
     FKeepBody: Boolean;
     FBucketKeyEnabled: Nullable<Boolean>;
     FBucketName: Nullable<string>;
-    FCacheControl: Nullable<string>;
-    FContentDisposition: Nullable<string>;
-    FContentEncoding: Nullable<string>;
-    FContentLanguage: Nullable<string>;
-    FContentLength: Nullable<Int64>;
     FContentMD5: Nullable<string>;
     FContentType: Nullable<string>;
     FExpectedBucketOwner: Nullable<string>;
-    FExpires: Nullable<TDateTime>;
     FGrantFullControl: Nullable<string>;
     FGrantRead: Nullable<string>;
     FGrantReadACP: Nullable<string>;
@@ -219,6 +195,8 @@ type
     FUseChunkEncoding: Boolean;
     FCalculateContentMD5Header: Boolean;
     FDisableMD5Stream: NullableBoolean;
+    FHeaders: THeadersCollection;
+    FKeepHeaders: Boolean;
     function GetACL: TObjectCannedACL;
     procedure SetACL(const Value: TObjectCannedACL);
     function GetBody: TStream;
@@ -229,24 +207,12 @@ type
     procedure SetBucketKeyEnabled(const Value: Boolean);
     function GetBucketName: string;
     procedure SetBucketName(const Value: string);
-    function GetCacheControl: string;
-    procedure SetCacheControl(const Value: string);
-    function GetContentDisposition: string;
-    procedure SetContentDisposition(const Value: string);
-    function GetContentEncoding: string;
-    procedure SetContentEncoding(const Value: string);
-    function GetContentLanguage: string;
-    procedure SetContentLanguage(const Value: string);
-    function GetContentLength: Int64;
-    procedure SetContentLength(const Value: Int64);
     function GetContentMD5: string;
     procedure SetContentMD5(const Value: string);
     function GetContentType: string;
     procedure SetContentType(const Value: string);
     function GetExpectedBucketOwner: string;
     procedure SetExpectedBucketOwner(const Value: string);
-    function GetExpires: TDateTime;
-    procedure SetExpires(const Value: TDateTime);
     function GetGrantFullControl: string;
     procedure SetGrantFullControl(const Value: string);
     function GetGrantRead: string;
@@ -301,6 +267,10 @@ type
     procedure SetCalculateContentMD5Header(const Value: Boolean);
     function GetDisableMD5Stream: NullableBoolean;
     procedure SetDisableMD5Stream(const Value: NullableBoolean);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
   strict protected
     function Obj: TPutObjectRequest;
   public
@@ -310,15 +280,9 @@ type
     function IsSetBody: Boolean;
     function IsSetBucketKeyEnabled: Boolean;
     function IsSetBucketName: Boolean;
-    function IsSetCacheControl: Boolean;
-    function IsSetContentDisposition: Boolean;
-    function IsSetContentEncoding: Boolean;
-    function IsSetContentLanguage: Boolean;
-    function IsSetContentLength: Boolean;
     function IsSetContentMD5: Boolean;
     function IsSetContentType: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
-    function IsSetExpires: Boolean;
     function IsSetGrantFullControl: Boolean;
     function IsSetGrantRead: Boolean;
     function IsSetGrantReadACP: Boolean;
@@ -343,15 +307,9 @@ type
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
     property BucketName: string read GetBucketName write SetBucketName;
-    property CacheControl: string read GetCacheControl write SetCacheControl;
-    property ContentDisposition: string read GetContentDisposition write SetContentDisposition;
-    property ContentEncoding: string read GetContentEncoding write SetContentEncoding;
-    property ContentLanguage: string read GetContentLanguage write SetContentLanguage;
-    property ContentLength: Int64 read GetContentLength write SetContentLength;
     property ContentMD5: string read GetContentMD5 write SetContentMD5;
     property ContentType: string read GetContentType write SetContentType;
     property ExpectedBucketOwner: string read GetExpectedBucketOwner write SetExpectedBucketOwner;
-    property Expires: TDateTime read GetExpires write SetExpires;
     property GrantFullControl: string read GetGrantFullControl write SetGrantFullControl;
     property GrantRead: string read GetGrantRead write SetGrantRead;
     property GrantReadACP: string read GetGrantReadACP write SetGrantReadACP;
@@ -379,6 +337,8 @@ type
     property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
     property CalculateContentMD5Header: Boolean read GetCalculateContentMD5Header write SetCalculateContentMD5Header;
     property DisableMD5Stream: NullableBoolean read GetDisableMD5Stream write SetDisableMD5Stream;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
+    property KeepHeaders: Boolean read GetKeepHeaders write SetKeepHeaders;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
     property IsSetInputStream: Boolean read IsSetBody;
@@ -395,10 +355,12 @@ begin
   inherited;
   FMetadata := TDictionary<string, string>.Create;
   FUseChunkEncoding := True;
+  FHeaders := THeadersCollection.Create;
 end;
 
 destructor TPutObjectRequest.Destroy;
 begin
+  Headers := nil;
   Metadata := nil;
   Body := nil;
   inherited;
@@ -484,81 +446,6 @@ begin
   Result := FBucketName.HasValue;
 end;
 
-function TPutObjectRequest.GetCacheControl: string;
-begin
-  Result := FCacheControl.ValueOrDefault;
-end;
-
-procedure TPutObjectRequest.SetCacheControl(const Value: string);
-begin
-  FCacheControl := Value;
-end;
-
-function TPutObjectRequest.IsSetCacheControl: Boolean;
-begin
-  Result := FCacheControl.HasValue;
-end;
-
-function TPutObjectRequest.GetContentDisposition: string;
-begin
-  Result := FContentDisposition.ValueOrDefault;
-end;
-
-procedure TPutObjectRequest.SetContentDisposition(const Value: string);
-begin
-  FContentDisposition := Value;
-end;
-
-function TPutObjectRequest.IsSetContentDisposition: Boolean;
-begin
-  Result := FContentDisposition.HasValue;
-end;
-
-function TPutObjectRequest.GetContentEncoding: string;
-begin
-  Result := FContentEncoding.ValueOrDefault;
-end;
-
-procedure TPutObjectRequest.SetContentEncoding(const Value: string);
-begin
-  FContentEncoding := Value;
-end;
-
-function TPutObjectRequest.IsSetContentEncoding: Boolean;
-begin
-  Result := FContentEncoding.HasValue;
-end;
-
-function TPutObjectRequest.GetContentLanguage: string;
-begin
-  Result := FContentLanguage.ValueOrDefault;
-end;
-
-procedure TPutObjectRequest.SetContentLanguage(const Value: string);
-begin
-  FContentLanguage := Value;
-end;
-
-function TPutObjectRequest.IsSetContentLanguage: Boolean;
-begin
-  Result := FContentLanguage.HasValue;
-end;
-
-function TPutObjectRequest.GetContentLength: Int64;
-begin
-  Result := FContentLength.ValueOrDefault;
-end;
-
-procedure TPutObjectRequest.SetContentLength(const Value: Int64);
-begin
-  FContentLength := Value;
-end;
-
-function TPutObjectRequest.IsSetContentLength: Boolean;
-begin
-  Result := FContentLength.HasValue;
-end;
-
 function TPutObjectRequest.GetContentMD5: string;
 begin
   Result := FContentMD5.ValueOrDefault;
@@ -602,21 +489,6 @@ end;
 function TPutObjectRequest.IsSetExpectedBucketOwner: Boolean;
 begin
   Result := FExpectedBucketOwner.HasValue;
-end;
-
-function TPutObjectRequest.GetExpires: TDateTime;
-begin
-  Result := FExpires.ValueOrDefault;
-end;
-
-procedure TPutObjectRequest.SetExpires(const Value: TDateTime);
-begin
-  FExpires := Value;
-end;
-
-function TPutObjectRequest.IsSetExpires: Boolean;
-begin
-  Result := FExpires.HasValue;
 end;
 
 function TPutObjectRequest.GetGrantFullControl: string;
@@ -987,6 +859,31 @@ end;
 procedure TPutObjectRequest.SetDisableMD5Stream(const Value: NullableBoolean);
 begin
   FDisableMD5Stream := Value;
+end;
+
+function TPutObjectRequest.GetHeaders: THeadersCollection;
+begin
+  Result := FHeaders;
+end;
+
+procedure TPutObjectRequest.SetHeaders(const Value: THeadersCollection);
+begin
+  if FHeaders <> Value then
+  begin
+    if not KeepHeaders then
+      FHeaders.Free;
+    FHeaders := Value;
+  end;
+end;
+
+function TPutObjectRequest.GetKeepHeaders: Boolean;
+begin
+  Result := FKeepHeaders;
+end;
+
+procedure TPutObjectRequest.SetKeepHeaders(const Value: Boolean);
+begin
+  FKeepHeaders := Value;
 end;
 
 end.

@@ -52,27 +52,11 @@ begin
   if PublicRequest.IsSetACL then
     Request.Headers.Add(THeaderKeys.XAmzAclHeader, TS3Transforms.ToStringValue(PublicRequest.ACL.Value));
 
-//  var headers := PublicRequest.Headers;
-//  for var Key in headers.Keys do
-//    Request.Headers[Key] := headers[key];
+  var headers := PublicRequest.Headers;
+  for var Key in headers.Keys do
+    Request.Headers.AddOrSetValue(Key, headers[key]);
 
 // =====
-// Add headers in a custom way (direct properties)
-//  if PublicRequest.IsSetCacheControl then
-//    Request.Headers.AddOrSetValue('Cache-Control', PublicRequest.CacheControl);
-//  if PublicRequest.IsSetContentDisposition then
-//    Request.Headers.AddOrSetValue('Content-Disposition', PublicRequest.ContentDisposition);
-//  if PublicRequest.IsSetContentEncoding then
-//    Request.Headers.AddOrSetValue('Content-Encoding', PublicRequest.ContentEncoding);
-//  if PublicRequest.IsSetContentLanguage then
-//    Request.Headers.AddOrSetValue('Content-Language', PublicRequest.ContentLanguage);
-//  if PublicRequest.IsSetContentLength then
-//    Request.Headers.AddOrSetValue('Content-Length', TStringUtils.FromInt64(PublicRequest.ContentLength));
-  if PublicRequest.IsSetContentType then
-    Request.Headers.AddOrSetValue('Content-Type', PublicRequest.ContentType);
-//  if PublicRequest.IsSetExpires then
-//    Request.Headers.AddOrSetValue('Expires', TStringUtils.FromDateTimeToRFC822(PublicRequest.Expires));
-
   // Extra-code (grants)
   if PublicRequest.IsSetGrantFullControl then
     Request.Headers.AddOrSetValue('x-amz-grant-full-control', PublicRequest.GrantFullControl);
@@ -83,7 +67,6 @@ begin
   if PublicRequest.IsSetGrantWriteACP then
     Request.Headers.AddOrSetValue('x-amz-grant-write-acp', PublicRequest.GrantWriteACP);
 // =====
-
 
   if PublicRequest.IsSetMD5Digest then
     Request.Headers.Add(THeaderKeys.ContentMD5Header, PublicRequest.MD5Digest);
@@ -151,7 +134,7 @@ begin
   if PublicRequest.InputStream <> nil then
   begin
     // Wrap the stream in a stream that has a length
-    var streamWithLength := GetStreamWithLength(PublicRequest.InputStream, PublicRequest.ContentLength);
+    var streamWithLength := GetStreamWithLength(PublicRequest.InputStream, PublicRequest.Headers.ContentLength);
     try
       if (streamWithLength.Size > 0) and not PublicRequest.DisablePayloadSigning then
         Request.UseChunkEncoding := PublicRequest.UseChunkEncoding;
