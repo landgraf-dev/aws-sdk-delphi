@@ -130,7 +130,7 @@ begin
     raise EArgumentException.Create('Please specify one of either a FilePath or the ContentBody to be PUT as an S3 object');
   if (PutObjectRequest.InputStream <> nil) and not string.IsNullOrEmpty(PutObjectRequest.ContentBody) then
     raise EArgumentException.Create('Please specify one of either an InputStream or the ContentBody to be PUT as an S3 object');
-  if not PutObjectRequest.IsSetContentType then
+  if not PutObjectRequest.Headers.IsSetContentType then
   begin
     var ext := '';
     if not string.IsNullOrEmpty(PutObjectRequest.FilePath) then
@@ -139,7 +139,7 @@ begin
       ext := TAWSSDKUtils.GetExtension(PutObjectRequest.Key);
 
     if not String.IsNullOrEmpty(ext) then
-      PutObjectRequest.ContentType := TAmazonS3Util.MimeTypeFromExtension(ext);
+      PutObjectRequest.Headers.ContentType := TAmazonS3Util.MimeTypeFromExtension(ext);
   end;
 
   if PutObjectRequest.InputStream <> nil then
@@ -158,8 +158,8 @@ begin
   else
   if PutObjectRequest.InputStream = nil then
   begin
-    if string.IsNullOrEmpty(PutObjectRequest.ContentType) then
-      PutObjectRequest.ContentType := 'text/plain';
+    if string.IsNullOrEmpty(PutObjectRequest.Headers.ContentType) then
+      PutObjectRequest.Headers.ContentType := 'text/plain';
 
     var payload := TEncoding.UTF8.GetBytes(PutObjectRequest.ContentBody);
     PutObjectRequest.InputStream := TBytesStream.Create(payload);

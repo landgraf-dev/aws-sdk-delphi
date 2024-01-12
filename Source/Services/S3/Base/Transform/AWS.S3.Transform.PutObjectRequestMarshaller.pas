@@ -120,7 +120,7 @@ begin
   if PublicRequest.IsSetBucketKeyEnabled then
     Request.Headers.Add(TS3Constants.AmzHeaderBucketKeyEnabled, TS3Transforms.ToStringValue(PublicRequest.BucketKeyEnabled));
 
-//  TAmazonS3Util.SetMetadataHeaders(Request, PublicRequest.Metadata);
+  TAmazonS3Util.SetMetadataHeaders(Request, PublicRequest.Metadata);
 
   if string.IsNullOrEmpty(PublicRequest.BucketName) then
     raise EArgumentException.Create('BucketName is a required property and must be set before making this call');
