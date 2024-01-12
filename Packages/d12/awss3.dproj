@@ -297,7 +297,6 @@
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ArnExtensions.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Client.Extensions.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ClientExtensions.pas"/>
-		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ConfigExtension.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.AWSConfigsS3.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3ArnUtils.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Signer.pas"/>

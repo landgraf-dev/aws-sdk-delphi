@@ -174,7 +174,6 @@ contains
   AWS.S3.ArnExtensions in '..\..\Source\Services\S3\Custom\AWS.S3.ArnExtensions.pas',
   AWS.S3.Client.Extensions in '..\..\Source\Services\S3\Custom\AWS.S3.Client.Extensions.pas',
   AWS.S3.ClientExtensions in '..\..\Source\Services\S3\Custom\AWS.S3.ClientExtensions.pas',
-  AWS.S3.ConfigExtension in '..\..\Source\Services\S3\Custom\AWS.S3.ConfigExtension.pas',
   AWS.S3.Internal.AWSConfigsS3 in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.AWSConfigsS3.pas',
   AWS.S3.Internal.S3ArnUtils in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3ArnUtils.pas',
   AWS.S3.Internal.S3Signer in '..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Signer.pas',
