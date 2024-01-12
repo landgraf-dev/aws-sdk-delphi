@@ -44,6 +44,8 @@ begin
 end;
 
 function TCopyObjectRequestMarshaller.Marshall(PublicRequest: TCopyObjectRequest): IRequest;
+const
+  MetadataDirectiveStr: array[TMetadataDirective] of string = ('COPY', 'REPLACE');
 var
   Request: IRequest;
 begin
@@ -57,9 +59,9 @@ begin
   if PublicRequest.IsSetACL then
     Request.Headers.Add(THeaderKeys.XAmzAclHeader, TS3Transforms.ToStringValue(PublicRequest.ACL.Value));
 
-//  var headers := PublicRequest.Headers;
-//  for var key in headers.Keys do
-//    Request.Headers[key] := headers[key];
+  var headers := PublicRequest.Headers;
+  for var key in headers.Keys do
+    Request.Headers.AddOrSetValue(key, headers[key]);
 
 //  THeaderACLRequestMarshaller.Marshall(Request, PublicRequest);
 
@@ -88,7 +90,7 @@ begin
     Request.Headers.Add(TS3Constants.AmzHeaderTaggingDirective, TTaggingDirective.COPY.Value);
   end;
 
-  Request.Headers.Add(THeaderKeys.XAmzMetadataDirectiveHeader, TS3Transforms.ToStringValue(PublicRequest.MetadataDirective.Value));
+  Request.Headers.Add(THeaderKeys.XAmzMetadataDirectiveHeader, TS3Transforms.ToStringValue(MetadataDirectiveStr[PublicRequest.MetadataDirective]));
 
   if PublicRequest.IsSetObjectLockLegalHoldStatus then
     Request.Headers.Add('x-amz-object-lock-legal-hold', TS3Transforms.ToStringValue(PublicRequest.ObjectLockLegalHoldStatus.Value));
@@ -99,33 +101,34 @@ begin
 
   if PublicRequest.IsSetServerSideEncryption then
     Request.Headers.Add(THeaderKeys.XAmzServerSideEncryptionHeader, TS3Transforms.ToStringValue(PublicRequest.ServerSideEncryption.Value));
-//  if PublicRequest.IsSetServerSideEncryptionCustomer then
-//    Request.Headers.Add(THeaderKeys.XAmzSSECustomerAlgorithmHeader, PublicRequest.ServerSideEncryptionCustomer);
-//  if PublicRequest.IsSetServerSideEncryptionCustomerProvidedKey then
-//  begin
-//    Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyHeader, PublicRequest.ServerSideEncryptionCustomerProvidedKey);
-//    if PublicRequest.IsSetServerSideEncryptionCustomerProvidedKeyMD5 then
-//      Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyMD5Header, PublicRequest.ServerSideEncryptionCustomerProvidedKeyMD5)
-//    else
-//      Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyMD5Header, TAmazonS3Util.ComputeEncodedMD5FromEncodedString(PublicRequest.ServerSideEncryptionCustomerProvidedKey));
-//  end;
 
-//  if PublicRequest.IsSetCopySourceServerSideEncryptionCustomerMethod then
-//    Request.Headers.Add(THeaderKeys.XAmzCopySourceSSECustomerAlgorithmHeader, PublicRequest.CopySourceServerSideEncryptionCustomerMethod);
-//  if PublicRequest.IsSetCopySourceServerSideEncryptionCustomerProvidedKey then
-//  begin
-//    Request.Headers.Add(THeaderKeys.XAmzCopySourceSSECustomerKeyHeader, PublicRequest.CopySourceServerSideEncryptionCustomerProvidedKey);
-//    if PublicRequest.IsSetCopySourceServerSideEncryptionCustomerProvidedKeyMD5 then
-//      Request.Headers.Add(THeaderKeys.XAmzCopySourceSSECustomerKeyMD5Header, PublicRequest.CopySourceServerSideEncryptionCustomerProvidedKeyMD5)
-//    else
-//      Request.Headers.Add(THeaderKeys.XAmzCopySourceSSECustomerKeyMD5Header, TAmazonS3Util.ComputeEncodedMD5FromEncodedString(PublicRequest.CopySourceServerSideEncryptionCustomerProvidedKey));
-//  end;
+  if PublicRequest.IsSetSSECustomerAlgorithm then
+    Request.Headers.Add(THeaderKeys.XAmzSSECustomerAlgorithmHeader, PublicRequest.SSECustomerAlgorithm);
+  if PublicRequest.IsSetSSECustomerKey then
+  begin
+    Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyHeader, PublicRequest.SSECustomerKey);
+    if PublicRequest.IsSetSSECustomerKeyMD5 then
+      Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyMD5Header, PublicRequest.SSECustomerKeyMD5)
+    else
+      Request.Headers.Add(THeaderKeys.XAmzSSECustomerKeyMD5Header, TAmazonS3Util.ComputeEncodedMD5FromEncodedString(PublicRequest.SSECustomerKey));
+  end;
 
-//  if PublicRequest.IsSetServerSideEncryptionKeyManagementServiceKeyId then
-//    Request.Headers.Add(THeaderKeys.XAmzServerSideEncryptionAwsKmsKeyIdHeader, PublicRequest.ServerSideEncryptionKeyManagementServiceKeyId);
+  if PublicRequest.IsSetCopySourceSSECustomerAlgorithm then
+    Request.Headers.Add(THeaderKeys.XAmzCopySourceSSECustomerAlgorithmHeader, PublicRequest.CopySourceSSECustomerAlgorithm);
+  if PublicRequest.IsSetCopySourceSSECustomerKey then
+  begin
+    Request.Headers.Add(THeaderKeys.XAmzCopySourceSSECustomerKeyHeader, PublicRequest.CopySourceSSECustomerKey);
+    if PublicRequest.IsSetCopySourceSSECustomerKeyMD5 then
+      Request.Headers.Add(THeaderKeys.XAmzCopySourceSSECustomerKeyMD5Header, PublicRequest.CopySourceSSECustomerKeyMD5)
+    else
+      Request.Headers.Add(THeaderKeys.XAmzCopySourceSSECustomerKeyMD5Header, TAmazonS3Util.ComputeEncodedMD5FromEncodedString(PublicRequest.CopySourceSSECustomerKey));
+  end;
 
-//  if PublicRequest.IsSetServerSideEncryptionKeyManagementServiceEncryptionContext then
-//    Request.Headers.Add('x-amz-server-side-encryption-context', PublicRequest.ServerSideEncryptionKeyManagementServiceEncryptionContext);
+  if PublicRequest.IsSetSSEKMSKeyId then
+    Request.Headers.Add(THeaderKeys.XAmzServerSideEncryptionAwsKmsKeyIdHeader, PublicRequest.SSEKMSKeyId);
+
+  if PublicRequest.IsSetSSEKMSEncryptionContext then
+    Request.Headers.Add('x-amz-server-side-encryption-context', PublicRequest.SSEKMSEncryptionContext);
 
   if PublicRequest.IsSetStorageClass then
     Request.Headers.Add(THeaderKeys.XAmzStorageClassHeader, TS3Transforms.ToStringValue(PublicRequest.StorageClass.Value));
@@ -145,8 +148,7 @@ begin
   if PublicRequest.IsSetBucketKeyEnabled then
     Request.Headers.Add(TS3Constants.AmzHeaderBucketKeyEnabled, TS3Transforms.ToStringValue(PublicRequest.BucketKeyEnabled));
 
-
-//  TAmazonS3Util.SetMetadataHeaders(request, PublicRequest.Metadata);
+  TAmazonS3Util.SetMetadataHeaders(request, PublicRequest.Metadata);
 
   if string.IsNullOrEmpty(PublicRequest.DestinationBucket) then
     raise EArgumentException.Create('DestinationBucket is a required property and must be set before making this call');

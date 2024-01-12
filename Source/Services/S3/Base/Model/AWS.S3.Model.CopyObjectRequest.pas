@@ -6,7 +6,9 @@ uses
   System.Generics.Collections, 
   AWS.S3.Model.Request, 
   AWS.Nullable, 
-  AWS.S3.Enums;
+  AWS.S3.Enums, 
+  AWS.S3.Model.HeadersCollection, 
+  AWS.S3.Model.MetadataCollection;
 
 type
   TCopyObjectRequest = class;
@@ -16,16 +18,6 @@ type
     procedure SetACL(const Value: TObjectCannedACL);
     function GetBucketKeyEnabled: Boolean;
     procedure SetBucketKeyEnabled(const Value: Boolean);
-    function GetCacheControl: string;
-    procedure SetCacheControl(const Value: string);
-    function GetContentDisposition: string;
-    procedure SetContentDisposition(const Value: string);
-    function GetContentEncoding: string;
-    procedure SetContentEncoding(const Value: string);
-    function GetContentLanguage: string;
-    procedure SetContentLanguage(const Value: string);
-    function GetContentType: string;
-    procedure SetContentType(const Value: string);
     function GetCopySourceIfMatch: string;
     procedure SetCopySourceIfMatch(const Value: string);
     function GetCopySourceIfModifiedSince: TDateTime;
@@ -48,8 +40,6 @@ type
     procedure SetExpectedBucketOwner(const Value: string);
     function GetExpectedSourceBucketOwner: string;
     procedure SetExpectedSourceBucketOwner(const Value: string);
-    function GetExpires: TDateTime;
-    procedure SetExpires(const Value: TDateTime);
     function GetGrantFullControl: string;
     procedure SetGrantFullControl(const Value: string);
     function GetGrantRead: string;
@@ -58,8 +48,8 @@ type
     procedure SetGrantReadACP(const Value: string);
     function GetGrantWriteACP: string;
     procedure SetGrantWriteACP(const Value: string);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetMetadataDirective: TMetadataDirective;
@@ -98,14 +88,13 @@ type
     procedure SetTaggingDirective(const Value: TTaggingDirective);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
     function Obj: TCopyObjectRequest;
     function IsSetACL: Boolean;
     function IsSetBucketKeyEnabled: Boolean;
-    function IsSetCacheControl: Boolean;
-    function IsSetContentDisposition: Boolean;
-    function IsSetContentEncoding: Boolean;
-    function IsSetContentLanguage: Boolean;
-    function IsSetContentType: Boolean;
     function IsSetCopySourceIfMatch: Boolean;
     function IsSetCopySourceIfModifiedSince: Boolean;
     function IsSetCopySourceIfNoneMatch: Boolean;
@@ -117,7 +106,6 @@ type
     function IsSetDestinationKey: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
     function IsSetExpectedSourceBucketOwner: Boolean;
-    function IsSetExpires: Boolean;
     function IsSetGrantFullControl: Boolean;
     function IsSetGrantRead: Boolean;
     function IsSetGrantReadACP: Boolean;
@@ -143,11 +131,6 @@ type
     function IsSetWebsiteRedirectLocation: Boolean;
     property ACL: TObjectCannedACL read GetACL write SetACL;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
-    property CacheControl: string read GetCacheControl write SetCacheControl;
-    property ContentDisposition: string read GetContentDisposition write SetContentDisposition;
-    property ContentEncoding: string read GetContentEncoding write SetContentEncoding;
-    property ContentLanguage: string read GetContentLanguage write SetContentLanguage;
-    property ContentType: string read GetContentType write SetContentType;
     property CopySourceIfMatch: string read GetCopySourceIfMatch write SetCopySourceIfMatch;
     property CopySourceIfModifiedSince: TDateTime read GetCopySourceIfModifiedSince write SetCopySourceIfModifiedSince;
     property CopySourceIfNoneMatch: string read GetCopySourceIfNoneMatch write SetCopySourceIfNoneMatch;
@@ -159,12 +142,11 @@ type
     property DestinationKey: string read GetDestinationKey write SetDestinationKey;
     property ExpectedBucketOwner: string read GetExpectedBucketOwner write SetExpectedBucketOwner;
     property ExpectedSourceBucketOwner: string read GetExpectedSourceBucketOwner write SetExpectedSourceBucketOwner;
-    property Expires: TDateTime read GetExpires write SetExpires;
     property GrantFullControl: string read GetGrantFullControl write SetGrantFullControl;
     property GrantRead: string read GetGrantRead write SetGrantRead;
     property GrantReadACP: string read GetGrantReadACP write SetGrantReadACP;
     property GrantWriteACP: string read GetGrantWriteACP write SetGrantWriteACP;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property MetadataDirective: TMetadataDirective read GetMetadataDirective write SetMetadataDirective;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
@@ -184,17 +166,13 @@ type
     property Tagging: string read GetTagging write SetTagging;
     property TaggingDirective: TTaggingDirective read GetTaggingDirective write SetTaggingDirective;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
   end;
   
   TCopyObjectRequest = class(TAmazonS3Request, ICopyObjectRequest)
   strict private
     FACL: Nullable<TObjectCannedACL>;
     FBucketKeyEnabled: Nullable<Boolean>;
-    FCacheControl: Nullable<string>;
-    FContentDisposition: Nullable<string>;
-    FContentEncoding: Nullable<string>;
-    FContentLanguage: Nullable<string>;
-    FContentType: Nullable<string>;
     FCopySourceIfMatch: Nullable<string>;
     FCopySourceIfModifiedSince: Nullable<TDateTime>;
     FCopySourceIfNoneMatch: Nullable<string>;
@@ -206,12 +184,11 @@ type
     FDestinationKey: Nullable<string>;
     FExpectedBucketOwner: Nullable<string>;
     FExpectedSourceBucketOwner: Nullable<string>;
-    FExpires: Nullable<TDateTime>;
     FGrantFullControl: Nullable<string>;
     FGrantRead: Nullable<string>;
     FGrantReadACP: Nullable<string>;
     FGrantWriteACP: Nullable<string>;
-    FMetadata: TDictionary<string, string>;
+    FMetadata: TMetadataCollection;
     FKeepMetadata: Boolean;
     FMetadataDirective: Nullable<TMetadataDirective>;
     FObjectLockLegalHoldStatus: Nullable<TObjectLockLegalHoldStatus>;
@@ -231,20 +208,12 @@ type
     FTagging: Nullable<string>;
     FTaggingDirective: Nullable<TTaggingDirective>;
     FWebsiteRedirectLocation: Nullable<string>;
+    FHeaders: THeadersCollection;
+    FKeepHeaders: Boolean;
     function GetACL: TObjectCannedACL;
     procedure SetACL(const Value: TObjectCannedACL);
     function GetBucketKeyEnabled: Boolean;
     procedure SetBucketKeyEnabled(const Value: Boolean);
-    function GetCacheControl: string;
-    procedure SetCacheControl(const Value: string);
-    function GetContentDisposition: string;
-    procedure SetContentDisposition(const Value: string);
-    function GetContentEncoding: string;
-    procedure SetContentEncoding(const Value: string);
-    function GetContentLanguage: string;
-    procedure SetContentLanguage(const Value: string);
-    function GetContentType: string;
-    procedure SetContentType(const Value: string);
     function GetCopySourceIfMatch: string;
     procedure SetCopySourceIfMatch(const Value: string);
     function GetCopySourceIfModifiedSince: TDateTime;
@@ -267,8 +236,6 @@ type
     procedure SetExpectedBucketOwner(const Value: string);
     function GetExpectedSourceBucketOwner: string;
     procedure SetExpectedSourceBucketOwner(const Value: string);
-    function GetExpires: TDateTime;
-    procedure SetExpires(const Value: TDateTime);
     function GetGrantFullControl: string;
     procedure SetGrantFullControl(const Value: string);
     function GetGrantRead: string;
@@ -277,8 +244,8 @@ type
     procedure SetGrantReadACP(const Value: string);
     function GetGrantWriteACP: string;
     procedure SetGrantWriteACP(const Value: string);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetMetadataDirective: TMetadataDirective;
@@ -317,6 +284,10 @@ type
     procedure SetTaggingDirective(const Value: TTaggingDirective);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
   strict protected
     function Obj: TCopyObjectRequest;
   public
@@ -324,11 +295,6 @@ type
     destructor Destroy; override;
     function IsSetACL: Boolean;
     function IsSetBucketKeyEnabled: Boolean;
-    function IsSetCacheControl: Boolean;
-    function IsSetContentDisposition: Boolean;
-    function IsSetContentEncoding: Boolean;
-    function IsSetContentLanguage: Boolean;
-    function IsSetContentType: Boolean;
     function IsSetCopySourceIfMatch: Boolean;
     function IsSetCopySourceIfModifiedSince: Boolean;
     function IsSetCopySourceIfNoneMatch: Boolean;
@@ -340,7 +306,6 @@ type
     function IsSetDestinationKey: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
     function IsSetExpectedSourceBucketOwner: Boolean;
-    function IsSetExpires: Boolean;
     function IsSetGrantFullControl: Boolean;
     function IsSetGrantRead: Boolean;
     function IsSetGrantReadACP: Boolean;
@@ -366,11 +331,6 @@ type
     function IsSetWebsiteRedirectLocation: Boolean;
     property ACL: TObjectCannedACL read GetACL write SetACL;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
-    property CacheControl: string read GetCacheControl write SetCacheControl;
-    property ContentDisposition: string read GetContentDisposition write SetContentDisposition;
-    property ContentEncoding: string read GetContentEncoding write SetContentEncoding;
-    property ContentLanguage: string read GetContentLanguage write SetContentLanguage;
-    property ContentType: string read GetContentType write SetContentType;
     property CopySourceIfMatch: string read GetCopySourceIfMatch write SetCopySourceIfMatch;
     property CopySourceIfModifiedSince: TDateTime read GetCopySourceIfModifiedSince write SetCopySourceIfModifiedSince;
     property CopySourceIfNoneMatch: string read GetCopySourceIfNoneMatch write SetCopySourceIfNoneMatch;
@@ -382,12 +342,11 @@ type
     property DestinationKey: string read GetDestinationKey write SetDestinationKey;
     property ExpectedBucketOwner: string read GetExpectedBucketOwner write SetExpectedBucketOwner;
     property ExpectedSourceBucketOwner: string read GetExpectedSourceBucketOwner write SetExpectedSourceBucketOwner;
-    property Expires: TDateTime read GetExpires write SetExpires;
     property GrantFullControl: string read GetGrantFullControl write SetGrantFullControl;
     property GrantRead: string read GetGrantRead write SetGrantRead;
     property GrantReadACP: string read GetGrantReadACP write SetGrantReadACP;
     property GrantWriteACP: string read GetGrantWriteACP write SetGrantWriteACP;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property MetadataDirective: TMetadataDirective read GetMetadataDirective write SetMetadataDirective;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
@@ -407,6 +366,8 @@ type
     property Tagging: string read GetTagging write SetTagging;
     property TaggingDirective: TTaggingDirective read GetTaggingDirective write SetTaggingDirective;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
+    property KeepHeaders: Boolean read GetKeepHeaders write SetKeepHeaders;
   end;
   
 implementation
@@ -416,11 +377,13 @@ implementation
 constructor TCopyObjectRequest.Create;
 begin
   inherited;
-  FMetadata := TDictionary<string, string>.Create;
+  FMetadata := TMetadataCollection.Create;
+  FHeaders := THeadersCollection.Create;
 end;
 
 destructor TCopyObjectRequest.Destroy;
 begin
+  Headers := nil;
   Metadata := nil;
   inherited;
 end;
@@ -458,81 +421,6 @@ end;
 function TCopyObjectRequest.IsSetBucketKeyEnabled: Boolean;
 begin
   Result := FBucketKeyEnabled.HasValue;
-end;
-
-function TCopyObjectRequest.GetCacheControl: string;
-begin
-  Result := FCacheControl.ValueOrDefault;
-end;
-
-procedure TCopyObjectRequest.SetCacheControl(const Value: string);
-begin
-  FCacheControl := Value;
-end;
-
-function TCopyObjectRequest.IsSetCacheControl: Boolean;
-begin
-  Result := FCacheControl.HasValue;
-end;
-
-function TCopyObjectRequest.GetContentDisposition: string;
-begin
-  Result := FContentDisposition.ValueOrDefault;
-end;
-
-procedure TCopyObjectRequest.SetContentDisposition(const Value: string);
-begin
-  FContentDisposition := Value;
-end;
-
-function TCopyObjectRequest.IsSetContentDisposition: Boolean;
-begin
-  Result := FContentDisposition.HasValue;
-end;
-
-function TCopyObjectRequest.GetContentEncoding: string;
-begin
-  Result := FContentEncoding.ValueOrDefault;
-end;
-
-procedure TCopyObjectRequest.SetContentEncoding(const Value: string);
-begin
-  FContentEncoding := Value;
-end;
-
-function TCopyObjectRequest.IsSetContentEncoding: Boolean;
-begin
-  Result := FContentEncoding.HasValue;
-end;
-
-function TCopyObjectRequest.GetContentLanguage: string;
-begin
-  Result := FContentLanguage.ValueOrDefault;
-end;
-
-procedure TCopyObjectRequest.SetContentLanguage(const Value: string);
-begin
-  FContentLanguage := Value;
-end;
-
-function TCopyObjectRequest.IsSetContentLanguage: Boolean;
-begin
-  Result := FContentLanguage.HasValue;
-end;
-
-function TCopyObjectRequest.GetContentType: string;
-begin
-  Result := FContentType.ValueOrDefault;
-end;
-
-procedure TCopyObjectRequest.SetContentType(const Value: string);
-begin
-  FContentType := Value;
-end;
-
-function TCopyObjectRequest.IsSetContentType: Boolean;
-begin
-  Result := FContentType.HasValue;
 end;
 
 function TCopyObjectRequest.GetCopySourceIfMatch: string;
@@ -700,21 +588,6 @@ begin
   Result := FExpectedSourceBucketOwner.HasValue;
 end;
 
-function TCopyObjectRequest.GetExpires: TDateTime;
-begin
-  Result := FExpires.ValueOrDefault;
-end;
-
-procedure TCopyObjectRequest.SetExpires(const Value: TDateTime);
-begin
-  FExpires := Value;
-end;
-
-function TCopyObjectRequest.IsSetExpires: Boolean;
-begin
-  Result := FExpires.HasValue;
-end;
-
 function TCopyObjectRequest.GetGrantFullControl: string;
 begin
   Result := FGrantFullControl.ValueOrDefault;
@@ -775,12 +648,12 @@ begin
   Result := FGrantWriteACP.HasValue;
 end;
 
-function TCopyObjectRequest.GetMetadata: TDictionary<string, string>;
+function TCopyObjectRequest.GetMetadata: TMetadataCollection;
 begin
   Result := FMetadata;
 end;
 
-procedure TCopyObjectRequest.SetMetadata(const Value: TDictionary<string, string>);
+procedure TCopyObjectRequest.SetMetadata(const Value: TMetadataCollection);
 begin
   if FMetadata <> Value then
   begin
@@ -1073,6 +946,31 @@ end;
 function TCopyObjectRequest.IsSetWebsiteRedirectLocation: Boolean;
 begin
   Result := FWebsiteRedirectLocation.HasValue;
+end;
+
+function TCopyObjectRequest.GetHeaders: THeadersCollection;
+begin
+  Result := FHeaders;
+end;
+
+procedure TCopyObjectRequest.SetHeaders(const Value: THeadersCollection);
+begin
+  if FHeaders <> Value then
+  begin
+    if not KeepHeaders then
+      FHeaders.Free;
+    FHeaders := Value;
+  end;
+end;
+
+function TCopyObjectRequest.GetKeepHeaders: Boolean;
+begin
+  Result := FKeepHeaders;
+end;
+
+procedure TCopyObjectRequest.SetKeepHeaders(const Value: Boolean);
+begin
+  FKeepHeaders := Value;
 end;
 
 end.
