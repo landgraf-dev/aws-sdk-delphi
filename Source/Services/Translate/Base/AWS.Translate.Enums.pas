@@ -1,5 +1,7 @@
 unit AWS.Translate.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type

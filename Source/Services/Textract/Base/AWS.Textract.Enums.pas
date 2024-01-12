@@ -1,5 +1,7 @@
 unit AWS.Textract.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type
