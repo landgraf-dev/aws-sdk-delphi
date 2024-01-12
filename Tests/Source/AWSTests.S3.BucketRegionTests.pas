@@ -145,8 +145,8 @@ begin
   begin
     runner.USEast1Client.PutObject(runner.PutObjectRequest);
     var cachedRegion: IRegionEndpointEx;
-    Check(TBucketRegionDetector.BucketRegionCache.TryGetValue(runner.BucketName, cachedRegion));
-    CheckEquals(TRegionEndpoints.USWest1.SystemName, cachedRegion.SystemName);
+    Check(not TBucketRegionDetector.BucketRegionCache.TryGetValue(runner.BucketName, cachedRegion), 'should not be cached');
+    Check(cachedRegion = nil, 'cachedRegion not nil');
   end
   else
     Fail('bucket not ready');
