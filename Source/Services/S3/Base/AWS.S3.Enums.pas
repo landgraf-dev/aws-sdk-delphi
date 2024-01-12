@@ -1,5 +1,7 @@
 unit AWS.S3.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type
@@ -380,18 +382,10 @@ type
     property Value: string read FValue;
   end;
   
-  TMetadataDirective = record
-  strict private
-    FValue: string;
-  public
-    constructor Create(const AValue: string);
-    class function COPY: TMetadataDirective; static;
-    class function REPLACE: TMetadataDirective; static;
-    class operator Equal(a: TMetadataDirective; b: TMetadataDirective): Boolean;
-    class operator NotEqual(a: TMetadataDirective; b: TMetadataDirective): Boolean;
-    class operator Implicit(a: string): TMetadataDirective;
-    property Value: string read FValue;
-  end;
+  TMetadataDirective = (
+    Copy,
+    Replace
+  );
   
   TMetricsStatus = record
   strict private
@@ -1850,38 +1844,6 @@ begin
 end;
 
 class operator TMFADeleteStatus.Implicit(a: string): TMFADeleteStatus;
-begin
-  Result.FValue := a;;
-end;
-
-{ TMetadataDirective }
-
-constructor TMetadataDirective.Create(const AValue: string);
-begin
-  FValue := AValue;
-end;
-
-class function TMetadataDirective.COPY: TMetadataDirective;
-begin
-  Result := TMetadataDirective.Create('COPY');
-end;
-
-class function TMetadataDirective.REPLACE: TMetadataDirective;
-begin
-  Result := TMetadataDirective.Create('REPLACE');
-end;
-
-class operator TMetadataDirective.Equal(a: TMetadataDirective; b: TMetadataDirective): Boolean;
-begin
-  Result := a.Value = b.Value;
-end;
-
-class operator TMetadataDirective.NotEqual(a: TMetadataDirective; b: TMetadataDirective): Boolean;
-begin
-  Result := a.Value <> b.Value;
-end;
-
-class operator TMetadataDirective.Implicit(a: string): TMetadataDirective;
 begin
   Result.FValue := a;;
 end;

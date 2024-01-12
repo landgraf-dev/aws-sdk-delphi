@@ -147,12 +147,12 @@ type
     property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
     property CalculateContentMD5Header: Boolean read GetCalculateContentMD5Header write SetCalculateContentMD5Header;
     property DisableMD5Stream: NullableBoolean read GetDisableMD5Stream write SetDisableMD5Stream;
-    property Headers: THeadersCollection read GetHeaders write SetHeaders;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
     property IsSetInputStream: Boolean read IsSetBody;
     property MD5Digest: string read GetContentMD5 write SetContentMD5;
     property IsSetMD5Digest: Boolean read IsSetContentMD5;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
   end;
   
   TPutObjectRequest = class(TAmazonS3Request, IPutObjectRequest)
@@ -329,13 +329,13 @@ type
     property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
     property CalculateContentMD5Header: Boolean read GetCalculateContentMD5Header write SetCalculateContentMD5Header;
     property DisableMD5Stream: NullableBoolean read GetDisableMD5Stream write SetDisableMD5Stream;
-    property Headers: THeadersCollection read GetHeaders write SetHeaders;
-    property KeepHeaders: Boolean read GetKeepHeaders write SetKeepHeaders;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
     property IsSetInputStream: Boolean read IsSetBody;
     property MD5Digest: string read GetContentMD5 write SetContentMD5;
     property IsSetMD5Digest: Boolean read IsSetContentMD5;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
+    property KeepHeaders: Boolean read GetKeepHeaders write SetKeepHeaders;
   end;
   
 implementation
