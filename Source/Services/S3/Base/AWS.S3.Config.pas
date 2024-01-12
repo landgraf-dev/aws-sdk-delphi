@@ -3,6 +3,7 @@ unit AWS.S3.Config;
 interface
 
 uses
+  AWS.Enums, 
   AWS.Runtime.ClientConfig, 
   AWS.Internal.SDKUtils, 
   AWS.Nullable;
@@ -17,6 +18,7 @@ type
     class constructor Create;
   strict protected
     FUseArnRegion: NullableBoolean;
+    FS3UsEast1RegionalEndpointValue: Nullable<TS3UsEast1RegionalEndpointValue>;
     procedure Init; override;
     function GetServiceVersion: string; override;
     function GetRegionEndpointServiceName: string; override;
@@ -34,6 +36,7 @@ procedure TAmazonS3Config.Init;
 begin
   inherited;
   AuthenticationServiceName := 's3';
+  AllowAutoRedirect := False;
 end;
 
 function TAmazonS3Config.GetServiceVersion: string;
