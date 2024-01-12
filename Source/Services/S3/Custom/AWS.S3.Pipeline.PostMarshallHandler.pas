@@ -14,7 +14,6 @@ uses
   AWS.SDKUtils,
   AWS.S3.ArnExtensions,
   AWS.S3.Config,
-  AWS.S3.ConfigExtension,
   AWS.S3.Enums,
   AWS.S3.Model.ListBucketsRequest,
   AWS.S3.Model.PutBucketRequest,
