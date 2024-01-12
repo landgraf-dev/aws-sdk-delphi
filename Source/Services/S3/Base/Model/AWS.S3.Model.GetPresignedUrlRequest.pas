@@ -7,7 +7,7 @@ uses
   AWS.S3.Model.MetadataCollection,
   AWS.S3.Model.ParameterCollection,
   AWS.S3.Model.ResponseHeaderOverrides,
-  AWS.Lib.HttpHeaders,
+  AWS.S3.Model.HeadersCollection,
   AWS.Nullable,
   AWS.S3.Enums;
 
@@ -86,8 +86,8 @@ type
     property Verb: THttpVerb read GetVerb write SetVerb;
     property VersionId: string read GetVersionId write SetVersionId;
 
-    function GetHeaders: THttpHeaders;
-    property Headers: THttpHeaders read GetHeaders;
+    function GetHeaders: THeadersCollection;
+    property Headers: THeadersCollection read GetHeaders;
     function GetMetadata: TMetadataCollection;
     property Metadata: TMetadataCollection read GetMetadata;
     function GetParameters: TParameterCollection;
@@ -110,7 +110,7 @@ type
     FUploadId: Nullable<string>;
     FVerb: Nullable<THttpVerb>;
     FVersionId: Nullable<string>;
-    FHeaders: THttpHeaders;
+    FHeaders: THeadersCollection;
     FMetadata: TMetadataCollection;
     FParameters: TParameterCollection;
     function GetBucketName: string;
@@ -143,7 +143,7 @@ type
     procedure SetVerb(const Value: THttpVerb);
     function GetVersionId: string;
     procedure SetVersionId(const Value: string);
-    function GetHeaders: THttpHeaders;
+    function GetHeaders: THeadersCollection;
     function GetMetadata: TMetadataCollection;
     function GetParameters: TParameterCollection;
   strict protected
@@ -179,7 +179,7 @@ type
     property Verb: THttpVerb read GetVerb write SetVerb;
     property VersionId: string read GetVersionId write SetVersionId;
 
-    property Headers: THttpHeaders read GetHeaders;
+    property Headers: THeadersCollection read GetHeaders;
     property Metadata: TMetadataCollection read GetMetadata;
     property Parameters: TParameterCollection read GetParameters;
   end;
@@ -223,7 +223,7 @@ end;
 constructor TGetPreSignedUrlRequest.Create;
 begin
   inherited;
-  FHeaders := THttpHeaders.Create;
+  FHeaders := THeadersCollection.Create;
   FMetadata := TMetadataCollection.Create;
   FParameters := TParameterCollection.Create;
   FResponseHeaderOverrides := TResponseHeaderOverrides.Create;
@@ -255,12 +255,12 @@ end;
 
 function TGetPreSignedUrlRequest.GetContentType: string;
 begin
-  Result := Headers.Get('Content-Type');
+  Result := Headers.ContentType;
 end;
 
 procedure TGetPreSignedUrlRequest.SetContentType(const Value: string);
 begin
-  Headers.SetValue('Content-Type', Value);
+  Headers.ContentType := Value;
 end;
 
 function TGetPreSignedUrlRequest.GetExpires: TDateTime;
@@ -268,7 +268,7 @@ begin
   Result := FExpires.ValueOrDefault;
 end;
 
-function TGetPreSignedUrlRequest.GetHeaders: THttpHeaders;
+function TGetPreSignedUrlRequest.GetHeaders: THeadersCollection;
 begin
   Result := FHeaders;
 end;
