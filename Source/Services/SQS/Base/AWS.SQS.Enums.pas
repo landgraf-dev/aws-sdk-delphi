@@ -1,5 +1,7 @@
 unit AWS.SQS.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type

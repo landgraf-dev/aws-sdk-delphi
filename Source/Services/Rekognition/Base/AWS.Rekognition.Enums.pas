@@ -1,5 +1,7 @@
 unit AWS.Rekognition.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type

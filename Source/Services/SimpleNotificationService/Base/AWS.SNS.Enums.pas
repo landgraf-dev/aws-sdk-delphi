@@ -1,5 +1,7 @@
 unit AWS.SNS.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type

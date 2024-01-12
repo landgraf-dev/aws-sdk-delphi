@@ -1,5 +1,7 @@
 unit AWS.SESv2.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type

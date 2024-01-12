@@ -1,5 +1,7 @@
 unit AWS.LexRuntimeService.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type

@@ -1,5 +1,7 @@
 unit AWS.Polly.Enums;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 type
