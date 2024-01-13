@@ -7,6 +7,7 @@ uses
   AWS.Internal.Request,
   AWS.Runtime.Model,
   AWS.Runtime.Credentials,
+  AWS.Internal.CapacityManager,
   AWS.Internal.ServiceMetadata,
   AWS.Runtime.ClientConfig,
   AWS.Internal.WebResponseData,
@@ -30,13 +31,17 @@ type
     FImmutableCredentials: IImmutableCredentials;
     FIsSigned: Boolean;
     FInvocationId: TGuid;
+    FIsLastExceptionRetryable: Boolean;
+    FCSMEnabled: Boolean;
+    FLastCapacityType: TCapacityType;
     function GetSigner: TAbstractAWSSigner;
+    procedure SetServiceMetadata(const Value: IServiceMetadata);
   public
     constructor Create(AEnableMetrics: Boolean; AClientSigner: TAbstractAWSSigner);
     function RequestName: string;
     property Request: IRequest read FRequest write FRequest;
     property ClientConfig: IClientConfig read FClientConfig write FClientConfig;
-    property ServiceMetadata: IServiceMetadata read FServiceMetadata write FServiceMetadata;
+    property ServiceMetadata: IServiceMetadata read FServiceMetadata write SetServiceMetadata;
     property Retries: Integer read FRetries write FRetries;
     property IsSigned: Boolean read FIsSigned write FIsSigned;
     property OriginalRequest: TAmazonWebServiceRequest read FOriginalRequest write FOriginalRequest;
@@ -46,6 +51,9 @@ type
     property ImmutableCredentials: IImmutableCredentials read FImmutableCredentials write FImmutableCredentials;
     property Signer: TAbstractAWSSigner read GetSigner;
     property InvocationId: TGuid read FInvocationId;
+    property IsLastExceptionRetryable: Boolean read FIsLastExceptionRetryable write FIsLastExceptionRetryable;
+    property CSMEnabled: Boolean read FCSMEnabled;
+    property LastCapacityType: TCapacityType read FLastCapacityType write FLastCapacityType;
   end;
 
   TResponseContext = class
@@ -115,6 +123,18 @@ begin
     Result := Copy(OriginalRequest.ClassName, 2)
   else
     Result := 'Unknown';
+end;
+
+procedure TRequestContext.SetServiceMetadata(const Value: IServiceMetadata);
+begin
+  FServiceMetadata := Value;
+
+  {TODO: Uncomment when CSM is implemented}
+  // The CSMEnabled flag is referred in the runtime pipeline before capturing any CSM data.
+  // Along with the customer set CSMEnabled flag, the ServiceMetadata.ServiceId needs to be set
+  // to capture client side metrics. Older service nuget packages might not have a ServiceMetadata
+  // implementation and in such cases client side metrics will not be captured.
+//  CSMEnabled = TDeterminedCSMConfiguration.Instance.CSMConfiguration.Enabled and not string.IsNullOrEmpty(FServiceMetadata.ServiceId);
 end;
 
 { TResponseContext }
