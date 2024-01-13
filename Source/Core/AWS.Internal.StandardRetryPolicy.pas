@@ -36,9 +36,9 @@ type
     function OnRetry(ExecutionContext: TExecutionContext; BypassAcquireCapacity: Boolean): Boolean; overload; override;
     function OnRetry(ExecutionContext: TExecutionContext; BypassAcquireCapacity, IsThrottlingError: Boolean): Boolean; overload; override;
   public
-    constructor Create; overload;
     constructor Create(AMaxRetries: Integer); overload;
     constructor Create(Config: IClientConfig); overload;
+    procedure AfterConstruction; override;
     class procedure DoWaitBeforeRetry(Retries, MaxBackoffInMilliseconds: Integer); static;
     property MaxBackoffInMilliseconds: Integer read FMaxBackoffInMilliseconds write FMaxBackoffInMilliseconds;
   end;
@@ -54,9 +54,9 @@ begin
     {AThrottleRetryCost:} 5, {AThrottleCost:} 1, {ATimeoutRetryCost: } 10);
 end;
 
-constructor TStandardRetryPolicy.Create;
+procedure TStandardRetryPolicy.AfterConstruction;
 begin
-  inherited Create;
+  inherited;
   FMaxBackoffInMilliseconds := 20000;
 end;
 
@@ -73,7 +73,7 @@ end;
 
 constructor TStandardRetryPolicy.Create(Config: IClientConfig);
 begin
-  Create;
+  inherited Create;
   MaxRetries := Config.MaxErrorRetry;
   if config.ThrottleRetries then
   begin
@@ -84,7 +84,7 @@ end;
 
 constructor TStandardRetryPolicy.Create(AMaxRetries: Integer);
 begin
-  Create;
+  inherited Create;
   MaxRetries := AMaxRetries;
 end;
 
