@@ -5,6 +5,7 @@ unit AWS.Runtime.ClientConfig;
 interface
 
 uses
+  System.TimeSpan,
   AWS.RegionEndpoint,
   AWS.Configs,
   AWS.Enums,
@@ -45,6 +46,12 @@ type
     function DetermineServiceUrl: string;
     function CorrectedUtcNow: TDateTime;
     procedure Validate;
+
+    /// <summary>
+    /// Returns the calculated clock skew value for this config's service endpoint. If AWSConfigs.CorrectForClockSkew is false,
+    /// this value won't be used to construct service requests.
+    /// </summary>
+    function ClockOffset: TTimeSpan;
 
     property AuthenticationRegion: string read GetAuthenticationRegion;
     property AuthenticationServiceName: string read GetAuthenticationServiceName;
@@ -138,6 +145,7 @@ type
     function DetermineServiceUrl: string; virtual;
     function CorrectedUtcNow: TDateTime;
     procedure Validate; virtual;
+    function ClockOffset: TTimeSpan;
     property AuthenticationServiceName: string read GetAuthenticationServiceName write FAuthenticationServiceName;
     property AuthenticationRegion: string read GetAuthenticationRegion write FAuthenticationRegion;
     property ServiceURL: string read GetServiceURL write SetServiceURL;
@@ -183,6 +191,17 @@ constructor TClientConfig.Create;
 begin
   inherited Create;
   Init;
+end;
+
+function TClientConfig.ClockOffset: TTimeSpan;
+begin
+  if TAWSConfigs.ManualClockCorrection.HasValue then
+    Result := TAWSConfigs.ManualClockCorrection.Value
+  else
+  begin
+    var endpoint := DetermineServiceURL;
+    Result := TCorrectClockSkew.GetClockCorrectionForEndpoint(endpoint);
+  end;
 end;
 
 function TClientConfig.CorrectedUtcNow: TDateTime;

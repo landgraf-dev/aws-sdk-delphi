@@ -99,7 +99,7 @@ type
     class constructor Create;
     class destructor Destroy;
 
-  protected
+  public
     class procedure SetClockCorrectionForEndpoint(const endpoint: string; const Correction: TTimeSpan); static;
   public
     /// <summary>

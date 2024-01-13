@@ -13,6 +13,9 @@ interface
 uses
   SysUtils, DateUtils, Character;
 
+type
+  TTimeZoneMode = (zmError, zmIgnore, zmAsUTC, zmAsLocal);
+
 function PercentEncode(const S: string): string;
 function PercentDecode(const S: string): string;
 procedure AppendQueryParam(var Query: string; const Name, Value: string);
@@ -24,6 +27,7 @@ function ISOToDateTime(const Value: string): TDateTime;
 function ISOToDate(const Value: string): TDate;
 function BoolToParam(const Value: Boolean): string;
 function DoubleToParam(const Value: Double): string;
+function TryISOToDateTime(const Value: string; out DateTime: TDateTime; TimeZoneMode: TTimeZoneMode): boolean; overload;
 
 resourcestring
   SInvalidDateFormat = 'Value %s is not a valid datetime';
@@ -31,9 +35,7 @@ resourcestring
 implementation
 
 type
-  TTimeZoneMode = (zmError, zmIgnore, zmAsUTC, zmAsLocal);
-
-  TBase64EncodeTable = array[0..63] of Char;
+ TBase64EncodeTable = array[0..63] of Char;
 
   TPacket = packed record
     a: array[0..3] of Byte;

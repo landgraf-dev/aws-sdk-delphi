@@ -30,24 +30,35 @@ type
     Receiver
   );
 
+  TRetryableDetails = class
+  strict private
+    FThrottling: Boolean;
+  public
+    constructor Create(AThrottling: Boolean);
+    property Throttling: Boolean read FThrottling;
+  end;
+
   EAmazonServiceException = class(Exception)
   strict private
     FErrorType: TErrorType;
     FErrorCode: string;
     FRequestId: string;
     FStatusCode: Integer;
+    FRetryable: TRetryableDetails;
     class function BuildGenericErrorMessage(const AErrorCode: string; AStatusCode: Integer): string;
-  strict protected
+    procedure SetRetryable(const Value: TRetryableDetails); protected
     function BuildMessage(const AMessage: string; AException: Exception): string;
   public
     constructor Create(const AMessage: string; AInnerException: Exception); overload;
     constructor Create(const AMessage: string; AInnerException: Exception; AStatusCode: Integer); overload;
     constructor Create(const AMessage: string; AInnerException: Exception; AErrorType: TErrorType;
       const AErrorCode, ARequestId: string; AStatusCode: Integer); overload;
+    destructor Destroy; override;
     property ErrorType: TErrorType read FErrorType write FErrorType;
     property ErrorCode: string read FErrorCode write FErrorCode;
     property RequestId: string read FRequestId write FRequestId;
     property StatusCode: Integer read FStatusCode write FStatusCode;
+    property Retryable: TRetryableDetails read FRetryable write SetRetryable;
   end;
 
   EAmazonUnmarshallingException = class(EAmazonServiceException)
@@ -125,6 +136,29 @@ begin
   FErrorType := AErrorType;
   FRequestId := ARequestId;
   FStatusCode := AStatusCode;
+end;
+
+destructor EAmazonServiceException.Destroy;
+begin
+  FRetryable.Free;
+  inherited;
+end;
+
+procedure EAmazonServiceException.SetRetryable(const Value: TRetryableDetails);
+begin
+  if FRetryable <> Value then
+  begin
+    FRetryable.Free;
+    FRetryable := Value;
+  end;
+end;
+
+{ TRetryableDetails }
+
+constructor TRetryableDetails.Create(AThrottling: Boolean);
+begin
+  inherited Create;
+  FThrottling := AThrottling;
 end;
 
 end.
