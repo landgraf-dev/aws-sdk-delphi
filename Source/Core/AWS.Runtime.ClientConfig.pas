@@ -8,16 +8,11 @@ uses
   AWS.RegionEndpoint,
   AWS.Configs,
   AWS.Enums,
+  AWS.Runtime.InternalConfiguration,
   AWS.SDKUtils,
   AWS.Nullable;
 
 type
-  /// <summary>
-  /// RetryMode determines which request retry mode is used for requests that do
-  /// not complete successfully.
-  /// </summary>
-  TRequestRetryMode = (Legacy, Standard, Adaptive);
-
   /// <summary>
   /// This interface is the read only access to the ClientConfig object used when setting up service clients. Once service clients
   /// are initiated the config object should not be changed to avoid issues with using a service client in a multi threaded environment.
@@ -45,6 +40,7 @@ type
     function GetUseHttp: Boolean;
     function GetUserAgent: string;
     function GetAllowAutoRedirect: Boolean;
+    function GetRetryMode: TRequestRetryMode;
 
     function DetermineServiceUrl: string;
     function CorrectedUtcNow: TDateTime;
@@ -70,6 +66,15 @@ type
     property UseHttp: Boolean read GetUseHttp;
     property UserAgent: string read GetUserAgent;
     property AllowAutoRedirect: Boolean read GetAllowAutoRedirect;
+
+    /// <summary>
+    /// Returns the flag indicating the current mode in use for request
+    /// retries and influences the value returned from <see cref="MaxErrorRetry"/>.
+    /// The default value is RequestRetryMode.Legacy. This flag can be configured
+    /// by using the AWS_RETRY_MODE environment variable, retry_mode in the
+    /// shared configuration file, or by setting this value directly.
+    /// </summary>
+    property RetryMode: TRequestRetryMode read GetRetryMode;
   end;
 
   TClientConfig = class(TInterfacedObject, IClientConfig)
@@ -92,6 +97,7 @@ type
     FSignatureMethod: TSigningAlgorithm;
     FUseAlternateUserAgentHeader: Boolean;
     FAllowAutoRedirect: Boolean;
+    FRetryMode: Nullable<TRequestRetryMode>;
     function GetLogMetrics: Boolean;
     function GetLogResponse: Boolean;
     function GetUseDualstackEndpoint: Boolean;
@@ -115,6 +121,8 @@ type
     function GetUseAlternateUserAgentHeader: Boolean;
     procedure SetSignatureVersion(const Value: string);
     function GetAllowAutoRedirect: Boolean;
+    function GetRetryMode: TRequestRetryMode;
+    procedure SetRetryMode(const Value: TRequestRetryMode);
   strict protected
     function GetRegionEndpointServiceName: string; virtual; abstract;
     function GetServiceVersion: string; virtual; abstract;
@@ -151,6 +159,15 @@ type
     property UseAlternateUserAgentHeader: Boolean read GetUseAlternateUserAgentHeader write FUseAlternateUserAgentHeader;
     property UserAgent: string read GetUserAgent;
     property AllowAutoRedirect: Boolean read GetAllowAutoRedirect write FAllowAutoRedirect;
+
+    /// <summary>
+    /// Returns the flag indicating the current mode in use for request
+    /// retries and influences the value returned from <see cref="MaxErrorRetry"/>.
+    /// The default value is RequestRetryMode.Legacy. This flag can be configured
+    /// by using the AWS_RETRY_MODE environment variable, retry_mode in the
+    /// shared configuration file, or by setting this value directly.
+    /// </summary>
+    property RetryMode: TRequestRetryMode read GetRetryMode write SetRetryMode;
   end;
 
 implementation
@@ -266,6 +283,19 @@ begin
   Result := FResignRetries;
 end;
 
+function TClientConfig.GetRetryMode: TRequestRetryMode;
+begin
+  if not FRetryMode.HasValue then
+  begin
+    if TFallbackInternalConfigurationFactory.RetryMode.HasValue then
+      Exit(TFallbackInternalConfigurationFactory.RetryMode.Value)
+    else
+      Exit(TRequestRetryMode.Legacy);
+  end;
+
+  Result := FRetryMode.Value;
+end;
+
 function TClientConfig.GetServiceURL: string;
 begin
   Result := FServiceURL;
@@ -327,6 +357,11 @@ begin
   FServiceURL := '';
   FRegionEndpoint := Value;
   FProbeForRegionEndpoint := FRegionEndpoint = nil;
+end;
+
+procedure TClientConfig.SetRetryMode(const Value: TRequestRetryMode);
+begin
+  FRetryMode := Value;
 end;
 
 procedure TClientConfig.SetServiceURL(const Value: string);
