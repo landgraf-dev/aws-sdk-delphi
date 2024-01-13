@@ -34,6 +34,7 @@ type
     FIsLastExceptionRetryable: Boolean;
     FCSMEnabled: Boolean;
     FLastCapacityType: TCapacityType;
+    FEndpointDiscoveryRetries: Integer;
     function GetSigner: TAbstractAWSSigner;
     procedure SetServiceMetadata(const Value: IServiceMetadata);
   public
@@ -54,6 +55,7 @@ type
     property IsLastExceptionRetryable: Boolean read FIsLastExceptionRetryable write FIsLastExceptionRetryable;
     property CSMEnabled: Boolean read FCSMEnabled;
     property LastCapacityType: TCapacityType read FLastCapacityType write FLastCapacityType;
+    property EndpointDiscoveryRetries: Integer read FEndpointDiscoveryRetries write FEndpointDiscoveryRetries;
   end;
 
   TResponseContext = class
