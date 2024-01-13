@@ -42,6 +42,7 @@ type
     function GetUserAgent: string;
     function GetAllowAutoRedirect: Boolean;
     function GetRetryMode: TRequestRetryMode;
+    function GetThrottleRetries: Boolean;
 
     function DetermineServiceUrl: string;
     function CorrectedUtcNow: TDateTime;
@@ -82,6 +83,12 @@ type
     /// shared configuration file, or by setting this value directly.
     /// </summary>
     property RetryMode: TRequestRetryMode read GetRetryMode;
+
+    /// <summary>
+    /// Configures a flag enabling to either opt in or opt out of the retry throttling service.
+    /// Note: set value to true to enable retry throttling feature. The Default value for this flag is false.
+    /// </summary>
+    property ThrottleRetries: Boolean read GetThrottleRetries;
   end;
 
   TClientConfig = class(TInterfacedObject, IClientConfig)
@@ -105,6 +112,7 @@ type
     FUseAlternateUserAgentHeader: Boolean;
     FAllowAutoRedirect: Boolean;
     FRetryMode: Nullable<TRequestRetryMode>;
+    FThrottleRetries: Boolean;
     function GetLogMetrics: Boolean;
     function GetLogResponse: Boolean;
     function GetUseDualstackEndpoint: Boolean;
@@ -130,6 +138,7 @@ type
     function GetAllowAutoRedirect: Boolean;
     function GetRetryMode: TRequestRetryMode;
     procedure SetRetryMode(const Value: TRequestRetryMode);
+    function GetThrottleRetries: Boolean;
   strict protected
     function GetRegionEndpointServiceName: string; virtual; abstract;
     function GetServiceVersion: string; virtual; abstract;
@@ -176,6 +185,8 @@ type
     /// shared configuration file, or by setting this value directly.
     /// </summary>
     property RetryMode: TRequestRetryMode read GetRetryMode write SetRetryMode;
+
+    property ThrottleRetries: Boolean read GetThrottleRetries write FThrottleRetries;
   end;
 
 implementation
@@ -328,6 +339,11 @@ end;
 function TClientConfig.GetSignatureVersion: string;
 begin
   Result := FSignatureVersion;
+end;
+
+function TClientConfig.GetThrottleRetries: Boolean;
+begin
+  Result := FThrottleRetries;
 end;
 
 class function TClientConfig.GetUrl(ARegionEndpoint: IRegionEndpointEx; const ARegionEndpointServiceName: string;
