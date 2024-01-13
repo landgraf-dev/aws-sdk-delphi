@@ -20,7 +20,6 @@ type
     procedure InvokeSync(AExecutionContext: TExecutionContext); override;
   end;
 
-
 implementation
 
 { TRedirectHandler }
@@ -41,8 +40,7 @@ begin
   else
     requestContext.Request.Endpoint := TUri.Create(Format('%s://%s:%d', [uri.Scheme, uri.Host, uri.Port]));
 
-  {Todo: Review this}
-//  TRetryHandler.PrepareForRetry(AExecutionContext.RequestContext);
+  TRetryHandler.PrepareForRetry(AExecutionContext.RequestContext);
 end;
 
 function TRedirectHandler.HandleRedirect(AExecutionContext: TExecutionContext): Boolean;

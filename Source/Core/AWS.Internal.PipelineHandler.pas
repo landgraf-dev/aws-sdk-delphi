@@ -27,12 +27,13 @@ type
     FLogger: ILogger;
     FInnerHandler: IPipelineHandler;
     FOuterHandler: IPipelineHandler;
-    function GetLogger: ILogger;
-    procedure SetLogger(const Value: ILogger);
     function GetInnerHandler: IPipeLineHandler;
     procedure SetInnerHandler(const Value: IPipeLineHandler);
     function GetOuterHandler: IPipeLineHandler;
     procedure SetOuterHandler(const Value: IPipeLineHandler);
+  protected
+    function GetLogger: ILogger; virtual;
+    procedure SetLogger(const Value: ILogger); virtual;
   public
     property Logger: ILogger read GetLogger write SetLogger;
     property InnerHandler: IPipeLineHandler read GetInnerHandler write SetInnerHandler;
