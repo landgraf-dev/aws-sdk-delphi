@@ -43,6 +43,7 @@ type
     function GetAllowAutoRedirect: Boolean;
     function GetRetryMode: TRequestRetryMode;
     function GetThrottleRetries: Boolean;
+    function GetFastFailRequests: Boolean;
 
     function DetermineServiceUrl: string;
     function CorrectedUtcNow: TDateTime;
@@ -89,6 +90,13 @@ type
     /// Note: set value to true to enable retry throttling feature. The Default value for this flag is false.
     /// </summary>
     property ThrottleRetries: Boolean read GetThrottleRetries;
+
+    /// <summary>
+    /// Under Adaptive retry mode, this flag determines if the client should wait for
+    /// a send token to become available or don't block and fail the request immediately
+    /// if a send token is not available.
+    /// </summary>
+    property FastFailRequests: Boolean read GetFastFailRequests;
   end;
 
   TClientConfig = class(TInterfacedObject, IClientConfig)
@@ -113,6 +121,7 @@ type
     FAllowAutoRedirect: Boolean;
     FRetryMode: Nullable<TRequestRetryMode>;
     FThrottleRetries: Boolean;
+    FFastFailRequests: Boolean;
     function GetLogMetrics: Boolean;
     function GetLogResponse: Boolean;
     function GetUseDualstackEndpoint: Boolean;
@@ -139,6 +148,7 @@ type
     function GetRetryMode: TRequestRetryMode;
     procedure SetRetryMode(const Value: TRequestRetryMode);
     function GetThrottleRetries: Boolean;
+    function GetFastFailRequests: Boolean;
   strict protected
     function GetRegionEndpointServiceName: string; virtual; abstract;
     function GetServiceVersion: string; virtual; abstract;
@@ -155,6 +165,7 @@ type
     function CorrectedUtcNow: TDateTime;
     procedure Validate; virtual;
     function ClockOffset: TTimeSpan;
+
     property AuthenticationServiceName: string read GetAuthenticationServiceName write FAuthenticationServiceName;
     property AuthenticationRegion: string read GetAuthenticationRegion write FAuthenticationRegion;
     property ServiceURL: string read GetServiceURL write SetServiceURL;
@@ -185,6 +196,8 @@ type
     /// shared configuration file, or by setting this value directly.
     /// </summary>
     property RetryMode: TRequestRetryMode read GetRetryMode write SetRetryMode;
+
+    property FastFailRequests: Boolean read GetFastFailRequests write FFastFailRequests;
 
     property ThrottleRetries: Boolean read GetThrottleRetries write FThrottleRetries;
   end;
@@ -232,6 +245,11 @@ begin
     Result := ServiceURL
   else
     Result := GetUrl(RegionEndpoint, RegionEndpointServiceName, UseHttp, UseDualstackEndpoint);
+end;
+
+function TClientConfig.GetFastFailRequests: Boolean;
+begin
+  Result := FFastFailRequests;
 end;
 
 function TClientConfig.GetAllowAutoRedirect: Boolean;
