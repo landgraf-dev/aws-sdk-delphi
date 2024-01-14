@@ -5,6 +5,7 @@ interface
 uses
   System.SysUtils,
   AWS.Lib.Logging,
+  AWS.Pipeline.RetryHandler,
   AWS.Internal.PipelineHandler,
   AWS.Internal.WebResponseData,
   AWS.Runtime.Contexts,

@@ -32,6 +32,7 @@ type
     function HasLength: Boolean; virtual;
     function SearchWrappedStream(ACondition: TFunc<TStream, Boolean>): TStream; overload;
     function GetNonWrapperBaseStream: TStream; overload;
+    function GetSeekableBaseStream: TStream;
     property OwnsStream: Boolean read FOwnsStream write FOwnsStream;
     class function SearchWrappedStream(AStream: TStream; ACondition: TFunc<TStream, Boolean>): TStream; overload; static;
     class function GetNonWrapperBaseStream(AStream: TStream): TStream; overload; static;
@@ -130,6 +131,22 @@ begin
     BaseStream := TWrapperStream(BaseStream).BaseStream;
   until not (BaseStream is TWrapperStream);
   Result := BaseStream;
+end;
+
+function TWrapperStream.GetSeekableBaseStream: TStream;
+begin
+  var baseStream: TStream := Self;
+  repeat
+    if AWS.Util.Streams.CanSeek(baseStream) then
+      Exit(baseStream);
+
+    baseStream := (baseStream as TWrapperStream).BaseStream;
+  until not (baseStream is TWrapperStream);
+
+  if not AWS.Util.Streams.CanSeek(baseStream) then
+    raise EInvalidOpException.Create('Unable to find seekable stream');
+
+  Result := baseStream;
 end;
 
 function TWrapperStream.GetSize: Int64;

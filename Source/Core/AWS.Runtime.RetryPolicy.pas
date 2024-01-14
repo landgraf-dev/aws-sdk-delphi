@@ -216,10 +216,9 @@ end;
 function TRetryPolicy.IsThrottlingError(E: Exception): Boolean;
 begin
   Result := False;
-  var serviceException: EAmazonServiceException := nil;
   if E is EAmazonServiceException then
   begin
-    serviceException := EAmazonServiceException(E);
+    var serviceException := EAmazonServiceException(E);
     Result := ((serviceException.Retryable <> nil) and serviceException.Retryable.Throttling)
       or ThrottlingErrorCodes.Contains(serviceException.ErrorCode);
   end;
