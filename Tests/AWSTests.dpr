@@ -33,7 +33,10 @@ uses
   AWSTests.S3.BucketRegionTests in 'Source\AWSTests.S3.BucketRegionTests.pas',
   AWSTests.S3.BucketRegionTestRunner in 'Source\AWSTests.S3.BucketRegionTestRunner.pas',
   AWSTests.LruCacheTest in 'Source\AWSTests.LruCacheTest.pas',
-  AWSTests.S3.CopyObjectTests in 'Source\AWSTests.S3.CopyObjectTests.pas';
+  AWSTests.S3.CopyObjectTests in 'Source\AWSTests.S3.CopyObjectTests.pas',
+  AWSTests.Runtime.PipelineTestBase in 'Source\AWSTests.Runtime.PipelineTestBase.pas',
+  AWSTests.MockWebResponse in 'Source\AWSTests.MockWebResponse.pas',
+  AWSTests.Runtime.RetryHandlerTests in 'Source\AWSTests.Runtime.RetryHandlerTests.pas';
 
 {$R *.RES}
 

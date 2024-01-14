@@ -177,11 +177,11 @@ begin
     begin
       // using accurate server time, calculate correction if local time is off
       serverTime := TTimeZone.Local.ToUniversalTime(serverTime);
-      var diff := SecondsBetween(correctedNow, serverTime);
+      var diff := TAWSSDKUtils.SecondsBetween(correctedNow, serverTime);
       var absDiff := Abs(diff);
       if absDiff > FClockSkewMaxThreshold.Seconds then
       begin
-        var newCorrection := TTimeSpan.Create(0, 0, SecondsBetween(serverTime, realNow));
+        var newCorrection := TTimeSpan.Create(0, 0, TAWSSDKUtils.SecondsBetween(serverTime, realNow));
         Logger.Info(Format(clockSkewMessageFormat, [
           DateTimeToStr(realNow), DateTimeToStr(correctedNow), clientConfig.ClockOffset.ToString,
           DateTimeToStr(serverTime), endpoint]));

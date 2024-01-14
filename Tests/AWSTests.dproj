@@ -171,6 +171,9 @@
         <DCCReference Include="Source\AWSTests.S3.BucketRegionTestRunner.pas"/>
         <DCCReference Include="Source\AWSTests.LruCacheTest.pas"/>
         <DCCReference Include="Source\AWSTests.S3.CopyObjectTests.pas"/>
+        <DCCReference Include="Source\AWSTests.Runtime.PipelineTestBase.pas"/>
+        <DCCReference Include="Source\AWSTests.MockWebResponse.pas"/>
+        <DCCReference Include="Source\AWSTests.Runtime.RetryHandlerTests.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

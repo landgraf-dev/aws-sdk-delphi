@@ -156,7 +156,7 @@ begin
     while Count <> 0 do
     begin
       var item := FindOldestItem;
-      var timeSpan := SecondsBetween(TAWSSDKUtils.CorrectedUtcNow, item.LastTouchedTimestamp);
+      var timeSpan := TAWSSDKUtils.SecondsBetween(TAWSSDKUtils.CorrectedUtcNow, item.LastTouchedTimestamp);
       if timeSpan > validityInSeconds then
         Evict(item.Key)
       else

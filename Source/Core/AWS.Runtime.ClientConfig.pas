@@ -100,6 +100,9 @@ type
   end;
 
   TClientConfig = class(TInterfacedObject, IClientConfig)
+  private const
+    MaxRetriesLegacyDefault = 4;
+    MaxRetriesDefault = 2;
   private
     FAuthenticationServiceName: string;
     FLogMetrics: Boolean;
@@ -301,12 +304,20 @@ function TClientConfig.GetMaxErrorRetry: Integer;
 begin
   if not FMaxRetries.HasValue then
   begin
-    {TODO: Implement this}
-//    if RetryMode = TRequestRetryMode.Legacy then
-//      Exit(MaxRetriesLegacyDefault);
+    //For legacy mode there was no MaxAttempts shared config or
+    //environment variables so use the legacy default value.
+    if RetryMode = TRequestRetryMode.Legacy then
+      Exit(MaxRetriesLegacyDefault);
 
-
-
+    //For standard and adaptive modes first check the environment variables
+    //and shared config for a value. Otherwise default to the new default value.
+    //In the shared config or environment variable MaxAttempts is the total number
+    //of attempts. This will include the initial call and must be deducted from
+    //from the number of actual retries.
+    if TFallbackInternalConfigurationFactory.MaxAttempts.HasValue then
+      Exit(TFallbackInternalConfigurationFactory.MaxAttempts.Value - 1)
+     else
+      Exit(MaxRetriesDefault);
   end;
   Result := FMaxRetries.Value;
 end;

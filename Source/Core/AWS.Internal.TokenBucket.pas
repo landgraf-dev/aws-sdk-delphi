@@ -126,7 +126,7 @@ end;
 
 class function TTokenBucket.GetTimeInSeconds: Double;
 begin
-  Result := SecondsBetween(TTimeZone.Local.ToUniversalTime(Now), FEpoch);
+  Result := TAWSSDKUtils.SecondsBetween(TTimeZone.Local.ToUniversalTime(Now), FEpoch);
 end;
 
 function TTokenBucket.GetTimestamp: Double;
