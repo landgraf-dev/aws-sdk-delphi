@@ -273,6 +273,11 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Reader.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Xml.Writer.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.Util.LruCache.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Runtime.InternalConfiguration.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.CapacityManager.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.StandardRetryPolicy.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.AdaptiveRetryPolicy.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Internal.TokenBucket.pas"/>
 		<RcCompile Include="..\..\Resources\AWS.Region.rc">
 			<Form>AWS.Region.res</Form>
 		</RcCompile>
