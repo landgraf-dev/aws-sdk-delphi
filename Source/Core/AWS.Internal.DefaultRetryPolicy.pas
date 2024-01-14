@@ -127,15 +127,15 @@ end;
 function TDefaultRetryPolicy.OnRetry(ExecutionContext: TExecutionContext; BypassAcquireCapacity,
   IsThrottlingError: Boolean): Boolean;
 begin
-  Result := OnRetry(ExecutionContext, BypassAcquireCapacity, False);
-end;
-
-function TDefaultRetryPolicy.OnRetry(ExecutionContext: TExecutionContext; BypassAcquireCapacity: Boolean): Boolean;
-begin
   if not BypassAcquireCapacity and ExecutionContext.RequestContext.ClientConfig.ThrottleRetries and (RetryCapacity <> nil) then
     Result := CapacityManagerInstance.TryAcquireCapacity(RetryCapacity, ExecutionContext.RequestContext.LastCapacityType)
   else
     Result := True;
+end;
+
+function TDefaultRetryPolicy.OnRetry(ExecutionContext: TExecutionContext; BypassAcquireCapacity: Boolean): Boolean;
+begin
+  Result := OnRetry(ExecutionContext, BypassAcquireCapacity, False);
 end;
 
 function TDefaultRetryPolicy.OnRetry(ExecutionContext: TExecutionContext): Boolean;
