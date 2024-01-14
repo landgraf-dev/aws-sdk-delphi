@@ -79,6 +79,7 @@ type
     class function Rfc822ToDateTime(const S: string): TDateTime; static;
     class function EncodeBase64(const Input: TArray<Byte>): string; static;
     class function DecodeBase64(const Input: string): TArray<Byte>; static;
+    class function SecondsBetween(const ANow, AThen: TDateTime): Int64;
   public
     class function ResolveResourcePath(const AResourcePath: string;
       APathResources: TDictionary<string, string>): string;
@@ -841,6 +842,12 @@ class function TAWSSDKUtils.Rfc822ToDateTime(const S: string): TDateTime;
 begin
   if not TryRfc822ToDateTime(S, Result) then
     raise EConvertError.CreateFmt('Invalid RFC822 date format: "%s"', [S]);
+end;
+
+class function TAWSSDKUtils.SecondsBetween(const ANow, AThen: TDateTime): Int64;
+begin
+  // Different from regular Delphi version, this one returns negative numbers if ANow is lower then AThen.
+  Result := (DateTimeToMilliseconds(ANow) - DateTimeToMilliseconds(AThen)) div (MSecsPerSec);
 end;
 
 class procedure TAWSSDKUtils.Sleep(MS: Integer);

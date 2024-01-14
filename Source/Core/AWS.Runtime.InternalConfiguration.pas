@@ -63,9 +63,13 @@ type
   private
     class constructor Create;
     class destructor Destroy;
+    class function GetMaxAttempts: Nullable<Integer>; static;
+    class function GetEndpointDiscoveryEnabled: Nullable<Boolean>; static;
   public
     class procedure Reset;
     class property RetryMode: Nullable<TRequestRetryMode> read GetRetryMode;
+    class property MaxAttempts: Nullable<Integer> read GetMaxAttempts;
+    class property EndpointDiscoveryEnabled: Nullable<Boolean> read GetEndpointDiscoveryEnabled;
   end;
 
 implementation
@@ -83,6 +87,16 @@ begin
   // No need to destroy FCredentialProfileChain because it's used as interface when passed to TProfileInternalConfiguration
 //  FCredentialProfileChain.Free;
   FCachedConfiguration.Free;
+end;
+
+class function TFallbackInternalConfigurationFactory.GetEndpointDiscoveryEnabled: Nullable<Boolean>;
+begin
+  Result := FCachedConfiguration.EndpointDiscoveryEnabled;
+end;
+
+class function TFallbackInternalConfigurationFactory.GetMaxAttempts: Nullable<Integer>;
+begin
+  Result := FCachedConfiguration.MaxAttempts;
 end;
 
 class function TFallbackInternalConfigurationFactory.GetRetryMode: Nullable<TRequestRetryMode>;

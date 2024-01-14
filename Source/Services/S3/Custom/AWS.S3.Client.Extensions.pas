@@ -168,7 +168,7 @@ begin
   else
     baselineTime := EncodeDate(1970, 1, 1);
 
-  Result := SecondsBetween(TTimeZone.Local.ToUniversalTime(Request.Expires), baselineTime);
+  Result := TAWSSDKUtils.SecondsBetween(TTimeZone.Local.ToUniversalTime(Request.Expires), baselineTime);
 end;
 
 class function TAmazonS3ClientExtensions.Marshall(Config: IClientConfig; GetPreSignedUrlRequest: IGetPreSignedUrlRequest;
