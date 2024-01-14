@@ -67,6 +67,8 @@ type
 
     procedure AddHandlerAfter<T: TPipelineHandler>(AHandler: IPipelineHandler);
     procedure AddHandlerBefore<T: TPipelineHandler>(AHandler: IPipelineHandler);
+
+    procedure ReplaceHandler<T: TPipelineHandler>(AHandler: IPipelineHandler);
   end;
 
 implementation
@@ -226,6 +228,51 @@ function TRuntimePipeLine.InvokeSync(AExecutionContext: TExecutionContext): TRes
 begin
   FHandler.InvokeSync(AExecutionContext);
   Result := AExecutionContext.ResponseContext;
+end;
+
+procedure TRuntimePipeLine.ReplaceHandler<T>(AHandler: IPipelineHandler);
+begin
+  if AHandler = nil then
+    raise EArgumentNilException.Create('AHandler');
+
+  var previous: IPipelineHandler := nil;
+  var current := FHandler;
+  while current <> nil do
+  begin
+    if (current as TObject).ClassType = T then
+    begin
+      // Replace current with handler.
+      handler.InnerHandler := current.InnerHandler;
+      handler.OuterHandler := current.OuterHandler;
+      if previous <> nil then
+      begin
+        // Wireup previous handler
+        previous.InnerHandler := AHandler;
+      end
+      else
+      begin
+        // Current is the top, replace it.
+        FHandler := AHandler;
+      end;
+
+      if current.InnerHandler <> nil then
+      begin
+        // Wireup next handler
+        current.InnerHandler.OuterHandler := AHandler;
+      end;
+
+      // Cleanup current
+      current.InnerHandler := nil;
+      current.OuterHandler := nil;
+
+      SetHandlerProperties(AHandler);
+      Exit;
+    end;
+    previous := current;
+    current := current.InnerHandler;
+  end;
+
+  raise EInvalidOpException.CreateFmt('Cannot find a handler of type %s', [T.ClassName]);
 end;
 
 procedure TRuntimePipeLine.SetHandlerProperties(AHandler: IPipelineHandler);

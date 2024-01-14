@@ -25,7 +25,7 @@ type
     function GetLogger: ILogger; override;
     procedure SetLogger(const Value: ILogger); override;
   public
-    constructor Create(ARetryPolicy: TRetryPolicy; AOwnsRetryPolicy: Boolean);
+    constructor Create(ARetryPolicy: TRetryPolicy; AOwnsRetryPolicy: Boolean = True);
     destructor Destroy; override;
     class procedure PrepareForRetry(RequestContext: TRequestContext); static;
     procedure InvokeSync(AExecutionContext: TExecutionContext); override;
@@ -36,7 +36,7 @@ implementation
 
 { TRetryHandler }
 
-constructor TRetryHandler.Create(ARetryPolicy: TRetryPolicy; AOwnsRetryPolicy: Boolean);
+constructor TRetryHandler.Create(ARetryPolicy: TRetryPolicy; AOwnsRetryPolicy: Boolean = True);
 begin
   inherited Create;
   FRetryPolicy := ARetryPolicy;
