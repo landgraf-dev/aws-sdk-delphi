@@ -7,6 +7,7 @@ interface
 uses
   System.Generics.Collections, System.SysUtils, System.StrUtils,
   AWS.Lib.Logging,
+  AWS.Enums,
   AWS.Runtime.Model,
   AWS.Runtime.Credentials,
   AWS.Internal.ServiceMetadata,
@@ -14,6 +15,7 @@ uses
   AWS.Runtime.ClientConfig,
   AWS.Runtime.Contexts,
   AWS.Runtime.ExceptionEvent,
+  AWS.Runtime.RetryPolicy,
   AWS.Internal.Request,
   AWS.Runtime.IHttpRequestFactory,
   AWS.Auth.Signer,
@@ -88,12 +90,17 @@ uses
 {$ELSE}
   AWS.Runtime.HttpRequestMessageFactory,
 {$ENDIF}
+  AWS.Internal.StandardRetryPolicy,
+  AWS.Internal.AdaptiveRetryPolicy,
+  AWS.Internal.DefaultRetryPolicy,
+
   AWS.Pipeline.HttpHandler,
   AWS.Pipeline.Marshaller,
   AWS.Pipeline.EndpointResolver,
   AWS.Pipeline.ErrorCallbackHandler,
   AWS.Pipeline.ErrorHandler,
   AWS.Pipeline.CredentialsRetriever,
+  AWS.Pipeline.RetryHandler,
   AWS.Pipeline.Signer,
   AWS.Pipeline.Unmarshaller;
 
@@ -116,8 +123,6 @@ begin
   var ErrorCallbackHandler := TErrorCallbackHandler.Create;
   ErrorCallbackHandler.OnError := ProcessExceptionHandlers;
 
-  {TODO: RetryPolicy}
-
   // Build default runtime pipeline.
   {TODO: Several handlers not implemented}
   FRuntimePipeline := TRuntimePipeLine.Create(nil, FLogger);
@@ -128,7 +133,23 @@ begin
   FRuntimePipeline.AddHandler(TSigner.Create);
 //  FRuntimePipeline.AddHandler(TEndpoingDiscoveryHandler.Create);
   FRuntimePipeline.AddHandler(TCredentialsRetriever.Create(Credentials));
-//  FRuntimePipeline.AddHandler(TRetryHandler.Create(RetryPolicy));
+
+  // Retry policy
+  begin
+    var retryPolicy: TRetryPolicy;
+    case Config.RetryMode of
+      TRequestRetryMode.Adaptive:
+        retryPolicy := TAdaptiveRetryPolicy.Create(Config);
+      TRequestRetryMode.Standard:
+        retryPolicy := TStandardRetryPolicy.Create(Config);
+      TRequestRetryMode.Legacy:
+        retryPolicy := TDefaultRetryPolicy.Create(Config);
+    else
+      raise EInvalidOpException.Create('Unknown retry mode');
+    end;
+    FRuntimePipeline.AddHandler(TRetryHandler.Create(retryPolicy, True));
+  end;
+
 //  FRuntimePipeline.AddHandler(PostMarshallHandler);
   FRuntimePipeline.AddHandler(TEndpointResolver.Create);
   FRuntimePipeline.AddHandler(TMarshaller.Create);

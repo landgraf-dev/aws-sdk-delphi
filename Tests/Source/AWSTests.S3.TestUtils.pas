@@ -142,7 +142,7 @@ begin
         if (E.StatusCode <> 409) or (retries = maxRetries) then
           raise
         else
-          TDefaultRetryPolicy.WaitBeforeRetry(retries, 5000);
+          TDefaultRetryPolicy.DoWaitBeforeRetry(retries, 5000);
     end;
   end;
 end;
