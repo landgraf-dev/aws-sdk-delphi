@@ -80,7 +80,8 @@ end;
 
 class destructor TFallbackInternalConfigurationFactory.Destroy;
 begin
-  FCredentialProfileChain.Free;
+  // No need to destroy FCredentialProfileChain because it's used as interface when passed to TProfileInternalConfiguration
+//  FCredentialProfileChain.Free;
   FCachedConfiguration.Free;
 end;
 
@@ -100,7 +101,7 @@ begin
     var profileConfiguration := TProfileInternalConfiguration.Create(FCredentialProfileChain);
     standardGenerators.Add(profileConfiguration);
 
-    FCachedConfiguration.Free;
+//    FCachedConfiguration.Free;
     FCachedConfiguration := TInternalConfiguration.Create;
 
     //Find the priority first ordered config value for each property
