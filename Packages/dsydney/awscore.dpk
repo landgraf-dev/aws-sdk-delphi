@@ -126,7 +126,12 @@ contains
   AWS.Xml.Base in '..\..\Source\Core\AWS.Xml.Base.pas',
   AWS.Xml.Reader in '..\..\Source\Core\AWS.Xml.Reader.pas',
   AWS.Xml.Writer in '..\..\Source\Core\AWS.Xml.Writer.pas',
-  AWS.Internal.Util.LruCache in '..\..\Source\Core\AWS.Internal.Util.LruCache.pas';
+  AWS.Internal.Util.LruCache in '..\..\Source\Core\AWS.Internal.Util.LruCache.pas',
+  AWS.Runtime.InternalConfiguration in '..\..\Source\Core\AWS.Runtime.InternalConfiguration.pas',
+  AWS.Internal.CapacityManager in '..\..\Source\Core\AWS.Internal.CapacityManager.pas',
+  AWS.Internal.StandardRetryPolicy in '..\..\Source\Core\AWS.Internal.StandardRetryPolicy.pas',
+  AWS.Internal.AdaptiveRetryPolicy in '..\..\Source\Core\AWS.Internal.AdaptiveRetryPolicy.pas',
+  AWS.Internal.TokenBucket in '..\..\Source\Core\AWS.Internal.TokenBucket.pas';
 
 end.
 
