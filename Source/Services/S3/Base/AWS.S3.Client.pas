@@ -27,7 +27,9 @@ uses
   AWS.Pipeline.ErrorCallbackHandler, 
   AWS.S3.Pipeline.ExceptionHandler, 
   AWS.S3.Pipeline.RedirectHandler, 
+  AWS.Enums, 
   AWS.Pipeline.RetryHandler, 
+  AWS.S3.Internal.RetryPolicy, 
   AWS.S3.Model.AbortMultipartUploadResponse, 
   AWS.S3.Model.AbortMultipartUploadRequest, 
   AWS.Internal.InvokeOptions, 
@@ -269,6 +271,12 @@ begin
   Pipeline.AddHandlerBefore<TUnmarshaller>(TAmazonS3ResponseHandler.Create());
   Pipeline.AddHandlerAfter<TErrorCallbackHandler>(TAmazonS3ExceptionHandler.Create());
   Pipeline.AddHandlerAfter<TUnmarshaller>(TAmazonS3RedirectHandler.Create());
+  if Self.Config.RetryMode = TRequestRetryMode.Legacy then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(TAmazonS3RetryPolicy.Create(Self.Config)));
+  if Self.Config.RetryMode = TRequestRetryMode.Standard then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(TAmazonS3StandardRetryPolicy.Create(Self.Config)));
+  if Self.Config.RetryMode = TRequestRetryMode.Adaptive then
+    Pipeline.ReplaceHandler<TRetryHandler>(TRetryHandler.Create(TAmazonS3AdaptiveRetryPolicy.Create(Self.Config)));
 end;
 
 function TAmazonS3Client.AbortMultipartUpload(const ABucketName: string; const AKey: string; const AUploadId: string): IAbortMultipartUploadResponse;
