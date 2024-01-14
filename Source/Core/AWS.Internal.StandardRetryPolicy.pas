@@ -134,7 +134,7 @@ end;
 function TStandardRetryPolicy.RetryForException(ExecutionContext: TExecutionContext; E: Exception): Boolean;
 begin
   // EAmazonServiceException is thrown by ErrorHandler if it is this type of exception.
-  var serviceException: EAmazonServiceException;
+  var serviceException: EAmazonServiceException := nil;
   if E is EAmazonServiceException then
     serviceException := E as EAmazonServiceException;
 
