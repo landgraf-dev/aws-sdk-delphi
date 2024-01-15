@@ -278,6 +278,7 @@
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.StandardRetryPolicy.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.AdaptiveRetryPolicy.pas"/>
 		<DCCReference Include="..\..\Source\Core\AWS.Internal.TokenBucket.pas"/>
+		<DCCReference Include="..\..\Source\Core\AWS.Util.PartialWrapperStream.pas"/>
 		<RcCompile Include="..\..\Resources\AWS.Region.rc">
 			<Form>AWS.Region.res</Form>
 		</RcCompile>
