@@ -8,7 +8,8 @@ uses
   AWS.Nullable, 
   System.Classes, 
   AWS.S3.Enums, 
-  AWS.Auth.Signer;
+  AWS.Auth.Signer, 
+  AWS.S3.Model.MetadataCollection;
 
 type
   TWriteGetObjectResponseRequest = class;
@@ -50,8 +51,8 @@ type
     procedure SetExpires(const Value: TDateTime);
     function GetLastModified: TDateTime;
     procedure SetLastModified(const Value: TDateTime);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetMissingMeta: Integer;
@@ -146,7 +147,7 @@ type
     property Expiration: string read GetExpiration write SetExpiration;
     property Expires: TDateTime read GetExpires write SetExpires;
     property LastModified: TDateTime read GetLastModified write SetLastModified;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property MissingMeta: Integer read GetMissingMeta write SetMissingMeta;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
@@ -188,7 +189,7 @@ type
     FExpiration: Nullable<string>;
     FExpires: Nullable<TDateTime>;
     FLastModified: Nullable<TDateTime>;
-    FMetadata: TDictionary<string, string>;
+    FMetadata: TMetadataCollection;
     FKeepMetadata: Boolean;
     FMissingMeta: Nullable<Integer>;
     FObjectLockLegalHoldStatus: Nullable<TObjectLockLegalHoldStatus>;
@@ -244,8 +245,8 @@ type
     procedure SetExpires(const Value: TDateTime);
     function GetLastModified: TDateTime;
     procedure SetLastModified(const Value: TDateTime);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetMissingMeta: Integer;
@@ -344,7 +345,7 @@ type
     property Expiration: string read GetExpiration write SetExpiration;
     property Expires: TDateTime read GetExpires write SetExpires;
     property LastModified: TDateTime read GetLastModified write SetLastModified;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property MissingMeta: Integer read GetMissingMeta write SetMissingMeta;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
@@ -373,7 +374,7 @@ implementation
 constructor TWriteGetObjectResponseRequest.Create;
 begin
   inherited;
-  FMetadata := TDictionary<string, string>.Create;
+  FMetadata := TMetadataCollection.Create;
 end;
 
 destructor TWriteGetObjectResponseRequest.Destroy;
@@ -658,12 +659,12 @@ begin
   Result := FLastModified.HasValue;
 end;
 
-function TWriteGetObjectResponseRequest.GetMetadata: TDictionary<string, string>;
+function TWriteGetObjectResponseRequest.GetMetadata: TMetadataCollection;
 begin
   Result := FMetadata;
 end;
 
-procedure TWriteGetObjectResponseRequest.SetMetadata(const Value: TDictionary<string, string>);
+procedure TWriteGetObjectResponseRequest.SetMetadata(const Value: TMetadataCollection);
 begin
   if FMetadata <> Value then
   begin

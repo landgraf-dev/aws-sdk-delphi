@@ -69,6 +69,10 @@ type
     procedure SetTagging(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
     function GetFilePath: string;
     procedure SetFilePath(const Value: string);
     function GetContentBody: string;
@@ -83,10 +87,6 @@ type
     procedure SetCalculateContentMD5Header(const Value: Boolean);
     function GetDisableMD5Stream: NullableBoolean;
     procedure SetDisableMD5Stream(const Value: NullableBoolean);
-    function GetHeaders: THeadersCollection;
-    procedure SetHeaders(const Value: THeadersCollection);
-    function GetKeepHeaders: Boolean;
-    procedure SetKeepHeaders(const Value: Boolean);
     function Obj: TPutObjectRequest;
     function IsSetACL: Boolean;
     function IsSetBody: Boolean;
@@ -140,6 +140,7 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property Tagging: string read GetTagging write SetTagging;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
     property FilePath: string read GetFilePath write SetFilePath;
     property ContentBody: string read GetContentBody write SetContentBody;
     property AutoResetStreamPosition: Boolean read GetAutoResetStreamPosition write SetAutoResetStreamPosition;
@@ -152,7 +153,6 @@ type
     property IsSetInputStream: Boolean read IsSetBody;
     property MD5Digest: string read GetContentMD5 write SetContentMD5;
     property IsSetMD5Digest: Boolean read IsSetContentMD5;
-    property Headers: THeadersCollection read GetHeaders write SetHeaders;
   end;
   
   TPutObjectRequest = class(TAmazonS3Request, IPutObjectRequest)
@@ -184,6 +184,8 @@ type
     FStorageClass: Nullable<TStorageClass>;
     FTagging: Nullable<string>;
     FWebsiteRedirectLocation: Nullable<string>;
+    FHeaders: THeadersCollection;
+    FKeepHeaders: Boolean;
     FFilePath: string;
     FContentBody: string;
     FAutoResetStreamPosition: Boolean;
@@ -191,8 +193,6 @@ type
     FUseChunkEncoding: Boolean;
     FCalculateContentMD5Header: Boolean;
     FDisableMD5Stream: NullableBoolean;
-    FHeaders: THeadersCollection;
-    FKeepHeaders: Boolean;
     function GetACL: TObjectCannedACL;
     procedure SetACL(const Value: TObjectCannedACL);
     function GetBody: TStream;
@@ -247,6 +247,10 @@ type
     procedure SetTagging(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
     function GetFilePath: string;
     procedure SetFilePath(const Value: string);
     function GetContentBody: string;
@@ -261,10 +265,6 @@ type
     procedure SetCalculateContentMD5Header(const Value: Boolean);
     function GetDisableMD5Stream: NullableBoolean;
     procedure SetDisableMD5Stream(const Value: NullableBoolean);
-    function GetHeaders: THeadersCollection;
-    procedure SetHeaders(const Value: THeadersCollection);
-    function GetKeepHeaders: Boolean;
-    procedure SetKeepHeaders(const Value: Boolean);
   strict protected
     function Obj: TPutObjectRequest;
   public
@@ -322,6 +322,8 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property Tagging: string read GetTagging write SetTagging;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
+    property KeepHeaders: Boolean read GetKeepHeaders write SetKeepHeaders;
     property FilePath: string read GetFilePath write SetFilePath;
     property ContentBody: string read GetContentBody write SetContentBody;
     property AutoResetStreamPosition: Boolean read GetAutoResetStreamPosition write SetAutoResetStreamPosition;
@@ -334,8 +336,6 @@ type
     property IsSetInputStream: Boolean read IsSetBody;
     property MD5Digest: string read GetContentMD5 write SetContentMD5;
     property IsSetMD5Digest: Boolean read IsSetContentMD5;
-    property Headers: THeadersCollection read GetHeaders write SetHeaders;
-    property KeepHeaders: Boolean read GetKeepHeaders write SetKeepHeaders;
   end;
   
 implementation
@@ -346,8 +346,8 @@ constructor TPutObjectRequest.Create;
 begin
   inherited;
   FMetadata := TMetadataCollection.Create;
-  FUseChunkEncoding := True;
   FHeaders := THeadersCollection.Create;
+  FUseChunkEncoding := True;
 end;
 
 destructor TPutObjectRequest.Destroy;
@@ -768,6 +768,31 @@ begin
   Result := FWebsiteRedirectLocation.HasValue;
 end;
 
+function TPutObjectRequest.GetHeaders: THeadersCollection;
+begin
+  Result := FHeaders;
+end;
+
+procedure TPutObjectRequest.SetHeaders(const Value: THeadersCollection);
+begin
+  if FHeaders <> Value then
+  begin
+    if not KeepHeaders then
+      FHeaders.Free;
+    FHeaders := Value;
+  end;
+end;
+
+function TPutObjectRequest.GetKeepHeaders: Boolean;
+begin
+  Result := FKeepHeaders;
+end;
+
+procedure TPutObjectRequest.SetKeepHeaders(const Value: Boolean);
+begin
+  FKeepHeaders := Value;
+end;
+
 function TPutObjectRequest.GetFilePath: string;
 begin
   Result := FFilePath;
@@ -836,31 +861,6 @@ end;
 procedure TPutObjectRequest.SetDisableMD5Stream(const Value: NullableBoolean);
 begin
   FDisableMD5Stream := Value;
-end;
-
-function TPutObjectRequest.GetHeaders: THeadersCollection;
-begin
-  Result := FHeaders;
-end;
-
-procedure TPutObjectRequest.SetHeaders(const Value: THeadersCollection);
-begin
-  if FHeaders <> Value then
-  begin
-    if not KeepHeaders then
-      FHeaders.Free;
-    FHeaders := Value;
-  end;
-end;
-
-function TPutObjectRequest.GetKeepHeaders: Boolean;
-begin
-  Result := FKeepHeaders;
-end;
-
-procedure TPutObjectRequest.SetKeepHeaders(const Value: Boolean);
-begin
-  FKeepHeaders := Value;
 end;
 
 end.
