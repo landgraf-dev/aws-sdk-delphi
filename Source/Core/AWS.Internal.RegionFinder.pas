@@ -185,17 +185,17 @@ begin
       ExactRegion.Free;
   end;
 
-  FLogger.Info('Unable to find exact matched region in endpoint ' + AEndpoint);
+  FLogger.Trace('Unable to find exact matched region in endpoint ' + AEndpoint);
 
   FuzzyRegion := FindFuzzyRegion(AEndpoint);
   if FuzzyRegion <> nil then
   begin
-    FLogger.Info(Format('%s fuzzy region found in endpoint %s', [FuzzyRegion.RegionName, AEndpoint]));
+    FLogger.Trace(Format('%s fuzzy region found in endpoint %s', [FuzzyRegion.RegionName, AEndpoint]));
     Result := FuzzyRegion;
   end
   else
   begin
-    FLogger.Info('Unable to find fuzzy matched region in endpoint ' + AEndpoint);
+    FLogger.Trace('Unable to find fuzzy matched region in endpoint ' + AEndpoint);
     Result := FRoot.RegionEndpoint;
   end;
 end;
