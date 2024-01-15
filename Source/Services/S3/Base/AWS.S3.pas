@@ -52,6 +52,8 @@ uses
   AWS.S3.Model.ListBucketsResponse, 
   AWS.S3.Model.ListObjectsRequest, 
   AWS.S3.Model.ListObjectsResponse, 
+  AWS.S3.Model.ListObjectsV2Request, 
+  AWS.S3.Model.ListObjectsV2Response, 
   AWS.S3.Model.ListVersionsRequest, 
   AWS.S3.Model.ListVersionsResponse, 
   AWS.S3.Model.NoSuchBucketException, 
@@ -129,6 +131,8 @@ type
   IListBucketsResponse = AWS.S3.Model.ListBucketsResponse.IListBucketsResponse;
   IListObjectsRequest = AWS.S3.Model.ListObjectsRequest.IListObjectsRequest;
   IListObjectsResponse = AWS.S3.Model.ListObjectsResponse.IListObjectsResponse;
+  IListObjectsV2Request = AWS.S3.Model.ListObjectsV2Request.IListObjectsV2Request;
+  IListObjectsV2Response = AWS.S3.Model.ListObjectsV2Response.IListObjectsV2Response;
   IListVersionsRequest = AWS.S3.Model.ListVersionsRequest.IListVersionsRequest;
   IListVersionsResponse = AWS.S3.Model.ListVersionsResponse.IListVersionsResponse;
   IObject = AWS.S3.Model.ObjectTypes.IObject;
@@ -218,6 +222,8 @@ type
   TListBucketsResponse = AWS.S3.Model.ListBucketsResponse.TListBucketsResponse;
   TListObjectsRequest = AWS.S3.Model.ListObjectsRequest.TListObjectsRequest;
   TListObjectsResponse = AWS.S3.Model.ListObjectsResponse.TListObjectsResponse;
+  TListObjectsV2Request = AWS.S3.Model.ListObjectsV2Request.TListObjectsV2Request;
+  TListObjectsV2Response = AWS.S3.Model.ListObjectsV2Response.TListObjectsV2Response;
   TListVersionsRequest = AWS.S3.Model.ListVersionsRequest.TListVersionsRequest;
   TListVersionsResponse = AWS.S3.Model.ListVersionsResponse.TListVersionsResponse;
   TMetadataDirective = AWS.S3.Enums.TMetadataDirective;

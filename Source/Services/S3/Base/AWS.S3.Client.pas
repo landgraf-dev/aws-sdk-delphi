@@ -87,6 +87,10 @@ uses
   AWS.S3.Model.ListObjectsRequest, 
   AWS.S3.Transform.ListObjectsRequestMarshaller, 
   AWS.S3.Transform.ListObjectsResponseUnmarshaller, 
+  AWS.S3.Model.ListObjectsV2Response, 
+  AWS.S3.Model.ListObjectsV2Request, 
+  AWS.S3.Transform.ListObjectsV2RequestMarshaller, 
+  AWS.S3.Transform.ListObjectsV2ResponseUnmarshaller, 
   AWS.S3.Model.ListVersionsResponse, 
   AWS.S3.Model.ListVersionsRequest, 
   AWS.S3.Transform.ListVersionsRequestMarshaller, 
@@ -171,6 +175,7 @@ type
     function ListObjects(const ABucketName: string): IListObjectsResponse; overload;
     function ListObjects(const ABucketName: string; const APrefix: string): IListObjectsResponse; overload;
     function ListObjects(Request: IListObjectsRequest): IListObjectsResponse; overload;
+    function ListObjectsV2(Request: IListObjectsV2Request): IListObjectsV2Response; overload;
     function ListVersions(const ABucketName: string): IListVersionsResponse; overload;
     function ListVersions(const ABucketName: string; const APrefix: string): IListVersionsResponse; overload;
     function ListVersions(Request: IListVersionsRequest): IListVersionsResponse; overload;
@@ -657,6 +662,20 @@ begin
     Options.RequestMarshaller := TListObjectsRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TListObjectsResponseUnmarshaller.Instance;
     Result := Invoke<TListObjectsResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.ListObjectsV2(Request: IListObjectsV2Request): IListObjectsV2Response;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TListObjectsV2RequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TListObjectsV2ResponseUnmarshaller.Instance;
+    Result := Invoke<TListObjectsV2Response>(Request.Obj, Options);
   finally
     Options.Free;
   end;

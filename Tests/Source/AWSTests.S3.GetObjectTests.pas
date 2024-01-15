@@ -89,4 +89,5 @@ end;
 
 initialization
   RegisterTest('AWS.S3', TGetObjectTestSetup.Create(TGetObjectTests.Suite));
+
 end.
