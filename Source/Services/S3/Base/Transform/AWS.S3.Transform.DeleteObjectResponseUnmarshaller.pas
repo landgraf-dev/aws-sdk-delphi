@@ -4,8 +4,9 @@ interface
 
 uses
   System.SysUtils, 
-  AWS.S3.Model.DeleteObjectResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.DeleteObjectResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Runtime.Exceptions, 
@@ -17,7 +18,7 @@ uses
 type
   IDeleteObjectResponseUnmarshaller = IResponseUnmarshaller;
   
-  TDeleteObjectResponseUnmarshaller = class(TXmlResponseUnmarshaller, IDeleteObjectResponseUnmarshaller)
+  TDeleteObjectResponseUnmarshaller = class(TS3ResponseUnmarshaller, IDeleteObjectResponseUnmarshaller)
   strict private
     class var FInstance: IDeleteObjectResponseUnmarshaller;
     class constructor Create;

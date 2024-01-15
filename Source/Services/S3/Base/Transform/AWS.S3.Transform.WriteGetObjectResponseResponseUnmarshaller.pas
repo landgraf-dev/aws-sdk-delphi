@@ -3,8 +3,9 @@ unit AWS.S3.Transform.WriteGetObjectResponseResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.WriteGetObjectResponseResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.WriteGetObjectResponseResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Runtime.Exceptions, 
@@ -17,7 +18,7 @@ uses
 type
   IWriteGetObjectResponseResponseUnmarshaller = IResponseUnmarshaller;
   
-  TWriteGetObjectResponseResponseUnmarshaller = class(TXmlResponseUnmarshaller, IWriteGetObjectResponseResponseUnmarshaller)
+  TWriteGetObjectResponseResponseUnmarshaller = class(TS3ResponseUnmarshaller, IWriteGetObjectResponseResponseUnmarshaller)
   strict private
     class var FInstance: IWriteGetObjectResponseResponseUnmarshaller;
     class constructor Create;

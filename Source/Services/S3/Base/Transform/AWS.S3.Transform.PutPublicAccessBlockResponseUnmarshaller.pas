@@ -3,8 +3,9 @@ unit AWS.S3.Transform.PutPublicAccessBlockResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.PutPublicAccessBlockResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.PutPublicAccessBlockResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Runtime.Exceptions, 
@@ -17,7 +18,7 @@ uses
 type
   IPutPublicAccessBlockResponseUnmarshaller = IResponseUnmarshaller;
   
-  TPutPublicAccessBlockResponseUnmarshaller = class(TXmlResponseUnmarshaller, IPutPublicAccessBlockResponseUnmarshaller)
+  TPutPublicAccessBlockResponseUnmarshaller = class(TS3ResponseUnmarshaller, IPutPublicAccessBlockResponseUnmarshaller)
   strict private
     class var FInstance: IPutPublicAccessBlockResponseUnmarshaller;
     class constructor Create;

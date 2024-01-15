@@ -3,8 +3,9 @@ unit AWS.S3.Transform.ListVersionsResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.ListVersionsResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.ListVersionsResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3.Transform.CommonPrefixUnmarshaller, 
@@ -24,7 +25,7 @@ uses
 type
   IListVersionsResponseUnmarshaller = IResponseUnmarshaller;
   
-  TListVersionsResponseUnmarshaller = class(TXmlResponseUnmarshaller, IListVersionsResponseUnmarshaller)
+  TListVersionsResponseUnmarshaller = class(TS3ResponseUnmarshaller, IListVersionsResponseUnmarshaller)
   strict private
     class var FInstance: IListVersionsResponseUnmarshaller;
     class procedure UnmarshallResult(AContext: TXmlUnmarshallerContext; AResponse: TListVersionsResponse); static;

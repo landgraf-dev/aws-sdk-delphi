@@ -3,8 +3,9 @@ unit AWS.S3.Transform.PutBucketResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.PutBucketResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.PutBucketResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Runtime.Exceptions, 
@@ -19,7 +20,7 @@ uses
 type
   IPutBucketResponseUnmarshaller = IResponseUnmarshaller;
   
-  TPutBucketResponseUnmarshaller = class(TXmlResponseUnmarshaller, IPutBucketResponseUnmarshaller)
+  TPutBucketResponseUnmarshaller = class(TS3ResponseUnmarshaller, IPutBucketResponseUnmarshaller)
   strict private
     class var FInstance: IPutBucketResponseUnmarshaller;
     class constructor Create;

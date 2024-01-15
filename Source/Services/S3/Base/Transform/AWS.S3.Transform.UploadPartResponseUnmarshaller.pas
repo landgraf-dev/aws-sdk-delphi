@@ -4,8 +4,9 @@ interface
 
 uses
   System.SysUtils, 
-  AWS.S3.Model.UploadPartResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.UploadPartResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Runtime.Exceptions, 
@@ -17,7 +18,7 @@ uses
 type
   IUploadPartResponseUnmarshaller = IResponseUnmarshaller;
   
-  TUploadPartResponseUnmarshaller = class(TXmlResponseUnmarshaller, IUploadPartResponseUnmarshaller)
+  TUploadPartResponseUnmarshaller = class(TS3ResponseUnmarshaller, IUploadPartResponseUnmarshaller)
   strict private
     class var FInstance: IUploadPartResponseUnmarshaller;
     class constructor Create;

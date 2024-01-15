@@ -3,8 +3,9 @@ unit AWS.S3.Transform.DeleteObjectsResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.DeleteObjectsResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.DeleteObjectsResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3.Transform.DeletedObjectUnmarshaller, 
@@ -21,7 +22,7 @@ uses
 type
   IDeleteObjectsResponseUnmarshaller = IResponseUnmarshaller;
   
-  TDeleteObjectsResponseUnmarshaller = class(TXmlResponseUnmarshaller, IDeleteObjectsResponseUnmarshaller)
+  TDeleteObjectsResponseUnmarshaller = class(TS3ResponseUnmarshaller, IDeleteObjectsResponseUnmarshaller)
   strict private
     class var FInstance: IDeleteObjectsResponseUnmarshaller;
     class procedure UnmarshallResult(AContext: TXmlUnmarshallerContext; AResponse: TDeleteObjectsResponse); static;
