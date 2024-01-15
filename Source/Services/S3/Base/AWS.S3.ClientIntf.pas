@@ -33,6 +33,8 @@ uses
   AWS.S3.Model.ListBucketsRequest, 
   AWS.S3.Model.ListObjectsResponse, 
   AWS.S3.Model.ListObjectsRequest, 
+  AWS.S3.Model.ListObjectsV2Response, 
+  AWS.S3.Model.ListObjectsV2Request, 
   AWS.S3.Model.ListVersionsResponse, 
   AWS.S3.Model.ListVersionsRequest, 
   AWS.S3.Model.PutBucketResponse, 
@@ -83,6 +85,7 @@ type
     function ListObjects(const ABucketName: string): IListObjectsResponse; overload;
     function ListObjects(const ABucketName: string; const APrefix: string): IListObjectsResponse; overload;
     function ListObjects(Request: IListObjectsRequest): IListObjectsResponse; overload;
+    function ListObjectsV2(Request: IListObjectsV2Request): IListObjectsV2Response; overload;
     function ListVersions(const ABucketName: string): IListVersionsResponse; overload;
     function ListVersions(const ABucketName: string; const APrefix: string): IListVersionsResponse; overload;
     function ListVersions(Request: IListVersionsRequest): IListVersionsResponse; overload;

@@ -226,6 +226,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListBucketsResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsV2Request.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsV2Response.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListVersionsRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListVersionsResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.NoSuchBucketException.pas"/>
@@ -292,6 +294,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListBucketsResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsV2RequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsV2ResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListVersionsRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListVersionsResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.NoSuchBucketExceptionUnmarshaller.pas"/>
