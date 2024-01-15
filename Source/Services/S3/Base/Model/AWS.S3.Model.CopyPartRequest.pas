@@ -53,6 +53,10 @@ type
     procedure SetSourceVersionId(const Value: string);
     function GetUploadId: string;
     procedure SetUploadId(const Value: string);
+    function GetFirstByte: NullableInt64;
+    procedure SetFirstByte(const Value: NullableInt64);
+    function GetLastByte: NullableInt64;
+    procedure SetLastByte(const Value: NullableInt64);
     function Obj: TCopyPartRequest;
     function IsSetCopySourceIfMatch: Boolean;
     function IsSetCopySourceIfModifiedSince: Boolean;
@@ -96,6 +100,8 @@ type
     property SourceKey: string read GetSourceKey write SetSourceKey;
     property SourceVersionId: string read GetSourceVersionId write SetSourceVersionId;
     property UploadId: string read GetUploadId write SetUploadId;
+    property FirstByte: NullableInt64 read GetFirstByte write SetFirstByte;
+    property LastByte: NullableInt64 read GetLastByte write SetLastByte;
   end;
   
   TCopyPartRequest = class(TAmazonS3Request, ICopyPartRequest)
@@ -121,6 +127,8 @@ type
     FSourceKey: Nullable<string>;
     FSourceVersionId: Nullable<string>;
     FUploadId: Nullable<string>;
+    FFirstByte: NullableInt64;
+    FLastByte: NullableInt64;
     function GetCopySourceIfMatch: string;
     procedure SetCopySourceIfMatch(const Value: string);
     function GetCopySourceIfModifiedSince: TDateTime;
@@ -163,6 +171,10 @@ type
     procedure SetSourceVersionId(const Value: string);
     function GetUploadId: string;
     procedure SetUploadId(const Value: string);
+    function GetFirstByte: NullableInt64;
+    procedure SetFirstByte(const Value: NullableInt64);
+    function GetLastByte: NullableInt64;
+    procedure SetLastByte(const Value: NullableInt64);
   strict protected
     function Obj: TCopyPartRequest;
   public
@@ -208,6 +220,8 @@ type
     property SourceKey: string read GetSourceKey write SetSourceKey;
     property SourceVersionId: string read GetSourceVersionId write SetSourceVersionId;
     property UploadId: string read GetUploadId write SetUploadId;
+    property FirstByte: NullableInt64 read GetFirstByte write SetFirstByte;
+    property LastByte: NullableInt64 read GetLastByte write SetLastByte;
   end;
   
 implementation
@@ -532,6 +546,26 @@ end;
 function TCopyPartRequest.IsSetUploadId: Boolean;
 begin
   Result := FUploadId.HasValue;
+end;
+
+function TCopyPartRequest.GetFirstByte: NullableInt64;
+begin
+  Result := FFirstByte;
+end;
+
+procedure TCopyPartRequest.SetFirstByte(const Value: NullableInt64);
+begin
+  FFirstByte := Value;
+end;
+
+function TCopyPartRequest.GetLastByte: NullableInt64;
+begin
+  Result := FLastByte;
+end;
+
+procedure TCopyPartRequest.SetLastByte(const Value: NullableInt64);
+begin
+  FLastByte := Value;
 end;
 
 end.
