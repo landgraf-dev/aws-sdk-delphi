@@ -52,10 +52,10 @@ begin
   if (PublicRequest.IsSetExpectedBucketOwner) then
       Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
 
-//  var headers := PublicRequest.Headers;
-//  for var key in headers.Keys do
-//    Request.Headers.Add(key, headers[key]);
-//
+  var headers := PublicRequest.Headers;
+  for var key in headers.Keys do
+    Request.Headers.AddOrSetValue(key, headers[key]);
+
 //  THeaderACLRequestMarshaller.Marshall(Request, PublicRequest);
 
   if PublicRequest.IsSetServerSideEncryption then
@@ -98,7 +98,7 @@ begin
   if PublicRequest.IsSetBucketKeyEnabled then
     Request.Headers.Add(TS3Constants.AmzHeaderBucketKeyEnabled, TS3Transforms.ToStringValue(PublicRequest.BucketKeyEnabled));
 
-//  TAmazonS3Util.SetMetadataHeaders(Request, PublicRequest.Metadata);
+  TAmazonS3Util.SetMetadataHeaders(Request, PublicRequest.Metadata);
 
   if string.IsNullOrEmpty(PublicRequest.BucketName) then
     raise EArgumentException.Create('BucketName is a required property and must be set before making this call');

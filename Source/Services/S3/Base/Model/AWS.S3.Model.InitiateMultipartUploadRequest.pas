@@ -6,7 +6,9 @@ uses
   System.Generics.Collections, 
   AWS.S3.Model.Request, 
   AWS.Nullable, 
-  AWS.S3.Enums;
+  AWS.S3.Enums, 
+  AWS.S3.Model.HeadersCollection, 
+  AWS.S3.Model.MetadataCollection;
 
 type
   TInitiateMultipartUploadRequest = class;
@@ -42,8 +44,8 @@ type
     procedure SetGrantWriteACP(const Value: string);
     function GetKey: string;
     procedure SetKey(const Value: string);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus;
@@ -72,6 +74,10 @@ type
     procedure SetTagging(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
     function Obj: TInitiateMultipartUploadRequest;
     function IsSetACL: Boolean;
     function IsSetBucketKeyEnabled: Boolean;
@@ -117,7 +123,7 @@ type
     property GrantReadACP: string read GetGrantReadACP write SetGrantReadACP;
     property GrantWriteACP: string read GetGrantWriteACP write SetGrantWriteACP;
     property Key: string read GetKey write SetKey;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
     property ObjectLockMode: TObjectLockMode read GetObjectLockMode write SetObjectLockMode;
@@ -132,6 +138,7 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property Tagging: string read GetTagging write SetTagging;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
   end;
   
   TInitiateMultipartUploadRequest = class(TAmazonS3Request, IInitiateMultipartUploadRequest)
@@ -151,7 +158,7 @@ type
     FGrantReadACP: Nullable<string>;
     FGrantWriteACP: Nullable<string>;
     FKey: Nullable<string>;
-    FMetadata: TDictionary<string, string>;
+    FMetadata: TMetadataCollection;
     FKeepMetadata: Boolean;
     FObjectLockLegalHoldStatus: Nullable<TObjectLockLegalHoldStatus>;
     FObjectLockMode: Nullable<TObjectLockMode>;
@@ -166,6 +173,8 @@ type
     FStorageClass: Nullable<TStorageClass>;
     FTagging: Nullable<string>;
     FWebsiteRedirectLocation: Nullable<string>;
+    FHeaders: THeadersCollection;
+    FKeepHeaders: Boolean;
     function GetACL: TObjectCannedACL;
     procedure SetACL(const Value: TObjectCannedACL);
     function GetBucketKeyEnabled: Boolean;
@@ -196,8 +205,8 @@ type
     procedure SetGrantWriteACP(const Value: string);
     function GetKey: string;
     procedure SetKey(const Value: string);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus;
@@ -226,6 +235,10 @@ type
     procedure SetTagging(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
   strict protected
     function Obj: TInitiateMultipartUploadRequest;
   public
@@ -275,7 +288,7 @@ type
     property GrantReadACP: string read GetGrantReadACP write SetGrantReadACP;
     property GrantWriteACP: string read GetGrantWriteACP write SetGrantWriteACP;
     property Key: string read GetKey write SetKey;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
     property ObjectLockMode: TObjectLockMode read GetObjectLockMode write SetObjectLockMode;
@@ -290,6 +303,8 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property Tagging: string read GetTagging write SetTagging;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
+    property KeepHeaders: Boolean read GetKeepHeaders write SetKeepHeaders;
   end;
   
 implementation
@@ -299,11 +314,13 @@ implementation
 constructor TInitiateMultipartUploadRequest.Create;
 begin
   inherited;
-  FMetadata := TDictionary<string, string>.Create;
+  FMetadata := TMetadataCollection.Create;
+  FHeaders := THeadersCollection.Create;
 end;
 
 destructor TInitiateMultipartUploadRequest.Destroy;
 begin
+  Headers := nil;
   Metadata := nil;
   inherited;
 end;
@@ -538,12 +555,12 @@ begin
   Result := FKey.HasValue;
 end;
 
-function TInitiateMultipartUploadRequest.GetMetadata: TDictionary<string, string>;
+function TInitiateMultipartUploadRequest.GetMetadata: TMetadataCollection;
 begin
   Result := FMetadata;
 end;
 
-procedure TInitiateMultipartUploadRequest.SetMetadata(const Value: TDictionary<string, string>);
+procedure TInitiateMultipartUploadRequest.SetMetadata(const Value: TMetadataCollection);
 begin
   if FMetadata <> Value then
   begin
@@ -761,6 +778,31 @@ end;
 function TInitiateMultipartUploadRequest.IsSetWebsiteRedirectLocation: Boolean;
 begin
   Result := FWebsiteRedirectLocation.HasValue;
+end;
+
+function TInitiateMultipartUploadRequest.GetHeaders: THeadersCollection;
+begin
+  Result := FHeaders;
+end;
+
+procedure TInitiateMultipartUploadRequest.SetHeaders(const Value: THeadersCollection);
+begin
+  if FHeaders <> Value then
+  begin
+    if not KeepHeaders then
+      FHeaders.Free;
+    FHeaders := Value;
+  end;
+end;
+
+function TInitiateMultipartUploadRequest.GetKeepHeaders: Boolean;
+begin
+  Result := FKeepHeaders;
+end;
+
+procedure TInitiateMultipartUploadRequest.SetKeepHeaders(const Value: Boolean);
+begin
+  FKeepHeaders := Value;
 end;
 
 end.
