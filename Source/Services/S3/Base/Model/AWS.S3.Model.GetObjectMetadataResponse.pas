@@ -6,7 +6,9 @@ uses
   System.Generics.Collections, 
   AWS.Runtime.Model, 
   AWS.Nullable, 
-  AWS.S3.Enums;
+  AWS.S3.Enums, 
+  AWS.S3.Model.HeadersCollection, 
+  AWS.S3.Model.MetadataCollection;
 
 type
   TGetObjectMetadataResponse = class;
@@ -18,30 +20,16 @@ type
     procedure SetArchiveStatus(const Value: TArchiveStatus);
     function GetBucketKeyEnabled: Boolean;
     procedure SetBucketKeyEnabled(const Value: Boolean);
-    function GetCacheControl: string;
-    procedure SetCacheControl(const Value: string);
-    function GetContentDisposition: string;
-    procedure SetContentDisposition(const Value: string);
-    function GetContentEncoding: string;
-    procedure SetContentEncoding(const Value: string);
-    function GetContentLanguage: string;
-    procedure SetContentLanguage(const Value: string);
-    function GetContentLength: Int64;
-    procedure SetContentLength(const Value: Int64);
-    function GetContentType: string;
-    procedure SetContentType(const Value: string);
     function GetDeleteMarker: Boolean;
     procedure SetDeleteMarker(const Value: Boolean);
     function GetETag: string;
     procedure SetETag(const Value: string);
     function GetExpiration: string;
     procedure SetExpiration(const Value: string);
-    function GetExpires: TDateTime;
-    procedure SetExpires(const Value: TDateTime);
     function GetLastModified: TDateTime;
     procedure SetLastModified(const Value: TDateTime);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetMissingMeta: Integer;
@@ -74,20 +62,21 @@ type
     procedure SetVersionId(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
+    function GetContentRange: string;
+    procedure SetContentRange(const Value: string);
+    function GetRawExpires: string;
+    procedure SetRawExpires(const Value: string);
     function Obj: TGetObjectMetadataResponse;
     function IsSetAcceptRanges: Boolean;
     function IsSetArchiveStatus: Boolean;
     function IsSetBucketKeyEnabled: Boolean;
-    function IsSetCacheControl: Boolean;
-    function IsSetContentDisposition: Boolean;
-    function IsSetContentEncoding: Boolean;
-    function IsSetContentLanguage: Boolean;
-    function IsSetContentLength: Boolean;
-    function IsSetContentType: Boolean;
     function IsSetDeleteMarker: Boolean;
     function IsSetETag: Boolean;
     function IsSetExpiration: Boolean;
-    function IsSetExpires: Boolean;
     function IsSetLastModified: Boolean;
     function IsSetMetadata: Boolean;
     function IsSetMissingMeta: Boolean;
@@ -108,18 +97,11 @@ type
     property AcceptRanges: string read GetAcceptRanges write SetAcceptRanges;
     property ArchiveStatus: TArchiveStatus read GetArchiveStatus write SetArchiveStatus;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
-    property CacheControl: string read GetCacheControl write SetCacheControl;
-    property ContentDisposition: string read GetContentDisposition write SetContentDisposition;
-    property ContentEncoding: string read GetContentEncoding write SetContentEncoding;
-    property ContentLanguage: string read GetContentLanguage write SetContentLanguage;
-    property ContentLength: Int64 read GetContentLength write SetContentLength;
-    property ContentType: string read GetContentType write SetContentType;
     property DeleteMarker: Boolean read GetDeleteMarker write SetDeleteMarker;
     property ETag: string read GetETag write SetETag;
     property Expiration: string read GetExpiration write SetExpiration;
-    property Expires: TDateTime read GetExpires write SetExpires;
     property LastModified: TDateTime read GetLastModified write SetLastModified;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property MissingMeta: Integer read GetMissingMeta write SetMissingMeta;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
@@ -136,6 +118,9 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property VersionId: string read GetVersionId write SetVersionId;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
+    property ContentRange: string read GetContentRange write SetContentRange;
+    property RawExpires: string read GetRawExpires write SetRawExpires;
   end;
   
   TGetObjectMetadataResponse = class(TAmazonWebServiceResponse, IGetObjectMetadataResponse)
@@ -143,18 +128,11 @@ type
     FAcceptRanges: Nullable<string>;
     FArchiveStatus: Nullable<TArchiveStatus>;
     FBucketKeyEnabled: Nullable<Boolean>;
-    FCacheControl: Nullable<string>;
-    FContentDisposition: Nullable<string>;
-    FContentEncoding: Nullable<string>;
-    FContentLanguage: Nullable<string>;
-    FContentLength: Nullable<Int64>;
-    FContentType: Nullable<string>;
     FDeleteMarker: Nullable<Boolean>;
     FETag: Nullable<string>;
     FExpiration: Nullable<string>;
-    FExpires: Nullable<TDateTime>;
     FLastModified: Nullable<TDateTime>;
-    FMetadata: TDictionary<string, string>;
+    FMetadata: TMetadataCollection;
     FKeepMetadata: Boolean;
     FMissingMeta: Nullable<Integer>;
     FObjectLockLegalHoldStatus: Nullable<TObjectLockLegalHoldStatus>;
@@ -171,36 +149,26 @@ type
     FStorageClass: Nullable<TStorageClass>;
     FVersionId: Nullable<string>;
     FWebsiteRedirectLocation: Nullable<string>;
+    FHeaders: THeadersCollection;
+    FKeepHeaders: Boolean;
+    FContentRange: string;
+    FRawExpires: string;
     function GetAcceptRanges: string;
     procedure SetAcceptRanges(const Value: string);
     function GetArchiveStatus: TArchiveStatus;
     procedure SetArchiveStatus(const Value: TArchiveStatus);
     function GetBucketKeyEnabled: Boolean;
     procedure SetBucketKeyEnabled(const Value: Boolean);
-    function GetCacheControl: string;
-    procedure SetCacheControl(const Value: string);
-    function GetContentDisposition: string;
-    procedure SetContentDisposition(const Value: string);
-    function GetContentEncoding: string;
-    procedure SetContentEncoding(const Value: string);
-    function GetContentLanguage: string;
-    procedure SetContentLanguage(const Value: string);
-    function GetContentLength: Int64;
-    procedure SetContentLength(const Value: Int64);
-    function GetContentType: string;
-    procedure SetContentType(const Value: string);
     function GetDeleteMarker: Boolean;
     procedure SetDeleteMarker(const Value: Boolean);
     function GetETag: string;
     procedure SetETag(const Value: string);
     function GetExpiration: string;
     procedure SetExpiration(const Value: string);
-    function GetExpires: TDateTime;
-    procedure SetExpires(const Value: TDateTime);
     function GetLastModified: TDateTime;
     procedure SetLastModified(const Value: TDateTime);
-    function GetMetadata: TDictionary<string, string>;
-    procedure SetMetadata(const Value: TDictionary<string, string>);
+    function GetMetadata: TMetadataCollection;
+    procedure SetMetadata(const Value: TMetadataCollection);
     function GetKeepMetadata: Boolean;
     procedure SetKeepMetadata(const Value: Boolean);
     function GetMissingMeta: Integer;
@@ -233,6 +201,14 @@ type
     procedure SetVersionId(const Value: string);
     function GetWebsiteRedirectLocation: string;
     procedure SetWebsiteRedirectLocation(const Value: string);
+    function GetHeaders: THeadersCollection;
+    procedure SetHeaders(const Value: THeadersCollection);
+    function GetKeepHeaders: Boolean;
+    procedure SetKeepHeaders(const Value: Boolean);
+    function GetContentRange: string;
+    procedure SetContentRange(const Value: string);
+    function GetRawExpires: string;
+    procedure SetRawExpires(const Value: string);
   strict protected
     function Obj: TGetObjectMetadataResponse;
   public
@@ -241,16 +217,9 @@ type
     function IsSetAcceptRanges: Boolean;
     function IsSetArchiveStatus: Boolean;
     function IsSetBucketKeyEnabled: Boolean;
-    function IsSetCacheControl: Boolean;
-    function IsSetContentDisposition: Boolean;
-    function IsSetContentEncoding: Boolean;
-    function IsSetContentLanguage: Boolean;
-    function IsSetContentLength: Boolean;
-    function IsSetContentType: Boolean;
     function IsSetDeleteMarker: Boolean;
     function IsSetETag: Boolean;
     function IsSetExpiration: Boolean;
-    function IsSetExpires: Boolean;
     function IsSetLastModified: Boolean;
     function IsSetMetadata: Boolean;
     function IsSetMissingMeta: Boolean;
@@ -271,18 +240,11 @@ type
     property AcceptRanges: string read GetAcceptRanges write SetAcceptRanges;
     property ArchiveStatus: TArchiveStatus read GetArchiveStatus write SetArchiveStatus;
     property BucketKeyEnabled: Boolean read GetBucketKeyEnabled write SetBucketKeyEnabled;
-    property CacheControl: string read GetCacheControl write SetCacheControl;
-    property ContentDisposition: string read GetContentDisposition write SetContentDisposition;
-    property ContentEncoding: string read GetContentEncoding write SetContentEncoding;
-    property ContentLanguage: string read GetContentLanguage write SetContentLanguage;
-    property ContentLength: Int64 read GetContentLength write SetContentLength;
-    property ContentType: string read GetContentType write SetContentType;
     property DeleteMarker: Boolean read GetDeleteMarker write SetDeleteMarker;
     property ETag: string read GetETag write SetETag;
     property Expiration: string read GetExpiration write SetExpiration;
-    property Expires: TDateTime read GetExpires write SetExpires;
     property LastModified: TDateTime read GetLastModified write SetLastModified;
-    property Metadata: TDictionary<string, string> read GetMetadata write SetMetadata;
+    property Metadata: TMetadataCollection read GetMetadata write SetMetadata;
     property KeepMetadata: Boolean read GetKeepMetadata write SetKeepMetadata;
     property MissingMeta: Integer read GetMissingMeta write SetMissingMeta;
     property ObjectLockLegalHoldStatus: TObjectLockLegalHoldStatus read GetObjectLockLegalHoldStatus write SetObjectLockLegalHoldStatus;
@@ -299,6 +261,10 @@ type
     property StorageClass: TStorageClass read GetStorageClass write SetStorageClass;
     property VersionId: string read GetVersionId write SetVersionId;
     property WebsiteRedirectLocation: string read GetWebsiteRedirectLocation write SetWebsiteRedirectLocation;
+    property Headers: THeadersCollection read GetHeaders write SetHeaders;
+    property KeepHeaders: Boolean read GetKeepHeaders write SetKeepHeaders;
+    property ContentRange: string read GetContentRange write SetContentRange;
+    property RawExpires: string read GetRawExpires write SetRawExpires;
   end;
   
 implementation
@@ -308,11 +274,13 @@ implementation
 constructor TGetObjectMetadataResponse.Create;
 begin
   inherited;
-  FMetadata := TDictionary<string, string>.Create;
+  FMetadata := TMetadataCollection.Create;
+  FHeaders := THeadersCollection.Create;
 end;
 
 destructor TGetObjectMetadataResponse.Destroy;
 begin
+  Headers := nil;
   Metadata := nil;
   inherited;
 end;
@@ -367,96 +335,6 @@ begin
   Result := FBucketKeyEnabled.HasValue;
 end;
 
-function TGetObjectMetadataResponse.GetCacheControl: string;
-begin
-  Result := FCacheControl.ValueOrDefault;
-end;
-
-procedure TGetObjectMetadataResponse.SetCacheControl(const Value: string);
-begin
-  FCacheControl := Value;
-end;
-
-function TGetObjectMetadataResponse.IsSetCacheControl: Boolean;
-begin
-  Result := FCacheControl.HasValue;
-end;
-
-function TGetObjectMetadataResponse.GetContentDisposition: string;
-begin
-  Result := FContentDisposition.ValueOrDefault;
-end;
-
-procedure TGetObjectMetadataResponse.SetContentDisposition(const Value: string);
-begin
-  FContentDisposition := Value;
-end;
-
-function TGetObjectMetadataResponse.IsSetContentDisposition: Boolean;
-begin
-  Result := FContentDisposition.HasValue;
-end;
-
-function TGetObjectMetadataResponse.GetContentEncoding: string;
-begin
-  Result := FContentEncoding.ValueOrDefault;
-end;
-
-procedure TGetObjectMetadataResponse.SetContentEncoding(const Value: string);
-begin
-  FContentEncoding := Value;
-end;
-
-function TGetObjectMetadataResponse.IsSetContentEncoding: Boolean;
-begin
-  Result := FContentEncoding.HasValue;
-end;
-
-function TGetObjectMetadataResponse.GetContentLanguage: string;
-begin
-  Result := FContentLanguage.ValueOrDefault;
-end;
-
-procedure TGetObjectMetadataResponse.SetContentLanguage(const Value: string);
-begin
-  FContentLanguage := Value;
-end;
-
-function TGetObjectMetadataResponse.IsSetContentLanguage: Boolean;
-begin
-  Result := FContentLanguage.HasValue;
-end;
-
-function TGetObjectMetadataResponse.GetContentLength: Int64;
-begin
-  Result := FContentLength.ValueOrDefault;
-end;
-
-procedure TGetObjectMetadataResponse.SetContentLength(const Value: Int64);
-begin
-  FContentLength := Value;
-end;
-
-function TGetObjectMetadataResponse.IsSetContentLength: Boolean;
-begin
-  Result := FContentLength.HasValue;
-end;
-
-function TGetObjectMetadataResponse.GetContentType: string;
-begin
-  Result := FContentType.ValueOrDefault;
-end;
-
-procedure TGetObjectMetadataResponse.SetContentType(const Value: string);
-begin
-  FContentType := Value;
-end;
-
-function TGetObjectMetadataResponse.IsSetContentType: Boolean;
-begin
-  Result := FContentType.HasValue;
-end;
-
 function TGetObjectMetadataResponse.GetDeleteMarker: Boolean;
 begin
   Result := FDeleteMarker.ValueOrDefault;
@@ -502,21 +380,6 @@ begin
   Result := FExpiration.HasValue;
 end;
 
-function TGetObjectMetadataResponse.GetExpires: TDateTime;
-begin
-  Result := FExpires.ValueOrDefault;
-end;
-
-procedure TGetObjectMetadataResponse.SetExpires(const Value: TDateTime);
-begin
-  FExpires := Value;
-end;
-
-function TGetObjectMetadataResponse.IsSetExpires: Boolean;
-begin
-  Result := FExpires.HasValue;
-end;
-
 function TGetObjectMetadataResponse.GetLastModified: TDateTime;
 begin
   Result := FLastModified.ValueOrDefault;
@@ -532,12 +395,12 @@ begin
   Result := FLastModified.HasValue;
 end;
 
-function TGetObjectMetadataResponse.GetMetadata: TDictionary<string, string>;
+function TGetObjectMetadataResponse.GetMetadata: TMetadataCollection;
 begin
   Result := FMetadata;
 end;
 
-procedure TGetObjectMetadataResponse.SetMetadata(const Value: TDictionary<string, string>);
+procedure TGetObjectMetadataResponse.SetMetadata(const Value: TMetadataCollection);
 begin
   if FMetadata <> Value then
   begin
@@ -785,6 +648,51 @@ end;
 function TGetObjectMetadataResponse.IsSetWebsiteRedirectLocation: Boolean;
 begin
   Result := FWebsiteRedirectLocation.HasValue;
+end;
+
+function TGetObjectMetadataResponse.GetHeaders: THeadersCollection;
+begin
+  Result := FHeaders;
+end;
+
+procedure TGetObjectMetadataResponse.SetHeaders(const Value: THeadersCollection);
+begin
+  if FHeaders <> Value then
+  begin
+    if not KeepHeaders then
+      FHeaders.Free;
+    FHeaders := Value;
+  end;
+end;
+
+function TGetObjectMetadataResponse.GetKeepHeaders: Boolean;
+begin
+  Result := FKeepHeaders;
+end;
+
+procedure TGetObjectMetadataResponse.SetKeepHeaders(const Value: Boolean);
+begin
+  FKeepHeaders := Value;
+end;
+
+function TGetObjectMetadataResponse.GetContentRange: string;
+begin
+  Result := FContentRange;
+end;
+
+procedure TGetObjectMetadataResponse.SetContentRange(const Value: string);
+begin
+  FContentRange := Value;
+end;
+
+function TGetObjectMetadataResponse.GetRawExpires: string;
+begin
+  Result := FRawExpires;
+end;
+
+procedure TGetObjectMetadataResponse.SetRawExpires(const Value: string);
+begin
+  FRawExpires := Value;
 end;
 
 end.

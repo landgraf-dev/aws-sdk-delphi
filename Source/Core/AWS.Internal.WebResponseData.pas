@@ -18,6 +18,7 @@ type
     function GetResponseBody: IHttpResponseBody;
     function IsHeaderPresent(const AHeaderName: string): Boolean;
     function GetHeaderValue(const AHeaderName: string): string;
+    function GetHeaderNames: TArray<string>;
 
     property ContentLength: Integer read GetContentLength;
     property ContentType: string read GetContentType;

@@ -74,6 +74,7 @@ type
     function OpenResponse: TStream;
     function IsHeaderPresent(const AHeaderName: string): Boolean;
     function GetHeaderValue(const AHeaderName: string): string;
+    function GetHeaderNames: TArray<string>;
     property ContentLength: Integer read GetContentLength;
     property ContentType: string read GetContentType;
     property StatusCode: Integer read GetStatusCode;
@@ -273,6 +274,14 @@ end;
 function THttpClientResponseData.GetContentType: string;
 begin
   Result := FResponse.GetHeaderValue(THeaderKeys.ContentTypeHeader);
+end;
+
+function THttpClientResponseData.GetHeaderNames: TArray<string>;
+begin
+  var Headers := FResponse.GetHeaders;
+  SetLength(Result, Length(Headers));
+  for var I := 0 to Length(Headers) - 1 do
+    Result[I] := Headers[I].Name;
 end;
 
 function THttpClientResponseData.GetHeaderValue(const AHeaderName: string): string;
