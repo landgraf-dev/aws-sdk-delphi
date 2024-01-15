@@ -3,7 +3,7 @@ unit AWSTests.S3.BucketRegionTests;
 interface
 
 uses
-  System.Generics.Collections, System.SysUtils, System.StrUtils, System.Classes,
+  System.Generics.Collections, System.SysUtils, System.StrUtils, System.Classes, System.Net.HttpClient,
   TestFramework, TestExtensions,
   AWSTests.TestBase,
   AWS.RegionEndpoint,
@@ -11,6 +11,7 @@ uses
   AWS.RegionEndpoints,
   AWS.S3,
   AWS.S3.Util.BucketRegionDetector,
+  AWS.S3.Util.AmazonS3Util,
   AWSTests.S3.TestUtils,
   AWSTests.S3.BucketRegionTestRunner;
 
@@ -18,14 +19,14 @@ type
   TBucketRegionTests = class(TAWSTestBase)
   strict private
     runner: TBucketRegionTestRunner;
-//    function GetHttpStatusCode(const Url: string): Integer;
+    function GetHttpStatusCode(const Url: string): Integer;
   public
     procedure TearDown; override;
   published
     procedure HappyCaseSigV2;
     procedure HappyCaseSigV4;
     procedure HappyCaseGetObjectMetedata;
-    procedure GetObjectMetedataSessionCredentials;
+//    procedure GetObjectMetedataSessionCredentials;
     procedure HappyCaseDoesS3BucketExist;
     procedure BucketRecreatedInDifferentRegion;
     procedure GetPreSignedUrlSigV2;
@@ -40,10 +41,14 @@ implementation
 
 procedure TBucketRegionTests.BucketRecreatedInDifferentRegion;
 begin
-  runner := TBucketRegionTestRunner.Create(False);
+  runner := TBucketRegionTestRunner.Create(True);
   if runner.TestBucketIsReady then
   begin
-    Check(False, 'implement');
+    TBucketRegionDetector.BucketRegionCache.AddOrUpdate(runner.BucketName, TRegionEndpoints.APNortheast2);
+    runner.USEast1Client.PutObject(runner.PutObjectRequest);
+    var cachedRegion: IRegionEndpointEx;
+    Check(TBucketRegionDetector.BucketRegionCache.TryGetValue(runner.BucketName, cachedRegion));
+    CheckEquals(TRegionEndpoints.USWest1.SystemName, cachedRegion.SystemName);
   end
   else
     Fail('bucket not ready');
@@ -51,36 +56,43 @@ end;
 
 procedure TBucketRegionTests.DeleteBucketUsingS3RegionUSEast1Enum;
 begin
-  runner := TBucketRegionTestRunner.Create(False);
-  if runner.TestBucketIsReady then
-  begin
-    Check(False, 'implement');
-  end
-  else
-    Fail('bucket not ready');
+  runner := TBucketRegionTestRunner.Create(True, True);
+  var bucketName := TS3TestUtils.CreateBucketWithWait(runner.USEast1Client);
+
+  var request: IDeleteBucketRequest := TDeleteBucketRequest.Create;
+  request.BucketName := bucketName;
+  request.BucketRegionName := TRegionEndpoints.USEast1.SystemName;
+  runner.USWest1Client.DeleteBucket(request);
 end;
 
-//function TBucketRegionTests.GetHttpStatusCode(const Url: string): Integer;
-//begin
-//end;
-
-procedure TBucketRegionTests.GetObjectMetedataSessionCredentials;
+function TBucketRegionTests.GetHttpStatusCode(const Url: string): Integer;
 begin
-  runner := TBucketRegionTestRunner.Create(False);
-  if runner.TestBucketIsReady then
-  begin
-    Check(False, 'implement');
-  end
-  else
-    Fail('bucket not ready');
+  var Client := THttpClient.Create;
+  try
+    var Response := Client.Get(Url);
+    Result := Response.StatusCode;
+  finally
+    Client.Free;
+  end;
 end;
+
+//procedure TBucketRegionTests.GetObjectMetedataSessionCredentials;
+//begin
+//  runner := TBucketRegionTestRunner.Create(False);
+//  if runner.TestBucketIsReady then
+//  begin
+//    Check(False, 'implement');
+//  end
+//  else
+//    Fail('bucket not ready');
+//end;
 
 procedure TBucketRegionTests.GetPreSignedUrlSigV2;
 begin
   runner := TBucketRegionTestRunner.Create(False);
   if runner.TestBucketIsReady then
   begin
-    Check(False, 'implement');
+    CheckEquals(200, GetHttpStatusCode(runner.USEast1Client.GetPreSignedURL(runner.PreSignedUrlRequest)));
   end
   else
     Fail('bucket not ready');
@@ -88,10 +100,10 @@ end;
 
 procedure TBucketRegionTests.GetPreSignedUrlSigV4ExplicitlySet;
 begin
-  runner := TBucketRegionTestRunner.Create(False);
+  runner := TBucketRegionTestRunner.Create(True, True);
   if runner.TestBucketIsReady then
   begin
-    Check(False, 'implement');
+    CheckEquals(400, GetHttpStatusCode(runner.USEast1Client.GetPreSignedURL(runner.PreSignedUrlRequest)));
   end
   else
     Fail('bucket not ready');
@@ -99,10 +111,10 @@ end;
 
 procedure TBucketRegionTests.GetPreSignedUrlSigV4ImplicitlySet;
 begin
-  runner := TBucketRegionTestRunner.Create(False);
+  runner := TBucketRegionTestRunner.Create(True);
   if runner.TestBucketIsReady then
   begin
-    Check(False, 'implement');
+    CheckEquals(200, GetHttpStatusCode(runner.USEast1Client.GetPreSignedURL(runner.PreSignedUrlRequest)));
   end
   else
     Fail('bucket not ready');
@@ -110,10 +122,13 @@ end;
 
 procedure TBucketRegionTests.HappyCaseDoesS3BucketExist;
 begin
-  runner := TBucketRegionTestRunner.Create(False);
+  runner := TBucketRegionTestRunner.Create(True, True);
   if runner.TestBucketIsReady then
   begin
-    Check(False, 'implement');
+    Check(TAmazonS3Util.DoesS3BucketExistV2(runner.USEast1Client, runner.BucketName));
+    var cachedRegion: IRegionEndpointEx;
+    Check(TBucketRegionDetector.BucketRegionCache.TryGetValue(runner.BucketName, cachedRegion));
+    CheckEquals(TRegionEndpoints.USWest1.SystemName, cachedRegion.SystemName);
   end
   else
     Fail('bucket not ready');

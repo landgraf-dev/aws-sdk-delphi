@@ -107,23 +107,27 @@ begin
       serviceException := EAmazonServiceException(E);
     var correctedRegion := '';
     var s3BucketUri: TAmazonS3Uri;
-    if TAmazonS3Uri.TryParseAmazonS3Uri(ExecutionContext.RequestContext.Request.Endpoint, s3BucketUri) then
-    begin
-      var credentials := ExecutionContext.RequestContext.ImmutableCredentials;
-      if credentials <> nil then
-        correctedRegion := TBucketRegionDetector.DetectMismatchWithHeadBucketFallback(s3BucketUri, serviceException, credentials);
-    end;
+    try
+      if TAmazonS3Uri.TryParseAmazonS3Uri(ExecutionContext.RequestContext.Request.Endpoint, s3BucketUri) then
+      begin
+        var credentials := ExecutionContext.RequestContext.ImmutableCredentials;
+        if credentials <> nil then
+          correctedRegion := TBucketRegionDetector.DetectMismatchWithHeadBucketFallback(s3BucketUri, serviceException, credentials);
+      end;
 
-    if correctedRegion = '' then
-    begin
-      Exit(baseRetryForException(executionContext, E));
-    end
-    else
-    begin
-      // change authentication region of request and signal the handler to sign again with the new region
-      ExecutionContext.RequestContext.Request.AuthenticationRegion := correctedRegion;
-      ExecutionContext.RequestContext.IsSigned := False;
-      Exit(True);
+      if correctedRegion = '' then
+      begin
+        Exit(baseRetryForException(executionContext, E));
+      end
+      else
+      begin
+        // change authentication region of request and signal the handler to sign again with the new region
+        ExecutionContext.RequestContext.Request.AuthenticationRegion := correctedRegion;
+        ExecutionContext.RequestContext.IsSigned := False;
+        Exit(True);
+      end;
+    finally
+      s3BucketUri.Free;
     end;
   end;
 end;

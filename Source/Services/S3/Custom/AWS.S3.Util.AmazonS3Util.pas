@@ -9,6 +9,8 @@ uses
   AWS.SDKUtils,
   AWS.S3.Model.MetadataCollection,
   AWS.S3.Internal.AWSConfigsS3,
+  AWS.S3.ClientIntf,
+  AWS.S3.Exception,
   AWS.Util.Crypto;
 
 type
@@ -28,6 +30,7 @@ type
     class function GenerateMD5ChecksumForStream(Stream: TStream): string; static;
     class function UrlEncode(const Data: string; Path: Boolean): string; static;
     class function ComputeEncodedMD5FromEncodedString(const Base64EncodedString: string): string; static;
+    class function DoesS3BucketExistV2(S3Client: IAmazonS3; const BucketName: string): Boolean; static;
   end;
 
 implementation
@@ -222,6 +225,28 @@ end;
 class destructor TAmazonS3Util.Destroy;
 begin
   FExtensionToMime.Free;
+end;
+
+class function TAmazonS3Util.DoesS3BucketExistV2(S3Client: IAmazonS3; const BucketName: string): Boolean;
+begin
+  try
+    S3Client.GetACL(BucketName);
+  except
+    on E: EAmazonS3Exception do
+    begin
+      if E.ErrorCode = 'AccessDenied' then
+        Exit(True)
+      else
+      if E.ErrorCode = 'PermanentRedirect' then
+        Exit(True)
+      else
+      if E.ErrorCode = 'NoSuchBucket' then
+        Exit(False)
+      else
+        raise;
+    end;
+  end;
+  Result := True;
 end;
 
 class function TAmazonS3Util.EscapeNonAscii(const Text: string): string;

@@ -239,11 +239,12 @@ begin
   var current := FHandler;
   while current <> nil do
   begin
-    if (current as TObject).ClassType = T then
+    var CurrentType := (current as TObject).ClassType;
+    if CurrentType = T then
     begin
       // Replace current with handler.
-      handler.InnerHandler := current.InnerHandler;
-      handler.OuterHandler := current.OuterHandler;
+      AHandler.InnerHandler := current.InnerHandler;
+      AHandler.OuterHandler := current.OuterHandler;
       if previous <> nil then
       begin
         // Wireup previous handler
