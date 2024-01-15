@@ -134,7 +134,7 @@ begin
   //The invocation id will be the same for all retry requests for the initial operation invocation.
   if not request.Headers.ContainsKey(THeaderKeys.AmzSdkInvocationId) then
   begin
-    Request.Headers.Add(THeaderKeys.AmzSdkInvocationId, requestContext.InvocationId.ToString());
+    Request.Headers.Add(THeaderKeys.AmzSdkInvocationId, requestContext.InvocationId.ToString.ToLower.Substring(1, 36));
   end;
 
   //Update the amz-sdk-request header with the current retry index.
