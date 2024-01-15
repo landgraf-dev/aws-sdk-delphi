@@ -18,8 +18,6 @@ type
     procedure SetKeepBody(const Value: Boolean);
     function GetBucketName: string;
     procedure SetBucketName(const Value: string);
-    function GetContentLength: Int64;
-    procedure SetContentLength(const Value: Int64);
     function GetContentMD5: string;
     procedure SetContentMD5(const Value: string);
     function GetExpectedBucketOwner: string;
@@ -42,10 +40,19 @@ type
     procedure SetFilePath(const Value: string);
     function GetFilePosition: Integer;
     procedure SetFilePosition(const Value: Integer);
+    function GetPartSize: Int64;
+    procedure SetPartSize(const Value: Int64);
+    function GetDisablePayloadSigning: NullableBoolean;
+    procedure SetDisablePayloadSigning(const Value: NullableBoolean);
+    function GetUseChunkEncoding: Boolean;
+    procedure SetUseChunkEncoding(const Value: Boolean);
+    function GetCalculateContentMD5Header: Boolean;
+    procedure SetCalculateContentMD5Header(const Value: Boolean);
+    function GetDisableMD5Stream: NullableBoolean;
+    procedure SetDisableMD5Stream(const Value: NullableBoolean);
     function Obj: TUploadPartRequest;
     function IsSetBody: Boolean;
     function IsSetBucketName: Boolean;
-    function IsSetContentLength: Boolean;
     function IsSetContentMD5: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
     function IsSetKey: Boolean;
@@ -58,7 +65,6 @@ type
     property Body: TStream read GetBody write SetBody;
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketName: string read GetBucketName write SetBucketName;
-    property ContentLength: Int64 read GetContentLength write SetContentLength;
     property ContentMD5: string read GetContentMD5 write SetContentMD5;
     property ExpectedBucketOwner: string read GetExpectedBucketOwner write SetExpectedBucketOwner;
     property Key: string read GetKey write SetKey;
@@ -70,9 +76,16 @@ type
     property UploadId: string read GetUploadId write SetUploadId;
     property FilePath: string read GetFilePath write SetFilePath;
     property FilePosition: Integer read GetFilePosition write SetFilePosition;
+    property PartSize: Int64 read GetPartSize write SetPartSize;
+    property DisablePayloadSigning: NullableBoolean read GetDisablePayloadSigning write SetDisablePayloadSigning;
+    property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
+    property CalculateContentMD5Header: Boolean read GetCalculateContentMD5Header write SetCalculateContentMD5Header;
+    property DisableMD5Stream: NullableBoolean read GetDisableMD5Stream write SetDisableMD5Stream;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
     property IsSetInputStream: Boolean read IsSetBody;
+    property MD5Digest: string read GetContentMD5 write SetContentMD5;
+    property IsSetMD5Digest: Boolean read IsSetContentMD5;
   end;
   
   TUploadPartRequest = class(TAmazonS3Request, IUploadPartRequest)
@@ -80,7 +93,6 @@ type
     FBody: TStream;
     FKeepBody: Boolean;
     FBucketName: Nullable<string>;
-    FContentLength: Nullable<Int64>;
     FContentMD5: Nullable<string>;
     FExpectedBucketOwner: Nullable<string>;
     FKey: Nullable<string>;
@@ -92,14 +104,17 @@ type
     FUploadId: Nullable<string>;
     FFilePath: string;
     FFilePosition: Integer;
+    FPartSize: Int64;
+    FDisablePayloadSigning: NullableBoolean;
+    FUseChunkEncoding: Boolean;
+    FCalculateContentMD5Header: Boolean;
+    FDisableMD5Stream: NullableBoolean;
     function GetBody: TStream;
     procedure SetBody(const Value: TStream);
     function GetKeepBody: Boolean;
     procedure SetKeepBody(const Value: Boolean);
     function GetBucketName: string;
     procedure SetBucketName(const Value: string);
-    function GetContentLength: Int64;
-    procedure SetContentLength(const Value: Int64);
     function GetContentMD5: string;
     procedure SetContentMD5(const Value: string);
     function GetExpectedBucketOwner: string;
@@ -122,13 +137,23 @@ type
     procedure SetFilePath(const Value: string);
     function GetFilePosition: Integer;
     procedure SetFilePosition(const Value: Integer);
+    function GetPartSize: Int64;
+    procedure SetPartSize(const Value: Int64);
+    function GetDisablePayloadSigning: NullableBoolean;
+    procedure SetDisablePayloadSigning(const Value: NullableBoolean);
+    function GetUseChunkEncoding: Boolean;
+    procedure SetUseChunkEncoding(const Value: Boolean);
+    function GetCalculateContentMD5Header: Boolean;
+    procedure SetCalculateContentMD5Header(const Value: Boolean);
+    function GetDisableMD5Stream: NullableBoolean;
+    procedure SetDisableMD5Stream(const Value: NullableBoolean);
   strict protected
     function Obj: TUploadPartRequest;
   public
+    constructor Create;
     destructor Destroy; override;
     function IsSetBody: Boolean;
     function IsSetBucketName: Boolean;
-    function IsSetContentLength: Boolean;
     function IsSetContentMD5: Boolean;
     function IsSetExpectedBucketOwner: Boolean;
     function IsSetKey: Boolean;
@@ -141,7 +166,6 @@ type
     property Body: TStream read GetBody write SetBody;
     property KeepBody: Boolean read GetKeepBody write SetKeepBody;
     property BucketName: string read GetBucketName write SetBucketName;
-    property ContentLength: Int64 read GetContentLength write SetContentLength;
     property ContentMD5: string read GetContentMD5 write SetContentMD5;
     property ExpectedBucketOwner: string read GetExpectedBucketOwner write SetExpectedBucketOwner;
     property Key: string read GetKey write SetKey;
@@ -153,14 +177,27 @@ type
     property UploadId: string read GetUploadId write SetUploadId;
     property FilePath: string read GetFilePath write SetFilePath;
     property FilePosition: Integer read GetFilePosition write SetFilePosition;
+    property PartSize: Int64 read GetPartSize write SetPartSize;
+    property DisablePayloadSigning: NullableBoolean read GetDisablePayloadSigning write SetDisablePayloadSigning;
+    property UseChunkEncoding: Boolean read GetUseChunkEncoding write SetUseChunkEncoding;
+    property CalculateContentMD5Header: Boolean read GetCalculateContentMD5Header write SetCalculateContentMD5Header;
+    property DisableMD5Stream: NullableBoolean read GetDisableMD5Stream write SetDisableMD5Stream;
     property InputStream: TStream read GetBody write SetBody;
     property KeepInputStream: Boolean read GetKeepBody write SetKeepBody;
     property IsSetInputStream: Boolean read IsSetBody;
+    property MD5Digest: string read GetContentMD5 write SetContentMD5;
+    property IsSetMD5Digest: Boolean read IsSetContentMD5;
   end;
   
 implementation
 
 { TUploadPartRequest }
+
+constructor TUploadPartRequest.Create;
+begin
+  inherited;
+  FUseChunkEncoding := True;
+end;
 
 destructor TUploadPartRequest.Destroy;
 begin
@@ -216,21 +253,6 @@ end;
 function TUploadPartRequest.IsSetBucketName: Boolean;
 begin
   Result := FBucketName.HasValue;
-end;
-
-function TUploadPartRequest.GetContentLength: Int64;
-begin
-  Result := FContentLength.ValueOrDefault;
-end;
-
-procedure TUploadPartRequest.SetContentLength(const Value: Int64);
-begin
-  FContentLength := Value;
-end;
-
-function TUploadPartRequest.IsSetContentLength: Boolean;
-begin
-  Result := FContentLength.HasValue;
 end;
 
 function TUploadPartRequest.GetContentMD5: string;
@@ -386,6 +408,56 @@ end;
 procedure TUploadPartRequest.SetFilePosition(const Value: Integer);
 begin
   FFilePosition := Value;
+end;
+
+function TUploadPartRequest.GetPartSize: Int64;
+begin
+  Result := FPartSize;
+end;
+
+procedure TUploadPartRequest.SetPartSize(const Value: Int64);
+begin
+  FPartSize := Value;
+end;
+
+function TUploadPartRequest.GetDisablePayloadSigning: NullableBoolean;
+begin
+  Result := FDisablePayloadSigning;
+end;
+
+procedure TUploadPartRequest.SetDisablePayloadSigning(const Value: NullableBoolean);
+begin
+  FDisablePayloadSigning := Value;
+end;
+
+function TUploadPartRequest.GetUseChunkEncoding: Boolean;
+begin
+  Result := FUseChunkEncoding;
+end;
+
+procedure TUploadPartRequest.SetUseChunkEncoding(const Value: Boolean);
+begin
+  FUseChunkEncoding := Value;
+end;
+
+function TUploadPartRequest.GetCalculateContentMD5Header: Boolean;
+begin
+  Result := FCalculateContentMD5Header;
+end;
+
+procedure TUploadPartRequest.SetCalculateContentMD5Header(const Value: Boolean);
+begin
+  FCalculateContentMD5Header := Value;
+end;
+
+function TUploadPartRequest.GetDisableMD5Stream: NullableBoolean;
+begin
+  Result := FDisableMD5Stream;
+end;
+
+procedure TUploadPartRequest.SetDisableMD5Stream(const Value: NullableBoolean);
+begin
+  FDisableMD5Stream := Value;
 end;
 
 end.

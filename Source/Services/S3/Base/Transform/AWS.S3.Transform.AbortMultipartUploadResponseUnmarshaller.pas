@@ -18,7 +18,7 @@ uses
 
 type
   IAbortMultipartUploadResponseUnmarshaller = IResponseUnmarshaller;
-
+  
   TAbortMultipartUploadResponseUnmarshaller = class(TS3ResponseUnmarshaller, IAbortMultipartUploadResponseUnmarshaller)
   strict private
     class var FInstance: IAbortMultipartUploadResponseUnmarshaller;
