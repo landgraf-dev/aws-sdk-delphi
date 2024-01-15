@@ -53,6 +53,7 @@ type
     const DefaultBufferSize = 8192;
     const UrlEncodedContent = 'application/x-www-form-urlencoded; charset=utf-8';
     const RFC822DateFormat = 'ddd, dd MMM yyyy HH:mm:ss "GMT"';
+    const GMTDateFormat = 'ddd, dd MMM yyyy HH:mm:ss "GMT"';
 
     const ValidUrlCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~';
     const ValidUrlCharactersRFC1738 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.';
