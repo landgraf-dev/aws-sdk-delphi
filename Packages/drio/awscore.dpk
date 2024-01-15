@@ -131,6 +131,7 @@ contains
   AWS.Internal.CapacityManager in '..\..\Source\Core\AWS.Internal.CapacityManager.pas',
   AWS.Internal.StandardRetryPolicy in '..\..\Source\Core\AWS.Internal.StandardRetryPolicy.pas',
   AWS.Internal.AdaptiveRetryPolicy in '..\..\Source\Core\AWS.Internal.AdaptiveRetryPolicy.pas',
-  AWS.Internal.TokenBucket in '..\..\Source\Core\AWS.Internal.TokenBucket.pas';
+  AWS.Internal.TokenBucket in '..\..\Source\Core\AWS.Internal.TokenBucket.pas',
+  AWS.Util.PartialWrapperStream in '..\..\Source\Core\AWS.Util.PartialWrapperStream.pas';
 
 end.
