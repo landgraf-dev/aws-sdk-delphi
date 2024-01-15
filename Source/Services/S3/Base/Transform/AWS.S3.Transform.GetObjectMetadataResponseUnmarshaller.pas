@@ -4,8 +4,9 @@ interface
 
 uses
   System.SysUtils, 
-  AWS.S3.Model.GetObjectMetadataResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.GetObjectMetadataResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3.Internal.S3Transforms, 
@@ -19,7 +20,7 @@ uses
 type
   IGetObjectMetadataResponseUnmarshaller = IResponseUnmarshaller;
   
-  TGetObjectMetadataResponseUnmarshaller = class(TXmlResponseUnmarshaller, IGetObjectMetadataResponseUnmarshaller)
+  TGetObjectMetadataResponseUnmarshaller = class(TS3ResponseUnmarshaller, IGetObjectMetadataResponseUnmarshaller)
   strict private
     class var FInstance: IGetObjectMetadataResponseUnmarshaller;
     class constructor Create;

@@ -3,8 +3,9 @@ unit AWS.S3.Transform.GetBucketVersioningResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.GetBucketVersioningResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.GetBucketVersioningResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Transform.SimpleTypeUnmarshaller, 
@@ -18,7 +19,7 @@ uses
 type
   IGetBucketVersioningResponseUnmarshaller = IResponseUnmarshaller;
   
-  TGetBucketVersioningResponseUnmarshaller = class(TXmlResponseUnmarshaller, IGetBucketVersioningResponseUnmarshaller)
+  TGetBucketVersioningResponseUnmarshaller = class(TS3ResponseUnmarshaller, IGetBucketVersioningResponseUnmarshaller)
   strict private
     class var FInstance: IGetBucketVersioningResponseUnmarshaller;
     class procedure UnmarshallResult(AContext: TXmlUnmarshallerContext; AResponse: TGetBucketVersioningResponse); static;

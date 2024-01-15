@@ -3,8 +3,9 @@ unit AWS.S3.Transform.ListBucketsResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.ListBucketsResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.ListBucketsResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3.Transform.BucketUnmarshaller, 
@@ -20,7 +21,7 @@ uses
 type
   IListBucketsResponseUnmarshaller = IResponseUnmarshaller;
   
-  TListBucketsResponseUnmarshaller = class(TXmlResponseUnmarshaller, IListBucketsResponseUnmarshaller)
+  TListBucketsResponseUnmarshaller = class(TS3ResponseUnmarshaller, IListBucketsResponseUnmarshaller)
   strict private
     class var FInstance: IListBucketsResponseUnmarshaller;
     class procedure UnmarshallResult(AContext: TXmlUnmarshallerContext; AResponse: TListBucketsResponse); static;

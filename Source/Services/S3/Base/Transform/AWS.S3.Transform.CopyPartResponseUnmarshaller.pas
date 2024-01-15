@@ -4,8 +4,9 @@ interface
 
 uses
   System.SysUtils, 
-  AWS.S3.Model.CopyPartResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.CopyPartResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3.Transform.CopyPartResultUnmarshaller, 
@@ -18,7 +19,7 @@ uses
 type
   ICopyPartResponseUnmarshaller = IResponseUnmarshaller;
   
-  TCopyPartResponseUnmarshaller = class(TXmlResponseUnmarshaller, ICopyPartResponseUnmarshaller)
+  TCopyPartResponseUnmarshaller = class(TS3ResponseUnmarshaller, ICopyPartResponseUnmarshaller)
   strict private
     class var FInstance: ICopyPartResponseUnmarshaller;
     class procedure UnmarshallResult(AContext: TXmlUnmarshallerContext; AResponse: TCopyPartResponse); static;

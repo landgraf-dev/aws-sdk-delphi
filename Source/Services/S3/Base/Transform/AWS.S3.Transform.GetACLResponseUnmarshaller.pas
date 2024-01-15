@@ -3,8 +3,9 @@ unit AWS.S3.Transform.GetACLResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.GetACLResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.GetACLResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.S3.Transform.GrantUnmarshaller, 
@@ -20,7 +21,7 @@ uses
 type
   IGetACLResponseUnmarshaller = IResponseUnmarshaller;
   
-  TGetACLResponseUnmarshaller = class(TXmlResponseUnmarshaller, IGetACLResponseUnmarshaller)
+  TGetACLResponseUnmarshaller = class(TS3ResponseUnmarshaller, IGetACLResponseUnmarshaller)
   strict private
     class var FInstance: IGetACLResponseUnmarshaller;
     class procedure UnmarshallResult(AContext: TXmlUnmarshallerContext; AResponse: TGetACLResponse); static;

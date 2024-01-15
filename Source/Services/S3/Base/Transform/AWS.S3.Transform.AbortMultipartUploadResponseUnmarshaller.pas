@@ -3,8 +3,9 @@ unit AWS.S3.Transform.AbortMultipartUploadResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.AbortMultipartUploadResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.AbortMultipartUploadResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Runtime.Exceptions, 
@@ -17,8 +18,8 @@ uses
 
 type
   IAbortMultipartUploadResponseUnmarshaller = IResponseUnmarshaller;
-  
-  TAbortMultipartUploadResponseUnmarshaller = class(TXmlResponseUnmarshaller, IAbortMultipartUploadResponseUnmarshaller)
+
+  TAbortMultipartUploadResponseUnmarshaller = class(TS3ResponseUnmarshaller, IAbortMultipartUploadResponseUnmarshaller)
   strict private
     class var FInstance: IAbortMultipartUploadResponseUnmarshaller;
     class constructor Create;

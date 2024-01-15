@@ -3,8 +3,9 @@ unit AWS.S3.Transform.DeleteBucketResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.DeleteBucketResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.DeleteBucketResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Runtime.Exceptions, 
@@ -17,7 +18,7 @@ uses
 type
   IDeleteBucketResponseUnmarshaller = IResponseUnmarshaller;
   
-  TDeleteBucketResponseUnmarshaller = class(TXmlResponseUnmarshaller, IDeleteBucketResponseUnmarshaller)
+  TDeleteBucketResponseUnmarshaller = class(TS3ResponseUnmarshaller, IDeleteBucketResponseUnmarshaller)
   strict private
     class var FInstance: IDeleteBucketResponseUnmarshaller;
     class constructor Create;

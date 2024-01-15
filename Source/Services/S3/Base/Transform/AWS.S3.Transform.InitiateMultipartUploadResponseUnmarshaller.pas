@@ -4,8 +4,9 @@ interface
 
 uses
   System.SysUtils, 
-  AWS.S3.Model.InitiateMultipartUploadResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.InitiateMultipartUploadResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Transform.SimpleTypeUnmarshaller, 
@@ -19,7 +20,7 @@ uses
 type
   IInitiateMultipartUploadResponseUnmarshaller = IResponseUnmarshaller;
   
-  TInitiateMultipartUploadResponseUnmarshaller = class(TXmlResponseUnmarshaller, IInitiateMultipartUploadResponseUnmarshaller)
+  TInitiateMultipartUploadResponseUnmarshaller = class(TS3ResponseUnmarshaller, IInitiateMultipartUploadResponseUnmarshaller)
   strict private
     class var FInstance: IInitiateMultipartUploadResponseUnmarshaller;
     class procedure UnmarshallResult(AContext: TXmlUnmarshallerContext; AResponse: TInitiateMultipartUploadResponse); static;

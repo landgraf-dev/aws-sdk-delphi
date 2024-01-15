@@ -3,8 +3,9 @@ unit AWS.S3.Transform.PutBucketOwnershipControlsResponseUnmarshaller;
 interface
 
 uses
-  AWS.S3.Model.PutBucketOwnershipControlsResponse, 
   AWS.Transform.ResponseUnmarshaller, 
+  AWS.S3.Model.PutBucketOwnershipControlsResponse, 
+  AWS.S3.Transform.S3ResponseUnmarshaller, 
   AWS.Runtime.Model, 
   AWS.Transform.UnmarshallerContext, 
   AWS.Runtime.Exceptions, 
@@ -17,7 +18,7 @@ uses
 type
   IPutBucketOwnershipControlsResponseUnmarshaller = IResponseUnmarshaller;
   
-  TPutBucketOwnershipControlsResponseUnmarshaller = class(TXmlResponseUnmarshaller, IPutBucketOwnershipControlsResponseUnmarshaller)
+  TPutBucketOwnershipControlsResponseUnmarshaller = class(TS3ResponseUnmarshaller, IPutBucketOwnershipControlsResponseUnmarshaller)
   strict private
     class var FInstance: IPutBucketOwnershipControlsResponseUnmarshaller;
     class constructor Create;
