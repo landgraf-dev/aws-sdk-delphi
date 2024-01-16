@@ -8,6 +8,9 @@ uses
   AWS.Runtime.Contexts,
   AWS.Runtime.Model,
   AWS.SDKUtils,
+  AWS.S3.Model.PutObjectRequest,
+  AWS.S3.Model.UploadPartRequest,
+  AWS.Internal.Util.HashStream,
   AWS.S3.ClientExtensions;
 
 type
@@ -24,7 +27,34 @@ implementation
 
 procedure TAmazonS3ExceptionHandler.HandleException(AExecutionContext: TExecutionContext; AException: Exception);
 begin
-  {$MESSAGE WARN 'Recover hash streams'}
+  if AExecutionContext.RequestContext.OriginalRequest is TPutObjectRequest then
+  begin
+    var putObjectRequest := AExecutionContext.RequestContext.OriginalRequest as TPutObjectRequest;
+
+    // If InputStream was a HashStream, compare calculated hash to returned etag
+    if (putObjectRequest.InputStream <> nil) and (putObjectRequest.InputStream is THashStream) then
+    begin
+      var hashStream := putObjectRequest.InputStream as THashStream;
+
+      // Set InputStream to its original value
+      putObjectRequest.InputStream := hashStream.GetNonWrapperBaseStream(True);
+    end;
+  end;
+
+  if AExecutionContext.RequestContext.OriginalRequest is TUploadPartRequest then
+  begin
+    var uploadPartRequest := AExecutionContext.RequestContext.OriginalRequest as TUploadPartRequest;
+
+    // If InputStream was a HashStream, compare calculated hash to returned etag
+    if (uploadPartRequest.InputStream <> nil) and (uploadPartRequest.InputStream is THashStream) then
+    begin
+      var hashStream := uploadPartRequest.InputStream as THashStream;
+
+      // Set InputStream to its original value
+      uploadPartRequest.InputStream := hashStream.GetNonWrapperBaseStream(True);
+    end;
+
+  end;
 
   TAmazonS3ClientExtensions.CleanupRequest(AExecutionContext.RequestContext.OriginalRequest);
 end;
