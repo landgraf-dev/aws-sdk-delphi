@@ -36,7 +36,8 @@ uses
   AWSTests.S3.CopyObjectTests in 'Source\AWSTests.S3.CopyObjectTests.pas',
   AWSTests.Runtime.PipelineTestBase in 'Source\AWSTests.Runtime.PipelineTestBase.pas',
   AWSTests.MockWebResponse in 'Source\AWSTests.MockWebResponse.pas',
-  AWSTests.Runtime.RetryHandlerTests in 'Source\AWSTests.Runtime.RetryHandlerTests.pas';
+  AWSTests.Runtime.RetryHandlerTests in 'Source\AWSTests.Runtime.RetryHandlerTests.pas',
+  AWSTests.S3.ListObjectsTests in 'Source\AWSTests.S3.ListObjectsTests.pas';
 
 {$R *.RES}
 

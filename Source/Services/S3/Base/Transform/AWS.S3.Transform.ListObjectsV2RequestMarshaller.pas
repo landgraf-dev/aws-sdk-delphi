@@ -3,13 +3,17 @@ unit AWS.S3.Transform.ListObjectsV2RequestMarshaller;
 interface
 
 uses
-  AWS.Internal.Request, 
-  AWS.Transform.RequestMarshaller, 
-  AWS.Runtime.Model, 
-  AWS.S3.Model.ListObjectsV2Request, 
-  AWS.Internal.DefaultRequest, 
-  AWS.Internal.StringUtils, 
-  AWS.S3.Exception;
+  System.SysUtils,
+  AWS.Internal.Request,
+  AWS.Transform.RequestMarshaller,
+  AWS.Runtime.Model,
+  AWS.S3.Model.ListObjectsV2Request,
+  AWS.Internal.DefaultRequest,
+  AWS.Internal.StringUtils,
+  AWS.S3.Util.S3Constants,
+  AWS.S3.Internal.S3Transforms,
+  AWS.S3.Exception,
+  AWS.SDKUtils;
 
 type
   IListObjectsV2RequestMarshaller = IMarshaller<IRequest, TAmazonWebServiceRequest>;
@@ -38,31 +42,39 @@ var
   Request: IRequest;
 begin
   Request := TDefaultRequest.Create(PublicRequest, 'Amazon.S3');
-  Request.HttpMethod := 'GET';
-  Request.AddSubResource('list-type', '2');
-  if PublicRequest.IsSetExpectedBucketOwner then
-    Request.Headers.Add('x-amz-expected-bucket-owner', PublicRequest.ExpectedBucketOwner);
+
   if PublicRequest.IsSetRequestPayer then
-    Request.Headers.Add('x-amz-request-payer', PublicRequest.RequestPayer.Value);
-  if not PublicRequest.IsSetBucketName then
-    raise EAmazonS3Exception.Create('Request object does not have required field BucketName set');
-  Request.AddPathResource('{Bucket}', TStringUtils.Fromstring(PublicRequest.BucketName));
-  if PublicRequest.IsSetContinuationToken then
-    Request.Parameters.Add('continuation-token', TStringUtils.Fromstring(PublicRequest.ContinuationToken));
+    Request.Headers.Add(TS3Constants.AmzHeaderRequestPayer, TS3Transforms.ToStringValue(PublicRequest.RequestPayer.Value));
+
+  if PublicRequest.IsSetExpectedBucketOwner then
+    Request.Headers.Add(TS3Constants.AmzHeaderExpectedBucketOwner, TS3Transforms.ToStringValue(PublicRequest.ExpectedBucketOwner));
+
+  Request.HttpMethod := 'GET';
+
+  if string.IsNullOrEmpty(PublicRequest.BucketName) then
+    raise EArgumentException.Create('BucketName is a required property and must be set before making this call.');
+
+  Request.ResourcePath := '/' + TS3Transforms.ToStringValue(PublicRequest.BucketName);
+
   if PublicRequest.IsSetDelimiter then
-    Request.Parameters.Add('delimiter', TStringUtils.Fromstring(PublicRequest.Delimiter));
+    Request.Parameters.Add('delimiter', TS3Transforms.ToStringValue(PublicRequest.Delimiter));
   if PublicRequest.IsSetEncodingType then
-    Request.Parameters.Add('encoding-type', PublicRequest.EncodingType.Value);
-  if PublicRequest.IsSetFetchOwner then
-    Request.Parameters.Add('fetch-owner', TStringUtils.FromBoolean(PublicRequest.FetchOwner));
+    Request.Parameters.Add('encoding-type', TS3Transforms.ToStringValue(PublicRequest.EncodingType.Value));
   if PublicRequest.IsSetMaxKeys then
-    Request.Parameters.Add('max-keys', TStringUtils.FromInteger(PublicRequest.MaxKeys));
+    Request.Parameters.Add('max-keys', TS3Transforms.ToStringValue(PublicRequest.MaxKeys));
   if PublicRequest.IsSetPrefix then
-    Request.Parameters.Add('prefix', TStringUtils.Fromstring(PublicRequest.Prefix));
+    Request.Parameters.Add('prefix', TS3Transforms.ToStringValue(PublicRequest.Prefix));
+  if PublicRequest.IsSetContinuationToken then
+    Request.Parameters.Add('continuation-token', TS3Transforms.ToStringValue(PublicRequest.ContinuationToken));
+  if PublicRequest.IsSetFetchOwner then
+    Request.Parameters.Add('fetch-owner', TS3Transforms.ToStringValue(PublicRequest.FetchOwner));
   if PublicRequest.IsSetStartAfter then
-    Request.Parameters.Add('start-after', TStringUtils.Fromstring(PublicRequest.StartAfter));
-  Request.ResourcePath := '/{Bucket}';
+    Request.Parameters.Add('start-after', TS3Transforms.ToStringValue(PublicRequest.StartAfter));
+
+  Request.Parameters.Add('list-type', '2');
+
   Request.UseQueryString := True;
+
   Result := Request;
 end;
 

@@ -69,6 +69,9 @@ type
     property NextContinuationToken: string read GetNextContinuationToken write SetNextContinuationToken;
     property Prefix: string read GetPrefix write SetPrefix;
     property StartAfter: string read GetStartAfter write SetStartAfter;
+    property S3Objects: TObjectList<TS3Object> read GetContents write SetContents;
+    property KeepS3Objects: Boolean read GetKeepContents write SetKeepContents;
+    property IsSetS3Objects: Boolean read IsSetContents;
   end;
   
   TListObjectsV2Response = class(TAmazonWebServiceResponse, IListObjectsV2Response)
@@ -146,6 +149,9 @@ type
     property NextContinuationToken: string read GetNextContinuationToken write SetNextContinuationToken;
     property Prefix: string read GetPrefix write SetPrefix;
     property StartAfter: string read GetStartAfter write SetStartAfter;
+    property S3Objects: TObjectList<TS3Object> read GetContents write SetContents;
+    property KeepS3Objects: Boolean read GetKeepContents write SetKeepContents;
+    property IsSetS3Objects: Boolean read IsSetContents;
   end;
   
 implementation
