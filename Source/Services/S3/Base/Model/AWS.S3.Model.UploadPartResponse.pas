@@ -25,6 +25,8 @@ type
     procedure SetSSEKMSKeyId(const Value: string);
     function GetServerSideEncryption: TServerSideEncryption;
     procedure SetServerSideEncryption(const Value: TServerSideEncryption);
+    function GetPartNumber: Integer;
+    procedure SetPartNumber(const Value: Integer);
     function Obj: TUploadPartResponse;
     function IsSetBucketKeyEnabled: Boolean;
     function IsSetETag: Boolean;
@@ -40,6 +42,7 @@ type
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property SSEKMSKeyId: string read GetSSEKMSKeyId write SetSSEKMSKeyId;
     property ServerSideEncryption: TServerSideEncryption read GetServerSideEncryption write SetServerSideEncryption;
+    property PartNumber: Integer read GetPartNumber write SetPartNumber;
   end;
   
   TUploadPartResponse = class(TAmazonWebServiceResponse, IUploadPartResponse)
@@ -51,6 +54,7 @@ type
     FSSECustomerKeyMD5: Nullable<string>;
     FSSEKMSKeyId: Nullable<string>;
     FServerSideEncryption: Nullable<TServerSideEncryption>;
+    FPartNumber: Integer;
     function GetBucketKeyEnabled: Boolean;
     procedure SetBucketKeyEnabled(const Value: Boolean);
     function GetETag: string;
@@ -65,6 +69,8 @@ type
     procedure SetSSEKMSKeyId(const Value: string);
     function GetServerSideEncryption: TServerSideEncryption;
     procedure SetServerSideEncryption(const Value: TServerSideEncryption);
+    function GetPartNumber: Integer;
+    procedure SetPartNumber(const Value: Integer);
   strict protected
     function Obj: TUploadPartResponse;
   public
@@ -82,6 +88,7 @@ type
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property SSEKMSKeyId: string read GetSSEKMSKeyId write SetSSEKMSKeyId;
     property ServerSideEncryption: TServerSideEncryption read GetServerSideEncryption write SetServerSideEncryption;
+    property PartNumber: Integer read GetPartNumber write SetPartNumber;
   end;
   
 implementation
@@ -196,6 +203,16 @@ end;
 function TUploadPartResponse.IsSetServerSideEncryption: Boolean;
 begin
   Result := FServerSideEncryption.HasValue;
+end;
+
+function TUploadPartResponse.GetPartNumber: Integer;
+begin
+  Result := FPartNumber;
+end;
+
+procedure TUploadPartResponse.SetPartNumber(const Value: Integer);
+begin
+  FPartNumber := Value;
 end;
 
 end.

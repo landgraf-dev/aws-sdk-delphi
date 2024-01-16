@@ -12,6 +12,7 @@ uses
   AWS.Runtime.Model,
   AWS.SDKUtils,
   AWS.S3.ClientExtensions,
+  AWS.S3.Model.CopyPartRequest,
   AWS.S3.Model.CopyPartResponse,
   AWS.S3.Model.DeleteObjectsException,
   AWS.S3.Model.GetObjectResponse,
@@ -148,8 +149,7 @@ begin
     var uploadPartRequest := request.OriginalRequest as TUploadPartRequest;
     var uploadPartResponse := response as TUploadPartResponse;
 
-    {$MESSAGE WARN 'PartNumber'}
-//    uploadPartResponse.PartNumber := uploadPartRequest.PartNumber;
+    uploadPartResponse.PartNumber := uploadPartRequest.PartNumber;
 
     // If InputStream was a HashStream, compare calculated hash to returned etag
     if uploadPartRequest.InputStream is THashStream then
@@ -167,10 +167,11 @@ begin
     end;
   end;
 
-  {$MESSAGE WARN 'Todo: set part number'}
-//  if response is TCopyPartResponse then
-//  begin
-//  end;
+  if response is TCopyPartResponse then
+  begin
+    var copyPartResponse := response as TCopyPartResponse;
+    copyPartResponse.PartNumber := (request.OriginalRequest as TCopyPartRequest).PartNumber;
+  end;
 
   TAmazonS3ClientExtensions.CleanupRequest(Request.OriginalRequest as TAmazonWebServiceRequest);
 end;

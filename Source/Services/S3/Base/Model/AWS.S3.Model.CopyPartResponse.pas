@@ -30,6 +30,8 @@ type
     procedure SetSSEKMSKeyId(const Value: string);
     function GetServerSideEncryption: TServerSideEncryption;
     procedure SetServerSideEncryption(const Value: TServerSideEncryption);
+    function GetPartNumber: Integer;
+    procedure SetPartNumber(const Value: Integer);
     function Obj: TCopyPartResponse;
     function IsSetBucketKeyEnabled: Boolean;
     function IsSetCopyPartResult: Boolean;
@@ -48,6 +50,7 @@ type
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property SSEKMSKeyId: string read GetSSEKMSKeyId write SetSSEKMSKeyId;
     property ServerSideEncryption: TServerSideEncryption read GetServerSideEncryption write SetServerSideEncryption;
+    property PartNumber: Integer read GetPartNumber write SetPartNumber;
   end;
   
   TCopyPartResponse = class(TAmazonWebServiceResponse, ICopyPartResponse)
@@ -61,6 +64,7 @@ type
     FSSECustomerKeyMD5: Nullable<string>;
     FSSEKMSKeyId: Nullable<string>;
     FServerSideEncryption: Nullable<TServerSideEncryption>;
+    FPartNumber: Integer;
     function GetBucketKeyEnabled: Boolean;
     procedure SetBucketKeyEnabled(const Value: Boolean);
     function GetCopyPartResult: TCopyPartResult;
@@ -79,6 +83,8 @@ type
     procedure SetSSEKMSKeyId(const Value: string);
     function GetServerSideEncryption: TServerSideEncryption;
     procedure SetServerSideEncryption(const Value: TServerSideEncryption);
+    function GetPartNumber: Integer;
+    procedure SetPartNumber(const Value: Integer);
   strict protected
     function Obj: TCopyPartResponse;
   public
@@ -100,6 +106,7 @@ type
     property SSECustomerKeyMD5: string read GetSSECustomerKeyMD5 write SetSSECustomerKeyMD5;
     property SSEKMSKeyId: string read GetSSEKMSKeyId write SetSSEKMSKeyId;
     property ServerSideEncryption: TServerSideEncryption read GetServerSideEncryption write SetServerSideEncryption;
+    property PartNumber: Integer read GetPartNumber write SetPartNumber;
   end;
   
 implementation
@@ -250,6 +257,16 @@ end;
 function TCopyPartResponse.IsSetServerSideEncryption: Boolean;
 begin
   Result := FServerSideEncryption.HasValue;
+end;
+
+function TCopyPartResponse.GetPartNumber: Integer;
+begin
+  Result := FPartNumber;
+end;
+
+procedure TCopyPartResponse.SetPartNumber(const Value: Integer);
+begin
+  FPartNumber := Value;
 end;
 
 end.
