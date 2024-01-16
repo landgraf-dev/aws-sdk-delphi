@@ -14,7 +14,7 @@ type
     class function ToStringValue(const Value: Integer): string; overload; static;
     class function ToStringValue(const Value: Boolean): string; overload; static;
     class function ToStringValue(const Value: TDateTime; const DateFormat: string = TAWSSDKUtils.RFC822DateFormat): string; overload; static;
-    class function ToString(const Value: string): string; static;
+    class function ValueToString(const Value: string): string; static;
     class function ToBool(const Value: string): Boolean; static;
     class function ToInt(const Value: string): Integer; static;
 
@@ -51,7 +51,7 @@ begin
   Result := IntToStr(Value);
 end;
 
-class function TS3Transforms.ToString(const Value: string): string;
+class function TS3Transforms.ValueToString(const Value: string): string;
 begin
   Result := Value;
 end;

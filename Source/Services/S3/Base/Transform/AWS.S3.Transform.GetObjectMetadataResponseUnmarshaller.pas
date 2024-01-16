@@ -53,9 +53,9 @@ begin
     if responseData.IsHeaderPresent('x-amz-delete-marker') then
       response.DeleteMarker := TS3Transforms.ToBool(responseData.GetHeaderValue('x-amz-delete-marker'));
     if responseData.IsHeaderPresent('accept-ranges') then
-      response.AcceptRanges := TS3Transforms.ToString(responseData.GetHeaderValue('accept-ranges'));
+      response.AcceptRanges := TS3Transforms.ValueToString(responseData.GetHeaderValue('accept-ranges'));
     if AContext.ResponseData.IsHeaderPresent('content-range') then
-      response.ContentRange := TS3Transforms.ToString(responseData.GetHeaderValue('content-range'));
+      response.ContentRange := TS3Transforms.ValueToString(responseData.GetHeaderValue('content-range'));
 //    if responseData.IsHeaderPresent('x-amz-expiration') then
 //      response.Expiration := new Expiration(responseData.GetHeaderValue('x-amz-expiration'));
 
@@ -72,47 +72,47 @@ begin
     if responseData.IsHeaderPresent('Last-Modified') then
       response.LastModified := TS3Transforms.ToDateTime(responseData.GetHeaderValue('Last-Modified'));
     if responseData.IsHeaderPresent('ETag') then
-      response.ETag := TS3Transforms.ToString(responseData.GetHeaderValue('ETag'));
+      response.ETag := TS3Transforms.ValueToString(responseData.GetHeaderValue('ETag'));
     if responseData.IsHeaderPresent('x-amz-missing-meta') then
       response.MissingMeta := TS3Transforms.ToInt(responseData.GetHeaderValue('x-amz-missing-meta'));
     if responseData.IsHeaderPresent('x-amz-version-id') then
-      response.VersionId := TS3Transforms.ToString(responseData.GetHeaderValue('x-amz-version-id'));
+      response.VersionId := TS3Transforms.ValueToString(responseData.GetHeaderValue('x-amz-version-id'));
     if responseData.IsHeaderPresent('Cache-Control') then
-      response.Headers.CacheControl := TS3Transforms.ToString(responseData.GetHeaderValue('Cache-Control'));
+      response.Headers.CacheControl := TS3Transforms.ValueToString(responseData.GetHeaderValue('Cache-Control'));
     if responseData.IsHeaderPresent('Content-Disposition') then
-      response.Headers.ContentDisposition := TS3Transforms.ToString(responseData.GetHeaderValue('Content-Disposition'));
+      response.Headers.ContentDisposition := TS3Transforms.ValueToString(responseData.GetHeaderValue('Content-Disposition'));
     if responseData.IsHeaderPresent('Content-Encoding') then
-      response.Headers.ContentEncoding := TS3Transforms.ToString(responseData.GetHeaderValue('Content-Encoding'));
+      response.Headers.ContentEncoding := TS3Transforms.ValueToString(responseData.GetHeaderValue('Content-Encoding'));
     if responseData.IsHeaderPresent('Content-Length') then
       response.Headers.ContentLength := StrToInt64(responseData.GetHeaderValue('Content-Length'));
     if responseData.IsHeaderPresent('Content-Type') then
-      response.Headers.ContentType := TS3Transforms.ToString(responseData.GetHeaderValue('Content-Type'));
+      response.Headers.ContentType := TS3Transforms.ValueToString(responseData.GetHeaderValue('Content-Type'));
     if responseData.IsHeaderPresent('Expires') then
-      response.RawExpires := TS3Transforms.ToString(responseData.GetHeaderValue('Expires'));
+      response.RawExpires := TS3Transforms.ValueToString(responseData.GetHeaderValue('Expires'));
     if responseData.IsHeaderPresent('x-amz-website-redirect-location') then
-      response.WebsiteRedirectLocation := TS3Transforms.ToString(responseData.GetHeaderValue('x-amz-website-redirect-location'));
+      response.WebsiteRedirectLocation := TS3Transforms.ValueToString(responseData.GetHeaderValue('x-amz-website-redirect-location'));
     if responseData.IsHeaderPresent('x-amz-server-side-encryption') then
-      response.ServerSideEncryption := TS3Transforms.ToString(responseData.GetHeaderValue('x-amz-server-side-encryption'));
+      response.ServerSideEncryption := TS3Transforms.ValueToString(responseData.GetHeaderValue('x-amz-server-side-encryption'));
     if responseData.IsHeaderPresent('x-amz-server-side-encryption-customer-algorithm') then
       response.SSECustomerAlgorithm := responseData.GetHeaderValue('x-amz-server-side-encryption-customer-algorithm');
     if responseData.IsHeaderPresent(THeaderKeys.XAmzServerSideEncryptionAwsKmsKeyIdHeader) then
-      response.SSEKMSKeyId := TS3Transforms.ToString(responseData.GetHeaderValue(THeaderKeys.XAmzServerSideEncryptionAwsKmsKeyIdHeader));
+      response.SSEKMSKeyId := TS3Transforms.ValueToString(responseData.GetHeaderValue(THeaderKeys.XAmzServerSideEncryptionAwsKmsKeyIdHeader));
     if responseData.IsHeaderPresent('x-amz-replication-status') then
-      response.ReplicationStatus := TS3Transforms.ToString(responseData.GetHeaderValue('x-amz-replication-status'));
+      response.ReplicationStatus := TS3Transforms.ValueToString(responseData.GetHeaderValue('x-amz-replication-status'));
     if responseData.IsHeaderPresent(TS3Constants.AmzHeaderMultipartPartsCount) then
       response.PartsCount := TS3Transforms.ToInt(responseData.GetHeaderValue(TS3Constants.AmzHeaderMultipartPartsCount));
     if responseData.IsHeaderPresent('x-amz-object-lock-mode') then
-      response.ObjectLockMode := TS3Transforms.ToString(responseData.GetHeaderValue('x-amz-object-lock-mode'));
+      response.ObjectLockMode := TS3Transforms.ValueToString(responseData.GetHeaderValue('x-amz-object-lock-mode'));
     if responseData.IsHeaderPresent('x-amz-object-lock-retain-until-date') then
       response.ObjectLockRetainUntilDate := TS3Transforms.ToDateTime(responseData.GetHeaderValue('x-amz-object-lock-retain-until-date'));
     if responseData.IsHeaderPresent('x-amz-object-lock-legal-hold') then
-      response.ObjectLockLegalHoldStatus := TS3Transforms.ToString(responseData.GetHeaderValue('x-amz-object-lock-legal-hold'));
+      response.ObjectLockLegalHoldStatus := TS3Transforms.ValueToString(responseData.GetHeaderValue('x-amz-object-lock-legal-hold'));
     if responseData.IsHeaderPresent(THeaderKeys.XAmzStorageClassHeader) then
-      response.StorageClass := TS3Transforms.ToString(responseData.GetHeaderValue(THeaderKeys.XAmzStorageClassHeader));
+      response.StorageClass := TS3Transforms.ValueToString(responseData.GetHeaderValue(THeaderKeys.XAmzStorageClassHeader));
     if responseData.IsHeaderPresent(TS3Constants.AmzHeaderRequestCharged) then
       response.RequestCharged := TRequestCharged.Create(responseData.GetHeaderValue(TS3Constants.AmzHeaderRequestCharged));
     if responseData.IsHeaderPresent(TS3Constants.AmzHeaderArchiveStatus) then
-      response.ArchiveStatus := TS3Transforms.ToString(responseData.GetHeaderValue(TS3Constants.AmzHeaderArchiveStatus));
+      response.ArchiveStatus := TS3Transforms.ValueToString(responseData.GetHeaderValue(TS3Constants.AmzHeaderArchiveStatus));
     if responseData.IsHeaderPresent(TS3Constants.AmzHeaderBucketKeyEnabled) then
       response.BucketKeyEnabled := TS3Transforms.ToBool(responseData.GetHeaderValue(TS3Constants.AmzHeaderBucketKeyEnabled));
 
