@@ -26,6 +26,7 @@ type
   TListObjectsTests = class(TAWSTestBase<TAmazonS3Client, IAmazonS3>)
   published
     procedure TestS3ObjectsContainBucketName;
+    procedure TestListV2;
   end;
 
 implementation
@@ -64,6 +65,80 @@ begin
 end;
 
 { TListObjectsTests }
+
+procedure TListObjectsTests.TestListV2;
+begin
+  var BucketName := TListObjectsTestSetup.FBucketName;
+  var keys := TListObjectsTestSetup.keys;
+
+  var request: IListObjectsV2Request := TListObjectsV2Request.Create;
+  request.BucketName := BucketName;
+  request.StartAfter := keys[0];
+  request.FetchOwner := True;
+  var response := Client.ListObjectsV2(request);
+  Check(not response.IsTruncated);
+  CheckEquals(keys.Count - 1, response.KeyCount);
+  CheckEquals(keys.Count - 1, response.S3Objects.Count);
+  ChecKEquals('', response.ContinuationToken);
+  CheckNotNull(response.S3Objects[0].Owner);
+
+  request := TListObjectsV2Request.Create;
+  request.BucketName := BucketName;
+  request.MaxKeys := 1;
+  request.StartAfter := keys[0];
+  request.FetchOwner := True;
+  response := Client.ListObjectsV2(request);
+  Check(response.IsTruncated);
+  CheckEquals(1, response.KeyCount);
+  CheckEquals(1, response.MaxKeys);
+  CheckEquals(1, response.S3Objects.Count);
+  CheckEquals('', response.ContinuationToken);
+  Check(response.NextContinuationToken <> '');
+  CheckNotNull(response.S3Objects[0].Owner);
+//  CheckEquals(response.S3Objects[0].BucketName, bucketName);
+
+  request := TListObjectsV2Request.Create;
+  request.BucketName := BucketName;
+  request.MaxKeys := 1;
+  request.FetchOwner := True;
+  request.ContinuationToken := response.NextContinuationToken;
+  response := Client.ListObjectsV2(request);
+  Check(response.IsTruncated);
+  CheckEquals(1, response.KeyCount);
+  CheckEquals(1, response.MaxKeys);
+  Check(response.ContinuationToken <> '');
+  Check(response.NextContinuationToken <> '');
+  CheckEquals(1, response.S3Objects.Count);
+  CheckNotNull(response.S3Objects[0].Owner);
+//  CheckEquals(response.S3Objects[0].BucketName, bucketName);
+
+  request := TListObjectsV2Request.Create;
+  request.BucketName := BucketName;
+  request.MaxKeys := 1;
+  response := Client.ListObjectsV2(request);
+  Check(response.IsTruncated);
+  CheckEquals(1, response.KeyCount);
+  CheckEquals(1, response.MaxKeys);
+  CheckEquals(1, response.S3Objects.Count);
+  Check(response.ContinuationToken = '');
+  Check(response.NextContinuationToken <> '');
+  CheckNull(response.S3Objects[0].Owner);
+//  CheckEquals(response.S3Objects[0].BucketName, bucketName);
+
+  request := TListObjectsV2Request.Create;
+  request.BucketName := BucketName;
+  request.MaxKeys := 1;
+  request.ContinuationToken := response.NextContinuationToken;
+  response := Client.ListObjectsV2(request);
+  Check(response.IsTruncated);
+  CheckEquals(1, response.KeyCount);
+  CheckEquals(1, response.MaxKeys);
+  Check(response.ContinuationToken <> '');
+  Check(response.NextContinuationToken <> '');
+  CheckEquals(1, response.S3Objects.Count);
+  CheckNull(response.S3Objects[0].Owner);
+//  CheckEquals(response.S3Objects[0].BucketName, bucketName);
+end;
 
 procedure TListObjectsTests.TestS3ObjectsContainBucketName;
 begin
