@@ -141,7 +141,12 @@ begin
 
   if response is TListObjectsResponse then
   begin
-    {$MESSAGE WARN 'Todo: proccess next marker'}
+    var listObjectsResponse := response as TListObjectsResponse;
+    if listObjectsResponse.IsTruncated and string.IsNullOrEmpty(listObjectsResponse.NextMarker) and
+      (listObjectsResponse.S3Objects.Count > 0) then
+    begin
+      listObjectsResponse.NextMarker := listObjectsResponse.S3Objects.Last.Key;
+    end;
   end;
 
   if request.OriginalRequest is TUploadPartRequest then
