@@ -355,16 +355,8 @@ begin
     var dateValue := webData.GetHeaderValue(THeaderKeys.DateHeader);
     if not string.IsNullOrEmpty(dateValue) then
     begin
-      {$MESSAGE WARN 'Check'}
-//      if (DateTime.TryParseExact(
-//              dateValue,
-//              AWSSDKUtils.GMTDateFormat,
-//              CultureInfo.InvariantCulture,
-//              DateTimeStyles.AssumeUniversal,
-//              out serverTime))
-//
-//          Exit(True);
-//
+      if TAWSSDKUtils.TryRfc822ToDateTime(dateValue, serverTime) then
+        Exit(True);
     end;
   end;
 
