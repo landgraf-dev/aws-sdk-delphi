@@ -3,13 +3,13 @@
 
 # Explicitly declare text files you want to always be normalized and converted
 # to native line endings on checkout.
-*.pas text
-*.inc text
-*.dpr text
-*.dpk text
-*.dproj text
-*.groupproj text
-*.deployproj text
+*.pas text diff
+*.inc text diff
+*.dpr text diff
+*.dpk text diff
+*.dproj text diff
+*.groupproj text diff
+*.deployproj text diff
 
 # Declare files that will always have CRLF line endings on checkout.
 
