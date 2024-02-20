@@ -17,8 +17,8 @@ type
 
   TS3Signer = class(TAbstractAWSSigner)
   strict private
-    class var SubResourcesSigningExclusion: THashSet<string>;
-    class var SignableParameters: THashSet<string>;
+    class var SubResourcesSigningExclusion: HashSet<string>;
+    class var SignableParameters: HashSet<string>;
   strict private
     FUseSigV4: Boolean;
     FRegionDetector: TRegionDetectionUpdater;
@@ -209,10 +209,10 @@ end;
 
 class constructor TS3Signer.Create;
 begin
-  SubResourcesSigningExclusion := THashSet<string>.Create(TIStringComparer.Ordinal);
+  SubResourcesSigningExclusion := HashSet<string>.Create(TIStringComparer.Ordinal);
   SubResourcesSigningExclusion.Add('id');
 
-  SignableParameters := THashSet<string>.Create(TIStringComparer.Ordinal);
+  SignableParameters := HashSet<string>.Create(TIStringComparer.Ordinal);
   SignableParameters.Add('response-content-type');
   SignableParameters.Add('response-content-language');
   SignableParameters.Add('response-expires');

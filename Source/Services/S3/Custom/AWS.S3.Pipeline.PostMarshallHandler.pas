@@ -7,6 +7,7 @@ uses
   AWS.Arn,
   AWS.Internal.PipelineHandler,
   AWS.Internal.Request,
+  AWS.Lib.Collections,
   AWS.Pipeline.EndpointResolver,
   AWS.RegionEndpoint,
   AWS.Runtime.Contexts,
@@ -29,8 +30,8 @@ type
     AccelerateEndpointSuffix = 's3-accelerate.amazonaws.com';
     AccelerateDualstackEndpointSuffix = 's3-accelerate.dualstack.amazonaws.com';
   strict private
-    class var UnsupportedAccelerateRequestTypes: THashSet<TClass>;
-    class var SseKeyHeaders: THashSet<string>;
+    class var UnsupportedAccelerateRequestTypes: HashSet<TClass>;
+    class var SseKeyHeaders: HashSet<string>;
     class var BucketValidationRegex: TRegEx;
     class var DnsValidationRegex1: TRegex;
     class var DnsValidationRegex2: TRegex;
@@ -81,14 +82,14 @@ end;
 
 class constructor TAmazonS3PostMarshallHandler.Create;
 begin
-  UnsupportedAccelerateRequestTypes := THashSet<TClass>.Create;
+  UnsupportedAccelerateRequestTypes := HashSet<TClass>.Create;
   UnsupportedAccelerateRequestTypes.Add(TListBucketsRequest);
   UnsupportedAccelerateRequestTypes.Add(TPutBucketRequest);
   UnsupportedAccelerateRequestTypes.Add(TDeleteBucketRequest);
   UnsupportedAccelerateRequestTypes.Add(TCopyObjectRequest);
   UnsupportedAccelerateRequestTypes.Add(TCopyPartRequest);
 
-  SseKeyHeaders := THashSet<string>.Create;
+  SseKeyHeaders := HashSet<string>.Create;
   SseKeyHeaders.Add(THeaderKeys.XAmzSSECustomerKeyHeader);
   SseKeyHeaders.Add(THeaderKeys.XAmzServerSideEncryptionAwsKmsKeyIdHeader);
 
