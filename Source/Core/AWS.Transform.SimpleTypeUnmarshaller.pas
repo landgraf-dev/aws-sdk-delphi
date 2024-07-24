@@ -231,14 +231,18 @@ type
   end;
 
   IBytesStreamUnmarshaller = IUnmarshaller<TBytesStream, TXmlUnmarshallerContext>;
-  TBytesStreamUnmarshaller = class(TInterfacedObject, IUnmarshaller<TBytesStream, TXmlUnmarshallerContext>)
+  IJsonBytesStreamUnmarshaller = IUnmarshaller<TBytesStream, TJsonUnmarshallerContext>;
+  TBytesStreamUnmarshaller = class(TInterfacedObject, IUnmarshaller<TBytesStream, TXmlUnmarshallerContext>, IJsonBytesStreamUnmarshaller)
   strict private
     class var FInstance: IBytesStreamUnmarshaller;
-  public
-    class function Instance: IBytesStreamUnmarshaller;
+    class var FJsonInstance: IJsonBytesStreamUnmarshaller;
     class constructor Create;
   public
-    function Unmarshall(AContext: TXmlUnmarshallerContext): TBytesStream;
+    class function Instance: IBytesStreamUnmarshaller;
+    class function JsonInstance: IJsonBytesStreamUnmarshaller;
+  public
+    function Unmarshall(AContext: TXmlUnmarshallerContext): TBytesStream; overload;
+    function Unmarshall(AContext: TJsonUnmarshallerContext): TBytesStream; overload;
   end;
 
   TResponseMetadataUnmarshaller = class(TInterfacedObject, IUnmarshaller<TResponseMetadata, TXmlUnmarshallerContext>)
@@ -475,11 +479,23 @@ end;
 class constructor TBytesStreamUnmarshaller.Create;
 begin
   FInstance := TBytesStreamUnmarshaller.Create;
+  FJsonInstance := TBytesStreamUnmarshaller.Create;
 end;
 
 class function TBytesStreamUnmarshaller.Instance: IBytesStreamUnmarshaller;
 begin
   Result := FInstance;
+end;
+
+class function TBytesStreamUnmarshaller.JsonInstance: IJsonBytesStreamUnmarshaller;
+begin
+  REsult := FJsonInstance;
+end;
+
+function TBytesStreamUnmarshaller.Unmarshall(AContext: TJsonUnmarshallerContext): TBytesStream;
+begin
+  AContext.Read;
+  Result := TBytesStream.Create(TAWSSDKUtils.DecodeBase64(AContext.ReadText));
 end;
 
 function TBytesStreamUnmarshaller.Unmarshall(AContext: TXmlUnmarshallerContext): TBytesStream;

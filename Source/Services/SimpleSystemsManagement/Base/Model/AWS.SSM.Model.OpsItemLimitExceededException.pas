@@ -23,8 +23,8 @@ type
     function GetKeepResourceTypes: Boolean;
     procedure SetKeepResourceTypes(const Value: Boolean);
   public
-    constructor Create;
-    destructor Destroy; override;
+    procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
     function IsSetLimit: Boolean;
     function IsSetLimitType: Boolean;
     function IsSetResourceTypes: Boolean;
@@ -38,13 +38,13 @@ implementation
 
 { EOpsItemLimitExceededException }
 
-constructor EOpsItemLimitExceededException.Create;
+procedure EOpsItemLimitExceededException.AfterConstruction;
 begin
   inherited;
   FResourceTypes := TList<string>.Create;
 end;
 
-destructor EOpsItemLimitExceededException.Destroy;
+procedure EOpsItemLimitExceededException.BeforeDestruction;
 begin
   ResourceTypes := nil;
   inherited;

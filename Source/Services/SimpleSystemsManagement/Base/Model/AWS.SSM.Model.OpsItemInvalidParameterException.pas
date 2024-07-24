@@ -16,8 +16,8 @@ type
     function GetKeepParameterNames: Boolean;
     procedure SetKeepParameterNames(const Value: Boolean);
   public
-    constructor Create;
-    destructor Destroy; override;
+    procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
     function IsSetParameterNames: Boolean;
     property ParameterNames: TList<string> read GetParameterNames write SetParameterNames;
     property KeepParameterNames: Boolean read GetKeepParameterNames write SetKeepParameterNames;
@@ -27,13 +27,13 @@ implementation
 
 { EOpsItemInvalidParameterException }
 
-constructor EOpsItemInvalidParameterException.Create;
+procedure EOpsItemInvalidParameterException.AfterConstruction;
 begin
   inherited;
   FParameterNames := TList<string>.Create;
 end;
 
-destructor EOpsItemInvalidParameterException.Destroy;
+procedure EOpsItemInvalidParameterException.BeforeDestruction;
 begin
   ParameterNames := nil;
   inherited;
