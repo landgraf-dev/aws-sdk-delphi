@@ -42,6 +42,9 @@
 		<Projects Include="awss3.dproj">
 			<Dependencies>awscore.dproj</Dependencies>
 		</Projects>
+		<Projects Include="awsssm.dproj">
+			<Dependencies>awscore.dproj</Dependencies>
+		</Projects>
 	</ItemGroup>
 	<ProjectExtensions>
 		<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -167,14 +170,23 @@
 	<Target Name="awss3:Make" DependsOnTargets="awscore:Make">
 		<MSBuild Projects="awss3.dproj" Targets="Make"/>
 	</Target>
+	<Target Name="awsssm" DependsOnTargets="awscore">
+		<MSBuild Projects="awsssm.dproj"/>
+	</Target>
+	<Target Name="awsssm:Clean" DependsOnTargets="awscore:Clean">
+		<MSBuild Projects="awsssm.dproj" Targets="Clean"/>
+	</Target>
+	<Target Name="awsssm:Make" DependsOnTargets="awscore:Make">
+		<MSBuild Projects="awsssm.dproj" Targets="Make"/>
+	</Target>
 	<Target Name="Build">
-		<CallTarget Targets="awscore;awsses;awssesv2;awssns;awssqs;awstextract;awstranscribe;awstranslate;awslexruntimeservice;awslexruntimev2;awspolly;awsrekognition;awss3"/>
+		<CallTarget Targets="awscore;awsses;awssesv2;awssns;awssqs;awstextract;awstranscribe;awstranslate;awslexruntimeservice;awslexruntimev2;awspolly;awsrekognition;awss3;awsssm"/>
 	</Target>
 	<Target Name="Clean">
-		<CallTarget Targets="awscore:Clean;awsses:Clean;awssesv2:Clean;awssns:Clean;awssqs:Clean;awstextract:Clean;awstranscribe:Clean;awstranslate:Clean;awslexruntimeservice:Clean;awslexruntimev2:Clean;awspolly:Clean;awsrekognition:Clean;awss3:Clean"/>
+		<CallTarget Targets="awscore:Clean;awsses:Clean;awssesv2:Clean;awssns:Clean;awssqs:Clean;awstextract:Clean;awstranscribe:Clean;awstranslate:Clean;awslexruntimeservice:Clean;awslexruntimev2:Clean;awspolly:Clean;awsrekognition:Clean;awss3:Clean;awsssm:Clean"/>
 	</Target>
 	<Target Name="Make">
-		<CallTarget Targets="awscore:Make;awsses:Make;awssesv2:Make;awssns:Make;awssqs:Make;awstextract:Make;awstranscribe:Make;awstranslate:Make;awslexruntimeservice:Make;awslexruntimev2:Make;awspolly:Make;awsrekognition:Make;awss3:Make"/>
+		<CallTarget Targets="awscore:Make;awsses:Make;awssesv2:Make;awssns:Make;awssqs:Make;awstextract:Make;awstranscribe:Make;awstranslate:Make;awslexruntimeservice:Make;awslexruntimev2:Make;awspolly:Make;awsrekognition:Make;awss3:Make;awsssm:Make"/>
 	</Target>
 	<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

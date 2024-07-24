@@ -34,6 +34,21 @@ requires
   awscore,
   IndySystem,
   IndyProtocols,
+  IndyCore,
+  IndySystem,
+  IndyProtocols,
+  IndyCore,
+  IndySystem,
+  IndyProtocols,
+  IndyCore,
+  IndySystem,
+  IndyProtocols,
+  IndyCore,
+  IndySystem,
+  IndyProtocols,
+  IndyCore,
+  IndySystem,
+  IndyProtocols,
   IndyCore;
 
 contains
