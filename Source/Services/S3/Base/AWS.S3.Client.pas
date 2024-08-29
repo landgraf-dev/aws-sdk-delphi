@@ -75,6 +75,10 @@ uses
   AWS.S3.Model.GetObjectMetadataRequest, 
   AWS.S3.Transform.GetObjectMetadataRequestMarshaller, 
   AWS.S3.Transform.GetObjectMetadataResponseUnmarshaller, 
+  AWS.S3.Model.HeadBucketResponse, 
+  AWS.S3.Model.HeadBucketRequest, 
+  AWS.S3.Transform.HeadBucketRequestMarshaller, 
+  AWS.S3.Transform.HeadBucketResponseUnmarshaller, 
   AWS.S3.Model.InitiateMultipartUploadResponse, 
   AWS.S3.Model.InitiateMultipartUploadRequest, 
   AWS.S3.Transform.InitiateMultipartUploadRequestMarshaller, 
@@ -130,6 +134,8 @@ type
     function GetServiceMetadata: IServiceMetadata; override;
     function CreateSigner: TAbstractAWSSigner; override;
     procedure CustomizeRuntimePipeline(Pipeline: TRuntimePipeline); override;
+  protected
+    function HeadBucket(Request: IHeadBucketRequest): IHeadBucketResponse; overload;
   public
     constructor Create; reintroduce; overload;
     constructor Create(Region: IRegionEndpointEx); reintroduce; overload;
@@ -586,6 +592,20 @@ begin
     Options.RequestMarshaller := TGetObjectMetadataRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TGetObjectMetadataResponseUnmarshaller.Instance;
     Result := Invoke<TGetObjectMetadataResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.HeadBucket(Request: IHeadBucketRequest): IHeadBucketResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := THeadBucketRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := THeadBucketResponseUnmarshaller.Instance;
+    Result := Invoke<THeadBucketResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;

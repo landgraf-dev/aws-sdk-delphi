@@ -45,6 +45,8 @@ uses
   AWS.S3.Model.GetPresignedUrlRequest, 
   AWS.S3.Model.Grant, 
   AWS.S3.Model.Grantee, 
+  AWS.S3.Model.HeadBucketRequest, 
+  AWS.S3.Model.HeadBucketResponse, 
   AWS.S3.Model.InitiateMultipartUploadRequest, 
   AWS.S3.Model.InitiateMultipartUploadResponse, 
   AWS.S3.Model.InvalidObjectStateException, 
@@ -125,6 +127,8 @@ type
   IGetPreSignedUrlRequest = AWS.S3.Model.GetPresignedUrlRequest.IGetPreSignedUrlRequest;
   IGrant = AWS.S3.Model.Grant.IGrant;
   IGrantee = AWS.S3.Model.Grantee.IGrantee;
+  IHeadBucketRequest = AWS.S3.Model.HeadBucketRequest.IHeadBucketRequest;
+  IHeadBucketResponse = AWS.S3.Model.HeadBucketResponse.IHeadBucketResponse;
   IInitiateMultipartUploadRequest = AWS.S3.Model.InitiateMultipartUploadRequest.IInitiateMultipartUploadRequest;
   IInitiateMultipartUploadResponse = AWS.S3.Model.InitiateMultipartUploadResponse.IInitiateMultipartUploadResponse;
   IListBucketsRequest = AWS.S3.Model.ListBucketsRequest.IListBucketsRequest;
@@ -208,6 +212,8 @@ type
   TGetPreSignedUrlRequest = AWS.S3.Model.GetPresignedUrlRequest.TGetPreSignedUrlRequest;
   TGrant = AWS.S3.Model.Grant.TGrant;
   TGrantee = AWS.S3.Model.Grantee.TGrantee;
+  THeadBucketRequest = AWS.S3.Model.HeadBucketRequest.THeadBucketRequest;
+  THeadBucketResponse = AWS.S3.Model.HeadBucketResponse.THeadBucketResponse;
   TInitiateMultipartUploadRequest = AWS.S3.Model.InitiateMultipartUploadRequest.TInitiateMultipartUploadRequest;
   TInitiateMultipartUploadResponse = AWS.S3.Model.InitiateMultipartUploadResponse.TInitiateMultipartUploadResponse;
   TIntelligentTieringAccessTier = AWS.S3.Enums.TIntelligentTieringAccessTier;
