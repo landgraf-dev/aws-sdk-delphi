@@ -21,8 +21,8 @@ type
     procedure SetOwner(const Value: TOwner);
     function GetKeepOwner: Boolean;
     procedure SetKeepOwner(const Value: Boolean);
-    function GetSize: Integer;
-    procedure SetSize(const Value: Integer);
+    function GetSize: Double;
+    procedure SetSize(const Value: Double);
     function GetStorageClass: TObjectStorageClass;
     procedure SetStorageClass(const Value: TObjectStorageClass);
     function Obj: TS3Object;
@@ -37,7 +37,7 @@ type
     property LastModified: TDateTime read GetLastModified write SetLastModified;
     property Owner: TOwner read GetOwner write SetOwner;
     property KeepOwner: Boolean read GetKeepOwner write SetKeepOwner;
-    property Size: Integer read GetSize write SetSize;
+    property Size: Double read GetSize write SetSize;
     property StorageClass: TObjectStorageClass read GetStorageClass write SetStorageClass;
   end;
   
@@ -48,7 +48,7 @@ type
     FLastModified: Nullable<TDateTime>;
     FOwner: TOwner;
     FKeepOwner: Boolean;
-    FSize: Nullable<Integer>;
+    FSize: Nullable<Double>;
     FStorageClass: Nullable<TObjectStorageClass>;
     function GetETag: string;
     procedure SetETag(const Value: string);
@@ -60,8 +60,8 @@ type
     procedure SetOwner(const Value: TOwner);
     function GetKeepOwner: Boolean;
     procedure SetKeepOwner(const Value: Boolean);
-    function GetSize: Integer;
-    procedure SetSize(const Value: Integer);
+    function GetSize: Double;
+    procedure SetSize(const Value: Double);
     function GetStorageClass: TObjectStorageClass;
     procedure SetStorageClass(const Value: TObjectStorageClass);
   strict protected
@@ -79,7 +79,7 @@ type
     property LastModified: TDateTime read GetLastModified write SetLastModified;
     property Owner: TOwner read GetOwner write SetOwner;
     property KeepOwner: Boolean read GetKeepOwner write SetKeepOwner;
-    property Size: Integer read GetSize write SetSize;
+    property Size: Double read GetSize write SetSize;
     property StorageClass: TObjectStorageClass read GetStorageClass write SetStorageClass;
   end;
   
@@ -173,12 +173,12 @@ begin
   Result := FOwner <> nil;
 end;
 
-function TS3Object.GetSize: Integer;
+function TS3Object.GetSize: Double;
 begin
   Result := FSize.ValueOrDefault;
 end;
 
-procedure TS3Object.SetSize(const Value: Integer);
+procedure TS3Object.SetSize(const Value: Double);
 begin
   FSize := Value;
 end;
