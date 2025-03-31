@@ -131,7 +131,7 @@ begin
   // through the request pipeline: GetPreSignedURLInternal
   var request: IGetPresignedUrlRequest := TGetPreSignedUrlRequest.Create;
   request.BucketName := BucketName;
-  request.Expires := TTimeZone.Local.ToLocalTime(S3Client.Config.CorrectedUtcNow).IncDay(1);
+  request.Expires := IncDay(TTimeZone.Local.ToLocalTime(S3Client.Config.CorrectedUtcNow), 1);
   request.Verb := THttpVerb.HEAD;
   request.Protocol := TProtocol.HTTP;
 
@@ -141,7 +141,7 @@ end;
 class function TBucketRegionDetector.GetUsEast1ClientFromCredentials(Credentials: IImmutableCredentials): IAmazonS3;
 begin
   if Credentials = nil then
-    Result := TAmazonS3Client.Create(IAWSCredentials(TAnonymousAWSCredentials.Create), TRegionEndpoints.USEast1)
+    Result := TAmazonS3Client.Create(TAnonymousAWSCredentials.Create, TRegionEndpoints.USEast1)
   else
   if Credentials.UseToken then
     Result := TAmazonS3Client.Create(Credentials.AccessKey, Credentials.SecretKey, Credentials.Token, TRegionEndpoints.USEast1)
