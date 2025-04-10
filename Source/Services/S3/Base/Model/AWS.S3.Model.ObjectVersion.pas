@@ -23,8 +23,8 @@ type
     procedure SetOwner(const Value: TOwner);
     function GetKeepOwner: Boolean;
     procedure SetKeepOwner(const Value: Boolean);
-    function GetSize: Integer;
-    procedure SetSize(const Value: Integer);
+    function GetSize: Double;
+    procedure SetSize(const Value: Double);
     function GetStorageClass: TObjectVersionStorageClass;
     procedure SetStorageClass(const Value: TObjectVersionStorageClass);
     function GetVersionId: string;
@@ -44,7 +44,7 @@ type
     property LastModified: TDateTime read GetLastModified write SetLastModified;
     property Owner: TOwner read GetOwner write SetOwner;
     property KeepOwner: Boolean read GetKeepOwner write SetKeepOwner;
-    property Size: Integer read GetSize write SetSize;
+    property Size: Double read GetSize write SetSize;
     property StorageClass: TObjectVersionStorageClass read GetStorageClass write SetStorageClass;
     property VersionId: string read GetVersionId write SetVersionId;
   end;
@@ -57,7 +57,7 @@ type
     FLastModified: Nullable<TDateTime>;
     FOwner: TOwner;
     FKeepOwner: Boolean;
-    FSize: Nullable<Integer>;
+    FSize: Nullable<Double>;
     FStorageClass: Nullable<TObjectVersionStorageClass>;
     FVersionId: Nullable<string>;
     function GetETag: string;
@@ -72,8 +72,8 @@ type
     procedure SetOwner(const Value: TOwner);
     function GetKeepOwner: Boolean;
     procedure SetKeepOwner(const Value: Boolean);
-    function GetSize: Integer;
-    procedure SetSize(const Value: Integer);
+    function GetSize: Double;
+    procedure SetSize(const Value: Double);
     function GetStorageClass: TObjectVersionStorageClass;
     procedure SetStorageClass(const Value: TObjectVersionStorageClass);
     function GetVersionId: string;
@@ -96,7 +96,7 @@ type
     property LastModified: TDateTime read GetLastModified write SetLastModified;
     property Owner: TOwner read GetOwner write SetOwner;
     property KeepOwner: Boolean read GetKeepOwner write SetKeepOwner;
-    property Size: Integer read GetSize write SetSize;
+    property Size: Double read GetSize write SetSize;
     property StorageClass: TObjectVersionStorageClass read GetStorageClass write SetStorageClass;
     property VersionId: string read GetVersionId write SetVersionId;
   end;
@@ -206,12 +206,12 @@ begin
   Result := FOwner <> nil;
 end;
 
-function TObjectVersion.GetSize: Integer;
+function TObjectVersion.GetSize: Double;
 begin
   Result := FSize.ValueOrDefault;
 end;
 
-procedure TObjectVersion.SetSize(const Value: Integer);
+procedure TObjectVersion.SetSize(const Value: Double);
 begin
   FSize := Value;
 end;

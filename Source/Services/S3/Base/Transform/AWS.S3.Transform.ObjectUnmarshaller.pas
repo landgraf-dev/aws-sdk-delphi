@@ -68,7 +68,7 @@ begin
         end;
         if AContext.TestExpression('Size', TargetDepth) then
         begin
-          var Unmarshaller := TIntegerUnmarshaller.Instance;
+          var Unmarshaller := TDoubleUnmarshaller.Instance;
           UnmarshalledObject.Size := Unmarshaller.Unmarshall(AContext);
           Continue;
         end;
