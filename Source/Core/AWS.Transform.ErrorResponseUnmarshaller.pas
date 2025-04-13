@@ -26,6 +26,7 @@ type
 implementation
 
 uses
+  System.SyncObjs,
   System.TypInfo;
 
 { TErrorResponseUnmarshaller }
@@ -36,9 +37,15 @@ begin
 end;
 
 class function TErrorResponseUnmarshaller.GetInstance: TErrorResponseUnmarshaller;
+var
+  LocalInstance: TErrorResponseUnmarshaller;
 begin
   if FInstance = nil then
-    FInstance := TErrorResponseUnmarshaller.Create;
+  begin
+    LocalInstance := TErrorResponseUnmarshaller.Create;
+    if TInterlocked.CompareExchange<TErrorResponseUnmarshaller>(FInstance, LocalInstance, nil) <> nil then
+      LocalInstance.Free;
+  end;
   Result := FInstance;
 end;
 
