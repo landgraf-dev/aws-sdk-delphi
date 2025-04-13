@@ -121,8 +121,16 @@ begin
       if Offset = 0 then
         Exit(FCurrentPosition);
     soEnd:
-      if (Offset = 0) and (FCurrentPosition = Size) then
-        Exit(FCurrentPosition);
+      begin
+        if (Offset = 0) and (FCurrentPosition = Size) then
+          Exit(FCurrentPosition);
+
+        if (Offset = 0) and (FCurrentPosition = 0) then
+        begin
+          BaseStream.Seek(0, TSeekOrigin.soEnd);
+          Exit(Size);
+        end;
+      end;
   end;
   raise ENotSupportedException.Create('THashStream does not support seeking');
 end;

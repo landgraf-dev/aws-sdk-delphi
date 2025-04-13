@@ -277,8 +277,32 @@ begin
       if Offset = 0 then
         Exit(FPosition);
     soEnd:
-      if (Offset = 0) and (FPosition = Size) then
-        Exit(FPosition);
+      begin
+        if (Offset = 0) and (FPosition = Size) then
+          Exit(FPosition);
+
+        // Special case to workaroudn a bug in Delphi. In System.Net.HttpClient, we have the following lines:
+
+        //  finally
+        //  // Always leave streams in the correct positions.
+        //  if LRequest.FSourceStream <> nil then
+        //    LRequest.FSourceStream.Seek(0, TSeekOrigin.soEnd);
+        //  if LResponse.FStream <> nil then
+        //    LResponse.FStream.Position := OrigContentStreamPosition;
+        //  LClientCertificateList.Free;
+        //end;
+        //
+        // The above code will simply leak LClientCertificateList if manipulating the stream raised an exception.
+        // The LClientCertificateList.Free should be in its own finally section but well.
+        // We will try to ignore the common situation where the request failed and the stream wasn't touched.
+        // So we will accept the Seek(0, TSeekOrigin.soEnd) and move the source stream to the end.
+
+        if (Offset = 0) and (FPosition = 0) and (FOutputBufferPos = -1) then
+        begin
+          BaseStream.Seek(0, TSeekOrigin.soEnd);
+          Exit(Size);
+        end;
+      end;
   end;
   raise ENotSupportedException.Create('TChunkedUploadWrapperStream does not support seeking');
 end;
