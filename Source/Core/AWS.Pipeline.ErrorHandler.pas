@@ -61,7 +61,7 @@ var
   ExceptionType: TClass;
   ExceptionHandler: IExceptionHandler;
 begin
-  Logger.Error(Format('An exception of type %s was handled in ErrorHandler', [AException.ClassName]));
+  Logger.Error(Format('An exception of type %s was handled in ErrorHandler: %s', [AException.ClassName, AException.Message]));
 
   ExceptionType := AException.ClassType;
   repeat
