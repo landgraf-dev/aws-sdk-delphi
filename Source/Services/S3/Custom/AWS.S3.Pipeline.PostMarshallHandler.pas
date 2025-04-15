@@ -33,6 +33,7 @@ type
     class var UnsupportedAccelerateRequestTypes: HashSet<TClass>;
     class var SseKeyHeaders: HashSet<string>;
     class var BucketValidationRegex: TRegEx;
+    class var RegExMonitor: TObject;
     class var DnsValidationRegex1: TRegex;
     class var DnsValidationRegex2: TRegex;
   strict private
@@ -93,6 +94,7 @@ begin
   SseKeyHeaders.Add(THeaderKeys.XAmzSSECustomerKeyHeader);
   SseKeyHeaders.Add(THeaderKeys.XAmzServerSideEncryptionAwsKmsKeyIdHeader);
 
+  RegExMonitor := TObject.Create;
   BucketValidationRegex := TRegEx.Create('^[A-Za-z0-9._\-]+$', [roCompiled]);
   DnsValidationRegex1 := TRegex.Create('^[a-z0-9][a-z0-9.-]+[a-z0-9]$', [roCompiled]);
   DnsValidationRegex2 := TRegEx.Create('(\\d+\\.){3}\\d+', [roCompiled]);
@@ -103,6 +105,7 @@ class destructor TAmazonS3PostMarshallHandler.Destroy;
 begin
   UnsupportedAccelerateRequestTypes.Free;
   SseKeyHeaders.Free;
+  RegExMonitor.Free;
 end;
 
 class function TAmazonS3PostMarshallHandler.GetAccelerateEndpoint(const BucketName: string; Config: TAmazonS3Config): IUri;
@@ -178,12 +181,22 @@ begin
 
   // Bucket names must only contain lowercase letters, numbers, dots, and dashes
   // and must start and end with a lowercase letter or a number
-  if not dnsValidationRegex1.IsMatch(bucketName) then
-    Exit(False);
+  TMonitor.Enter(RegExMonitor);
+  try
+    if not dnsValidationRegex1.IsMatch(bucketName) then
+      Exit(False);
+  finally
+    TMonitor.Exit(RegExMonitor);
+  end;
 
-  // Bucket names should not be formatted like an IP address (e.g., 192.168.5.4)
-  if dnsValidationRegex2.IsMatch(bucketName) then
-    Exit(False);
+  TMonitor.Enter(RegExMonitor);
+  try
+    // Bucket names should not be formatted like an IP address (e.g., 192.168.5.4)
+    if dnsValidationRegex2.IsMatch(bucketName) then
+      Exit(False);
+  finally
+    TMonitor.Exit(RegExMonitor);
+  end;
 
   // Bucket names cannot contain two adjacent periods or dashes next to periods
   if StringContainsAny(bucketName, ['..', '-.', '.-']) then
@@ -209,10 +222,13 @@ begin
   // Check if bucket only contains:
   //  uppercase letters, lowercase letters, numbers
   //  periods (.), underscores (_), dashes (-)
-  if not bucketValidationRegex.IsMatch(bucketName) then
-    Exit(False);
 
-  Result := True;
+  TMonitor.Enter(RegExMonitor);
+  try
+    Result := bucketValidationRegex.IsMatch(bucketName);
+  finally
+    TMonitor.Exit(RegExMonitor);
+  end;
 end;
 
 procedure TAmazonS3PostMarshallHandler.PreInvoke(AExecutionContext: TExecutionContext);

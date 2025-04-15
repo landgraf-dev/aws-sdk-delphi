@@ -9,6 +9,7 @@ type
   THostPrefixUtils = class
   private
     class var FLabelValidationRegex: TRegEx;
+    class var FMonitor: TObject;
     class constructor Create;
     class destructor Destroy;
   public
@@ -22,11 +23,12 @@ implementation
 class constructor THostPrefixUtils.Create;
 begin
   FLabelValidationRegex := TRegex.Create('^[A-Za-z0-9\-]+$', [roCompiled, roSingleLine]);
+  FMonitor := TObject.Create;
 end;
 
 class destructor THostPrefixUtils.Destroy;
 begin
-
+  FMonitor.Free;
 end;
 
 class function THostPrefixUtils.IsValidLabelValue(const Value: string): Boolean;
@@ -42,10 +44,12 @@ begin
   // Check that the value only contains:
   //  uppercase letters, lowercase letters, numbers,
   //  dashes (-)
-  if not FLabelValidationRegex.IsMatch(value) then
-    Exit(False);
-
-  Result := True;
+  TMonitor.Enter(FMonitor);
+  try
+    Result := FLabelValidationRegex.IsMatch(value);
+  finally
+    TMonitor.Exit(FMonitor);
+  end;
 end;
 
 end.

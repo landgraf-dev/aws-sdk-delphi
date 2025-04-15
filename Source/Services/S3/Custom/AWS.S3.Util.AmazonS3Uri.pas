@@ -13,8 +13,10 @@ type
   TAmazonS3Uri = class
   private
     class var EndpointRegexMatch: TRegex;
+    class var RegExMonitor: TObject;
   private
     class constructor Create;
+    class destructor Destroy;
     class function Decode(const S: string): string; overload; static;
     class function Decode(const S: string; FirstPercent: Integer): string; overload; static;
     class procedure AppendDecoded(var Value: string; const S: string; Index: Integer); static;
@@ -45,6 +47,7 @@ implementation
 class constructor TAmazonS3Uri.Create;
 begin
   EndpointRegexMatch := TRegex.Create('^(.+\.)?s3[.-]([a-z0-9-]+)\.', [roCompiled]);
+  RegExMonitor := TObject.Create;
 end;
 
 class function TAmazonS3Uri.TryParseAmazonS3Uri(const Uri: string; var AmazonS3Uri: TAmazonS3Uri): Boolean;
@@ -76,7 +79,13 @@ begin
   if Uri.Host = '' then
     raise EArgumentException.Create('Invalid URI - no hostname present');
 
-  var match := EndpointRegexMatch.Match(Uri.Host);
+  var match: TMatch;
+  TMonitor.Enter(RegExMonitor);
+  try
+    match := EndpointRegexMatch.Match(Uri.Host);
+  finally
+    TMonitor.Exit(RegExMonitor);
+  end;
   if not match.Success then
     raise EArgumentException.Create('Invalid S3 URI - hostname does not appear to be a valid S3 endpoint');
 
@@ -183,6 +192,11 @@ begin
   end;
 end;
 
+class destructor TAmazonS3Uri.Destroy;
+begin
+  RegExMonitor.Free;
+end;
+
 class function TAmazonS3Uri.FromHex(C: Char): Byte;
 begin
   if c < '0' then
@@ -219,7 +233,14 @@ class function TAmazonS3Uri.IsAmazonS3Endpoint(const Uri: IUri): Boolean;
 begin
   if {Uri.IsAbsoluteUri and }
     Uri.Host.EndsWith('amazonaws.com', True) or Uri.Host.EndsWith('amazonaws.com.cn', True) then
-    Result := EndpointRegexMatch.Match(Uri.Host).Success
+  begin
+    TMonitor.Enter(RegExMonitor);
+    try
+      Result := EndpointRegexMatch.Match(Uri.Host).Success;
+    finally
+      TMonitor.Exit(RegExMonitor);
+    end;
+  end
   else
     Result := False;
 end;
