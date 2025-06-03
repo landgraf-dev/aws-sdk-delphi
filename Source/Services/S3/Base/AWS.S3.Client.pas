@@ -107,6 +107,10 @@ uses
   AWS.S3.Model.PutBucketOwnershipControlsRequest, 
   AWS.S3.Transform.PutBucketOwnershipControlsRequestMarshaller, 
   AWS.S3.Transform.PutBucketOwnershipControlsResponseUnmarshaller, 
+  AWS.S3.Model.PutBucketVersioningResponse, 
+  AWS.S3.Model.PutBucketVersioningRequest, 
+  AWS.S3.Transform.PutBucketVersioningRequestMarshaller, 
+  AWS.S3.Transform.PutBucketVersioningResponseUnmarshaller, 
   AWS.S3.Model.PutObjectResponse, 
   AWS.S3.Model.PutObjectRequest, 
   AWS.S3.Transform.PutObjectRequestMarshaller, 
@@ -188,6 +192,7 @@ type
     function PutBucket(const ABucketName: string): IPutBucketResponse; overload;
     function PutBucket(Request: IPutBucketRequest): IPutBucketResponse; overload;
     function PutBucketOwnershipControls(Request: IPutBucketOwnershipControlsRequest): IPutBucketOwnershipControlsResponse; overload;
+    function PutBucketVersioning(Request: IPutBucketVersioningRequest): IPutBucketVersioningResponse; overload;
     function PutObject(Request: IPutObjectRequest): IPutObjectResponse; overload;
     function PutPublicAccessBlock(Request: IPutPublicAccessBlockRequest): IPutPublicAccessBlockResponse; overload;
     function UploadPart(Request: IUploadPartRequest): IUploadPartResponse; overload;
@@ -766,6 +771,20 @@ begin
     Options.RequestMarshaller := TPutBucketOwnershipControlsRequestMarshaller.Instance;
     Options.ResponseUnmarshaller := TPutBucketOwnershipControlsResponseUnmarshaller.Instance;
     Result := Invoke<TPutBucketOwnershipControlsResponse>(Request.Obj, Options);
+  finally
+    Options.Free;
+  end;
+end;
+
+function TAmazonS3Client.PutBucketVersioning(Request: IPutBucketVersioningRequest): IPutBucketVersioningResponse;
+var
+  Options: TInvokeOptions;
+begin
+  Options := TInvokeOptions.Create;
+  try
+    Options.RequestMarshaller := TPutBucketVersioningRequestMarshaller.Instance;
+    Options.ResponseUnmarshaller := TPutBucketVersioningResponseUnmarshaller.Instance;
+    Result := Invoke<TPutBucketVersioningResponse>(Request.Obj, Options);
   finally
     Options.Free;
   end;

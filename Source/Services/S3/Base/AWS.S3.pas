@@ -73,6 +73,8 @@ uses
   AWS.S3.Model.PutBucketOwnershipControlsResponse, 
   AWS.S3.Model.PutBucketRequest, 
   AWS.S3.Model.PutBucketResponse, 
+  AWS.S3.Model.PutBucketVersioningRequest, 
+  AWS.S3.Model.PutBucketVersioningResponse, 
   AWS.S3.Model.PutObjectRequest, 
   AWS.S3.Model.PutObjectResponse, 
   AWS.S3.Model.PutPublicAccessBlockRequest, 
@@ -80,6 +82,7 @@ uses
   AWS.S3.Model.Request, 
   AWS.S3.Model.UploadPartRequest, 
   AWS.S3.Model.UploadPartResponse, 
+  AWS.S3.Model.VersioningConfiguration, 
   AWS.S3.Model.WriteGetObjectResponseRequest, 
   AWS.S3.Model.WriteGetObjectResponseResponse;
 
@@ -150,12 +153,15 @@ type
   IPutBucketOwnershipControlsResponse = AWS.S3.Model.PutBucketOwnershipControlsResponse.IPutBucketOwnershipControlsResponse;
   IPutBucketRequest = AWS.S3.Model.PutBucketRequest.IPutBucketRequest;
   IPutBucketResponse = AWS.S3.Model.PutBucketResponse.IPutBucketResponse;
+  IPutBucketVersioningRequest = AWS.S3.Model.PutBucketVersioningRequest.IPutBucketVersioningRequest;
+  IPutBucketVersioningResponse = AWS.S3.Model.PutBucketVersioningResponse.IPutBucketVersioningResponse;
   IPutObjectRequest = AWS.S3.Model.PutObjectRequest.IPutObjectRequest;
   IPutObjectResponse = AWS.S3.Model.PutObjectResponse.IPutObjectResponse;
   IPutPublicAccessBlockRequest = AWS.S3.Model.PutPublicAccessBlockRequest.IPutPublicAccessBlockRequest;
   IPutPublicAccessBlockResponse = AWS.S3.Model.PutPublicAccessBlockResponse.IPutPublicAccessBlockResponse;
   IUploadPartRequest = AWS.S3.Model.UploadPartRequest.IUploadPartRequest;
   IUploadPartResponse = AWS.S3.Model.UploadPartResponse.IUploadPartResponse;
+  IVersioningConfiguration = AWS.S3.Model.VersioningConfiguration.IVersioningConfiguration;
   IWriteGetObjectResponseRequest = AWS.S3.Model.WriteGetObjectResponseRequest.IWriteGetObjectResponseRequest;
   IWriteGetObjectResponseResponse = AWS.S3.Model.WriteGetObjectResponseResponse.IWriteGetObjectResponseResponse;
   TAbortMultipartUploadRequest = AWS.S3.Model.AbortMultipartUploadRequest.TAbortMultipartUploadRequest;
@@ -259,6 +265,8 @@ type
   TPutBucketOwnershipControlsResponse = AWS.S3.Model.PutBucketOwnershipControlsResponse.TPutBucketOwnershipControlsResponse;
   TPutBucketRequest = AWS.S3.Model.PutBucketRequest.TPutBucketRequest;
   TPutBucketResponse = AWS.S3.Model.PutBucketResponse.TPutBucketResponse;
+  TPutBucketVersioningRequest = AWS.S3.Model.PutBucketVersioningRequest.TPutBucketVersioningRequest;
+  TPutBucketVersioningResponse = AWS.S3.Model.PutBucketVersioningResponse.TPutBucketVersioningResponse;
   TPutObjectRequest = AWS.S3.Model.PutObjectRequest.TPutObjectRequest;
   TPutObjectResponse = AWS.S3.Model.PutObjectResponse.TPutObjectResponse;
   TPutPublicAccessBlockRequest = AWS.S3.Model.PutPublicAccessBlockRequest.TPutPublicAccessBlockRequest;
@@ -282,6 +290,7 @@ type
   TType = AWS.S3.Enums.TType;
   TUploadPartRequest = AWS.S3.Model.UploadPartRequest.TUploadPartRequest;
   TUploadPartResponse = AWS.S3.Model.UploadPartResponse.TUploadPartResponse;
+  TVersioningConfiguration = AWS.S3.Model.VersioningConfiguration.TVersioningConfiguration;
   TWriteGetObjectResponseRequest = AWS.S3.Model.WriteGetObjectResponseRequest.TWriteGetObjectResponseRequest;
   TWriteGetObjectResponseResponse = AWS.S3.Model.WriteGetObjectResponseResponse.TWriteGetObjectResponseResponse;
   

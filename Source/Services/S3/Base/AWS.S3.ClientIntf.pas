@@ -41,6 +41,8 @@ uses
   AWS.S3.Model.PutBucketRequest, 
   AWS.S3.Model.PutBucketOwnershipControlsResponse, 
   AWS.S3.Model.PutBucketOwnershipControlsRequest, 
+  AWS.S3.Model.PutBucketVersioningResponse, 
+  AWS.S3.Model.PutBucketVersioningRequest, 
   AWS.S3.Model.PutObjectResponse, 
   AWS.S3.Model.PutObjectRequest, 
   AWS.S3.Model.PutPublicAccessBlockResponse, 
@@ -92,6 +94,7 @@ type
     function PutBucket(const ABucketName: string): IPutBucketResponse; overload;
     function PutBucket(Request: IPutBucketRequest): IPutBucketResponse; overload;
     function PutBucketOwnershipControls(Request: IPutBucketOwnershipControlsRequest): IPutBucketOwnershipControlsResponse; overload;
+    function PutBucketVersioning(Request: IPutBucketVersioningRequest): IPutBucketVersioningResponse; overload;
     function PutObject(Request: IPutObjectRequest): IPutObjectResponse; overload;
     function PutPublicAccessBlock(Request: IPutPublicAccessBlockRequest): IPutPublicAccessBlockResponse; overload;
     function UploadPart(Request: IUploadPartRequest): IUploadPartResponse; overload;

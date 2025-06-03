@@ -247,6 +247,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketOwnershipControlsResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketVersioningRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketVersioningResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutObjectRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutObjectResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutPublicAccessBlockRequest.pas"/>
@@ -254,6 +256,7 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Request.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.UploadPartRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.UploadPartResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.VersioningConfiguration.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.WriteGetObjectResponseRequest.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.WriteGetObjectResponseResponse.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.AbortMultipartUploadRequestMarshaller.pas"/>
@@ -313,6 +316,8 @@
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketOwnershipControlsResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketVersioningRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketVersioningResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutObjectRequestMarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutObjectResponseUnmarshaller.pas"/>
 		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutPublicAccessBlockRequestMarshaller.pas"/>
