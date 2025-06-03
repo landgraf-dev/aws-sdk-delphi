@@ -133,7 +133,10 @@ begin
 
         // Set InputStream to its original value
         var OriginalWrappedStream := hashStream.GetNonWrapperBaseStream(True);
+        var OwnedStream := hashStream.OwnsStream;
+        hashStream.OwnsStream := False;
         putObjectRequest.InputStream := OriginalWrappedStream;
+        putObjectRequest.KeepBody := not OwnedStream;
       end;
     end;
   end;
