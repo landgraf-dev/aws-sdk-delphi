@@ -132,11 +132,9 @@ begin
         end;
 
         // Set InputStream to its original value
-        var OriginalWrappedStream := hashStream.GetNonWrapperBaseStream(True);
-        var OwnedStream := hashStream.OwnsStream;
-        hashStream.OwnsStream := False;
-        putObjectRequest.InputStream := OriginalWrappedStream;
-        putObjectRequest.KeepBody := not OwnedStream;
+        var StreamWasOwned: Boolean;
+        putObjectRequest.InputStream := hashStream.GetNonWrapperBaseStream(StreamWasOwned, True);
+        putObjectRequest.KeepBody := not StreamWasOwned;
       end;
     end;
   end;
@@ -168,8 +166,9 @@ begin
       end;
 
       // Set InputStream to its original value
-      var OriginalWrappedStream := hashStream.GetNonWrapperBaseStream(True);
-      uploadPartRequest.InputStream := OriginalWrappedStream;
+      var StreamWasOwned: Boolean;
+      uploadPartRequest.InputStream := hashStream.GetNonWrapperBaseStream(StreamWasOwned, True);
+      uploadPartRequest.KeepInputStream := not StreamWasOwned;
     end;
   end;
 

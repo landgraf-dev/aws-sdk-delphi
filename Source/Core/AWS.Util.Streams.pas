@@ -31,7 +31,7 @@ type
     function CanSeek: Boolean; virtual;
     function HasLength: Boolean; virtual;
     function SearchWrappedStream(ACondition: TFunc<TStream, Boolean>): TStream; overload;
-    function GetNonWrapperBaseStream(UnmanageStream: Boolean = False): TStream; overload;
+    function GetNonWrapperBaseStream(var StreamWasManaged: Boolean; UnmanageStream: Boolean = False): TStream; overload;
     function GetSeekableBaseStream: TStream;
     property OwnsStream: Boolean read FOwnsStream write FOwnsStream;
     class function SearchWrappedStream(AStream: TStream; ACondition: TFunc<TStream, Boolean>): TStream; overload; static;
@@ -111,14 +111,16 @@ begin
 end;
 
 class function TWrapperStream.GetNonWrapperBaseStream(AStream: TStream): TStream;
+var
+  Dummy: Boolean;
 begin
   if AStream is TWrapperStream then
-    Result := TWrapperStream(AStream).GetNonWrapperBaseStream
+    Result := TWrapperStream(AStream).GetNonWrapperBaseStream(Dummy, False)
   else
     Result := AStream;
 end;
 
-function TWrapperStream.GetNonWrapperBaseStream(UnmanageStream: Boolean = False): TStream;
+function TWrapperStream.GetNonWrapperBaseStream(var StreamWasManaged: Boolean; UnmanageStream: Boolean = False): TStream;
 var
   BaseStream: TStream;
   ParentStream: TWrapperStream;
@@ -128,6 +130,7 @@ begin
   repeat
     if BaseStream is TPartialWrapperStream then
     begin
+      StreamWasManaged := ParentStream.OwnsStream;
       if UnmanageStream and (ParentStream <> nil) then
         ParentStream.OwnsStream := False;
       Exit(BaseStream);
@@ -137,6 +140,7 @@ begin
     BaseStream := ParentStream.BaseStream;
   until not (BaseStream is TWrapperStream);
 
+  StreamWasManaged := ParentStream.OwnsStream;
   if UnmanageStream and (ParentStream <> nil) then
     ParentStream.OwnsStream := False;
   Result := BaseStream;
