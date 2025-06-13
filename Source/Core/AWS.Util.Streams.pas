@@ -245,6 +245,7 @@ begin
   inherited Create(ABaseStream, AOwnsStream);
   FCacheLimit := ACacheLimit;
   FCache := TBytesStream.Create;
+  FLogLimit := ALogLimit;
 end;
 
 destructor TCachingWrapperStream.Destroy;
