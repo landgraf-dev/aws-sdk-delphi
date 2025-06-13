@@ -13,6 +13,7 @@ uses
   AWS.Runtime.ClientConfig,
   AWS.Runtime.IHttpRequestFactory,
   Sparkle.Http.Client,
+  Sparkle.Http.Headers,
 {$IFDEF MSWINDOWS}
   Sparkle.WinHttp.Engine,
 {$ENDIF}
@@ -86,6 +87,7 @@ type
     function OpenResponse: TStream;
     function IsHeaderPresent(const AHeaderName: string): Boolean;
     function GetHeaderValue(const AHeaderName: string): string;
+    function GetHeaderNames: TArray<string>;
     property ContentLength: Integer read GetContentLength;
     property ContentType: string read GetContentType;
     property StatusCode: Integer read GetStatusCode;
@@ -264,6 +266,14 @@ end;
 function THttpClientResponseData.GetContentType: string;
 begin
   Result := FResponse.ContentType;
+end;
+
+function THttpClientResponseData.GetHeaderNames: TArray<string>;
+begin
+  var Headers := TList<THttpHeaderInfo>.Create(FResponse.Headers.AllHeaders);
+  SetLength(Result, Headers.Count);
+  for var I := 0 to Headers.Count - 1 do
+    Result[I] := Headers[I].Name;
 end;
 
 function THttpClientResponseData.GetHeaderValue(const AHeaderName: string): string;
