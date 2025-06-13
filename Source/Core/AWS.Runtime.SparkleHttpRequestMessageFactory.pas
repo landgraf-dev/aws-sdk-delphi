@@ -7,7 +7,7 @@ interface
 {$IFDEF USE_SPARKLE}
 
 uses
-  System.Generics.Collections, System.SysUtils, System.Classes,
+  System.Generics.Collections, System.SysUtils, System.Classes, System.Rtti,
   AWS.Internal.Util.ChunkedUploadWrapperStream,
   AWS.Runtime.Contexts,
   AWS.Runtime.ClientConfig,
@@ -105,11 +105,10 @@ end;
 
 class function TSparkleHttpRequestMessageFactory.CreateHttpClient(AClientConfig: IClientConfig): THttpClient;
 begin
-  {TODO: HttpClientFactory in client config}
-//  if FClientConfig.HttpClientFactory = nil then
+  if AClientConfig.HttpClientFactory = nil then
     Result := CreateManagedHttpClient(AClientConfig)
-//  else
-//    Result := FClientConfig.HttpClientFactory.CreateHttpClient(AClientConfig);
+  else
+    Result := AClientConfig.HttpClientFactory.CreateHttpClient(TValue.From<IClientConfig>(AClientConfig)).AsType<THttpClient>;
 end;
 
 function TSparkleHttpRequestMessageFactory.CreateHttpRequest(const ARequestUri: string): IWebHttpRequest;

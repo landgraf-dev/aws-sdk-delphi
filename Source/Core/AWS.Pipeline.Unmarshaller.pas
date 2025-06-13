@@ -66,7 +66,12 @@ begin
   RequestContext := AExecutionContext.RequestContext;
   ResponseContext := AExecutionContext.ResponseContext;
   Unmarshaller := RequestContext.Unmarshaller;
-  ReadEntireResponse := FSupportsResponseLogging;
+
+//  ReadEntireResponse := FSupportsResponseLogging;
+  ReadEntireResponse := FSupportsResponseLogging and
+    (RequestContext.ClientConfig.LogResponse or RequestContext.ClientConfig.ReadEntireResponse or
+    (TAWSConfigs.LoggingConfig.LogResponses <> TResponseLoggingOption.Never));
+
   Context := (Unmarshaller as TResponseUnmarshaller).CreateContext(ResponseContext.HttpResponse,
     ReadEntireResponse, ResponseContext.HttpResponse.ResponseBody.OpenResponse,
     False);

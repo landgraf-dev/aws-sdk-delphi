@@ -3,7 +3,7 @@ unit AWS.Runtime.HttpRequestMessageFactory;
 interface
 
 uses
-  System.Generics.Collections, System.SysUtils, System.Classes, System.Net.HttpClient,
+  System.Generics.Collections, System.SysUtils, System.Classes, System.Net.HttpClient, System.Rtti,
   AWS.Internal.Util.ChunkedUploadWrapperStream,
   AWS.Lib.HttpHeaders,
   AWS.Runtime.Contexts,
@@ -94,11 +94,10 @@ end;
 
 class function THttpRequestMessageFactory.CreateHttpClient(AClientConfig: IClientConfig): THttpClient;
 begin
-  {TODO: HttpClientFactory in client config}
-//  if FClientConfig.HttpClientFactory = nil then
+  if AClientConfig.HttpClientFactory = nil then
     Result := CreateManagedHttpClient(AClientConfig)
-//  else
-//    Result := FClientConfig.HttpClientFactory.CreateHttpClient(AClientConfig);
+  else
+    Result := AClientConfig.HttpClientFactory.CreateHttpClient(TValue.From<IClientConfig>(AClientConfig)).AsType<THttpClient>;
 end;
 
 function THttpRequestMessageFactory.CreateHttpRequest(const ARequestUri: string): IWebHttpRequest;

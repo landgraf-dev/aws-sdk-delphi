@@ -44,6 +44,7 @@ type
     function GetRetryMode: TRequestRetryMode;
     function GetThrottleRetries: Boolean;
     function GetFastFailRequests: Boolean;
+    function GetHttpClientFactory: IHttpClientFactory;
 
     function DetermineServiceUrl: string;
     function CorrectedUtcNow: TDateTime;
@@ -97,6 +98,14 @@ type
     /// if a send token is not available.
     /// </summary>
     property FastFailRequests: Boolean read GetFastFailRequests;
+
+    /// <summary>
+    /// HttpClientFactory used to create new HttpClients.
+    /// If null, an HttpClient will be created by the SDK.
+    /// Note that IClientConfig members such as ProxyHost, ProxyPort, and AllowAutoRedirect
+    /// will have no effect unless they're used explicitly by the HttpClientFactory implementation.
+    /// </summary>
+    property HttpClientFactory: IHttpClientFactory read GetHttpClientFactory;
   end;
 
   TClientConfig = class(TInterfacedObject, IClientConfig)
@@ -125,6 +134,7 @@ type
     FRetryMode: Nullable<TRequestRetryMode>;
     FThrottleRetries: Boolean;
     FFastFailRequests: Boolean;
+    FHttpClientFactory: IHttpClientFactory;
     function GetLogMetrics: Boolean;
     function GetLogResponse: Boolean;
     function GetUseDualstackEndpoint: Boolean;
@@ -152,6 +162,7 @@ type
     procedure SetRetryMode(const Value: TRequestRetryMode);
     function GetThrottleRetries: Boolean;
     function GetFastFailRequests: Boolean;
+    function GetHttpClientFactory: IHttpClientFactory;
   strict protected
     function GetRegionEndpointServiceName: string; virtual; abstract;
     function GetServiceVersion: string; virtual; abstract;
@@ -203,6 +214,14 @@ type
     property FastFailRequests: Boolean read GetFastFailRequests write FFastFailRequests;
 
     property ThrottleRetries: Boolean read GetThrottleRetries write FThrottleRetries;
+
+    /// <summary>
+    /// HttpClientFactory used to create new HttpClients.
+    /// If null, an HttpClient will be created by the SDK.
+    /// Note that IClientConfig members such as ProxyHost, ProxyPort, and AllowAutoRedirect
+    /// will have no effect unless they're used explicitly by the HttpClientFactory implementation.
+    /// </summary>
+    property HttpClientFactory: IHttpClientFactory read GetHttpClientFactory write FHttpClientFactory;
   end;
 
 implementation
@@ -253,6 +272,11 @@ end;
 function TClientConfig.GetFastFailRequests: Boolean;
 begin
   Result := FFastFailRequests;
+end;
+
+function TClientConfig.GetHttpClientFactory: IHttpClientFactory;
+begin
+  Result := FHttpClientFactory;
 end;
 
 function TClientConfig.GetAllowAutoRedirect: Boolean;
@@ -409,6 +433,7 @@ begin
   FSignatureMethod := TSigningAlgorithm.HmacSHA256;
   FBufferSize := TAWSSDKUtils.DefaultBufferSize;
   FAllowAutoRedirect := True;
+  FHttpClientFactory := TAWSConfigs.HttpClientFactory;
 end;
 
 procedure TClientConfig.SetMaxErrorRetry(const Value: Integer);

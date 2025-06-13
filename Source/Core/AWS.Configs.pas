@@ -9,11 +9,15 @@ unit AWS.Configs;
 interface
 
 uses
-  System.SysUtils, System.SyncObjs, System.DateUtils, System.TimeSpan, System.Generics.Collections,
+  System.SysUtils, System.SyncObjs, System.DateUtils, System.TimeSpan, System.Generics.Collections, System.Rtti,
   AWS.Nullable;
 
 type
   TResponseLoggingOption = (Never, OnError, Always);
+
+  IHttpClientFactory = interface
+    function CreateHttpClient(Config: TValue): TValue;
+  end;
 
   TLoggingConfig = class
   public
@@ -52,6 +56,7 @@ type
     class procedure InitFields;
   strict private
     class var FRootConfig: TRootConfig;
+    class var FHttpClientFactory: IHttpClientFactory;
   public const
     AWSProfileNameKey = 'AWSProfileName';
     AWSProfilesLocationKey = 'AWSProfilesLocation';
@@ -76,6 +81,7 @@ type
     class property LoggingConfig: TLoggingConfig read GetLoggingConfig;
     class property ManualClockCorrection: Nullable<TTimeSpan> read GetManualClockCorrection write SetManualClockCorrection;
     class property CorrectForClockSkew: Boolean read GetCorrectForClockSkew write SetCorrectForClockSkew;
+    class property HttpClientFactory: IHttpClientFactory read FHttpClientFactory write FHttpClientFactory;
   end;
 
   /// <summary>
