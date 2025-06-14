@@ -37,7 +37,7 @@ uses
 
 class constructor TStringUtils.Create;
 begin
-  FFormatSettings := TFormatSettings.Create;
+  FFormatSettings := TFormatSettings.Invariant;
   FFormatSettings.DecimalSeparator := '.';
 end;
 

@@ -446,7 +446,7 @@ class constructor TDoubleUnmarshaller.Create;
 begin
   FInstance := TDoubleUnmarshaller.Create;
   FJsonInstance := TDoubleUnmarshaller.Create;
-  FFormatSettings := TFormatSettings.Create;
+  FFormatSettings := TFormatSettings.Invariant;
   FFormatSettings.DecimalSeparator := '.';
 end;
 

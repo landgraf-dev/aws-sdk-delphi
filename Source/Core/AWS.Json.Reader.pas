@@ -451,7 +451,7 @@ end;
 
 procedure TJsonReader.InitReader;
 begin
-  FFormatSettings := TFormatSettings.Create;
+  FFormatSettings := TFormatSettings.Invariant;
   FFormatSettings.DecimalSeparator := '.';
   FFormatSettings.ThousandSeparator := ',';
   if FReader.Eof then

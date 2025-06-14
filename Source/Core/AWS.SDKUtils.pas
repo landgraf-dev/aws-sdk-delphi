@@ -545,7 +545,7 @@ end;
 class constructor TAWSSDKUtils.Create;
 begin
   FUserAgent := TInternalSDKUtils.BuildUserAgentString('');
-  FRFC822FormatSettings := TFormatSettings.Create;
+  FRFC822FormatSettings := TFormatSettings.Invariant;
   FRFC822FormatSettings.ShortDateFormat := 'dd mmm yyyy';
   FRFCEncodingSchemes := TDictionary<Integer, string>.Create;
   FRFCEncodingSchemes.Add(3986, ValidUrlCharacters);

@@ -472,7 +472,7 @@ end;
 constructor TJsonWriter.Create(const aStream: TStream);
 begin
   inherited Create;
-  FFormatSettings := TFormatSettings.Create;
+  FFormatSettings := TFormatSettings.Invariant;
   FFormatSettings.DecimalSeparator := '.';
 {$IFDEF PAS2JS}
   FWriter := TJsonStreamWriter.Create(aStream);
