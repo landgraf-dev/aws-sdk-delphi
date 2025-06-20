@@ -3,6 +3,9 @@ minimum required tmsbuild version: 1.0
 application:
   id: landgraf.aws.sdk
   name: Landgraf AWS SDK for Delphi
+  description: The AWS SDK for Delphi enables Delphi developers to easily work with Amazon Web Services and build scalable solutions with Amazon SES, Amazon SQS, and more.
+  url: https://github.com/landgraf-dev/aws-sdk-delphi
+
   version file: version.txt
 
 supported frameworks:
