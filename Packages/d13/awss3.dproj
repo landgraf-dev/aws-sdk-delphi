@@ -1,0 +1,391 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<ProjectGuid>{EAECA3B6-E492-4457-95BF-E413119A2B05}</ProjectGuid>
+		<MainSource>awss3.dpk</MainSource>
+		<ProjectVersion>20.3</ProjectVersion>
+		<FrameworkType/>
+		<Base>True</Base>
+		<Config Condition="'$(Config)'==''">Debug</Config>
+		<Platform Condition="'$(Platform)'==''">Win32</Platform>
+		<TargetedPlatforms>1741971</TargetedPlatforms>
+		<AppType>Package</AppType>
+		<ProjectName Condition="'$(ProjectName)'==''">awss3</ProjectName>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Android' and '$(Base)'=='true') or '$(Base_Android)'!=''">
+		<Base_Android>true</Base_Android>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Android64' and '$(Base)'=='true') or '$(Base_Android64)'!=''">
+		<Base_Android64>true</Base_Android64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Base)'=='true') or '$(Base_iOSDevice64)'!=''">
+		<Base_iOSDevice64>true</Base_iOSDevice64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSSimARM64' and '$(Base)'=='true') or '$(Base_iOSSimARM64)'!=''">
+		<Base_iOSSimARM64>true</Base_iOSSimARM64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='OSX64' and '$(Base)'=='true') or '$(Base_OSX64)'!=''">
+		<Base_OSX64>true</Base_OSX64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='OSXARM64' and '$(Base)'=='true') or '$(Base_OSXARM64)'!=''">
+		<Base_OSXARM64>true</Base_OSXARM64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+		<Base_Win32>true</Base_Win32>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+		<Base_Win64>true</Base_Win64>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win64x' and '$(Base)'=='true') or '$(Base_Win64x)'!=''">
+		<Base_Win64x>true</Base_Win64x>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+		<Cfg_1>true</Cfg_1>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+		<Cfg_1_Win32>true</Cfg_1_Win32>
+		<CfgParent>Cfg_1</CfgParent>
+		<Cfg_1>true</Cfg_1>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+		<Cfg_2>true</Cfg_2>
+		<CfgParent>Base</CfgParent>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base)'!=''">
+		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+		<DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+		<DCC_E>false</DCC_E>
+		<DCC_N>false</DCC_N>
+		<DCC_S>false</DCC_S>
+		<DCC_F>false</DCC_F>
+		<DCC_K>false</DCC_K>
+		<GenDll>true</GenDll>
+		<GenPackage>true</GenPackage>
+		<SanitizedProjectName>awss3</SanitizedProjectName>
+		<DCC_Description>Amazon Simple Storage Service</DCC_Description>
+		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
+		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
+		<DllSuffix>$(Auto)</DllSuffix>
+		<DCC_BplOutput>.\$(Platform)\$(Config)</DCC_BplOutput>
+		<DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
+		<DCC_DcpOutput>.\$(Platform)\$(Config)</DCC_DcpOutput>
+		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
+		<DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
+		<BRCC_OutputDir>.\$(Platform)\$(Config)</BRCC_OutputDir>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Android)'!=''">
+		<EnabledSysJars>activity-1.7.2.dex.jar;annotation-experimental-1.4.1.dex.jar;annotation-jvm-1.8.1.dex.jar;annotations-13.0.dex.jar;appcompat-1.2.0.dex.jar;appcompat-resources-1.2.0.dex.jar;billing-7.1.1.dex.jar;biometric-1.1.0.dex.jar;browser-1.4.0.dex.jar;cloud-messaging.dex.jar;collection-jvm-1.4.2.dex.jar;concurrent-futures-1.1.0.dex.jar;core-1.15.0.dex.jar;core-common-2.2.0.dex.jar;core-ktx-1.15.0.dex.jar;core-runtime-2.2.0.dex.jar;cursoradapter-1.0.0.dex.jar;customview-1.0.0.dex.jar;documentfile-1.0.0.dex.jar;drawerlayout-1.0.0.dex.jar;error_prone_annotations-2.9.0.dex.jar;exifinterface-1.3.6.dex.jar;firebase-annotations-16.2.0.dex.jar;firebase-common-20.3.1.dex.jar;firebase-components-17.1.0.dex.jar;firebase-datatransport-18.1.7.dex.jar;firebase-encoders-17.0.0.dex.jar;firebase-encoders-json-18.0.0.dex.jar;firebase-encoders-proto-16.0.0.dex.jar;firebase-iid-interop-17.1.0.dex.jar;firebase-installations-17.1.3.dex.jar;firebase-installations-interop-17.1.0.dex.jar;firebase-measurement-connector-19.0.0.dex.jar;firebase-messaging-23.1.2.dex.jar;fmx.dex.jar;fragment-1.2.5.dex.jar;google-play-licensing.dex.jar;interpolator-1.0.0.dex.jar;javax.inject-1.dex.jar;kotlin-stdlib-1.8.22.dex.jar;kotlin-stdlib-common-1.8.22.dex.jar;kotlin-stdlib-jdk7-1.8.22.dex.jar;kotlin-stdlib-jdk8-1.8.22.dex.jar;kotlinx-coroutines-android-1.6.4.dex.jar;kotlinx-coroutines-core-jvm-1.6.4.dex.jar;legacy-support-core-utils-1.0.0.dex.jar;lifecycle-common-2.6.2.dex.jar;lifecycle-livedata-2.6.2.dex.jar;lifecycle-livedata-core-2.6.2.dex.jar;lifecycle-runtime-2.6.2.dex.jar;lifecycle-service-2.6.2.dex.jar;lifecycle-viewmodel-2.6.2.dex.jar;lifecycle-viewmodel-savedstate-2.6.2.dex.jar;listenablefuture-1.0.dex.jar;loader-1.0.0.dex.jar;localbroadcastmanager-1.0.0.dex.jar;okio-jvm-3.4.0.dex.jar;play-services-ads-22.2.0.dex.jar;play-services-ads-base-22.2.0.dex.jar;play-services-ads-identifier-18.0.0.dex.jar;play-services-ads-lite-22.2.0.dex.jar;play-services-appset-16.0.1.dex.jar;play-services-base-18.5.0.dex.jar;play-services-basement-18.4.0.dex.jar;play-services-cloud-messaging-17.0.1.dex.jar;play-services-location-21.0.1.dex.jar;play-services-maps-18.1.0.dex.jar;play-services-measurement-base-20.1.2.dex.jar;play-services-measurement-sdk-api-20.1.2.dex.jar;play-services-stats-17.0.2.dex.jar;play-services-tasks-18.2.0.dex.jar;print-1.0.0.dex.jar;profileinstaller-1.3.0.dex.jar;room-common-2.2.5.dex.jar;room-runtime-2.2.5.dex.jar;savedstate-1.2.1.dex.jar;sqlite-2.1.0.dex.jar;sqlite-framework-2.1.0.dex.jar;startup-runtime-1.1.1.dex.jar;tracing-1.2.0.dex.jar;transport-api-3.0.0.dex.jar;transport-backend-cct-3.1.8.dex.jar;transport-runtime-3.1.8.dex.jar;user-messaging-platform-2.0.0.dex.jar;vectordrawable-1.1.0.dex.jar;vectordrawable-animated-1.1.0.dex.jar;versionedparcelable-1.1.1.dex.jar;viewpager-1.0.0.dex.jar;work-runtime-2.7.0.dex.jar</EnabledSysJars>
+		<VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=;minSdkVersion=23;targetSdkVersion=35</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Android64)'!=''">
+		<EnabledSysJars>activity-1.7.2.dex.jar;annotation-experimental-1.4.1.dex.jar;annotation-jvm-1.8.1.dex.jar;annotations-13.0.dex.jar;appcompat-1.2.0.dex.jar;appcompat-resources-1.2.0.dex.jar;billing-7.1.1.dex.jar;biometric-1.1.0.dex.jar;browser-1.4.0.dex.jar;cloud-messaging.dex.jar;collection-jvm-1.4.2.dex.jar;concurrent-futures-1.1.0.dex.jar;core-1.15.0.dex.jar;core-common-2.2.0.dex.jar;core-ktx-1.15.0.dex.jar;core-runtime-2.2.0.dex.jar;cursoradapter-1.0.0.dex.jar;customview-1.0.0.dex.jar;documentfile-1.0.0.dex.jar;drawerlayout-1.0.0.dex.jar;error_prone_annotations-2.9.0.dex.jar;exifinterface-1.3.6.dex.jar;firebase-annotations-16.2.0.dex.jar;firebase-common-20.3.1.dex.jar;firebase-components-17.1.0.dex.jar;firebase-datatransport-18.1.7.dex.jar;firebase-encoders-17.0.0.dex.jar;firebase-encoders-json-18.0.0.dex.jar;firebase-encoders-proto-16.0.0.dex.jar;firebase-iid-interop-17.1.0.dex.jar;firebase-installations-17.1.3.dex.jar;firebase-installations-interop-17.1.0.dex.jar;firebase-measurement-connector-19.0.0.dex.jar;firebase-messaging-23.1.2.dex.jar;fmx.dex.jar;fragment-1.2.5.dex.jar;google-play-licensing.dex.jar;interpolator-1.0.0.dex.jar;javax.inject-1.dex.jar;kotlin-stdlib-1.8.22.dex.jar;kotlin-stdlib-common-1.8.22.dex.jar;kotlin-stdlib-jdk7-1.8.22.dex.jar;kotlin-stdlib-jdk8-1.8.22.dex.jar;kotlinx-coroutines-android-1.6.4.dex.jar;kotlinx-coroutines-core-jvm-1.6.4.dex.jar;legacy-support-core-utils-1.0.0.dex.jar;lifecycle-common-2.6.2.dex.jar;lifecycle-livedata-2.6.2.dex.jar;lifecycle-livedata-core-2.6.2.dex.jar;lifecycle-runtime-2.6.2.dex.jar;lifecycle-service-2.6.2.dex.jar;lifecycle-viewmodel-2.6.2.dex.jar;lifecycle-viewmodel-savedstate-2.6.2.dex.jar;listenablefuture-1.0.dex.jar;loader-1.0.0.dex.jar;localbroadcastmanager-1.0.0.dex.jar;okio-jvm-3.4.0.dex.jar;play-services-ads-22.2.0.dex.jar;play-services-ads-base-22.2.0.dex.jar;play-services-ads-identifier-18.0.0.dex.jar;play-services-ads-lite-22.2.0.dex.jar;play-services-appset-16.0.1.dex.jar;play-services-base-18.5.0.dex.jar;play-services-basement-18.4.0.dex.jar;play-services-cloud-messaging-17.0.1.dex.jar;play-services-location-21.0.1.dex.jar;play-services-maps-18.1.0.dex.jar;play-services-measurement-base-20.1.2.dex.jar;play-services-measurement-sdk-api-20.1.2.dex.jar;play-services-stats-17.0.2.dex.jar;play-services-tasks-18.2.0.dex.jar;print-1.0.0.dex.jar;profileinstaller-1.3.0.dex.jar;room-common-2.2.5.dex.jar;room-runtime-2.2.5.dex.jar;savedstate-1.2.1.dex.jar;sqlite-2.1.0.dex.jar;sqlite-framework-2.1.0.dex.jar;startup-runtime-1.1.1.dex.jar;tracing-1.2.0.dex.jar;transport-api-3.0.0.dex.jar;transport-backend-cct-3.1.8.dex.jar;transport-runtime-3.1.8.dex.jar;user-messaging-platform-2.0.0.dex.jar;vectordrawable-1.1.0.dex.jar;vectordrawable-animated-1.1.0.dex.jar;versionedparcelable-1.1.1.dex.jar;viewpager-1.0.0.dex.jar;work-runtime-2.7.0.dex.jar</EnabledSysJars>
+		<VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=;minSdkVersion=23;targetSdkVersion=35</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_iOSDevice64)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple's speech recognition servers</VerInfo_Keys>
+		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_iOSSimARM64)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple's speech recognition servers</VerInfo_Keys>
+		<VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_OSX64)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities;NSLocationUsageDescription=The reason for accessing the location information of the user;NSContactsUsageDescription=The reason for accessing the contacts;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSCameraUsageDescription=The reason for accessing the camera;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSMotionUsageDescription=The reason for accessing the accelerometer;NSDesktopFolderUsageDescription=The reason for accessing the Desktop folder;NSDocumentsFolderUsageDescription=The reason for accessing the Documents folder;NSDownloadsFolderUsageDescription=The reason for accessing the Downloads folder;NSNetworkVolumesUsageDescription=The reason for accessing files on a network volume;NSRemovableVolumesUsageDescription=The reason for accessing files on a removable volume;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple's speech recognition servers;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing the Bluetooth interface</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_OSXARM64)'!=''">
+		<VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities;NSLocationUsageDescription=The reason for accessing the location information of the user;NSContactsUsageDescription=The reason for accessing the contacts;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSCameraUsageDescription=The reason for accessing the camera;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSMotionUsageDescription=The reason for accessing the accelerometer;NSDesktopFolderUsageDescription=The reason for accessing the Desktop folder;NSDocumentsFolderUsageDescription=The reason for accessing the Documents folder;NSDownloadsFolderUsageDescription=The reason for accessing the Downloads folder;NSNetworkVolumesUsageDescription=The reason for accessing files on a network volume;NSRemovableVolumesUsageDescription=The reason for accessing files on a removable volume;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple's speech recognition servers;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing the Bluetooth interface</VerInfo_Keys>
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Win32)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		<VerInfo_Locale>1033</VerInfo_Locale>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Win64)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		<VerInfo_Locale>1033</VerInfo_Locale>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Base_Win64x)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		<VerInfo_Locale>1033</VerInfo_Locale>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_1)'!=''">
+		<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		<DCC_DebugDCUs>true</DCC_DebugDCUs>
+		<DCC_Optimize>false</DCC_Optimize>
+		<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+		<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+		<DCC_RemoteDebug>true</DCC_RemoteDebug>
+		<DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+		<DCC_RangeChecking>true</DCC_RangeChecking>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+		<DCC_RemoteDebug>false</DCC_RemoteDebug>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_2)'!=''">
+		<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+		<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+		<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+		<DCC_DebugInformation>0</DCC_DebugInformation>
+	</PropertyGroup>
+	<ItemGroup>
+		<DelphiCompile Include="$(MainSource)">
+			<MainSource>MainSource</MainSource>
+		</DelphiCompile>
+		<DCCReference Include="awscore.dcp"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.Client.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.ClientIntf.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.Config.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.Enums.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.Exception.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.Metadata.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.AbortMultipartUploadRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.AbortMultipartUploadResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Bucket.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.BucketAlreadyExistsException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.BucketAlreadyOwnedByYouException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CommonPrefix.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CompleteMultipartUploadRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CompleteMultipartUploadResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CompletedPart.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyObjectRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyObjectResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyObjectResult.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyPartRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyPartResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CopyPartResult.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.CreateBucketConfiguration.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteBucketRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteBucketResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteMarkerEntry.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteObjectRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteObjectResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteObjectsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeleteObjectsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.DeletedObject.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Error.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetACLRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetACLResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetBucketVersioningRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetBucketVersioningResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetObjectMetadataRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetObjectMetadataResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetObjectRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetObjectResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.GetPresignedUrlRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Grant.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Grantee.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.HeadBucketRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.HeadBucketResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.InitiateMultipartUploadRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.InitiateMultipartUploadResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.InvalidObjectStateException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListBucketsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListBucketsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsV2Request.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListObjectsV2Response.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListVersionsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ListVersionsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.NoSuchBucketException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.NoSuchKeyException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.NoSuchUploadException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ObjectIdentifier.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ObjectNotInActiveTierErrorException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ObjectTypes.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.ObjectVersion.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Owner.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.OwnershipControls.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.OwnershipControlsRule.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PublicAccessBlockConfiguration.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketOwnershipControlsRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketOwnershipControlsResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketVersioningRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutBucketVersioningResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutObjectRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutObjectResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutPublicAccessBlockRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.PutPublicAccessBlockResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.Request.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.UploadPartRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.UploadPartResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.VersioningConfiguration.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.WriteGetObjectResponseRequest.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Model\AWS.S3.Model.WriteGetObjectResponseResponse.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.AbortMultipartUploadRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.AbortMultipartUploadResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketAlreadyExistsExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketAlreadyOwnedByYouExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.BucketUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CommonPrefixUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CompleteMultipartUploadRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CompleteMultipartUploadResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyObjectRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyObjectResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyObjectResultUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyPartRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyPartResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.CopyPartResultUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteBucketRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteBucketResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteMarkerEntryUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteObjectRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteObjectResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteObjectsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeleteObjectsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.DeletedObjectUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ErrorUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GetACLRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GetACLResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GetBucketVersioningRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GetBucketVersioningResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GetObjectMetadataRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GetObjectMetadataResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GetObjectRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GetObjectResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GrantUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.GranteeUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.HeadBucketRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.HeadBucketResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.InitiateMultipartUploadRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.InitiateMultipartUploadResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.InvalidObjectStateExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListBucketsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListBucketsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsV2RequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListObjectsV2ResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListVersionsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ListVersionsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.NoSuchBucketExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.NoSuchKeyExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.NoSuchUploadExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ObjectNotInActiveTierErrorExceptionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ObjectUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.ObjectVersionUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.OwnerUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketOwnershipControlsRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketOwnershipControlsResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketVersioningRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutBucketVersioningResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutObjectRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutObjectResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutPublicAccessBlockRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.PutPublicAccessBlockResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.UploadPartRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.UploadPartResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.WriteGetObjectResponseRequestMarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\Transform\AWS.S3.Transform.WriteGetObjectResponseResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Base\AWS.S3.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ArnExtensions.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Client.Extensions.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.ClientExtensions.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.AWSConfigsS3.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.HttpUtil.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.RetryPolicy.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3ArnUtils.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Signer.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Internal.S3Transforms.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.ByteRange.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.DeleteObjectsException.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.HeadersCollection.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.MetadataCollection.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.ParameterCollection.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Model.ResponseHeaderOverrides.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ExceptionHandler.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.KmsHandler.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PostMarshallHandler.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.PreMarshallHandler.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.RedirectHandler.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Pipeline.ResponseHandler.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.S3OutpostResource.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Transform.S3ErrorResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Transform.S3ResponseUnmarshaller.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Transform.S3UnmarshallerContext.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Uri.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.AmazonS3Util.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.BucketRegionDetector.pas"/>
+		<DCCReference Include="..\..\Source\Services\S3\Custom\AWS.S3.Util.S3Constants.pas"/>
+		<BuildConfiguration Include="Base">
+			<Key>Base</Key>
+		</BuildConfiguration>
+		<BuildConfiguration Include="Debug">
+			<Key>Cfg_1</Key>
+			<CfgParent>Base</CfgParent>
+		</BuildConfiguration>
+		<BuildConfiguration Include="Release">
+			<Key>Cfg_2</Key>
+			<CfgParent>Base</CfgParent>
+		</BuildConfiguration>
+	</ItemGroup>
+	<ProjectExtensions>
+		<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+		<Borland.ProjectType>Package</Borland.ProjectType>
+		<BorlandProject>
+			<Delphi.Personality>
+				<Source>
+					<Source Name="MainSource">awss3.dpk</Source>
+				</Source>
+			</Delphi.Personality>
+			<Deployment Version="5"/>
+			<Platforms>
+				<Platform value="Android">True</Platform>
+				<Platform value="Android64">True</Platform>
+				<Platform value="iOSDevice64">True</Platform>
+				<Platform value="iOSSimARM64">True</Platform>
+				<Platform value="Linux64">True</Platform>
+				<Platform value="OSX64">True</Platform>
+				<Platform value="OSXARM64">True</Platform>
+				<Platform value="Win32">True</Platform>
+				<Platform value="Win64">True</Platform>
+				<Platform value="Win64x">True</Platform>
+			</Platforms>
+		</BorlandProject>
+		<ProjectFileVersion>12</ProjectFileVersion>
+	</ProjectExtensions>
+	<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+	<Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+	<Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>

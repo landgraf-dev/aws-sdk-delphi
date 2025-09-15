@@ -1,0 +1,137 @@
+package awscore;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Amazon Web Services SDK - Core Package'}
+{$LIBSUFFIX AUTO}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  dbrtl,
+  RESTComponents;
+
+contains
+  AWS.Arn in '..\..\Source\Core\AWS.Arn.pas',
+  AWS.Auth.ActionIdentifier in '..\..\Source\Core\AWS.Auth.ActionIdentifier.pas',
+  AWS.Auth.Condition in '..\..\Source\Core\AWS.Auth.Condition.pas',
+  AWS.Auth.NullSigner in '..\..\Source\Core\AWS.Auth.NullSigner.pas',
+  AWS.Auth.Policy in '..\..\Source\Core\AWS.Auth.Policy.pas',
+  AWS.Auth.Principal in '..\..\Source\Core\AWS.Auth.Principal.pas',
+  AWS.Auth.Resource in '..\..\Source\Core\AWS.Auth.Resource.pas',
+  AWS.Auth.S3Signer in '..\..\Source\Core\AWS.Auth.S3Signer.pas',
+  AWS.Auth.Signer in '..\..\Source\Core\AWS.Auth.Signer.pas',
+  AWS.Auth.Statement in '..\..\Source\Core\AWS.Auth.Statement.pas',
+  AWS.Configs in '..\..\Source\Core\AWS.Configs.pas',
+  AWS.Enums in '..\..\Source\Core\AWS.Enums.pas',
+  AWS.Internal.Auth.AWS4SignerHelper in '..\..\Source\Core\AWS.Internal.Auth.AWS4SignerHelper.pas',
+  AWS.Internal.DefaultRequest in '..\..\Source\Core\AWS.Internal.DefaultRequest.pas',
+  AWS.Internal.DefaultRetryPolicy in '..\..\Source\Core\AWS.Internal.DefaultRetryPolicy.pas',
+  AWS.Internal.ErrorResponse in '..\..\Source\Core\AWS.Internal.ErrorResponse.pas',
+  AWS.Internal.HttpErrorResponseExceptionHandler in '..\..\Source\Core\AWS.Internal.HttpErrorResponseExceptionHandler.pas',
+  AWS.Internal.InvokeOptions in '..\..\Source\Core\AWS.Internal.InvokeOptions.pas',
+  AWS.Internal.IRegionEndpoint in '..\..\Source\Core\AWS.Internal.IRegionEndpoint.pas',
+  AWS.Internal.ParameterCollection in '..\..\Source\Core\AWS.Internal.ParameterCollection.pas',
+  AWS.Internal.ParameterDictionary in '..\..\Source\Core\AWS.Internal.ParameterDictionary.pas',
+  AWS.Internal.PipelineHandler in '..\..\Source\Core\AWS.Internal.PipelineHandler.pas',
+  AWS.Internal.RegionEndpointV3 in '..\..\Source\Core\AWS.Internal.RegionEndpointV3.pas',
+  AWS.Internal.RegionFinder in '..\..\Source\Core\AWS.Internal.RegionFinder.pas',
+  AWS.Internal.Request in '..\..\Source\Core\AWS.Internal.Request.pas',
+  AWS.Internal.RuntimePipeline in '..\..\Source\Core\AWS.Internal.RuntimePipeline.pas',
+  AWS.Internal.SDKUtils in '..\..\Source\Core\AWS.Internal.SDKUtils.pas',
+  AWS.Internal.ServiceMetadata in '..\..\Source\Core\AWS.Internal.ServiceMetadata.pas',
+  AWS.Internal.StringUtils in '..\..\Source\Core\AWS.Internal.StringUtils.pas',
+  AWS.Internal.Util.ChunkedUploadWrapperStream in '..\..\Source\Core\AWS.Internal.Util.ChunkedUploadWrapperStream.pas',
+  AWS.Internal.Util.HashStream in '..\..\Source\Core\AWS.Internal.Util.HashStream.pas',
+  AWS.Internal.Util.HostPrefixUtils in '..\..\Source\Core\AWS.Internal.Util.HostPrefixUtils.pas',
+  AWS.Internal.WebResponseData in '..\..\Source\Core\AWS.Internal.WebResponseData.pas',
+  AWS.Json.Helpers in '..\..\Source\Core\AWS.Json.Helpers.pas',
+  AWS.Json.Reader in '..\..\Source\Core\AWS.Json.Reader.pas',
+  AWS.Json.StreamReader in '..\..\Source\Core\AWS.Json.StreamReader.pas',
+  AWS.Json.StringReader in '..\..\Source\Core\AWS.Json.StringReader.pas',
+  AWS.Json.Utils in '..\..\Source\Core\AWS.Json.Utils.pas',
+  AWS.Json.Writer in '..\..\Source\Core\AWS.Json.Writer.pas',
+  AWS.Lib.Collections in '..\..\Source\Core\AWS.Lib.Collections.pas',
+  AWS.Lib.Encoding in '..\..\Source\Core\AWS.Lib.Encoding.pas',
+  AWS.Lib.HttpHeaders in '..\..\Source\Core\AWS.Lib.HttpHeaders.pas',
+  AWS.Lib.Logging in '..\..\Source\Core\AWS.Lib.Logging.pas',
+  AWS.Lib.Micro in '..\..\Source\Core\AWS.Lib.Micro.pas',
+  AWS.Lib.MicroDictionary in '..\..\Source\Core\AWS.Lib.MicroDictionary.pas',
+  AWS.Lib.Timer in '..\..\Source\Core\AWS.Lib.Timer.pas',
+  AWS.Lib.Uri in '..\..\Source\Core\AWS.Lib.Uri.pas',
+  AWS.Lib.Utils in '..\..\Source\Core\AWS.Lib.Utils.pas',
+  AWS.Nullable in '..\..\Source\Core\AWS.Nullable.pas',
+  AWS.Pipeline.CredentialsRetriever in '..\..\Source\Core\AWS.Pipeline.CredentialsRetriever.pas',
+  AWS.Pipeline.EndpointResolver in '..\..\Source\Core\AWS.Pipeline.EndpointResolver.pas',
+  AWS.Pipeline.ErrorCallbackHandler in '..\..\Source\Core\AWS.Pipeline.ErrorCallbackHandler.pas',
+  AWS.Pipeline.ErrorHandler in '..\..\Source\Core\AWS.Pipeline.ErrorHandler.pas',
+  AWS.Pipeline.HttpHandler in '..\..\Source\Core\AWS.Pipeline.HttpHandler.pas',
+  AWS.Pipeline.Marshaller in '..\..\Source\Core\AWS.Pipeline.Marshaller.pas',
+  AWS.Pipeline.RedirectHandler in '..\..\Source\Core\AWS.Pipeline.RedirectHandler.pas',
+  AWS.Pipeline.RetryHandler in '..\..\Source\Core\AWS.Pipeline.RetryHandler.pas',
+  AWS.Pipeline.Signer in '..\..\Source\Core\AWS.Pipeline.Signer.pas',
+  AWS.Pipeline.Unmarshaller in '..\..\Source\Core\AWS.Pipeline.Unmarshaller.pas',
+  AWS.RegionEndpoint in '..\..\Source\Core\AWS.RegionEndpoint.pas',
+  AWS.RegionEndpoints in '..\..\Source\Core\AWS.RegionEndpoints.pas',
+  AWS.Runtime.AWSRegion in '..\..\Source\Core\AWS.Runtime.AWSRegion.pas',
+  AWS.Runtime.Client in '..\..\Source\Core\AWS.Runtime.Client.pas',
+  AWS.Runtime.ClientConfig in '..\..\Source\Core\AWS.Runtime.ClientConfig.pas',
+  AWS.Runtime.Contexts in '..\..\Source\Core\AWS.Runtime.Contexts.pas',
+  AWS.Runtime.Credentials in '..\..\Source\Core\AWS.Runtime.Credentials.pas',
+  AWS.Runtime.ExceptionEvent in '..\..\Source\Core\AWS.Runtime.ExceptionEvent.pas',
+  AWS.Runtime.ExceptionHandler in '..\..\Source\Core\AWS.Runtime.ExceptionHandler.pas',
+  AWS.Runtime.Exceptions in '..\..\Source\Core\AWS.Runtime.Exceptions.pas',
+  AWS.Runtime.HttpRequestMessageFactory in '..\..\Source\Core\AWS.Runtime.HttpRequestMessageFactory.pas',
+  AWS.Runtime.IHttpRequestFactory in '..\..\Source\Core\AWS.Runtime.IHttpRequestFactory.pas',
+  AWS.Runtime.Model in '..\..\Source\Core\AWS.Runtime.Model.pas',
+  AWS.Runtime.RetryPolicy in '..\..\Source\Core\AWS.Runtime.RetryPolicy.pas',
+  AWS.Runtime.SparkleHttpRequestMessageFactory in '..\..\Source\Core\AWS.Runtime.SparkleHttpRequestMessageFactory.pas',
+  AWS.SDKUtils in '..\..\Source\Core\AWS.SDKUtils.pas',
+  AWS.Transform.ErrorResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.ErrorResponseUnmarshaller.pas',
+  AWS.Transform.IErrorResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.IErrorResponseUnmarshaller.pas',
+  AWS.Transform.JsonErrorResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.JsonErrorResponseUnmarshaller.pas',
+  AWS.Transform.JsonUnmarshallerContext in '..\..\Source\Core\AWS.Transform.JsonUnmarshallerContext.pas',
+  AWS.Transform.RequestMarshaller in '..\..\Source\Core\AWS.Transform.RequestMarshaller.pas',
+  AWS.Transform.ResponseUnmarshaller in '..\..\Source\Core\AWS.Transform.ResponseUnmarshaller.pas',
+  AWS.Transform.SimpleTypeUnmarshaller in '..\..\Source\Core\AWS.Transform.SimpleTypeUnmarshaller.pas',
+  AWS.Transform.UnmarshallerContext in '..\..\Source\Core\AWS.Transform.UnmarshallerContext.pas',
+  AWS.Util.Collections in '..\..\Source\Core\AWS.Util.Collections.pas',
+  AWS.Util.Crypto in '..\..\Source\Core\AWS.Util.Crypto.pas',
+  AWS.Util.EC2InstanceMetadata in '..\..\Source\Core\AWS.Util.EC2InstanceMetadata.pas',
+  AWS.Util.Streams in '..\..\Source\Core\AWS.Util.Streams.pas',
+  AWS.Xml.Base in '..\..\Source\Core\AWS.Xml.Base.pas',
+  AWS.Xml.Reader in '..\..\Source\Core\AWS.Xml.Reader.pas',
+  AWS.Xml.Writer in '..\..\Source\Core\AWS.Xml.Writer.pas',
+  AWS.Internal.Util.LruCache in '..\..\Source\Core\AWS.Internal.Util.LruCache.pas',
+  AWS.Runtime.InternalConfiguration in '..\..\Source\Core\AWS.Runtime.InternalConfiguration.pas',
+  AWS.Internal.CapacityManager in '..\..\Source\Core\AWS.Internal.CapacityManager.pas',
+  AWS.Internal.StandardRetryPolicy in '..\..\Source\Core\AWS.Internal.StandardRetryPolicy.pas',
+  AWS.Internal.AdaptiveRetryPolicy in '..\..\Source\Core\AWS.Internal.AdaptiveRetryPolicy.pas',
+  AWS.Internal.TokenBucket in '..\..\Source\Core\AWS.Internal.TokenBucket.pas',
+  AWS.Util.PartialWrapperStream in '..\..\Source\Core\AWS.Util.PartialWrapperStream.pas';
+
+end.
