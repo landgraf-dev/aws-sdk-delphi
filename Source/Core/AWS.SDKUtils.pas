@@ -941,14 +941,53 @@ begin
 end;
 
 class function TAWSSDKUtils.TryRfc822ToDateTime(const S: string; var D: TDateTime): Boolean;
+const
+  MonthAbbr: array[1..12] of string =
+    ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+var
+  Core: string;
+  Parts, TimeParts: TArray<string>;
+  CommaPos, Mon, I, Yr, Dy, Hh, Nn, Ss: Integer;
 begin
-  var Len := Length(S);
-  if Len <> 29 then Exit(False);
-  if S[4] <> ',' then Exit(False);
-  if not S.EndsWith(' GMT') then Exit(False);
-  Result := TryStrToDateTime(Copy(S, 5, 20), D, FRFC822FormatSettings);
+  Result := False;
+
+  CommaPos := Pos(',', S);
+  if CommaPos = 0 then
+    Exit;
+
+  // Strip the 'Ddd,' day-of-week prefix and the trailing ' GMT', leaving
+  // 'dd mmm yyyy hh:nn:ss' (works for both 1- and 2-digit days).
+  Core := Trim(Copy(S, CommaPos + 1, MaxInt));
+  if Core.EndsWith(' GMT') then
+    Core := Trim(Copy(Core, 1, Length(Core) - 4));
+
+  // Parse component-by-component (locale independent), rather than relying on
+  // TryStrToDateTime + FormatSettings which proved unreliable for this layout.
+  Parts := Core.Split([' '], TStringSplitOptions.ExcludeEmpty);
+  if Length(Parts) <> 4 then
+    Exit;
+
+  Mon := 0;
+  for I := 1 to 12 do
+    if SameText(Parts[1], MonthAbbr[I]) then
+    begin
+      Mon := I;
+      Break;
+    end;
+
+  TimeParts := Parts[3].Split([':']);
+  if (Mon = 0) or (Length(TimeParts) <> 3) or
+     not TryStrToInt(Parts[0], Dy) or
+     not TryStrToInt(Parts[2], Yr) or
+     not TryStrToInt(TimeParts[0], Hh) or
+     not TryStrToInt(TimeParts[1], Nn) or
+     not TryStrToInt(TimeParts[2], Ss) then
+    Exit;
+
+  Result := TryEncodeDateTime(Yr, Mon, Dy, Hh, Nn, Ss, 0, D);
   if Result then
-    D := TTimeZone.Local.ToLocalTime(D);
+    D := TTimeZone.Local.ToLocalTime(D);   // header is GMT/UTC -> convert to local
 end;
 
 class function TAWSSDKUtils.UrlEncode(const AData: string; APath: Boolean): string;
