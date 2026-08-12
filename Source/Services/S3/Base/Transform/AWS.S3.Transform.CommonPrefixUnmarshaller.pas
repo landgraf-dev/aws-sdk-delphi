@@ -39,13 +39,22 @@ begin
     if AContext.IsStartOfDocument then
       Inc(TargetDepth, 2);
     while AContext.Read do
+      // NB: the begin/end around the inner "if" is REQUIRED. Without it the
+      // "else" binds to the inner if (dangling else), the end-element test
+      // never runs, and this unmarshaller reads to the end of the document,
+      // swallowing every sibling element after the first <CommonPrefixes>.
+      // See AWS.S3.Transform.CommonPrefixUnmarshaller.README.md next to this
+      // file. Every other generated unmarshaller in this family already has
+      // the begin/end, because each tests more than one field name.
       if AContext.IsStartElement or AContext.IsAttribute then
+      begin
         if AContext.TestExpression('Prefix', TargetDepth) then
         begin
           var Unmarshaller := TStringUnmarshaller.Instance;
           UnmarshalledObject.Prefix := Unmarshaller.Unmarshall(AContext);
           Continue;
-        end
+        end;
+      end
       else
         if AContext.IsEndElement and (AContext.CurrentDepth < OriginalDepth) then
           Exit(UnmarshalledObject);
