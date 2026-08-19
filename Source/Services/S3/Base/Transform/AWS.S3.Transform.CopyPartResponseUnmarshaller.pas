@@ -71,12 +71,14 @@ begin
   TargetDepth := OriginalDepth + 1;
   while AContext.Read do
     if AContext.IsStartElement or AContext.IsAttribute then
+    begin
       if AContext.TestExpression('CopyPartResult', TargetDepth) then
       begin
         var Unmarshaller := TCopyPartResultUnmarshaller.Instance;
         AResponse.CopyPartResult := Unmarshaller.Unmarshall(AContext);
         Continue;
-      end
+      end;
+    end
     else
       if AContext.IsEndElement and (AContext.CurrentDepth < OriginalDepth) then
         Exit;

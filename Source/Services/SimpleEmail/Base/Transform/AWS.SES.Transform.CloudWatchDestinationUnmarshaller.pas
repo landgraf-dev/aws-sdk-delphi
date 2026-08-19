@@ -41,12 +41,14 @@ begin
       Inc(TargetDepth, 2);
     while AContext.ReadAtDepth(OriginalDepth) do
       if AContext.IsStartElement or AContext.IsAttribute then
+      begin
         if AContext.TestExpression('DimensionConfigurations/member', TargetDepth) then
         begin
           var Unmarshaller := TCloudWatchDimensionConfigurationUnmarshaller.Instance;
           UnmarshalledObject.DimensionConfigurations.Add(Unmarshaller.Unmarshall(AContext));
           Continue;
-        end
+        end;
+      end
       else
         if AContext.IsEndElement and (AContext.CurrentDepth < OriginalDepth) then
           Exit(UnmarshalledObject);
