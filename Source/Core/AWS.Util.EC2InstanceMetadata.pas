@@ -122,7 +122,7 @@ begin
       finally
         Headers.Free;
       end;
-      Result := Trim(Content);
+      Exit(Trim(Content));
     except
       on E: Exception do
       begin
